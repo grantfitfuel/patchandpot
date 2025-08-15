@@ -5,63 +5,70 @@
 <title>Patch & Pot — Preview</title>
 <style>
   :root{
-    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4;
-    --accent1:#2E7D32; --accent2:#7ed495; --earth:#b87946;
+    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
+    --green:#2E7D32; --green2:#7ed495; --terra:#b87946;
     --glass: rgba(255,255,255,.07); --stroke: rgba(255,255,255,.14);
-    --ring: 2px solid rgba(255,255,255,.95); --maxw:1140px;
+    --maxw:1140px;
   }
-  *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6;scroll-behavior:smooth}
   a{color:#b3d7ff;text-decoration:none} a:hover{text-decoration:underline}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:1rem 1.25rem}
 
-  /* HERO with photographic background (hands planting in pot) */
+  @media (prefers-reduced-motion:no-preference){
+    .fade-in{opacity:0; transform:translateY(8px); animation:fade .7s ease .1s forwards}
+    @keyframes fade{to{opacity:1; transform:none}}
+    .card{transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  }
+
+  /* HERO with darker overlay + KALE image */
   .hero{position:relative;min-height:66vh;display:grid;align-items:end;border-bottom:1px solid #142116}
   .hero::before{
     content:"";position:absolute;inset:0;
     background:
-      linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.6)),
+      linear-gradient(180deg,rgba(0,0,0,.50),rgba(0,0,0,.70)),
       url("https://images.pexels.com/photos/7653982/pexels-photo-7653982.jpeg?auto=compress&cs=tinysrgb&w=1600");
     background-size:cover;background-position:center 55%;
     filter:saturate(1.06);
   }
   .hero > .wrap{position:relative;padding:3.5rem 1.25rem 2.25rem}
-  .eyebrow{display:inline-block;background:rgba(255,255,255,.09);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
+  .eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);
+           padding:.35rem .7rem;border-radius:999px;color:#dceadf}
   h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;
-     font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem);
-     background:linear-gradient(90deg,#b8e6c7,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+     font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
   .lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
   .cta-row{margin:1.1rem 0 0;display:flex;gap:.75rem;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700}
-  .btn.primary{background:linear-gradient(180deg,var(--accent2),var(--accent1));color:#061007}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0}
+  .btn.primary{background:linear-gradient(180deg,var(--green2),var(--green));color:#061007}
   .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:#fff}
 
-  /* GRID CARDS */
+  /* CARDS & GALLERY STRIP */
   .grid{display:grid;gap:1rem;margin:1.75rem 0}
   @media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
   .card{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:1rem 1.1rem}
   .card h2{font-size:1.12rem;margin:.1rem 0 .4rem}
   .meta{font-size:.92rem;color:#b7c7bb}
-  .card .btn{margin-top:.65rem}
 
-  /* Motion */
-  @media (prefers-reduced-motion:no-preference){
-    .card{transform:translateY(0);transition:transform .18s ease, box-shadow .18s ease}
-    .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  }
+  .strip{scroll-margin-top:70px}
+  .scroller{display:flex;gap:1rem;overflow-x:auto;padding:.25rem;scroll-snap-type:x mandatory}
+  .tile{min-width:260px;flex:0 0 auto;scroll-snap-align:center;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);overflow:hidden}
+  .tile .ph{height:170px;background-size:cover;background-position:center}
+  .tile .cap{padding:.7rem 0.9rem;color:var(--muted);font-size:.95rem}
 
   footer{border-top:1px solid #142116;margin-top:2.5rem;background:#0a0f0c}
-  footer p{font-size:.9em;color:#9ab09f}
+  footer p{font-size:.9em;color:var(--inkdim)}
 </style>
 </head>
 <body>
 <header class="hero" role="banner" aria-label="Patch & Pot preview hero">
-  <div class="wrap">
+  <div class="wrap fade-in">
     <span class="eyebrow">Mindful growing</span>
-    <h1>Grow calm in small spaces</h1>
-    <p class="lead">Beginner-friendly guides, tiny-space hacks, and slow, steady routines that fit real life.</p>
+    <h1>Here’s What You Could Grow</h1>
+    <p class="lead">From pot to plate — achievable, affordable, and yours.</p>
     <div class="cta-row">
-      <a class="btn primary" href="../guides/">Browse Guides</a>
-      <a class="btn ghost" href="../">Site Home</a>
+      <a class="btn primary" href="../guides/first-pot.html">Start Growing</a>
+      <a class="btn ghost" href="#ideas">See More Ideas</a>
     </div>
   </div>
 </header>
@@ -85,16 +92,46 @@
     </article>
   </section>
 
-  <section class="card" aria-label="FreeFitFuel link">
-    <h2 style="margin:.2rem 0 .4rem">Need emotional support?</h2>
-    <p class="meta">FreeFitFuel has a gentle guide for carers — anticipatory grief, burnout and more.</p>
-    <a class="btn primary" href="https://grantfitfuel.github.io/freefitfuel/carer-support/emotional-support/">Open Emotional Support →</a>
+  <section id="ideas" class="strip" aria-label="Veg-in-pot inspiration">
+    <h2 class="fade-in">Your first harvest could look like this</h2>
+    <div class="scroller">
+      <!-- Carrots -->
+      <article class="tile">
+        <div class="ph" style="background-image:url('https://images.pexels.com/photos/209095/pexels-photo-209095.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+        <div class="cap">Carrots — sweet and ready in weeks</div>
+      </article>
+      <!-- Lettuce -->
+      <article class="tile">
+        <div class="ph" style="background-image:url('https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+        <div class="cap">Lettuce — fresh salad at your fingertips</div>
+      </article>
+      <!-- Tomatoes -->
+      <article class="tile">
+        <div class="ph" style="background-image:url('https://images.pexels.com/photos/128420/pexels-photo-128420.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+        <div class="cap">Tomatoes — homegrown flavour</div>
+      </article>
+      <!-- Kale -->
+      <article class="tile">
+        <div class="ph" style="background-image:url('https://images.pexels.com/photos/5945908/pexels-photo-5945908.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+        <div class="cap">Kale — nutrient-dense, hardy grower</div>
+      </article>
+      <!-- Chillies -->
+      <article class="tile">
+        <div class="ph" style="background-image:url('https://images.pexels.com/photos/1437585/pexels-photo-1437585.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+        <div class="cap">Chillies — small plant, big punch</div>
+      </article>
+      <!-- Mixed herbs -->
+      <article class="tile">
+        <div class="ph" style="background-image:url('https://images.pexels.com/photos/206959/pexels-photo-206959.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+        <div class="cap">Mixed herbs — flavour on your windowsill</div>
+      </article>
+    </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <p>© <a href="../" style="color:#9ab09f;text-decoration:none;">Patch and Pot</a> | Grant Cameron Anthony</p>
+    <p>© <a href="../" style="color:var(--inkdim); text-decoration:none;">Patch and Pot</a> | Grant Cameron Anthony</p>
   </div>
 </footer>
 </body>

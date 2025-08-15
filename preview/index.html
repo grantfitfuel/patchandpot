@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patch and Pot — Preview</title>
+<style>
+  :root{
+    --pp-accent:#2E7D32; --ink:#1a1a1a; --muted:#555; --card:#ffffff; --bg:#f6fbf6; --ring:2px solid #222; --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,system-ui,sans-serif;line-height:1.6}
+  a{color:#0a5bd6;text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:1rem 1.25rem}
+  header.hero{background:linear-gradient(120deg,#fff 0%, #eef7ef 100%);border-bottom:1px solid #e5eee6}
+  .brand{display:flex;align-items:center;gap:.75rem}
+  .brand-badge{width:40px;height:40px;border-radius:10px;background:var(--pp-accent)}
+  h1{font-size:clamp(1.9rem,1.2rem + 2.2vw,2.6rem);margin:.25rem 0 .5rem;color:var(--pp-accent)}
+  .lead{max-width:70ch;color:var(--muted)}
+  .grid{display:grid;gap:1rem;margin:1.25rem 0}
+  @media(min-width:720px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--card);border:1px solid #e6eee7;border-radius:14px;padding:1rem}
+  .card h2{font-size:1.15rem;margin:.25rem 0 .5rem}
+  .btn{display:inline-block;padding:.65rem 1rem;border-radius:10px;background:var(--pp-accent);color:#fff}
+  .btn:focus-visible{outline:var(--ring);outline-offset:2px}
+  footer{background:#fff;border-top:1px solid #e5eee6;margin-top:2rem}
+  footer p{font-size:.9em;color:#777}
+  @media (prefers-reduced-motion:no-preference){
+    .card{transition:transform .15s ease}
+    .card:hover{transform:translateY(-2px)}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-badge" aria-hidden="true"></div>
+      <strong>Patch &amp; Pot</strong>
+    </div>
+    <h1>Grow calm in small spaces</h1>
+    <p class="lead">Beginner-friendly growing, tiny-space hacks, and mindful routines that fit real life.</p>
+    <p style="margin:.75rem 0 0">
+      <a class="btn" href="../guides/">Browse Guides</a>
+      <a class="btn" href="../">Site Home</a>
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="grid">
+    <article class="card">
+      <h2>Your First Pot</h2>
+      <p>Everything you need to start today — pot, compost, seeds, light, water.</p>
+      <p><a class="btn" href="../guides/first-pot.html">Start here →</a></p>
+    </article>
+    <article class="card">
+      <h2>Seasonal Growing</h2>
+      <p>What to sow and when in the UK — month-by-month quick guide.</p>
+      <p><a class="btn" href="../guides/">See seasons (coming)</a></p>
+    </article>
+    <article class="card">
+      <h2>Mindful Moments</h2>
+      <p>Short routines to slow your breathing and settle your mind.</p>
+      <p><a class="btn" href="../">Try one (coming)</a></p>
+    </article>
+  </section>
+
+  <div class="card">
+    <h2>Need emotional support?</h2>
+    <p>FreeFitFuel has a gentle guide for carers — anticipatory grief, burnout, and more.</p>
+    <p><a class="btn" href="https://grantfitfuel.github.io/freefitfuel/carer-support/emotional-support/">Open Emotional Support →</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <a href="../" style="color:#777; text-decoration:none;">Patch and Pot</a> | Grant Cameron Anthony</p>
+  </div>
+</footer>
+</body>
+</html>

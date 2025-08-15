@@ -1,81 +1,110 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Patch and Pot — Preview</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Patch & Pot — Preview</title>
 <style>
   :root{
-    --pp-accent:#2E7D32; --ink:#1a1a1a; --muted:#555; --card:#ffffff; --bg:#f6fbf6; --ring:2px solid #222; --maxw:1100px;
+    --bg:#0c110d; --ink:#f5fff6; --muted:#b6c0b8;
+    --accent1:#2E7D32; --accent2:#57b36d; --accent3:#9adf9f;
+    --glass: rgba(255,255,255,.07); --stroke: rgba(255,255,255,.14);
+    --ring: 2px solid rgba(255,255,255,.95); --maxw:1140px;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,system-ui,sans-serif;line-height:1.6}
-  a{color:#0a5bd6;text-decoration:none} a:hover{text-decoration:underline}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+  a{color:#b3d7ff;text-decoration:none} a:hover{text-decoration:underline}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:1rem 1.25rem}
-  header.hero{background:linear-gradient(120deg,#fff 0%, #eef7ef 100%);border-bottom:1px solid #e5eee6}
-  .brand{display:flex;align-items:center;gap:.75rem}
-  .brand-badge{width:40px;height:40px;border-radius:10px;background:var(--pp-accent)}
-  h1{font-size:clamp(1.9rem,1.2rem + 2.2vw,2.6rem);margin:.25rem 0 .5rem;color:var(--pp-accent)}
-  .lead{max-width:70ch;color:var(--muted)}
-  .grid{display:grid;gap:1rem;margin:1.25rem 0}
-  @media(min-width:720px){ .grid{grid-template-columns:repeat(3,1fr)} }
-  .card{background:var(--card);border:1px solid #e6eee7;border-radius:14px;padding:1rem}
-  .card h2{font-size:1.15rem;margin:.25rem 0 .5rem}
-  .btn{display:inline-block;padding:.65rem 1rem;border-radius:10px;background:var(--pp-accent);color:#fff}
-  .btn:focus-visible{outline:var(--ring);outline-offset:2px}
-  footer{background:#fff;border-top:1px solid #e5eee6;margin-top:2rem}
-  footer p{font-size:.9em;color:#777}
+
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid #142116}
+  .hero .wrap{padding:3.25rem 1.25rem 2.25rem}
+  .bg-blur{position:absolute;inset:-20% -10% auto -10%; height:480px; filter:blur(60px);opacity:.7;
+    background: radial-gradient(60% 60% at 30% 40%, #142a18 0%, rgba(0,0,0,0) 60%),
+                radial-gradient(55% 55% at 70% 30%, #123315 0%, rgba(0,0,0,0) 65%);}
+  .orb{position:absolute; border-radius:50%; filter:blur(30px); opacity:.6}
+  .orb.o1{width:420px;height:420px;left:-80px;top:-60px;background:linear-gradient(135deg,var(--accent1),#1f5f25)}
+  .orb.o2{width:340px;height:340px;right:-60px;top:40px;background:linear-gradient(135deg,#1a331d,#4eb364)}
+  .badge{display:inline-flex;align-items:center;gap:.5rem; padding:.35rem .65rem; border-radius:999px;
+    background:rgba(255,255,255,.06); border:1px solid var(--stroke); color:var(--muted); font-size:.9rem}
+  .badge svg{width:18px;height:18px;opacity:.9}
+  h1{margin:.75rem 0 .5rem; font-weight:800; letter-spacing:.3px;
+    font-size:clamp(2.1rem,1.3rem + 3vw,3.2rem);
+    background:linear-gradient(90deg,var(--accent2),var(--accent1),var(--accent3));
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
+
+  .cta-row{margin:1.25rem 0 0; display:flex; flex-wrap:wrap; gap:.75rem}
+  .btn{display:inline-flex;align-items:center;gap:.55rem; padding:.8rem 1.05rem; border-radius:12px;
+    background:linear-gradient(180deg,var(--accent2),var(--accent1)); color:#061007; font-weight:700}
+  .btn.ghost{background:rgba(255,255,255,.06); color:var(--ink); border:1px solid var(--stroke); font-weight:600}
+
+  .grid{display:grid; gap:1rem; margin:2rem 0}
+  @media(min-width:780px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:1rem 1.1rem}
+  .card h2{font-size:1.15rem;margin:.1rem 0 .35rem}
+  .meta{font-size:.9rem;color:var(--muted)}
+  .chip{display:inline-block; font-size:.8rem; padding:.2rem .55rem; border-radius:999px;
+    border:1px solid var(--stroke); background:rgba(255,255,255,.06); color:var(--muted)}
+  .card .btn{margin-top:.65rem}
+
   @media (prefers-reduced-motion:no-preference){
-    .card{transition:transform .15s ease}
-    .card:hover{transform:translateY(-2px)}
+    .card{transform:translateY(0); transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,.35)}
   }
+
+  footer{border-top:1px solid #142116;margin-top:2.5rem;background:#0b100d}
+  footer p{font-size:.9em;color:#9ab09f}
 </style>
 </head>
 <body>
 <header class="hero">
+  <div class="bg-blur"></div><div class="orb o1"></div><div class="orb o2"></div>
   <div class="wrap">
-    <div class="brand">
-      <div class="brand-badge" aria-hidden="true"></div>
-      <strong>Patch &amp; Pot</strong>
-    </div>
+    <span class="badge">
+      <!-- leaf icon -->
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3C12 3 5 8 5 15c0 3.866 3.134 7 7 7 7 0 12-7 12-14 0-2.21-1.79-5-5-5Z"/></svg>
+      Mindful growing
+    </span>
     <h1>Grow calm in small spaces</h1>
-    <p class="lead">Beginner-friendly growing, tiny-space hacks, and mindful routines that fit real life.</p>
-    <p style="margin:.75rem 0 0">
+    <p class="lead">Beginner-friendly guides, tiny-space hacks, and slow, steady routines that fit real life.</p>
+    <div class="cta-row">
       <a class="btn" href="../guides/">Browse Guides</a>
-      <a class="btn" href="../">Site Home</a>
-    </p>
+      <a class="btn ghost" href="../">Site Home</a>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
   <section class="grid">
     <article class="card">
+      <span class="chip">Start here</span>
       <h2>Your First Pot</h2>
-      <p>Everything you need to start today — pot, compost, seeds, light, water.</p>
-      <p><a class="btn" href="../guides/first-pot.html">Start here →</a></p>
+      <p class="meta">Pot, compost, seeds, light & water — everything you need to begin today.</p>
+      <a class="btn" href="../guides/first-pot.html">Open guide</a>
     </article>
     <article class="card">
-      <h2>Seasonal Growing</h2>
-      <p>What to sow and when in the UK — month-by-month quick guide.</p>
-      <p><a class="btn" href="../guides/">See seasons (coming)</a></p>
+      <span class="chip">Seasonal</span>
+      <h2>What to sow & when</h2>
+      <p class="meta">A UK-friendly month-by-month plan for herbs, salads and easy veg.</p>
+      <a class="btn ghost" href="../guides/">See seasons (coming)</a>
     </article>
     <article class="card">
-      <h2>Mindful Moments</h2>
-      <p>Short routines to slow your breathing and settle your mind.</p>
-      <p><a class="btn" href="../">Try one (coming)</a></p>
+      <span class="chip">Mindful</span>
+      <h2>2-minute calm</h2>
+      <p class="meta">Short prompts to slow breathing and settle your mind while you tend plants.</p>
+      <a class="btn ghost" href="../">Try one (coming)</a>
     </article>
   </section>
 
-  <div class="card">
-    <h2>Need emotional support?</h2>
-    <p>FreeFitFuel has a gentle guide for carers — anticipatory grief, burnout, and more.</p>
-    <p><a class="btn" href="https://grantfitfuel.github.io/freefitfuel/carer-support/emotional-support/">Open Emotional Support →</a></p>
-  </div>
+  <section class="card">
+    <h2 style="margin:.2rem 0 .4rem">Need emotional support?</h2>
+    <p class="meta">FreeFitFuel has a gentle guide for carers — anticipatory grief, burnout and more.</p>
+    <a class="btn" href="https://grantfitfuel.github.io/freefitfuel/carer-support/emotional-support/">Open Emotional Support →</a>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <p>© <a href="../" style="color:#777; text-decoration:none;">Patch and Pot</a> | Grant Cameron Anthony</p>
+    <p>© <a href="../" style="color:#9ab09f; text-decoration:none;">Patch and Pot</a> | Grant Cameron Anthony</p>
   </div>
 </footer>
 </body>

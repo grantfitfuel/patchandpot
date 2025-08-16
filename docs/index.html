@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Patch & Pot</title>
+<!-- No-cache headers to avoid stale HTML -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<style>
+  :root{
+    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
+    --green:#2E7D32; --green2:#7ed495; --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
+    --maxw:1140px; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6;scroll-behavior:smooth}
+  a{color:#b3d7ff;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
+
+  @media (prefers-reduced-motion:no-preference){
+    .fade-in{opacity:0;transform:translateY(8px);animation:fade .7s ease .1s forwards}
+    .fade-in-tiles .tile{opacity:0;transform:translateY(10px)}
+    .fade-in-tiles .tile:nth-child(1){animation:fade .5s ease .10s forwards}
+    .fade-in-tiles .tile:nth-child(2){animation:fade .5s ease .18s forwards}
+    .fade-in-tiles .tile:nth-child(3){animation:fade .5s ease .26s forwards}
+    .fade-in-tiles .tile:nth-child(4){animation:fade .5s ease .34s forwards}
+    .fade-in-tiles .tile:nth-child(5){animation:fade .5s ease .42s forwards}
+    .fade-in-tiles .tile:nth-child(6){animation:fade .5s ease .50s forwards}
+    @keyframes fade{to{opacity:1;transform:none}}
+  }
+
+  /* HERO (real <img>) */
+  .hero{position:relative;border-bottom:1px solid #142116}
+  .hero figure{position:relative;margin:0}
+  .hero img{width:100%;height:64vh;min-height:420px;object-fit:cover;object-position:center 55%;display:block;filter:brightness(.84) saturate(1.06)}
+  .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.50),rgba(0,0,0,.70))}
+  .hero .content{position:absolute;left:0;right:0;bottom:0}
+
+  .eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
+  h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
+  .lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
+  .cta-row{margin:1.1rem 0 1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0}
+  .btn.primary{background:linear-gradient(180deg,var(--green2),var(--green));color:#061007}
+  .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:#fff}
+
+  /* CARDS */
+  .grid{display:grid;gap:14px;margin:22px 0}
+  @media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:14px}
+  .card h2{font-size:1.12rem;margin:.1rem 0 .4rem}
+  .meta{font-size:.92rem;color:#b7c7bb}
+
+  /* GALLERY */
+  .strip{scroll-margin-top:70px}
+  .scroller{display:flex;gap:12px;overflow-x:auto;padding:.25rem;scroll-snap-type:x mandatory}
+  .tile{min-width:260px;flex:0 0 auto;scroll-snap-align:center;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);overflow:hidden}
+  .tile img{width:100%;height:170px;object-fit:cover;display:block}
+  .cap{padding:.7rem .9rem;color:#var(--muted);font-size:.95rem}
+  .cap{padding:.7rem .9rem;color:#c0d0c4;font-size:.95rem}
+
+  footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
+  footer p{font-size:.9em;color:#9ab09f;margin:0;padding:12px 0}
+</style>
+</head>
+<body>
+
+<header class="hero" role="banner" aria-label="Patch & Pot hero">
+  <figure>
+    <img src="https://images.pexels.com/photos/7653982/pexels-photo-7653982.jpeg?auto=compress&cs=tinysrgb&w=1600&v=pp-hero1"
+         alt="Hands tending a plant in a pot">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content">
+    <div class="wrap fade-in">
+      <span class="eyebrow">Mindful growing</span>
+      <h1>Here’s What You Could Grow</h1>
+      <p class="lead">From pot to plate — achievable, affordable, and yours.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#">Start Growing</a>
+        <a class="btn ghost" href="#ideas">See More Ideas</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="grid" aria-label="Featured guides">
+    <article class="card">
+      <h2>Your First Pot</h2>
+      <p class="meta">Everything you need to begin today — pot, compost, seeds, light & water.</p>
+      <a class="btn primary" href="#">Open guide</a>
+    </article>
+    <article class="card">
+      <h2>What to sow & when</h2>
+      <p class="meta">A UK-friendly month-by-month plan for herbs, salads and easy veg.</p>
+      <a class="btn ghost" href="#">See seasons (coming)</a>
+    </article>
+    <article class="card">
+      <h2>2-minute calm</h2>
+      <p class="meta">Short prompts to slow breathing and settle your mind while you tend plants.</p>
+      <a class="btn ghost" href="#">Try one (coming)</a>
+    </article>
+  </section>
+
+  <section id="ideas" class="strip" aria-label="Veg-in-pot inspiration">
+    <h2 class="fade-in">Your first harvest could look like this</h2>
+    <div class="scroller fade-in-tiles">
+      <!-- Carrots -->
+      <figure class="tile" aria-label="Carrots in pot">
+        <img src="https://images.pexels.com/photos/209095/pexels-photo-209095.jpeg?auto=compress&cs=tinysrgb&w=1200&v=pp-carrots1" alt="Fresh orange carrots with tops">
+        <figcaption class="cap">Carrots — compact varieties thrive in deep pots</figcaption>
+      </figure>
+      <!-- Lettuce -->
+      <figure class="tile" aria-label="Lettuce planter">
+        <img src="https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg?auto=compress&cs=tinysrgb&w=1200&v=pp-lettuce1" alt="Green lettuce leaves growing densely">
+        <figcaption class="cap">Lettuce — cut-and-come-again, salads on demand</figcaption>
+      </figure>
+      <!-- Tomatoes -->
+      <figure class="tile" aria-label="Tomatoes on the vine in pot">
+        <img src="https://images.pexels.com/photos/128420/pexels-photo-128420.jpeg?auto=compress&cs=tinysrgb&w=1200&v=pp-tomatoes1" alt="Tomatoes ripening on the vine">
+        <figcaption class="cap">Tomatoes — bush types suit balconies & patios</figcaption>
+      </figure>
+      <!-- Kale -->
+      <figure class="tile" aria-label="Kale leaves">
+        <img src="https://images.pexels.com/photos/5945908/pexels-photo-5945908.jpeg?auto=compress&cs=tinysrgb&w=1200&v=pp-kale1" alt="Dark green kale leaves with texture">
+        <figcaption class="cap">Kale — hardy, nutrient-dense, cold tolerant</figcaption>
+      </figure>
+      <!-- Chillies -->
+      <figure class="tile" aria-label="Chilli plant in pot">
+        <img src="https://images.pexels.com/photos/1437585/pexels-photo-1437585.jpeg?auto=compress&cs=tinysrgb&w=1200&v=pp-chilli1" alt="Red chillies growing on a compact plant">
+        <figcaption class="cap">Chillies — small plant, big flavour payoff</figcaption>
+      </figure>
+      <!-- Mixed herbs -->
+      <figure class="tile" aria-label="Mixed herbs in pot">
+        <img src="https://images.pexels.com/photos/206959/pexels-photo-206959.jpeg?auto=compress&cs=tinysrgb&w=1200&v=pp-herbs1" alt="Potted herbs including basil and parsley">
+        <figcaption class="cap">Mixed herbs — basil, parsley, mint for everyday dishes</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+  </div>
+</footer>
+
+</body>
+</html>

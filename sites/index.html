@@ -74,10 +74,16 @@
     aspect-ratio:16/9;background:#0c0c10;border-bottom:1px solid var(--stroke);
     display:block;overflow:hidden;border-top-left-radius:14px;border-top-right-radius:14px;
   }
-  /* General images inside tiles default to cover… */
+  /* Default tile images fill the frame */
   .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-  /* …but for Ideas images, show full image without cropping */
-  .idea-img{object-fit:contain;background:#0c0c10;padding:6px;border-radius:8px}
+
+  /* OVERRIDE for Ideas images: show full image, never crop */
+  .thumb img.idea-img{
+    object-fit:contain !important;
+    background:#0c0c10;
+    padding:6px;
+    border-radius:8px;
+  }
 
   /* Footer */
   footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
@@ -101,7 +107,7 @@
 
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg?v=ideas1"
+    <img src="img/hero.jpg?v=ideas-fix2"
          alt="Person tending plants on a balcony, planting into a terracotta pot"
          style="object-position:center 4% !important;">
     <div class="overlay" aria-hidden="true"></div>

@@ -26,16 +26,11 @@
     height:64vh;
     min-height:420px;
     object-fit:cover;
-    object-position:center 30%; /* moved up so head is visible */
     display:block;
     filter:brightness(.88) saturate(1.05)
   }
   .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.65))}
   .hero .content{position:absolute;left:0;right:0;bottom:0}
-
-  @media (max-width:520px){
-    .hero img{object-position:center 26%;} /* extra lift on phones */
-  }
 
   .eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
   h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
@@ -54,10 +49,7 @@
 
   /* CAROUSEL */
   .strip{scroll-margin-top:70px}
-  .scroller{
-    display:flex;gap:12px;overflow-x:auto;padding:.25rem;
-    scroll-snap-type:x proximity;
-  }
+  .scroller{display:flex;gap:12px;overflow-x:auto;padding:.25rem;scroll-snap-type:x proximity}
   .tile{
     flex:0 0 auto;width:280px;
     border-radius:14px;border:1px solid var(--stroke);background:var(--glass);
@@ -72,13 +64,17 @@
 
   footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
   footer p{font-size:.9em;color:#9ab09f;margin:0;padding:12px 0}
+  .build{opacity:.7;font-size:.8em}
 </style>
 </head>
 <body>
 
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg?v=balcony2" alt="Person tending plants on a balcony, planting into a terracotta pot">
+    <!-- Inline style with !important to override any cached CSS; new cache-buster query -->
+    <img src="img/hero.jpg?v=fixhero4"
+         alt="Person tending plants on a balcony, planting into a terracotta pot"
+         style="object-position:center 20% !important;">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -151,7 +147,7 @@
 
 <footer>
   <div class="wrap">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony <span class="build">— BUILD: fixhero4</span></p>
   </div>
 </footer>
 </body>

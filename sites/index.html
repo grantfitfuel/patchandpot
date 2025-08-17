@@ -20,6 +20,10 @@
     --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
     --green:#2E7D32; --green2:#7ed495; --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
     --maxw:1140px; --radius:16px;
+
+    /* >>> Tweak these if you want the ideas images to “fill” more/less */
+    --idea-ar: 5/4;     /* tile aspect ratio (was 16/9). Try 4/3 or 1/1 for even taller tiles */
+    --idea-pad: 2px;    /* inner padding around each image */
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
@@ -71,17 +75,18 @@
     display:flex;flex-direction:column;overflow:visible;scroll-snap-align:center;
   }
   .thumb{
-    aspect-ratio:16/9;background:#0c0c10;border-bottom:1px solid var(--stroke);
+    aspect-ratio: var(--idea-ar);   /* taller tiles so contain takes up more space */
+    background:#0c0c10;border-bottom:1px solid var(--stroke);
     display:block;overflow:hidden;border-top-left-radius:14px;border-top-right-radius:14px;
   }
-  /* Default tile images fill the frame */
+  /* Default tile images fill the frame (for any non-ideas image you add later) */
   .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 
-  /* OVERRIDE for Ideas images: show full image, never crop */
+  /* OVERRIDE for Ideas images: show full image, minimise letterbox */
   .thumb img.idea-img{
     object-fit:contain !important;
-    background:#0c0c10;
-    padding:6px;
+    background:#0e1510;
+    padding:var(--idea-pad);
     border-radius:8px;
   }
 
@@ -107,7 +112,7 @@
 
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg?v=ideas-fix2"
+    <img src="img/hero.jpg?v=ideas-fill1"
          alt="Person tending plants on a balcony, planting into a terracotta pot"
          style="object-position:center 4% !important;">
     <div class="overlay" aria-hidden="true"></div>

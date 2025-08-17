@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Patch & Pot – Grow Anywhere</title>
+<!-- Prevent stale HTML in GitHub Pages caches -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -20,9 +22,22 @@
   /* HERO */
   .hero{position:relative;border-bottom:1px solid #142116}
   .hero figure{position:relative;margin:0}
-  .hero img{width:100%;height:64vh;min-height:420px;object-fit:cover;object-position:center 55%;display:block;filter:brightness(.88) saturate(1.05)}
+  .hero img{
+    width:100%;
+    height:64vh;              /* stable banner height */
+    min-height:420px;
+    object-fit:cover;         /* fill the strip */
+    object-position:center 40%;/* keep subject (face/hands) in view */
+    display:block;
+    filter:brightness(.88) saturate(1.05)
+  }
   .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.65))}
   .hero .content{position:absolute;left:0;right:0;bottom:0}
+
+  @media (max-width:520px){
+    .hero img{object-position:center 32%} /* lift subject a touch on phones */
+  }
+
   .eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
   h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
   .lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
@@ -40,7 +55,10 @@
 
   /* CAROUSEL (local photos) */
   .strip{scroll-margin-top:70px}
-  .scroller{display:flex;gap:12px;overflow-x:auto;padding:.25rem;scroll-snap-type:x proximity}
+  .scroller{
+    display:flex;gap:12px;overflow-x:auto;padding:.25rem;
+    scroll-snap-type:x proximity; /* gentle snap so multiple tiles stay in view */
+  }
   .tile{
     flex:0 0 auto;width:280px;
     border-radius:14px;border:1px solid var(--stroke);background:var(--glass);
@@ -61,7 +79,8 @@
 
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg" alt="Hands tending a plant in a pot">
+    <!-- cache-busted so the new balcony image shows immediately -->
+    <img src="img/hero.jpg?v=balcony1" alt="Person tending plants on a balcony, planting into a terracotta pot">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -81,11 +100,11 @@
   <section class="grid" aria-label="Featured guides">
     <article class="card">
       <h2>Your First Pot</h2>
-      <p class="meta">Everything you need to begin today — pot, compost, seeds, light & water.</p>
+      <p class="meta">Everything you need to begin today — pot, compost, seeds, light &amp; water.</p>
       <a class="btn primary" href="#">Open guide</a>
     </article>
     <article class="card">
-      <h2>What to sow & when</h2>
+      <h2>What to sow &amp; when</h2>
       <p class="meta">A UK-friendly month-by-month plan for herbs, salads and easy veg.</p>
       <a class="btn ghost" href="#">See seasons (coming)</a>
     </article>
@@ -111,7 +130,7 @@
 
       <figure class="tile" aria-label="Tomatoes on the vine in pot">
         <span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes ripening on the vine in a pot"></span>
-        <figcaption class="cap">Tomatoes — bush types suit balconies & patios</figcaption>
+        <figcaption class="cap">Tomatoes — bush types suit balconies &amp; patios</figcaption>
       </figure>
 
       <figure class="tile" aria-label="Kale leaves">

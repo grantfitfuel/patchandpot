@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Patch & Pot – Grow Anywhere</title>
 
-<!-- Favicons (must be in sites/img/) -->
+<!-- Favicons in ./img/ -->
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
@@ -26,22 +26,28 @@
   a{color:#b3d7ff;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
 
-  /* Header with logo */
+  /* Header */
   .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;border-bottom:1px solid #142116;background:#0a100b}
+  .brand{display:flex;align-items:center;gap:10px}
   .logo{height:44px;width:auto;display:block}
+  .site-title{font-weight:800;letter-spacing:.2px}
   .nav{display:flex;gap:14px}
   .nav a{color:#cfe6d6;opacity:.9}
   .nav a:hover{opacity:1}
 
-  /* HERO */
+  /* HERO (brighter) */
   .hero{position:relative;border-bottom:1px solid #142116}
   .hero figure{position:relative;margin:0}
   .hero img{
     width:100%;height:64vh;min-height:420px;
-    object-fit:cover;display:block;filter:brightness(1.0) saturate(1.05)
+    object-fit:cover;display:block;
+    filter:brightness(1.00) saturate(1.05); /* brighter */
   }
-  /* Inline style on the IMG below sets the focal point so head isn’t cropped */
-  .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45))}
+  .hero .overlay{
+    position:absolute;inset:0;
+    /* lighter overlay so more image shows through */
+    background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45));
+  }
   .hero .content{position:absolute;left:0;right:0;bottom:0}
   .eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
   h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
@@ -61,14 +67,8 @@
   /* CAROUSEL */
   .strip{scroll-margin-top:70px}
   .scroller{display:flex;gap:12px;overflow-x:auto;padding:.25rem;scroll-snap-type:x proximity}
-  .tile{
-    flex:0 0 auto;width:280px;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);
-    display:flex;flex-direction:column;overflow:visible;scroll-snap-align:center;
-  }
-  .thumb{
-    aspect-ratio:16/9;background:#0c0c10;border-bottom:1px solid var(--stroke);
-    display:block;overflow:hidden;border-top-left-radius:14px;border-top-right-radius:14px;
-  }
+  .tile{flex:0 0 auto;width:280px;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);display:flex;flex-direction:column;overflow:visible;scroll-snap-align:center}
+  .thumb{aspect-ratio:16/9;background:#0c0c10;border-bottom:1px solid var(--stroke);display:block;overflow:hidden;border-top-left-radius:14px;border-top-right-radius:14px}
   .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
   .cap{padding:.7rem .9rem;color:#c0d0c4;font-size:.95rem}
 
@@ -82,7 +82,10 @@
 <body>
 
 <header class="site-header">
-  <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo">
+  <div class="brand">
+    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
+  </div>
   <nav class="nav" aria-label="Primary">
     <a href="#guides">Guides</a>
     <a href="#ideas">Ideas</a>
@@ -91,7 +94,7 @@
 
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg?v=live1"
+    <img src="img/hero.jpg?v=brighter1"
          alt="Person tending plants on a balcony, planting into a terracotta pot"
          style="object-position:center 4% !important;">
     <div class="overlay" aria-hidden="true"></div>
@@ -132,20 +135,21 @@
     <h2>Your first harvest could look like this</h2>
     <div class="scroller">
       <figure class="tile"><span class="thumb"><img src="img/carrots.jpg" alt="Carrots growing in a deep pot"></span><figcaption class="cap">Carrots — compact varieties thrive in deep pots</figcaption></figure>
-      <figure class="tile"><span class="thumb"><img src="img/lettuce.jpg" alt="Lettuce leaves growing densely in a planter"></span><figcaption class="cap">Lettuce — cut-and-come-again, salads on demand</figcaption></figure>
-      <figure class="tile"><span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes ripening on the vine in a pot"></span><figcaption class="cap">Tomatoes — bush types suit balconies &amp; patios</figcaption></figure>
-      <figure class="tile"><span class="thumb"><img src="img/kale.jpg" alt="Dark green kale leaves with texture"></span><figcaption class="cap">Kale — hardy, nutrient-dense, cold tolerant</figcaption></figure>
-      <figure class="tile"><span class="thumb"><img src="img/chillies.jpg" alt="Red chillies growing on a compact plant"></span><figcaption class="cap">Chillies — small plant, big flavour payoff</figcaption></figure>
-      <figure class="tile"><span class="thumb"><img src="img/herbs.jpg" alt="Potted herbs including basil and parsley"></span><figcaption class="cap">Mixed herbs — basil, parsley, mint for everyday dishes</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/lettuce.jpg" alt="Lettuce in a planter"></span><figcaption class="cap">Lettuce — cut-and-come-again, salads on demand</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes ripening in a pot"></span><figcaption class="cap">Tomatoes — bush types suit balconies &amp; patios</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/kale.jpg" alt="Kale leaves"></span><figcaption class="cap">Kale — hardy, nutrient-dense, cold tolerant</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/chillies.jpg" alt="Chillies growing in a pot"></span><figcaption class="cap">Chillies — small plant, big flavour payoff</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/herbs.jpg" alt="Mixed herbs in a pot"></span><figcaption class="cap">Mixed herbs — basil, parsley, mint</figcaption></figure>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
+
 </body>
 </html>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Patch & Pot – Grow Anywhere</title>
 
-<!-- Favicons in ./img/ -->
+<!-- Favicons -->
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
@@ -13,9 +13,9 @@
 
 <style>
   :root{
-    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
+    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4;
     --green:#2E7D32; --green2:#7ed495; --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
-    --maxw:1140px; --radius:16px; --idea-ar: 1/1;
+    --maxw:1140px; --radius:16px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
@@ -25,23 +25,21 @@
   /* Header */
   .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;border-bottom:1px solid #142116;background:#0a100b}
   .brand{display:flex;align-items:center;gap:10px}
-  .logo{height:44px;width:auto;display:block}
-  .site-title{font-weight:800;letter-spacing:.2px}
+  .logo{height:44px;width:auto}
+  .site-title{font-weight:800}
   .nav{display:flex;gap:14px;flex-wrap:wrap}
   .nav a{color:#cfe6d6;opacity:.9;padding:.35rem .6rem;border-radius:8px;transition:.2s}
   .nav a:hover{opacity:1;background:rgba(255,255,255,.08)}
 
-  /* HERO */
+  /* Hero */
   .hero{position:relative;border-bottom:1px solid #142116}
-  .hero figure{margin:0}
-  .hero img{width:100%;height:64vh;min-height:420px;object-fit:cover;filter:brightness(1.0) saturate(1.05)}
+  .hero img{width:100%;height:64vh;min-height:420px;object-fit:cover}
   .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45))}
-  .hero .content{position:absolute;left:0;right:0;bottom:0}
-  .eyebrow{display:inline-block;background:rgba(255,255,255,.1);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
-  h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
+  .hero .content{position:absolute;left:0;right:0;bottom:0;padding-bottom:1.5rem}
+  h1{margin:.6rem 0 .5rem;font-weight:800;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
   .lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
   .cta-row{margin:1.1rem 0 1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0;text-decoration:none;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;text-decoration:none;cursor:pointer}
   .btn.primary{background:linear-gradient(180deg,var(--green2),var(--green));color:#061007}
   .btn.ghost{background:rgba(255,255,255,.1);border:1px solid var(--stroke);color:#fff}
 
@@ -52,16 +50,25 @@
   .card h2{font-size:1.12rem;margin:.1rem 0 .4rem}
   .meta{font-size:.92rem;color:#b7c7bb}
 
-  /* Footer Nav (compact buttons) */
+  /* Teaser */
+  .teaser{margin:2.2rem 0}
+  .teaser h2{margin-bottom:.6rem}
+  .tiles{display:grid;gap:14px}
+  @media(min-width:700px){.tiles{grid-template-columns:repeat(3,1fr)}}
+  .tile{border-radius:14px;overflow:hidden;border:1px solid var(--stroke);background:var(--glass)}
+  .tile img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+  .tile span{display:block;padding:.7rem .9rem;color:#c0d0c4;font-size:.95rem}
+  .more-link{display:inline-block;margin-top:.8rem;color:#b3d7ff;font-weight:600}
+
+  /* Footer nav */
   .footer-nav{margin:2rem 0;display:grid;gap:12px}
   @media(min-width:600px){.footer-nav{grid-template-columns:repeat(3,1fr)}}
-  .footer-nav a{display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);font-weight:700;color:var(--ink);transition:.2s}
+  .footer-nav a{display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);font-weight:700;color:var(--ink)}
   .footer-nav a:hover{background:rgba(255,255,255,.1)}
 
-  /* Footer */
   footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
   .footer-inner{display:flex;align-items:center;gap:12px;justify-content:space-between}
-  .footer-icon{height:40px;width:auto;opacity:.95}
+  .footer-icon{height:40px;width:auto}
   footer p{font-size:.9em;color:#9ab09f;margin:0;padding:12px 0}
 </style>
 </head>
@@ -69,10 +76,10 @@
 
 <header class="site-header">
   <div class="brand">
-    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+  <nav class="nav">
     <a href="recipes.html">Recipes</a>
     <a href="exercise.html">Exercise</a>
     <a href="wellbeing.html">Wellbeing</a>
@@ -81,25 +88,20 @@
 </header>
 
 <header class="hero">
-  <figure>
-    <img src="img/hero.jpg" alt="Person tending plants on a balcony, planting into a terracotta pot">
-    <div class="overlay"></div>
-  </figure>
-  <div class="content">
-    <div class="wrap">
-      <span class="eyebrow">Mindful growing</span>
-      <h1>Here’s What You Could Grow</h1>
-      <p class="lead">From pot to plate — achievable, affordable, and yours.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="recipes.html">Start Growing</a>
-        <a class="btn ghost" href="ideas.html">See More Ideas</a>
-      </div>
+  <img src="img/hero.jpg" alt="Person tending plants on a balcony">
+  <div class="overlay"></div>
+  <div class="content wrap">
+    <h1>Here’s What You Could Grow</h1>
+    <p class="lead">From pot to plate — achievable, affordable, and yours.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="recipes.html">Start Growing</a>
+      <a class="btn ghost" href="ideas.html">See More Ideas</a>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="grid" id="guides">
+  <section class="grid">
     <article class="card">
       <h2>Your First Pot</h2>
       <p class="meta">Everything you need to begin today — pot, compost, seeds, light &amp; water.</p>
@@ -117,7 +119,17 @@
     </article>
   </section>
 
-  <!-- Footer Navigation (compact) -->
+  <!-- Ideas Teaser -->
+  <section class="teaser">
+    <h2>Ideas to Try</h2>
+    <div class="tiles">
+      <a class="tile" href="ideas.html"><img src="img/carrots.jpg" alt="Carrots"><span>Carrots in pots</span></a>
+      <a class="tile" href="ideas.html"><img src="img/lettuce.jpg" alt="Lettuce"><span>Lettuce — fresh leaves</span></a>
+      <a class="tile" href="ideas.html"><img src="img/tomatoes.jpg" alt="Tomatoes"><span>Tomatoes for patios</span></a>
+    </div>
+    <a class="more-link" href="ideas.html">See all ideas →</a>
+  </section>
+
   <div class="footer-nav">
     <a href="recipes.html">🌱 Recipes</a>
     <a href="exercise.html">💪 Exercise</a>
@@ -127,8 +139,8 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <p>© Patch &amp; Pot | Grant Cameron Anthony</p>
   </div>
 </footer>
 

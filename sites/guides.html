@@ -1,55 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guides | Patch and Pot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Guides – Patch & Pot</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="ideas.html">Ideas</a>
-      <a href="guides.html" class="active">Guides</a>
-      <a href="recipes.html">Recipes</a>
-      <a href="wellbeing.html">Wellbeing</a>
-      <a href="exercise.html">Exercise</a>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero">
-      <h1>Guides</h1>
-      <p>Step-by-step support to get you started with growing, sowing, and mindfulness.</p>
-    </section>
+<header class="site-header">
+  <div class="brand">
+    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
+  </div>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html">Home</a>
+    <a href="ideas.html">Ideas</a>
+    <a href="guides.html" aria-current="page">Guides</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="exercise.html">Exercise</a>
+  </nav>
+</header>
 
-    <section class="tile-grid">
-      <!-- Your First Pot -->
-      <div class="tile">
-        <img src="img/guide-first-pot.jpg" alt="Your First Pot">
-        <h2>Your First Pot</h2>
-        <p>Everything you need to begin today ~ pot, compost, seeds, light & water.</p>
-      </div>
+<main class="wrap">
+  <h1>Guides</h1>
+  <p class="lead">Step-by-step support to get you started with growing, sowing, and mindfulness.</p>
 
-      <!-- What to Sow & When -->
-      <div class="tile">
-        <img src="img/guide-sow-when.jpg" alt="What to Sow and When">
-        <h2>What to Sow & When</h2>
-        <p>A UK-friendly month-by-month plan for herbs, salads, and easy veg.</p>
-      </div>
+  <section class="guides-grid" aria-label="Guides grid">
+    <!-- Your First Pot -->
+    <figure class="tile">
+      <span class="thumb">
+        <img src="img/guide-first-pot.jpg"
+             alt="Your First Pot"
+             onerror="this.onerror=null;this.src='img/guide-first-pot-fixed.png'">
+      </span>
+      <figcaption class="cap">
+        <strong>Your First Pot</strong> — container choice, drainage, compost, watering.
+      </figcaption>
+    </figure>
 
-      <!-- 2-Minute Calm -->
-      <div class="tile">
-        <img src="img/guide-2min-calm.jpg" alt="2 Minute Calm">
-        <h2>2-Minute Calm</h2>
-        <p>A short prompt to slow breathing and settle your mind while you tend plants.</p>
-      </div>
-    </section>
-  </main>
+    <!-- What to Sow & When -->
+    <figure class="tile">
+      <span class="thumb">
+        <img src="img/guide-sow-when.jpg"
+             alt="What to Sow &amp; When"
+             onerror="this.onerror=null;this.src='img/guide-seasons-fixed.png'">
+      </span>
+      <figcaption class="cap">
+        <strong>What to Sow &amp; When</strong> — UK-friendly month-by-month plan.
+      </figcaption>
+    </figure>
 
-  <footer>
-    <p>&copy; Patch and Pot | Grant Cameron Anthony</p>
-  </footer>
+    <!-- 2-Minute Calm -->
+    <figure class="tile">
+      <span class="thumb">
+        <img src="img/guide-2min-calm.jpg"
+             alt="2-Minute Calm"
+             onerror="this.onerror=null;this.src='img/guide-calm-fixed.png'">
+      </span>
+      <figcaption class="cap">
+        <strong>2-Minute Calm</strong> — short prompts to steady your breathing.
+      </figcaption>
+    </figure>
+  </section>
+
+  <nav class="mini-nav" aria-label="Secondary navigation">
+    <a href="index.html">← Back to Home</a>
+    <a href="ideas.html">🌱 See Ideas</a>
+    <a href="#top">⬆ Top</a>
+  </nav>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+  </div>
+</footer>
+
 </body>
 </html>

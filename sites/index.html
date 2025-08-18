@@ -5,17 +5,73 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Patch & Pot – Grow Anywhere</title>
 
-<!-- Favicons -->
+<!-- Favicons in ./img/ -->
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
 
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+<style>
+  :root{
+    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
+    --green:#2E7D32; --green2:#7ed495; --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
+    --maxw:1140px; --radius:16px;
+    --idea-ar: 1/1;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+  a{color:#b3d7ff;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
 
-<link rel="stylesheet" href="style.css">
+  /* Header */
+  .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;border-bottom:1px solid #142116;background:#0a100b}
+  .brand{display:flex;align-items:center;gap:10px}
+  .logo{height:44px;width:auto;display:block}
+  .site-title{font-weight:800;letter-spacing:.2px}
+  .nav{display:flex;gap:14px;flex-wrap:wrap}
+  .nav a{color:#cfe6d6;opacity:.9;padding:.35rem .6rem;border-radius:8px;transition:.2s}
+  .nav a:hover{opacity:1;background:rgba(255,255,255,.08)}
+
+  /* HERO */
+  .hero{position:relative;border-bottom:1px solid #142116}
+  .hero figure{margin:0}
+  .hero img{width:100%;height:64vh;min-height:420px;object-fit:cover;filter:brightness(1.0) saturate(1.05)}
+  .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45))}
+  .hero .content{position:absolute;left:0;right:0;bottom:0}
+  .eyebrow{display:inline-block;background:rgba(255,255,255,.1);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
+  h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
+  .lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
+  .cta-row{margin:1.1rem 0 1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0;text-decoration:none;cursor:pointer}
+  .btn.primary{background:linear-gradient(180deg,var(--green2),var(--green));color:#061007}
+  .btn.ghost{background:rgba(255,255,255,.1);border:1px solid var(--stroke);color:#fff}
+
+  /* Cards */
+  .grid{display:grid;gap:14px;margin:22px 0}
+  @media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:14px}
+  .card h2{font-size:1.12rem;margin:.1rem 0 .4rem}
+  .meta{font-size:.92rem;color:#b7c7bb}
+
+  /* Carousel */
+  .scroller{display:flex;gap:12px;overflow-x:auto;padding:.25rem;scroll-snap-type:x proximity}
+  .tile{flex:0 0 auto;width:280px;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);display:flex;flex-direction:column;scroll-snap-align:center}
+  .thumb{aspect-ratio:var(--idea-ar);background:#0c0c10;border-bottom:1px solid var(--stroke);overflow:hidden;border-radius:14px 14px 0 0}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .cap{padding:.7rem .9rem;color:#c0d0c4;font-size:.95rem}
+
+  /* Footer Nav (improved buttons) */
+  .footer-nav{margin:2rem 0;display:grid;gap:12px}
+  @media(min-width:600px){.footer-nav{grid-template-columns:repeat(3,1fr)}}
+  .footer-nav a{display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);font-weight:700;color:var(--ink);transition:.2s}
+  .footer-nav a:hover{background:rgba(255,255,255,.1)}
+
+  /* Footer */
+  footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
+  .footer-inner{display:flex;align-items:center;gap:12px;justify-content:space-between}
+  .footer-icon{height:40px;width:auto;opacity:.95}
+  footer p{font-size:.9em;color:#9ab09f;margin:0;padding:12px 0}
+</style>
 </head>
 <body>
 
@@ -25,18 +81,18 @@
     <span class="site-title">Patch &amp; Pot</span>
   </div>
   <nav class="nav" aria-label="Primary">
-    <a href="#guides">Guides</a>
+    <a href="index.html">Home</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="exercise.html">Exercise</a>
+    <a href="wellbeing.html">Wellbeing</a>
     <a href="#ideas">Ideas</a>
-    <a href="#recipes">Recipes</a>
-    <a href="#exercise">Exercise</a>
-    <a href="#wellbeing">Mental Wellbeing</a>
   </nav>
 </header>
 
-<header class="hero" role="banner" aria-label="Patch & Pot hero">
+<header class="hero">
   <figure>
-    <img src="img/hero.jpg?v=ideasA1" alt="Person tending plants on a balcony, planting into a terracotta pot" style="object-position:center 4% !important;">
-    <div class="overlay" aria-hidden="true"></div>
+    <img src="img/hero.jpg" alt="Person tending plants on a balcony, planting into a terracotta pot">
+    <div class="overlay"></div>
   </figure>
   <div class="content">
     <div class="wrap">
@@ -44,7 +100,7 @@
       <h1>Here’s What You Could Grow</h1>
       <p class="lead">From pot to plate — achievable, affordable, and yours.</p>
       <div class="cta-row">
-        <a class="btn primary" href="#">Start Growing</a>
+        <a class="btn primary" href="recipes.html">Start Growing</a>
         <a class="btn ghost" href="#ideas">See More Ideas</a>
       </div>
     </div>
@@ -52,7 +108,7 @@
 </header>
 
 <main class="wrap">
-  <section class="grid" id="guides" aria-label="Featured guides">
+  <section class="grid" id="guides">
     <article class="card">
       <h2>Your First Pot</h2>
       <p class="meta">Everything you need to begin today — pot, compost, seeds, light &amp; water.</p>
@@ -70,59 +126,24 @@
     </article>
   </section>
 
-  <section id="ideas" class="strip" aria-label="Veg-in-pot inspiration">
+  <section id="ideas">
     <h2>Your first harvest could look like this</h2>
     <div class="scroller">
-      <figure class="tile">
-        <span class="thumb"><img src="img/carrots.jpg" alt="Carrots growing in a deep pot"></span>
-        <figcaption class="cap">Carrots — compact varieties thrive in deep pots</figcaption>
-      </figure>
-      <figure class="tile">
-        <span class="thumb"><img src="img/lettuce.jpg" alt="Lettuce in a planter"></span>
-        <figcaption class="cap">Lettuce — cut-and-come-again, salads on demand</figcaption>
-      </figure>
-      <figure class="tile">
-        <span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes ripening in a pot"></span>
-        <figcaption class="cap">Tomatoes — bush types suit balconies &amp; patios</figcaption>
-      </figure>
-      <figure class="tile">
-        <span class="thumb"><img src="img/kale.jpg" alt="Kale leaves"></span>
-        <figcaption class="cap">Kale — hardy, nutrient-dense, cold tolerant</figcaption>
-      </figure>
-      <figure class="tile">
-        <span class="thumb"><img src="img/chillies.jpg" alt="Chillies growing in a pot"></span>
-        <figcaption class="cap">Chillies — small plant, big flavour payoff</figcaption>
-      </figure>
-      <figure class="tile">
-        <span class="thumb"><img src="img/herbs.jpg" alt="Mixed herbs in a pot"></span>
-        <figcaption class="cap">Mixed herbs — basil, parsley, mint</figcaption>
-      </figure>
+      <figure class="tile"><span class="thumb"><img src="img/carrots.jpg" alt="Carrots in a pot"></span><figcaption class="cap">Carrots — compact varieties thrive in deep pots</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/lettuce.jpg" alt="Lettuce"></span><figcaption class="cap">Lettuce — cut-and-come-again, salads on demand</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes"></span><figcaption class="cap">Tomatoes — bush types suit balconies & patios</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/kale.jpg" alt="Kale"></span><figcaption class="cap">Kale — hardy, nutrient-dense, cold tolerant</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/chillies.jpg" alt="Chillies"></span><figcaption class="cap">Chillies — small plant, big flavour payoff</figcaption></figure>
+      <figure class="tile"><span class="thumb"><img src="img/herbs.jpg" alt="Herbs"></span><figcaption class="cap">Mixed herbs — basil, parsley, mint</figcaption></figure>
     </div>
   </section>
 
-  <section id="recipes" class="grid" aria-label="Recipe previews">
-    <article class="card">
-      <h2>Recipes</h2>
-      <p class="meta">Balanced, affordable, and seasonal ideas for your harvest.</p>
-      <a class="btn primary" href="#">View recipes</a>
-    </article>
-  </section>
-
-  <section id="exercise" class="grid" aria-label="Exercise previews">
-    <article class="card">
-      <h2>Exercise</h2>
-      <p class="meta">Simple, effective home workouts to pair with good nutrition.</p>
-      <a class="btn primary" href="#">View exercise</a>
-    </article>
-  </section>
-
-  <section id="wellbeing" class="grid" aria-label="Mental wellbeing previews">
-    <article class="card">
-      <h2>Mental Wellbeing</h2>
-      <p class="meta">Mindfulness, reframing, and calm to support your growing journey.</p>
-      <a class="btn primary" href="#">Explore wellbeing</a>
-    </article>
-  </section>
+  <!-- Footer Navigation -->
+  <div class="footer-nav">
+    <a href="recipes.html">🌱 Recipes</a>
+    <a href="exercise.html">💪 Exercise</a>
+    <a href="wellbeing.html">🧘 Wellbeing</a>
+  </div>
 </main>
 
 <footer>

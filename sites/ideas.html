@@ -1,88 +1,21 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ideas – Patch & Pot</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-
-<style>
-  :root{
-    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
-    --green:#2E7D32; --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
-    --maxw:1140px; --radius:16px; --idea-ar:1/1;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-  a{color:#b3d7ff;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
-
-  /* Header */
-  .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;border-bottom:1px solid #142116;background:#0a100b}
-  .brand{display:flex;align-items:center;gap:10px}
-  .logo{height:44px;width:auto}
-  .site-title{font-weight:800;letter-spacing:.2px}
-  .nav{display:flex;gap:14px;flex-wrap:wrap}
-  .nav a{color:#cfe6d6;opacity:.9;padding:.35rem .6rem;border-radius:8px;transition:.2s}
-  .nav a:hover{opacity:1;background:rgba(255,255,255,.08)}
-
-  h1{margin:1rem 0 .5rem;font-weight:800;font-size:clamp(1.8rem,1.2rem + 2vw,2.4rem)}
-  .intro{color:#c0d0c4;margin-top:.25rem}
-
-  /* Carousel */
-  .scroller{display:flex;gap:12px;overflow-x:auto;padding:.25rem;scroll-snap-type:x proximity}
-  .tile{flex:0 0 auto;width:280px;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);display:flex;flex-direction:column;scroll-snap-align:center}
-  .thumb{aspect-ratio:var(--idea-ar);background:#0c0c10;border-bottom:1px solid var(--stroke);overflow:hidden;border-radius:14px 14px 0 0}
-  .thumb img{width:100%;height:100%;object-fit:cover}
-  .cap{padding:.7rem .9rem;color:#c0d0c4;font-size:.95rem}
-
-  /* Footer */
-  footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
-  .footer-inner{display:flex;align-items:center;gap:12px;justify-content:space-between}
-  .footer-icon{height:40px;width:auto;opacity:.95}
-  footer p{font-size:.9em;color:#9ab09f;margin:0;padding:12px 0}
-</style>
-</head>
-<body>
-
-<header class="site-header">
-  <div class="brand">
-    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
-  </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="index.html">Home</a>
-    <a href="recipes.html">Recipes</a>
-    <a href="exercise.html">Exercise</a>
-    <a href="wellbeing.html">Wellbeing</a>
-    <a href="ideas.html" aria-current="page">Ideas</a>
-  </nav>
-</header>
-
 <main class="wrap">
-  <h1>Ideas</h1>
-  <p class="intro">Inspiration for what to grow first — achievable pots with real payoff.</p>
+  <h1>Growing Ideas</h1>
+  <p class="lead">A gallery of crops that thrive in pots. Each tile will soon link to a step-by-step guide.</p>
 
-  <div class="scroller" aria-label="Veg-in-pot inspiration">
-    <figure class="tile"><span class="thumb"><img src="img/carrots.jpg" alt="Carrots in a pot"></span><figcaption class="cap">Carrots — compact varieties thrive in deep pots</figcaption></figure>
-    <figure class="tile"><span class="thumb"><img src="img/lettuce.jpg" alt="Lettuce"></span><figcaption class="cap">Lettuce — cut-and-come-again, salads on demand</figcaption></figure>
-    <figure class="tile"><span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes"></span><figcaption class="cap">Tomatoes — bush types suit balconies &amp; patios</figcaption></figure>
-    <figure class="tile"><span class="thumb"><img src="img/kale.jpg" alt="Kale"></span><figcaption class="cap">Kale — hardy, nutrient-dense, cold tolerant</figcaption></figure>
-    <figure class="tile"><span class="thumb"><img src="img/chillies.jpg" alt="Chillies"></span><figcaption class="cap">Chillies — small plant, big flavour payoff</figcaption></figure>
-    <figure class="tile"><span class="thumb"><img src="img/herbs.jpg" alt="Herbs"></span><figcaption class="cap">Mixed herbs — basil, parsley, mint</figcaption></figure>
-  </div>
+  <section class="grid ideas-grid" aria-label="Growing ideas">
+    <figure class="tile">
+      <span class="thumb"><img src="img/carrots.jpg" alt="Carrots in a deep pot"></span>
+      <figcaption class="cap">Carrots — compact varieties thrive in deep pots</figcaption>
+    </figure>
+
+    <figure class="tile">
+      <span class="thumb"><img src="img/lettuce.jpg" alt="Lettuce in a pot"></span>
+      <figcaption class="cap">Lettuce — cut-and-come-again, salads on demand</figcaption>
+    </figure>
+
+    <figure class="tile">
+      <span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes in a pot"></span>
+      <figcaption class="cap">Tomatoes — bush types suit balconies & patios</figcaption>
+    </figure>
+  </section>
 </main>
-
-<footer>
-  <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
-  </div>
-</footer>
-
-</body>
-</html>

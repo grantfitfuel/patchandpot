@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # REQUIRED for Pages
+      # REQUIRED by Pages – keeps your /sites deploy working
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

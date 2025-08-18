@@ -5,43 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Patch & Pot</title>
 
-  <!-- Favicons (in sites/img/) -->
+  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32"  href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48"  href="img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180"      href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
 
   <style>
-    :root{--green:#287846;--brown:#6b4423;--ink:#1b1b1b;--bg:#ffffff}
-    *{box-sizing:border-box}
-    body{margin:0;color:var(--ink);background:var(--bg);
-         font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
-    a{color:var(--green);text-decoration:none} a:hover{text-decoration:underline}
-    .nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;
-         gap:16px;padding:14px 18px;border-bottom:1px solid #e9e9e9;background:#fff}
-    .brand img{display:block;height:auto}
-    .nav nav a{margin:0 10px;font-weight:700;white-space:nowrap}
-    .hero{padding:56px 18px;text-align:center;background:linear-gradient(180deg,#f6fff9,transparent)}
-    .hero h1{margin:0 0 10px;font-size:clamp(28px,4vw,44px)}
-    .hero p{margin:0 auto 18px;max-width:820px}
-    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:var(--green);color:#fff;font-weight:700}
-    .grid{display:grid;gap:18px;padding:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{border:1px solid #e9e9e9;border-radius:12px;padding:18px;background:#fff}
-    .card h3{margin-top:0}
-    .section{padding:24px 18px;max-width:1100px;margin:0 auto}
-    .section h2{margin-top:4px;color:var(--green)}
-    .soft{border:none;border-top:1px solid #eee;margin:24px 0}
-    footer{margin-top:40px;padding:24px 18px;border-top:1px solid #e9e9e9;color:#555;font-size:.95rem}
-    .credits{margin-top:8px;font-size:.88rem;color:#666}
+    :root{ --ink:#0e0e0e; --muted:#666; --green:#287846; --card:#ffffff; --line:#ececec }
+    *{ box-sizing:border-box }
+    html,body{ margin:0; padding:0 }
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--ink); background:#fff; line-height:1.55;
+    }
+
+    /* Header */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:20px; padding:14px 24px; background:#fff; border-bottom:1px solid var(--line);
+    }
+    .brand img{ display:block; height:40px; width:auto }
+    .nav a{ text-decoration:none; color:var(--ink); font-weight:600; margin-left:22px }
+    .nav a:hover{ color:var(--green) }
+
+    /* HERO (full-bleed background image) */
+    .hero{
+      position:relative; min-height:58vh; display:flex; align-items:center;
+      background:#f4f6f3 url("img/hero.jpg") center/cover no-repeat;
+      isolation:isolate;
+    }
+    /* dark overlay for text legibility */
+    .hero::after{
+      content:""; position:absolute; inset:0; background:rgba(0,0,0,.32);
+    }
+    .hero-inner{
+      position:relative; z-index:1; color:#fff; padding:64px 24px; width:100%;
+      max-width:1100px; margin:0 auto;
+    }
+    .eyebrow{letter-spacing:.08em; text-transform:uppercase; font-weight:700; opacity:.9}
+    .hero h1{ margin:.35em 0 .2em; font-size:clamp(30px,5.6vw,56px); letter-spacing:-.02em }
+    .hero p{ max-width:720px; margin:.2em 0 1.2em; font-size:clamp(16px,2.2vw,18px); opacity:.95 }
+    .btn{
+      display:inline-block; padding:12px 18px; border-radius:10px; background:var(--green);
+      color:#fff; font-weight:700; text-decoration:none; box-shadow:0 8px 24px rgba(0,0,0,.18)
+    }
+    .btn:hover{ filter:brightness(1.05) }
+
+    /* Minimal feature row */
+    .features{ max-width:1100px; margin:36px auto 0; padding:0 24px;
+               display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)) }
+    .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px }
+    .card h3{ margin:.2em 0 .2em }
+    .card p{ margin:.2em 0 0; color:var(--muted) }
+
+    /* Footer */
+    footer{ margin-top:48px; padding:28px 24px; border-top:1px solid var(--line); color:#777; text-align:center }
   </style>
 </head>
 <body>
 
-  <header class="nav" role="banner">
+  <!-- Header -->
+  <header class="nav">
     <a class="brand" href="index.html" aria-label="Patch & Pot home">
-      <img src="img/patchandpot-logo.png" alt="Patch & Pot" width="180">
+      <img src="img/patchandpot-logo.png" alt="Patch & Pot">
     </a>
-    <nav role="navigation" aria-label="Main">
+    <nav aria-label="Main">
       <a href="index.html">Home</a>
       <a href="ideas.html">Growing Ideas</a>
       <a href="wellbeing/index.html">Wellbeing</a>
@@ -49,39 +79,32 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <img src="img/patchandpot-logo.png" alt="" width="180" style="display:block;margin:0 auto 18px;opacity:.95">
-    <h1>Grow calm. Grow food. Grow together.</h1>
-    <p>Simple, seasonal gardening and mindful growing ideas — from windowsill pots to bigger patches.</p>
-    <a class="btn" href="wellbeing/index.html">Explore Wellbeing</a>
+  <!-- Full-bleed HERO -->
+  <section class="hero" role="banner">
+    <div class="hero-inner">
+      <div class="eyebrow">Patch &amp; Pot</div>
+      <h1>Grow calm. Grow food. Grow together.</h1>
+      <p>Simple, seasonal gardening and mindful growing ideas — from windowsill pots to bigger patches.</p>
+      <a class="btn" href="wellbeing/index.html">Explore Wellbeing</a>
+    </div>
   </section>
 
-  <section class="grid" aria-label="Featured sections">
+  <!-- Three quick entry points -->
+  <section class="features" aria-label="Featured">
     <a class="card" href="ideas.html">
       <h3>Growing Ideas</h3>
       <p>Quick wins for small spaces, companion planting, herbs and cut flowers.</p>
     </a>
     <a class="card" href="wellbeing/index.html">
       <h3>Wellbeing</h3>
-      <p>Mindful gardening, dementia-friendly tips, and sensory planting.</p>
+      <p>Mindful gardening, dementia-friendly tips, sensory planting, stress resets.</p>
     </a>
     <a class="card" href="about.html">
       <h3>About</h3>
-      <p>What Patch & Pot is and how to get started with minimal kit.</p>
+      <p>What Patch &amp; Pot is about and how to get started with minimal kit.</p>
     </a>
   </section>
 
-  <section class="section">
-    <h2>Wellbeing (Preview)</h2>
-    <p>We’re building a gentle wellbeing space, including mindful gardening, dementia-friendly adaptations, sensory planting, and quick outdoor stress resets.</p>
-    <hr class="soft">
-    <p>For structured mental health resources (self-care tools, support links, resilience, and neurodiversity), we’ll cross-link to the FreeFitFuel hub.</p>
-  </section>
-
-  <footer role="contentinfo">
-    <div>© Patch & Pot</div>
-    <div class="credits">Site by <strong>Grant Cameron Anthony</strong></div>
-  </footer>
-
+  <footer>© Patch & Pot — Site by <strong>Grant Cameron Anthony</strong></footer>
 </body>
 </html>

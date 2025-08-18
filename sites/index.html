@@ -15,76 +15,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 
-<style>
-  :root{
-    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
-    --green:#2E7D32; --green2:#7ed495; --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
-    --maxw:1140px; --radius:16px;
-    --idea-ar: 1/1;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-  a{color:#b3d7ff;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
-
-  /* Header */
-  .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;border-bottom:1px solid #142116;background:#0a100b}
-  .brand{display:flex;align-items:center;gap:10px}
-  .logo{height:44px;width:auto;display:block}
-  .site-title{font-weight:800;letter-spacing:.2px}
-  .nav{display:flex;gap:14px}
-  .nav a{color:#cfe6d6;opacity:.9}
-  .nav a:hover{opacity:1}
-
-  /* HERO */
-  .hero{position:relative;border-bottom:1px solid #142116}
-  .hero figure{position:relative;margin:0}
-  .hero img{
-    width:100%;height:64vh;min-height:420px;
-    object-fit:cover;display:block;
-    filter:brightness(1.00) saturate(1.05);
-  }
-  .hero .overlay{
-    position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45));
-  }
-  .hero .content{position:absolute;left:0;right:0;bottom:0}
-  .eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);padding:.35rem .7rem;border-radius:999px;color:#dceadf}
-  h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
-  .lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
-  .cta-row{margin:1.1rem 0 1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0}
-  .btn.primary{background:linear-gradient(180deg,var(--green2),var(--green));color:#061007}
-  .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:#fff}
-
-  /* CARDS */
-  .grid{display:grid;gap:14px;margin:22px 0}
-  @media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
-  .card{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:14px}
-  .card h2{font-size:1.12rem;margin:.1rem 0 .4rem}
-  .meta{font-size:.92rem;color:#b7c7bb}
-
-  /* CAROUSEL */
-  .strip{scroll-margin-top:70px}
-  .scroller{display:flex;gap:12px;overflow-x:auto;padding:.25rem;scroll-snap-type:x proximity}
-  .tile{
-    flex:0 0 auto;width:280px;border-radius:14px;border:1px solid var(--stroke);background:var(--glass);
-    display:flex;flex-direction:column;overflow:visible;scroll-snap-align:center;
-  }
-  .thumb{
-    aspect-ratio: var(--idea-ar);
-    background:#0c0c10;border-bottom:1px solid var(--stroke);
-    display:block;overflow:hidden;border-top-left-radius:14px;border-top-right-radius:14px;
-  }
-  .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-  .cap{padding:.7rem .9rem;color:#c0d0c4;font-size:.95rem}
-
-  /* Footer */
-  footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
-  .footer-inner{display:flex;align-items:center;gap:12px;justify-content:space-between}
-  .footer-icon{height:40px;width:auto;display:block;opacity:.95}
-  footer p{font-size:.9em;color:#9ab09f;margin:0;padding:12px 0}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 

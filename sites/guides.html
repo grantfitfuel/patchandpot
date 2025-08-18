@@ -1,119 +1,59 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Patch & Pot – Guides</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-
-<style>
-  :root{
-    --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
-    --green:#2E7D32; --green2:#7ed495; --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
-    --maxw:1140px; --radius:16px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-  a{color:#b3d7ff;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
-  .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;border-bottom:1px solid #142116;background:#0a100b}
-  .brand{display:flex;align-items:center;gap:10px}
-  .logo{height:44px;width:auto}
-  .site-title{font-weight:800;letter-spacing:.2px}
-  .nav{display:flex;gap:14px;flex-wrap:wrap}
-  .nav a{color:#cfe6d6;opacity:.9}
-  .nav a:hover{opacity:1}
-  h1,h2{font-weight:800;letter-spacing:.2px}
-  h1{font-size:clamp(1.8rem,1.4rem + 2vw,2.5rem)}
-  h2{margin-top:1.4em}
-  section{margin:2em 0;padding:1em;border-radius:var(--radius);background:var(--glass);border:1px solid var(--stroke)}
-  .mini-nav{margin-top:1em;display:flex;gap:.75rem;flex-wrap:wrap}
-  .mini-nav a{padding:.6rem 1rem;border-radius:10px;font-weight:600;font-size:.9rem;border:1px solid var(--stroke);background:rgba(255,255,255,.06);color:#cfe6d6}
-  .mini-nav a:hover{background:rgba(255,255,255,.12)}
-  footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
-  .footer-inner{display:flex;align-items:center;gap:12px;justify-content:space-between}
-  .footer-icon{height:40px;width:auto;display:block;opacity:.95}
-  footer p{font-size:.9em;color:#9ab09f;margin:0;padding:12px 0}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Guides – Patch & Pot</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="brand">
-    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <img src="img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
   <nav class="nav" aria-label="Primary">
     <a href="index.html">Home</a>
-    <a href="recipes.html">Recipes</a>
-    <a href="wellbeing.html">Wellbeing</a>
-    <a href="exercise.html">Exercise</a>
+    <a href="guides.html" aria-current="page">Guides</a>
     <a href="ideas.html">Ideas</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="exercise.html">Exercise</a>
+    <a href="wellbeing.html">Wellbeing</a>
   </nav>
 </header>
 
 <main class="wrap">
-  <h1>Growing Guides</h1>
-  <p>Step-by-step guides to help you start, plan and enjoy mindful growing.</p>
+  <h1>Guides to Get You Started</h1>
+  <p class="lead">Concise, practical how-tos. Tiles match the Ideas grid for visual consistency.</p>
 
-  <section id="firstpot">
-    <h2>Your First Pot</h2>
-    <p>Starting simple means you actually get growing. One pot is all you need.</p>
-    <ul>
-      <li><strong>Choose your pot:</strong> at least 20–25cm deep, with drainage holes.</li>
-      <li><strong>Drainage:</strong> add broken crockery, grit or even polystyrene at the base.</li>
-      <li><strong>Soil:</strong> multi-purpose compost mixed with a little grit for airflow.</li>
-      <li><strong>Seeds:</strong> start with lettuce, radish, or basil — quick wins.</li>
-      <li><strong>Watering:</strong> keep soil moist, not soggy. Stick a finger in to test.</li>
-    </ul>
-    <div class="mini-nav">
-      <a href="#sow">Next: What to Sow &amp; When</a>
-      <a href="index.html">Back to Home</a>
-      <a href="ideas.html">See Ideas</a>
-    </div>
+  <section class="guides-grid" aria-label="Guides grid">
+    <figure class="tile">
+      <span class="thumb"><img src="img/potting.jpg" alt="Potting compost and seeds ready to sow"></span>
+      <figcaption class="cap"><strong>Your First Pot</strong> — container choice, drainage, compost, watering.</figcaption>
+    </figure>
+
+    <figure class="tile">
+      <span class="thumb"><img src="img/seasons.jpg" alt="Seed packets by month"></span>
+      <figcaption class="cap"><strong>What to Sow &amp; When</strong> — a UK-friendly calendar.</figcaption>
+    </figure>
+
+    <figure class="tile">
+      <span class="thumb"><img src="img/mindful.jpg" alt="Hands tending herbs with calm focus"></span>
+      <figcaption class="cap"><strong>2-Minute Calm</strong> — mindful breathing while you garden.</figcaption>
+    </figure>
   </section>
 
-  <section id="sow">
-    <h2>What to Sow &amp; When</h2>
-    <p>A UK-friendly sowing calendar for balcony and pot growers:</p>
-    <ul>
-      <li><strong>Spring (Mar–May):</strong> lettuce, spinach, beetroot, herbs.</li>
-      <li><strong>Summer (Jun–Aug):</strong> tomatoes, peppers, dwarf beans.</li>
-      <li><strong>Autumn (Sep–Oct):</strong> kale, pak choi, winter salads.</li>
-      <li><strong>Winter (Nov–Feb):</strong> hardy greens, garlic, broad beans under cover.</li>
-    </ul>
-    <div class="mini-nav">
-      <a href="#firstpot">Previous: Your First Pot</a>
-      <a href="#calm">Next: 2-Minute Calm</a>
-      <a href="ideas.html">See Ideas</a>
-    </div>
-  </section>
-
-  <section id="calm">
-    <h2>2-Minute Calm</h2>
-    <p>Mindful pauses while tending your plants:</p>
-    <ol>
-      <li>Pause. Place both hands gently on the pot.</li>
-      <li>Inhale slowly for a count of 4, feel the scent of soil or herbs.</li>
-      <li>Exhale for a count of 6, soften your shoulders.</li>
-      <li>Notice one small detail on the plant you hadn’t before.</li>
-    </ol>
-    <p>Repeat once, then return to your day — calmer, lighter.</p>
-    <div class="mini-nav">
-      <a href="#sow">Previous: What to Sow &amp; When</a>
-      <a href="index.html">Back to Home</a>
-      <a href="ideas.html">See Ideas</a>
-    </div>
-  </section>
+  <nav class="mini-nav" aria-label="Secondary navigation">
+    <a href="index.html">← Back to Home</a>
+    <a href="ideas.html">🌱 See Ideas</a>
+    <a href="#top">⬆ Top</a>
+  </nav>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <img src="img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>

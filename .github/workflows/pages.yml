@@ -1,11 +1,8 @@
-name: Deploy GitHub Pages from /sites
+name: Deploy Pages (from /sites)
 
 on:
   push:
-    branches: [ "main" ]
-    paths:
-      - "sites/**"
-      - ".github/workflows/pages.yml"
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -24,11 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # REQUIRED by Pages – keeps your /sites deploy working
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload /sites as artifact
+      # Upload ONLY the /sites folder as the site artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: sites

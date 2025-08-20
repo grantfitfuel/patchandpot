@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Patch & Pot – Wellbeing</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wellbeing — Patch & Pot</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+  <link rel="stylesheet" href="style.css?v=wb1">
 </head>
 <body>
 
@@ -20,85 +18,73 @@
     <span class="site-title">Patch &amp; Pot</span>
   </div>
   <nav class="nav" aria-label="Primary">
-  <a href="index.html">Home</a>
-  <a href="recipes.html">Recipes</a>
-  <a href="wellbeing.html">Wellbeing</a>
-  <a href="exercise.html">Exercise</a>
-  <a href="guides.html">Guides</a>
-  <a href="ideas.html">Ideas</a>
-</nav>
+    <a href="index.html">Home</a>
+    <a href="recipes.html">Recipes</a>
+    <a href="wellbeing.html" aria-current="page">Wellbeing</a>
+    <a href="exercise.html">Exercise</a>
+    <a href="guides.html">Guides</a>
+    <a href="ideas.html">Ideas</a>
+  </nav>
 </header>
 
 <header class="hero" role="banner" aria-label="Wellbeing hero">
   <figure>
-    <img src="img/hero.jpg" alt="Calm growing moment">
+    <img src="img/wellbeing-hero.jpg" alt="Calm garden scene with soft light">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
     <div class="wrap">
-      <span class="eyebrow">Mind first</span>
-      <h1>Wellbeing</h1>
-      <p class="lead">Gentle, practical tools you can use beside your plants — with crisis signposting and simple brain-friendly habits.</p>
+      <span class="eyebrow">Support for tough days</span>
+      <h1>Wellbeing Hub</h1>
+      <p class="lead">Practical, kind resources for carers, grief, crisis, abuse, neurodiversity — plus tools to reframe thoughts and steady the mind.</p>
+      <div class="cta-row">
+        <a class="btn" href="#topics">Browse topics</a>
+      </div>
     </div>
   </div>
 </header>
 
-<main class="wrap">
-  <section class="grid" aria-label="Wellbeing sections">
-    <article class="card">
-      <h2>Crisis Support</h2>
-      <p class="meta">Immediate help, safety planning, and trusted helplines.</p>
-      <a class="btn primary" href="wellbeing/crisis.html">Open Crisis</a>
-    </article>
-
-    <article class="card">
-      <h2>Carer Support</h2>
-      <p class="meta">Anchors and tiny routines for heavy days.</p>
-      <a class="btn ghost" href="wellbeing/carers.html">Open Carers</a>
-    </article>
-
-    <article class="card">
-      <h2>Grief</h2>
-      <p class="meta">Simple ways to hold steady in the roughness.</p>
-      <a class="btn ghost" href="wellbeing/grief.html">Open Grief</a>
-    </article>
-
-    <article class="card">
-      <h2>Abuse</h2>
-      <p class="meta">Quiet signposting and safety notes.</p>
-      <a class="btn ghost" href="wellbeing/abuse.html">Open Abuse</a>
-    </article>
-
-    <article class="card">
-      <h2>Neurodiversity</h2>
-      <p class="meta">ADHD/autism-friendly garden habits and sensory ideas.</p>
-      <a class="btn ghost" href="wellbeing/neurodiversity.html">Open Neurodiversity</a>
-    </article>
-
-    <article class="card">
-      <h2>Re-programming Your Brain</h2>
-      <p class="meta">Tiny, repeatable cues linked to plant care.</p>
-      <a class="btn ghost" href="wellbeing/brain-reprogramming.html">Open Re-programming</a>
-    </article>
-
-    <article class="card">
-      <h2>Neurolinguistics</h2>
-      <p class="meta">Helpful scripts and language swaps.</p>
-      <a class="btn ghost" href="wellbeing/neurolinguistics.html">Open Neurolinguistics</a>
-    </article>
-
-    <article class="card">
-      <h2>Thought Reframing</h2>
-      <p class="meta">From “I can’t” to one tiny next step.</p>
-      <a class="btn ghost" href="wellbeing/thought-reframing.html">Open Reframing</a>
-    </article>
+<main class="wrap" id="topics" aria-label="Wellbeing topics">
+  <section class="guides-grid">
+    <a class="tile" href="wellbeing/carers.html">
+      <span class="thumb"><img src="img/wb-carers.jpg" alt="Carer holding a mug in a quiet moment"></span>
+      <div class="cap"><strong>Carers</strong> — support, pacing, boundaries</div>
+    </a>
+    <a class="tile" href="wellbeing/grief.html">
+      <span class="thumb"><img src="img/wb-grief.jpg" alt="Candle next to a plant"></span>
+      <div class="cap"><strong>Grief</strong> — breath, routines, gentle steps</div>
+    </a>
+    <a class="tile" href="wellbeing/crisis.html">
+      <span class="thumb"><img src="img/wb-crisis.jpg" alt="Sunrise over leaves"></span>
+      <div class="cap"><strong>Crisis</strong> — stay safe, get help now</div>
+    </a>
+    <a class="tile" href="wellbeing/abuse.html">
+      <span class="thumb"><img src="img/wb-abuse.jpg" alt="Hands with soil and a small plant"></span>
+      <div class="cap"><strong>Abuse</strong> — safety planning & next steps</div>
+    </a>
+    <a class="tile" href="wellbeing/neurodiversity.html">
+      <span class="thumb"><img src="img/wb-neurodiversity.jpg" alt="Patterned leaves"></span>
+      <div class="cap"><strong>Neurodiversity</strong> — sensory-friendly ideas</div>
+    </a>
+    <a class="tile" href="wellbeing/brain-reprogramming.html">
+      <span class="thumb"><img src="img/wb-reprogram.jpg" alt="Notebook with plant nearby"></span>
+      <div class="cap"><strong>Reprogramming your brain</strong> — micro habits</div>
+    </a>
+    <a class="tile" href="wellbeing/neurolinguistics.html">
+      <span class="thumb"><img src="img/wb-neurolinguistics.jpg" alt="Words on cards"></span>
+      <div class="cap"><strong>Neurolinguistics</strong> — language that helps</div>
+    </a>
+    <a class="tile" href="wellbeing/thought-reframing.html">
+      <span class="thumb"><img src="img/wb-reframing.jpg" alt="Light through leaves"></span>
+      <div class="cap"><strong>Thought reframing</strong> — shift the angle</div>
+    </a>
   </section>
 
-  <nav class="mini-nav" aria-label="Grow & Guides">
+  <div class="mini-nav">
+    <a href="growing.html">Growing Food</a>
+    <a href="guides.html">How-to Guides</a>
     <a href="ideas.html">Ideas</a>
-    <a href="guides.html">Guides</a>
-    <a href="index.html">Home</a>
-  </nav>
+  </div>
 </main>
 
 <footer>
@@ -107,6 +93,5 @@
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
-
 </body>
 </html>

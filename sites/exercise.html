@@ -3,7 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Exercise – Patch & Pot</title>
+<title>Patch & Pot – Exercise</title>
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,25 +20,58 @@
     <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav">
-    <a href="index.html">Home</a>
+  <nav class="nav" aria-label="Primary">
     <a href="recipes.html">Recipes</a>
-    <a href="exercise.html">Exercise</a>
-    <a href="wellbeing.html">Mental Wellbeing</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="exercise.html" aria-current="page">Exercise</a>
+    <a href="guides.html">Guides</a>
+    <a href="ideas.html">Ideas</a>
   </nav>
-  <link rel="stylesheet" href="style.css">
+</header>
+
+<header class="hero" role="banner" aria-label="Exercise hero">
+  <figure>
+    <img src="img/hero.jpg" alt="Rolling a mat to get moving">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content">
+    <div class="wrap">
+      <span class="eyebrow">Move gently</span>
+      <h1>Exercise</h1>
+      <p class="lead">Short, realistic sessions that fit around life and growing.</p>
+    </div>
+  </div>
 </header>
 
 <main class="wrap">
-  <h1>Exercise</h1>
-  <p>Simple, effective home workouts to pair with your nutrition and mindful growing.  
-  Full plans, filters, and printable sheets will be added here.</p>
+  <section class="grid">
+    <article class="card">
+      <h2>5-Minute Mobility</h2>
+      <p class="meta">Loosen the shoulders, open the hips, and breathe.</p>
+      <a class="btn ghost" href="#">Coming soon</a>
+    </article>
+    <article class="card">
+      <h2>Bodyweight Basics</h2>
+      <p class="meta">Foundational moves that need zero kit.</p>
+      <a class="btn ghost" href="#">Coming soon</a>
+    </article>
+    <article class="card">
+      <h2>Recovery Walks</h2>
+      <p class="meta">A gentle, cheap way to reset head and body.</p>
+      <a class="btn ghost" href="#">Coming soon</a>
+    </article>
+  </section>
+
+  <nav class="mini-nav" aria-label="Explore">
+    <a href="ideas.html">Ideas</a>
+    <a href="guides.html">Guides</a>
+  </nav>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
     <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© Patch &amp; Pot | Grant Cameron Anthony</p>
+    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
 

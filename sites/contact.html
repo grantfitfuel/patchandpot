@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Patch & Pot</title>
+
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* small form styling that matches your cards */
+.form-wrap{max-width:720px;margin:20px auto}
+.form{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:16px}
+.form label{display:block;font-weight:600;margin:.5rem 0 .25rem;color:var(--ink)}
+.form input,.form textarea{
+  width:100%;padding:.75rem .85rem;border-radius:12px;border:1px solid var(--stroke);
+  background:#0a0f0c;color:var(--ink)
+}
+.form textarea{min-height:160px;resize:vertical}
+.form .row{display:grid;gap:12px}
+@media(min-width:700px){.form .row{grid-template-columns:1fr 1fr}}
+.form .actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
+  </div>
+  <nav class="nav" aria-label="Primary">
+    <a href="recipes.html">Recipes</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="exercise.html">Exercise</a>
+    <a href="guides.html">Guides</a>
+    <a href="ideas.html">Ideas</a>
+  </nav>
+</header>
+
+<header class="hero" role="banner" aria-label="Contact hero">
+  <figure>
+    <img src="img/hero.jpg" alt="A calm workspace with plants">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content">
+    <div class="wrap">
+      <span class="eyebrow">Say hello</span>
+      <h1>Contact</h1>
+      <p class="lead">Questions, tips to share, or want to collaborate? Send a note below.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="form-wrap" aria-label="Contact form">
+    <!-- Note: this is a static form — you can wire it to Brevo/MailerLite or use mailto: for now -->
+    <form class="form" action="mailto:info@patchandpot.example" method="post" enctype="text/plain">
+      <div class="row">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+      </div>
+
+      <label for="subject">Subject</label>
+      <input id="subject" name="subject" type="text" placeholder="What’s this about?" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Write your message…" required></textarea>
+
+      <div class="actions">
+        <button class="btn primary" type="submit">Send</button>
+        <a class="btn ghost" href="mailto:info@patchandpot.example">Open email app</a>
+      </div>
+
+      <p class="meta" style="margin-top:10px;">
+        Prefer email? Write to <a href="mailto:info@patchandpot.example">info@patchandpot.example</a>
+      </p>
+    </form>
+  </section>
+
+  <section class="grid" aria-label="More info">
+    <article class="card">
+      <h2>Response time</h2>
+      <p class="meta">We try to reply within a couple of working days.</p>
+    </article>
+    <article class="card">
+      <h2>Privacy</h2>
+      <p class="meta">We only use your details to reply. No spam, no sharing.</p>
+    </article>
+    <article class="card">
+      <h2>Contributions</h2>
+      <p class="meta">If you submit tips or photos, please confirm you own the rights to share them.</p>
+    </article>
+  </section>
+
+  <nav class="mini-nav" aria-label="Quick links">
+    <a href="about.html">About</a>
+    <a href="guides.html">Guides</a>
+    <a href="index.html">Home</a>
+  </nav>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+  </div>
+</footer>
+
+</body>
+</html>

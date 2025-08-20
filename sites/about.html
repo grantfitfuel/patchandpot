@@ -1,31 +1,99 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-GB">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About – Patch & Pot</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About — Patch & Pot</title>
+
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <a href="index.html"><img src="img/patchandpot-logo.png" alt="Patch & Pot" width="160"></a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="ideas.html">Growing Ideas</a>
-    <a href="wellbeing/index.html">Wellbeing</a>
-    <a href="about.html">About</a>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
+  </div>
+  <nav class="nav" aria-label="Primary">
+    <a href="recipes.html">Recipes</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="exercise.html">Exercise</a>
+    <a href="guides.html">Guides</a>
+    <a href="ideas.html">Ideas</a>
   </nav>
 </header>
 
-<main class="section">
-  <h1>About Patch & Pot</h1>
-  <p>Patch & Pot is about making gardening accessible and mindful. Whether you’ve got a single pot on a balcony or a patch in the garden, you can grow food, flowers, and calm.</p>
-  <p>We emphasise affordable, practical, and inclusive gardening — with tips for growing from seed, recycling containers, and creating sensory planting spaces.</p>
+<header class="hero" role="banner" aria-label="About hero">
+  <figure>
+    <img src="img/hero.jpg" alt="Hands tending a plant on a balcony">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content">
+    <div class="wrap">
+      <span class="eyebrow">Who we are</span>
+      <h1>About Patch &amp; Pot</h1>
+      <p class="lead">Helping people grow food and calm—anywhere. Balcony, window, or a single pot is enough.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="grid" aria-label="Our purpose">
+    <article class="card">
+      <h2>Simple &amp; achievable</h2>
+      <p class="meta">We focus on tiny starts, low-cost kit, and recipes that use what you grow.</p>
+    </article>
+    <article class="card">
+      <h2>Mind first</h2>
+      <p class="meta">Short wellbeing tools alongside growing—because hard days happen.</p>
+    </article>
+    <article class="card">
+      <h2>Accessible</h2>
+      <p class="meta">Guides that work for small spaces, limited energy, and different brain styles.</p>
+    </article>
+  </section>
+
+  <section class="grid" aria-label="Credits & contact">
+    <article class="card">
+      <h2>Created by</h2>
+      <p>Grant Cameron Anthony</p>
+      <p class="meta">Design, writing, and code with help from open-source tools and the gardening community.</p>
+    </article>
+    <article class="card">
+      <h2>How to use this site</h2>
+      <ul>
+        <li>Start on <a href="ideas.html">Ideas</a> for inspiration tiles.</li>
+        <li>Open <a href="guides.html">Guides</a> for step-by-steps.</li>
+        <li>Visit <a href="wellbeing.html">Wellbeing</a> for short resets.</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h2>Contribute</h2>
+      <p class="meta">Spot a typo, want to add a tip, or share a small-space win? We love that.</p>
+      <p><a class="btn primary" href="contact.html">Send a message</a></p>
+    </article>
+  </section>
+
+  <nav class="mini-nav" aria-label="Quick links">
+    <a href="growing.html">Growing</a>
+    <a href="guides.html">Guides</a>
+    <a href="index.html">Home</a>
+  </nav>
+
 </main>
 
 <footer>
-  © Patch & Pot — Site by <strong>Grant Cameron Anthony</strong>
+  <div class="wrap footer-inner">
+    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+  </div>
 </footer>
+
 </body>
 </html>

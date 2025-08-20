@@ -4,10 +4,10 @@
 
 :root{
   --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
-  --green:#2E7D32; --green2:#7ed495;
+  --green:#2E7D32; --green2:#7ed495;            /* primary greens */
   --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
   --maxw:1140px; --radius:16px;
-  --idea-ar:1/1; /* default square */
+  --idea-ar:1/1; /* default square tiles */
 }
 
 *{box-sizing:border-box}
@@ -21,7 +21,7 @@ a{color:#b3d7ff; text-decoration:none}
 .wrap{max-width:var(--maxw); margin:0 auto; padding:16px 20px}
 
 /* ===============================
-   Header / Nav
+   Header / Nav (GREEN BUTTON NAV)
    =============================== */
 .site-header{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
@@ -30,10 +30,22 @@ a{color:#b3d7ff; text-decoration:none}
 .brand{display:flex; align-items:center; gap:10px}
 .logo{height:44px; width:auto}
 .site-title{font-weight:800; letter-spacing:.2px}
-.nav{display:flex; gap:14px; flex-wrap:wrap}
-.nav a{color:#cfe6d6; opacity:.9; padding:.35rem .6rem; border-radius:8px; transition:.2s}
-.nav a:hover{opacity:1; background:rgba(255,255,255,.08)}
-[aria-current="page"]{text-decoration:underline}
+
+/* nav is now button-style, green */
+.nav{
+  display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+}
+.nav a{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.45rem .8rem; border-radius:10px;
+  background:linear-gradient(180deg,var(--green2),var(--green));
+  color:#061007; font-weight:700; border:1px solid rgba(0,0,0,.15);
+  box-shadow:0 1px 0 rgba(0,0,0,.25) inset;
+  transition:filter .15s ease, transform .05s ease;
+}
+.nav a:hover{ filter:brightness(1.05) }
+.nav a:active{ transform:translateY(1px) }
+[aria-current="page"]{ outline:2px solid rgba(126,212,149,.5) }
 
 /* ===============================
    Hero
@@ -52,13 +64,23 @@ a{color:#b3d7ff; text-decoration:none}
 }
 h1{margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
 .lead{max-width:70ch; color:var(--muted); font-size:1.05rem}
-.cta-row{margin:1.1rem 0 1.6rem; display:flex; gap:.75rem; flex-wrap:wrap}
+
+/* ===============================
+   Buttons (site-wide GREEN)
+   =============================== */
 .btn{
   display:inline-flex; align-items:center; gap:.55rem; padding:.85rem 1.15rem;
   border-radius:12px; font-weight:700; border:0; cursor:pointer;
 }
-.btn.primary{background:linear-gradient(180deg,var(--green2),var(--green)); color:#061007}
-.btn.ghost{background:rgba(255,255,255,.10); border:1px solid var(--stroke); color:#fff}
+.btn.primary{
+  background:linear-gradient(180deg,var(--green2),var(--green));
+  color:#061007; border:1px solid rgba(0,0,0,.15);
+  box-shadow:0 1px 0 rgba(0,0,0,.25) inset;
+}
+.btn.ghost{
+  background:rgba(255,255,255,.10); border:1px solid var(--stroke); color:#fff;
+}
+.cta-row{margin:1.1rem 0 1.6rem; display:flex; gap:.75rem; flex-wrap:wrap}
 
 /* ===============================
    Generic Cards (home “Featured guides”)
@@ -70,7 +92,7 @@ h1{margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2
 .meta{font-size:.92rem; color:#b7c7bb}
 
 /* ===============================
-   Home Ideas Carousel (UNCHANGED)
+   Home Ideas Carousel
    =============================== */
 .strip{scroll-margin-top:70px}
 .scroller{display:flex; gap:12px; overflow-x:auto; padding:.25rem; scroll-snap-type:x proximity}
@@ -87,7 +109,7 @@ h1{margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2
 .scroller .cap{padding:.7rem .9rem; color:#c0d0c4; font-size:.95rem}
 
 /* ===============================
-   Home Teaser Tiles (small grid)
+   Teaser Tiles (optional small grid)
    =============================== */
 .teaser-tiles{display:grid; gap:14px; margin:20px 0}
 @media(min-width:700px){.teaser-tiles{grid-template-columns:repeat(3,1fr)}}
@@ -97,7 +119,7 @@ h1{margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2
 .teaser-tiles .cap{padding:.7rem .9rem; color:#c0d0c4; font-size:.95rem}
 
 /* ===============================
-   Ideas & Guides Pages (SCOPED, SQUARE TILES)
+   Ideas & Guides Pages (square tiles)
    =============================== */
 .ideas-grid, .guides-grid{
   display:grid; gap:16px; margin:24px 0;
@@ -105,25 +127,19 @@ h1{margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2
 @media(min-width:600px){ .ideas-grid, .guides-grid{grid-template-columns:repeat(2,1fr)} }
 @media(min-width:900px){ .ideas-grid, .guides-grid{grid-template-columns:repeat(3,1fr)} }
 
-/* Tile container */
 .ideas-grid .tile, .guides-grid .tile{
   background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius);
   overflow:hidden; display:flex; flex-direction:column;
 }
-
-/* Enforce perfect square image area */
 .ideas-grid .tile .thumb, .guides-grid .tile .thumb{
   width:100%; aspect-ratio:1/1; background:#0a0d0c; overflow:hidden;
 }
 .ideas-grid .tile .thumb img, .guides-grid .tile .thumb img{
   width:100%; height:100%; object-fit:cover; display:block;
 }
-
-/* Fallback if tile uses <img> directly (no .thumb wrapper) */
 .ideas-grid .tile > img, .guides-grid .tile > img{
   width:100%; height:100%; aspect-ratio:1/1; object-fit:cover; display:block;
 }
-
 .ideas-grid .cap, .guides-grid .cap{
   padding:.75rem .95rem; color:var(--muted); font-size:.95rem;
 }
@@ -135,11 +151,12 @@ h1{margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2
   display:flex; gap:14px; flex-wrap:wrap; margin-top:20px;
 }
 .mini-nav a{
-  background:rgba(255,255,255,0.07); border:1px solid var(--stroke);
-  padding:.6rem .9rem; border-radius:10px; font-size:.9rem; color:var(--inkdim);
-  font-weight:600; text-align:center; flex:1 1 160px;
+  background:linear-gradient(180deg,var(--green2),var(--green));
+  color:#061007; font-weight:700;
+  border:1px solid rgba(0,0,0,.15);
+  padding:.6rem .9rem; border-radius:10px; text-align:center; flex:1 1 160px;
 }
-.mini-nav a:hover{background:rgba(255,255,255,0.12); color:var(--ink)}
+.mini-nav a:hover{filter:brightness(1.05)}
 
 /* ===============================
    Footer

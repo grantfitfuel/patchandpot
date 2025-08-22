@@ -1,83 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-label="Emotion circuit: amygdala checked by prefrontal cortex with body inputs and reset actions">
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Emotion circuit: amygdala signal checked by prefrontal cortex; body resets lower alarm">
+  <!-- === DEFINITIONS === -->
   <defs>
-    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0b120d"/>
-      <stop offset="100%" stop-color="#121b14"/>
-    </linearGradient>
-    <radialGradient id="nodeGreen" cx="50%" cy="40%" r="70%">
-      <stop offset="0%" stop-color="#a9f1bd"/>
-      <stop offset="100%" stop-color="#2E7D32"/>
-    </radialGradient>
-    <radialGradient id="nodeMint" cx="50%" cy="40%" r="70%">
-      <stop offset="0%" stop-color="#e8fff1"/>
-      <stop offset="100%" stop-color="#7ed495"/>
-    </radialGradient>
-    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.35"/>
-    </filter>
-    <marker id="arrowHead" viewBox="0 0 12 8" refX="10" refY="4" markerWidth="12" markerHeight="8" orient="auto">
-      <path d="M0,0 L12,4 L0,8 Z" fill="#E7F5EC"/>
+    <!-- arrows -->
+    <marker id="arrowhead" markerWidth="14" markerHeight="10" refX="11" refY="5" orient="auto">
+      <path d="M0,0 L14,5 L0,10 Z" fill="#E6F3EB"/>
     </marker>
+    <!-- soft panel gradient -->
+    <linearGradient id="panelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c110d" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#0c110d" stop-opacity="0.22"/>
+    </linearGradient>
+    <!-- fonts & common styles -->
     <style>
-      .title{font:800 28px system-ui,-apple-system,Segoe UI,Roboto,Arial;fill:#FFFFFF}
-      .panel{fill:url(#bgGrad);stroke:#3a5343;stroke-width:1.5;rx:18}
-      .section{fill:#0e1712;stroke:#385a43;stroke-width:1.5;rx:14}
-      .node{filter:url(#softShadow)}
-      .label{font:700 20px system-ui,-apple-system,Segoe UI,Roboto,Arial;fill:#E7F5EC}
-      .text{font:600 17px system-ui,-apple-system,Segoe UI,Roboto,Arial;fill:#cfe6d6}
-      .arrow{fill:none;stroke:#E7F5EC;stroke-width:3.5;marker-end:url(#arrowHead)}
-      .arrow-strong{stroke:#7ed495}
-      .chip{fill:#203a2c;stroke:#497a5c;stroke-width:1.2;rx:10}
-      .chipText{font:700 14px system-ui,-apple-system,Segoe UI,Roboto,Arial;fill:#bfe6cc}
+      .title { font: 800 32px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #ffffff; }
+      .h { font: 700 22px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #E6F3EB; }
+      .p { font: 600 17px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #cfe6d6; }
+      .small { font: 600 15px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #cfe6d6; }
+      .panel { fill: url(#panelGrad); stroke: #6FAE82; stroke-width: 2; rx: 18; }
+      .node { stroke-width: 2.5; }
+      .arrow { fill: none; stroke: #E6F3EB; stroke-width: 3.2; marker-end: url(#arrowhead); }
+      .arrow-strong { stroke: #7ED495; }
+      .badge { fill: #2E7D32; }
+      .tick { fill: #7ED495; }
     </style>
   </defs>
 
-  <rect x="0" y="0" width="1200" height="760" fill="url(#bgGrad)"/>
-  <text x="40" y="54" class="title">Emotion Circuit — “Signal, not instruction”</text>
-  <rect x="26" y="70" width="1148" height="660" class="panel"/>
+  <!-- === BACK PANEL === -->
+  <rect x="24" y="24" width="1352" height="852" class="panel"/>
+  <text x="48" y="72" class="title">Emotion Circuit — Treat emotion as a signal, not an instruction</text>
 
-  <!-- Left column: Sensory/Body -->
-  <rect x="60" y="120" width="320" height="170" class="section"/>
-  <text x="80" y="150" class="label">Body & Senses (context)</text>
-  <text x="80" y="178" class="text">Heart rate · breath · posture · light · sounds</text>
-  <text x="80" y="205" class="text">Tension map: jaw/shoulders/gut · hydration</text>
-  <rect x="80" y="220" width="120" height="32" class="chip"/><text x="92" y="241" class="chipText">Name the state</text>
-  <rect x="214" y="220" width="150" height="32" class="chip"/><text x="226" y="241" class="chipText">Adjust inputs first</text>
+  <!-- === LEFT: AMYGDALA (salience/threat) === -->
+  <!-- node shape -->
+  <ellipse cx="310" cy="360" rx="128" ry="96" class="node" fill="#F26B6B" stroke="#D34E4E"/>
+  <!-- “glow” rings to give depth -->
+  <ellipse cx="310" cy="360" rx="148" ry="112" fill="none" stroke="#F26B6B" stroke-opacity="0.25" stroke-width="10"/>
+  <ellipse cx="310" cy="360" rx="168" ry="128" fill="none" stroke="#F26B6B" stroke-opacity="0.12" stroke-width="12"/>
+  <text x="310" y="354" text-anchor="middle" class="h">Amygdala</text>
+  <text x="310" y="382" text-anchor="middle" class="small">salience / alarm</text>
 
-  <!-- Amygdala node -->
-  <ellipse cx="360" cy="420" rx="120" ry="88" fill="url(#nodeGreen)" class="node" stroke="#153a21" stroke-width="2.5"/>
-  <text x="360" y="410" text-anchor="middle" class="label">Amygdala</text>
-  <text x="360" y="436" text-anchor="middle" class="text">threat · salience · tagging</text>
+  <!-- sensory/context node below -->
+  <rect x="180" y="500" width="260" height="120" rx="16" class="node" fill="#1E3C31" stroke="#9AD9AE"/>
+  <text x="310" y="540" text-anchor="middle" class="h">Body &amp; Senses</text>
+  <text x="310" y="566" text-anchor="middle" class="small">breath • posture • heart • light • sound</text>
+  <!-- feed arrow up into amygdala -->
+  <path d="M310 500 L310 456" class="arrow"/>
 
-  <!-- Prefrontal node -->
-  <rect x="760" y="360" width="300" height="120" fill="url(#nodeMint)" class="node" stroke="#3f6f57" stroke-width="2.5" rx="16"/>
-  <text x="910" y="396" text-anchor="middle" class="label">Prefrontal Cortex</text>
-  <text x="910" y="424" text-anchor="middle" class="text">naming · plans · brakes</text>
-  <text x="910" y="448" text-anchor="middle" class="text">values → micro-actions</text>
+  <!-- === RIGHT: PREFRONTAL CORTEX (regulation) === -->
+  <rect x="864" y="300" width="320" height="140" rx="18" class="node" fill="#2B7A78" stroke="#7ED495"/>
+  <!-- subtle shine -->
+  <rect x="864" y="300" width="320" height="70" rx="18" fill="#5BB9B3" opacity="0.18"/>
+  <text x="1024" y="350" text-anchor="middle" class="h">Prefrontal Cortex</text>
+  <text x="1024" y="378" text-anchor="middle" class="small">naming • plans • inhibitory “brakes”</text>
 
-  <!-- Strong feed-forward -->
-  <path d="M480 420 C580 420, 680 420, 760 420" class="arrow arrow-strong"/>
-  <!-- Feedback control -->
-  <path d="M760 400 C650 360, 550 350, 440 380" class="arrow"/>
+  <!-- === TOP: action aligned with values === -->
+  <rect x="520" y="120" width="360" height="80" rx="14" class="node" fill="#143D2F" stroke="#7ED495"/>
+  <text x="700" y="168" text-anchor="middle" class="h">Action aligned with values</text>
 
-  <!-- Top outcome bar -->
-  <rect x="420" y="160" width="360" height="72" class="section"/>
-  <text x="600" y="205" text-anchor="middle" class="label">Action aligned with values (tiny, now)</text>
+  <!-- === CONNECTION ARROWS === -->
+  <!-- amygdala -> prefrontal (strong) -->
+  <path d="M438 360 C580 360, 720 360, 864 360" class="arrow arrow-strong"/>
+  <!-- prefrontal -> amygdala (regulatory feedback) -->
+  <path d="M864 332 C720 300, 580 300, 438 328" class="arrow"/>
+  <!-- both nodes influence top outcome -->
+  <path d="M310 264 C420 200, 560 176, 700 176" class="arrow"/>
+  <path d="M1024 300 C940 220, 820 176, 700 176" class="arrow"/>
 
-  <!-- Reset Menu -->
-  <rect x="460" y="520" width="640" height="160" class="section"/>
-  <text x="480" y="552" class="label">2-minute Reset (lower limbic load → restore control)</text>
-  <text x="480" y="580" class="text">• Label it: “This is frustration.”  • Exhale longer (4–6/min)  • Soften jaw/shoulders</text>
-  <text x="480" y="608" class="text">• Look far out a window  • Sip water  • Neck/shoulder rolls 60s  • One kind sentence to self</text>
-  <text x="480" y="636" class="text">• Pick a <tspan style="font-weight:700">micro-step</tspan> consistent with values (≤2 min) and do just that</text>
+  <!-- === RESET MENU (practical 2-min downshift) === -->
+  <rect x="540" y="520" width="620" height="180" rx="18" class="node" fill="#143D2F" stroke="#7ED495"/>
+  <text x="560" y="554" class="h">2-Minute Reset Menu</text>
 
-  <!-- Arrows from body to both nodes -->
-  <path d="M220 290 C260 340, 300 360, 340 380" class="arrow"/>
-  <path d="M220 290 C360 300, 560 300, 820 340" class="arrow"/>
+  <!-- ticks + lines -->
+  <g transform="translate(560, 580)">
+    <circle cx="10" cy="6" r="6" class="tick"/>
+    <text x="26" y="10" class="p">Name it briefly — “This is frustration.” (labelling reduces alarm)</text>
+  </g>
+  <g transform="translate(560, 612)">
+    <circle cx="10" cy="6" r="6" class="tick"/>
+    <text x="26" y="10" class="p">Exhale longer (4–6/min), relax jaw/shoulders, soften gaze</text>
+  </g>
+  <g transform="translate(560, 644)">
+    <circle cx="10" cy="6" r="6" class="tick"/>
+    <text x="26" y="10" class="p">Look far (out a window), sip water, slow neck rolls</text>
+  </g>
 
-  <!-- Quick badges -->
-  <rect x="60" y="660" width="250" height="46" class="chip"/><text x="74" y="688" class="chipText">Feelings = data, not orders</text>
-  <rect x="324" y="660" width="250" height="46" class="chip"/><text x="336" y="688" class="chipText">Body first → words → tiny act</text>
-  <rect x="588" y="660" width="250" height="46" class="chip"/><text x="602" y="688" class="chipText">Design easy cues/rewards</text>
+  <!-- small legend -->
+  <g transform="translate(48, 804)">
+    <circle cx="8" cy="8" r="6" class="badge"/>
+    <text x="24" y="12" class="small">Emotion is data. Use body resets + naming to reopen choice.</text>
+  </g>
 </svg>

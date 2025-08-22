@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Habit loop with cue, tiny action, immediate reward, and friction sliders">
+  <defs>
+    <style>
+      .panel{ fill: rgba(12,17,13,0.06); stroke:#6fae82; stroke-width:2; rx:16; }
+      .title{ font:800 26px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#fff; }
+      .label{ font:700 20px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#e8f5ed; }
+      .txt{ font:600 18px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#cfe6d6; }
+      .loop{ fill:none; stroke:#7ed495; stroke-width:4; stroke-linecap:round; }
+      .node{ fill: rgba(126,212,149,0.12); stroke:#7ed495; stroke-width:2.5; rx:14; }
+      .arrow{ fill:none; stroke:#dceadf; stroke-width:3; marker-end:url(#a); }
+    </style>
+    <marker id="a" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <path d="M0,0 L12,4 L0,8 Z" fill="#dceadf"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="700" fill="none"/>
+  <text x="36" y="56" class="title">Habit Loop — Make It Too Small to Fail</text>
+  <rect x="26" y="70" width="1148" height="600" class="panel"/>
+
+  <!-- Loop nodes -->
+  <rect x="130" y="180" width="260" height="120" class="node"/>
+  <text x="260" y="218" text-anchor="middle" class="label">Cue</text>
+  <text x="260" y="244" text-anchor="middle" class="txt">Kettle on</text>
+
+  <rect x="470" y="180" width="260" height="120" class="node"/>
+  <text x="600" y="218" text-anchor="middle" class="label">Tiny Action</text>
+  <text x="600" y="244" text-anchor="middle" class="txt">Water one pot</text>
+
+  <rect x="810" y="180" width="260" height="120" class="node"/>
+  <text x="940" y="218" text-anchor="middle" class="label">Immediate Reward</text>
+  <text x="940" y="244" text-anchor="middle" class="txt">Tick / photo / sip</text>
+
+  <!-- Arrows -->
+  <path d="M390 240 L470 240" class="arrow"/>
+  <path d="M730 240 L810 240" class="arrow"/>
+  <path d="M940 300 C940 380, 260 380, 260 300" class="arrow"/>
+
+  <!-- Friction design -->
+  <rect x="140" y="360" width="930" height="160" class="node"/>
+  <text x="160" y="392" class="label">Friction Design</text>
+  <text x="160" y="420" class="txt">• Reduce friction for the good thing: tools ready by the sink; labelled pots</text>
+  <text x="160" y="448" class="txt">• Increase friction for the sticky thing: apps in a folder; sign-out; phone in another room</text>
+</svg>

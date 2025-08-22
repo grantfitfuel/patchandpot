@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Neuroscience — Patch & Pot</title>
 
-  <!-- Global CSS -->
+  <!-- Global CSS (one folder up) -->
   <link rel="stylesheet" href="../style.css?v=14">
 
   <!-- Favicons -->
@@ -13,6 +13,12 @@
   <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
+
+  <style>
+    /* helper: show a file-missing note if an image can’t load */
+    .missing-note{display:none;margin:.5rem 0;padding:.6rem .8rem;border:1px solid #b55;border-radius:8px;background:rgba(255,0,0,.07);color:#ffbdbd;font-size:.95rem}
+    figure img{max-width:100%;height:auto;display:block}
+  </style>
 </head>
 <body>
 
@@ -43,7 +49,10 @@
       <h2>1. Emotions &amp; Regulation</h2>
       <p>Your brain has fast alarm systems (amygdala) and slower regulation systems (prefrontal cortex). Stress feels like the alarm shouting louder than the calm voice. Training the calm voice is possible.</p>
       <figure>
-        <img src="../img/ns-emotion-brain.png" alt="Illustration of amygdala (alarm) and prefrontal cortex (regulation)">
+        <img src="../img/ns-emotion-brain.png?v=2"
+             alt="Amygdala (alarm) and prefrontal cortex (regulation)"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="missing-note">Missing image: <code>sites/img/ns-emotion-brain.png</code></div>
         <figcaption class="cap">Amygdala (fast alarm) vs. prefrontal cortex (guide/brake). Breath + label-the-feeling helps the guide take charge.</figcaption>
       </figure>
       <p><strong>Try:</strong> 4–6 breathing (inhale 4, exhale 6) for 60–90 seconds; silently label the feeling (“anxious”, “annoyed”).</p>
@@ -54,10 +63,13 @@
       <h2>2. Habits &amp; Loops</h2>
       <p>Habits run on a loop: <strong>cue → routine → reward</strong>. Don’t fight the loop; keep the cue and reward, swap the routine.</p>
       <figure>
-        <img src="../img/ns-habit-loop.png" alt="Diagram of habit loop showing cue, routine, reward cycle">
+        <img src="../img/ns-habit-loop.png?v=2"
+             alt="Habit loop — cue, routine, reward"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="missing-note">Missing image: <code>sites/img/ns-habit-loop.png</code></div>
         <figcaption class="cap">Keep the reward, swap the routine. Same loop, better outcome.</figcaption>
       </figure>
-      <p><strong>Example:</strong> Afternoon slump (cue) → crisps (routine) → stimulation (reward). Swap to a 2-minute walk and a cold water splash (routine) → same reward.</p>
+      <p><strong>Example:</strong> Afternoon slump (cue) → crisps (routine) → stimulation (reward). Swap to a 2-minute walk &amp; cold water splash → same reward.</p>
     </section>
 
     <!-- 3. Memory & Learning -->
@@ -65,7 +77,10 @@
       <h2>3. Memory &amp; Learning</h2>
       <p>New memories are encoded by the hippocampus and stored across the cortex during sleep. Emotion and repetition strengthen them.</p>
       <figure>
-        <img src="../img/ns-memory-systems.png" alt="Diagram showing hippocampus encoding and cortex storage">
+        <img src="../img/ns-memory-systems.png?v=2"
+             alt="Hippocampus encodes, cortex stores"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="missing-note">Missing image: <code>sites/img/ns-memory-systems.png</code></div>
         <figcaption class="cap">Encode with focus, stabilise with sleep, strengthen with spaced repetition.</figcaption>
       </figure>
       <p><strong>Try:</strong> Water your plants to the same playlist each time. The song becomes a memory cue.</p>
@@ -76,7 +91,10 @@
       <h2>4. Thought Reframing</h2>
       <p>Reframing notices an unhelpful thought, checks the evidence, and replaces it with a balanced alternative. It’s accuracy, not blind positivity.</p>
       <figure>
-        <img src="../img/ns-thought-reframing.png" alt="Infographic showing steps: identify, challenge, new perspective">
+        <img src="../img/ns-thought-reframing.png?v=2"
+             alt="Identify → Challenge → New perspective"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="missing-note">Missing image: <code>sites/img/ns-thought-reframing.png</code></div>
         <figcaption class="cap">Identify → Challenge → New perspective. Repeat until it sticks.</figcaption>
       </figure>
 
@@ -97,18 +115,12 @@
       <h2>5. Affirmations</h2>
       <p>Short, believable phrases prime your brain’s filters to notice matching evidence. Pair with tiny actions to make them “true enough” fast.</p>
       <figure>
-        <img src="../img/ns-affirmations.png" alt="Infographic showing affirmations priming attention and behaviour">
+        <img src="../img/ns-affirmations.png?v=2"
+             alt="Affirmations prime attention and behaviour"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="missing-note">Missing image: <code>sites/img/ns-affirmations.png</code></div>
         <figcaption class="cap">Say it, then do a 60-second action that proves it.</figcaption>
       </figure>
-      <article class="card" style="grid-column:1/-1">
-        <h3>Everyday affirmations</h3>
-        <div class="teaser-tiles">
-          <div class="tile"><span class="cap"><strong>Confidence</strong><br>“I can learn out loud.”<br><u>Action:</u> Share one small update.</span></div>
-          <div class="tile"><span class="cap"><strong>Health</strong><br>“I fuel my body kindly.”<br><u>Action:</u> Drink water now.</span></div>
-          <div class="tile"><span class="cap"><strong>Carers</strong><br>“I’ll do enough today.”<br><u>Action:</u> Choose one next step.</span></div>
-          <div class="tile"><span class="cap"><strong>Calm</strong><br>“I can slow a moment.”<br><u>Action:</u> 6 long exhales.</span></div>
-        </div>
-      </article>
     </section>
 
     <!-- 6. Neuroplasticity -->
@@ -116,49 +128,25 @@
       <h2>6. Neuroplasticity</h2>
       <p>“What fires together, wires together.” Repetition grows useful pathways and lets unused ones fade. Consistency beats intensity.</p>
       <figure>
-        <img src="../img/ns-neuroplasticity.png" alt="Diagram showing growth and pruning of neural pathways">
+        <img src="../img/ns-neuroplasticity.png?v=2"
+             alt="Growth and pruning of neural pathways"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="missing-note">Missing image: <code>sites/img/ns-neuroplasticity.png</code></div>
         <figcaption class="cap">Small, repeatable reps build the path you want the brain to take.</figcaption>
       </figure>
-      <p><strong>Try:</strong> Repeat one reframe or affirmation 30 times across a week. Notice it starts appearing on its own.</p>
     </section>
 
     <!-- 7. Autonomic Nervous System -->
     <section id="ans">
       <h2>7. Autonomic Nervous System: Fight, Flight &amp; Shutdown</h2>
-      <p>The ANS regulates arousal. The sympathetic branch handles <strong>fight/flight</strong>. The parasympathetic (via the vagus nerve) handles <strong>rest/digest</strong>. Under overload we can drop into <strong>shutdown</strong> (freeze/collapse). Learning to steer state is a core skill.</p>
+      <p>The ANS regulates arousal. The sympathetic branch handles fight/flight. The parasympathetic handles rest/digest. Under overload we can drop into shutdown (freeze/collapse). Learning to steer state is a core skill.</p>
       <figure>
-        <img src="../img/ans-three-states.png" alt="Three-state ANS diagram showing Rest & Digest, Fight/Flight, and Shutdown with cues and tools">
+        <img src="../img/ans-three-states.png?v=2"
+             alt="Three-state ANS diagram: Rest & Digest, Fight/Flight, Shutdown"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="missing-note">Missing image: <code>sites/img/ans-three-states.png</code></div>
         <figcaption class="cap">States shift with cues. Use breath, posture, and attention to nudge towards safety.</figcaption>
       </figure>
-      <div class="grid">
-        <article class="card">
-          <h3>Fight / Flight</h3>
-          <p>Fast heart, tight jaw, urgent thoughts.</p>
-          <ul>
-            <li>Exhale longer than inhale (4–6 or 4–8)</li>
-            <li>Drop shoulders; soften jaw</li>
-            <li>Eyes on a stable point; name 5 things you see</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Shutdown</h3>
-          <p>Flat, heavy, disconnected.</p>
-          <ul>
-            <li>Tiny movements (ankle circles, shoulder rolls)</li>
-            <li>Warmth + upright posture</li>
-            <li>Connect with one safe person</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>Rest &amp; Digest</h3>
-          <p>Steady breath, flexible thinking.</p>
-          <ul>
-            <li>Slow nasal breathing</li>
-            <li>Gentle reframes, kind self-talk</li>
-            <li>Light activity (walk, tidy, water plants)</li>
-          </ul>
-        </article>
-      </div>
     </section>
 
     <!-- Downloads -->

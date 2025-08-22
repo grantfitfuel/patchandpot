@@ -3,25 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Wellbeing — Patch & Pot</title>
+  <title>Wellbeing Hub | Patch & Pot</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css?v=wb1">
+
+  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-  <link rel="stylesheet" href="style.css?v=wb1">
 </head>
 <body>
 
 <header class="site-header">
   <div class="brand">
-    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <a href="index.html" aria-label="Patch & Pot home">
+      <img src="img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
+    </a>
     <span class="site-title">Patch &amp; Pot</span>
   </div>
   <nav class="nav" aria-label="Primary">
     <a href="index.html">Home</a>
     <a href="growing.html">Growing</a>
     <a href="recipes.html">Recipes</a>
-    <a href="wellbeing.html">Wellbeing</a>
+    <a href="wellbeing.html" aria-current="page">Wellbeing</a>
     <a href="exercise.html">Exercise</a>
     <a href="guides.html">Guides</a>
     <a href="ideas.html">Ideas</a>
@@ -30,69 +36,64 @@
 
 <header class="hero" role="banner" aria-label="Wellbeing hero">
   <figure>
-    <img src="img/wellbeing-hero.jpg" alt="Calm garden scene with soft light">
+    <img src="img/hero.jpg" alt="Peaceful garden scene with light through leaves" style="object-position:center 35%">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
     <div class="wrap">
-      <span class="eyebrow">Support for tough days</span>
-      <h1>Wellbeing Hub</h1>
-      <p class="lead">Practical, kind resources for carers, grief, crisis, abuse, neurodiversity — plus tools to reframe thoughts and steady the mind.</p>
-      <div class="cta-row">
-        <a class="btn" href="#topics">Browse topics</a>
-      </div>
+      <span class="eyebrow">Support hub</span>
+      <h1>Wellbeing Resources</h1>
+      <p class="lead">Guides for carers, support through grief, crisis help, abuse recovery, neurodiversity, neuroscience, and practical mental health tools.</p>
     </div>
   </div>
 </header>
 
-<main class="wrap" id="topics" aria-label="Wellbeing topics">
-  <section class="guides-grid">
-    <a class="tile" href="wellbeing/carers.html">
-      <span class="thumb"><img src="img/wb-carers.jpg" alt="Carer holding a mug in a quiet moment"></span>
-      <div class="cap"><strong>Carers</strong> — support, pacing, boundaries</div>
-    </a>
-    <a class="tile" href="wellbeing/grief.html">
-      <span class="thumb"><img src="img/wb-grief.jpg" alt="Candle next to a plant"></span>
-      <div class="cap"><strong>Grief</strong> — breath, routines, gentle steps</div>
-    </a>
-    <a class="tile" href="wellbeing/crisis.html">
-      <span class="thumb"><img src="img/wb-crisis.jpg" alt="Sunrise over leaves"></span>
-      <div class="cap"><strong>Crisis</strong> — stay safe, get help now</div>
-    </a>
-    <a class="tile" href="wellbeing/abuse.html">
-      <span class="thumb"><img src="img/wb-abuse.jpg" alt="Hands with soil and a small plant"></span>
-      <div class="cap"><strong>Abuse</strong> — safety planning & next steps</div>
-    </a>
-    <a class="tile" href="wellbeing/neurodiversity.html">
-      <span class="thumb"><img src="img/wb-neurodiversity.jpg" alt="Patterned leaves"></span>
-      <div class="cap"><strong>Neurodiversity</strong> — sensory-friendly ideas</div>
-    </a>
-    <a class="tile" href="wellbeing/brain-reprogramming.html">
-      <span class="thumb"><img src="img/wb-reprogram.jpg" alt="Notebook with plant nearby"></span>
-      <div class="cap"><strong>Reprogramming your brain</strong> — micro habits</div>
-    </a>
-    <a class="tile" href="wellbeing/neurolinguistics.html">
-      <span class="thumb"><img src="img/wb-neurolinguistics.jpg" alt="Words on cards"></span>
-      <div class="cap"><strong>Neurolinguistics</strong> — language that helps</div>
-    </a>
-    <a class="tile" href="wellbeing/thought-reframing.html">
-      <span class="thumb"><img src="img/wb-reframing.jpg" alt="Light through leaves"></span>
-      <div class="cap"><strong>Thought reframing</strong> — shift the angle</div>
-    </a>
-  </section>
+<main class="wrap">
+  <section class="grid" aria-label="Wellbeing sections">
+    <article class="card">
+      <h2>Carer Support</h2>
+      <p class="meta">Guidance for those supporting loved ones, with resources for anticipatory grief and self-care.</p>
+      <a class="btn primary" href="wellbeing/carers.html">Open Carer Support</a>
+    </article>
 
-  <div class="mini-nav">
-    <a href="growing.html">Growing Food</a>
-    <a href="guides.html">How-to Guides</a>
-    <a href="ideas.html">Ideas</a>
-  </div>
+    <article class="card">
+      <h2>Grief</h2>
+      <p class="meta">Support through loss — practical coping strategies, stories, and guidance for families.</p>
+      <a class="btn primary" href="wellbeing/grief.html">Explore Grief</a>
+    </article>
+
+    <article class="card">
+      <h2>Crisis</h2>
+      <p class="meta">Immediate help for moments of suicidal crisis, with links to urgent support lines.</p>
+      <a class="btn primary" href="wellbeing/crisis.html">Get Crisis Support</a>
+    </article>
+
+    <article class="card">
+      <h2>Abuse</h2>
+      <p class="meta">Information and support links for those in or leaving abusive relationships.</p>
+      <a class="btn primary" href="wellbeing/abuse.html">Abuse Support</a>
+    </article>
+
+    <article class="card">
+      <h2>Neurodiversity</h2>
+      <p class="meta">Resources recognising ADHD, autism, dyslexia and other neurodivergent experiences.</p>
+      <a class="btn primary" href="wellbeing/neurodiversity.html">Neurodiversity Hub</a>
+    </article>
+
+    <article class="card">
+      <h2>Neuroscience</h2>
+      <p class="meta">How your brain changes, why habits form, and how to use science to support your wellbeing.</p>
+      <a class="btn primary" href="wellbeing/neuroscience.html">Learn Neuroscience</a>
+    </article>
+  </section>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <img src="img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <p>© <span>Patch & Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
+
 </body>
 </html>

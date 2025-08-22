@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Emotion circuit diagram: amygdala checked by prefrontal cortex, with reset actions">
+<svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Emotion circuit: amygdala checked by prefrontal cortex, with reset actions">
   <defs>
-    <style>
-      :root { color-scheme: light dark; }
-      .bg { fill: none; }
-      .panel { fill: rgba(12,17,13,0.06); stroke: #6fae82; stroke-width: 2; rx: 16; }
-      .node { fill: rgba(126,212,149,0.12); stroke: #7ed495; stroke-width: 2.5; }
-      .node-dark { fill: rgba(12,17,13,0.2); stroke: #dceadf; }
-      .amp { fill: none; stroke: #f4f9f6; stroke-width: 2.5; stroke-dasharray: 6 6; }
-      .arrow { fill: none; stroke: #dceadf; stroke-width: 3; marker-end: url(#arrowhead); }
-      .arrow-strong { stroke: #7ed495; }
-      .txt { font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #e8f5ed; }
-      .label { font: 700 20px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #e8f5ed; }
-      .title { font: 800 28px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #ffffff; }
-      .tip { font: 600 16px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; fill: #bfe6cc; }
-      .badge { fill: #2E7D32; }
-    </style>
-    <marker id="arrowhead" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
-      <path d="M0,0 L12,4 L0,8 Z" fill="#dceadf"/>
+    <marker id="arrow-dot" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <path d="M0,0 L12,4 L0,8 Z" fill="#DCEADF"/>
     </marker>
+    <style>
+      .title{font:800 28px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#FFFFFF}
+      .panel{fill:#0C110D; fill-opacity:0.06; stroke:#6FAE82; stroke-width:2}
+      .node1{fill:#0C110D; fill-opacity:0.20; stroke:#DCEADF; stroke-width:2.5}
+      .node2{fill:#7ED495; fill-opacity:0.12; stroke:#7ED495; stroke-width:2.5}
+      .pill {fill:#7ED495; fill-opacity:0.10; stroke:#7ED495; stroke-width:2}
+      .label{font:700 20px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#E8F5ED}
+      .txt  {font:600 18px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#CFE6D6}
+      .tip  {font:600 16px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#BFE6CC}
+      .arrow{fill:none; stroke:#DCEADF; stroke-width:3; marker-end:url(#arrow-dot)}
+      .arrow-strong{stroke:#7ED495}
+    </style>
   </defs>
 
-  <rect class="bg" width="1200" height="700"/>
-
   <text x="40" y="58" class="title">Emotion Circuit — Signal, Not Instruction</text>
-  <rect x="30" y="70" width="1140" height="600" class="panel"/>
+  <rect x="30" y="70" width="1140" height="600" rx="16" class="panel"/>
 
-  <!-- Amygdala node -->
-  <ellipse cx="290" cy="260" rx="110" ry="80" class="node-dark"/>
-  <text x="290" y="255" text-anchor="middle" class="label">Amygdala</text>
-  <text x="290" y="285" text-anchor="middle" class="tip">threat / salience</text>
+  <!-- Amygdala -->
+  <ellipse cx="290" cy="260" rx="110" ry="80" class="node1"/>
+  <text x="290" y="250" text-anchor="middle" class="label">Amygdala</text>
+  <text x="290" y="279" text-anchor="middle" class="tip">threat / salience</text>
 
-  <!-- Prefrontal node -->
-  <rect x="760" y="200" width="260" height="120" class="node" rx="16"/>
+  <!-- Prefrontal -->
+  <rect x="760" y="200" width="260" height="120" rx="16" class="node2"/>
   <text x="890" y="245" text-anchor="middle" class="label">Prefrontal Cortex</text>
   <text x="890" y="272" text-anchor="middle" class="tip">naming • plans • brakes</text>
 
@@ -40,26 +35,22 @@
   <path d="M400 260 C520 260, 640 260, 760 260" class="arrow arrow-strong"/>
   <path d="M760 240 C640 200, 520 200, 400 220" class="arrow"/>
 
-  <!-- Sensory / context input -->
-  <rect x="120" y="420" width="240" height="90" class="node" rx="14"/>
+  <!-- Body & Senses -->
+  <rect x="120" y="420" width="240" height="90" rx="14" class="node2"/>
   <text x="240" y="455" text-anchor="middle" class="label">Body & Senses</text>
-  <text x="240" y="478" text-anchor="middle" class="tip">heart • breath • posture • light</text>
+  <text x="240" y="478" text-anchor="middle" class="tip">breath • posture • light • heart</text>
   <path d="M240 420 L240 340" class="arrow"/>
 
-  <!-- Reset actions -->
-  <rect x="520" y="400" width="540" height="130" class="node" rx="16"/>
+  <!-- Reset menu -->
+  <rect x="520" y="400" width="540" height="130" rx="16" class="pill"/>
   <text x="540" y="430" class="label">2-Minute Reset Menu</text>
-  <text x="540" y="458" class="txt">• Name it: “This is frustration.” (labels lower alarm)</text>
-  <text x="540" y="482" class="txt">• Exhale longer (4–6/min), shoulders down, jaw relax</text>
-  <text x="540" y="506" class="txt">• Look far (out a window), sip water, slow neck rolls</text>
+  <text x="540" y="458" class="txt">• Name it: “This is frustration.”</text>
+  <text x="540" y="482" class="txt">• Long exhale (4–6/min), soften jaw/shoulders</text>
+  <text x="540" y="506" class="txt">• Look far (window), sip water, gentle neck rolls</text>
 
-  <!-- Outcome -->
-  <rect x="450" y="110" width="300" height="70" class="node" rx="14"/>
+  <!-- Action aligned with values -->
+  <rect x="450" y="110" width="300" height="70" rx="14" class="node2"/>
   <text x="600" y="151" text-anchor="middle" class="label">Action Aligned with Values</text>
   <path d="M890 200 L790 180" class="arrow"/>
   <path d="M310 200 L450 145" class="arrow"/>
-
-  <!-- Badge -->
-  <circle cx="1080" cy="120" r="8" class="badge"/>
-  <text x="1096" y="126" class="tip">Name it → Body first → Tiny aligned action</text>
 </svg>

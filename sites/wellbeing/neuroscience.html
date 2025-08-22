@@ -1,455 +1,317 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Patch & Pot – Neuroscience (Understand & Shape Your Day)</title>
-  <meta name="description" content="Exceptionally detailed, practical neuroscience: how emotion, attention, memory, perception, bias, creativity, stress, sleep, nutrition and brain chemistry drive behaviour – and how to change them gently.">
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neuroscience — How Your Brain Changes | Patch & Pot</title>
+
+  <!-- CSS (relative from /sites/wellbeing/) -->
+  <link rel="stylesheet" href="../style.css?v=ns1" />
+
+  <!-- Favicons (optional, adjust if you use them globally) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
-  </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-  </nav>
-</header>
+  <!-- Site header (same structure/classes as home) -->
+  <header class="site-header">
+    <div class="brand">
+      <a href="../index.html" aria-label="Patch & Pot home">
+        <img src="../img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
+      </a>
+      <span class="site-title">Patch &amp; Pot</span>
+    </div>
 
-<main class="wrap">
-  <h1>Neuroscience</h1>
-  <p class="lead">
-    Why we do what we do — and how tiny, repeatable shifts change the brain. This page
-    translates core neuroscience into tools you can use today: calmer emotion, steadier
-    attention, better memory, less bias, more creativity, and gentler change.
-  </p>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../growing.html">Growing</a>
+      <a href="../recipes.html">Recipes</a>
+      <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
+      <a href="../exercise.html">Exercise</a>
+      <a href="../guides.html">Guides</a>
+      <a href="../ideas.html">Ideas</a>
+    </nav>
+  </header>
 
-  <!-- SECTION 0: FOUNDATIONS -->
-  <section class="grid" id="foundations" aria-label="Brain foundations">
-    <article class="card">
-      <img src="../img/ns-prediction-loop.png" alt="Prediction loop: Brain predicts → senses compare → updates" class="thumb">
-      <h2>Predictive Brain</h2>
-      <p>Your brain is a prediction engine. It guesses what’s next, compares to senses, then updates. We notice mismatches as surprise, friction, or curiosity.</p>
-      <ul>
-        <li><strong>Make next steps obvious:</strong> put tools where the action happens.</li>
-        <li><strong>Reduce surprises:</strong> routines, checklists, labels.</li>
-        <li><strong>Use gentle novelty</strong> to spark focus (new mug, new playlist).</li>
-      </ul>
-    </article>
+  <!-- Hero -->
+  <header class="hero" role="banner" aria-label="Neuroscience hero">
+    <figure>
+      <img src="../img/hero.jpg" alt="Soft-focus plants on a windowsill with gentle light" style="object-position:center 40%">
+      <div class="overlay" aria-hidden="true"></div>
+    </figure>
+    <div class="content">
+      <div class="wrap">
+        <span class="eyebrow">Wellbeing · Brain & behaviour</span>
+        <h1>Neuroscience — How Your Brain Changes</h1>
+        <p class="lead">
+          Your brain is constantly rewiring in response to experience. Understanding a few core systems
+          makes it easier to change habits, manage emotions, and build a steadier life.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="../wellbeing.html">Back to Wellbeing</a>
+          <a class="btn ghost" href="#toc">Skip to sections</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <article class="card">
-      <img src="../img/ns-ladder-states.png" alt="Nervous system ladder: calm ↔ mobilised ↔ shut down" class="thumb">
-      <h2>Nervous System States</h2>
-      <p>We shift among calm (social/connected), mobilised (fight/flight), and shut down (freeze). State drives what feels possible.</p>
-      <ul>
-        <li><strong>Up-regulate:</strong> light + brisk walk + upbeat track.</li>
-        <li><strong>Downshift:</strong> slow breath (4–6/min), shoulders down, sip water.</li>
-        <li><strong>Repair:</strong> micro-rests between tasks.</li>
-      </ul>
-    </article>
+  <main class="wrap">
+    <!-- Local TOC -->
+    <nav id="toc" class="mini-nav" aria-label="On this page">
+      <a href="#emotion-regulation">Emotion & Regulation</a>
+      <a href="#memory-systems">Memory Systems</a>
+      <a href="#neuroplasticity">Neuroplasticity</a>
+      <a href="#hebbian">Hebbian Learning</a>
+      <a href="#reframing">Thought Reframing</a>
+      <a href="#cbt-triangle">CBT Triangle</a>
+      <a href="#affirmations">Affirmations</a>
+      <a href="#neurotransmitters">Neurotransmitters</a>
+      <a href="#habit-loop">Habit Loop</a>
+    </nav>
 
-    <article class="card">
-      <img src="../img/ns-window-tolerance.png" alt="Window of tolerance band with spikes up and down" class="thumb">
-      <h2>Window of Tolerance</h2>
-      <p>Tasks land better when inside your window. Too hyped or too flat? Adjust state first, then begin tiny.</p>
-      <a class="btn primary" href="#state-reset">Try the 2-minute reset</a>
-    </article>
-  </section>
+    <!-- 1. Emotion & Regulation -->
+    <section id="emotion-regulation" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Emotion &amp; Regulation</h2>
+        <p class="meta">
+          Emotions are rapid body-brain responses that bias action. The amygdala flags relevance; the
+          insula maps internal state; the prefrontal cortex (PFC) helps interpret and regulate responses.
+          Regulation doesn’t mean suppressing feelings — it means naming, normalising, and choosing a helpful action.
+        </p>
+      </article>
 
-  <!-- SECTION 1: EMOTION -->
-  <section class="grid" id="emotion" aria-label="Emotion">
-    <article class="card">
-      <img src="../img/ns-emotion-circuit.png" alt="Emotion circuit: amygdala checked by prefrontal cortex" class="thumb">
-      <h2>Emotion ≠ Instruction</h2>
-      <ul>
-        <li><strong>Name it:</strong> “This is frustration.” Naming reduces limbic alarm.</li>
-        <li><strong>Body first:</strong> exhale longer, jaw unclench, drop shoulders.</li>
-        <li><strong>Micro-do:</strong> 2-minute step consistent with values.</li>
-      </ul>
-    </article>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-emotion-brain.png" alt="Labeled regions for emotion and regulation: amygdala, insula, and prefrontal cortex">
+        </span>
+        <figcaption class="cap">
+          Key players in emotion: <strong>Amygdala</strong> (threat/salience), <strong>Insula</strong> (body signals),
+          <strong>PFC</strong> (meaning/regulation). Slowing the breath and naming the feeling
+          increases PFC influence within ~60–90 seconds.
+        </figcaption>
+      </figure>
 
-    <article class="card">
-      <img src="../img/ns-social-safety.png" alt="Social safety signals: warm tone, eye softening, nods" class="thumb">
-      <h2>Social Safety</h2>
-      <p>Warm signals (tone, nods, kindness to self) quiet alarms and reopen thinking.</p>
-      <ul>
-        <li>Soften face; slow your speech; hand on chest + breath.</li>
-        <li>Say: “This is hard and I can take one small step.”</li>
-      </ul>
-    </article>
+      <article class="card" style="grid-column:1/-1">
+        <h3>Try this (60–90 seconds)</h3>
+        <ul>
+          <li><strong>Name it:</strong> “I feel <em>anxious</em> / <em>angry</em> / <em>sad</em>.” (Labelling reduces amygdala activity.)</li>
+          <li><strong>Breathe:</strong> 4s inhale · 6s slow exhale × 6–9 cycles. (Exhale bias calms autonomic arousal.)</li>
+          <li><strong>Choose:</strong> “What tiny helpful action can I take next?” (Re-engages PFC and motor planning.)</li>
+        </ul>
+      </article>
+    </section>
 
-    <article class="card" id="state-reset">
-      <img src="../img/ns-reset-menu.png" alt="Reset menu icons: breath, light, water, move" class="thumb">
-      <h2>2-Minute Reset</h2>
-      <ul>
-        <li>4–4–6 breath × 8 cycles (exhale longer).</li>
-        <li>Step to a window; look far; sip water.</li>
-        <li>60-sec neck/shoulder roll; stand and sway.</li>
-      </ul>
-      <a class="btn primary" href="./thought-reframing.html">Reframe a sticky thought</a>
-    </article>
-  </section>
+    <!-- 2. Memory Systems -->
+    <section id="memory-systems" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Memory Systems</h2>
+        <p class="meta">
+          We store experience via different systems: <strong>episodic</strong> events (hippocampus),
+          <strong>emotional tags</strong> (amygdala), and <strong>procedural habits</strong> (basal ganglia).
+          Sleep consolidates and reorganises these traces.
+        </p>
+      </article>
 
-  <!-- SECTION 2: ATTENTION & EXECUTIVE FUNCTION -->
-  <section class="grid" id="attention" aria-label="Attention & executive function">
-    <article class="card">
-      <img src="../img/ns-attention-box.png" alt="Single box with timer: one task, 10 minutes" class="thumb">
-      <h2>10-Minute Focus Box</h2>
-      <ul>
-        <li>One task; one tab; timer 10.</li>
-        <li>Stop while it’s easy. Leave a breadcrumb (next tiny step) for later.</li>
-      </ul>
-    </article>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-memory-systems.png" alt="Illustration showing hippocampus for episodic memory, amygdala for emotional valence, and prefrontal cortex for retrieval">
+        </span>
+        <figcaption class="cap">
+          Memories form more strongly when <em>emotion</em> and <em>meaning</em> are present, and when you revisit them
+          across days (spaced repetition). Gentle exercise and quality sleep improve consolidation.
+        </figcaption>
+      </figure>
 
-    <article class="card">
-      <img src="../img/ns-switching-cost.png" alt="Switching cost curve: dips after context changes" class="thumb">
-      <h2>Protect Focus</h2>
-      <ul>
-        <li>Batch pings; check messages on schedule.</li>
-        <li>Noise control (headphones, brown noise).</li>
-        <li>Visual control (hide piles, full-screen).</li>
-      </ul>
-    </article>
+      <article class="card" style="grid-column:1/-1">
+        <h3>Make it stick</h3>
+        <ul>
+          <li>Learn in short sessions; revisit 24h later, then 3–4 days later.</li>
+          <li>Pair facts with feelings or stories to add salience.</li>
+          <li>Sleep: aim for consistent timing and wind-down cues.</li>
+        </ul>
+      </article>
+    </section>
 
-    <article class="card">
-      <img src="../img/ns-body-double.png" alt="Two figures working side by side" class="thumb">
-      <h2>Body-Doubling</h2>
-      <p>Work alongside someone (in person or on a quiet call) to reduce friction and finish the first inch.</p>
-      <a class="btn primary" href="../guides.html#firstpot">Do the first pot together</a>
-    </article>
-  </section>
+    <!-- 3. Neuroplasticity -->
+    <section id="neuroplasticity" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Neuroplasticity</h2>
+        <p class="meta">
+          “Plasticity” means your brain’s connections change with practice. New pathways appear,
+          important ones strengthen, unused ones fade. Change is slower under stress and faster with focus,
+          repetition, rest, and reward.
+        </p>
+      </article>
 
-  <!-- SECTION 3: MEMORY -->
-  <section class="grid" id="memory" aria-label="Memory">
-    <article class="card">
-      <img src="../img/ns-memory-triangle.png" alt="Encode → Store → Retrieve triangle" class="thumb">
-      <h2>Encode → Store → Retrieve</h2>
-      <ul>
-        <li><strong>Encode:</strong> speak it; write one line; teach someone.</li>
-        <li><strong>Store:</strong> sleep + spaced repeats (1d, 3d, 7d).</li>
-        <li><strong>Retrieve:</strong> quiz yourself; don’t just re-read.</li>
-      </ul>
-    </article>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-neuroplasticity.png" alt="Before/after diagram of synaptic connections strengthening with practice and rest">
+        </span>
+        <figcaption class="cap">
+          Plasticity window: <em>Focus → small challenge → repetition → brief rest → positive note</em>.
+          Tiny daily reps beat occasional heroic efforts.
+        </figcaption>
+      </figure>
+    </section>
 
-    <article class="card">
-      <img src="../img/ns-context-cues.png" alt="Context cue tray near kettle" class="thumb">
-      <h2>Context Cues</h2>
-      <p>Place the thing where the action happens: seeds by kettle; gloves by the door.</p>
-    </article>
+    <!-- 4. Hebbian Learning -->
+    <section id="hebbian" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Hebbian Learning</h2>
+        <p class="meta">
+          “Neurons that fire together, wire together.” When two neurons repeatedly activate in sequence,
+          their connection strengthens, making the pattern easier next time — for skills <em>and</em> for worries.
+        </p>
+      </article>
 
-    <article class="card">
-      <img src="../img/ns-doing-changes-brain.png" alt="Hands-on icon: doing wires in knowledge" class="thumb">
-      <h2>Learning by Doing</h2>
-      <p>Hands-on changes the brain faster. Plant, label, take one photo, write one line.</p>
-    </article>
-  </section>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-hebbian-learning.png" alt="Two neurons forming a stronger synapse through repeated co-activation">
+        </span>
+        <figcaption class="cap">
+          This is why <em>rumination</em> becomes sticky — and why deliberate practice works. Re-route the loop on purpose.
+        </figcaption>
+      </figure>
+    </section>
 
-  <!-- SECTION 4: PERCEPTION & LANGUAGE -->
-  <section class="grid" id="perception-language" aria-label="Perception & language">
-    <article class="card">
-      <img src="../img/ns-visual-perception.png" alt="Figure/ground simplification and contrast" class="thumb">
-      <h2>Design the View</h2>
-      <ul>
-        <li>Make the next step pop (contrast labels, clear boxes).</li>
-        <li>Hide competing inputs (covers, bins with lids).</li>
-      </ul>
-    </article>
+    <!-- 5. Thought Reframing -->
+    <section id="reframing" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Thought Reframing</h2>
+        <p class="meta">
+          Thoughts are hypotheses, not facts. When you label a thought, test it, and generate an alternative,
+          you teach your brain to take new routes under pressure.
+        </p>
+      </article>
 
-    <article class="card">
-      <img src="../img/ns-language-paths.png" alt="Words → meaning → action arrows" class="thumb">
-      <h2>Language Aims the Brain</h2>
-      <ul>
-        <li>“I choose to … for 2 minutes.”</li>
-        <li>“I’m practising …”</li>
-        <li>Specific beats “always/never”.</li>
-      </ul>
-      <a class="btn primary" href="./neurolinguistics.html">Micro-swaps</a>
-    </article>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-thought-reframing.png" alt="Flow from negative thought to helpful and reframed thought with a brain silhouette">
+        </span>
+        <figcaption class="cap">
+          <strong>Identify → Challenge → Reframe.</strong> Aim for realistic, workable alternatives (not forced positivity).
+        </figcaption>
+      </figure>
 
-    <article class="card">
-      <img src="../img/ns-scripts.png" alt="If–then cards" class="thumb">
-      <h2>If–Then Scripts</h2>
-      <p>If kettle on → water one pot. If text arrives → stand up to read it.</p>
-    </article>
-  </section>
+      <article class="card" style="grid-column:1/-1">
+        <h3>Template</h3>
+        <ol>
+          <li>“The thought I’m having is… <em>‘I always mess this up.’</em>”</li>
+          <li>Evidence for/against? What would I say to a friend?</li>
+          <li>Balanced reframe: “I’ve struggled before, and I’ve also learned. I’ll break this into one small step.”</li>
+        </ol>
+      </article>
+    </section>
 
-  <!-- SECTION 5: THINKING BIASES -->
-  <section class="grid" id="biases" aria-label="Thinking biases">
-    <article class="card">
-      <img src="../img/ns-biases.png" alt="Icons for common biases" class="thumb">
-      <h2>Common Traps</h2>
-      <ul>
-        <li>All-or-nothing; catastrophising</li>
-        <li>Mind-reading; fortune-telling</li>
-        <li>Confirmation bias; present bias</li>
-      </ul>
-    </article>
+    <!-- 6. CBT Triangle -->
+    <section id="cbt-triangle" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>CBT Triangle</h2>
+        <p class="meta">
+          Thoughts, feelings, and behaviours influence one another. A tiny change in any corner
+          shifts the other two — which is why micro-actions work even when feelings lag behind.
+        </p>
+      </article>
 
-    <article class="card">
-      <img src="../img/ns-bias-counters.png" alt="Counter tools: evidence list, 80% done, tiny test" class="thumb">
-      <h2>Counter-Moves</h2>
-      <ul>
-        <li>Write evidence for/against.</li>
-        <li>80% done > stalled perfect.</li>
-        <li>Tiny test today; review later.</li>
-      </ul>
-      <a class="btn primary" href="./thought-reframing.html">Reframing steps</a>
-    </article>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-cbt-triangle.png" alt="Triangle linking thoughts, feelings, and behaviours">
+        </span>
+        <figcaption class="cap">
+          Pick one lever: <em>thought</em> (reframe), <em>feeling</em> (breath/grounding), or <em>behaviour</em> (1-minute action).
+        </figcaption>
+      </figure>
+    </section>
 
-    <article class="card">
-      <img src="../img/ns-social-proof.png" alt="Two people exchanging checklists" class="thumb">
-      <h2>Externalise</h2>
-      <p>Use checklists and a buddy review to catch blind spots.</p>
-    </article>
-  </section>
+    <!-- 7. Affirmations -->
+    <section id="affirmations" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Affirmations (done scientifically)</h2>
+        <p class="meta">
+          Affirmations work best when they’re believable and linked to action.
+          You’re not convincing yourself of fantasy; you are guiding attention toward the next useful step.
+        </p>
+      </article>
 
-  <!-- SECTION 6: CREATIVITY & PROBLEM SOLVING -->
-  <section class="grid" id="creativity" aria-label="Creativity & problem solving">
-    <article class="card">
-      <img src="../img/ns-double-diamond.png" alt="Diverge → Converge double diamond" class="thumb">
-      <h2>Diverge → Converge</h2>
-      <ul>
-        <li>Diverge: 10 scrappy ideas in 5 minutes.</li>
-        <li>Converge: pick 1 to test today.</li>
-        <li>Review after sleep or walk.</li>
-      </ul>
-    </article>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-affirmations.png" alt="Brain highlighting reward and attention networks during self-affirmation practice">
+        </span>
+        <figcaption class="cap">
+          Use present-tense, values-based statements + a tiny behaviour: “I act with care — today I’ll prepare one simple meal.”
+        </figcaption>
+      </figure>
+    </section>
 
-    <article class="card">
-      <img src="../img/ns-incubation.png" alt="Incubation: step away arrow" class="thumb">
-      <h2>Incubation</h2>
-      <p>Step away; do a light task. Ideas surface when the guard relaxes.</p>
-    </article>
+    <!-- 8. Neurotransmitters -->
+    <section id="neurotransmitters" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Neurotransmitters &amp; Mood</h2>
+        <p class="meta">
+          Many chemicals shape mood and motivation. You can nudge them with sleep, movement, sunlight,
+          nutrition, social contact, and meaningful goals.
+        </p>
+      </article>
 
-    <article class="card">
-      <img src="../img/ns-constraints.png" alt="Constraint box focusing options" class="thumb">
-      <h2>Helpful Constraints</h2>
-      <p>Set time, budget, or materials limits to spark inventive solutions.</p>
-    </article>
-  </section>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-neurotransmitters.png" alt="Infographic of dopamine, serotonin, GABA, and norepinephrine with role summaries">
+        </span>
+        <figcaption class="cap">
+          <strong>Dopamine</strong> (motivation/learning), <strong>Serotonin</strong> (mood/stability),
+          <strong>GABA</strong> (calm), <strong>Norepinephrine</strong> (alertness). Foundations first: sleep, food, daylight, movement.
+        </figcaption>
+      </figure>
+    </section>
 
-  <!-- SECTION 7: STRESS & ALLOSTASIS -->
-  <section class="grid" id="stress" aria-label="Stress & allostasis">
-    <article class="card">
-      <img src="../img/ns-stress-curve.png" alt="Inverted U stress–performance curve" class="thumb">
-      <h2>Find the Middle</h2>
-      <p>Too little arousal → sluggish. Too much → scrambled. Adjust state to ride the middle.</p>
-    </article>
+    <!-- 9. Habit Loop -->
+    <section id="habit-loop" class="grid">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Habit Loop</h2>
+        <p class="meta">
+          Habits run as <em>cue → routine → reward</em>. Change the cue, swap the routine, and protect the reward.
+          Make the new behaviour obvious, easy, and satisfying.
+        </p>
+      </article>
 
-    <article class="card">
-      <img src="../img/ns-complete-stress.png" alt="Stress cycle: spike → complete → recover" class="thumb">
-      <h2>Complete the Cycle</h2>
-      <ul>
-        <li>Move your body (2–10 minutes).</li>
-        <li>Deep social sigh (long exhale with someone safe).</li>
-        <li>Creative off-ramp: write, hum, doodle.</li>
-      </ul>
-    </article>
+      <figure class="card" style="grid-column:1/-1">
+        <span class="thumb" style="aspect-ratio:16/9">
+          <img src="../img/ns-habit-loop.png" alt="Cue, routine, reward loop with examples and green arrows">
+        </span>
+        <figcaption class="cap">
+          Example: place your watering can <em>by the door</em> (cue), water pots after morning tea (routine),
+          tick a tiny tracker (reward). Repeat daily; review weekly.
+        </figcaption>
+      </figure>
+    </section>
 
-    <article class="card">
-      <img src="../img/ns-boundaries.png" alt="Boundary line with yes/no markers" class="thumb">
-      <h2>Boundaries Lower Load</h2>
-      <p>Clarity reduces background threat. One yes → one no to protect capacity.</p>
-    </article>
-  </section>
+    <!-- Pull-together actions -->
+    <section class="grid" aria-label="Bringing it together">
+      <article class="card" style="grid-column:1/-1">
+        <h2>Put it into practice (2–5 mins each)</h2>
+        <ul>
+          <li><strong>Breath + label:</strong> 6 slow breaths; name the feeling; choose one helpful step.</li>
+          <li><strong>Reframe card:</strong> Write one sticky thought and a balanced alternative.</li>
+          <li><strong>Habit nudge:</strong> Pick one cue you’ll change tonight for a behaviour tomorrow.</li>
+          <li><strong>Sleep guard:</strong> Fixed wake-time; dim screens 60–90 mins before bed.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn primary" href="../wellbeing.html">Back to Wellbeing</a>
+          <a class="btn ghost" href="#toc">Top ↑</a>
+        </div>
+      </article>
+    </section>
+  </main>
 
-  <!-- SECTION 8: CHANGE & HABITS -->
-  <section class="grid" id="change" aria-label="Change & habits">
-    <article class="card">
-      <img src="../img/ns-habit-loop.png" alt="Cue → tiny action → reward loop" class="thumb">
-      <h2>Habit Loops</h2>
-      <ul>
-        <li>Cue you always do (kettle).</li>
-        <li>Tiny action (water 1 pot).</li>
-        <li>Reward now (tick, sip, photo).</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-friction.png" alt="Friction sliders up/down" class="thumb">
-      <h2>Friction Design</h2>
-      <ul>
-        <li><strong>Reduce</strong> friction for desired acts (tools ready).</li>
-        <li><strong>Increase</strong> friction for unhelpful ones (apps in a folder, sign-out).</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-streaks.png" alt="Calendar with flexible streaks" class="thumb">
-      <h2>Forgiving Streaks</h2>
-      <p>Allow 2 skips per week. Restart without drama. Consistency over intensity.</p>
-      <a class="btn primary" href="./brain-reprogramming.html">Build your ladder</a>
-    </article>
-  </section>
-
-  <!-- SECTION 9: BRAIN CHEMICALS & MOOD -->
-  <section class="grid" id="chemistry" aria-label="Brain chemicals & mood">
-    <article class="card">
-      <img src="../img/ns-dopamine.png" alt="Dopamine: effort → reward graph" class="thumb">
-      <h2>Dopamine (Drive)</h2>
-      <ul>
-        <li>Effort + clear reward (tick, photo log).</li>
-        <li>Novelty in tiny doses (new spot, new herb).</li>
-        <li>Avoid constant big spikes (scroll binges).</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-serotonin.png" alt="Serotonin: sunlight & mood icon" class="thumb">
-      <h2>Serotonin (Steady)</h2>
-      <ul>
-        <li>Morning sunlight; walks.</li>
-        <li>Protein + complex carbs; colour on plate.</li>
-        <li>Connection + kindness to self.</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-noradrenaline-gaba.png" alt="Alerting vs calming scales" class="thumb">
-      <h2>Noradrenaline & GABA</h2>
-      <ul>
-        <li>Alerting: cold splash, light, posture.</li>
-        <li>Calming: slow exhale, lower shoulders, warm tea.</li>
-      </ul>
-    </article>
-  </section>
-
-  <!-- SECTION 10: SLEEP & CIRCADIAN -->
-  <section class="grid" id="sleep" aria-label="Sleep & circadian">
-    <article class="card">
-      <img src="../img/ns-sleep-architecture.png" alt="Sleep cycles chart" class="thumb">
-      <h2>Sleep Architecture</h2>
-      <p>90-min cycles; deep + REM. Learning and mood stabilise during sleep.</p>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-sleep-deprivation.png" alt="Sleep debt meter" class="thumb">
-      <h2>When Sleep Is Short</h2>
-      <ul>
-        <li>Light + movement on waking; hydrate.</li>
-        <li>Power nap 20–30 min (not late evening).</li>
-        <li>Extra checks on high-risk tasks.</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-caffeine-timing.png" alt="Caffeine timing clock" class="thumb">
-      <h2>Caffeine Timing</h2>
-      <p>Delay ~60–90 minutes after waking. Avoid late-day doses that fragment sleep.</p>
-    </article>
-  </section>
-
-  <!-- SECTION 11: NUTRITION & HYDRATION FOR BRAIN -->
-  <section class="grid" id="nutrition" aria-label="Nutrition & hydration">
-    <article class="card">
-      <img src="../img/ns-balanced-plate.png" alt="Balanced plate: protein, complex carbs, colour, fats" class="thumb">
-      <h2>Balanced Plate</h2>
-      <ul>
-        <li>Protein at each meal stabilises energy.</li>
-        <li>Complex carbs + fibre for focus and mood.</li>
-        <li>Healthy fats; hydrate early and often.</li>
-      </ul>
-      <a class="btn primary" href="../recipes.html">See simple meals</a>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-glycaemic-steady.png" alt="Glycaemic steadiness graphic" class="thumb">
-      <h2>Steady Energy</h2>
-      <p>Pair carbs with protein; avoid long fasts if you crash; pack a small snack.</p>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-alcohol-sleep.png" alt="Alcohol vs sleep quality chart" class="thumb">
-      <h2>Alcohol & Sleep</h2>
-      <p>Reduces REM and fragments night sleep; keep lighter on hard weeks.</p>
-    </article>
-  </section>
-
-  <!-- SECTION 12: SENSORY & NEURODIVERSITY -->
-  <section class="grid" id="sensory" aria-label="Sensory & neurodiversity">
-    <article class="card">
-      <img src="../img/ns-sensory-dial.png" alt="Adjustable sensory dial" class="thumb">
-      <h2>Sensory Dials</h2>
-      <ul>
-        <li>Sound: headphones, brown noise.</li>
-        <li>Light: warm lamp, cap/hood, screen tint.</li>
-        <li>Touch: seam-free, soft layer, fidget.</li>
-      </ul>
-      <a class="btn primary" href="./neurodiversity.html">See the full toolkit</a>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-shutdown-meltdown.png" alt="Meltdown vs shutdown pathways" class="thumb">
-      <h2>Meltdown / Shutdown</h2>
-      <p>Early cues: rising noise sensitivity, irritability, fuzziness. Step out; downshift; safe space; low demands.</p>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-accommodations.png" alt="Reasonable adjustments icons" class="thumb">
-      <h2>Reasonable Adjustments</h2>
-      <p>Noise control, breaks, written info, camera-off option, simple briefs, clear deadlines.</p>
-    </article>
-  </section>
-
-  <!-- TOOLKITS: GREEN/AMBER/RED -->
-  <section class="grid" id="toolkits" aria-label="Day toolkits">
-    <article class="card">
-      <img src="../img/ns-green-day.png" alt="Green day toolkit" class="thumb">
-      <h2>Green Day</h2>
-      <ul>
-        <li>One 25–50 min deep block; one admin batch.</li>
-        <li>Micro-novelty for dopamine (new spot, track).</li>
-        <li>Train a tiny habit you want tomorrow.</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-amber-day.png" alt="Amber day toolkit" class="thumb">
-      <h2>Amber Day</h2>
-      <ul>
-        <li>Focus box 10; stop early; breadcrumb next step.</li>
-        <li>Body-double; noise control; hide piles.</li>
-        <li>One win → celebrate; then low bar tasks.</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/ns-red-day.png" alt="Red day toolkit" class="thumb">
-      <h2>Red Day</h2>
-      <ul>
-        <li>State first: breath, water, light, sway.</li>
-        <li>Bare minimum only (2-minute actions).</li>
-        <li>Protect recovery window; ask for help.</li>
-      </ul>
-    </article>
-  </section>
-
-  <!-- CROSS-LINKS -->
-  <div class="mini-nav">
-    <a class="btn primary" href="./brain-reprogramming.html">Reprogramming Your Brain</a>
-    <a class="btn primary" href="./neurolinguistics.html">Neurolinguistics</a>
-    <a class="btn primary" href="./thought-reframing.html">Thought Reframing</a>
-    <a class="btn ghost"   href="../growing.html">Visit the Growing hub</a>
-  </div>
-
-  <p class="meta">This page is educational and not a substitute for professional care.</p>
-</main>
-
-<footer>
-  <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
-  </div>
-</footer>
+  <footer>
+    <div class="wrap footer-inner">
+      <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+      <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    </div>
+  </footer>
 
 </body>
 </html>

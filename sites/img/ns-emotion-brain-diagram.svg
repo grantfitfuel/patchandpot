@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Emotion regulation brain diagram: amygdala and hippocampus with prefrontal cortex control">
+  <defs>
+    <!-- soft materials -->
+    <linearGradient id="brainFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"  stop-color="#e9eef1"/>
+      <stop offset="1"  stop-color="#d7e1e6"/>
+    </linearGradient>
+    <linearGradient id="shadow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="1" result="off"/>
+      <feMerge><feMergeNode in="off"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- arrows -->
+    <marker id="arrow" markerWidth="14" markerHeight="10" refX="11" refY="5" orient="auto">
+      <path d="M0,0 L14,5 L0,10 Z" fill="#2d3b37"/>
+    </marker>
+    <!-- text styles -->
+    <style>
+      .title { font: 800 34px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#0c110d; }
+      .lab   { font: 700 20px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#0c110d; }
+      .sub   { font: 600 17px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#2d3b37; }
+      .note  { font: 600 16px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#2d3b37; }
+    </style>
+  </defs>
+
+  <!-- title -->
+  <text x="36" y="64" class="title">Emotion & Regulation — Where it happens in the brain</text>
+
+  <!-- board -->
+  <rect x="24" y="82" width="1352" height="794" fill="#f6faf7" stroke="#c9ded1" rx="18"/>
+
+  <!-- brain silhouette (left profile) -->
+  <g transform="translate(140,130)">
+    <!-- outer -->
+    <path d="M240,160
+             C180,110 180,40 238,28
+             C300,14 380,10 460,36
+             C560,70 640,140 682,220
+             C720,292 735,360 712,418
+             C695,459 656,488 610,500
+             C610,548 590,590 552,612
+             C520,630 476,628 444,610
+             C408,640 360,646 320,632
+             C288,620 260,596 250,570
+             C212,586 170,576 146,548
+             C124,524 114,492 124,462
+             C88,438 70,398 80,356
+             C90,316 124,286 170,276
+             C178,230 206,184 240,160 Z"
+          fill="url(#brainFill)" stroke="#80949b" stroke-width="2" filter="url(#soft)"/>
+    <!-- gentle inner shadow on right hemisphere -->
+    <path d="M520,120 C640,180 700,300 660,420" fill="none" stroke="url(#shadow)" stroke-width="24" opacity=".35"/>
+
+    <!-- regions -->
+    <!-- PFC (green, front) -->
+    <path d="M460,140 C520,156 572,192 598,236
+             C612,260 612,286 600,306
+             C584,334 544,346 492,344
+             C436,342 392,328 364,304
+             C340,284 342,256 362,232
+             C388,202 420,168 460,140 Z"
+          fill="#7ed495" stroke="#2E7D32" stroke-width="2"/>
+    <!-- Hippocampus (blue) -->
+    <path d="M360,330 C380,320 420,316 452,324
+             C474,330 486,346 486,366
+             C486,392 460,410 424,408
+             C390,406 360,384 352,360
+             C346,342 348,336 360,330 Z"
+          fill="#7bb6ff" stroke="#2c6db2" stroke-width="2"/>
+    <!-- Amygdala (orange/red) -->
+    <ellipse cx="472" cy="368" rx="28" ry="22" fill="#ff7a5c" stroke="#c84b36" stroke-width="2"/>
+
+    <!-- tiny labels dots -->
+    <circle cx="520" cy="220" r="4" fill="#2E7D32"/>
+    <circle cx="472" cy="368" r="4" fill="#c84b36"/>
+    <circle cx="424" cy="384" r="4" fill="#2c6db2"/>
+
+    <!-- callouts -->
+    <!-- PFC -->
+    <line x1="520" y1="220" x2="760" y2="180" stroke="#2d3b37" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="772" y="176" class="lab">Prefrontal Cortex</text>
+    <text x="772" y="200" class="sub">plans • naming • inhibitory control</text>
+
+    <!-- Amygdala -->
+    <line x1="472" y1="368" x2="760" y2="340" stroke="#2d3b37" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="772" y="336" class="lab">Amygdala</text>
+    <text x="772" y="360" class="sub">salience / alarm</text>
+
+    <!-- Hippocampus -->
+    <line x1="424" y1="384" x2="760" y2="420" stroke="#2d3b37" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="772" y="416" class="lab">Hippocampus</text>
+    <text x="772" y="440" class="sub">context • memory</text>
+
+    <!-- flow arrows (alarm → PFC regulation) -->
+    <path d="M472,368 C520,352 560,312 574,268" fill="none" stroke="#c84b36" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M560,260 C540,300 510,330 484,344" fill="none" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Reset panel -->
+  <g transform="translate(60,680)">
+    <rect width="1280" height="160" rx="14" fill="#e8f4ec" stroke="#9bcfad"/>
+    <text x="20" y="36" class="lab">Quick downshift (≈2 min)</text>
+    <text x="20" y="68" class="note">• Label the feeling in a phrase (“this is worry”). • Exhale longer; soften jaw/shoulders; widen gaze. • Look far for 20–30 s, sip water; then choose one tiny action aligned with values.</text>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Attention focus box with timer, breadcrumb, and parking lot">
+  <defs>
+    <style>
+      .panel{ fill: rgba(12,17,13,0.06); stroke:#6fae82; stroke-width:2; rx:16; }
+      .title{ font:800 26px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#fff; }
+      .label{ font:700 20px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#e8f5ed; }
+      .txt{ font:600 18px system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#cfe6d6; }
+      .box{ fill: rgba(126,212,149,0.12); stroke:#7ed495; stroke-width:2.5; rx:14; }
+      .sub{ fill: rgba(220,234,223,0.08); stroke:#dceadf; stroke-width:2; rx:10; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="650" fill="none"/>
+  <text x="36" y="52" class="title">10-Minute Focus Box</text>
+  <rect x="26" y="66" width="1148" height="548" class="panel"/>
+
+  <rect x="70" y="110" width="520" height="240" class="box"/>
+  <text x="90" y="144" class="label">Single Task</text>
+  <text x="90" y="174" class="txt">• One tab • Phone face down • Clear desk slice</text>
+  <text x="90" y="204" class="txt">• Define “finished” for 10 minutes</text>
+  <text x="90" y="234" class="txt">• Stop while it’s still easy</text>
+
+  <rect x="620" y="110" width="500" height="240" class="box"/>
+  <text x="640" y="144" class="label">Timer</text>
+  <text x="640" y="174" class="txt" style="font-size:56px; font-weight:800;">10:00</text>
+  <text x="640" y="232" class="txt">Then pause, breathe, and leave a breadcrumb.</text>
+
+  <rect x="70" y="370" width="630" height="180" class="sub"/>
+  <text x="90" y="404" class="label">Breadcrumb (for Future You)</text>
+  <text x="90" y="434" class="txt">• Next micro-step: “Open seeds, label pot A”</text>
+  <text x="90" y="464" class="txt">• Place the tool where you’ll see it</text>
+
+  <rect x="730" y="370" width="390" height="180" class="sub"/>
+  <text x="750" y="404" class="label">Parking Lot (Distractions)</text>
+  <text x="750" y="434" class="txt">• Jot it here, not in your head</text>
+  <text x="750" y="464" class="txt">• Review after you stop</text>
+</svg>

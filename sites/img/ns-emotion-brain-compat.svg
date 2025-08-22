@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Emotion & regulation brain diagram with prefrontal cortex, amygdala and hippocampus">
+  <!-- Title -->
+  <text x="36" y="56" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="34" font-weight="800" fill="#0c110d">
+    Emotion & Regulation — Where it happens in the brain
+  </text>
+
+  <!-- Panel -->
+  <rect x="24" y="72" width="1152" height="704" rx="18" fill="#f6faf7" stroke="#c9ded1"/>
+
+  <!-- Brain group -->
+  <g transform="translate(120,110)">
+    <!-- Brain silhouette (left profile, simplified) -->
+    <path d="M220,150
+             C165,105 168,48 220,36
+             C282,20 360,16 438,40
+             C540,72 620,138 662,214
+             C700,284 714,350 694,404
+             C678,444 642,472 596,484
+             C596,528 578,566 544,586
+             C512,604 470,604 440,586
+             C404,616 358,622 320,608
+             C288,596 262,574 252,548
+             C214,564 174,554 150,526
+             C128,502 118,472 128,444
+             C96,424 78,388 86,350
+             C96,312 126,286 168,276
+             C176,232 200,176 220,150 Z"
+          fill="#e9eef1" stroke="#80949b" stroke-width="2"/>
+
+    <!-- Prefrontal cortex (front, green) -->
+    <path d="M440,138 C500,154 552,190 580,232
+             C594,254 594,282 582,300
+             C566,328 528,340 476,338
+             C424,336 384,322 356,300
+             C334,282 336,254 356,230
+             C382,200 412,166 440,138 Z"
+          fill="#7ed495" stroke="#2E7D32" stroke-width="2"/>
+
+    <!-- Hippocampus (blue) -->
+    <path d="M342,324 C364,314 404,310 436,318
+             C458,324 470,340 470,360
+             C470,386 444,404 410,402
+             C378,400 350,380 342,356
+             C336,338 336,332 342,324 Z"
+          fill="#7bb6ff" stroke="#2c6db2" stroke-width="2"/>
+
+    <!-- Amygdala (orange/red) -->
+    <ellipse cx="458" cy="362" rx="26" ry="20" fill="#ff7a5c" stroke="#c84b36" stroke-width="2"/>
+
+    <!-- Callout arrows (simple markers) -->
+    <defs>
+      <marker id="arrow" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+        <path d="M0,0 L12,4 L0,8 Z" fill="#2d3b37"/>
+      </marker>
+    </defs>
+
+    <!-- PFC callout -->
+    <line x1="540" y1="220" x2="790" y2="180" stroke="#2d3b37" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="800" y="176" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="22" font-weight="700" fill="#0c110d">Prefrontal Cortex</text>
+    <text x="800" y="200" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="17" font-weight="600" fill="#2d3b37">plans • naming • inhibitory control</text>
+
+    <!-- Amygdala callout -->
+    <line x1="458" y1="362" x2="790" y2="340" stroke="#2d3b37" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="800" y="336" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="22" font-weight="700" fill="#0c110d">Amygdala</text>
+    <text x="800" y="360" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="17" font-weight="600" fill="#2d3b37">salience / alarm</text>
+
+    <!-- Hippocampus callout -->
+    <line x1="410" y1="402" x2="790" y2="420" stroke="#2d3b37" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="800" y="416" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="22" font-weight="700" fill="#0c110d">Hippocampus</text>
+    <text x="800" y="440" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="17" font-weight="600" fill="#2d3b37">context • memory</text>
+
+    <!-- Flow arrows (alarm → regulation) -->
+    <path d="M458,362 C506,346 546,306 560,262" fill="none" stroke="#c84b36" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M548,258 C528,298 500,326 474,340" fill="none" stroke="#2E7D32" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Reset panel -->
+  <rect x="48" y="648" width="1104" height="100" rx="12" fill="#e8f4ec" stroke="#9bcfad"/>
+  <text x="66" y="682" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="20" font-weight="700" fill="#0c110d">
+    Quick downshift (≈2 min)
+  </text>
+  <text x="66" y="708" font-family="system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="16" font-weight="600" fill="#2d3b37">
+    Label the feeling (“this is worry”) • Exhale longer; relax jaw/shoulders • Look far 20–30s, sip water • Choose one tiny aligned action
+  </text>
+</svg>

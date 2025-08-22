@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="Emotion regulation brain diagram">
+  <!-- Title -->
+  <text x="28" y="48" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#0c110d">
+    Emotion &amp; Regulation — Key Regions
+  </text>
+
+  <!-- Brain outline (left profile, simplified) -->
+  <path d="M260,160
+           C210,120 212,64 260,52
+           C320,36 396,32 470,54
+           C566,84 642,144 682,216
+           C716,276 728,336 712,384
+           C698,424 664,452 622,464
+           C622,504 604,538 572,556
+           C542,572 502,572 472,556
+           C438,584 392,590 352,578
+           C320,568 294,548 284,524
+           C246,540 206,532 182,506
+           C160,482 150,452 160,426
+           C130,408 110,374 118,340
+           C126,304 156,282 196,272
+           C206,226 234,182 260,160 Z"
+        fill="#e9eef1" stroke="#80949b" stroke-width="2"/>
+
+  <!-- Prefrontal cortex (green, front) -->
+  <path d="M470,148 C526,164 574,198 598,238
+           C610,258 610,284 598,302
+           C582,328 546,340 496,338
+           C444,336 404,322 378,300
+           C358,284 360,258 378,236
+           C402,206 434,174 470,148 Z"
+        fill="#7ed495" stroke="#2E7D32" stroke-width="2"/>
+
+  <!-- Hippocampus (blue, medial) -->
+  <path d="M364,328 C386,318 424,314 454,322
+           C474,328 486,344 486,362
+           C486,386 462,402 430,400
+           C398,398 370,380 362,356
+           C356,340 356,334 364,328 Z"
+        fill="#7bb6ff" stroke="#2c6db2" stroke-width="2"/>
+
+  <!-- Amygdala (orange/red) -->
+  <ellipse cx="472" cy="364" rx="24" ry="18" fill="#ff7a5c" stroke="#c84b36" stroke-width="2"/>
+
+  <!-- Callout lines + manual arrowheads (tiny triangles) -->
+  <!-- PFC callout -->
+  <line x1="560" y1="220" x2="820" y2="190" stroke="#2d3b37" stroke-width="2"/>
+  <path d="M820,190 l-10,-6 l0,12 Z" fill="#2d3b37"/>
+  <text x="834" y="186" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0c110d">Prefrontal Cortex</text>
+  <text x="834" y="210" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#2d3b37">plans • naming • inhibitory control</text>
+
+  <!-- Amygdala callout -->
+  <line x1="472" y1="364" x2="820" y2="344" stroke="#2d3b37" stroke-width="2"/>
+  <path d="M820,344 l-10,-6 l0,12 Z" fill="#2d3b37"/>
+  <text x="834" y="340" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0c110d">Amygdala</text>
+  <text x="834" y="364" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#2d3b37">salience / alarm</text>
+
+  <!-- Hippocampus callout -->
+  <line x1="430" y1="400" x2="820" y2="420" stroke="#2d3b37" stroke-width="2"/>
+  <path d="M820,420 l-10,-6 l0,12 Z" fill="#2d3b37"/>
+  <text x="834" y="416" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#0c110d">Hippocampus</text>
+  <text x="834" y="440" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#2d3b37">context • memory</text>
+
+  <!-- Flow arrows (alarm → regulation), drawn with line + triangle -->
+  <line x1="472" y1="364" x2="560" y2="264" stroke="#c84b36" stroke-width="3"/>
+  <path d="M560,264 l-12,-6 l0,12 Z" fill="#c84b36"/>
+  <line x1="552" y1="262" x2="486" y2="338" stroke="#2E7D32" stroke-width="3"/>
+  <path d="M486,338 l12,6 l0,-12 Z" fill="#2E7D32"/>
+
+  <!-- Quick reset bar -->
+  <rect x="40" y="620" width="920" height="70" rx="10" fill="#e8f4ec" stroke="#9bcfad"/>
+  <text x="56" y="646" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#0c110d">Quick downshift (≈2 min)</text>
+  <text x="56" y="670" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#2d3b37">
+    Label it (“this is worry”) • Longer exhales • Soften jaw/shoulders • Look far 20–30s • Choose one tiny aligned action
+  </text>
+</svg>

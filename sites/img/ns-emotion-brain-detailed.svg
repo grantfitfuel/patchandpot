@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-label="Emotion regulation brain diagram with realistic contours and labelled regions">
+  <!-- Title bar -->
+  <rect x="24" y="24" width="1352" height="80" rx="14" fill="#f1f6f3" stroke="#c9ded1"/>
+  <text x="44" y="78" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#0c110d">
+    Emotion & Regulation — Key Regions in Context
+  </text>
+
+  <!-- Panel -->
+  <rect x="24" y="112" width="1352" height="764" rx="18" fill="#f8fbf9" stroke="#c9ded1"/>
+
+  <!-- ===== Brain group (left profile) ===== -->
+  <g transform="translate(130,150)">
+    <!-- Outer silhouette (light grey cortex) -->
+    <path d="M260,160
+             C210,120 212,64 260,52
+             C320,36 396,32 470,54
+             C566,84 642,144 682,216
+             C716,276 728,336 712,384
+             C698,424 664,452 622,464
+             C622,504 604,538 572,556
+             C542,572 502,572 472,556
+             C438,584 392,590 352,578
+             C320,568 294,548 284,524
+             C246,540 206,532 182,506
+             C160,482 150,452 160,426
+             C130,408 110,374 118,340
+             C126,304 156,282 196,272
+             C206,226 234,182 260,160 Z"
+          fill="#e7edf0" stroke="#7f929a" stroke-width="2"/>
+
+    <!-- Inner “hemisphere mass” to suggest volume -->
+    <path d="M300,170
+             C340,140 420,132 500,156
+             C584,180 642,226 666,280
+             C682,316 678,350 650,380
+             C624,408 584,426 540,430
+             C540,470 520,512 484,528
+             C450,544 410,540 382,522
+             C350,548 310,552 280,538
+             C252,526 232,506 224,486
+             C194,498 168,492 152,474
+             C136,456 130,434 138,414
+             C114,394 102,370 108,346
+             C116,316 142,300 178,294
+             C188,250 228,196 300,170 Z"
+          fill="#eef3f6" stroke="#c0ccd2" stroke-width="1.5"/>
+
+    <!-- Sulci/Gyri contours (multiple faint lines) -->
+    <g stroke="#b9c6cc" stroke-width="1.6" fill="none">
+      <path d="M300,190 C360,160 460,160 540,188"/>
+      <path d="M292,224 C352,196 450,198 526,224"/>
+      <path d="M284,258 C348,234 444,238 514,262"/>
+      <path d="M276,292 C336,272 430,276 498,298"/>
+      <path d="M268,326 C326,308 416,312 482,332"/>
+      <path d="M262,360 C320,344 410,350 470,368"/>
+      <path d="M258,392 C314,378 402,384 458,400"/>
+      <path d="M252,424 C304,412 388,418 446,432"/>
+      <path d="M246,456 C296,446 374,452 432,464"/>
+    </g>
+
+    <!-- ===== Highlighted regions (solid fills, readable strokes) ===== -->
+    <!-- Prefrontal cortex -->
+    <path d="M470,148 C526,164 574,198 598,238
+             C610,258 610,284 598,302
+             C582,328 546,340 496,338
+             C444,336 404,322 378,300
+             C358,284 360,258 378,236
+             C402,206 434,174 470,148 Z"
+          fill="#7ed495" stroke="#2E7D32" stroke-width="2" opacity="0.95"/>
+
+    <!-- Anterior cingulate (arch above limbic) -->
+    <path d="M360,262
+             C388,244 430,236 472,244
+             C500,248 524,260 538,274
+             C546,282 544,294 534,300
+             C522,308 502,312 480,312
+             C452,312 424,308 402,300
+             C382,292 360,284 360,262 Z"
+          fill="#9ad9ae" stroke="#2E7D32" stroke-width="1.8" opacity="0.95"/>
+
+    <!-- Hippocampus -->
+    <path d="M364,328 C386,318 424,314 454,322
+             C474,328 486,344 486,362
+             C486,386 462,402 430,400
+             C398,398 370,380 362,356
+             C356,340 356,334 364,328 Z"
+          fill="#7bb6ff" stroke="#2c6db2" stroke-width="2" opacity="0.98"/>
+
+    <!-- Amygdala -->
+    <ellipse cx="472" cy="364" rx="24" ry="18" fill="#ff7a5c" stroke="#c84b36" stroke-width="2"/>
+
+    <!-- ===== Labels + callouts (manual triangles for arrows) ===== -->
+    <!-- PFC label -->
+    <line x1="560" y1="220" x2="820" y2="180" stroke="#2d3b37" stroke-width="2"/>
+    <polygon points="820,180 810,174 810,186" fill="#2d3b37"/>
+    <text x="836" y="180" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#0c110d">Prefrontal Cortex</text>
+    <text x="836" y="205" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#2d3b37">planning • naming • inhibitory control</text>
+
+    <!-- ACC label -->
+    <line x1="492" y1="264" x2="820" y2="250" stroke="#2d3b37" stroke-width="2"/>
+    <polygon points="820,250 810,244 810,256" fill="#2d3b37"/>
+    <text x="836" y="250" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#0c110d">Anterior Cingulate</text>
+    <text x="836" y="272" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#2d3b37">conflict monitoring • switching</text>
+
+    <!-- Amygdala label -->
+    <line x1="472" y1="364" x2="820" y2="342" stroke="#2d3b37" stroke-width="2"/>
+    <polygon points="820,342 810,336 810,348" fill="#2d3b37"/>
+    <text x="836" y="340" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#0c110d">Amygdala</text>
+    <text x="836" y="364" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#2d3b37">salience / alarm</text>
+
+    <!-- Hippocampus label -->
+    <line x1="430" y1="400" x2="820" y2="420" stroke="#2d3b37" stroke-width="2"/>
+    <polygon points="820,420 810,414 810,426" fill="#2d3b37"/>
+    <text x="836" y="418" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#0c110d">Hippocampus</text>
+    <text x="836" y="442" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#2d3b37">context • memory</text>
+
+    <!-- Flow arrows (alarm -> regulation) -->
+    <line x1="472" y1="364" x2="556" y2="270" stroke="#c84b36" stroke-width="3"/>
+    <polygon points="556,270 544,264 544,276" fill="#c84b36"/>
+    <line x1="546" y1="268" x2="486" y2="340" stroke="#2E7D32" stroke-width="3"/>
+    <polygon points="486,340 498,346 498,334" fill="#2E7D32"/>
+  </g>
+
+  <!-- Quick reset panel -->
+  <rect x="60" y="720" width="1270" height="120" rx="14" fill="#e8f4ec" stroke="#9bcfad"/>
+  <text x="80" y="756" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#0c110d">Quick downshift (~2 min)</text>
+  <text x="80" y="782" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="600" fill="#2d3b37">
+    Label (“this is worry”) • Longer exhales • Soften jaw/shoulders • Widen gaze 20–30s • One small action aligned with values
+  </text>
+
+  <!-- Legend -->
+  <g transform="translate(1080,140)">
+    <rect x="0" y="0" width="264" height="140" rx="10" fill="#ffffff" stroke="#c9ded1"/>
+    <rect x="16" y="18" width="18" height="18" fill="#7ed495" stroke="#2E7D32"/>
+    <text x="44" y="32" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0c110d">Prefrontal Cortex</text>
+
+    <rect x="16" y="50" width="18" height="18" fill="#9ad9ae" stroke="#2E7D32"/>
+    <text x="44" y="64" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0c110d">Anterior Cingulate</text>
+
+    <rect x="16" y="82" width="18" height="18" fill="#7bb6ff" stroke="#2c6db2"/>
+    <text x="44" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0c110d">Hippocampus</text>
+
+    <rect x="16" y="114" width="18" height="18" fill="#ff7a5c" stroke="#c84b36"/>
+    <text x="44" y="128" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0c110d">Amygdala</text>
+  </g>
+</svg>

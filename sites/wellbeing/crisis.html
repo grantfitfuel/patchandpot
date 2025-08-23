@@ -14,12 +14,18 @@
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <!-- Hamburger -->
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
+
+  <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
@@ -35,10 +41,9 @@
   <h1>Crisis Support</h1>
   <p class="lead">If you are in immediate danger of harming yourself, it’s important to seek help right away. You are not alone, and there are people ready to listen and support you.</p>
 
-  <!-- Hero (kept, safe sizing) -->
   <figure>
-    <img src="../img/crisis-hero.png" alt="Open front door with warm morning light, symbolising safety and help" style="border-radius:12px; width:100%; height:auto; object-fit:cover; max-height:520px;">
-    <figcaption class="cap">There’s a door open for you — help is available.</figcaption>
+    <img src="../img/crisis-hero.png" alt="Quiet photo representing crisis support – open door with light beyond" style="border-radius:12px; width:100%; height:auto; object-fit:cover; max-height:460px;">
+    <figcaption class="cap">There is always a way forward, even if right now it feels hidden.</figcaption>
   </figure>
 
   <section id="immediate">
@@ -72,7 +77,7 @@
       <li><strong>Overwhelm blend:</strong> Many people swing between the two: racing panic one moment, shut-down exhaustion the next. This “yo-yo” can make life feel unmanageable.</li>
     </ul>
     <figure>
-      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system" style="border-radius:12px; width:100%; height:auto; object-fit:contain; background:#0a0f0c; padding:8px;">
+      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system" style="border-radius:12px; width:100%; max-height:400px; object-fit:contain; background:#0a0f0c; padding:8px;">
       <figcaption class="cap">The Autonomic Nervous System: fight/flight (high energy), rest/digest (calm), and shutdown (freeze).</figcaption>
     </figure>
   </section>
@@ -86,24 +91,24 @@
       <li><strong>Safe contact:</strong> Text or call someone you trust and tell them one thing you are feeling right now.</li>
       <li><strong>Small movement:</strong> Stretch, walk, or shake your hands to release built-up adrenaline.</li>
     </ul>
-
-    <!-- Steps image (kept, safe sizing) -->
     <figure>
-      <img src="../img/crisis-steps.png" alt="Grounding tools on a simple card: breathing, senses exercise, text a friend, small movement" style="border-radius:12px; width:100%; height:auto; object-fit:cover; max-height:520px;">
+      <img src="../img/crisis-steps.png" alt="Notebook with grounding steps written down" style="border-radius:12px; width:100%; max-height:420px; object-fit:cover;">
       <figcaption class="cap">Grounding tools — small steps that help the body feel safe again.</figcaption>
     </figure>
+  </section>
 
-    <!-- SUPPORT IMAGE — FIXED (no cropping) -->
+  <section id="support">
+    <h2>Help and Support</h2>
     <figure>
-      <img src="../img/crisis-support.png" alt="Hands clasped in support with a cup of tea beside them" style="border-radius:12px; width:100%; height:auto; object-fit:contain; background:#0a0f0c; padding:8px;">
+      <img src="../img/crisis-support.png" alt="Supportive hands and a warm cup of tea" style="border-radius:12px; width:100%; height:auto; object-fit:cover; max-height:460px;">
       <figcaption class="cap">Support is real and within reach — you don’t have to face crisis alone.</figcaption>
     </figure>
   </section>
 
-  <!-- Standardised Disclaimer (unchanged wording across Wellbeing pages) -->
-  <section id="disclaimer" class="disclaimer">
+  <!-- Standardised Disclaimer -->
+  <section class="disclaimer">
     <h2>Important Note</h2>
-    <p>The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
+    <p>The information on this page is for general understanding and support. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
     <p>For non-emergency concerns, consider speaking with a qualified health professional or an appropriate support service listed above.</p>
   </section>
 </main>
@@ -115,6 +120,29 @@
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Mobile menu script -->
+<script>
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const toggle = header.querySelector('.menu-toggle');
+    const nav = document.getElementById('primaryNav');
+
+    function setExpanded(on){
+      if(on){
+        header.classList.add('menu-open');
+        toggle.classList.add('menu-open');
+        toggle.setAttribute('aria-expanded','true');
+      } else {
+        header.classList.remove('menu-open');
+        toggle.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+  })();
+</script>
 
 </body>
 </html>

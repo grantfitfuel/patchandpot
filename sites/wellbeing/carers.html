@@ -14,24 +14,26 @@
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
 
   <!-- Hamburger -->
-  <button class="menu-toggle" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico">
+      <span></span><span></span><span></span>
+    </span>
   </button>
 
   <!-- Nav -->
-  <nav class="nav" aria-label="Primary">
+  <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
-    <a href="../exercise.html">Exercise</a>
     <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
+    <a href="../exercise.html">Exercise</a>
     <a href="../guides.html">Guides</a>
     <a href="../ideas.html">Ideas</a>
     <a href="../contact.html">Contact</a>
@@ -40,56 +42,167 @@
 
 <main class="wrap">
   <h1>Support for Carers</h1>
-  <p class="lead">Caring for someone you love can be one of the most meaningful things you’ll ever do — but it can also feel overwhelming, lonely, and exhausting. You are not alone, and you deserve care too. This page explores the emotions carers often face, how to look after yourself, and where to find extra help when it feels too much.</p>
+  <p class="lead">Caring for someone you love can be one of the most meaningful things you’ll ever do — and also one of the most exhausting. If you’re running on empty, you’re not failing — you’re human. This page offers clear explanations, practical steps, and gentle permission to take up space too.</p>
 
   <figure>
-    <img src="../img/carer-support-placeholder.jpg" alt="A carer’s hands gently holding those of an older loved one" style="border-radius:12px; max-height:400px; object-fit:cover; width:100%;">
-    <figcaption class="cap">Carers carry a lot — but you don’t have to carry it all alone.</figcaption>
+    <img src="../img/carers-hero-placeholder.jpg" alt="A carer’s hand resting on their loved one’s arm, a cup of tea nearby" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
+    <figcaption class="cap">You carry a lot. You don’t have to carry it alone.</figcaption>
   </figure>
 
+  <!-- WHAT YOU MAY BE FEELING -->
   <section>
-    <h2>Anticipatory Grief</h2>
-    <p>When you’re looking after someone with a life-limiting illness or progressive condition, it’s normal to grieve *before* the person has gone. This doesn’t mean you love them any less — it means you’re human, and you’re already preparing emotionally for the change ahead.</p>
-    <p>You might notice waves of sadness, anger, or even guilt when you find yourself wishing for a break. These feelings are valid and common. Naming them can take away some of their weight.</p>
+    <h2>What you may be feeling (and why that’s normal)</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Anticipatory grief</h3>
+        <p>You may find yourself grieving before a loss has happened — especially with progressive conditions or serious illness. You’re not “giving up”; your brain is preparing for change. Naming it often eases the weight.</p>
+        <ul class="meta">
+          <li>Waves of sadness or anger</li>
+          <li>Guilt for wanting a break</li>
+          <li>Feeling split between love and exhaustion</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>After loss</h3>
+        <p>When caring ends, people often feel both devastation and relief. Both can be true. Identity wobbles are common if caring shaped your days. Gentle routines, connection, and small goals help you rebuild.</p>
+      </article>
+      <article class="card">
+        <h3>Burnout</h3>
+        <p>Snappy, foggy, running on adrenaline? That’s your nervous system stuck on “keep going”. Tiny refuels matter: a proper sandwich, a 10-minute walk, two quiet minutes with a tea.</p>
+      </article>
+    </div>
   </section>
 
+  <!-- PRACTICAL CARE FOR YOU -->
   <section>
-    <h2>Grief After Loss</h2>
-    <p>When your caring role ends, you may feel both devastation and relief. Both can coexist — you can miss the person deeply while also feeling lighter because the strain of caring has eased. Allowing both feelings to be present is part of healthy grieving.</p>
-    <p>Some carers also feel a sudden loss of identity — if caring has been your focus for months or years, it can be hard to know who you are without it. Finding new routines, connections, and gentle goals can help you rebuild.</p>
+    <h2>Practical care for you (tiny steps that count)</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Micro-rests</h3>
+        <p>Set a 2-minute timer. Shoulders down, slow your out-breath. You’ve just signalled “safe” to your nervous system. Repeat often; it stacks.</p>
+        <figure>
+          <img src="../img/carers-breathing-placeholder.jpg" alt="Simple breathing reminder card on a table" style="border-radius:10px; width:100%; max-height:260px; object-fit:cover;">
+        </figure>
+      </article>
+      <article class="card">
+        <h3>Ask for help (script)</h3>
+        <p><em>“Could you sit with Mum on Tuesday 2–4pm so I can do food shopping? I’ll leave her meds and the TV remote.”</em> Specific + time-boxed requests get more yeses.</p>
+      </article>
+      <article class="card">
+        <h3>Rituals that anchor</h3>
+        <p>One small thing, same time daily: watering a plant, a cuppa in the doorway, a single journal sentence. Routines calm busy brains.</p>
+      </article>
+    </div>
   </section>
 
+  <!-- WHEN IT FEELS TOO MUCH -->
   <section>
-    <h2>Carer Burnout</h2>
-    <p>Exhaustion, short temper, trouble sleeping, and a constant feeling of “running on empty” can all be signs of carer burnout. Looking after someone round the clock often means putting your own needs last — but without refuelling, you’ll eventually run out of energy.</p>
-    <p>Even small changes matter: a ten-minute walk, a call with a friend, or a proper meal instead of biscuits on the go. Think of these not as luxuries, but as essential maintenance for your health.</p>
+    <h2>When it feels too much</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Create a “bad day” plan</h3>
+        <ul>
+          <li>Text a safe person: “It’s a heavy day. Can you check in at 7?”</li>
+          <li>Non-negotiables: water, snack, fresh air for 3 minutes</li>
+          <li>Lower the bar: today’s win = one task</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Know the red flags</h3>
+        <p>Not sleeping for days, thoughts of harming yourself, feeling you can’t keep someone safe — these are signals to get urgent support.</p>
+      </article>
+      <article class="card">
+        <h3>Quick grounding</h3>
+        <p>5-4-3-2-1 senses, feet on floor, long exhale. You don’t need to “fix” everything right now; you just need this moment to pass.</p>
+      </article>
+    </div>
   </section>
 
+  <!-- MONEY, RIGHTS & RESPITE (SCOTLAND/UK-leaning but useful broadly) -->
   <section>
-    <h2>Self-Care for Carers</h2>
+    <h2>Money, rights & respite (Scotland/UK)</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Carer’s assessment</h3>
+        <p>Ask your local authority for a Carer’s (Adult Carer Support) assessment. It looks at <em>your</em> needs — not just the person you care for — and can unlock support or respite.</p>
+      </article>
+      <article class="card">
+        <h3>Benefits & grants</h3>
+        <ul class="meta">
+          <li>Carer’s Allowance / Supplements (eligibility applies)</li>
+          <li>Young Carer Grant (Scotland)</li>
+          <li>Local hardship or wellbeing funds</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Respite options</h3>
+        <p>Short breaks, sitting services, day centres. Even a few hours can reset your body and mind.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- COMMUNICATION & BOUNDARIES -->
+  <section>
+    <h2>Communication & boundaries</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Scripts that help</h3>
+        <p><em>“I want to help; I can do evenings, but I can’t do nights.”</em><br>
+           <em>“I can bring meals at weekends.”</em><br>
+           Clear limits protect your energy and reduce resentment.</p>
+      </article>
+      <article class="card">
+        <h3>Family dynamics</h3>
+        <p>Share roles on a simple rota. If someone can’t help in person, ask for admin tasks, phone calls, or paying a specific bill.</p>
+      </article>
+      <article class="card">
+        <h3>Guilt vs. capacity</h3>
+        <p>Feeling guilty doesn’t mean you’re doing anything wrong. Check your actual capacity today, not your imagined one.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- YOUNG CARERS / DEMENTIA / END OF LIFE -->
+  <section>
+    <h2>Specific caring situations</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Young carers</h3>
+        <p>School, caring, and growing up is a lot. You deserve support, friends, and time to be young. Young carer services can help with advocacy and grants.</p>
+      </article>
+      <article class="card">
+        <h3>Dementia</h3>
+        <p>Routine, visual cues, and calm tone go a long way. Try dementia-friendly gardening: raised planters, strong scent herbs, safe paths.</p>
+      </article>
+      <article class="card">
+        <h3>End of life</h3>
+        <p>Hospice teams focus on comfort — for the person and for you. It’s okay to ask simple questions: “What should I expect tonight?”</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- HELPFUL LINKS -->
+  <section>
+    <h2>Helpful links</h2>
     <ul>
-      <li><strong>Ask for help:</strong> Even one hour of respite can make a difference. Reach out to family, friends, or carer services.</li>
-      <li><strong>Keep a small ritual:</strong> A morning coffee in the garden, writing one sentence in a journal, or listening to music. Tiny moments can keep you grounded.</li>
-      <li><strong>Stay connected:</strong> Isolation is one of the hardest parts of caring. Online groups and local carer cafes can remind you you’re not the only one going through this.</li>
+      <li><a href="https://www.carersuk.org" target="_blank" rel="noopener">Carers UK</a> — national advice and online community.</li>
+      <li><a href="https://www.carers.org" target="_blank" rel="noopener">Carers Trust</a> — local carer services via partner networks.</li>
+      <li><a href="https://www.mygov.scot/help-for-carers" target="_blank" rel="noopener">Scottish Government – Help for Carers</a> — rights, assessments, grants.</li>
+      <li><a href="https://www.alzscot.org" target="_blank" rel="noopener">Alzheimer Scotland</a> — dementia information & support.</li>
+      <li><a href="https://www.sharedcarescotland.org.uk/" target="_blank" rel="noopener">Shared Care Scotland</a> — short breaks/respite.</li>
+      <li><a href="https://www.samh.org.uk/" target="_blank" rel="noopener">SAMH</a> — mental health support (Scotland).</li>
+      <li><a href="https://www.mind.org.uk/" target="_blank" rel="noopener">Mind</a> — mental health information (UK).</li>
+      <li><a href="https://breathingspace.scot/" target="_blank" rel="noopener">Breathing Space</a> — free, confidential listening (Scotland).</li>
+      <li><a href="https://giveusashout.org/" target="_blank" rel="noopener">Shout</a> — 24/7 text support (UK): text SHOUT to 85258.</li>
+      <li><a href="https://www.youngcarers.scot/" target="_blank" rel="noopener">Young Carers (Scotland)</a> — support & grants.</li>
     </ul>
   </section>
 
-  <section>
-    <h2>Helpful Links</h2>
-    <ul>
-      <li><a href="https://www.carersuk.org" target="_blank">Carers UK</a> — national advice and online community.</li>
-      <li><a href="https://www.carers.org" target="_blank">Carers Trust</a> — support services and local carer organisations.</li>
-      <li><a href="https://www.mygov.scot/help-for-carers" target="_blank">Scottish Government – Help for Carers</a></li>
-      <li><a href="https://www.alzscot.org/" target="_blank">Alzheimer Scotland</a> — dementia-specific resources.</li>
-      <li><a href="https://www.samh.org.uk/" target="_blank">SAMH (Scottish Association for Mental Health)</a></li>
-      <li><a href="https://www.mind.org.uk/" target="_blank">Mind UK</a></li>
-      <li><a href="https://www.youngcarers.scot/" target="_blank">Young Carers Services Scotland</a></li>
-    </ul>
-  </section>
-
+  <!-- STANDARDISED DISCLAIMER (place this above footer on every Wellbeing page) -->
   <section class="disclaimer">
-    <h2>Disclaimer</h2>
-    <p>This page is for support and information only. It is not a substitute for professional advice. If you are struggling, please reach out to a healthcare professional or carer support service. If you ever feel at immediate risk of harm, call 999 right away.</p>
+    <h2>Important Note</h2>
+    <p>The information on this page is for general understanding and support. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call 999 (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
+    <p>For non-emergency concerns, consider speaking with a qualified health professional or an appropriate support service listed above.</p>
   </section>
 </main>
 
@@ -100,14 +213,35 @@
   </div>
 </footer>
 
-<!-- Mobile menu script -->
+<!-- Mobile menu script: toggles class on the HEADER to match your CSS (.menu-open .nav {...}) -->
 <script>
-  const toggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav');
-  toggle.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    toggle.classList.toggle('open');
-  });
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const toggle = header.querySelector('.menu-toggle');
+    const nav = document.getElementById('primaryNav');
+
+    function setExpanded(on){
+      if(on){
+        header.classList.add('menu-open');
+        toggle.classList.add('menu-open');
+        toggle.setAttribute('aria-expanded','true');
+      }else{
+        header.classList.remove('menu-open');
+        toggle.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = header.classList.contains('menu-open');
+      setExpanded(!isOpen);
+    });
+
+    // Close menu when a link is clicked (mobile nicety)
+    nav.addEventListener('click', e => {
+      if(e.target.tagName === 'A'){ setExpanded(false); }
+    });
+  })();
 </script>
 
 </body>

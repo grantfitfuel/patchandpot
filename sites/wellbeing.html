@@ -4,33 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellbeing – Patch & Pot</title>
-  <link rel="stylesheet" href="style.css?v=24">
+  <link rel="stylesheet" href="style.css?v=30">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-
-  <style>
-    /* Green button style only for top nav strip */
-    .mini-nav a {
-      background: linear-gradient(180deg, var(--green2), var(--green));
-      color: #061007 !important;
-      border: none;
-      border-radius: var(--radius);
-      font-weight: 600;
-      padding: .65rem 1rem;
-      text-align: center;
-      flex: 1 1 160px;
-      text-decoration: none;
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-    .mini-nav a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    }
-  </style>
 </head>
 <body>
 
@@ -39,7 +19,16 @@
     <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <!-- Hamburger button (mobile) -->
+  <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-controls="mainNav" aria-expanded="false" data-menu-toggle>
+    <span class="menu-ico" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
+
+  <!-- Primary nav -->
+  <nav class="nav" id="mainNav" aria-label="Primary">
     <a href="index.html">Home</a>
     <a href="growing.html">Growing</a>
     <a href="recipes.html">Recipes</a>
@@ -56,11 +45,11 @@
   <p class="lead">Practical, kind, and clear support. These pages explain what’s happening, why it happens, and small steps you can take today.</p>
 
   <!-- Mini-nav strip (green buttons) -->
-  <div class="mini-nav" style="margin-top:6px; display:flex; flex-wrap:wrap; gap:10px;">
+  <div class="mini-nav">
     <a href="wellbeing/crisis.html">Crisis</a>
     <a href="wellbeing/carers.html">Carer Support</a>
     <a href="wellbeing/grief.html">Grief</a>
-    <a href="wellbeing/abuse.html">Abuse & Safety</a>
+    <a href="wellbeing/abuse.html">Abuse &amp; Safety</a>
     <a href="wellbeing/neurodiversity.html">Neurodiversity</a>
     <a href="wellbeing/neuroscience.html">Neuroscience</a>
     <a href="wellbeing/brain-reprogramming.html">Brain Reprogramming</a>
@@ -69,7 +58,7 @@
     <a href="wellbeing/affirmations.html">Affirmations</a>
   </div>
 
-  <!-- Main tiles (stay neutral glass style) -->
+  <!-- Neutral glass tiles -->
   <section class="guides-grid" style="margin-top:18px">
     <a class="tile" href="wellbeing/crisis.html"><span class="cap"><strong>Crisis — get help now</strong><br>Immediate steps and services.</span></a>
     <a class="tile" href="wellbeing/carers.html"><span class="cap"><strong>Carer Support</strong><br>Boundaries, energy, scripts, respite, links.</span></a>
@@ -80,7 +69,7 @@
     <a class="tile" href="wellbeing/brain-reprogramming.html"><span class="cap"><strong>Brain Reprogramming</strong><br>Small habits, new pathways, identity shifts.</span></a>
     <a class="tile" href="wellbeing/neurolinguistics.html"><span class="cap"><strong>Neurolinguistics</strong><br>Language, self-talk, anchors, scripts.</span></a>
     <a class="tile" href="wellbeing/thought-reframing.html"><span class="cap"><strong>Thought Reframing</strong><br>Shifting perspectives with action steps.</span></a>
-    <a class="tile" href="wellbeing/affirmations.html"><span class="cap"><strong>Affirmations</strong><br>Practical, believable phrases with actions.</span></a>
+    <a class="tile" href="wellbeing/affirmations.html"><span class="cap"><strong>Affirmations</strong><br>Believable phrases tied to action; printable cards.</span></a>
   </section>
 
   <!-- Standard disclaimer -->
@@ -100,5 +89,17 @@
   </div>
 </footer>
 
+<!-- Tiny script to toggle the mobile menu -->
+<script>
+  (function(){
+    const btn = document.querySelector('[data-menu-toggle]');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      document.body.classList.toggle('menu-open', !expanded);
+    });
+  })();
+</script>
 </body>
 </html>

@@ -6,7 +6,7 @@
   <title>Neuroscience — Patch & Pot</title>
 
   <!-- Global CSS (one folder up) -->
-  <link rel="stylesheet" href="../style.css?v=14">
+  <link rel="stylesheet" href="../style.css?v=19">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -22,13 +22,18 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header">
+  <!-- Header with hamburger -->
+  <header class="site-header" id="siteHeader">
     <div class="brand">
       <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
       <span class="site-title">Patch &amp; Pot</span>
     </div>
-    <nav class="nav" aria-label="Primary">
+
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+      <span class="menu-ico"><span></span><span></span><span></span></span>
+    </button>
+
+    <nav class="nav" id="primaryNav" aria-label="Primary">
       <a href="../index.html">Home</a>
       <a href="../growing.html">Growing</a>
       <a href="../recipes.html">Recipes</a>
@@ -49,7 +54,7 @@
       <h2>1. Emotions &amp; Regulation</h2>
       <p>Your brain has fast alarm systems (amygdala) and slower regulation systems (prefrontal cortex). Stress feels like the alarm shouting louder than the calm voice. Training the calm voice is possible.</p>
       <figure>
-        <img src="../img/ns-emotion-brain.png?v=2"
+        <img src="../img/ns-emotion-brain.png"
              alt="Amygdala (alarm) and prefrontal cortex (regulation)"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-emotion-brain.png</code></div>
@@ -63,7 +68,7 @@
       <h2>2. Habits &amp; Loops</h2>
       <p>Habits run on a loop: <strong>cue → routine → reward</strong>. Don’t fight the loop; keep the cue and reward, swap the routine.</p>
       <figure>
-        <img src="../img/ns-habit-loop.png?v=2"
+        <img src="../img/ns-habit-loop.png"
              alt="Habit loop — cue, routine, reward"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-habit-loop.png</code></div>
@@ -72,18 +77,75 @@
       <p><strong>Example:</strong> Afternoon slump (cue) → crisps (routine) → stimulation (reward). Swap to a 2-minute walk &amp; cold water splash → same reward.</p>
     </section>
 
-    <!-- 3. Memory & Learning -->
+    <!-- 3. Memory & Learning (EXPANDED) -->
     <section id="memory">
       <h2>3. Memory &amp; Learning</h2>
-      <p>New memories are encoded by the hippocampus and stored across the cortex during sleep. Emotion and repetition strengthen them.</p>
+      <p>
+        Memories are not like files in a cabinet — they’re dynamic and shaped by repetition, context, and emotion.
+        New memories are encoded by the hippocampus and then gradually “handed off” to networks across the cortex,
+        especially during sleep. Work <em>with</em> these patterns to remember more with less effort.
+      </p>
       <figure>
-        <img src="../img/ns-memory-systems.png?v=2"
-             alt="Hippocampus encodes, cortex stores"
+        <img src="../img/ns-memory-systems.png" alt="Hippocampus encodes, cortex stores"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-memory-systems.png</code></div>
         <figcaption class="cap">Encode with focus, stabilise with sleep, strengthen with spaced repetition.</figcaption>
       </figure>
-      <p><strong>Try:</strong> Water your plants to the same playlist each time. The song becomes a memory cue.</p>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Spacing beats cramming</h3>
+          <p>Short reviews over days outperform one long cram. Each “forget → recall” cycle strengthens the trace.</p>
+          <p><strong>Try:</strong> 10 minutes nightly instead of 2 hours once a week.</p>
+        </article>
+
+        <article class="card">
+          <h3>Active recall</h3>
+          <p>Close the notes and pull info from memory. Retrieval (not rereading) does the heavy lifting.</p>
+          <p><strong>Example:</strong> After a gardening video, jot the 5 steps from memory, then check.</p>
+        </article>
+
+        <article class="card">
+          <h3>Dual coding</h3>
+          <p>Combine words with visuals. More cues = more ways to find it later.</p>
+          <p><strong>Example:</strong> Sketch a seed-to-sprout doodle beside the instructions.</p>
+        </article>
+
+        <article class="card">
+          <h3>Chunking</h3>
+          <p>Group details into meaningful “chunks” to ease working-memory load.</p>
+          <p><strong>Example:</strong> “Root veg row” instead of four separate items.</p>
+        </article>
+
+        <article class="card">
+          <h3>Emotion &amp; novelty</h3>
+          <p>Meaningful or surprising moments stick better (dopamine flags them as “save this”).</p>
+          <p><strong>Tip:</strong> Turn facts into a quick story, joke, or song.</p>
+        </article>
+
+        <article class="card">
+          <h3>Sleep &amp; rest</h3>
+          <p>Deep sleep and REM consolidate learning. Even a 20-min nap refreshes recall.</p>
+          <p><strong>Tip:</strong> Treat sleep as part of study, not lost time.</p>
+        </article>
+
+        <article class="card">
+          <h3>Context &amp; cues</h3>
+          <p>We recall best in contexts that match learning.</p>
+          <ul class="meta">
+            <li>Revise in the seat you’ll use most.</li>
+            <li>Use a consistent scent (e.g., citrus) while studying, then again before recall.</li>
+            <li>Pair facts with small actions (gestures, watering routine).</li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- Optional extra visual you can add later -->
+      <figure>
+        <img src="../img/ns-memory-tools.png" alt="Seven evidence-based memory tools: spacing, active recall, dual coding, chunking, novelty, sleep, cues"
+             onerror="this.style.display='none'">
+        <figcaption class="cap">Handy quick-reference: seven tools that make memories stick.</figcaption>
+      </figure>
     </section>
 
     <!-- 4. Thought Reframing -->
@@ -91,7 +153,7 @@
       <h2>4. Thought Reframing</h2>
       <p>Reframing notices an unhelpful thought, checks the evidence, and replaces it with a balanced alternative. It’s accuracy, not blind positivity.</p>
       <figure>
-        <img src="../img/ns-thought-reframing.png?v=2"
+        <img src="../img/ns-thought-reframing.png"
              alt="Identify → Challenge → New perspective"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-thought-reframing.png</code></div>
@@ -115,7 +177,7 @@
       <h2>5. Affirmations</h2>
       <p>Short, believable phrases prime your brain’s filters to notice matching evidence. Pair with tiny actions to make them “true enough” fast.</p>
       <figure>
-        <img src="../img/ns-affirmations.png?v=2"
+        <img src="../img/ns-affirmations.png"
              alt="Affirmations prime attention and behaviour"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-affirmations.png</code></div>
@@ -128,7 +190,7 @@
       <h2>6. Neuroplasticity</h2>
       <p>“What fires together, wires together.” Repetition grows useful pathways and lets unused ones fade. Consistency beats intensity.</p>
       <figure>
-        <img src="../img/ns-neuroplasticity.png?v=2"
+        <img src="../img/ns-neuroplasticity.png"
              alt="Growth and pruning of neural pathways"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-neuroplasticity.png</code></div>
@@ -141,7 +203,7 @@
       <h2>7. Autonomic Nervous System: Fight, Flight &amp; Shutdown</h2>
       <p>The ANS regulates arousal. The sympathetic branch handles fight/flight. The parasympathetic handles rest/digest. Under overload we can drop into shutdown (freeze/collapse). Learning to steer state is a core skill.</p>
       <figure>
-        <img src="../img/ans-three-states.png?v=2"
+        <img src="../img/ans-three-states.png"
              alt="Three-state ANS diagram: Rest & Digest, Fight/Flight, Shutdown"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ans-three-states.png</code></div>
@@ -157,14 +219,53 @@
         <a class="tile" href="../img/reframing-cards-a4.pdf"><span class="cap"><strong>Reframing cards (A4)</strong><br>Identify → Challenge → Reframe</span></a>
       </div>
     </section>
+
+    <!-- Standardised disclaimer -->
+    <section class="disclaimer">
+      <h2>Important Note</h2>
+      <p>
+        The information on this page is for <strong>general understanding and support</strong>. It is
+        <strong>not</strong> a substitute for professional medical, psychological, or legal advice.
+        If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK)
+        immediately. If you’re outside the UK, contact your local emergency number.
+      </p>
+      <p>
+        For non-emergency concerns, consider speaking with a qualified health professional or an appropriate
+        support service listed on our other pages.
+      </p>
+    </section>
   </main>
 
   <footer>
     <div class="wrap footer-inner">
       <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-      <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+      <p>© 2025 Patch &amp; Pot</p>
+      <p>Created by Grant Cameron Anthony</p>
     </div>
   </footer>
+
+  <!-- Mobile menu script -->
+  <script>
+    (function(){
+      const header = document.getElementById('siteHeader');
+      const toggle = header.querySelector('.menu-toggle');
+      const nav = document.getElementById('primaryNav');
+
+      function setExpanded(on){
+        if(on){
+          header.classList.add('menu-open');
+          toggle.classList.add('menu-open');
+          toggle.setAttribute('aria-expanded','true');
+        }else{
+          header.classList.remove('menu-open');
+          toggle.classList.remove('menu-open');
+          toggle.setAttribute('aria-expanded','false');
+        }
+      }
+      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+    })();
+  </script>
 
 </body>
 </html>

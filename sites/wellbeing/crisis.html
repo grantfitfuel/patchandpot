@@ -3,12 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Patch & Pot – Crisis Support</title>
-  <meta name="description" content="Clear steps for staying safe in a crisis: grounding, traffic-light plan, safety planning, and who to contact.">
-  <link rel="stylesheet" href="../style.css">
+  <title>Crisis Help — Patch & Pot</title>
+
+  <!-- Global CSS (one folder up) -->
+  <link rel="stylesheet" href="../style.css?v=14">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
+
+  <style>
+    /* page-local helpers (kept tiny, uses your palette) */
+    .grid-2 {display:grid; gap:14px}
+    @media(min-width:820px){ .grid-2{grid-template-columns:1fr 1fr} }
+    .help-card{background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px}
+    .help-card h3{margin:.2rem 0 .4rem; font-size:1.15rem}
+    .big-call {display:block; margin:.5rem 0; padding:12px 14px; border-radius:12px;
+              font-weight:800; text-align:center; background:linear-gradient(180deg,#7ed495,#2E7D32); color:#061007}
+    .quick-exit{position:fixed; right:14px; top:14px; z-index:9999; border:0;
+                background:#d9534f; color:#fff; font-weight:800; padding:.6rem .8rem; border-radius:10px; cursor:pointer}
+    .notice{background:rgba(255,255,255,.08); border:1px solid var(--stroke); padding:.75rem 1rem; border-radius:12px}
+    .steps li{margin:.3rem 0}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+         font-size:.95em; background:#222; color:#fff; border-radius:6px; padding:.05rem .35rem}
+    .muted{color:var(--inkdim)}
+  </style>
 </head>
 <body>
 
+<!-- Header -->
 <header class="site-header">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
@@ -22,137 +47,133 @@
     <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
     <a href="../guides.html">Guides</a>
     <a href="../ideas.html">Ideas</a>
+    <a href="../contact.html">Contact</a>
   </nav>
 </header>
 
+<button class="quick-exit" onclick="window.location.href='https://www.metoffice.gov.uk/'" aria-label="Quick exit to a neutral site">Quick Exit</button>
+
 <main class="wrap">
-  <h1>Crisis</h1>
-  <p class="lead">
-    If you feel unsafe, overwhelmed, or at risk of harming yourself or someone else, use the steps below.
-    They’re practical, fast, and designed for when thinking clearly is hard. If immediate danger is present, contact emergency services in your area.
-  </p>
+  <h1>Crisis Help</h1>
+  <p class="lead">If you’re at risk of harming yourself or someone else, you are not alone and help is available now. Use the options below based on your situation.</p>
 
-  <!-- TRAFFIC-LIGHT PLAN -->
-  <section class="grid" id="plan" aria-label="Crisis traffic-light plan">
-    <article class="card">
-      <img src="../img/crisis-traffic-light.png" alt="Traffic-light diagram: green, amber, red" class="thumb">
-      <h2>Your Traffic-Light Plan</h2>
-      <p class="meta">Name your state; pick the matching action.</p>
-      <ul>
-        <li><strong>Green (OK):</strong> daily anchors, sleep window, meals, small social contact.</li>
-        <li><strong>Amber (rising):</strong> use grounding; shorten plans; postpone big decisions.</li>
-        <li><strong>Red (unsafe):</strong> follow your safety plan; remove means; call for help.</li>
+  <!-- Immediate danger -->
+  <section class="help-card" aria-labelledby="immediate">
+    <h2 id="immediate">If you are in immediate danger</h2>
+    <div class="grid-2">
+      <div>
+        <p>Call emergency services now.</p>
+        <a class="big-call" href="tel:999">Call <strong>999</strong> (UK)</a>
+        <p class="muted">In the EU call <strong>112</strong>. Elsewhere, use your local emergency number.</p>
+        <p class="notice"><strong>Can’t speak?</strong> Call 999, listen, then press <span class="kbd">55</span> when prompted to use the <em>Silent Solution</em> (UK) so the operator knows it’s an emergency.</p>
+      </div>
+      <div>
+        <p><strong>Go to A&amp;E</strong> (Emergency Department) if you can get there safely, or ask someone to take you.</p>
+        <ul class="steps">
+          <li>Take only what you need (phone, ID, medication).</li>
+          <li>Tell the first clinician: “I’m in crisis and need immediate support.”</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Not in immediate danger -->
+  <section class="grid-2" aria-labelledby="notnow">
+    <div class="help-card">
+      <h2 id="notnow">If you’re not in immediate danger</h2>
+
+      <h3>Speak to someone now</h3>
+      <p>Free, confidential support 24/7:</p>
+      <ul class="steps">
+        <li><strong>Samaritans</strong> — call <a href="tel:116123">116 123</a> (UK &amp; ROI) or visit <a href="https://www.samaritans.org/">samaritans.org</a></li>
+        <li><strong>SHOUT</strong> (text support) — text <span class="kbd">SHOUT</span> to <span class="kbd">85258</span> (UK)</li>
+        <li><strong>NHS 111</strong> — non-emergency help: <a href="https://111.nhs.uk/">111.nhs.uk</a> or call <a href="tel:111">111</a></li>
       </ul>
-      <a class="btn primary" href="#safety">Build a 1-page safety plan</a>
-    </article>
 
-    <article class="card">
-      <img src="../img/crisis-grounding.png" alt="Grounding steps illustrated with hand icons" class="thumb">
-      <h2>Fast Grounding (60–120s)</h2>
-      <ol>
-        <li>Feet on floor. Notice the contact points.</li>
-        <li>Name 5 things you see, 4 feel, 3 hear, 2 smell, 1 taste.</li>
-        <li>Box breathing 4-4-4-4 for 4 cycles.</li>
+      <p class="muted">Outside the UK: try your local crisis line, emergency department, or <a href="https://findahelpline.com">findahelpline.com</a>.</p>
+    </div>
+
+    <div class="help-card">
+      <h2>Ground yourself (2–5 minutes)</h2>
+      <ol class="steps">
+        <li><strong>4–6 Breathing:</strong> inhale <span class="kbd">4</span>, exhale <span class="kbd">6</span> — repeat for 60–90s.</li>
+        <li><strong>5–4–3–2–1:</strong> name 5 things you see · 4 feel · 3 hear · 2 smell · 1 taste.</li>
+        <li><strong>Cold water splash</strong> on face/neck. Sit upright, feet on floor, look around the room.</li>
+        <li><strong>Say what’s happening:</strong> “I’m having a surge. It will pass.”</li>
       </ol>
-      <p class="meta">If thoughts spiral: say out loud, “I’m safe right now. This wave will pass.”</p>
-    </article>
-
-    <article class="card">
-      <img src="../img/crisis-environment.png" alt="Environment reset icons: window, water, light" class="thumb">
-      <h2>Reset Your Space</h2>
-      <ul>
-        <li>Open a window; change position (sit/stand/walk 30s).</li>
-        <li>Drink a full glass of water.</li>
-        <li>Lower harsh light; reduce noise or use calm music.</li>
-      </ul>
-    </article>
+    </div>
   </section>
 
-  <!-- SAFETY PLAN -->
-  <section class="grid" id="safety" aria-label="Safety plan">
-    <article class="card">
-      <img src="../img/safety-card.png" alt="Safety plan card layout" class="thumb">
-      <h2>1-Page Safety Plan</h2>
-      <p class="meta">Write it when calm; keep it visible.</p>
-      <ul>
-        <li><strong>Signals I’m not OK:</strong> (e.g., racing thoughts, can’t sleep, skipping meals)</li>
-        <li><strong>What helps fast:</strong> (breathing, shower, walk, text a friend, music)</li>
-        <li><strong>People I can contact:</strong> Names + numbers</li>
-        <li><strong>Safe places:</strong> a room, a bench, a public space</li>
-        <li><strong>Professional support:</strong> GP/therapist lines; local urgent numbers</li>
-      </ul>
-      <a class="btn ghost" href="../guides.html#calm">Try a guided calm</a>
-    </article>
-
-    <article class="card">
-      <img src="../img/crisis-remove-means.png" alt="Lock and storage icon to remove access to means" class="thumb">
-      <h2>Remove Means</h2>
-      <p class="meta">Make the next harmful step harder to do.</p>
-      <ul>
-        <li>Lock away or move items you could use to harm yourself.</li>
-        <li>Ask someone to temporarily hold medications or keys if needed.</li>
-        <li>Choose a “safe room” (no harmful items); go there when overwhelmed.</li>
-      </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/crisis-support-call.png" alt="Phone with heart and shield icons" class="thumb">
-      <h2>Call for Help</h2>
-      <p>If you can’t stay safe, call your local emergency number or an urgent mental health line in your area.</p>
-      <ul>
-        <li>Say: “I’m struggling to stay safe and need support now.”</li>
-        <li>Keep your address/postcode visible near the phone.</li>
-      </ul>
-      <p><small>Texting or online chat can be easier if speech is hard — search your area’s crisis services.</small></p>
-    </article>
+  <!-- Safety plan -->
+  <section class="help-card" aria-labelledby="safety">
+    <h2 id="safety">Create a one-page safety plan</h2>
+    <p>Fill this in now or screenshot/copy it. Keep it where you can find it fast.</p>
+    <div class="grid-2">
+      <div>
+        <h3>1) Early warning signs</h3>
+        <ul class="steps">
+          <li>Thoughts I notice: <em>e.g., “I can’t cope”</em></li>
+          <li>Body signals: <em>tight chest, fast heart</em></li>
+          <li>Situations: <em>conflict, no sleep</em></li>
+        </ul>
+        <h3>2) Small steps that help</h3>
+        <ul class="steps">
+          <li>4–6 breathing (2 minutes)</li>
+          <li>Text a safe person a 🚦 “check-in” emoji</li>
+          <li>Step outside / change room</li>
+        </ul>
+      </div>
+      <div>
+        <h3>3) People & places</h3>
+        <ul class="steps">
+          <li>Friend/family: <em>Name + number</em></li>
+          <li>Place that calms me: <em>park, kitchen window</em></li>
+          <li>Helplines: 116 123 · 85258 · 111</li>
+        </ul>
+        <h3>4) Make my space safer</h3>
+        <ul class="steps">
+          <li>Move risky items out of reach / ask someone to hold them</li>
+          <li>Set phone wallpaper with helplines</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
-  <!-- AFTER A CRISIS -->
-  <section class="grid" id="after" aria-label="After the immediate crisis">
-    <article class="card">
-      <img src="../img/crisis-debrief.png" alt="Notebook debrief illustration" class="thumb">
-      <h2>Debrief (10 minutes)</h2>
-      <ul>
-        <li>What set it off? (trigger, tiredness, conflict, pain)</li>
-        <li>What helped? (tools, people, place)</li>
-        <li>One change for next time (note it on your safety card)</li>
+  <!-- Support for others -->
+  <section class="grid-2" aria-labelledby="helpother">
+    <div class="help-card">
+      <h2 id="helpother">If you’re helping someone else</h2>
+      <ul class="steps">
+        <li>Stay with them (or on the phone). Speak slowly and kindly.</li>
+        <li>Use simple questions: “Can we breathe together?” “Would water help?”</li>
+        <li>If risk is high, call <a href="tel:999">999</a>. If unsure, call <a href="tel:111">111</a> for advice.</li>
+        <li>Remove means if it’s safe to do so; don’t argue or minimise.</li>
       </ul>
-    </article>
+    </div>
 
-    <article class="card">
-      <img src="../img/crisis-anchors.png" alt="Morning, midday, evening anchors diagram" class="thumb">
-      <h2>Rebuild Anchors</h2>
-      <p class="meta">Simple, repeatable cues steady your system.</p>
-      <ul>
-        <li>Morning: water + meds + 2-minute calm</li>
-        <li>Midday: eat something + 5-minute walk or stretch</li>
-        <li>Evening: wind-down window and a consistent bedtime</li>
+    <div class="help-card">
+      <h2>Local & specialist support</h2>
+      <ul class="steps">
+        <li><a href="https://www.mind.org.uk/need-urgent-help/using-this-tool/">Mind Urgent Help tool</a> (UK)</li>
+        <li><a href="https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline">NHS urgent mental health lines</a> (UK)</li>
+        <li><a href="https://www.papyrus-uk.org/">PAPYRUS Hopeline247</a> (under 35s, UK)</li>
+        <li><a href="https://www.sane.org.uk/">SANEline</a> (UK)</li>
+        <li class="muted">International: <a href="https://findahelpline.com">findahelpline.com</a></li>
       </ul>
-    </article>
-
-    <article class="card">
-      <img src="../img/crisis-checkin.png" alt="Two speech bubbles with tick" class="thumb">
-      <h2>Let Someone Know</h2>
-      <p>Message a trusted person: <em>“Yesterday was rough. I’m safe today. Can we check in this week?”</em></p>
-    </article>
+    </div>
   </section>
 
-  <!-- LINKS OUT -->
-  <section class="strip">
-    <h2>Helpful Links</h2>
-    <ul>
-      <li>Search “<strong>crisis helpline</strong>” + your area for real-time support lines and webchat.</li>
-      <li>Your GP or local urgent mental health service can advise on next steps.</li>
-    </ul>
-    <p><small>Web pages help with ideas, but emergencies need real-time human support.</small></p>
+  <!-- ANS education -->
+  <section class="help-card" aria-labelledby="ans">
+    <h2 id="ans">Why this happens (Fight–Flight–Shutdown)</h2>
+    <p>Your autonomic nervous system shifts between three broad states. You’re not “broken” — your body is trying to protect you. Skills above help return towards safety.</p>
+    <figure>
+      <img src="../img/ans-three-states.png?v=2" alt="Three-state autonomic nervous system diagram: Rest &amp; Digest, Fight/Flight, Shutdown" style="max-width:720px">
+      <figcaption class="cap">Breath, posture, cold water and kind inner speech help nudge the body back towards Rest &amp; Digest.</figcaption>
+    </figure>
   </section>
 
-  <div class="mini-nav">
-    <a class="btn primary" href="./carers.html">Carer Support</a>
-    <a class="btn primary" href="./abuse.html">Abuse Support</a>
-    <a class="btn primary" href="./grief.html">Grief</a>
-    <a class="btn ghost"   href="../growing.html">Visit the Growing hub</a>
-  </div>
+  <p class="muted">This page is informational and not a substitute for professional care. If in doubt about safety, call emergency services.</p>
 </main>
 
 <footer>
@@ -162,5 +183,11 @@
   </div>
 </footer>
 
+<script>
+  // Optional: scroll to top on quick-exit double press (defensive)
+  window.addEventListener('keydown', e=>{
+    if((e.key==='Escape'||e.key==='Esc')) window.scrollTo({top:0,behavior:'instant'});
+  });
+</script>
 </body>
 </html>

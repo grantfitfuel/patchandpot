@@ -4,36 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellbeing – Patch & Pot</title>
-  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="style.css?v=21">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-
-  <script>
-    // data-URI fallback: pale tile with centered label
-    const ppFallback = (label) => {
-      const svg = encodeURIComponent(
-        `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'>
-          <rect width='100%' height='100%' fill='#0a0d0c'/>
-          <rect x='12' y='12' width='576' height='576' rx='18' ry='18'
-                fill='rgba(255,255,255,0.05)' stroke='rgba(255,255,255,0.14)'/>
-          <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'
-                font-size='28' font-family='Inter,Arial,sans-serif'
-                fill='#c0d0c4'>${label}</text>
-        </svg>`
-      );
-      return `data:image/svg+xml;charset=utf-8,${svg}`;
-    };
-
-    // attach a global onerror handler we can call inline
-    function ppImgFallback(img, label){
-      img.onerror = null; // prevent loops
-      img.src = ppFallback(label || 'Image');
-    }
-  </script>
 </head>
 <body>
 
@@ -72,96 +49,76 @@
     <a href="wellbeing/affirmations.html">Affirmations</a>
   </div>
 
-  <!-- Cards grid -->
+  <!-- Text-only cards grid (no images) -->
   <section class="guides-grid" style="margin-top:18px">
-    <!-- Crisis -->
     <a class="tile" href="wellbeing/crisis.html">
-      <span class="thumb">
-        <img src="img/ns-emotion-brain.png" alt="Crisis support"
-             onerror="ppImgFallback(this,'CRISIS')">
+      <span class="cap">
+        <strong>Crisis — get help now</strong><br>
+        What to do right this minute, who to contact, and how to stay safe.
       </span>
-      <span class="cap"><strong>Crisis — get help now</strong><br>What to do right this minute, who to contact, and how to stay safe.</span>
     </a>
 
-    <!-- Carers -->
     <a class="tile" href="wellbeing/carers.html">
-      <span class="thumb">
-        <img src="img/ns-habit-loop.png" alt="Carer support"
-             onerror="ppImgFallback(this,'CARERS')">
+      <span class="cap">
+        <strong>Carer Support</strong><br>
+        Boundaries, energy budgeting, scripts, respite, and regional links.
       </span>
-      <span class="cap"><strong>Carer Support</strong><br>Boundaries, energy budgeting, scripts, respite, and regional links.</span>
     </a>
 
-    <!-- Grief -->
     <a class="tile" href="wellbeing/grief.html">
-      <span class="thumb">
-        <img src="img/ns-memory-systems.png" alt="Grief support"
-             onerror="ppImgFallback(this,'GRIEF')">
+      <span class="cap">
+        <strong>Grief</strong><br>
+        Types of grief, what waves feel like, and how to get through a day.
       </span>
-      <span class="cap"><strong>Grief</strong><br>Types of grief, what waves feel like, and how to get through a day.</span>
     </a>
 
-    <!-- Abuse -->
     <a class="tile" href="wellbeing/abuse.html">
-      <span class="thumb">
-        <img src="img/ns-thought-reframing.png" alt="Abuse and safety"
-             onerror="ppImgFallback(this,'ABUSE & SAFETY')">
+      <span class="cap">
+        <strong>Abuse &amp; Safety</strong><br>
+        Safety planning, tech checks, legal/advocacy links, and helplines.
       </span>
-      <span class="cap"><strong>Abuse &amp; Safety</strong><br>Safety planning, covert tech checks, legal/advocacy links.</span>
     </a>
 
-    <!-- Neurodiversity -->
     <a class="tile" href="wellbeing/neurodiversity.html">
-      <span class="thumb">
-        <img src="img/ns-affirmations.png" alt="Neurodiversity"
-             onerror="ppImgFallback(this,'NEURODIVERSITY')">
+      <span class="cap">
+        <strong>Neurodiversity</strong><br>
+        Profiles, sensory supports, executive strategies, school/work adjustments.
       </span>
-      <span class="cap"><strong>Neurodiversity</strong><br>Profiles, sensory supports, executive strategies, school/work adjustments.</span>
     </a>
 
-    <!-- Neuroscience -->
     <a class="tile" href="wellbeing/neuroscience.html">
-      <span class="thumb">
-        <img src="img/ns-neuroplasticity.png" alt="Neuroscience explained"
-             onerror="ppImgFallback(this,'NEUROSCIENCE')">
+      <span class="cap">
+        <strong>Neuroscience</strong><br>
+        Emotion circuits, habit loops, memory, reframing, affirmations, ANS.
       </span>
-      <span class="cap"><strong>Neuroscience</strong><br>Emotion circuits, habit loops, memory, reframing, affirmations, ANS.</span>
     </a>
 
-    <!-- Brain Reprogramming -->
     <a class="tile" href="wellbeing/brain-reprogramming.html">
-      <span class="thumb">
-        <img src="img/ns-neuroplasticity.png" alt="Brain reprogramming"
-             onerror="ppImgFallback(this,'REPROGRAMMING')">
+      <span class="cap">
+        <strong>Brain Reprogramming</strong><br>
+        Neuroplasticity in action: tiny habits, state management, identity shifts.
       </span>
-      <span class="cap"><strong>Brain Reprogramming</strong><br>Neuroplasticity in action: tiny habits, state management, identity shifts.</span>
     </a>
 
-    <!-- Neurolinguistics -->
     <a class="tile" href="wellbeing/neurolinguistics.html">
-      <span class="thumb">
-        <img src="img/ns-thought-reframing.png" alt="Language patterns"
-             onerror="ppImgFallback(this,'NEUROLINGUISTICS')">
+      <span class="cap">
+        <strong>Neurolinguistics</strong><br>
+        Language patterns, self-talk, anchors, ethical use, practical scripts.
       </span>
-      <span class="cap"><strong>Neurolinguistics</strong><br>Language patterns, self-talk, anchors, ethical use, practical scripts.</span>
     </a>
 
-    <!-- Thought Reframing -->
     <a class="tile" href="wellbeing/thought-reframing.html">
-      <span class="thumb">
-        <img src="img/ns-thought-reframing.png" alt="Thought reframing"
-             onerror="ppImgFallback(this,'REFRAMING')">
+      <span class="cap">
+        <strong>Thought Reframing</strong><br>
+        From harsh to balanced: step-by-step with everyday examples.
       </span>
-      <span class="cap"><strong>Thought Reframing</strong><br>From harsh to balanced: step-by-step with everyday examples.</span>
     </a>
 
-    <!-- Affirmations -->
     <a class="tile" href="wellbeing/affirmations.html">
-      <span class="thumb">
-        <img src="img/ns-affirmations.png" alt="Affirmations"
-             onerror="ppImgFallback(this,'AFFIRMATIONS')">
+      <span class="cap">
+        <strong>Affirmations</strong><br>
+        Believable phrases tied to action; printable cards and how to use them.
       </span>
-      <span class="cap"><strong>Affirmations</strong><br>Believable phrases tied to action; printable cards and how to use them.</span>
     </a>
   </section>
 

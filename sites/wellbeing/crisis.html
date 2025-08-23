@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Crisis Support – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=14">
+  <link rel="stylesheet" href="../style.css?v=19">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -14,17 +14,24 @@
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <!-- Hamburger -->
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
+
+  <!-- Nav -->
+  <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
-    <a href="../exercise.html">Exercise</a>
     <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
+    <a href="../exercise.html">Exercise</a>
     <a href="../guides.html">Guides</a>
     <a href="../ideas.html">Ideas</a>
     <a href="../contact.html">Contact</a>
@@ -33,69 +40,187 @@
 
 <main class="wrap">
   <h1>Crisis Support</h1>
-  <p class="lead">If you are in immediate danger of harming yourself, it’s important to seek help right away. You are not alone, and there are people ready to listen and support you.</p>
+  <p class="lead">
+    If everything feels too much right now, you’re not broken — you’re overwhelmed. You are not alone.
+    This page gives you fast options for **right now**, simple tools to steady your body, and places to get
+    confidential support in the UK and Scotland.
+  </p>
 
+  <figure>
+    <img src="../img/crisis-hero.png" alt="Warm light at an open doorway — a sense of safety and welcome" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
+    <figcaption class="cap">A calmer moment is possible. One small step at a time.</figcaption>
+  </figure>
+
+  <!-- On-page mini navigation -->
+  <nav class="mini-nav" aria-label="On this page">
+    <a href="#immediate">If you’re in immediate danger</a>
+    <a href="#not-immediate">If you’re not in immediate danger</a>
+    <a href="#why">Why crisis happens (anxiety & depression)</a>
+    <a href="#grounding">Grounding tools</a>
+    <a href="#plan">Make a simple safety plan</a>
+    <a href="#tech">Technology & privacy</a>
+    <a href="#links">Helplines & services</a>
+    <a href="#disclaimer">Disclaimer</a>
+  </nav>
+
+  <!-- IMMEDIATE DANGER -->
   <section id="immediate">
-    <h2>If you are in immediate danger</h2>
+    <h2>1) If you are in immediate danger</h2>
     <ul>
       <li>Call <strong>999</strong> (UK emergency services).</li>
-      <li>If safe, go to your nearest A&amp;E department.</li>
-      <li>You can also call the <strong>Samaritans on 116 123</strong> (free, 24/7, UK &amp; ROI).</li>
+      <li>If safe, go to your nearest <strong>A&amp;E</strong>.</li>
+      <li>Call <strong>Samaritans 116 123</strong> (free, 24/7, UK &amp; ROI).</li>
+      <li>If speaking is not possible: from a <em>mobile</em> call 999 and follow the **Silent Solution** prompts (you may be asked to press <strong>55</strong> to confirm you need help).</li>
     </ul>
   </section>
 
+  <!-- NOT IMMEDIATE -->
   <section id="not-immediate">
-    <h2>If you are struggling but not in immediate danger</h2>
-    <p>If you feel unsafe but not at immediate risk, the following services may help:</p>
+    <h2>2) If you’re struggling but not in immediate danger</h2>
+    <p>If you feel unsafe but not at immediate risk, these services can help you stay steady and get support:</p>
     <ul>
-      <li><a href="https://www.samaritans.org" target="_blank" rel="noopener">Samaritans (24/7 listening support)</a></li>
-      <li><a href="https://breathingspace.scot" target="_blank" rel="noopener">Breathing Space (Scotland, 6pm–2am weekdays, 24/7 weekends)</a></li>
-      <li><a href="https://www.mind.org.uk" target="_blank" rel="noopener">Mind (mental health information &amp; support)</a></li>
-      <li><a href="https://giveusashout.org" target="_blank" rel="noopener">Shout (text SHOUT to 85258 for crisis textline, UK)</a></li>
-      <li><a href="https://www.sane.org.uk" target="_blank" rel="noopener">SANEline (support for those affected by mental illness)</a></li>
-      <li><a href="https://www.nhs.uk/service-search/mental-health" target="_blank" rel="noopener">NHS urgent mental health helplines (England, 24/7)</a></li>
+      <li><a href="https://www.samaritans.org" target="_blank" rel="noopener">Samaritans</a> — 24/7 listening support (phone, email).</li>
+      <li><a href="https://breathingspace.scot" target="_blank" rel="noopener">Breathing Space (Scotland)</a> — 6pm–2am weekdays, 24/7 weekends.</li>
+      <li><a href="https://giveusashout.org" target="_blank" rel="noopener">Shout</a> — text <strong>SHOUT</strong> to <strong>85258</strong> (UK, 24/7 textline).</li>
+      <li><a href="https://www.mind.org.uk" target="_blank" rel="noopener">Mind</a> — mental health information & signposting (England &amp; Wales).</li>
+      <li><a href="https://www.sane.org.uk" target="_blank" rel="noopener">SANEline</a> — support for people affected by mental illness.</li>
+      <li><a href="https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline" target="_blank" rel="noopener">NHS urgent mental health helplines (England)</a> — 24/7 local teams.</li>
+      <li><a href="https://www.samh.org.uk/" target="_blank" rel="noopener">SAMH</a> — mental health information (Scotland).</li>
+      <li><a href="https://www.thecalmzone.net/" target="_blank" rel="noopener">CALM</a> — helpline & webchat (suicide prevention).</li>
+      <li><a href="https://www.papyrus-uk.org/" target="_blank" rel="noopener">PAPYRUS HOPELINE247</a> — under 35s: call 0800 068 4141 / text 07860 039967.</li>
     </ul>
   </section>
 
+  <!-- WHY THIS HAPPENS -->
   <section id="why">
-    <h2>How crisis happens</h2>
-    <p>Emotional crisis isn’t weakness. It’s a result of how the brain and body respond under pressure. Three common systems are at play:</p>
+    <h2>3) Why crisis happens (anxiety, depression & overwhelm)</h2>
+    <p>
+      Crisis is a **body response** to overload. Three common states can show up:
+    </p>
     <ul>
-      <li><strong>Anxiety / overwhelm:</strong> Your <em>sympathetic nervous system</em> (fight/flight) is overactive, flooding you with adrenaline. This can make your heart race, thoughts spiral, and logic feel impossible.</li>
-      <li><strong>Depression / shutdown:</strong> Your <em>parasympathetic system</em> (freeze/withdraw) dominates, leaving you flat, numb, or unable to act. This isn’t laziness — it’s biology.</li>
-      <li><strong>Overwhelm blend:</strong> Many people swing between the two: racing panic one moment, shut-down exhaustion the next. This “yo-yo” can make life feel unmanageable.</li>
+      <li><strong>Anxiety / panic (fight–flight):</strong> racing heart, tight chest, spiralling thoughts. Your sympathetic system is flooding you with adrenaline to “escape”.</li>
+      <li><strong>Depression / shutdown (freeze–collapse):</strong> heavy, numb, blank mind, impossible to move. Your body is conserving energy when it feels there’s no way out.</li>
+      <li><strong>Yo-yo:</strong> swinging between the two — frantic one moment, flat the next. This is common when you’ve been coping for a long time.</li>
     </ul>
-    <p>Understanding these patterns is not about labels — it’s about recognising what’s happening in your body so you can use small tools to regain balance.</p>
+    <p>None of this is weakness. It’s biology. If we can settle the body a notch, the mind has more room to think.</p>
     <figure>
-      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system">
-      <figcaption class="cap">The Autonomic Nervous System: fight/flight (high energy), rest/digest (calm), and shutdown (freeze).</figcaption>
+      <img src="../img/ans-three-states.png" alt="Diagram of fight/flight, rest/digest and shutdown">
+      <figcaption class="cap">Your nervous system tries to protect you. We’re helping it find ‘safe’ again.</figcaption>
     </figure>
   </section>
 
-  <section id="coping">
-    <h2>Grounding tools you can try</h2>
-    <p>In moments of crisis, tiny actions can help you ride the wave:</p>
-    <ul>
-      <li><strong>Breathing:</strong> Inhale for 4, exhale for 6. This activates the calming branch of your nervous system.</li>
-      <li><strong>5–4–3–2–1:</strong> Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste.</li>
-      <li><strong>Safe contact:</strong> Text or call someone you trust and tell them one thing you are feeling right now.</li>
-      <li><strong>Small movement:</strong> Stretch, walk, or shake your hands to release built-up adrenaline.</li>
-    </ul>
-    <p>These don’t solve everything, but they can steady you long enough to reach out for further help.</p>
+  <!-- GROUNDING -->
+  <section id="grounding">
+    <h2>4) Grounding tools you can try now</h2>
+    <p>These won’t fix everything, but they can help the next 5–10 minutes feel survivable.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Breathing 4–6</h3>
+        <p>Inhale for <strong>4</strong>, exhale for <strong>6</strong> (ten rounds). Longer exhales engage the body’s calming system.</p>
+      </article>
+      <article class="card">
+        <h3>5–4–3–2–1 senses</h3>
+        <p>Notice 5 things you see · 4 touch · 3 hear · 2 smell · 1 taste. Say them out loud if you can.</p>
+      </article>
+      <article class="card">
+        <h3>Temperature & movement</h3>
+        <p>Cool your face/neck with water; press feet into the floor; roll shoulders; swing arms gently. This burns off adrenaline.</p>
+      </article>
+      <article class="card">
+        <h3>One safe contact</h3>
+        <p>Text: <em>“It’s heavy today — can you check in at 7?”</em> Name one feeling and one thing you’ll try (water, fresh air, food).</p>
+      </article>
+    </div>
+    <figure>
+      <img src="../img/crisis-steps.png" alt="Diagram showing a simple three-step grounding flow">
+      <figcaption class="cap">A tiny plan beats a perfect one you can’t use. Pick one: breath · senses · contact.</figcaption>
+    </figure>
   </section>
 
-  <section id="disclaimer">
-    <h2>Disclaimer</h2>
-    <p>This page is for <strong>general support and information only</strong>. It is <strong>not a substitute for professional medical or therapeutic advice</strong>. If you are in crisis or feel unable to stay safe, please use the emergency contacts above or reach out to a qualified professional service in your area.</p>
+  <!-- SAFETY PLAN -->
+  <section id="plan">
+    <h2>5) Make a simple safety plan</h2>
+    <p>Write this in your notes app (or on paper) so it’s easy to find:</p>
+    <ul>
+      <li><strong>My signs:</strong> how I know I’m slipping (not sleeping, racing thoughts, numb, can’t eat).</li>
+      <li><strong>My grounding:</strong> 4–6 breathing, 5-4-3-2-1, cold water splash, walk to the nearest tree.</li>
+      <li><strong>My people:</strong> name + number (friend, family, helpline).</li>
+      <li><strong>My safe places:</strong> a room, a friend’s house, a public space you trust.</li>
+      <li><strong>My reasons:</strong> photos or sentences that remind me who/what I care about.</li>
+    </ul>
+  </section>
+
+  <!-- TECH SAFETY -->
+  <section id="tech">
+    <h2>6) Technology & privacy</h2>
+    <ul>
+      <li>Use a private/incognito window for sensitive searches.</li>
+      <li>Clear recent history; log out of shared accounts.</li>
+      <li>If someone monitors your device, try a library computer or a trusted friend’s phone.</li>
+      <li>Avoid saving helpline numbers under obvious names if safety is a concern.</li>
+    </ul>
+  </section>
+
+  <!-- LINKS -->
+  <section id="links">
+    <h2>7) Helplines & services (UK & Scotland)</h2>
+    <ul>
+      <li><a href="https://www.samaritans.org" target="_blank" rel="noopener">Samaritans</a> — 24/7 free listening (UK &amp; ROI), call 116 123.</li>
+      <li><a href="https://breathingspace.scot" target="_blank" rel="noopener">Breathing Space (Scotland)</a> — evening & weekend support.</li>
+      <li><a href="https://giveusashout.org" target="_blank" rel="noopener">Shout</a> — text <strong>SHOUT</strong> to <strong>85258</strong> (24/7 crisis textline).</li>
+      <li><a href="https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline" target="_blank" rel="noopener">NHS urgent mental health helplines (England)</a>.</li>
+      <li><a href="https://www.mind.org.uk" target="_blank" rel="noopener">Mind</a> — mental health information & signposting.</li>
+      <li><a href="https://www.sane.org.uk" target="_blank" rel="noopener">SANEline</a> — support for people affected by mental illness.</li>
+      <li><a href="https://www.samh.org.uk/" target="_blank" rel="noopener">SAMH</a> — mental health information (Scotland).</li>
+      <li><a href="https://www.thecalmzone.net/" target="_blank" rel="noopener">CALM</a> — helpline & webchat (suicide prevention).</li>
+      <li><a href="https://www.papyrus-uk.org/" target="_blank" rel="noopener">PAPYRUS HOPELINE247</a> — under 35s: 0800 068 4141 / text 07860 039967.</li>
+    </ul>
+  </section>
+
+  <!-- STANDARDISED DISCLAIMER -->
+  <section class="disclaimer" id="disclaimer">
+    <h2>Important Note</h2>
+    <p>
+      This page is for <strong>supportive information</strong> only. It’s not a substitute for professional medical, psychological, or crisis care.
+      If you feel unable to keep yourself safe — or someone else is at risk — call <strong>999</strong> (UK) now. If outside the UK, use your local emergency number.
+    </p>
+    <p>
+      For non-emergency concerns, contact a qualified professional or one of the services listed above.
+    </p>
   </section>
 </main>
 
 <footer>
-  <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+  <div class="wrap footer-inner" style="justify-content:center; text-align:center;">
+    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'" style="margin:auto;">
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Mobile menu script (matches your CSS toggling classes) -->
+<script>
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const toggle = header.querySelector('.menu-toggle');
+    const nav = document.getElementById('primaryNav');
+
+    function setExpanded(on){
+      if(!toggle) return;
+      if(on){
+        header.classList.add('menu-open');
+        toggle.classList.add('menu-open');
+        toggle.setAttribute('aria-expanded','true');
+      }else{
+        header.classList.remove('menu-open');
+        toggle.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+    if(toggle){ toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open'))); }
+    if(nav){ nav.addEventListener('click', e => { if(e.target.tagName === 'A'){ setExpanded(false); } }); }
+  })();
+</script>
 
 </body>
 </html>

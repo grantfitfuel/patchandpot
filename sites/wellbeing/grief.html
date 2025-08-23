@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Grief – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=18">
+  <link rel="stylesheet" href="../style.css?v=19">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -14,12 +14,18 @@
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <!-- Hamburger -->
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
+
+  <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
@@ -118,6 +124,15 @@
       </p>
       <p><strong>Everyday example:</strong> A 7-year-old who loses a grandparent might cry at bedtime but appear cheerful in the morning — not because they’ve “moved on,” but because children process grief in bursts.</p>
     </article>
+
+    <article class="card">
+      <h3>Ambiguous grief</h3>
+      <p>
+        Ambiguous grief happens when the person is still alive but fundamentally changed — for example, through addiction, mental illness, or brain injury. 
+        You grieve the relationship you once had, even while still seeing the person daily.
+      </p>
+      <p><strong>Everyday example:</strong> A family with a loved one affected by advanced dementia may feel like they’ve “lost them twice.”</p>
+    </article>
   </section>
 
   <section id="why-overwhelming">
@@ -176,11 +191,17 @@
     </ul>
   </section>
 
-  <section id="disclaimer">
-    <h2>7. Disclaimer</h2>
+  <!-- Standardised Disclaimer -->
+  <section id="disclaimer" class="disclaimer">
+    <h2>Important Note</h2>
     <p>
-      This page offers supportive information only. It is not a substitute for professional medical advice, therapy, or crisis services. 
-      If your grief, anxiety, or depression is making everyday life unmanageable, please contact a professional or one of the helplines above.
+      The information on this page is for <strong>general understanding and support</strong>.
+      It is <strong>not</strong> a substitute for professional medical, legal, or crisis services.
+      If you feel unable to keep yourself or someone else safe, call <strong>999</strong> (UK) immediately.
+      If you’re outside the UK, contact your local emergency service.
+    </p>
+    <p>
+      For non-emergency concerns, consider speaking with a qualified health professional or one of the support services listed above.
     </p>
   </section>
 </main>
@@ -188,9 +209,33 @@
 <footer>
   <div class="wrap footer-inner">
     <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Mobile menu script -->
+<script>
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const toggle = header.querySelector('.menu-toggle');
+    const nav = document.getElementById('primaryNav');
+
+    function setExpanded(on){
+      if(on){
+        header.classList.add('menu-open');
+        toggle.classList.add('menu-open');
+        toggle.setAttribute('aria-expanded','true');
+      } else {
+        header.classList.remove('menu-open');
+        toggle.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+  })();
+</script>
 
 </body>
 </html>

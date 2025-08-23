@@ -6,7 +6,7 @@
   <title>Crisis Help — Patch & Pot</title>
 
   <!-- Global CSS (one folder up) -->
-  <link rel="stylesheet" href="../style.css?v=14">
+  <link rel="stylesheet" href="../style.css?v=15">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -15,7 +15,6 @@
   <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
 
   <style>
-    /* page-local helpers (kept tiny, uses your palette) */
     .grid-2 {display:grid; gap:14px}
     @media(min-width:820px){ .grid-2{grid-template-columns:1fr 1fr} }
     .help-card{background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px}
@@ -29,11 +28,12 @@
     .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
          font-size:.95em; background:#222; color:#fff; border-radius:6px; padding:.05rem .35rem}
     .muted{color:var(--inkdim)}
+    .helplist a{display:block; padding:.5rem .7rem; border-radius:10px; border:1px solid var(--stroke); margin:.35rem 0; background:rgba(255,255,255,.06)}
+    .helplist small{display:block; color:var(--inkdim)}
   </style>
 </head>
 <body>
 
-<!-- Header -->
 <header class="site-header">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
@@ -55,7 +55,7 @@
 
 <main class="wrap">
   <h1>Crisis Help</h1>
-  <p class="lead">If you’re at risk of harming yourself or someone else, you are not alone and help is available now. Use the options below based on your situation.</p>
+  <p class="lead">If you’re at risk of harming yourself or someone else, help is available now. Pick the option that fits your situation.</p>
 
   <!-- Immediate danger -->
   <section class="help-card" aria-labelledby="immediate">
@@ -68,10 +68,10 @@
         <p class="notice"><strong>Can’t speak?</strong> Call 999, listen, then press <span class="kbd">55</span> when prompted to use the <em>Silent Solution</em> (UK) so the operator knows it’s an emergency.</p>
       </div>
       <div>
-        <p><strong>Go to A&amp;E</strong> (Emergency Department) if you can get there safely, or ask someone to take you.</p>
+        <p><strong>Go to A&amp;E</strong> if you can get there safely, or ask someone to take you.</p>
         <ul class="steps">
-          <li>Take only what you need (phone, ID, medication).</li>
-          <li>Tell the first clinician: “I’m in crisis and need immediate support.”</li>
+          <li>Take essentials (phone, ID, medication).</li>
+          <li>Tell the clinician: “I’m in crisis and need immediate support.”</li>
         </ul>
       </div>
     </div>
@@ -82,15 +82,22 @@
     <div class="help-card">
       <h2 id="notnow">If you’re not in immediate danger</h2>
 
-      <h3>Speak to someone now</h3>
-      <p>Free, confidential support 24/7:</p>
-      <ul class="steps">
-        <li><strong>Samaritans</strong> — call <a href="tel:116123">116 123</a> (UK &amp; ROI) or visit <a href="https://www.samaritans.org/">samaritans.org</a></li>
-        <li><strong>SHOUT</strong> (text support) — text <span class="kbd">SHOUT</span> to <span class="kbd">85258</span> (UK)</li>
-        <li><strong>NHS 111</strong> — non-emergency help: <a href="https://111.nhs.uk/">111.nhs.uk</a> or call <a href="tel:111">111</a></li>
-      </ul>
+      <h3>Speak to someone now (free & confidential)</h3>
+      <div class="helplist">
+        <a href="tel:116123"><strong>Samaritans — 116 123</strong><small>24/7 phone support (UK & ROI) · <span>samaritans.org</span></small></a>
+        <a href="sms:85258"><strong>SHOUT — text 85258</strong><small>24/7 text support (UK) · <span>giveusashout.org</span></small></a>
+        <a href="https://www.thecalmzone.net/get-support"><strong>CALM</strong><small>Campaign Against Living Miserably · Webchat & phone 5pm–midnight (UK) · <span>thecalmzone.net</span></small></a>
+        <a href="https://www.mind.org.uk/need-urgent-help/using-this-tool/"><strong>Mind — Urgent help tool</strong><small>Find local services and guidance · <span>mind.org.uk</span></small></a>
+        <a href="https://breathingspace.scot/"><strong>Breathing Space (Scotland)</strong><small>Free listening & advice · Evenings & weekends · <span>breathingspace.scot</span></small></a>
+        <a href="https://www.samh.org.uk/"><strong>SAMH (Scotland)</strong><small>Mental health information & local supports · <span>samh.org.uk</span></small></a>
+        <a href="https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline"><strong>NHS urgent mental health lines (England)</strong><small>24/7 local NHS crisis lines</small></a>
+        <a href="https://111.wales.nhs.uk/encyclopaedia/m/article/mentalhealthcrisis/"><strong>NHS 111 — Wales</strong><small>Advice and local services</small></a>
+        <a href="https://www.mindingyourhead.info/help/crisis"><strong>Lifeline (Northern Ireland) — 0808 808 8000</strong><small>24/7 crisis helpline · <span>mindingyourhead.info</span></small></a>
+        <a href="https://findahelpline.com/"><strong>International: findahelpline.com</strong><small>Search verified crisis lines worldwide</small></a>
+      </div>
 
-      <p class="muted">Outside the UK: try your local crisis line, emergency department, or <a href="https://findahelpline.com">findahelpline.com</a>.</p>
+      <h3 style="margin-top:1rem">Non-urgent medical help</h3>
+      <p>Use <a href="https://111.nhs.uk/">NHS 111 online</a> (England), call <a href="tel:111">111</a> (UK), or contact your GP.</p>
     </div>
 
     <div class="help-card">
@@ -99,7 +106,7 @@
         <li><strong>4–6 Breathing:</strong> inhale <span class="kbd">4</span>, exhale <span class="kbd">6</span> — repeat for 60–90s.</li>
         <li><strong>5–4–3–2–1:</strong> name 5 things you see · 4 feel · 3 hear · 2 smell · 1 taste.</li>
         <li><strong>Cold water splash</strong> on face/neck. Sit upright, feet on floor, look around the room.</li>
-        <li><strong>Say what’s happening:</strong> “I’m having a surge. It will pass.”</li>
+        <li><strong>Say what’s happening:</strong> “This is a surge. It will pass. I can ride it.”</li>
       </ol>
     </div>
   </section>
@@ -112,15 +119,15 @@
       <div>
         <h3>1) Early warning signs</h3>
         <ul class="steps">
-          <li>Thoughts I notice: <em>e.g., “I can’t cope”</em></li>
-          <li>Body signals: <em>tight chest, fast heart</em></li>
-          <li>Situations: <em>conflict, no sleep</em></li>
+          <li>Thoughts: <em>“I can’t cope”, “What’s the point”</em></li>
+          <li>Body: <em>tight chest, knotted stomach, heavy limbs</em></li>
+          <li>Situations: <em>conflict, long isolation, no sleep</em></li>
         </ul>
         <h3>2) Small steps that help</h3>
         <ul class="steps">
           <li>4–6 breathing (2 minutes)</li>
           <li>Text a safe person a 🚦 “check-in” emoji</li>
-          <li>Step outside / change room</li>
+          <li>Step outside / change room / open a window</li>
         </ul>
       </div>
       <div>
@@ -139,37 +146,19 @@
     </div>
   </section>
 
-  <!-- Support for others -->
-  <section class="grid-2" aria-labelledby="helpother">
-    <div class="help-card">
-      <h2 id="helpother">If you’re helping someone else</h2>
-      <ul class="steps">
-        <li>Stay with them (or on the phone). Speak slowly and kindly.</li>
-        <li>Use simple questions: “Can we breathe together?” “Would water help?”</li>
-        <li>If risk is high, call <a href="tel:999">999</a>. If unsure, call <a href="tel:111">111</a> for advice.</li>
-        <li>Remove means if it’s safe to do so; don’t argue or minimise.</li>
-      </ul>
-    </div>
-
-    <div class="help-card">
-      <h2>Local & specialist support</h2>
-      <ul class="steps">
-        <li><a href="https://www.mind.org.uk/need-urgent-help/using-this-tool/">Mind Urgent Help tool</a> (UK)</li>
-        <li><a href="https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline">NHS urgent mental health lines</a> (UK)</li>
-        <li><a href="https://www.papyrus-uk.org/">PAPYRUS Hopeline247</a> (under 35s, UK)</li>
-        <li><a href="https://www.sane.org.uk/">SANEline</a> (UK)</li>
-        <li class="muted">International: <a href="https://findahelpline.com">findahelpline.com</a></li>
-      </ul>
-    </div>
-  </section>
-
   <!-- ANS education -->
   <section class="help-card" aria-labelledby="ans">
-    <h2 id="ans">Why this happens (Fight–Flight–Shutdown)</h2>
-    <p>Your autonomic nervous system shifts between three broad states. You’re not “broken” — your body is trying to protect you. Skills above help return towards safety.</p>
+    <h2 id="ans">Why this happens: Anxiety, Depression &amp; the ANS</h2>
+    <p>Your autonomic nervous system (ANS) regulates arousal. Two branches do most of the work:</p>
+    <ul class="steps">
+      <li><strong>Sympathetic (“gas pedal”)</strong> — prepares you to fight or run (adrenaline, fast heart, tense muscles). When it’s dominant, you’ll feel <em>anxious, wired, restless, on edge</em> and thoughts race to worst-case scenarios (that’s the alarm system trying to protect you).</li>
+      <li><strong>Parasympathetic (“brake”)</strong> — restores and digests (slower heart, deeper breath). In overload, some people drop into a <strong>shutdown/freezing</strong> state: <em>heavy, numb, foggy, detached</em>. That can look and feel like <strong>depression</strong> (low energy, low motivation, reduced pleasure) even when danger has passed.</li>
+    </ul>
+    <p>Both states are survival tools. Problems come when you get <em>stuck</em> in one state. Skills like paced breathing, cold water, gentle movement, reframing thoughts, and safe connection help you shift state towards balanced alertness.</p>
+
     <figure>
-      <img src="../img/ans-three-states.png?v=2" alt="Three-state autonomic nervous system diagram: Rest &amp; Digest, Fight/Flight, Shutdown" style="max-width:720px">
-      <figcaption class="cap">Breath, posture, cold water and kind inner speech help nudge the body back towards Rest &amp; Digest.</figcaption>
+      <img src="../img/ans-three-states.png?v=3" alt="Three-state autonomic nervous system diagram: Rest &amp; Digest, Fight/Flight, Shutdown" style="max-width:780px">
+      <figcaption class="cap">Aim for “calm & engaged” — not flat, not frantic. Breath (long exhale), posture (shoulders down, eyes up), and kind inner speech nudge the system toward safety.</figcaption>
     </figure>
   </section>
 
@@ -183,11 +172,5 @@
   </div>
 </footer>
 
-<script>
-  // Optional: scroll to top on quick-exit double press (defensive)
-  window.addEventListener('keydown', e=>{
-    if((e.key==='Escape'||e.key==='Esc')) window.scrollTo({top:0,behavior:'instant'});
-  });
-</script>
 </body>
 </html>

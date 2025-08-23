@@ -3,35 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crisis Help — Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=17">
+  <title>Crisis Support – Patch & Pot</title>
+  <link rel="stylesheet" href="../style.css?v=18">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
-
-  <style>
-    .grid-2 {display:grid; gap:14px}
-    @media(min-width:820px){ .grid-2{grid-template-columns:1fr 1fr} }
-    .help-card{background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px}
-    .help-card h3{margin:.2rem 0 .4rem; font-size:1.15rem}
-    .big-call {display:block; margin:.5rem 0; padding:12px 14px; border-radius:12px;
-              font-weight:800; text-align:center; background:linear-gradient(180deg,#7ed495,#2E7D32); color:#061007}
-    .quick-exit{position:fixed; right:14px; top:14px; z-index:9999; border:0;
-                background:#d9534f; color:#fff; font-weight:800; padding:.6rem .8rem; border-radius:10px; cursor:pointer}
-    .notice{background:rgba(255,255,255,.08); border:1px solid var(--stroke); padding:.75rem 1rem; border-radius:12px}
-    .steps li{margin:.3rem 0}
-    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-         font-size:.95em; background:#222; color:#fff; border-radius:6px; padding:.05rem .35rem}
-    .muted{color:var(--inkdim)}
-    .helplist a{display:block; padding:.5rem .7rem; border-radius:10px; border:1px solid var(--stroke); margin:.35rem 0; background:rgba(255,255,255,.06)}
-    .helplist small{display:block; color:var(--inkdim)}
-    .quick-strip{display:flex; flex-wrap:wrap; gap:10px; margin-top:1rem}
-    .quick-strip .tile{flex:1 1 150px; background:rgba(255,255,255,.07); border:1px solid var(--stroke);
-                       padding:.8rem; border-radius:12px; text-align:center; font-size:.95rem}
-  </style>
 </head>
 <body>
 
@@ -52,89 +31,77 @@
   </nav>
 </header>
 
-<button class="quick-exit" onclick="window.location.href='https://www.metoffice.gov.uk/'" aria-label="Quick exit to a neutral site">Quick Exit</button>
-
 <main class="wrap">
-  <h1>Crisis Help</h1>
-  <p class="lead">If you’re at risk of harming yourself or someone else, help is available now. Pick the option that fits your situation.</p>
+  <h1>Crisis Support</h1>
+  <p class="lead">If you are feeling overwhelmed, unsafe, or unable to cope, you are not alone. This page explains what is happening in your mind and body during crisis, offers practical grounding tools, and connects you to immediate support services in the UK.</p>
 
-  <!-- Immediate danger -->
-  <section class="help-card" aria-labelledby="immediate">
-    <h2 id="immediate">If you are in immediate danger</h2>
-    <div class="grid-2">
-      <div>
-        <p>Call emergency services now.</p>
-        <a class="big-call" href="tel:999">Call <strong>999</strong> (UK)</a>
-        <p class="muted">In the EU call <strong>112</strong>. Elsewhere, use your local emergency number.</p>
-        <p class="notice"><strong>Can’t speak?</strong> Call 999, listen, then press <span class="kbd">55</span> when prompted to use the <em>Silent Solution</em> (UK).</p>
-      </div>
-      <div>
-        <p><strong>Go to A&amp;E</strong> if you can get there safely, or ask someone to take you.</p>
-        <ul class="steps">
-          <li>Take essentials (phone, ID, medication).</li>
-          <li>Tell the clinician: “I’m in crisis and need immediate support.”</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Not in immediate danger -->
-  <section class="grid-2" aria-labelledby="notnow">
-    <div class="help-card">
-      <h2 id="notnow">If you’re not in immediate danger</h2>
-
-      <h3>Speak to someone now (free & confidential)</h3>
-      <div class="helplist">
-        <a href="tel:116123"><strong>Samaritans — 116 123</strong><small>24/7 support (UK & ROI)</small></a>
-        <a href="sms:85258"><strong>SHOUT — text 85258</strong><small>24/7 text support (UK)</small></a>
-        <a href="https://www.thecalmzone.net/get-support"><strong>CALM</strong><small>Phone & webchat, 5pm–midnight (UK)</small></a>
-        <a href="https://www.mind.org.uk/need-urgent-help/using-this-tool/"><strong>Mind urgent help tool</strong></a>
-        <a href="https://breathingspace.scot/"><strong>Breathing Space (Scotland)</strong></a>
-        <a href="https://www.samh.org.uk/"><strong>SAMH (Scotland)</strong></a>
-        <a href="https://www.nhs.uk/service-search/mental-health/find-an-urgent-mental-health-helpline"><strong>NHS urgent mental health lines (England)</strong></a>
-        <a href="https://111.wales.nhs.uk/encyclopaedia/m/article/mentalhealthcrisis/"><strong>NHS 111 — Wales</strong></a>
-        <a href="https://www.mindingyourhead.info/help/crisis"><strong>Lifeline (Northern Ireland) — 0808 808 8000</strong></a>
-        <a href="https://findahelpline.com/"><strong>International directory</strong></a>
-      </div>
-    </div>
-
-    <div class="help-card">
-      <h2>Ground yourself (2–5 minutes)</h2>
-      <ol class="steps">
-        <li><strong>4–6 Breathing:</strong> inhale <span class="kbd">4</span>, exhale <span class="kbd">6</span>.</li>
-        <li><strong>5–4–3–2–1:</strong> name 5 things you see · 4 feel · 3 hear · 2 smell · 1 taste.</li>
-        <li><strong>Cold water splash</strong> on face/neck.</li>
-        <li><strong>Say what’s happening:</strong> “This is a surge. It will pass.”</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ANS + mental health -->
-  <section class="help-card" aria-labelledby="ans">
-    <h2 id="ans">Why this happens: Anxiety, Overwhelm &amp; Depression</h2>
-    <p>Your autonomic nervous system (ANS) regulates stress and calm. When life feels too heavy, these states can take over:</p>
-    <ul class="steps">
-      <li><strong>Anxiety / Fight–Flight</strong> — your sympathetic “gas pedal” is stuck on. You feel jittery, thoughts race, chest tightens. Everyday overwhelm often looks like this — too many tasks, deadlines, or responsibilities at once.</li>
-      <li><strong>Overwhelm / Shutdown</strong> — when the system is overloaded, the parasympathetic “brake” slams down. You feel numb, detached, foggy. This is the freeze or collapse response: the brain saying “pause to survive.”</li>
-      <li><strong>Depression</strong> — long periods of shutdown can slide into depression: loss of motivation, heavy body, lack of joy, hopeless thoughts. It’s the nervous system stuck in energy-conserving mode, even when danger is gone.</li>
+  <!-- Section 1: Why this happens -->
+  <section>
+    <h2>1. Why crisis feels overwhelming</h2>
+    <p>When anxiety, depression, or trauma overwhelm the mind, the body’s emergency system takes over:</p>
+    <ul>
+      <li><strong>Fight or flight:</strong> Racing thoughts, pounding heart, tunnel vision.</li>
+      <li><strong>Freeze or shutdown:</strong> Numbness, emptiness, unable to speak or move.</li>
+      <li><strong>Overwhelm:</strong> A flood of emotion, where logic and calm feel unreachable.</li>
     </ul>
-    <p>Understanding this helps: these states are not “failures,” but survival circuits firing. Practices like slow exhaling, safe connection, gentle movement, and thought reframing teach the system to come back toward balance.</p>
-    <figure>
-      <img src="../img/ans-three-states.png" alt="Diagram: fight/flight, calm, shutdown" style="max-width:780px">
-      <figcaption class="cap">The ANS has 3 modes: fight/flight (anxiety), calm/social, and shutdown (overwhelm, depression).</figcaption>
-    </figure>
-
-    <h3>Quick Exercises (try one)</h3>
-    <div class="quick-strip">
-      <div class="tile"><strong>Text a safe person</strong><br>Send “Struggling” or even an emoji 🚦</div>
-      <div class="tile"><strong>Shift posture</strong><br>Sit upright, roll shoulders, exhale slowly</div>
-      <div class="tile"><strong>2-min walk</strong><br>Step outside or pace indoors — movement = reset</div>
-      <div class="tile"><strong>Cold reset</strong><br>Splash face with cool water, or hold ice briefly</div>
-      <div class="tile"><strong>Micro-task</strong><br>Pick one thing: wash a cup, open curtains</div>
-    </div>
+    <p>This is your nervous system’s way of protecting you. It is not weakness — it is survival mode.</p>
   </section>
 
-  <p class="muted">This page is informational and not a substitute for professional care. If in doubt, call emergency services.</p>
+  <!-- Section 2: Grounding techniques -->
+  <section>
+    <h2>2. Grounding tools in the moment</h2>
+    <ul>
+      <li><strong>5–4–3–2–1:</strong> Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.</li>
+      <li><strong>Box breathing:</strong> Inhale for 4, hold 4, exhale 4, hold 4. Repeat three times.</li>
+      <li><strong>Temperature shift:</strong> Hold something cold, splash water on your face — helps reset panic.</li>
+      <li><strong>Safe touch:</strong> Place your hand over your chest, breathe slowly, and say: “I am safe right now.”</li>
+    </ul>
+    <p>These techniques do not “fix everything” but they <em>buy you a pause</em>, giving you space to reach for help.</p>
+  </section>
+
+  <!-- Section 3: If you are in immediate danger -->
+  <section>
+    <h2>3. If you are in immediate danger</h2>
+    <p>If you feel you may act on your thoughts or have already harmed yourself:</p>
+    <ul>
+      <li>Call <strong>999</strong> in the UK for emergency help.</li>
+      <li>Go to your nearest Accident &amp; Emergency department.</li>
+    </ul>
+  </section>
+
+  <!-- Section 4: If you are not in immediate danger -->
+  <section>
+    <h2>4. If you are not in immediate danger</h2>
+    <p>There are people ready to listen, day or night:</p>
+    <ul>
+      <li><strong>Samaritans:</strong> Call 116 123 (free, 24/7) or <a href="https://www.samaritans.org/" target="_blank" rel="noopener">visit online</a>.</li>
+      <li><strong>Shout:</strong> Text SHOUT to 85258 (24/7 crisis text support).</li>
+      <li><strong>Breathing Space (Scotland):</strong> 0800 83 85 87 (Mon–Thu 6pm–2am, Fri 6pm–Mon 6am).</li>
+      <li><strong>SAMH (Scotland):</strong> <a href="https://www.samh.org.uk/" target="_blank" rel="noopener">Scottish Association for Mental Health</a>.</li>
+      <li><strong>Mind (England &amp; Wales):</strong> 0300 123 3393 or <a href="https://www.mind.org.uk/" target="_blank" rel="noopener">mind.org.uk</a>.</li>
+      <li><strong>CALL Helpline (Wales):</strong> 0800 132 737 (24/7) or text HELP to 81066.</li>
+      <li><strong>Lifeline (Northern Ireland):</strong> 0808 808 8000 (24/7 support).</li>
+    </ul>
+  </section>
+
+  <!-- Section 5: After the crisis passes -->
+  <section>
+    <h2>5. After the crisis passes</h2>
+    <p>Recovery starts small. Helpful steps include:</p>
+    <ul>
+      <li>Speaking with a trusted friend or family member.</li>
+      <li>Writing down one thought or feeling to reduce the mental load.</li>
+      <li>Seeking longer-term support — such as counselling, peer groups, or your GP if you feel able.</li>
+      <li>Adding a grounding habit to your routine (for example: mindful breathing while watering plants).</li>
+    </ul>
+  </section>
+
+  <!-- Disclaimer -->
+  <section class="disclaimer card" style="margin-top:2rem; padding:1rem;">
+    <h2>Disclaimer</h2>
+    <p>This page is intended as a general wellbeing and support resource. It is <strong>not</strong> a substitute for professional medical advice, diagnosis, or treatment. Always seek advice from a qualified health professional if you have concerns about your mental health.</p>
+    <p>If you are in crisis or feel unable to keep yourself safe, call <strong>999</strong> in the UK or go to your nearest Accident &amp; Emergency department. For non-emergency urgent support, call <strong>NHS 111</strong> (England, Scotland, Wales).</p>
+  </section>
 </main>
 
 <footer>

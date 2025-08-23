@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Brain Reprogramming – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=16">
+  <link rel="stylesheet" href="../style.css">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -14,17 +14,25 @@
 </head>
 <body>
 
-<header class="site-header">
+<!-- HEADER + HAMBURGER -->
+<header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <!-- Hamburger button -->
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
+
+  <!-- Primary nav -->
+  <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
-    <a href="../exercise.html">Exercise</a>
     <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
+    <a href="../exercise.html">Exercise</a>
     <a href="../guides.html">Guides</a>
     <a href="../ideas.html">Ideas</a>
     <a href="../contact.html">Contact</a>
@@ -34,10 +42,16 @@
 <main class="wrap">
   <h1>Brain Reprogramming</h1>
   <p class="lead">
-    “Reprogramming” your brain means using <strong>neuroplasticity</strong>—the brain’s capacity to change—to
+    “Reprogramming” your brain means using <strong>neuroplasticity</strong> — the brain’s capacity to change — to
     gently reshape habits, thoughts, feelings, and attention. Below you’ll find clear explanations and
     small actions that compound over time.
   </p>
+
+  <!-- HERO (photographic placeholder) -->
+  <figure>
+    <img src="../img/brain-reprogramming-hero.png" alt="Warm, hopeful photo representing new neural pathways and habit change" style="border-radius:12px; width:100%; height:auto; max-height:460px; object-fit:cover;">
+    <figcaption class="cap">Change grows with repetition, rest and kindness to yourself.</figcaption>
+  </figure>
 
   <!-- 1. What changes in the brain -->
   <section id="plasticity-basics">
@@ -55,7 +69,7 @@
       <li><strong>Safety:</strong> calmer states (parasympathetic) help new learning integrate.</li>
     </ul>
     <figure>
-      <img src="../img/ns-neuroplasticity.png" alt="Neuroplasticity diagram: strengthening and pruning of neural pathways">
+      <img src="../img/ns-neuroplasticity.png" alt="Neuroplasticity: strengthening and pruning of neural pathways" style="border-radius:12px; width:100%; max-height:420px; object-fit:contain; background:#0a0f0c; padding:8px;">
       <figcaption class="cap">Practice strengthens pathways; rest consolidates them.</figcaption>
     </figure>
   </section>
@@ -79,13 +93,13 @@
         <p><u>Example:</u> After I put the kettle on, I’ll water one pot. Celebrate micro-wins.</p>
       </article>
       <article class="card">
-        <h3>Implementation Intentions</h3>
+        <h3>Implementation intentions</h3>
         <p><em>If</em> (situation), <em>then</em> (next small step). Pre-decide to reduce friction.</p>
-        <p><u>Example:</u> If I feel overwhelmed, then I’ll breathe 4-6 for one minute.</p>
+        <p><u>Example:</u> If I feel overwhelmed, then I’ll breathe 4–6 for one minute.</p>
       </article>
     </div>
     <figure>
-      <img src="../img/ns-habit-loop.png" alt="Habit loop diagram: cue, routine, reward with swap arrows">
+      <img src="../img/ns-habit-loop.png" alt="Habit loop: cue, routine, reward with swap arrows" style="border-radius:12px; width:100%; max-height:400px; object-fit:contain; background:#0a0f0c; padding:8px;">
       <figcaption class="cap">Keep the cue and reward; experiment with new routines.</figcaption>
     </figure>
   </section>
@@ -94,7 +108,7 @@
   <section id="cognitive-tools">
     <h2>3) Thought tools that reshape pathways</h2>
     <article class="card">
-      <h3>Thought Reframing</h3>
+      <h3>Thought reframing</h3>
       <p>
         Notice a sticky thought → check the evidence → craft a balanced alternative. This is accuracy,
         not forced positivity.
@@ -142,7 +156,7 @@
       <article class="card">
         <h3>Down-shift (too revved)</h3>
         <ul>
-          <li>4-6 breathing (inhale 4, exhale 6) × 2 minutes</li>
+          <li>4–6 breathing (inhale 4, exhale 6) × 2 minutes</li>
           <li>Long exhale sighs; unclench jaw; drop shoulders</li>
           <li>Warm drink; dim lights; slower music</li>
         </ul>
@@ -157,7 +171,7 @@
       </article>
     </div>
     <figure>
-      <img src="../img/ans-three-states.png" alt="Autonomic Nervous System: fight/flight, rest/digest, shutdown">
+      <img src="../img/ans-three-states.png" alt="Autonomic Nervous System: fight/flight, rest/digest, shutdown" style="border-radius:12px; width:100%; max-height:420px; object-fit:contain; background:#0a0f0c; padding:8px;">
       <figcaption class="cap">Three-state map: sympathetic (fight/flight), parasympathetic (rest/digest), protective shutdown.</figcaption>
     </figure>
   </section>
@@ -224,7 +238,7 @@
     <ul>
       <li><strong>Too big?</strong> Halve it until it’s doable in 60 seconds.</li>
       <li><strong>Forgetting?</strong> Attach to a strong anchor (kettle, door, calendar alert).</li>
-      <li><strong>Bored?</strong> Change the soundtrack, location, or tool—but keep the cue and time.</li>
+      <li><strong>Bored?</strong> Change the soundtrack, location, or tool — but keep the cue and time.</li>
       <li><strong>Bad week?</strong> Switch to “minimum viable habit” (one rep, one breath, one page).</li>
       <li><strong>Relapse script:</strong> “I’m restarting today with one tiny step.”</li>
     </ul>
@@ -238,22 +252,50 @@
     <a href="./neurodiversity.html">Neurodiversity</a>
   </div>
 
-  <!-- Disclaimer IN MAIN -->
+  <!-- Standardised disclaimer -->
   <section class="disclaimer">
-    <p class="meta"><em>
-      Disclaimer: This page provides general education and practical ideas. It is not a substitute for
-      professional diagnosis, therapy, medical advice, or crisis services. If you are in immediate danger,
-      call 999 (UK). For non-urgent support, contact local services listed on our other pages.
-    </em></p>
+    <h2>Important Note</h2>
+    <p>
+      The information on this page is for <strong>general understanding and support</strong>. It is
+      <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel
+      unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
+      If you’re outside the UK, contact your local emergency number.
+    </p>
+    <p>For non-emergency concerns, consider speaking with a qualified health professional or an appropriate support service listed on our site.</p>
   </section>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
     <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Mobile menu script (same behaviour as other pages) -->
+<script>
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const toggle = header.querySelector('.menu-toggle');
+    const nav = document.getElementById('primaryNav');
+
+    function setExpanded(on){
+      if(on){
+        header.classList.add('menu-open');
+        toggle.classList.add('menu-open');
+        toggle.setAttribute('aria-expanded','true');
+      } else {
+        header.classList.remove('menu-open');
+        toggle.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+
+    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+  })();
+</script>
 
 </body>
 </html>

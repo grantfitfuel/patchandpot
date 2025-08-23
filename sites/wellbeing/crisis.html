@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Crisis Support – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=15">
+  <link rel="stylesheet" href="../style.css">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -14,18 +14,12 @@
 </head>
 <body>
 
-<header class="site-header" id="siteHeader">
+<header class="site-header">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-
-  <!-- Hamburger -->
-  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico"><span></span><span></span><span></span></span>
-  </button>
-
-  <nav class="nav" id="primaryNav" aria-label="Primary">
+  <nav class="nav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
@@ -41,9 +35,10 @@
   <h1>Crisis Support</h1>
   <p class="lead">If you are in immediate danger of harming yourself, it’s important to seek help right away. You are not alone, and there are people ready to listen and support you.</p>
 
+  <!-- Hero (kept, safe sizing) -->
   <figure>
-    <img src="../img/crisis-hero.png" alt="An open safe space with warm light, symbolising hope and support" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
-    <figcaption class="cap">You deserve safety, dignity and care — even in your hardest moments.</figcaption>
+    <img src="../img/crisis-hero.png" alt="Open front door with warm morning light, symbolising safety and help" style="border-radius:12px; width:100%; height:auto; object-fit:cover; max-height:520px;">
+    <figcaption class="cap">There’s a door open for you — help is available.</figcaption>
   </figure>
 
   <section id="immediate">
@@ -76,9 +71,8 @@
       <li><strong>Depression / shutdown:</strong> Your <em>parasympathetic system</em> (freeze/withdraw) dominates, leaving you flat, numb, or unable to act. This isn’t laziness — it’s biology.</li>
       <li><strong>Overwhelm blend:</strong> Many people swing between the two: racing panic one moment, shut-down exhaustion the next. This “yo-yo” can make life feel unmanageable.</li>
     </ul>
-    <p>Understanding these patterns is not about labels — it’s about recognising what’s happening in your body so you can use small tools to regain balance.</p>
     <figure>
-      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system">
+      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system" style="border-radius:12px; width:100%; height:auto; object-fit:contain; background:#0a0f0c; padding:8px;">
       <figcaption class="cap">The Autonomic Nervous System: fight/flight (high energy), rest/digest (calm), and shutdown (freeze).</figcaption>
     </figure>
   </section>
@@ -92,22 +86,24 @@
       <li><strong>Safe contact:</strong> Text or call someone you trust and tell them one thing you are feeling right now.</li>
       <li><strong>Small movement:</strong> Stretch, walk, or shake your hands to release built-up adrenaline.</li>
     </ul>
+
+    <!-- Steps image (kept, safe sizing) -->
     <figure>
-      <img src="../img/crisis-steps.png" alt="Grounding tools shown visually — tea, journal, small objects for senses" style="border-radius:12px; max-height:340px; object-fit:cover; width:100%;">
+      <img src="../img/crisis-steps.png" alt="Grounding tools on a simple card: breathing, senses exercise, text a friend, small movement" style="border-radius:12px; width:100%; height:auto; object-fit:cover; max-height:520px;">
       <figcaption class="cap">Grounding tools — small steps that help the body feel safe again.</figcaption>
     </figure>
-    <p>These don’t solve everything, but they can steady you long enough to reach out for further help.</p>
+
+    <!-- SUPPORT IMAGE — FIXED (no cropping) -->
+    <figure>
+      <img src="../img/crisis-support.png" alt="Hands clasped in support with a cup of tea beside them" style="border-radius:12px; width:100%; height:auto; object-fit:contain; background:#0a0f0c; padding:8px;">
+      <figcaption class="cap">Support is real and within reach — you don’t have to face crisis alone.</figcaption>
+    </figure>
   </section>
 
-  <figure>
-    <img src="../img/crisis-support.png" alt="Close-up of supportive hands held together" style="border-radius:12px; max-height:360px; object-fit:cover; width:100%;">
-    <figcaption class="cap">Support is real and within reach — you don’t have to face crisis alone.</figcaption>
-  </figure>
-
-  <!-- Standardised Disclaimer -->
-  <section class="disclaimer">
+  <!-- Standardised Disclaimer (unchanged wording across Wellbeing pages) -->
+  <section id="disclaimer" class="disclaimer">
     <h2>Important Note</h2>
-    <p>The information on this page is for general understanding and support. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
+    <p>The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
     <p>For non-emergency concerns, consider speaking with a qualified health professional or an appropriate support service listed above.</p>
   </section>
 </main>
@@ -119,29 +115,6 @@
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
-
-<!-- Mobile menu script -->
-<script>
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
-
-    function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    }
-    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-  })();
-</script>
 
 </body>
 </html>

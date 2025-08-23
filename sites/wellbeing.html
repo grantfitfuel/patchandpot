@@ -4,13 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellbeing – Patch & Pot</title>
-  <link rel="stylesheet" href="style.css?v=21">
+  <link rel="stylesheet" href="style.css?v=22">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+
+  <style>
+    /* Green tile buttons just for this page */
+    .guides-grid .tile {
+      background: linear-gradient(180deg, var(--green2), var(--green));
+      color: #061007;
+      border: none;
+      border-radius: var(--radius);
+      text-align: center;
+      font-weight: 600;
+      padding: 1rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .guides-grid .tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+    .guides-grid .tile .cap {
+      color: #061007;
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
@@ -49,76 +71,46 @@
     <a href="wellbeing/affirmations.html">Affirmations</a>
   </div>
 
-  <!-- Text-only cards grid (no images) -->
+  <!-- Green button-style cards -->
   <section class="guides-grid" style="margin-top:18px">
     <a class="tile" href="wellbeing/crisis.html">
-      <span class="cap">
-        <strong>Crisis — get help now</strong><br>
-        What to do right this minute, who to contact, and how to stay safe.
-      </span>
+      <span class="cap"><strong>Crisis — get help now</strong><br>What to do right this minute, who to contact, and how to stay safe.</span>
     </a>
 
     <a class="tile" href="wellbeing/carers.html">
-      <span class="cap">
-        <strong>Carer Support</strong><br>
-        Boundaries, energy budgeting, scripts, respite, and regional links.
-      </span>
+      <span class="cap"><strong>Carer Support</strong><br>Boundaries, energy budgeting, scripts, respite, and regional links.</span>
     </a>
 
     <a class="tile" href="wellbeing/grief.html">
-      <span class="cap">
-        <strong>Grief</strong><br>
-        Types of grief, what waves feel like, and how to get through a day.
-      </span>
+      <span class="cap"><strong>Grief</strong><br>Types of grief, what waves feel like, and how to get through a day.</span>
     </a>
 
     <a class="tile" href="wellbeing/abuse.html">
-      <span class="cap">
-        <strong>Abuse &amp; Safety</strong><br>
-        Safety planning, tech checks, legal/advocacy links, and helplines.
-      </span>
+      <span class="cap"><strong>Abuse &amp; Safety</strong><br>Safety planning, tech checks, legal/advocacy links, and helplines.</span>
     </a>
 
     <a class="tile" href="wellbeing/neurodiversity.html">
-      <span class="cap">
-        <strong>Neurodiversity</strong><br>
-        Profiles, sensory supports, executive strategies, school/work adjustments.
-      </span>
+      <span class="cap"><strong>Neurodiversity</strong><br>Profiles, sensory supports, executive strategies, school/work adjustments.</span>
     </a>
 
     <a class="tile" href="wellbeing/neuroscience.html">
-      <span class="cap">
-        <strong>Neuroscience</strong><br>
-        Emotion circuits, habit loops, memory, reframing, affirmations, ANS.
-      </span>
+      <span class="cap"><strong>Neuroscience</strong><br>Emotion circuits, habit loops, memory, reframing, affirmations, ANS.</span>
     </a>
 
     <a class="tile" href="wellbeing/brain-reprogramming.html">
-      <span class="cap">
-        <strong>Brain Reprogramming</strong><br>
-        Neuroplasticity in action: tiny habits, state management, identity shifts.
-      </span>
+      <span class="cap"><strong>Brain Reprogramming</strong><br>Neuroplasticity in action: tiny habits, state management, identity shifts.</span>
     </a>
 
     <a class="tile" href="wellbeing/neurolinguistics.html">
-      <span class="cap">
-        <strong>Neurolinguistics</strong><br>
-        Language patterns, self-talk, anchors, ethical use, practical scripts.
-      </span>
+      <span class="cap"><strong>Neurolinguistics</strong><br>Language patterns, self-talk, anchors, ethical use, practical scripts.</span>
     </a>
 
     <a class="tile" href="wellbeing/thought-reframing.html">
-      <span class="cap">
-        <strong>Thought Reframing</strong><br>
-        From harsh to balanced: step-by-step with everyday examples.
-      </span>
+      <span class="cap"><strong>Thought Reframing</strong><br>From harsh to balanced: step-by-step with everyday examples.</span>
     </a>
 
     <a class="tile" href="wellbeing/affirmations.html">
-      <span class="cap">
-        <strong>Affirmations</strong><br>
-        Believable phrases tied to action; printable cards and how to use them.
-      </span>
+      <span class="cap"><strong>Affirmations</strong><br>Believable phrases tied to action; printable cards and how to use them.</span>
     </a>
   </section>
 

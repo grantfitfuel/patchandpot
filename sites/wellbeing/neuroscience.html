@@ -22,13 +22,20 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header">
+  <!-- Header with hamburger -->
+  <header class="site-header" id="siteHeader">
     <div class="brand">
       <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
       <span class="site-title">Patch &amp; Pot</span>
     </div>
-    <nav class="nav" aria-label="Primary">
+
+    <!-- Hamburger -->
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+      <span class="menu-ico"><span></span><span></span><span></span></span>
+    </button>
+
+    <!-- Primary nav -->
+    <nav class="nav" id="primaryNav" aria-label="Primary">
       <a href="../index.html">Home</a>
       <a href="../growing.html">Growing</a>
       <a href="../recipes.html">Recipes</a>
@@ -174,7 +181,7 @@
     <!-- 5. Affirmations (EXPANDED) -->
     <section id="affirmations">
       <h2>5. Affirmations</h2>
-      <p>Affirmations aren’t magic words. They <em>prime attention</em> (via your brain’s filtering systems) so you notice evidence that fits the phrase. When you pair a phrase with a tiny action, you create proof — and the circuit strengthens.</p>
+      <p>Affirmations aren’t magic words. They <em>prime attention</em> so you notice evidence that fits the phrase. When you pair a phrase with a tiny action, you create proof — and the circuit strengthens.</p>
 
       <figure>
         <img src="../img/ns-affirmations.png"
@@ -285,6 +292,40 @@
       <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
     </div>
   </footer>
+
+  <!-- Mobile menu script (matches your other pages) -->
+  <script>
+    (function(){
+      const header = document.getElementById('siteHeader');
+      const toggle = header.querySelector('.menu-toggle');
+      const nav = document.getElementById('primaryNav');
+
+      function setExpanded(on){
+        if(on){
+          header.classList.add('menu-open');
+          toggle.classList.add('menu-open');
+          toggle.setAttribute('aria-expanded','true');
+        }else{
+          header.classList.remove('menu-open');
+          toggle.classList.remove('menu-open');
+          toggle.setAttribute('aria-expanded','false');
+        }
+      }
+
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          const isOpen = header.classList.contains('menu-open');
+          setExpanded(!isOpen);
+        });
+      }
+
+      if (nav) {
+        nav.addEventListener('click', e => {
+          if(e.target.tagName === 'A'){ setExpanded(false); }
+        });
+      }
+    })();
+  </script>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Crisis Support – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=16">
+  <link rel="stylesheet" href="../style.css?v=15">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -22,12 +22,9 @@
 
   <!-- Hamburger -->
   <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico">
-      <span></span><span></span><span></span>
-    </span>
+    <span class="menu-ico"><span></span><span></span><span></span></span>
   </button>
 
-  <!-- Nav -->
   <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
@@ -44,11 +41,9 @@
   <h1>Crisis Support</h1>
   <p class="lead">If you are in immediate danger of harming yourself, it’s important to seek help right away. You are not alone, and there are people ready to listen and support you.</p>
 
-  <!-- Hero image -->
   <figure>
-    <img src="../img/crisis-hero.png" alt="Open doorway with warm light, symbolising safety and reaching out"
-         style="border-radius:12px; width:100%; height:auto; object-fit:cover; display:block;">
-    <figcaption class="cap">You deserve safety. Reaching out is a strong first step.</figcaption>
+    <img src="../img/crisis-hero.png" alt="An open safe space with warm light, symbolising hope and support" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
+    <figcaption class="cap">You deserve safety, dignity and care — even in your hardest moments.</figcaption>
   </figure>
 
   <section id="immediate">
@@ -71,14 +66,6 @@
       <li><a href="https://www.sane.org.uk" target="_blank" rel="noopener">SANEline (support for those affected by mental illness)</a></li>
       <li><a href="https://www.nhs.uk/service-search/mental-health" target="_blank" rel="noopener">NHS urgent mental health helplines (England, 24/7)</a></li>
     </ul>
-
-    <!-- Support image -->
-    <figure style="margin-top:14px;">
-      <img src="../img/crisis-support.png"
-           alt="Close-up of supportive hands and a warm drink, conveying care and connection"
-           style="border-radius:12px; width:100%; height:auto; object-fit:contain; display:block; background:#0a0f0c;">
-      <figcaption class="cap">You don’t have to carry this alone — support is available.</figcaption>
-    </figure>
   </section>
 
   <section id="why">
@@ -91,8 +78,7 @@
     </ul>
     <p>Understanding these patterns is not about labels — it’s about recognising what’s happening in your body so you can use small tools to regain balance.</p>
     <figure>
-      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system"
-           style="border-radius:12px; width:100%; height:auto; object-fit:contain; display:block;">
+      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system">
       <figcaption class="cap">The Autonomic Nervous System: fight/flight (high energy), rest/digest (calm), and shutdown (freeze).</figcaption>
     </figure>
   </section>
@@ -106,20 +92,23 @@
       <li><strong>Safe contact:</strong> Text or call someone you trust and tell them one thing you are feeling right now.</li>
       <li><strong>Small movement:</strong> Stretch, walk, or shake your hands to release built-up adrenaline.</li>
     </ul>
-
     <figure>
-      <img src="../img/crisis-steps.png"
-           alt="Grounding tools laid out on a table: phone with helpline, tea, notepad, and breathing prompt"
-           style="border-radius:12px; width:100%; height:auto; object-fit:cover; display:block;">
-      <figcaption class="cap">Keep one or two tools handy — they’re easier to use when you need them most.</figcaption>
+      <img src="../img/crisis-steps.png" alt="Grounding tools shown visually — tea, journal, small objects for senses" style="border-radius:12px; max-height:340px; object-fit:cover; width:100%;">
+      <figcaption class="cap">Grounding tools — small steps that help the body feel safe again.</figcaption>
     </figure>
+    <p>These don’t solve everything, but they can steady you long enough to reach out for further help.</p>
   </section>
 
-  <!-- STANDARDISED DISCLAIMER -->
-  <section class="disclaimer" id="disclaimer">
+  <figure>
+    <img src="../img/crisis-support.png" alt="Close-up of supportive hands held together" style="border-radius:12px; max-height:360px; object-fit:cover; width:100%;">
+    <figcaption class="cap">Support is real and within reach — you don’t have to face crisis alone.</figcaption>
+  </figure>
+
+  <!-- Standardised Disclaimer -->
+  <section class="disclaimer">
     <h2>Important Note</h2>
-    <p>The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or crisis care. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you are outside the UK, contact your local emergency number.</p>
-    <p>For non-emergency concerns, consider speaking with a qualified health professional or one of the services listed above.</p>
+    <p>The information on this page is for general understanding and support. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
+    <p>For non-emergency concerns, consider speaking with a qualified health professional or an appropriate support service listed above.</p>
   </section>
 </main>
 
@@ -149,15 +138,8 @@
         toggle.setAttribute('aria-expanded','false');
       }
     }
-
-    toggle.addEventListener('click', () => {
-      const isOpen = header.classList.contains('menu-open');
-      setExpanded(!isOpen);
-    });
-
-    nav.addEventListener('click', e => {
-      if(e.target.tagName === 'A'){ setExpanded(false); }
-    });
+    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
   })();
 </script>
 

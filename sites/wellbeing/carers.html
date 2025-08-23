@@ -45,7 +45,7 @@
   <p class="lead">Caring for someone you love can be one of the most meaningful things you’ll ever do — and also one of the most exhausting. If you’re running on empty, you’re not failing — you’re human. This page offers clear explanations, practical steps, and gentle permission to take up space too.</p>
 
   <figure>
-    <img src="../img/carers-hero-placeholder.jpg" alt="A carer’s hand resting on their loved one’s arm, a cup of tea nearby" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
+    <img src="../img/carers-hands.png" alt="A carer’s hand resting on their loved one’s arm, a cup of tea nearby" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
     <figcaption class="cap">You carry a lot. You don’t have to carry it alone.</figcaption>
   </figure>
 
@@ -81,7 +81,7 @@
         <h3>Micro-rests</h3>
         <p>Set a 2-minute timer. Shoulders down, slow your out-breath. You’ve just signalled “safe” to your nervous system. Repeat often; it stacks.</p>
         <figure>
-          <img src="../img/carers-breathing-placeholder.jpg" alt="Simple breathing reminder card on a table" style="border-radius:10px; width:100%; max-height:260px; object-fit:cover;">
+          <img src="../img/carers-breathing.png" alt="Simple breathing reminder card with tea" style="border-radius:10px; width:100%; max-height:260px; object-fit:cover;">
         </figure>
       </article>
       <article class="card">
@@ -198,7 +198,7 @@
     </ul>
   </section>
 
-  <!-- STANDARDISED DISCLAIMER (place this above footer on every Wellbeing page) -->
+  <!-- STANDARDISED DISCLAIMER -->
   <section class="disclaimer">
     <h2>Important Note</h2>
     <p>The information on this page is for general understanding and support. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call 999 (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
@@ -213,7 +213,7 @@
   </div>
 </footer>
 
-<!-- Mobile menu script: toggles class on the HEADER to match your CSS (.menu-open .nav {...}) -->
+<!-- Mobile menu script -->
 <script>
   (function(){
     const header = document.getElementById('siteHeader');
@@ -237,7 +237,6 @@
       setExpanded(!isOpen);
     });
 
-    // Close menu when a link is clicked (mobile nicety)
     nav.addEventListener('click', e => {
       if(e.target.tagName === 'A'){ setExpanded(false); }
     });

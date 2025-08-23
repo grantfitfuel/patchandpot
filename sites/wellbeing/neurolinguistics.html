@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Neurolinguistics – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=14">
+  <link rel="stylesheet" href="../style.css?v=32">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -19,7 +19,13 @@
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <!-- Hamburger (mobile) -->
+  <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-controls="mainNav" aria-expanded="false" data-menu-toggle>
+    <span class="menu-ico" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+
+  <nav class="nav" id="mainNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
@@ -32,59 +38,201 @@
 </header>
 
 <main class="wrap">
-  <h1>Neurolinguistics: How Words Shape Your Brain</h1>
-  <p class="lead">The words we use – whether out loud or in our own thoughts – change the way our brain wires itself. This section explores how language influences attention, emotion, memory, and action, and how you can use this to create healthier thought patterns.</p>
+  <h1>Neurolinguistics: Words That Change How Your Brain Responds</h1>
+  <p class="lead">
+    The language we use steers attention, emotion, and action. This page gives clear, practical scripts and
+    brain-based explanations so you can reduce stress, build motivation, and make habits stick—kindly and realistically.
+  </p>
 
-  <!-- SECTION 1: Word Pathways -->
-  <section>
-    <h2>1. Word Pathways in the Brain</h2>
-    <p>Every word you think or speak activates specific neural pathways. Repeated language makes those pathways stronger – much like treading the same garden path until it becomes clearer and easier to follow.</p>
-    <figure>
-      <img src="../img/nl-word-pathways.png" alt="Illustration of brain word pathways – placeholder image">
-      <figcaption class="cap">Placeholder: Word pathways linking thought, feeling, and action.</figcaption>
-    </figure>
-    <p><strong>Everyday example:</strong> Saying “I can’t cope” repeatedly strengthens stress circuits. Shifting to “This is tough, but I’ll take one step” strengthens calming circuits instead.</p>
-  </section>
+  <!-- QUICK LINKS -->
+  <div class="mini-nav">
+    <a href="#why-language-works">Why language works</a>
+    <a href="#self-talk">Self-talk upgrades</a>
+    <a href="#defusion">Defusing sticky thoughts</a>
+    <a href="#reframe">Micro-reframes</a>
+    <a href="#if-then">If–Then plans</a>
+    <a href="#motivation">Motivational prompts</a>
+    <a href="#carers">Carer scripts</a>
+    <a href="#grief">Grief scripts</a>
+    <a href="#work">Work & study</a>
+    <a href="#practice">Practise plan</a>
+    <a href="#pitfalls">Pitfalls & FAQ</a>
+    <a href="#tracking">Tracking & printables</a>
+  </div>
 
-  <!-- SECTION 2: Self-Talk Swaps -->
-  <section>
-    <h2>2. Self-Talk Swaps</h2>
-    <p>Self-talk acts like background music: if it’s harsh, your mood drops; if it’s supportive, your mood lifts. By noticing and swapping unhelpful phrases, you can reprogramme how your brain reacts.</p>
+  <!-- 1. WHY LANGUAGE WORKS -->
+  <section id="why-language-works">
+    <h2>1) Why language works (the brain bits that matter)</h2>
     <figure>
-      <img src="../img/nl-self-talk-swaps.png" alt="Self-talk swap examples – placeholder image">
-      <figcaption class="cap">Placeholder: Swapping harsh self-talk for kinder alternatives.</figcaption>
+      <img src="../img/nl-word-pathways.png" alt="Brain pathways: language shaping attention, emotion, action">
+      <figcaption class="cap">Placeholder image. Save as <code>nl-word-pathways.png</code> in <code>/sites/img/</code>.</figcaption>
     </figure>
-    <article class="card">
-      <h3>Examples of swaps</h3>
-      <ul>
-        <li>“I’m useless” → “I’m learning.”</li>
-        <li>“This will never work” → “I’ll test one step.”</li>
-        <li>“I failed again” → “I found one way that didn’t work.”</li>
-      </ul>
-    </article>
-  </section>
-
-  <!-- SECTION 3: If–Then Language -->
-  <section>
-    <h2>3. If–Then Language</h2>
-    <p>“If–then” statements (implementation intentions) help the brain act automatically instead of relying on willpower. They anchor behaviour in predictable triggers.</p>
-    <figure>
-      <img src="../img/nl-if-then.png" alt="If-then language diagram – placeholder image">
-      <figcaption class="cap">Placeholder: Simple flow of IF (trigger) → THEN (helpful action).</figcaption>
-    </figure>
-    <p><strong>Everyday examples:</strong></p>
     <ul>
-      <li><em>If</em> the kettle boils → <em>Then</em> breathe deeply once.</li>
-      <li><em>If</em> I see my trainers → <em>Then</em> put them on.</li>
-      <li><em>If</em> I feel overwhelmed → <em>Then</em> write down one task.</li>
+      <li><strong>Attention filters (RAS):</strong> Questions and key phrases bias what you notice. Ask “What’s the smallest helpful action?” and you’ll literally spot smaller actions faster.</li>
+      <li><strong>Emotion regulation (PFC ↔ amygdala):</strong> Concrete, compassionate wording (“One step now.”) lowers alarm and restores choice.</li>
+      <li><strong>Action selection (habits):</strong> Short, specific sentences are easier to execute and repeat, reinforcing the circuit.</li>
+    </ul>
+    <p><em>Principle:</em> Prefer near-term, simple, kind language. It’s fuel for the prefrontal cortex and habit loops.</p>
+  </section>
+
+  <!-- 2. SELF TALK -->
+  <section id="self-talk">
+    <h2>2) Self-talk upgrades (from threat to support)</h2>
+    <figure>
+      <img src="../img/nl-self-talk-swaps.png" alt="Self-talk swaps illustrated in two speech bubbles">
+      <figcaption class="cap">Placeholder. Save as <code>nl-self-talk-swaps.png</code>.</figcaption>
+    </figure>
+    <div class="guides-grid">
+      <div class="tile"><span class="cap"><strong>From:</strong> “I must not fail.”<br><strong>To:</strong> “I’ll do the next small step.”</span></div>
+      <div class="tile"><span class="cap"><strong>From:</strong> “It’s too much.”<br><strong>To:</strong> “One part now, one part later.”</span></div>
+      <div class="tile"><span class="cap"><strong>From:</strong> “I’m terrible at this.”<br><strong>To:</strong> “I’m learning out loud.”</span></div>
+      <div class="tile"><span class="cap"><strong>From:</strong> “I should be further on.”<br><strong>To:</strong> “Progress beats perfect.”</span></div>
+      <div class="tile"><span class="cap"><strong>From:</strong> “I can’t cope.”<br><strong>To:</strong> “Breathe, then choose one thing.”</span></div>
+      <div class="tile"><span class="cap"><strong>From:</strong> “I never stick to plans.”<br><strong>To:</strong> “I make tiny plans I can repeat.”</span></div>
+    </div>
+    <p><strong>Try this:</strong> Say your new line <em>out loud</em> once a day for a week; sound + repetition wires it faster.</p>
+  </section>
+
+  <!-- 3. DEFUSION -->
+  <section id="defusion">
+    <h2>3) Defusing sticky thoughts (unhook & choose)</h2>
+    <p>When a thought grabs the steering wheel, add a little space:</p>
+    <ul>
+      <li><strong>Label it:</strong> “I’m <em>having the thought</em> that I’ll mess this up.”</li>
+      <li><strong>Cartoon voice (in your head):</strong> turns the volume down so choice returns.</li>
+      <li><strong>Park & act:</strong> write it on paper, fold it once, do one 60-second action anyway.</li>
+    </ul>
+    <p><em>Why it helps:</em> You’re not arguing with the thought—you’re stepping out of it.</p>
+  </section>
+
+  <!-- 4. MICRO-REFRAMES -->
+  <section id="reframe">
+    <h2>4) Micro-reframes (accurate, not fake-positive)</h2>
+    <figure>
+      <img src="../img/nl-reframe-steps.png" alt="Reframing steps infographic">
+      <figcaption class="cap">Placeholder. Save as <code>nl-reframe-steps.png</code>.</figcaption>
+    </figure>
+    <div class="guides-grid">
+      <div class="tile"><span class="cap"><strong>Time pressure</strong><br>“There isn’t enough time” → “There’s time for the first slice.”<br><u>Action:</u> 5-minute timer.</span></div>
+      <div class="tile"><span class="cap"><strong>Setback</strong><br>“I’ve blown it” → “I’m one decision from back on track.”<br><u>Action:</u> drink water; restart.</span></div>
+      <div class="tile"><span class="cap"><strong>Feedback</strong><br>“They hate it” → “There’s a clue to improve.”<br><u>Action:</u> note one tweak.</span></div>
+      <div class="tile"><span class="cap"><strong>Low energy</strong><br>“I can’t do anything” → “I can do the smallest part.”<br><u>Action:</u> 60-sec tidy.</span></div>
+      <div class="tile"><span class="cap"><strong>Carer strain</strong><br>“I should do more” → “Enough is compassionate.”<br><u>Action:</u> one boundary phrase.</span></div>
+      <div class="tile"><span class="cap"><strong>Health wobble</strong><br>“Back to zero” → “Paths fade; paths regrow.”<br><u>Action:</u> short walk.</span></div>
+    </div>
+  </section>
+
+  <!-- 5. IF-THEN -->
+  <section id="if-then">
+    <h2>5) If–Then planning (implementation intentions)</h2>
+    <figure>
+      <img src="../img/nl-if-then.png" alt="If–Then flow: trigger to tiny action">
+      <figcaption class="cap">Placeholder. Save as <code>nl-if-then.png</code>.</figcaption>
+    </figure>
+    <ul>
+      <li><strong>If</strong> the kettle boils → <strong>Then</strong> breathe once and stretch shoulders.</li>
+      <li><strong>If</strong> I open my laptop → <strong>Then</strong> write one ugly sentence.</li>
+      <li><strong>If</strong> I feel overwhelmed → <strong>Then</strong> brain-dump 3 bullets on paper.</li>
+      <li><strong>If</strong> evening snack urge hits → <strong>Then</strong> “Tea first,” and step outside.</li>
     </ul>
   </section>
 
-  <!-- Disclaimer -->
-  <section class="card" style="margin-top:2rem">
-    <h3>Disclaimer</h3>
-    <p>This page is for information only and is not a substitute for professional medical advice, diagnosis, or therapy. If you are struggling with your mental health, please contact a qualified health professional or support service in your area.</p>
+  <!-- 6. MOTIVATION -->
+  <section id="motivation">
+    <h2>6) Motivational prompts (gentle questions beat “shoulds”)</h2>
+    <div class="guides-grid">
+      <div class="tile"><span class="cap"><strong>“What would 1% better look like?”</strong></span></div>
+      <div class="tile"><span class="cap"><strong>“What’s the smallest helpful action?”</strong></span></div>
+      <div class="tile"><span class="cap"><strong>“What would Future-Me thank me for?”</strong></span></div>
+      <div class="tile"><span class="cap"><strong>“If this were easy, what would it be?”</strong></span></div>
+      <div class="tile"><span class="cap"><strong>“What could I remove to make this simpler?”</strong></span></div>
+      <div class="tile"><span class="cap"><strong>“Who can I text for a two-line boost?”</strong></span></div>
+    </div>
   </section>
+
+  <!-- 7. CARERS -->
+  <section id="carers">
+    <h2>7) Scripts for carers (kind, boundaried)</h2>
+    <ul>
+      <li><strong>Time boundary:</strong> “I can help for 20 minutes now, then I need a break. We’ll pick up at 4pm.”</li>
+      <li><strong>Repeat requests:</strong> “We’ve decided X for today. If it changes, I’ll let you know.”</li>
+      <li><strong>Redirect agitation:</strong> “Let’s have a cup of tea first, then look at the form together.”</li>
+      <li><strong>Saying no:</strong> “I can’t do that today. I can call tomorrow morning.”</li>
+      <li><strong>Self-compassion:</strong> “That was hard and I stayed kind. Now I rest for five minutes.”</li>
+    </ul>
+  </section>
+
+  <!-- 8. GRIEF -->
+  <section id="grief">
+    <h2>8) Scripts in grief (tender and real)</h2>
+    <ul>
+      <li><strong>To others:</strong> “I don’t need solutions, just company while this hurts.”</li>
+      <li><strong>To yourself:</strong> “Waves are part of love. I’ll let this one pass safely.”</li>
+      <li><strong>At work:</strong> “I have reduced capacity this week. Here’s what I can deliver by Friday.”</li>
+      <li><strong>Dates & triggers:</strong> “That day is heavy for me. I’ll keep the evening free and do something gentle.”</li>
+    </ul>
+  </section>
+
+  <!-- 9. WORK/STUDY -->
+  <section id="work">
+    <h2>9) Work & study scripts (clear, doable)</h2>
+    <ul>
+      <li><strong>Start task:</strong> “Open the file and write the first ugly sentence.”</li>
+      <li><strong>Clarify ask:</strong> “What does ‘good’ look like here? Three bullets would help.”</li>
+      <li><strong>Push back:</strong> “I can do X by Wednesday or Y by Friday — which is higher priority?”</li>
+      <li><strong>End day:</strong> “What’s the very first step tomorrow? I’ll leave it at the top of the page.”</li>
+    </ul>
+  </section>
+
+  <!-- 10. PRACTISE PLAN -->
+  <section id="practice">
+    <h2>10) Practise plan (make it stick)</h2>
+    <ol>
+      <li><strong>Pick 2–3 phrases</strong> from above. Put them on a card or phone note.</li>
+      <li><strong>Anchor with If–Then:</strong> “If kettle boils → Then say ‘One part now, one later.’”</li>
+      <li><strong>Say them out loud</strong> once or twice daily (sound matters).</li>
+      <li><strong>Weekly review:</strong> keep what helps; replace what doesn’t.</li>
+    </ol>
+  </section>
+
+  <!-- PITFALLS & FAQ -->
+  <section id="pitfalls">
+    <h2>Pitfalls & FAQ</h2>
+    <article class="card">
+      <h3>“Isn’t this toxic positivity?”</h3>
+      <p>No. We keep facts, soften harsh bias, and add a small, doable action. It’s accuracy plus compassion.</p>
+    </article>
+    <article class="card">
+      <h3>“What if I don’t believe the new line?”</h3>
+      <p>Make it more believable. “I can handle everything” → “I can try the first minute.” Believability drives results.</p>
+    </article>
+    <article class="card">
+      <h3>“How long until it works?”</h3>
+      <p>Most people feel a tiny shift immediately; wiring strengthens over weeks with repetition and action.</p>
+    </article>
+  </section>
+
+  <!-- TRACKING & PRINTABLES -->
+  <section id="tracking">
+    <h2>Tracking & printables</h2>
+    <p>Use a simple tally (✔) when you use a phrase. Aim for 20–30 reps in two weeks.</p>
+    <ul>
+      <li><a href="../img/print-self-talk-cards.png" download>Printable self-talk cards (A4)</a> (placeholder)</li>
+      <li><a href="../img/print-reframe-cards.png" download>Printable reframing cards (A4)</a> (placeholder)</li>
+      <li><a href="../img/print-if-then-cards.png" download>If–Then cards (A4)</a> (placeholder)</li>
+    </ul>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="disclaimer" style="margin-top:16px">
+    <p class="meta"><em>
+      Disclaimer: This page provides general education and signposting. It is not a substitute for professional diagnosis,
+      therapy, medical advice, or crisis services. If you are in immediate danger, call 999 (UK). For non-urgent support,
+      see the resources listed on the Crisis and Abuse pages.
+    </em></p>
+  </section>
+
+  <p class="meta" style="margin-top:8px">← <a href="../wellbeing.html">Back to Wellbeing</a></p>
 </main>
 
 <footer>
@@ -93,6 +241,19 @@
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Mobile menu toggle -->
+<script>
+  (function(){
+    const btn = document.querySelector('[data-menu-toggle]');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      document.body.classList.toggle('menu-open', !expanded);
+    });
+  })();
+</script>
 
 </body>
 </html>

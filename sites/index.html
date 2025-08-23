@@ -15,6 +15,59 @@
 <meta http-equiv="Expires" content="0">
 
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* ============== HAMBURGER MENU ADDITIONS ============== */
+.menu-toggle {
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  cursor:pointer;
+  width:28px;
+  height:22px;
+  gap:5px;
+}
+.menu-toggle span {
+  display:block;
+  height:3px;
+  background:#f0fff3;
+  border-radius:2px;
+  transition:0.3s;
+}
+
+/* transform into "X" */
+.menu-toggle.active span:nth-child(1) {
+  transform:rotate(45deg) translate(5px,5px);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity:0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform:rotate(-45deg) translate(6px,-6px);
+}
+
+@media(max-width:768px){
+  .menu-toggle{display:flex}
+  .nav {
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:60px; right:20px;
+    background:#0a100b;
+    border:1px solid #142116;
+    border-radius:8px;
+    padding:10px;
+    z-index:999;
+  }
+  .nav a {
+    padding:10px;
+    color:#f0fff3;
+    text-align:left;
+  }
+  .nav.show{display:flex}
+}
+</style>
+
 </head>
 <body>
 
@@ -23,7 +76,12 @@
     <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <div class="menu-toggle" id="menu-toggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </div>
+
+  <nav class="nav" id="nav" aria-label="Primary">
     <a href="index.html">Home</a>
     <a href="growing.html">Growing</a>
     <a href="recipes.html">Recipes</a>
@@ -77,6 +135,18 @@
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<script>
+const toggle = document.getElementById('menu-toggle');
+const nav = document.getElementById('nav');
+
+toggle.addEventListener('click', () => {
+  toggle.classList.toggle('active');
+  nav.classList.toggle('show');
+  const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
+  toggle.setAttribute('aria-expanded', !expanded);
+});
+</script>
 
 </body>
 </html>

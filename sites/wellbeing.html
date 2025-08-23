@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellbeing – Patch & Pot</title>
-  <link rel="stylesheet" href="style.css?v=23">
+  <link rel="stylesheet" href="style.css?v=24">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -13,8 +13,8 @@
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
 
   <style>
-    /* Shared green button style */
-    .green-btn {
+    /* Green button style only for top nav strip */
+    .mini-nav a {
       background: linear-gradient(180deg, var(--green2), var(--green));
       color: #061007 !important;
       border: none;
@@ -22,37 +22,14 @@
       font-weight: 600;
       padding: .65rem 1rem;
       text-align: center;
-      display: inline-block;
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-    .green-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    }
-
-    /* Apply to mini-nav */
-    .mini-nav a {
       flex: 1 1 160px;
       text-decoration: none;
-    }
-    .mini-nav a.green-btn { margin-bottom: 8px; }
-
-    /* Apply to guides-grid tiles */
-    .guides-grid .tile {
-      background: linear-gradient(180deg, var(--green2), var(--green));
-      color: #061007;
-      border: none;
-      border-radius: var(--radius);
-      text-align: center;
-      font-weight: 600;
-      padding: 1rem;
       transition: transform .15s ease, box-shadow .15s ease;
     }
-    .guides-grid .tile:hover {
+    .mini-nav a:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.25);
     }
-    .guides-grid .tile .cap { color:#061007; display:block; }
   </style>
 </head>
 <body>
@@ -80,19 +57,19 @@
 
   <!-- Mini-nav strip (green buttons) -->
   <div class="mini-nav" style="margin-top:6px; display:flex; flex-wrap:wrap; gap:10px;">
-    <a class="green-btn" href="wellbeing/crisis.html">Crisis</a>
-    <a class="green-btn" href="wellbeing/carers.html">Carer Support</a>
-    <a class="green-btn" href="wellbeing/grief.html">Grief</a>
-    <a class="green-btn" href="wellbeing/abuse.html">Abuse & Safety</a>
-    <a class="green-btn" href="wellbeing/neurodiversity.html">Neurodiversity</a>
-    <a class="green-btn" href="wellbeing/neuroscience.html">Neuroscience</a>
-    <a class="green-btn" href="wellbeing/brain-reprogramming.html">Brain Reprogramming</a>
-    <a class="green-btn" href="wellbeing/neurolinguistics.html">Neurolinguistics</a>
-    <a class="green-btn" href="wellbeing/thought-reframing.html">Thought Reframing</a>
-    <a class="green-btn" href="wellbeing/affirmations.html">Affirmations</a>
+    <a href="wellbeing/crisis.html">Crisis</a>
+    <a href="wellbeing/carers.html">Carer Support</a>
+    <a href="wellbeing/grief.html">Grief</a>
+    <a href="wellbeing/abuse.html">Abuse & Safety</a>
+    <a href="wellbeing/neurodiversity.html">Neurodiversity</a>
+    <a href="wellbeing/neuroscience.html">Neuroscience</a>
+    <a href="wellbeing/brain-reprogramming.html">Brain Reprogramming</a>
+    <a href="wellbeing/neurolinguistics.html">Neurolinguistics</a>
+    <a href="wellbeing/thought-reframing.html">Thought Reframing</a>
+    <a href="wellbeing/affirmations.html">Affirmations</a>
   </div>
 
-  <!-- Main button-style section -->
+  <!-- Main tiles (stay neutral glass style) -->
   <section class="guides-grid" style="margin-top:18px">
     <a class="tile" href="wellbeing/crisis.html"><span class="cap"><strong>Crisis — get help now</strong><br>Immediate steps and services.</span></a>
     <a class="tile" href="wellbeing/carers.html"><span class="cap"><strong>Carer Support</strong><br>Boundaries, energy, scripts, respite, links.</span></a>

@@ -14,18 +14,12 @@
 </head>
 <body>
 
-<header class="site-header" id="siteHeader">
+<header class="site-header">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-
-  <!-- Hamburger -->
-  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico"><span></span><span></span><span></span></span>
-  </button>
-
-  <nav class="nav" id="primaryNav" aria-label="Primary">
+  <nav class="nav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
@@ -41,9 +35,11 @@
   <h1>Crisis Support</h1>
   <p class="lead">If you are in immediate danger of harming yourself, it’s important to seek help right away. You are not alone, and there are people ready to listen and support you.</p>
 
+  <!-- Optional hero image (photographic) -->
   <figure>
-    <img src="../img/crisis-hero.png" alt="Open door with light shining through, symbol of hope and safety" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
-    <figcaption class="cap">Even in your darkest moment, a door to safety is always open.</figcaption>
+    <img src="../img/crisis-hero.png" alt="Open doorway with warm light, symbolising safety and reaching out"
+         style="border-radius:12px; width:100%; height:auto; object-fit:cover; display:block;">
+    <figcaption class="cap">You deserve safety. Reaching out is a strong first step.</figcaption>
   </figure>
 
   <section id="immediate">
@@ -66,6 +62,14 @@
       <li><a href="https://www.sane.org.uk" target="_blank" rel="noopener">SANEline (support for those affected by mental illness)</a></li>
       <li><a href="https://www.nhs.uk/service-search/mental-health" target="_blank" rel="noopener">NHS urgent mental health helplines (England, 24/7)</a></li>
     </ul>
+
+    <!-- SUPPORT IMAGE (uncropped / not constrained) -->
+    <figure style="margin-top:14px;">
+      <img src="../img/crisis-support.png"
+           alt="Close-up of supportive hands and a warm drink, conveying care and connection"
+           style="border-radius:12px; width:100%; height:auto; object-fit:contain; display:block; background:#0a0f0c;">
+      <figcaption class="cap">You don’t have to carry this alone — support is available.</figcaption>
+    </figure>
   </section>
 
   <section id="why">
@@ -78,7 +82,8 @@
     </ul>
     <p>Understanding these patterns is not about labels — it’s about recognising what’s happening in your body so you can use small tools to regain balance.</p>
     <figure>
-      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system">
+      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system"
+           style="border-radius:12px; width:100%; height:auto; object-fit:contain; display:block;">
       <figcaption class="cap">The Autonomic Nervous System: fight/flight (high energy), rest/digest (calm), and shutdown (freeze).</figcaption>
     </figure>
   </section>
@@ -86,39 +91,27 @@
   <section id="coping">
     <h2>Grounding tools you can try</h2>
     <p>In moments of crisis, tiny actions can help you ride the wave:</p>
-    <figure>
-      <img src="../img/crisis-steps.png" alt="Grounding tools shown on a table — tea, notebook, blanket" style="border-radius:10px; width:100%; max-height:300px; object-fit:cover;">
-    </figure>
     <ul>
       <li><strong>Breathing:</strong> Inhale for 4, exhale for 6. This activates the calming branch of your nervous system.</li>
       <li><strong>5–4–3–2–1:</strong> Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste.</li>
       <li><strong>Safe contact:</strong> Text or call someone you trust and tell them one thing you are feeling right now.</li>
       <li><strong>Small movement:</strong> Stretch, walk, or shake your hands to release built-up adrenaline.</li>
     </ul>
-    <p>These don’t solve everything, but they can steady you long enough to reach out for further help.</p>
-  </section>
 
-  <section>
-    <h2>You don’t have to go through this alone</h2>
+    <!-- Optional steps image (kept cover-cropped as it's a banner-style composition) -->
     <figure>
-      <img src="../img/crisis-support.png" alt="Close-up of two supportive hands holding" style="border-radius:10px; width:100%; max-height:300px; object-fit:cover;">
-      <figcaption class="cap">Reaching out to someone can make the weight lighter, even if just for a moment.</figcaption>
+      <img src="../img/crisis-steps.png"
+           alt="Grounding tools laid out on a table: phone with helpline, tea, notepad, and breathing prompt"
+           style="border-radius:12px; width:100%; height:auto; object-fit:cover; display:block;">
+      <figcaption class="cap">Keep one or two tools handy — they’re easier to use when you need them most.</figcaption>
     </figure>
   </section>
 
-  <!-- Standardised Disclaimer -->
-  <section class="disclaimer">
+  <!-- STANDARDISED DISCLAIMER (consistent across Wellbeing pages) -->
+  <section class="disclaimer" id="disclaimer">
     <h2>Important Note</h2>
-    <p>
-      The information on this page is for general understanding and support. 
-      It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. 
-      If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. 
-      If you’re outside the UK, contact your local emergency number.
-    </p>
-    <p>
-      For non-emergency concerns, consider speaking with a qualified health professional 
-      or an appropriate support service listed above.
-    </p>
+    <p>This page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or crisis care. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you are outside the UK, contact your local emergency number.</p>
+    <p>For non-emergency concerns, consider speaking with a qualified health professional or one of the services listed above.</p>
   </section>
 </main>
 
@@ -129,29 +122,6 @@
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
-
-<!-- Mobile menu script -->
-<script>
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
-
-    function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    }
-    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-  })();
-</script>
 
 </body>
 </html>

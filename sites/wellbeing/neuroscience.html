@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Neuroscience — Patch & Pot</title>
 
-  <!-- Global CSS (one folder up) -->
-  <link rel="stylesheet" href="../style.css?v=19">
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../style.css?v=15">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -22,18 +22,13 @@
 </head>
 <body>
 
-  <!-- Header with hamburger -->
-  <header class="site-header" id="siteHeader">
+  <!-- Header -->
+  <header class="site-header">
     <div class="brand">
       <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
       <span class="site-title">Patch &amp; Pot</span>
     </div>
-
-    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-      <span class="menu-ico"><span></span><span></span><span></span></span>
-    </button>
-
-    <nav class="nav" id="primaryNav" aria-label="Primary">
+    <nav class="nav" aria-label="Primary">
       <a href="../index.html">Home</a>
       <a href="../growing.html">Growing</a>
       <a href="../recipes.html">Recipes</a>
@@ -47,20 +42,20 @@
 
   <main class="wrap">
     <h1>Neuroscience for Everyday Life</h1>
-    <p class="lead">Understand why the brain does what it does — and how to nudge it. These short, practical sections pair clear diagrams with concrete examples you can try today.</p>
+    <p class="lead">Understand why the brain does what it does — and how to nudge it. These sections pair clear visuals with practical, tiny actions that stack into real change.</p>
 
     <!-- 1. Emotions & Regulation -->
     <section id="emotion">
       <h2>1. Emotions &amp; Regulation</h2>
-      <p>Your brain has fast alarm systems (amygdala) and slower regulation systems (prefrontal cortex). Stress feels like the alarm shouting louder than the calm voice. Training the calm voice is possible.</p>
+      <p>Your brain has fast alarm systems (amygdala) and slower regulation systems (prefrontal cortex). Stress feels like the alarm shouting louder than the calm voice. You can train the calm voice.</p>
       <figure>
         <img src="../img/ns-emotion-brain.png"
              alt="Amygdala (alarm) and prefrontal cortex (regulation)"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-emotion-brain.png</code></div>
-        <figcaption class="cap">Amygdala (fast alarm) vs. prefrontal cortex (guide/brake). Breath + label-the-feeling helps the guide take charge.</figcaption>
+        <figcaption class="cap">Amygdala (fast alarm) vs. prefrontal cortex (guide/brake). Label the feeling + longer exhale helps the guide take charge.</figcaption>
       </figure>
-      <p><strong>Try:</strong> 4–6 breathing (inhale 4, exhale 6) for 60–90 seconds; silently label the feeling (“anxious”, “annoyed”).</p>
+      <p><strong>Try now:</strong> Breathe in for 4, out for 6 (90 seconds). Whisper a label: “anxious”, “irritated”, “flat”. Label = less chaos.</p>
     </section>
 
     <!-- 2. Habits & Loops -->
@@ -72,92 +67,96 @@
              alt="Habit loop — cue, routine, reward"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-habit-loop.png</code></div>
-        <figcaption class="cap">Keep the reward, swap the routine. Same loop, better outcome.</figcaption>
+        <figcaption class="cap">Keep the reward, swap the routine. Same loop, kinder outcome.</figcaption>
       </figure>
-      <p><strong>Example:</strong> Afternoon slump (cue) → crisps (routine) → stimulation (reward). Swap to a 2-minute walk &amp; cold water splash → same reward.</p>
+      <p><strong>Example:</strong> Afternoon slump (cue) → scrolling (routine) → stimulation (reward). Swap to a brisk 2-minute walk + water → same reward, less crash.</p>
     </section>
 
     <!-- 3. Memory & Learning (EXPANDED) -->
     <section id="memory">
       <h2>3. Memory &amp; Learning</h2>
-      <p>
-        Memories are not like files in a cabinet — they’re dynamic and shaped by repetition, context, and emotion.
-        New memories are encoded by the hippocampus and then gradually “handed off” to networks across the cortex,
-        especially during sleep. Work <em>with</em> these patterns to remember more with less effort.
-      </p>
+      <p>Memories don’t “download” in one go — they are built. The hippocampus <em>encodes</em> new information; during sleep, memories are <em>consolidated</em> and distributed across the cortex. Emotion, meaning, and repetition make pathways easier to re-activate.</p>
+
       <figure>
-        <img src="../img/ns-memory-systems.png" alt="Hippocampus encodes, cortex stores"
+        <img src="../img/ns-memory-systems.png"
+             alt="Hippocampus encodes, cortex stores"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-memory-systems.png</code></div>
-        <figcaption class="cap">Encode with focus, stabilise with sleep, strengthen with spaced repetition.</figcaption>
+        <figcaption class="cap">Encode with focus, stabilise with sleep, strengthen with spaced retrieval.</figcaption>
       </figure>
 
-      <div class="grid">
-        <article class="card">
-          <h3>Spacing beats cramming</h3>
-          <p>Short reviews over days outperform one long cram. Each “forget → recall” cycle strengthens the trace.</p>
-          <p><strong>Try:</strong> 10 minutes nightly instead of 2 hours once a week.</p>
-        </article>
+      <article class="card" style="grid-column:1/-1">
+        <h3>How to remember more (and forget less)</h3>
+        <div class="grid">
+          <div class="card">
+            <h4>Spaced repetition</h4>
+            <p>Review just as you’re about to forget: Day 1 → Day 3 → Day 7 → Day 14 → Day 30. Short sessions beat cramming.</p>
+            <p class="meta"><u>Plant example:</u> Revisit sowing depths on these days; add a quick quiz to yourself.</p>
+          </div>
+          <div class="card">
+            <h4>Retrieval > re-reading</h4>
+            <p>Close the notes and pull facts from memory. Testing yourself strengthens recall far more than re-reading.</p>
+            <p class="meta"><u>Try:</u> “Name 3 shade-tolerant herbs.” Check answers after.</p>
+          </div>
+          <div class="card">
+            <h4>Interleaving</h4>
+            <p>Mix topics: a little soil science → watering → pest ID. Switching forces the brain to discriminate and stick.</p>
+            <p class="meta"><u>Kitchen:</u> Alternate recipe steps with prep of a future meal to strengthen sequences.</p>
+          </div>
+          <div class="card">
+            <h4>Dual coding</h4>
+            <p>Pair words with visuals: sketch, flowchart, colour tags. Visual anchors give extra “hooks”.</p>
+            <p class="meta"><u>Grow log:</u> Add a thumbnail photo of each pot next to notes.</p>
+          </div>
+          <div class="card">
+            <h4>Chunking</h4>
+            <p>Group items into 3–5 meaningful chunks. The brain remembers patterns better than long lists.</p>
+            <p class="meta"><u>Watering rule:</u> “Seedlings / leafy / fruiting” instead of a 15-item list.</p>
+          </div>
+          <div class="card">
+            <h4>Elaboration</h4>
+            <p>Explain it in your own words to someone else (or a plant!). Teaching exposes weak spots and cements memory.</p>
+            <p class="meta"><u>Script:</u> “I’m sowing 1cm deep because the seed’s size needs light/energy balance.”</p>
+          </div>
+        </div>
+      </article>
 
-        <article class="card">
-          <h3>Active recall</h3>
-          <p>Close the notes and pull info from memory. Retrieval (not rereading) does the heavy lifting.</p>
-          <p><strong>Example:</strong> After a gardening video, jot the 5 steps from memory, then check.</p>
-        </article>
+      <article class="card" style="grid-column:1/-1">
+        <h3>Make learning brain-friendly</h3>
+        <ul>
+          <li><strong>Sleep:</strong> consolidation loves consistent bed/wake; avoid heavy screens late.</li>
+          <li><strong>Emotion/meaning:</strong> tie a fact to a feeling (“these basil leaves fed my friend”).</li>
+          <li><strong>State:</strong> calm focus > frantic reading. 4-6 breathing for 60s before study.</li>
+          <li><strong>Movement:</strong> 5–10 min walk pre-learning boosts alertness and recall.</li>
+          <li><strong>Environment:</strong> one tidy “learning corner”; same playlist as a context cue.</li>
+        </ul>
+        <p class="meta">Use small, repeatable sessions: 15–20 minutes with a 2–3 minute break.</p>
+      </article>
 
-        <article class="card">
-          <h3>Dual coding</h3>
-          <p>Combine words with visuals. More cues = more ways to find it later.</p>
-          <p><strong>Example:</strong> Sketch a seed-to-sprout doodle beside the instructions.</p>
-        </article>
-
-        <article class="card">
-          <h3>Chunking</h3>
-          <p>Group details into meaningful “chunks” to ease working-memory load.</p>
-          <p><strong>Example:</strong> “Root veg row” instead of four separate items.</p>
-        </article>
-
-        <article class="card">
-          <h3>Emotion &amp; novelty</h3>
-          <p>Meaningful or surprising moments stick better (dopamine flags them as “save this”).</p>
-          <p><strong>Tip:</strong> Turn facts into a quick story, joke, or song.</p>
-        </article>
-
-        <article class="card">
-          <h3>Sleep &amp; rest</h3>
-          <p>Deep sleep and REM consolidate learning. Even a 20-min nap refreshes recall.</p>
-          <p><strong>Tip:</strong> Treat sleep as part of study, not lost time.</p>
-        </article>
-
-        <article class="card">
-          <h3>Context &amp; cues</h3>
-          <p>We recall best in contexts that match learning.</p>
-          <ul class="meta">
-            <li>Revise in the seat you’ll use most.</li>
-            <li>Use a consistent scent (e.g., citrus) while studying, then again before recall.</li>
-            <li>Pair facts with small actions (gestures, watering routine).</li>
-          </ul>
-        </article>
-      </div>
-
-      <!-- Optional extra visual you can add later -->
-      <figure>
-        <img src="../img/ns-memory-tools.png" alt="Seven evidence-based memory tools: spacing, active recall, dual coding, chunking, novelty, sleep, cues"
-             onerror="this.style.display='none'">
-        <figcaption class="cap">Handy quick-reference: seven tools that make memories stick.</figcaption>
-      </figure>
+      <article class="card" style="grid-column:1/-1">
+        <h3>7-day starter plan (practical)</h3>
+        <ol>
+          <li><strong>Day 1:</strong> Read &amp; draw one diagram (dual code).</li>
+          <li><strong>Day 2:</strong> 5-minute retrieval quiz from memory.</li>
+          <li><strong>Day 3:</strong> Interleave: mix yesterday’s topic with one new point.</li>
+          <li><strong>Day 4:</strong> Teach it aloud for 2 minutes (elaborate).</li>
+          <li><strong>Day 5:</strong> Short test; mark gaps, not just right answers.</li>
+          <li><strong>Day 6:</strong> Tiny project (e.g., sow one pot using what you learned).</li>
+          <li><strong>Day 7:</strong> Review + photo log; set next week’s 3 small goals.</li>
+        </ol>
+      </article>
     </section>
 
     <!-- 4. Thought Reframing -->
     <section id="reframing">
       <h2>4. Thought Reframing</h2>
-      <p>Reframing notices an unhelpful thought, checks the evidence, and replaces it with a balanced alternative. It’s accuracy, not blind positivity.</p>
+      <p>Reframing notices an unhelpful thought, checks the evidence, and swaps it for a balanced alternative. It’s accuracy, not forced positivity.</p>
       <figure>
         <img src="../img/ns-thought-reframing.png"
              alt="Identify → Challenge → New perspective"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-thought-reframing.png</code></div>
-        <figcaption class="cap">Identify → Challenge → New perspective. Repeat until it sticks.</figcaption>
+        <figcaption class="cap">Identify → Challenge → Re-word → Repeat. The replacement gets faster with practice.</figcaption>
       </figure>
 
       <article class="card" style="grid-column:1/-1">
@@ -172,17 +171,69 @@
       </article>
     </section>
 
-    <!-- 5. Affirmations -->
+    <!-- 5. Affirmations (EXPANDED) -->
     <section id="affirmations">
       <h2>5. Affirmations</h2>
-      <p>Short, believable phrases prime your brain’s filters to notice matching evidence. Pair with tiny actions to make them “true enough” fast.</p>
+      <p>Affirmations aren’t magic words. They <em>prime attention</em> (via your brain’s filtering systems) so you notice evidence that fits the phrase. When you pair a phrase with a tiny action, you create proof — and the circuit strengthens.</p>
+
       <figure>
         <img src="../img/ns-affirmations.png"
              alt="Affirmations prime attention and behaviour"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="missing-note">Missing image: <code>sites/img/ns-affirmations.png</code></div>
-        <figcaption class="cap">Say it, then do a 60-second action that proves it.</figcaption>
+        <figcaption class="cap">Say it, then do a 60-second action that makes it “true enough” today.</figcaption>
       </figure>
+
+      <article class="card" style="grid-column:1/-1">
+        <h3>Make them work (4 rules)</h3>
+        <ul>
+          <li><strong>Believable now:</strong> If “I am confident” feels false, use a ladder: “I am learning to back myself.”</li>
+          <li><strong>Present &amp; specific:</strong> “I can take <em>one</em> step now.” beats “I will be successful.”</li>
+          <li><strong>Paired with action:</strong> 60 seconds of behaviour (send one email, drink water) = proof.</li>
+          <li><strong>Frequent &amp; short:</strong> 10–20 honest repeats daily > long scripts you never use.</li>
+        </ul>
+      </article>
+
+      <article class="card" style="grid-column:1/-1">
+        <h3>Everyday sets (with a matching action)</h3>
+        <div class="grid">
+          <div class="card">
+            <h4>Overwhelm</h4>
+            <p>“I can do one small thing.” → <em>Set a 2-min timer and start.</em></p>
+          </div>
+          <div class="card">
+            <h4>Confidence</h4>
+            <p>“I am learning out loud.” → <em>Share one honest update.</em></p>
+          </div>
+          <div class="card">
+            <h4>Health</h4>
+            <p>“I fuel my body kindly.” → <em>Drink one glass of water now.</em></p>
+          </div>
+          <div class="card">
+            <h4>Grief</h4>
+            <p>“Love and sorrow can coexist.” → <em>Text a safe person a memory.</em></p>
+          </div>
+          <div class="card">
+            <h4>Money</h4>
+            <p>“1% better today.” → <em>Cancel one unused subscription.</em></p>
+          </div>
+          <div class="card">
+            <h4>Growing</h4>
+            <p>“There’s always something to sow.” → <em>Plant salad leaves.</em></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" style="grid-column:1/-1">
+        <h3>Troubleshooting</h3>
+        <ul>
+          <li><strong>Feels fake?</strong> Lower the claim: “I’m willing to try 60 seconds.”</li>
+          <li><strong>Keep forgetting?</strong> Anchor to a cue (kettle, brushing teeth, door).</li>
+          <li><strong>No momentum?</strong> Record a voice note of your phrase and play it while doing the tiny action.</li>
+          <li><strong>Stuck on negatives?</strong> Reframe the opposite: from “I can’t cope” → “I can ride this wave for one minute.”</li>
+        </ul>
+        <p class="meta">Print our A4 cards to keep on the fridge or in a notebook.</p>
+      </article>
     </section>
 
     <!-- 6. Neuroplasticity -->
@@ -223,49 +274,17 @@
     <!-- Standardised disclaimer -->
     <section class="disclaimer">
       <h2>Important Note</h2>
-      <p>
-        The information on this page is for <strong>general understanding and support</strong>. It is
-        <strong>not</strong> a substitute for professional medical, psychological, or legal advice.
-        If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK)
-        immediately. If you’re outside the UK, contact your local emergency number.
-      </p>
-      <p>
-        For non-emergency concerns, consider speaking with a qualified health professional or an appropriate
-        support service listed on our other pages.
-      </p>
+      <p>The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.</p>
+      <p>For non-emergency concerns, consider speaking with a qualified health professional or an appropriate support service listed on our Wellbeing pages.</p>
     </section>
   </main>
 
   <footer>
     <div class="wrap footer-inner">
       <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-      <p>© 2025 Patch &amp; Pot</p>
-      <p>Created by Grant Cameron Anthony</p>
+      <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
     </div>
   </footer>
-
-  <!-- Mobile menu script -->
-  <script>
-    (function(){
-      const header = document.getElementById('siteHeader');
-      const toggle = header.querySelector('.menu-toggle');
-      const nav = document.getElementById('primaryNav');
-
-      function setExpanded(on){
-        if(on){
-          header.classList.add('menu-open');
-          toggle.classList.add('menu-open');
-          toggle.setAttribute('aria-expanded','true');
-        }else{
-          header.classList.remove('menu-open');
-          toggle.classList.remove('menu-open');
-          toggle.setAttribute('aria-expanded','false');
-        }
-      }
-      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-    })();
-  </script>
 
 </body>
 </html>

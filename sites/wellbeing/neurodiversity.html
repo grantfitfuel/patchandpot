@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Neurodiversity – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=16">
+  <link rel="stylesheet" href="../style.css">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -14,12 +14,22 @@
 </head>
 <body>
 
-<header class="site-header">
+<!-- ====================================
+     HEADER (with hamburger for mobile)
+     ==================================== -->
+<header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-  <nav class="nav" aria-label="Primary">
+
+  <!-- Hamburger -->
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
+
+  <!-- Nav -->
+  <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
     <a href="../recipes.html">Recipes</a>
@@ -33,20 +43,47 @@
 
 <main class="wrap">
   <h1>Neurodiversity</h1>
-  <p class="lead">Neurodiversity recognises natural differences in how people sense, process, focus, move, plan, speak, and relate. This page is practical: quick explanations, everyday examples, and small adjustments that reduce friction at home, school, and work.</p>
+  <p class="lead">
+    Neurodiversity recognises natural differences in how people sense, process, focus, move, plan, speak, and relate.
+    You’re not “difficult” or “lazy” — you’re differently wired. This page is practical: quick explanations,
+    everyday examples, and small adjustments that reduce friction at home, school, and work.
+  </p>
+
+  <!-- Hero image (replace later) -->
+  <figure>
+    <img src="../img/nd-hero.png" alt="Warm, inclusive scene: notebook, sensory headphones, plant and tea on a table" style="border-radius:12px; max-height:420px; object-fit:cover; width:100%;">
+    <figcaption class="cap">Comfort and function first. We adjust the world to fit the person — not the other way round.</figcaption>
+  </figure>
+
+  <!-- Quick on-page nav -->
+  <nav class="mini-nav" aria-label="On this page">
+    <a href="#overview">What it means</a>
+    <a href="#profiles">Common profiles</a>
+    <a href="#sensory">Sensory supports</a>
+    <a href="#executive">Executive function</a>
+    <a href="#school-work">School &amp; work</a>
+    <a href="#masking-burnout">Masking &amp; burnout</a>
+    <a href="#daily-living">Daily toolkit</a>
+    <a href="#support">Getting support</a>
+    <a href="#disclaimer">Disclaimer</a>
+  </nav>
 
   <!-- 1. What Neurodiversity Means -->
   <section id="overview">
     <h2>1) What neurodiversity means</h2>
-    <p><strong>Neurodiversity</strong> is a big umbrella that includes profiles such as autism, ADHD, dyslexia, dyspraxia/DCD, and Tourette’s. People can be multiply-neurodivergent and profiles often overlap. A strengths-based approach asks: <em>What helps this person thrive?</em></p>
+    <p>
+      <strong>Neurodiversity</strong> is a big umbrella that includes autism, ADHD, dyslexia, dyspraxia/DCD, Tourette’s,
+      and more. People can be multiply-neurodivergent and profiles often overlap. A strengths-based approach asks:
+      <em>What helps this person thrive?</em>
+    </p>
     <ul>
       <li><strong>Differences ≠ deficits:</strong> many “challenges” are mismatches between needs and environments.</li>
-      <li><strong>Support, not “fix”:</strong> the goal is comfort, function, and dignity, not forcing sameness.</li>
-      <li><strong>Self-knowledge matters:</strong> noticing energy, sensory, and attention patterns helps tailor supports.</li>
+      <li><strong>Support, not “fix”:</strong> the goal is comfort, function, and dignity — not forcing sameness.</li>
+      <li><strong>Self-knowledge:</strong> noticing energy, sensory, and attention patterns helps tailor supports.</li>
     </ul>
     <figure>
-      <img src="../img/nd-overview-placeholder.png" alt="Diagram placeholder showing overlapping neuro profiles and strengths">
-      <figcaption class="cap">Placeholder — replace later with a DK-style illustration of overlapping profiles and strengths.</figcaption>
+      <img src="../img/nd-profiles.png" alt="Overlapping circles showing autistic, ADHD, dyslexic, dyspraxic and Tourette's profiles with shared strengths">
+      <figcaption class="cap">Profiles can overlap. Many people recognise themselves in more than one circle.</figcaption>
     </figure>
   </section>
 
@@ -56,33 +93,42 @@
     <div class="grid">
       <article class="card">
         <h3>Autism</h3>
-        <p><strong>Patterns:</strong> sensory differences, social communication differences, need for predictability, intense interests.</p>
+        <p><strong>Patterns:</strong> sensory differences; social communication differences; need for predictability; intense interests.</p>
         <p><strong>Strengths:</strong> deep focus, honesty, specialist knowledge, pattern spotting.</p>
-        <p><strong>Helps:</strong> clear schedules; written instructions; low-flicker lighting; quiet breakout space.</p>
+        <p><strong>Helps:</strong> clear written schedules; concrete instructions; low-flicker lighting; quiet breakout space.</p>
+        <p class="meta"><u>Example:</u> A predictable morning sequence and a visual checklist reduce start-of-day overwhelm.</p>
       </article>
+
       <article class="card">
         <h3>ADHD</h3>
-        <p><strong>Patterns:</strong> variable attention, time “blindness,” impulsivity, hyperfocus, energy swings.</p>
+        <p><strong>Patterns:</strong> variable attention, time “blindness”, impulsivity, hyperfocus, energy swings.</p>
         <p><strong>Strengths:</strong> creativity, rapid problem-solving, enthusiasm, resilience.</p>
-        <p><strong>Helps:</strong> visual timers; body-doubling; task slicing (2–5 min starts); movement breaks.</p>
+        <p><strong>Helps:</strong> visual timers; body-doubling; 2–5 minute “gateway steps”; movement breaks; novelty.</p>
+        <p class="meta"><u>Example:</u> “After I put the kettle on, I write 2 lines.” Tiny anchor beats big intentions.</p>
       </article>
+
       <article class="card">
         <h3>Dyslexia</h3>
-        <p><strong>Patterns:</strong> reading/spelling challenges, slow decoding, working-memory load.</p>
+        <p><strong>Patterns:</strong> reading/spelling challenges; slow decoding; working-memory load.</p>
         <p><strong>Strengths:</strong> big-picture thinking, empathy, spatial reasoning, story sense.</p>
         <p><strong>Helps:</strong> reader-friendly fonts; audio options; mind-maps; oral responses where possible.</p>
+        <p class="meta"><u>Example:</u> Voice-to-text for drafting; a colleague proofreads the final polish.</p>
       </article>
+
       <article class="card">
         <h3>Dyspraxia / DCD</h3>
-        <p><strong>Patterns:</strong> motor coordination and sequencing differences; fatigue with fine motor tasks.</p>
+        <p><strong>Patterns:</strong> motor coordination/sequencing differences; fatigue with fine motor tasks.</p>
         <p><strong>Strengths:</strong> persistence, inventive work-arounds, empathy.</p>
-        <p><strong>Helps:</strong> extra time; clutter-free routes; weighted pens; alternative keyboards; rest breaks.</p>
+        <p><strong>Helps:</strong> extra time; clear routes; weighted pens; alternative keyboards; rest breaks.</p>
+        <p class="meta"><u>Example:</u> Laptops for notes; fewer transitions between rooms; seated lab tasks.</p>
       </article>
+
       <article class="card">
         <h3>Tourette’s</h3>
         <p><strong>Patterns:</strong> motor/vocal tics that wax and wane; stress and fatigue can increase tics.</p>
         <p><strong>Strengths:</strong> humour, creativity, determination.</p>
         <p><strong>Helps:</strong> low-pressure environments; tic-friendly breaks; avoid drawing attention to tics.</p>
+        <p class="meta"><u>Example:</u> Agree hand signals to pause/continue in meetings; camera-off options.</p>
       </article>
     </div>
   </section>
@@ -94,12 +140,12 @@
     <ul>
       <li><strong>Sound:</strong> noise-reduction headphones; meet in quieter spaces; concise agendas.</li>
       <li><strong>Light:</strong> avoid flicker; warmer bulbs; blinds; screen filters; frequent daylight breaks.</li>
-      <li><strong>Touch:</strong> soft seams; remove labels; breathable layers; tactile “safe object.”</li>
+      <li><strong>Touch:</strong> soft seams; remove labels; breathable layers; a tactile “safe object”.</li>
       <li><strong>Smell/taste:</strong> mint or citrus for alertness; bland options on high-load days.</li>
       <li><strong>Movement:</strong> short walks; stretch breaks; rocking/fidget tools; seating choice.</li>
     </ul>
     <figure>
-      <img src="../img/nd-sensory-tools.png" alt="Icons of sensory tools: headphones, sunglasses, fidget, soft fabric">
+      <img src="../img/nd-sensory-tools.png" alt="Headphones, sunglasses, fidget tool and soft fabric laid out on a table">
       <figcaption class="cap">Portable sensory tools = lower baseline stress and steadier focus.</figcaption>
     </figure>
   </section>
@@ -109,13 +155,18 @@
     <h2>4) Executive function (planning, starting, switching, finishing)</h2>
     <p>Executive functions manage initiation, sequencing, working memory, and transitions. Supports reduce friction rather than demanding “more willpower.”</p>
     <ul>
-      <li><strong>Externalise time:</strong> visual timers, time-boxed calendars, “10-minute landing” for meetings.</li>
-      <li><strong>Shrink the start:</strong> set a 2-minute “gateway step” (open doc; title the note; put shoes on).</li>
+      <li><strong>Externalise time:</strong> visual timers, time-boxed calendars, a “10-minute landing” for meetings.</li>
+      <li><strong>Shrink the start:</strong> a 2-minute “gateway step” (open doc; title the note; shoes on).</li>
       <li><strong>Body-double:</strong> co-work on video or in person to create momentum.</li>
       <li><strong>Reduce options:</strong> pre-decide outfits/meals; fixed “first tasks” each day.</li>
-      <li><strong>Environment:</strong> one clear zone; baskets labelled “In-progress / To file / Done.”</li>
-      <li><strong>Automate:</strong> recurring reminders, templates, pinned tabs, save searches.</li>
+      <li><strong>Environment:</strong> one clear zone; baskets labelled “In-progress / To file / Done”.</li>
+      <li><strong>Automate:</strong> recurring reminders, templates, pinned tabs, saved searches.</li>
     </ul>
+    <figure>
+      <img src="../img/nd-exec-tools.png" alt="Timer, checklist, calendar blocks and a single clear workspace">
+      <figcaption class="cap">Make the right action the easy action: fewer steps, fewer decisions.</figcaption>
+    </figure>
+
     <div class="mini-nav">
       <a href="./neuroscience.html#habits">Habit loop</a>
       <a href="./neuroscience.html#reframing">Thought reframing</a>
@@ -126,27 +177,27 @@
   <!-- 5. School/University/Work -->
   <section id="school-work">
     <h2>5) School, university, and work</h2>
-    <p>Reasonable adjustments don’t have to be expensive to be effective.</p>
+    <p>Reasonable adjustments don’t have to be expensive to be effective. Agree them early and review regularly.</p>
     <ul>
-      <li>Provide <strong>clear written instructions</strong> and examples; checklists beat memory.</li>
-      <li>Offer <strong>quiet work options</strong>; allow “camera off” where possible.</li>
+      <li><strong>Clear written instructions</strong> and examples; checklists beat memory.</li>
+      <li><strong>Quiet work options</strong>; allow “camera off” where possible.</li>
       <li><strong>Split long meetings</strong> and add recap notes with action bullets.</li>
       <li><strong>Flexible deadlines</strong> during health/sensory flare-ups.</li>
       <li><strong>Strengths-based role shaping:</strong> more deep work, less rapid context-switching.</li>
     </ul>
     <figure>
-      <img src="../img/nd-adjustments-placeholder.png" alt="Placeholder diagram of reasonable adjustments at school and work">
-      <figcaption class="cap">Placeholder — replace with a visual of common adjustments and examples.</figcaption>
+      <img src="../img/nd-adjustments.png" alt="Illustrated examples of low-cost adjustments across classroom and office">
+      <figcaption class="cap">Small, predictable changes reduce cognitive load and boost outcomes.</figcaption>
     </figure>
-    <p class="meta">Note: In the UK, many neurodivergent people are protected under equality legislation; local HR/student support services can advise on processes and documentation.</p>
+    <p class="meta">UK note: many neurodivergent people are protected under equality law; HR/student support can advise on documentation and processes.</p>
   </section>
 
   <!-- 6. Masking & Burnout -->
   <section id="masking-burnout">
-    <h2>6) Masking & burnout</h2>
+    <h2>6) Masking &amp; burnout</h2>
     <p><strong>Masking</strong> is the effort to hide or override differences to fit expectations. It can be useful for safety, but long-term masking is exhausting and linked with anxiety, depression, and health crashes.</p>
     <ul>
-      <li><strong>Decompression plans:</strong> quiet time after high-demand events; predictable “recovery rituals.”</li>
+      <li><strong>Decompression plans:</strong> quiet time after high-demand events; predictable recovery rituals.</li>
       <li><strong>Boundaries:</strong> limit back-to-back commitments; script polite deferrals (“Email works best for me”).</li>
       <li><strong>Low-mask spaces:</strong> time with safe people where stimming, silence, or directness are okay.</li>
       <li><strong>Energy tracking:</strong> simple daily scale (0–5) to spot build-ups and schedule rest.</li>
@@ -192,18 +243,55 @@
     </div>
   </section>
 
-  <!-- Disclaimer IN MAIN (not footer) -->
-  <section class="disclaimer">
-    <p class="meta"><em>Disclaimer: This page is for general information and signposting only. It is not a substitute for professional diagnosis, therapeutic support, workplace or education advice, or crisis services. If you are in immediate danger, call 999 (UK). For non-urgent support, use the services listed above.</em></p>
+  <!-- Standardised Disclaimer (above footer) -->
+  <section class="disclaimer" id="disclaimer">
+    <h2>Important Note</h2>
+    <p>
+      The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong>
+      a substitute for professional diagnosis, therapeutic care, workplace/education advice, or crisis services.
+      If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
+      If you’re outside the UK, contact your local emergency number.
+    </p>
+    <p>For non-emergency concerns, consider speaking with a qualified health professional or the support services listed above.</p>
   </section>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
     <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Mobile menu script (same pattern as other pages) -->
+<script>
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const toggle = header.querySelector('.menu-toggle');
+    const nav = document.getElementById('primaryNav');
+
+    function setExpanded(on){
+      if(on){
+        header.classList.add('menu-open');
+        toggle.classList.add('menu-open');
+        toggle.setAttribute('aria-expanded','true');
+      }else{
+        header.classList.remove('menu-open');
+        toggle.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+
+    // Guard if a page is loaded before CSS with .menu-toggle hidden on desktop
+    if(toggle){
+      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+    }
+    if(nav){
+      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+    }
+  })();
+</script>
 
 </body>
 </html>

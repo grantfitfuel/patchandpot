@@ -74,15 +74,9 @@ a:hover{ text-decoration:underline }
    Mobile nav behaviour
    =============================== */
 @media (max-width: 820px){
-  /* show hamburger */
   .menu-toggle{ display:inline-flex }
+  .site-header{ padding:10px 16px; }
 
-  /* stack header brand + button */
-  .site-header{
-    padding:10px 16px;
-  }
-
-  /* collapse nav by default */
   .nav{
     position:absolute; left:0; right:0; top:100%;
     background:#0a100b; border-bottom:1px solid #142116;
@@ -93,13 +87,11 @@ a:hover{ text-decoration:underline }
     border-radius:10px;
   }
   .nav a:hover{ background:rgba(255,255,255,.08) }
-
-  /* when menu open */
   .menu-open .nav{ display:flex }
 }
 
 /* ===============================
-   Hero
+   Hero (homepage exception)
    =============================== */
 .hero{ position:relative; border-bottom:1px solid #142116 }
 .hero figure{ position:relative; margin:0 }
@@ -209,29 +201,32 @@ footer{
 }
 .footer-inner{
   display:flex;
-  flex-direction:column;  /* stack neatly */
+  flex-direction:column;
   align-items:center;
   gap:8px;
 }
-.footer-icon{
-  height:40px; width:auto; opacity:.95;
-}
-footer p{
-  font-size:.9em;
-  color:#9ab09f;
-  margin:0;
-}
+.footer-icon{ height:40px; width:auto; opacity:.95; }
+footer p{ font-size:.9em; color:#9ab09f; margin:0 }
 
 /* ===============================
    Images (page heroes + figures)
    =============================== */
+/* Default cap for all images */
 .page-hero img,
 figure img{
   width:100%;
   height:auto;
-  max-height:360px;   /* cap large images so they don’t dominate */
-  object-fit:contain; /* respect aspect ratio */
+  max-height:360px;
+  object-fit:contain;
   border-radius:12px;
   background:#0a0f0c;
   padding:0;
+}
+
+/* Homepage hero exception (allow tall, immersive image) */
+.homepage .hero img{
+  max-height:none;
+  height:64vh;
+  min-height:420px;
+  object-fit:cover;
 }

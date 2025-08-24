@@ -37,9 +37,13 @@
   </nav>
 </header>
 
-<!-- HERO (no-crop, uses page-hero--contain) -->
-<figure class="page-hero page-hero--contain page-hero--tall">
-  <img src="../img/grief-journey.png" alt="A solitary deciduous tree in soft light — a quiet metaphor for grief and growth">
+<!-- HERO (no-crop, sized to fit; keeps aspect ratio) -->
+<figure class="page-hero page-hero--contain page-hero--tall" style="margin:0 0 14px">
+  <img
+    src="../img/grief-journey.png"
+    alt="A solitary deciduous tree in soft light — a quiet metaphor for grief and growth"
+    loading="eager" decoding="async"
+    style="width:100%; height:auto; max-height:520px; object-fit:contain; border-radius:12px;">
   <figcaption class="cap">Branches twist, roots deepen — grief reshapes but does not end you.</figcaption>
 </figure>
 

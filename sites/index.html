@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Patch & Pot – Grow Anywhere</title>
 
+<!-- Favicons -->
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
 
+<!-- Cache busting just for the home page if needed -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -17,83 +19,69 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* ============== HAMBURGER MENU ADDITIONS ============== */
+/* ============== HAMBURGER MENU (home page overrides) ============== */
 .menu-toggle {
   display:none;
-  flex-direction:column;
-  justify-content:center;
+  position:relative;
+  width:36px;
+  height:28px;
   cursor:pointer;
-  width:28px;
-  height:22px;
-  gap:5px;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
 }
-.menu-toggle span {
+
+/* default bar look; overridden by inline styles for guaranteed brightness */
+.menu-toggle span{
   display:block;
-  height:4px;          /* thicker bar */
-  background:#fff;
+  width:100%;
+  height:4px;
+  margin:4px 0;
   border-radius:2px;
-  transition:0.3s;
-  box-shadow:0 0 5px rgba(255,255,255,0.95);
 }
 
 /* transform into "X" */
-.menu-toggle.active span:nth-child(1) {
-  transform:rotate(45deg) translate(5px,5px);
+.menu-toggle.active span:nth-child(1){
+  transform:rotate(45deg) translate(6px,6px);
+  transform-origin:center;
 }
-.menu-toggle.active span:nth-child(2) {
-  opacity:0;
-}
-.menu-toggle.active span:nth-child(3) {
-  transform:rotate(-45deg) translate(6px,-6px);
+.menu-toggle.active span:nth-child(2){ opacity:0 }
+.menu-toggle.active span:nth-child(3){
+  transform:rotate(-45deg) translate(7px,-7px);
+  transform-origin:center;
 }
 
-@media(max-width:768px){
-  .menu-toggle{display:flex}
-  .nav {
+/* Mobile layout */
+@media (max-width: 768px){
+  .menu-toggle{ display:flex }
+
+  .nav{
     display:none;
     flex-direction:column;
     position:absolute;
-    top:60px; right:20px;
+    top:60px; right:20px; left:auto;
     background:#0a100b;
     border:1px solid #142116;
-    border-radius:8px;
+    border-radius:10px;
     padding:10px;
     z-index:999;
+    box-shadow:0 10px 24px rgba(0,0,0,.35);
   }
-  .nav a {
-    padding:10px;
+  .nav.show{ display:flex }
+  .nav a{
+    padding:10px 12px;
     color:#f0fff3;
     text-align:left;
+    border-radius:8px;
   }
-  .nav.show{display:flex}
-}
-/* ----- Force high-contrast hamburger on Home ----- */
-.site-header .menu-toggle { 
-  position: relative; 
-  isolation: isolate;       /* keeps the glow/pill behind the bars only */
-  opacity: 1 !important;
+  .nav a:hover{ background:rgba(255,255,255,.08); text-decoration:none }
 }
 
-/* bright white bars + glow */
-.site-header .menu-toggle span {
-  background: #fff !important;
-  box-shadow: 0 0 8px rgba(255,255,255,.85) !important;
-  height: 4px;              /* slightly thicker = more visible */
-}
-
-/* dark pill background behind the bars for contrast on busy images */
-.site-header .menu-toggle::before{
-  content:"";
-  position:absolute;
-  inset:-8px;
-  border-radius:10px;
-  background: rgba(0,0,0,.45);
-  z-index:-1;
-}
+/* Ensure header layers above hero image overlay */
+.site-header{ position:relative; z-index:50 }
 </style>
-
 </head>
-<body class="homepage">
+<body>
 
 <header class="site-header">
   <div class="brand">
@@ -101,8 +89,11 @@
     <span class="site-title">Patch &amp; Pot</span>
   </div>
 
-  <div class="menu-toggle" id="menu-toggle" aria-label="Menu" aria-expanded="false">
-    <span></span><span></span><span></span>
+  <!-- Brighter inline-styled hamburger (hard-coded white bars) -->
+  <div class="menu-toggle" id="menu-toggle" aria-label="Menu" aria-expanded="false" style="position:relative">
+    <span style="background:#ffffff; height:4px; border-radius:2px;"></span>
+    <span style="background:#ffffff; height:4px; border-radius:2px;"></span>
+    <span style="background:#ffffff; height:4px; border-radius:2px;"></span>
   </div>
 
   <nav class="nav" id="nav" aria-label="Primary">
@@ -161,15 +152,18 @@
 </footer>
 
 <script>
+/* Mobile menu toggle */
 const toggle = document.getElementById('menu-toggle');
 const nav = document.getElementById('nav');
 
-toggle.addEventListener('click', () => {
-  toggle.classList.toggle('active');
-  nav.classList.toggle('show');
-  const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
-  toggle.setAttribute('aria-expanded', !expanded);
-});
+if (toggle && nav){
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    nav.classList.toggle('show');
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+  });
+}
 </script>
 
 </body>

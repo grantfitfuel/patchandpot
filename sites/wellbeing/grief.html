@@ -11,6 +11,16 @@
   <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
+
+  <!-- Scoped tweaks so the inner image won't mimic a second hero -->
+  <style>
+    .page-hero { margin:0; border-bottom:1px solid #142116; }
+    .page-hero img { display:block; width:100%; height:auto; max-height:68vh; object-fit:cover; border-radius:0; }
+    .page-hero .cap { padding:10px 20px; color:var(--muted); }
+
+    .inline-figure { margin:14px 0 8px; }
+    .inline-figure img { width:100%; max-height:360px; object-fit:contain; border-radius:12px; display:block; }
+  </style>
 </head>
 <body>
 
@@ -37,7 +47,7 @@
   </nav>
 </header>
 
-<!-- HERO (uses your page-hero / page-hero--tall CSS) -->
+<!-- HERO (uses page-hero / page-hero--tall) -->
 <figure class="page-hero page-hero--tall">
   <img src="../img/grief-hero.png" alt="A gentle, hopeful scene that conveys remembrance and comfort">
   <figcaption class="cap">Grief isn’t a straight line. You’re not doing it “wrong.”</figcaption>
@@ -51,8 +61,8 @@
     offers clear explanations, lived examples, and practical support — with no judgement and plenty of kindness.
   </p>
 
-  <!-- Optional inner illustration kept from before -->
-  <figure>
+  <!-- Inner illustration (now clearly not a hero) -->
+  <figure class="inline-figure">
     <img src="../img/grief-journey.png" alt="Illustration of grief as a winding path with ups and downs">
     <figcaption class="cap">Grief is more like a winding path — setbacks, pauses, and unexpected moments of light.</figcaption>
   </figure>

@@ -21,9 +21,6 @@ a{ color:#b3d7ff; text-decoration:none }
 a:hover{ text-decoration:underline }
 .wrap{ max-width:var(--maxw); margin:0 auto; padding:16px 20px }
 
-/* Captions */
-.cap{ color:var(--inkdim); font-size:.95rem }
-
 /* ===============================
    Header / Nav (desktop baseline)
    =============================== */
@@ -68,7 +65,7 @@ a:hover{ text-decoration:underline }
 .menu-ico span:nth-child(2){ top:7px }
 .menu-ico span:nth-child(3){ top:14px }
 
-/* X animation when open (header gets .menu-open via JS) */
+/* X animation when open */
 .menu-open .menu-ico span:nth-child(1){ top:7px; transform:rotate(45deg) }
 .menu-open .menu-ico span:nth-child(2){ opacity:0 }
 .menu-open .menu-ico span:nth-child(3){ top:7px; transform:rotate(-45deg) }
@@ -81,7 +78,9 @@ a:hover{ text-decoration:underline }
   .menu-toggle{ display:inline-flex }
 
   /* stack header brand + button */
-  .site-header{ padding:10px 16px }
+  .site-header{
+    padding:10px 16px;
+  }
 
   /* collapse nav by default */
   .nav{
@@ -95,12 +94,12 @@ a:hover{ text-decoration:underline }
   }
   .nav a:hover{ background:rgba(255,255,255,.08) }
 
-  /* when menu open (header has .menu-open) */
+  /* when menu open */
   .menu-open .nav{ display:flex }
 }
 
 /* ===============================
-   Legacy "Hero" (cover/cropping)
+   Hero
    =============================== */
 .hero{ position:relative; border-bottom:1px solid #142116 }
 .hero figure{ position:relative; margin:0 }
@@ -126,55 +125,6 @@ h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(
 }
 .btn.primary{ background:linear-gradient(180deg,var(--green2),var(--green)); color:#061007 }
 .btn.ghost{ background:rgba(255,255,255,.10); border:1px solid var(--stroke); color:#fff }
-
-/* ===============================
-   Page Hero (non-cropping options)
-   =============================== */
-.page-hero{
-  margin:0;
-  background:#0a0f0c;
-  border-bottom:1px solid #142116;
-  text-align:center;
-}
-.page-hero .cap{
-  font-size:.9rem;
-  color:var(--inkdim);
-  margin:.5rem auto 0;
-  padding:0 16px;
-}
-
-/* Default: contain (NO CROP) — respects original aspect ratio */
-.page-hero--contain img{
-  display:block;
-  width:100%;
-  height:auto;           /* never distort */
-  max-height:68vh;       /* large but not overwhelming */
-  margin:0 auto;
-  object-fit:contain;    /* letterbox if needed, no cropping */
-  background:#0a0f0c;    /* blends with site theme if letterboxed */
-}
-
-/* Optional: cover (CROPS to fill, for banner-style heroes) */
-.page-hero--cover img{
-  display:block;
-  width:100%;
-  height:64vh;
-  min-height:420px;
-  object-fit:cover;
-  filter:brightness(1.0) saturate(1.05);
-}
-
-/* Taller variant flag */
-.page-hero--tall.page-hero--contain img{ max-height:78vh }
-.page-hero--tall.page-hero--cover  img{ height:72vh }
-
-/* Mobile tweaks */
-@media (max-width: 820px){
-  .page-hero--contain img{ max-height:48vh }
-  .page-hero--tall.page-hero--contain img{ max-height:56vh }
-  .page-hero--cover img{ height:46vh; min-height:300px }
-  .page-hero .cap{ padding:0 12px }
-}
 
 /* ===============================
    Generic Cards & Grids
@@ -248,28 +198,6 @@ h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(
 }
 
 /* ===============================
-   Teaser tiles (small callouts)
-   =============================== */
-.teaser-tiles{
-  display:grid; gap:12px; margin:16px 0;
-}
-@media(min-width:700px){ .teaser-tiles{ grid-template-columns:repeat(3,1fr) } }
-.teaser-tiles .tile{
-  background:var(--glass); border:1px solid var(--stroke); border-radius:14px; padding:.8rem .95rem;
-}
-
-/* ===============================
-   Disclaimer block
-   =============================== */
-.disclaimer{
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--stroke);
-  border-radius:14px;
-  padding:12px 14px;
-  margin:22px 0 0;
-}
-
-/* ===============================
    Footer (standardised across site)
    =============================== */
 footer{
@@ -285,5 +213,25 @@ footer{
   align-items:center;
   gap:8px;
 }
-.footer-icon{ height:40px; width:auto; opacity:.95 }
-footer p{ font-size:.9em; color:#9ab09f; margin:0 }
+.footer-icon{
+  height:40px; width:auto; opacity:.95;
+}
+footer p{
+  font-size:.9em;
+  color:#9ab09f;
+  margin:0;
+}
+
+/* ===============================
+   Images (page heroes + figures)
+   =============================== */
+.page-hero img,
+figure img{
+  width:100%;
+  height:auto;
+  max-height:360px;   /* cap large images so they don’t dominate */
+  object-fit:contain; /* respect aspect ratio */
+  border-radius:12px;
+  background:#0a0f0c;
+  padding:0;
+}

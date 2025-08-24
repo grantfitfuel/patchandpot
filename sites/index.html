@@ -67,6 +67,29 @@
   }
   .nav.show{display:flex}
 }
+/* ----- Force high-contrast hamburger on Home ----- */
+.site-header .menu-toggle { 
+  position: relative; 
+  isolation: isolate;       /* keeps the glow/pill behind the bars only */
+  opacity: 1 !important;
+}
+
+/* bright white bars + glow */
+.site-header .menu-toggle span {
+  background: #fff !important;
+  box-shadow: 0 0 8px rgba(255,255,255,.85) !important;
+  height: 4px;              /* slightly thicker = more visible */
+}
+
+/* dark pill background behind the bars for contrast on busy images */
+.site-header .menu-toggle::before{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:10px;
+  background: rgba(0,0,0,.45);
+  z-index:-1;
+}
 </style>
 
 </head>

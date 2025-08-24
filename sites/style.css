@@ -99,7 +99,7 @@ a:hover{ text-decoration:underline }
 }
 
 /* ===============================
-   Hero
+   Hero (homepage header section)
    =============================== */
 .hero{ position:relative; border-bottom:1px solid #142116 }
 .hero figure{ position:relative; margin:0 }
@@ -125,6 +125,23 @@ h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(
 }
 .btn.primary{ background:linear-gradient(180deg,var(--green2),var(--green)); color:#061007 }
 .btn.ghost{ background:rgba(255,255,255,.10); border:1px solid var(--stroke); color:#fff }
+
+/* ===============================
+   Content hero (inner pages)
+   =============================== */
+.page-hero{ margin:8px 0 18px }
+.page-hero img{
+  display:block;
+  width:100%;
+  height:auto;            /* keep natural aspect ratio */
+  max-height:none;        /* no artificial cropping */
+  object-fit:contain;     /* show the whole photo */
+  border-radius:12px;
+}
+.page-hero .cap{ padding-top:.45rem; color:var(--muted) }
+
+/* Optional utility to force contain on any image */
+.img-contain{ object-fit:contain !important; max-height:none !important }
 
 /* ===============================
    Generic Cards & Grids

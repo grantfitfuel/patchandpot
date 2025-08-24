@@ -246,6 +246,15 @@ h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(
 /* Utility if you want a taller hero on some pages */
 .page-hero--tall img{ max-height: clamp(320px, 70vh, 980px); }
 
+/* Tall variant for hero images */
+.page-hero--tall img{
+  max-height:72vh; /* taller than the default */
+  object-fit:contain; /* don’t crop, preserve full photo */
+  background:#0a0f0c; /* subtle background fill if aspect ratio doesn’t match */
+  padding:6px;
+  border-radius:12px;
+}
+
 /* ===============================
    Footer (standardised across site)
    =============================== */

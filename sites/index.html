@@ -1,116 +1,62 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Patch & Pot – Grow Anywhere</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Patch & Pot – Grow Anywhere</title>
 
-<!-- Favicons -->
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
 
-<!-- Cache busting just for the home page if needed -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
 
-<link rel="stylesheet" href="style.css">
-
-<style>
-/* ============== HAMBURGER MENU (home page overrides) ============== */
-.menu-toggle {
-  display:none;
-  position:relative;
-  width:36px;
-  height:28px;
-  cursor:pointer;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
-}
-
-/* default bar look; overridden by inline styles for guaranteed brightness */
-.menu-toggle span{
-  display:block;
-  width:100%;
-  height:4px;
-  margin:4px 0;
-  border-radius:2px;
-}
-
-/* transform into "X" */
-.menu-toggle.active span:nth-child(1){
-  transform:rotate(45deg) translate(6px,6px);
-  transform-origin:center;
-}
-.menu-toggle.active span:nth-child(2){ opacity:0 }
-.menu-toggle.active span:nth-child(3){
-  transform:rotate(-45deg) translate(7px,-7px);
-  transform-origin:center;
-}
-
-/* Mobile layout */
-@media (max-width: 768px){
-  .menu-toggle{ display:flex }
-
-  .nav{
-    display:none;
-    flex-direction:column;
-    position:absolute;
-    top:60px; right:20px; left:auto;
-    background:#0a100b;
-    border:1px solid #142116;
-    border-radius:10px;
-    padding:10px;
-    z-index:999;
-    box-shadow:0 10px 24px rgba(0,0,0,.35);
-  }
-  .nav.show{ display:flex }
-  .nav a{
-    padding:10px 12px;
-    color:#f0fff3;
-    text-align:left;
-    border-radius:8px;
-  }
-  .nav a:hover{ background:rgba(255,255,255,.08); text-decoration:none }
-}
-
-/* Ensure header layers above hero image overlay */
-.site-header{ position:relative; z-index:50 }
-</style>
+  <!-- Page-specific safety tweaks to guarantee visible hamburger -->
+  <style>
+    /* ensure the hamburger is bright and on top on this page */
+    .site-header { position: relative; z-index: 200; }
+    .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+    .menu-ico span { background: #fff !important; height: 3px !important; }
+    /* remove any hero overlay on this page specifically */
+    .hero .overlay { display: none !important; }
+  </style>
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
 
-  <!-- Brighter inline-styled hamburger (hard-coded white bars) -->
-  <div class="menu-toggle" id="menu-toggle" aria-label="Menu" aria-expanded="false" style="position:relative">
-    <span style="background:#ffffff; height:4px; border-radius:2px;"></span>
-    <span style="background:#ffffff; height:4px; border-radius:2px;"></span>
-    <span style="background:#ffffff; height:4px; border-radius:2px;"></span>
-  </div>
+  <!-- Hamburger (matches inner pages) -->
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
 
-  <nav class="nav" id="nav" aria-label="Primary">
-    <a href="index.html">Home</a>
+  <!-- Primary nav -->
+  <nav class="nav" id="primaryNav" aria-label="Primary">
+    <a href="index.html" aria-current="page">Home</a>
     <a href="growing.html">Growing</a>
     <a href="recipes.html">Recipes</a>
     <a href="wellbeing.html">Wellbeing</a>
     <a href="exercise.html">Exercise</a>
     <a href="guides.html">Guides</a>
     <a href="ideas.html">Ideas</a>
+    <a href="contact.html">Contact</a>
   </nav>
 </header>
 
+<!-- HERO (no gradient overlay on home) -->
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg?v=ideasA1" alt="Person tending plants on a balcony, planting into a terracotta pot" style="object-position:center 4% !important;">
-    <div class="overlay" aria-hidden="true"></div>
+    <img src="img/hero.jpg?v=ideasA1"
+         alt="Person tending plants on a balcony, planting into a terracotta pot"
+         style="object-position:center 4% !important;">
+    <!-- overlay intentionally removed on home -->
   </figure>
   <div class="content">
     <div class="wrap">
@@ -151,19 +97,30 @@
   </div>
 </footer>
 
+<!-- Mobile menu script (same as inner pages) -->
 <script>
-/* Mobile menu toggle */
-const toggle = document.getElementById('menu-toggle');
-const nav = document.getElementById('nav');
+  (function(){
+    const header = document.getElementById('siteHeader');
+    const toggle = header.querySelector('.menu-toggle');
+    const nav = document.getElementById('primaryNav');
 
-if (toggle && nav){
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('active');
-    nav.classList.toggle('show');
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-  });
-}
+    function setExpanded(on){
+      if(on){
+        header.classList.add('menu-open');
+        toggle.classList.add('menu-open');
+        toggle.setAttribute('aria-expanded','true');
+      } else {
+        header.classList.remove('menu-open');
+        toggle.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+
+    // toggle on click
+    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+    // close after selecting a link (mobile nicety)
+    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+  })();
 </script>
 
 </body>

@@ -41,10 +41,14 @@
   <h1>Crisis Support</h1>
   <p class="lead">If you are in immediate danger of harming yourself, it’s important to seek help right away. You are not alone, and there are people ready to listen and support you.</p>
 
-  <figure class="page-hero">
-  <img src="../img/crisis-hero.png" alt="Open doorway with light — reaching out for help is a step toward safety" loading="lazy">
-  <figcaption class="cap">Even one small step towards support is a powerful move.</figcaption>
-</figure>
+  <!-- HERO -->
+  <figure class="page-hero" style="margin:0 0 14px">
+    <img src="../img/crisis-hero.png"
+         alt="Open doorway with warm light — reaching out for help is a step toward safety"
+         loading="lazy"
+         style="width:100%; height:auto; max-height:520px; object-fit:contain; background:#0a0f0c; border-radius:12px; padding:6px;">
+    <figcaption class="cap">Even one small step towards support is a powerful move.</figcaption>
+  </figure>
 
   <section id="immediate">
     <h2>If you are in immediate danger</h2>
@@ -77,7 +81,8 @@
       <li><strong>Overwhelm blend:</strong> Many people swing between the two: racing panic one moment, shut-down exhaustion the next. This “yo-yo” can make life feel unmanageable.</li>
     </ul>
     <figure>
-      <img src="../img/ans-three-states.png" alt="Diagram of fight, flight, and shutdown states in the autonomic nervous system" style="border-radius:12px; width:100%; max-height:400px; object-fit:contain; background:#0a0f0c; padding:8px;">
+      <img src="../img/ans-three-states.png" alt="Diagram: fight/flight, rest/digest, and shutdown states in the autonomic nervous system"
+           style="border-radius:12px; width:100%; max-height:400px; object-fit:contain; background:#0a0f0c; padding:8px;">
       <figcaption class="cap">The Autonomic Nervous System: fight/flight (high energy), rest/digest (calm), and shutdown (freeze).</figcaption>
     </figure>
   </section>
@@ -91,18 +96,24 @@
       <li><strong>Safe contact:</strong> Text or call someone you trust and tell them one thing you are feeling right now.</li>
       <li><strong>Small movement:</strong> Stretch, walk, or shake your hands to release built-up adrenaline.</li>
     </ul>
-    <figure class="page-hero">
-      <img src="../img/crisis-steps.png" alt="Notebook with grounding steps written down" loading="lazy"
+    <figure class="page-hero" style="margin:10px 0 0">
+      <img src="../img/crisis-steps.png"
+           alt="Notebook with grounding steps written down"
+           loading="lazy"
+           style="width:100%; height:auto; max-height:520px; object-fit:contain; background:#0a0f0c; border-radius:12px; padding:6px;">
       <figcaption class="cap">Grounding tools — small steps that help the body feel safe again.</figcaption>
     </figure>
   </section>
 
   <section id="support">
     <h2>Help and Support</h2>
-  <figure class="page-hero">
-  <img src="../img/crisis-support.png" alt="Hands clasped in support" loading="lazy">
-  <figcaption class="cap">You’re not alone—connection calms the nervous system.</figcaption>
-  </figure>
+    <figure class="page-hero" style="margin:10px 0 0">
+      <img src="../img/crisis-support.png"
+           alt="Two hands clasped together in support"
+           loading="lazy"
+           style="width:100%; height:auto; max-height:520px; object-fit:contain; background:#0a0f0c; border-radius:12px; padding:6px;">
+      <figcaption class="cap">You’re not alone — connection calms the nervous system.</figcaption>
+    </figure>
   </section>
 
   <!-- Standardised Disclaimer -->
@@ -139,8 +150,12 @@
         toggle.setAttribute('aria-expanded','false');
       }
     }
-    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+    if(toggle){
+      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
+    }
+    if(nav){
+      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+    }
   })();
 </script>
 

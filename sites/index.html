@@ -32,7 +32,7 @@
     <span class="site-title">Patch &amp; Pot</span>
   </div>
 
-  <!-- Hamburger (matches inner pages) -->
+  <!-- Hamburger -->
   <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
     <span class="menu-ico"><span></span><span></span><span></span></span>
   </button>
@@ -50,13 +50,11 @@
   </nav>
 </header>
 
-<!-- HERO (no gradient overlay on home) -->
+<!-- HERO (uses global .hero styles) -->
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg?v=ideasA1"
-         alt="Person tending plants on a balcony, planting into a terracotta pot"
-         style="object-position:center 4% !important;">
-    <!-- overlay intentionally removed on home -->
+    <img src="img/hero.jpg?v=ideasA1" alt="Person tending plants on a balcony, planting into a terracotta pot">
+    <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
     <div class="wrap">
@@ -97,7 +95,7 @@
   </div>
 </footer>
 
-<!-- Mobile menu script (same as inner pages) -->
+<!-- Mobile menu script (standard sitewide) -->
 <script>
   (function(){
     const header = document.getElementById('siteHeader');
@@ -116,10 +114,16 @@
       }
     }
 
-    // toggle on click
-    toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    // close after selecting a link (mobile nicety)
-    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
+    if(toggle){
+      toggle.addEventListener('click', () =>
+        setExpanded(!header.classList.contains('menu-open'))
+      );
+    }
+    if(nav){
+      nav.addEventListener('click', e => {
+        if(e.target.tagName === 'A') setExpanded(false);
+      });
+    }
   })();
 </script>
 

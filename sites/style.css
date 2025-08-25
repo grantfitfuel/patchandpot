@@ -86,10 +86,12 @@ body {
   max-height: 500px;
 }
 
-/* caption now aligns with image width */
-.page-hero figcaption.cap {
-  max-width: 90%;          /* narrower than container */
-  margin: 0.5rem auto 0;   /* centre under image */
+/* ================================
+   Captions (hero + inline figures)
+   ================================ */
+figcaption.cap {
+  max-width: 600px;        /* limit width for all captions */
+  margin: 0.5rem auto 0;   /* centred under image */
   text-align: center;
   font-size: .9rem;
   color: #555;
@@ -117,17 +119,6 @@ body {
 .mini-nav a:hover {
   background: #ff6a00;
   color: #fff;
-}
-
-/* ================================
-   Captions & Figures (non-hero)
-   ================================ */
-.cap {
-  display: block;
-  margin-top: .5rem;
-  font-size: .9rem;
-  color: #555;
-  text-align: center;
 }
 
 /* ================================

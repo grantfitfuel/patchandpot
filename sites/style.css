@@ -161,6 +161,14 @@ main figure:not(.page-hero) img{
   main figure:not(.page-hero) img{ max-height:340px }
 }
 
+/* Center captions under images */
+figcaption.cap {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
 /* ===============================
    Generic Cards & Grids
    =============================== */

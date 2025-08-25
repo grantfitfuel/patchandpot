@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sleep & Insomnia – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=41">
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../style.css?v=46">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
@@ -20,7 +22,6 @@
     <span class="site-title">Patch &amp; Pot</span>
   </div>
 
-  <!-- Hamburger -->
   <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
     <span class="menu-ico"><span></span><span></span><span></span></span>
   </button>
@@ -39,290 +40,410 @@
 
 <!-- HERO -->
 <figure class="page-hero page-hero--contain page-hero--tall">
-  <img src="../img/sleep-hero.png" alt="Calm bedroom scene with soft lamp glow and neatly made bed">
-  <figcaption class="cap">Good sleep is learnable. Tiny, repeatable habits help your body remember how.</figcaption>
+  <img src="../img/sleep-hero.png" alt="Calm bedroom scene with soft lamp glow and a neatly made bed">
+  <figcaption class="cap">Better sleep is a skill. Small, repeatable moves — not perfection.</figcaption>
 </figure>
 
 <main class="wrap">
   <h1>Sleep &amp; Insomnia</h1>
   <p class="lead">
-    Struggling to sleep isn’t a personal failing — it’s your body’s systems stuck in the wrong settings.
-    This page explains how sleep works and offers practical tools for evenings, nights, and the day after.
+    A deep dive into how sleep works, why insomnia sticks, and the tools that actually shift things —
+    including CBT-I, 3 am rescue steps, and guides for shift workers, teens, menopause, chronic pain,
+    PTSD/nightmares, and sleep apnoea. UK & Scotland support links included.
   </p>
 
-  <!-- Mini nav -->
+  <!-- Quick links -->
   <nav class="mini-nav" aria-label="On this page">
     <a href="#how-sleep-works">How sleep works</a>
-    <a href="#wind-down">Wind-down routine</a>
-    <a href="#cbti">CBT-I essentials</a>
-    <a href="#cognitive-tools">Cognitive tools</a>
+    <a href="#winddown">Wind-down routine</a>
+    <a href="#cbti">CBT-I core tools</a>
+    <a href="#cognitive">Cognitive tools</a>
     <a href="#relaxation">Relaxation set</a>
     <a href="#light-timing">Light &amp; timing</a>
+    <a href="#bedroom">Bedroom set-up</a>
+    <a href="#naps-jetlag">Naps &amp; jet lag</a>
     <a href="#shift-work">Shift work</a>
     <a href="#teens">Teens &amp; students</a>
     <a href="#menopause">Menopause</a>
-    <a href="#chronic-pain">Chronic pain</a>
+    <a href="#pain">Chronic pain</a>
     <a href="#ptsd">PTSD, nightmares &amp; flashbacks</a>
-    <a href="#apnoea">Sleep apnoea</a>
-    <a href="#printables">Printables</a>
-    <a href="#help">Where to get help</a>
+    <a href="#apnoea">Sleep apnoea &amp; CPAP</a>
+    <a href="#three-am">3 am emergency toolkit</a>
+    <a href="#downloads">Downloads</a>
+    <a href="#support">Support</a>
+    <a href="#red-flags">When to seek help</a>
     <a href="#disclaimer">Disclaimer</a>
   </nav>
 
-  <!-- How sleep works -->
+  <!-- 1. How sleep works -->
   <section id="how-sleep-works">
-    <h2>1) How Sleep Works</h2>
+    <h2>1) How Sleep Works (the useful science)</h2>
+
     <figure>
-      <img src="../img/sleep-cycle.png" alt="Bedside clock with notebook sketching sleep stages (light, deep, REM)">
-      <figcaption class="cap">We cycle through light, deep, and REM sleep several times a night.</figcaption>
+      <img src="../img/sleep-cycle.png" alt="Notebook sketch of sleep stages with a bedside clock glowing faintly">
+      <figcaption class="cap">You cycle every ~90 minutes: N1→N2→N3 (deep)→REM. Later cycles = more REM.</figcaption>
     </figure>
-    <p>
-      Two main systems steer sleep:
-    </p>
-    <ul>
-      <li><strong>Sleep pressure (adenosine):</strong> builds up while you’re awake; drops when you sleep.</li>
-      <li><strong>Circadian rhythm:</strong> your 24-hour body clock (light is the master dial).</li>
-    </ul>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Two-process model</h3>
+        <ul>
+          <li><strong>Sleep pressure (adenosine):</strong> builds while awake; caffeine blocks its receptors temporarily.</li>
+          <li><strong>Circadian rhythm:</strong> the body clock sets a “sleep gate” at your usual time; morning light advances, late light delays.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Key chemicals</h3>
+        <ul>
+          <li><strong>Melatonin:</strong> darkness signal; rises 1–2 h before habitual sleep. It nudges timing, it doesn’t “knock you out”.</li>
+          <li><strong>Orexin (hypocretin):</strong> wake drive; steadies alertness. Loss = narcolepsy.</li>
+          <li><strong>GABA:</strong> main calming transmitter (enhanced by many sleep meds).</li>
+          <li><strong>Cortisol:</strong> should peak in the morning; chronic stress can keep it high at night.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Why insomnia sticks</h3>
+        <ul>
+          <li>Conditioning: bed becomes linked with <em>struggling</em> instead of sleep.</li>
+          <li>Hyperarousal: worry and body tension keep the “threat” system up.</li>
+          <li>Catch-up naps/lie-ins reduce pressure → another bad night → loop.</li>
+        </ul>
+      </article>
+    </div>
+
     <figure>
-      <img src="../img/sleep-pressure-circadian.png" alt="Notebook with two simple graphs: rising sleep pressure and circadian rhythm wave">
-      <figcaption class="cap">Best sleep happens when high sleep pressure meets a circadian “sleep-friendly” window.</figcaption>
+      <img src="../img/sleep-pressure-circadian.png" alt="Overlapping line graphs labelled sleep pressure and circadian rhythm beside a mug">
+      <figcaption class="cap">Aim to align high sleep pressure with your circadian “sleep gate”.</figcaption>
     </figure>
   </section>
 
-  <!-- Wind-down -->
-  <section id="wind-down">
-    <h2>2) Wind-Down Routine (30–60 minutes)</h2>
+  <!-- 2. Wind-down -->
+  <section id="winddown">
+    <h2>2) Wind-Down (30–90 min, your way)</h2>
     <figure>
-      <img src="../img/sleep-winddown.png" alt="Mug of tea, closed laptop, dimmed lighting and book">
-      <figcaption class="cap">Your body needs a clear glide-path from “doing” to “drowsy.”</figcaption>
+      <img src="../img/sleep-winddown.png" alt="Warm evening scene with chamomile tea, closed laptop and a book">
+      <figcaption class="cap">Make a dimmer-switch routine: power-down → soothe body → quiet mind.</figcaption>
     </figure>
     <ul>
-      <li><strong>Dim the lights:</strong> lower overheads; prefer lamps; reduce screen brightness.</li>
-      <li><strong>Close the day:</strong> jot “tomorrow’s three” on paper; place the note outside the bedroom.</li>
-      <li><strong>Body cue:</strong> warm shower, gentle stretch, or heat pack on shoulders/feet.</li>
-      <li><strong>Calm input:</strong> quiet music, familiar audiobook/podcast, or light reading.</li>
-      <li><strong>Environment:</strong> cool room, comfy bedding, tidy enough to feel settled.</li>
+      <li><strong>Power-down:</strong> set an alarm to stop tasks; park tomorrow’s 3 bullets.</li>
+      <li><strong>Light:</strong> warm/dim; enable night-shift; avoid bright overheads.</li>
+      <li><strong>Body:</strong> warm bath/shower, light stretches, 4-6 breathing.</li>
+      <li><strong>Mind:</strong> paper reading, craft, slow playlist, gratitude/done list.</li>
+      <li><strong>Environment:</strong> 16–18 °C; blackout or mask; steady sound if helpful.</li>
     </ul>
   </section>
 
-  <!-- CBT-I -->
+  <!-- 3. CBT-I -->
   <section id="cbti">
-    <h2>3) CBT-I Essentials (evidence-based)</h2>
+    <h2>3) CBT-I (gold-standard for chronic insomnia)</h2>
+
     <article class="card">
-      <h3>Stimulus control: re-train “bed = sleep”</h3>
+      <h3>Stimulus control: re-pair bed = sleep</h3>
       <figure>
-        <img src="../img/cbt-i-stimulus-control.png" alt="Notepad on bed with rules: bed=sleep, up if awake &gt;20 min">
-        <figcaption class="cap">We teach the brain the bed is for sleep (and sex) — not buzzing thoughts.</figcaption>
+        <img src="../img/cbt-i-stimulus-control.png" alt="Notebook on a bed with rules: bed = sleep, up if awake &gt;20 min">
+        <figcaption class="cap">If you’re awake ~20 min, get up (dim light). Return when sleepy.</figcaption>
       </figure>
       <ul>
-        <li>Go to bed <em>only when</em> sleepy (not just tired).</li>
-        <li>If awake &gt; ~20 min, get up to a low-light chair; do something bland until sleepy again.</li>
-        <li>No clock-watching — turn it away; time-checking fuels arousal.</li>
-        <li>Keep the bed for sleep/sex only (no news, email, heavy chats).</li>
+        <li>Use bed only for sleep/sex. No doom-scrolling or email.</li>
+        <li>Consistent wake-time <em>daily</em> (anchors the clock).</li>
+        <li>Naps: avoid for 2–3 weeks while you’re resetting, or keep ≤20 min before 2 pm.</li>
       </ul>
     </article>
 
     <article class="card">
-      <h3>Sleep restriction → consistent window</h3>
+      <h3>Sleep restriction (sleep consolidation)</h3>
       <figure>
-        <img src="../img/cbt-i-sleep-restriction.png" alt="Journal page marking fixed bed and wake windows">
-        <figcaption class="cap">We match “time in bed” to “time you actually sleep,” then expand slowly.</figcaption>
+        <img src="../img/cbt-i-sleep-restriction.png" alt="Clock and journal page with marked sleep window">
+        <figcaption class="cap">Match time in bed to actual sleep, then expand slowly.</figcaption>
       </figure>
       <ol>
-        <li>Pick a <strong>fixed wake-time</strong> you can keep daily (incl. weekends).</li>
-        <li>Estimate average nightly sleep (e.g., 5.5h). Set <em>time in bed</em> = sleep + 30–45 min buffer.</li>
-        <li>Stick to the window for 1–2 weeks. When sleep efficiency &gt; 85%, widen by 15–30 min.</li>
-        <li>Never shorten the wake-time. Expand by moving bedtime earlier, slowly.</li>
+        <li>Track actual sleep for 7 days (use the diary).</li>
+        <li>Set a fixed wake time (e.g., 07:00). If you average 5 h sleep, bedtime = 02:00.</li>
+        <li>Hold that window for a week. When sleep efficiency &gt;85%, move bedtime earlier by 15–20 min.</li>
+        <li>Stop if bipolar (mania risk) or if excessive sleepiness makes driving unsafe — speak to your GP.</li>
       </ol>
-      <p class="meta">This can feel tough the first week; daytime sleepiness improves as sleep consolidates. Avoid if you have uncontrolled bipolar disorder or seizure risk — seek clinician guidance.</p>
+    </article>
+
+    <article class="card">
+      <h3>CBT-I add-ons</h3>
+      <ul>
+        <li><strong>Paradoxical intention:</strong> if trying harder makes it worse, “try to stay awake peacefully” — pressure drops, sleep comes.</li>
+        <li><strong>Worry window:</strong> 15 min early evening to write worries + next tiny step → trains the brain not to deliver them at 2 am.</li>
+        <li><strong>Safety behaviours audit:</strong> note things you do “to cope” that keep the loop going (e.g., clock-watching, long lie-ins) and taper them.</li>
+      </ul>
     </article>
   </section>
 
-  <!-- Cognitive tools -->
-  <section id="cognitive-tools">
-    <h2>4) Cognitive Tools (for busy minds)</h2>
+  <!-- 4. Cognitive tools -->
+  <section id="cognitive">
+    <h2>4) Cognitive Tools (when thoughts rev)</h2>
     <ul>
-      <li><strong>Worry list (earlier in evening):</strong> 10-minute “download”, then one next step for each item. Park the page outside the bedroom.</li>
-      <li><strong>Thought defusion:</strong> Prefix with “I’m having the thought that…”. It creates distance without arguing with the thought.</li>
-      <li><strong>Attention anchor:</strong> Count slow breaths; or “notice 3 sounds, 3 sensations.” Gentle, not forceful.</li>
-      <li><strong>Compassionate self-talk:</strong> “Awake happens. Resting counts. My job is to stay cosy.”</li>
-      <li><strong>Catastrophe balance:</strong> Write two lines: “What I’m scared will happen” vs. “What’s more likely.”</li>
+      <li><strong>Defusion line:</strong> “I’m <em>having the thought</em> that I’ll be useless tomorrow.” (Creates distance.)</li>
+      <li><strong>Reframe:</strong> “I can function on less than perfect sleep; rest still helps.”</li>
+      <li><strong>Constructive capture:</strong> one-line note for a useful idea → back to sleep.</li>
+      <li><strong>Clock rules:</strong> turn the display away; no 3 am time-maths.</li>
+      <li><strong>Belief reset:</strong> aim for “good enough sleep” most nights; perfection beliefs fuel insomnia.</li>
     </ul>
   </section>
 
-  <!-- Relaxation set -->
+  <!-- 5. Relaxation -->
   <section id="relaxation">
-    <h2>5) Relaxation Set (choose one)</h2>
+    <h2>5) Relaxation Set (rotate weekly)</h2>
     <ul>
-      <li><strong>4/6 breathing:</strong> Inhale 4, exhale 6 for 2–5 minutes. Long exhale signals “safe enough.”</li>
-      <li><strong>Body scan (low-effort):</strong> From toes to scalp, silently “soften &amp; heavy” each area.</li>
-      <li><strong>Progressive relax:</strong> Briefly tense then release major muscle groups.</li>
-      <li><strong>Safe-place imagery:</strong> Visualise a calm, familiar place; include sounds/temperature/smell.</li>
-      <li><strong>Warmth:</strong> Heat pack for feet or shoulders; light blanket weight can be soothing.</li>
+      <li><strong>Breathing:</strong> 4-in / 6-out for 2–5 min; or box 4-4-4-4.</li>
+      <li><strong>PMR:</strong> tense–release muscle groups toes→brow.</li>
+      <li><strong>Body scan:</strong> slow attention sweep; note “warm/heavy/soft”.</li>
+      <li><strong>Imagery:</strong> safe place, include 3 senses; keep it the same each night.</li>
+      <li><strong>Audio:</strong> steady fan/brown noise; low volume, no surprises.</li>
     </ul>
   </section>
 
-  <!-- Light & timing -->
+  <!-- 6. Light & timing -->
   <section id="light-timing">
-    <h2>6) Light &amp; Timing (set the clock)</h2>
+    <h2>6) Light &amp; Timing (big results, low effort)</h2>
     <ul>
-      <li><strong>Morning light:</strong> 10–20 min outdoors ASAP after waking; bright window if weather awful.</li>
-      <li><strong>Late-night light:</strong> reduce blue-rich light 2 hours before bed; use lamps, night-shift modes.</li>
-      <li><strong>Caffeine:</strong> many sleep better with a 6–8 hour caffeine curfew (tea/coffee/colas/energy drinks).</li>
-      <li><strong>Alcohol:</strong> may knock you out but fragments sleep later; keep small/early or skip.</li>
-      <li><strong>Naps:</strong> if needed, keep to 10–20 min before mid-afternoon; avoid long/late naps during CBT-I.</li>
+      <li><strong>Morning light:</strong> 15–30 min outside within 1–2 h of waking (even cloudy UK light counts).</li>
+      <li><strong>Evening dim:</strong> last 60–90 min low light; shift screens to warm colour.</li>
+      <li><strong>Caffeine half-life ~5–8 h:</strong> keep last dose 6–8 h pre-bed; watch hidden sources (cola, energy drinks, pre-workout, green tea).</li>
+      <li><strong>Alcohol:</strong> may knock you out but fragments sleep/REM; finish drinking 3+ h before bed.</li>
+      <li><strong>Exercise:</strong> great for sleep; avoid intense sessions within ~3 h of bedtime.</li>
+      <li><strong>Meal timing:</strong> heavy meals 3+ h pre-bed; protein-rich breakfast helps circadian anchoring.</li>
     </ul>
   </section>
 
-  <!-- Shift work -->
+  <!-- 7. Bedroom set-up -->
+  <section id="bedroom">
+    <h2>7) Bedroom Set-Up (quietly powerful)</h2>
+    <ul>
+      <li><strong>Cool, dark, quiet:</strong> 16–18 °C; blackout/mask; earplugs/white-noise.</li>
+      <li><strong>Mattress & pillows:</strong> neutral spine; side-sleepers often need thicker pillow.</li>
+      <li><strong>Declutter the sightline:</strong> fewer “work cues” reduces arousal.</li>
+      <li><strong>Phones:</strong> charge out of reach; use a dumb alarm or Do-Not-Disturb.</li>
+    </ul>
+  </section>
+
+  <!-- 8. Naps & Jet lag -->
+  <section id="naps-jetlag">
+    <h2>8) Naps &amp; Jet Lag</h2>
+    <article class="card">
+      <h3>Smart naps</h3>
+      <ul>
+        <li>Power-nap 10–20 min (set an alarm). Longer → sleep inertia grogginess.</li>
+        <li>Keep naps pre-2 pm if you’re trying to fix insomnia.</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h3>Jet lag quick plan</h3>
+      <ul>
+        <li>Eastbound (earlier clock): morning light at destination; avoid late light; consider low-dose melatonin early evening for a few nights (ask your pharmacist/GP first).</li>
+        <li>Westbound (later clock): afternoon/evening light; avoid early-morning bright light.</li>
+        <li>Shift meals and exercise to destination daytime as soon as you land.</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- 9. Shift work -->
   <section id="shift-work">
-    <h2>7) Shift Work</h2>
+    <h2>9) Shift Work: survivability templates</h2>
     <ul>
-      <li><strong>Anchor sleep:</strong> protect a consistent 4–5 h core sleep at roughly the same clock time on most days.</li>
-      <li><strong>Light strategy:</strong> bright light during working hours; sunglasses on the commute home after nights; dark bedroom (blackout curtains/eye mask).</li>
-      <li><strong>Split sleep:</strong> 3–4 h post-shift + 90-min nap before next shift can beat one long block for some.</li>
-      <li><strong>Fuel:</strong> lighter meals on nights; avoid heavy/fatty foods near sleep.</li>
+      <li><strong>Anchor sleep:</strong> defend one regular 4–5 h block daily.</li>
+      <li><strong>Light control:</strong> bright light on shift; sunglasses home; blacked-out day-sleep room.</li>
+      <li><strong>Fuel:</strong> main meal before night shift; light, protein-lean snacks overnight; hydrate.</li>
     </ul>
+    <article class="card">
+      <h3>Example: 3 × night shifts</h3>
+      <ol>
+        <li>Pre-shift: 20–30 min nap late afternoon; caffeine early on shift only.</li>
+        <li>During: brightest light first half; dimmer late.</li>
+        <li>Post-shift: sunglasses home; wind-down; 4–5 h core sleep; optional 20 min top-up mid-afternoon.</li>
+        <li>After final night: short morning sleep (2–3 h), then stay up; early evening bedtime to reset.</li>
+      </ol>
+    </article>
   </section>
 
-  <!-- Teens -->
+  <!-- 10. Teens -->
   <section id="teens">
-    <h2>8) Teens &amp; Young Adults</h2>
-    <p>Body clocks run later in adolescence. Early starts + late rhythms = sleep debt.</p>
+    <h2>10) Teens &amp; Students</h2>
+    <p>Delayed clocks are biological. Work with it, nudge gently earlier.</p>
     <ul>
-      <li>Shift lights earlier: bright light within an hour of waking; dim lights 2 hours before target bedtime.</li>
-      <li>Keep wake-time steady (even weekends) within ~1 hour to stabilise the clock.</li>
-      <li>Short afternoon naps (20–30 min) are okay if nights are improving; avoid long evening naps.</li>
-      <li>Phones: charge outside the bedroom; try an audiobook timer instead of scrolling.</li>
+      <li>Strong morning light + movement.</li>
+      <li>Regular wake time; weekend drift &le; 1–2 h.</li>
+      <li>Wind-down with screens out of reach; use app limits after 22:00.</li>
+      <li>Power naps &le; 20 min before late-afternoon; no evening napping.</li>
     </ul>
   </section>
 
-  <!-- Menopause -->
+  <!-- 11. Menopause -->
   <section id="menopause">
-    <h2>9) Menopause</h2>
+    <h2>11) Menopause &amp; Perimenopause</h2>
     <ul>
-      <li><strong>Core cooling:</strong> breathable bedding; fan; cool pack under pillow; layer blankets.</li>
-      <li><strong>Evening calming:</strong> 4/6 breathing, gentle stretches; reduce alcohol (hot flush trigger).</li>
-      <li><strong>Medical options:</strong> HRT and non-hormonal medicines can help flushes &amp; sleep — speak to your GP.</li>
+      <li>Hot flush care: cool room, breathable bedding, bedside fan/water, moisture-wicking nightwear.</li>
+      <li>Discuss HRT with your GP if symptoms are significant; CBT-I remains effective alongside.</li>
+      <li>Reduce evening alcohol and spicy/heavy food; experiment to find triggers.</li>
     </ul>
   </section>
 
-  <!-- Chronic pain -->
-  <section id="chronic-pain">
-    <h2>10) Chronic Pain</h2>
+  <!-- 12. Chronic pain -->
+  <section id="pain">
+    <h2>12) Chronic Pain</h2>
     <ul>
-      <li><strong>Comfort kit:</strong> pillows for joint support; heat/cold as advised by your clinician.</li>
-      <li><strong>Pacing:</strong> gentle daytime movement; avoid boom-and-bust that flares symptoms at night.</li>
-      <li><strong>Relaxation focus:</strong> breath + imagery; shift attention away from pain amplifiers.</li>
-      <li><strong>Medicines:</strong> review timing with your prescriber to reduce night-time peaks.</li>
+      <li>Pacing: small regular movement prevents late flares from over-doing.</li>
+      <li>Positioning: pillows to support joints; side-sleep with pillow between knees.</li>
+      <li>Meds timing: coordinate analgesia with sleep window (per prescriber).</li>
+      <li>Relaxation: breath/scan reduce sympathetic tone and pain amplification.</li>
     </ul>
   </section>
 
-  <!-- PTSD & nightmares -->
+  <!-- 13. PTSD -->
   <section id="ptsd">
-    <h2>11) PTSD, Nightmares &amp; Waking Flashbacks</h2>
-    <ul>
-      <li><strong>Imagery Rehearsal Therapy (IRT):</strong> rewrite the nightmare’s ending while awake; rehearse daily for 10 min.</li>
-      <li><strong>Grounding for wake-ups:</strong> feet on floor, name 5 things in the room, sip water, slow exhale.</li>
-      <li><strong>Safe-room cues:</strong> soft lamp, reassuring object, pre-written card: “This is a memory; I am safe now.”</li>
-      <li><strong>Professional help:</strong> trauma-focused therapies (TF-CBT, EMDR) can reduce nightmare frequency &amp; hyperarousal.</li>
-    </ul>
-    <p class="meta">See forces &amp; blue-light support in the Help section below.</p>
+    <h2>13) PTSD: Nightmares &amp; Flashbacks</h2>
+    <article class="card">
+      <h3>Imagery Rehearsal Therapy (IRT) — DIY starter</h3>
+      <ol>
+        <li>Choose a recurrent nightmare; write a new, safe ending (even if unrealistic).</li>
+        <li>Rehearse the <em>new version</em> for 10 min in the daytime (eyes open, steady breath) daily for 2 weeks.</li>
+        <li>If triggered at night, repeat one line of the new script while exhaling slowly.</li>
+      </ol>
+      <p class="meta">If nightmares are severe/frequent, ask for trauma-focused CBT or EMDR.</p>
+    </article>
+    <article class="card">
+      <h3>Grounding at night</h3>
+      <ul>
+        <li>Sit up; feet on floor; name 5-4-3-2-1 things you can sense.</li>
+        <li>Cold water on wrists/face; hold a textured object; long exhale.</li>
+        <li>Words: “This is a memory, not danger. I’m here, now.”</li>
+      </ul>
+    </article>
   </section>
 
-  <!-- Sleep apnoea -->
+  <!-- 14. Apnoea -->
   <section id="apnoea">
-    <h2>12) Sleep Apnoea (OSA)</h2>
-    <p>Signs include loud snoring, witnessed breathing pauses, morning headaches, dry mouth, and daytime sleepiness.</p>
+    <h2>14) Sleep Apnoea &amp; CPAP</h2>
     <ul>
-      <li><strong>Get assessed:</strong> ask your GP about a sleep study if OSA is suspected.</li>
-      <li><strong>CPAP works:</strong> consistent use improves sleep quality, mood, and heart health.</li>
-      <li><strong>Habits help:</strong> healthy weight range, side-sleeping, reduce alcohol, treat nasal congestion.</li>
-      <li><strong>Safety:</strong> avoid driving if excessively sleepy — it’s a legal and safety issue.</li>
+      <li>Red flags: loud snoring, breath pauses, gasping, morning headaches, daytime sleepiness.</li>
+      <li>Ask your GP about a home sleep study; CPAP is highly effective when recommended.</li>
+      <li><strong>CPAP adherence tips:</strong> try the mask daytime while reading; adjust humidity; clean regularly; work with the clinic on mask fit.</li>
+      <li>Side-sleeping, healthy weight, and reduced evening alcohol help mild OSA.</li>
+      <li>Do not drive if excessively sleepy.</li>
     </ul>
   </section>
 
-  <!-- Printables -->
-  <section id="printables" class="strip" style="margin-top:24px">
-    <h2>Printables</h2>
+  <!-- 15. 3am toolkit -->
+  <section id="three-am">
+    <h2>15) 3 am Emergency Toolkit</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Decision tree (5–10 min)</h3>
+        <ol>
+          <li>Turn clock away. Long exhale × 10.</li>
+          <li>Still wired? Leave bed: dim light, quiet chair.</li>
+          <li>Do one calming loop: breath/scan/reading.</li>
+          <li>Brain dump or 3-bullet “tomorrow” if worries persist.</li>
+          <li>Return to bed only when drowsy. Repeat as needed.</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>Quick resets</h3>
+        <ul>
+          <li>4-7-8 breaths × 4 rounds.</li>
+          <li>Progressive release: hands → shoulders → jaw.</li>
+          <li>Warm your feet; sip water.</li>
+          <li>Self-talk: “Rest counts. Good-enough sleep is fine.”</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Downloads -->
+  <section id="downloads" class="strip" style="margin-top:24px">
+    <h2>Downloads</h2>
     <div class="scroller">
       <a class="tile" href="../img/sleep-diary.pdf" download>
-        <span class="cap"><strong>Sleep Diary (A4)</strong><br>Track patterns for 2 weeks</span>
+        <span class="cap"><strong>Sleep Diary (14 days)</strong><br>Track true sleep &amp; patterns</span>
       </a>
       <a class="tile" href="../img/sleep-checklist.pdf" download>
-        <span class="cap"><strong>Sleep Hygiene Checklist</strong><br>Evening &amp; bedroom tweaks</span>
+        <span class="cap"><strong>Sleep Hygiene Checklist</strong><br>Quick room &amp; routine tune-ups</span>
       </a>
       <a class="tile" href="../img/cbti-starter.pdf" download>
-        <span class="cap"><strong>CBT-I Starter Toolkit</strong><br>Stimulus control + window plan</span>
+        <span class="cap"><strong>CBT-I Starter</strong><br>Stimulus control + consolidation</span>
       </a>
       <a class="tile" href="../img/worry-list.pdf" download>
-        <span class="cap"><strong>Worry List</strong><br>Park it before bed</span>
+        <span class="cap"><strong>Worry List</strong><br>Evening “park it” sheet</span>
+      </a>
+      <a class="tile" href="../img/sleep-3am-toolkit.pdf" download>
+        <span class="cap"><strong>3 am Toolkit</strong><br>Decision tree + quick resets</span>
       </a>
     </div>
   </section>
 
-  <!-- Help -->
-  <section id="help">
-    <h2>Where to Get Help (UK &amp; Scotland)</h2>
+  <!-- Support -->
+  <section id="support">
+    <h2>Support (UK &amp; Scotland)</h2>
     <ul>
-      <li><a href="https://www.nhs.uk/mental-health/self-help/" target="_blank" rel="noopener">NHS (England) – mental health & sleep</a></li>
-      <li><a href="https://www.nhsinform.scot/healthy-living/sleep" target="_blank" rel="noopener">NHS Inform (Scotland) – sleep</a></li>
-      <li><a href="https://www.mind.org.uk/information-support/tips-for-everyday-living/sleep/" target="_blank" rel="noopener">Mind – sleep problems</a></li>
-      <li><a href="https://www.samaritans.org/" target="_blank" rel="noopener">Samaritans – 116&nbsp;123 (24/7)</a></li>
-      <li><a href="https://www.sleep-apnoea-trust.org/" target="_blank" rel="noopener">Sleep Apnoea Trust (SATA)</a></li>
-      <li><a href="https://www.ptsduk.org/" target="_blank" rel="noopener">PTSD UK</a></li>
+      <li><a href="https://www.nhs.uk/service-search/mental-health" target="_blank" rel="noopener">NHS urgent mental health helplines (England, 24/7)</a></li>
+      <li><a href="https://www.nhsinform.scot/illnesses-and-conditions/mental-health" target="_blank" rel="noopener">NHS Inform Scotland — mental health &amp; sleep</a></li>
+      <li><a href="https://www.mind.org.uk/information-support/types-of-mental-health-problems/sleep-problems/" target="_blank" rel="noopener">Mind — Sleep problems</a></li>
+      <li><a href="https://www.samaritans.org" target="_blank" rel="noopener">Samaritans — 116 123, free 24/7</a></li>
     </ul>
 
     <h3>Forces &amp; Emergency Responders</h3>
     <ul>
-      <li><a href="https://www.nhs.uk/nhs-services/armed-forces-community/mental-health/" target="_blank" rel="noopener">NHS Op COURAGE (England) – veterans’ mental health services</a></li>
-      <li><a href="https://www.veteransfirstpoint.org.uk/" target="_blank" rel="noopener">Veterans First Point (Scotland)</a></li>
-      <li><a href="https://combatstress.org.uk/" target="_blank" rel="noopener">Combat Stress – 24/7 Helpline for veterans</a></li>
-      <li><a href="https://www.helpforheroes.org.uk/" target="_blank" rel="noopener">Help for Heroes – support &amp; recovery</a></li>
-      <li><a href="https://www.mind.org.uk/get-involved/blue-light/" target="_blank" rel="noopener">Mind – Blue Light Programme (police, fire, ambulance, coastguard)</a></li>
-      <li><a href="https://www.policecare.org.uk/" target="_blank" rel="noopener">Police Care UK</a></li>
-      <li><a href="https://www.firefighterscharity.org.uk/" target="_blank" rel="noopener">The Fire Fighters Charity</a></li>
-      <li><a href="https://www.theasc.org.uk/" target="_blank" rel="noopener">TASC – The Ambulance Staff Charity</a></li>
-      <li><a href="https://www.practitionerhealth.nhs.uk/" target="_blank" rel="noopener">NHS Practitioner Health – for NHS staff</a></li>
+      <li><a href="https://www.combatstress.org.uk/" target="_blank" rel="noopener">Combat Stress</a> — veterans’ mental health (trauma, nightmares, insomnia).</li>
+      <li><a href="https://www.veteransgateway.org.uk/" target="_blank" rel="noopener">Veterans’ Gateway</a> — 24/7 first point of contact.</li>
+      <li><a href="https://www.nhs.uk/nhs-services/armed-forces-community/mental-health/" target="_blank" rel="noopener">NHS Op COURAGE (England)</a> — specialist NHS mental health for serving leavers/reservists/veterans.</li>
+      <li><a href="https://www.mind.org.uk/about-us/mind-for-blue-light/" target="_blank" rel="noopener">Mind — Blue Light Programme</a> — police, fire, ambulance, search &amp; rescue.</li>
+      <li><a href="https://www.policecare.org.uk/" target="_blank" rel="noopener">Police Care UK</a> — serving &amp; former police and families.</li>
+      <li><a href="https://www.firefighterscharity.org.uk/" target="_blank" rel="noopener">The Fire Fighters Charity</a> — recovery &amp; wellbeing.</li>
+      <li><a href="https://www.theasc.org.uk/" target="_blank" rel="noopener">TASC — The Ambulance Staff Charity</a> — wellbeing &amp; trauma support.</li>
     </ul>
-    <p class="meta">If you’re in immediate danger or cannot keep yourself safe, call <strong>999</strong> (UK).</p>
+  </section>
+
+  <!-- Red flags -->
+  <section id="red-flags">
+    <h2>When to seek medical help</h2>
+    <ul>
+      <li>Snoring + breathing pauses, gasping, morning headaches, severe daytime sleepiness.</li>
+      <li>Insomnia &gt; 3 months despite trying behavioural changes.</li>
+      <li>Restless legs/periodic limb movements disrupting sleep.</li>
+      <li>Nightmares/flashbacks linked to trauma that aren’t easing.</li>
+      <li>Mania history or bipolar disorder (get advice before sleep restriction).</li>
+      <li>Sleepiness impacting driving/safety — <strong>do not drive</strong>.</li>
+    </ul>
   </section>
 
   <!-- Disclaimer -->
   <section id="disclaimer" class="disclaimer">
     <h2>Important Note</h2>
     <p>
-      The information on this page is for <strong>general understanding and support</strong>.
-      It is <strong>not</strong> a substitute for professional medical advice. If you feel unable to keep yourself safe,
-      or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.
+      The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute
+      for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk,
+      call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.
     </p>
-    <p>For non-emergency concerns, consider speaking with your GP or one of the services listed above.</p>
+    <p>For non-emergency concerns, speak with a GP, pharmacist, or the services listed above.</p>
   </section>
+
+  <p class="meta" style="margin-top:8px">← <a href="../wellbeing.html">Back to Wellbeing</a></p>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
     <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
+    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
 
-<!-- Mobile menu script -->
+<!-- Mobile menu -->
 <script>
   (function(){
     const header = document.getElementById('siteHeader');
     const toggle = header.querySelector('.menu-toggle');
     const nav = document.getElementById('primaryNav');
-
     function setExpanded(on){
       if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
+        header.classList.add('menu-open'); toggle.classList.add('menu-open');
         toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
+      }else{
+        header.classList.remove('menu-open'); toggle.classList.remove('menu-open');
         toggle.setAttribute('aria-expanded','false');
       }
     }

@@ -4,13 +4,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bullying & Online Safety – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=1">
+  <link rel="stylesheet" href="../style.css?v=41">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
+
+  <!-- Page-only override to centre hero image regardless of global rules -->
+  <style>
+    .hero-center{ margin:0 0 14px }
+    .hero-center .hero-media{
+      display:flex; justify-content:center; align-items:center;
+      width:100%; max-height:420px; padding:8px;
+      background:#0a0f0c; border:1px solid var(--stroke, rgba(255,255,255,.14));
+      border-radius:12px; overflow:hidden;
+    }
+    .hero-center img{
+      display:block; margin:0 auto;
+      width:auto; height:auto; max-width:100%; max-height:380px; object-fit:contain;
+    }
+  </style>
 </head>
 <body>
 
@@ -25,7 +40,6 @@
     <span class="menu-ico"><span></span><span></span><span></span></span>
   </button>
 
-  <!-- Nav -->
   <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
@@ -38,153 +52,109 @@
   </nav>
 </header>
 
-<!-- HERO -->
-<figure class="page-hero page-hero--contain page-hero--tall">
-  <img src="../img/bullying-online-safety.png" 
-       alt="Smartphone with privacy settings toggled for safety" 
-       class="centered-hero">
-  <figcaption class="cap">Staying safe online starts with simple, visible steps.</figcaption>
+<!-- HERO (centred, no crop) -->
+<figure class="page-hero hero-center page-hero--contain page-hero--tall">
+  <div class="hero-media">
+    <img src="../img/bullying-hero.png"
+         alt="Smartphone privacy and safety settings toggled on">
+  </div>
+  <figcaption class="cap">Online safety starts with visible, simple settings you control.</figcaption>
 </figure>
 
 <main class="wrap">
   <h1>Bullying &amp; Online Safety</h1>
   <p class="lead">
-    Bullying can be in-person, online, or both. It harms confidence, concentration, sleep, and mental health.
-    This page explains what bullying looks like today, how to protect yourself, collect evidence, and where to get help
-    across the UK and Scotland.
+    Bullying can be in person or online (messages, group chats, social media, gaming).
+    You are not to blame. This page shows practical steps to increase safety, collect evidence,
+    and get support in the UK and Scotland.
   </p>
 
   <!-- Quick links -->
   <nav class="mini-nav" aria-label="On this page">
-    <a href="#recognise">Recognise bullying</a>
-    <a href="#online-safety">Online safety</a>
-    <a href="#keep-evidence">Keep evidence</a>
-    <a href="#schools-work">Schools &amp; workplaces</a>
-    <a href="#mental-health">Mental health &amp; coping</a>
-    <a href="#parents-carers">For parents &amp; carers</a>
-    <a href="#support">Support &amp; reporting (UK/Scotland)</a>
+    <a href="#signs">What it looks like</a>
+    <a href="#safety">Online safety settings</a>
+    <a href="#evidence">Keeping evidence</a>
+    <a href="#parents">For parents &amp; carers</a>
+    <a href="#report">Reporting &amp; help</a>
     <a href="#disclaimer">Disclaimer</a>
   </nav>
 
-  <!-- 1. Recognise -->
-  <section id="recognise">
-    <h2>1. Recognise Bullying</h2>
-    <p>Bullying is <strong>repeated</strong> behaviour that intends to hurt, humiliate, or control. It can be:</p>
+  <section id="signs">
+    <h2>1) What bullying can look like</h2>
     <ul>
-      <li><strong>Verbal:</strong> insults, threats, slurs, rumours, “jokes” that target you.</li>
-      <li><strong>Social:</strong> exclusion, group pile-ons, doxxing, impersonation.</li>
-      <li><strong>Physical:</strong> pushing, tripping, damaging belongings.</li>
-      <li><strong>Cyberbullying:</strong> DMs, comments, group chats, image-based abuse, deepfakes.</li>
+      <li>Repeated messages, exclusion from group chats, “jokes” that hurt, doxxing or threats.</li>
+      <li>Impersonation, sharing photos without consent, adding you to hostile servers or groups.</li>
+      <li>In-person intimidation, damage to belongings, spreading rumours.</li>
     </ul>
-    <p class="meta">If it’s targeted, repeated, and harms you — it counts. You’re not “too sensitive.”</p>
   </section>
 
-  <!-- 2. Online safety -->
-  <section id="online-safety">
-    <h2>2. Online Safety: Practical Protections</h2>
-    <ul>
-      <li><strong>Privacy hygiene:</strong> lock down profiles, review followers, disable location tags.</li>
-      <li><strong>Block &amp; filter:</strong> block users, mute keywords, restrict comments/DMs.</li>
-      <li><strong>Two-factor authentication:</strong> protect accounts; don’t reuse passwords.</li>
-      <li><strong>Image-based safety:</strong> report non-consensual images immediately; preserve evidence (see below).</li>
-      <li><strong>Device check:</strong> scan for stalkerware, remove unknown logins, review “family sharing.”</li>
-    </ul>
+  <section id="safety">
+    <h2>2) Online safety settings (quick wins)</h2>
     <figure>
-      <img src="../img/bullying-online-safety.png" alt="Phone settings screen with privacy and safety toggles" loading="lazy">
-      <figcaption class="cap">Small settings changes can cut off common bullying channels quickly.</figcaption>
+      <img src="../img/bullying-online-safety.png" alt="Phone privacy and safety toggles enabled">
+      <figcaption class="cap">Privacy, blocking and reporting tools reduce access and visibility.</figcaption>
     </figure>
+    <ul>
+      <li><strong>Lock down profiles:</strong> private accounts; friends-only messaging; review followers.</li>
+      <li><strong>Block &amp; mute:</strong> block accounts, mute keywords; leave hostile group chats.</li>
+      <li><strong>Limit tagging &amp; mentions:</strong> approval required before others can tag you.</li>
+      <li><strong>Turn off geotags/location sharing</strong> and app location permissions.</li>
+      <li><strong>Save your settings:</strong> take screenshots so you can reapply after app updates.</li>
+    </ul>
   </section>
 
-  <!-- 3. Evidence -->
-  <section id="keep-evidence">
-    <h2>3. Keep Evidence (without engaging)</h2>
-    <ul>
-      <li><strong>Screenshots &amp; screen recordings</strong> of messages, usernames, dates and times.</li>
-      <li><strong>Export chat logs</strong> where possible; save URLs.</li>
-      <li><strong>Witness notes</strong> (who saw it, when).</li>
-      <li><strong>Do not retaliate:</strong> it can complicate school/work investigations.</li>
-      <li><strong>Back up</strong> to a cloud folder you control; share with a trusted adult or manager if appropriate.</li>
-    </ul>
+  <section id="evidence">
+    <h2>3) Keep evidence safely</h2>
     <figure>
-      <img src="../img/bullying-evidence.png" alt="Notebook and phone capturing dates, times, and screenshots" loading="lazy">
-      <figcaption class="cap">Collect, don’t argue. Evidence helps schools, HR, and platforms act.</figcaption>
+      <img src="../img/bullying-evidence.png" alt="Notebook with a phone showing saved screenshots and timestamps">
+      <figcaption class="cap">Dates, times and screenshots help schools, platforms and police act.</figcaption>
     </figure>
-  </section>
-
-  <!-- 4. Schools & Work -->
-  <section id="schools-work">
-    <h2>4. Schools &amp; Workplaces: Your Rights</h2>
-    <article class="card">
-      <h3>Schools (UK/Scotland)</h3>
-      <ul>
-        <li>Every school must have an <strong>anti-bullying policy</strong>. Ask for it and refer to it when reporting.</li>
-        <li>Report to a trusted teacher, guidance/pastoral staff, or the head. Provide evidence and dates.</li>
-        <li>Request a written plan: supervision points, seating changes, monitoring of online issues, safe routes.</li>
-        <li>In Scotland, see <em>Respect for All</em> national approach via your council or school handbook.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h3>Workplaces (UK)</h3>
-      <ul>
-        <li>Check your employer’s <strong>dignity at work</strong> / anti-bullying policy.</li>
-        <li>Keep a log; report to line manager or HR; bring a colleague/union rep to meetings.</li>
-        <li>Reasonable adjustments may apply if bullying impacts mental health (Equality Act 2010).</li>
-      </ul>
-    </article>
-  </section>
-
-  <!-- 5. Mental health -->
-  <section id="mental-health">
-    <h2>5. Mental Health &amp; Coping</h2>
     <ul>
-      <li><strong>Limit exposure windows:</strong> check messages at set times, not constantly.</li>
-      <li><strong>Body reset:</strong> 4–6 breathing (in 4, out 6 for 2 minutes), short walk, stretch sequence.</li>
-      <li><strong>Self-talk swap:</strong> “This is not about my worth. I’m taking the next safe step.”</li>
-      <li><strong>Support loop:</strong> tell one safe person; schedule a regular check-in.</li>
+      <li>Screenshot messages, usernames, group names, and profile URLs.</li>
+      <li>Note <strong>date/time</strong> and the <strong>platform</strong> for each incident.</li>
+      <li>Back up to a trusted adult’s device or cloud folder.</li>
+      <li>Don’t reply when it escalates — report and block instead.</li>
     </ul>
-    <p class="meta">See also: <a href="./anxiety.html">Anxiety</a>, <a href="./depression.html">Depression</a>, <a href="./neuroscience.html#reframing">Reframing tools</a>.</p>
   </section>
 
-  <!-- 6. Parents & carers -->
-  <section id="parents-carers">
-    <h2>6. For Parents &amp; Carers</h2>
-    <ul>
-      <li><strong>Believe first, problem-solve later.</strong> Ask: “What would help you feel safer this week?”</li>
-      <li><strong>Phone plan together:</strong> privacy settings, reporting, blocking, time windows.</li>
-      <li><strong>School contact:</strong> log each incident; copy the school’s anti-bullying lead/Head of Year.</li>
-      <li><strong>Watch for signs:</strong> sleep changes, school refusal, headaches, secrecy about devices.</li>
-    </ul>
+  <section id="parents">
+    <h2>4) For parents &amp; carers</h2>
     <figure>
-      <img src="../img/bullying-parents.png" alt="Parent and young person looking at a phone settings screen together" loading="lazy">
-      <figcaption class="cap">Collaborative plans beat confiscation alone — safety plus skills.</figcaption>
+      <img src="../img/bullying-parents.png" alt="Parent and young person reviewing a phone together at the table">
+      <figcaption class="cap">Stay curious, not accusatory — you’re on the same team.</figcaption>
     </figure>
+    <ul>
+      <li><strong>Listen first:</strong> “Thank you for telling me. We’ll handle this together.”</li>
+      <li><strong>Agree a plan:</strong> safety settings, who to tell at school/college, how you’ll check in.</li>
+      <li><strong>School route:</strong> share evidence with pastoral/head of year. Ask for their anti-bullying policy steps in writing.</li>
+      <li><strong>Wellbeing:</strong> keep routines, sleep and meals steady; consider GP/young people’s counselling.</li>
+    </ul>
   </section>
 
-  <!-- 7. Support & reporting -->
-  <section id="support">
-    <h2>7. Support &amp; Reporting (UK &amp; Scotland)</h2>
+  <section id="report">
+    <h2>5) Reporting &amp; getting help (UK &amp; Scotland)</h2>
     <ul>
-      <li><a href="https://respectme.org.uk/" target="_blank" rel="noopener">respectme (Scotland)</a> — national anti-bullying service.</li>
-      <li><a href="https://www.childline.org.uk/" target="_blank" rel="noopener">Childline (0800 1111)</a> — support for children/young people.</li>
-      <li><a href="https://www.nspcc.org.uk/" target="_blank" rel="noopener">NSPCC</a> — advice for parents &amp; reporting concerns.</li>
-      <li><a href="https://www.ceop.police.uk/safety-centre/" target="_blank" rel="noopener">CEOP</a> — report online sexual abuse or exploitation.</li>
-      <li><a href="https://www.samaritans.org/" target="_blank" rel="noopener">Samaritans (116 123)</a> — 24/7 listening support.</li>
-      <li><a href="https://www.mind.org.uk/information-support/types-of-mental-health-problems/bullying-and-harassment/" target="_blank" rel="noopener">Mind: Bullying &amp; Harassment</a></li>
-      <li><a href="https://www.scottishambulance.com/your-community/young-people/anti-bullying/" target="_blank" rel="noopener">Scottish resources roundup</a> (council/school links).</li>
-      <li>Platform help centres: report abuse directly in-app (Instagram, TikTok, Snapchat, Discord, WhatsApp, X).</li>
+      <li><strong>Platforms:</strong> Use in-app report tools (harassment, hate, impersonation). Include screenshots.</li>
+      <li><strong>School/college:</strong> ask for safeguarding/anti-bullying policy action and a review date.</li>
+      <li><strong>Police (101 / 999 in emergency):</strong> report threats, stalking, hate crime, image-based abuse.</li>
+      <li><a href="https://www.ceop.police.uk/safety-centre/" target="_blank" rel="noopener">CEOP</a> — report sexual exploitation/online grooming.</li>
+      <li><a href="https://www.childline.org.uk" target="_blank" rel="noopener">Childline</a> — 0800 1111 (under 19s, free, confidential).</li>
+      <li><a href="https://www.youngminds.org.uk" target="_blank" rel="noopener">YoungMinds</a> — advice and text support for young people.</li>
+      <li><a href="https://respectme.org.uk" target="_blank" rel="noopener">respectme (Scotland)</a> — anti-bullying advice and school guidance.</li>
+      <li><a href="https://www.nspcc.org.uk" target="_blank" rel="noopener">NSPCC</a> — guidance for parents and carers.</li>
     </ul>
-    <p class="meta">If you are in immediate danger or a crime is occurring, call <strong>999</strong> (UK).</p>
   </section>
 
   <!-- Standardised Disclaimer -->
-  <section class="disclaimer" id="disclaimer">
+  <section id="disclaimer" class="disclaimer">
     <h2>Important Note</h2>
     <p>
-      The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, legal, or crisis services.
-      If you feel unable to keep yourself or someone else safe, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency service.
+      The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for
+      professional medical, legal, or crisis services. If you feel unable to keep yourself or someone else safe, call <strong>999</strong> (UK)
+      immediately. If you’re outside the UK, contact your local emergency number.
     </p>
     <p>
-      For non-emergency concerns, consider speaking with a trusted adult, your GP, school, workplace HR, or one of the support services listed above.
+      For non-emergency concerns, speak with your school/college safeguarding lead, your GP, or one of the services listed above.
     </p>
   </section>
 </main>
@@ -197,7 +167,7 @@
   </div>
 </footer>
 
-<!-- Mobile menu script -->
+<!-- Mobile menu script (matches your other pages) -->
 <script>
   (function(){
     const header = document.getElementById('siteHeader');
@@ -215,12 +185,8 @@
         toggle.setAttribute('aria-expanded','false');
       }
     }
-    if(toggle){
-      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    }
-    if(nav){
-      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-    }
+    if(toggle){ toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open'))); }
+    if(nav){ nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); }); }
   })();
 </script>
 

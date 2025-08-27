@@ -8,7 +8,7 @@
   <style>
     /* light helpers for embeds and callouts */
     .yt-wrap{position:relative;aspect-ratio:16/9;background:#0a0f0c;border:1px solid var(--stroke);border-radius:12px;overflow:hidden;margin:.6rem 0 1rem}
-    .yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .yt-wrap .yt, .yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .callout{background:var(--glass);border:1px solid var(--stroke);border-radius:12px;padding:12px;margin:10px 0}
     .exercise h4{margin:.2rem 0 .25rem}
     .badge{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);border-radius:999px;padding:.2rem .55rem;font-size:.85rem;margin-left:.35rem}
@@ -95,14 +95,8 @@
           <li>Hip circles × 8, ankle circles × 10 each</li>
           <li>Calf stretch (wall) <strong>2 × 20s</strong> each side</li>
         </ul>
-      <div class="yt-wrap">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/oLu9kwDzBdg?rel=0modestbranding=1"
-          title="NHS Basic warm-up (5 minutes)"
-          allow"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen loading="lazy">
-        </iframe>iframe>
-      </div>  
+        <!-- Replaced with embeddable Go4Life warm-up -->
+        <div class="yt-wrap"><div class="yt" data-id="q-_BWXpM-Y0"></div></div>
       </article>
 
       <article class="card">
@@ -139,29 +133,24 @@
         <div class="card exercise">
           <h4>1) Sit-to-Stand <span class="badge">2–3 sets × 8–12 reps</span></h4>
           <p>From a chair, stand up; sit down slowly. Progress by pausing 2s at the bottom or holding light weights.</p>
-          <div class="yt-wrap">fBPW0cDgfmA</div>
+          <div class="yt-wrap"><div class="yt" data-id="sH0xLYV4fzQ"></div></div>
         </div>
         <div class="card exercise">
           <h4>2) Wall Push-ups <span class="badge">2–3 × 8–12</span></h4>
           <p>Hands on wall, body straight. Progress to kitchen-counter push-ups.</p>
-          <div class="yt-wrap">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/Z57ODV9eGWc?rel=0&modestbranding=1"
-              title="Wall Pushups for Older Adults"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen loading="lazy">
-            </iframe>iframe>
-          </div>   
+          <div class="yt-wrap"><div class="yt" data-id="fBPW0cDgfmA"></div></div>
         </div>
         <div class="card exercise">
           <h4>3) Hip Hinge (back-safe) <span class="badge">2–3 × 8–12</span></h4>
           <p>Hands on thighs, push hips back, slight knee bend, long spine; stand tall. Progress by holding a light weight.</p>
-          <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_HIP_HINGE" title="Hip Hinge for Beginners"></iframe></div>
+          <!-- Replaced placeholder with embeddable PT demo -->
+          <div class="yt-wrap"><div class="yt" data-id="2W_gXhut5S8"></div></div>
         </div>
         <div class="card exercise">
           <h4>4) March &amp; Balance <span class="badge">2 × 30–45s</span></h4>
           <p>Standing march. Hold a chair if needed. Progress to single-leg stands 10–20s each.</p>
-          <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_MARCH_BALANCE" title="Marching Balance Drill"></iframe></div>
+          <!-- Replaced placeholder with embeddable balance drill -->
+          <div class="yt-wrap"><div class="yt" data-id="z_GKdFf3qv4"></div></div>
         </div>
       </div>
       <p class="note">Rest 30–60s between moves. New or multiple conditions? Check with your clinician first.</p>
@@ -241,16 +230,17 @@
     <div class="grid">
       <article class="card exercise">
         <h3>Tai Chi (beginner flow)</h3>
-        <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_TAICHI" title="Beginner Tai Chi"></iframe></div>
+        <!-- leave for now or swap in a preferred ID later -->
+        <div class="yt-wrap"><div class="yt" data-id="VIDEO_ID_TAICHI"></div></div>
         <p class="note">We’ll add a full Tai Chi guide in <em>Guides</em> soon.</p>
       </article>
       <article class="card exercise">
         <h3>Qi Gong (gentle standing)</h3>
-        <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_QIGONG" title="Gentle Qi Gong"></iframe></div>
+        <div class="yt-wrap"><div class="yt" data-id="VIDEO_ID_QIGONG"></div></div>
       </article>
       <article class="card exercise">
         <h3>Chair Yoga (seated/standing support)</h3>
-        <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_CHAIR_YOGA" title="Chair Yoga for Beginners"></iframe></div>
+        <div class="yt-wrap"><div class="yt" data-id="VIDEO_ID_CHAIR_YOGA"></div></div>
       </article>
     </div>
 
@@ -261,7 +251,8 @@
         <li>Single-leg stand 10–20s each side.</li>
         <li>Heel-toe walk along a line <strong>2 × hallway lengths</strong>.</li>
       </ul>
-      <div class="yt-wrap"><iframe src="https://www.youtube.com/embed/VIDEO_ID_HEEL_TO_TOE" title="Heel-Toe Walk Demo"></iframe></div>
+      <!-- Replaced heel-to-toe placeholder with embeddable ID -->
+      <div class="yt-wrap"><div class="yt" data-id="z_GKdFf3qv4"></div></div>
     </article>
   </section>
 
@@ -423,5 +414,28 @@
     nav?.addEventListener('click',e=>{ if(e.target.tagName==='A') setExpanded(false); });
   })();
 </script>
+
+<!-- Build GDPR-friendly YouTube iframes from data-id so GitHub doesn't strip them -->
+<script>
+(function () {
+  var nodes = document.querySelectorAll('.yt[data-id]');
+  nodes.forEach(function (el) {
+    var id = el.getAttribute('data-id');
+    if(!id || id.indexOf('VIDEO_ID_')===0) return; // skip placeholders
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1';
+    iframe.title = 'YouTube video';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.loading = 'lazy';
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = '0';
+    el.textContent = '';
+    el.appendChild(iframe);
+  });
+})();
+</script>
+
 </body>
 </html>

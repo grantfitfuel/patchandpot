@@ -4,27 +4,37 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Healthy Ageing – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=ha2">
+  <link rel="stylesheet" href="../style.css?v=ha-inline">
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
+  <style>
+    .video-embed {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      background: #000;
+      margin: 12px 0;
+    }
+    .video-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 <body>
 
 <header class="site-header" id="siteHeader">
   <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-
-  <!-- Hamburger -->
   <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
     <span class="menu-ico"><span></span><span></span><span></span></span>
   </button>
-
   <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="../index.html">Home</a>
     <a href="../growing.html">Growing</a>
@@ -48,412 +58,145 @@
   <p class="lead">
     Ageing well is less about luck and more about <em>systems</em>: movement that protects joints and builds strength,
     food that feeds body and brain (and the gut microbes that help run both), sleep that repairs, and social ties that
-    keep us going. This page gives you clear explanations, sets &amp; reps, and tiny actions that add up.
+    keep us going. This page gives you clear explanations, <strong>sets &amp; reps</strong>, plus inline demo videos so you can learn form safely.
   </p>
 
-  <!-- Quick links -->
-  <nav class="mini-nav" aria-label="On this page">
-    <a href="#why">Why strength, balance &amp; brain health matter</a>
-    <a href="#stretching">Stretching &amp; mobility</a>
-    <a href="#strength">Strength training (bones, joints, independence)</a>
-    <a href="#walking">Walking: foundations</a>
-    <a href="#swimming">Swimming &amp; water exercise</a>
-    <a href="#balance">Balance: Tai Chi, Qi Gong, Yoga, Chair Yoga</a>
-    <a href="#nutrition">Nutrition &amp; the microbiome</a>
-    <a href="#macros">Macronutrients (protein / carbs / fats)</a>
-    <a href="#blueberries">Blueberries &amp; brain foods</a>
-    <a href="#hydration">Hydration</a>
-    <a href="#sleep">Cognition &amp; sleep</a>
-    <a href="#social">Community, purpose &amp; mood</a>
-    <a href="#disclaimer">Disclaimer</a>
-  </nav>
-
-  <!-- WHY -->
-  <section id="why">
-    <h2>1) Why strength, balance &amp; brain health matter</h2>
-    <ul>
-      <li><strong>Muscle &amp; bone:</strong> after ~50, we lose muscle & bone faster unless we load them. Strength work keeps independence (stairs, shopping, rising from a chair).</li>
-      <li><strong>Balance:</strong> prevents falls — one of the biggest causes of injury in later life.</li>
-      <li><strong>Brain:</strong> physical activity + good sleep + nutrient-dense food support memory, mood, and attention.</li>
-      <li><strong>Microbiome:</strong> gut microbes influence inflammation, metabolism, and even brain signalling (gut–brain axis).</li>
-    </ul>
-  </section>
-
-  <!-- STRETCHING -->
+  <!-- Stretching -->
   <section id="stretching">
-    <h2>2) Stretching &amp; mobility (move better, hurt less)</h2>
-    <figure>
-      <img src="../img/healthy-stretching.png" alt="Older adult doing gentle calf and hip stretches near a garden bench">
-      <figcaption class="cap">Mobility before intensity: warm joints, longer exhale, slow range of motion.</figcaption>
-    </figure>
-
-    <div class="grid">
-      <article class="card">
-        <h3>Daily 6–8 minute warm-up</h3>
-        <ul>
-          <li>Neck circles (small), shoulder rolls — <strong>2 × 8 reps</strong></li>
-          <li>Arm swings (gentle), thoracic rotations — <strong>2 × 8 reps</strong></li>
-          <li>Hip circles — <strong>2 × 8 reps</strong>; ankle circles — <strong>2 × 10 reps each</strong></li>
-          <li>Calf stretch (wall) — <strong>2 × 20–30s each side</strong></li>
-        </ul>
-        <p class="meta"><strong>Reps</strong> = repetitions; <strong>Sets</strong> = rounds. Example: “2 × 8 reps” = 2 sets of 8 repetitions.</p>
-      </article>
-
-      <article class="card">
-        <h3>Mobility tips</h3>
-        <ul>
-          <li>Breathe out longer than in (4–6 pattern) to reduce muscle guarding.</li>
-          <li>Warmth helps: shower or a heat pack on tight areas before moving.</li>
-          <li>Move in a pain-free range; aim for “comfortable stretch”, not strain.</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h3>Video demos (external)</h3>
-        <ul>
-          <li><a target="_blank" rel="noopener" href="https://www.nhs.uk/live-well/exercise/sitting-exercises/">NHS — Sitting exercises (seated mobility & gentle strength)</a></li>
-          <li><a target="_blank" rel="noopener" href="https://www.nia.nih.gov/health/exercise-physical-activity">NIA/Go4Life — Exercise & Physical Activity library</a></li>
-          <li><a target="_blank" rel="noopener" href="https://www.youtube.com/@SilverSneakers">SilverSneakers — channel (older adult mobility & stretch)</a></li>
-        </ul>
-      </article>
+    <h2>Stretching &amp; Mobility</h2>
+    <p>6–8 minutes daily keeps joints moving and muscles loose.</p>
+    <ul>
+      <li>Neck circles, shoulder rolls (8 each)</li>
+      <li>Hip &amp; ankle circles (10 each)</li>
+      <li>Calf stretch (20s each side)</li>
+    </ul>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/kG6ISz5WmrU" title="NHS Sitting Exercises" allowfullscreen></iframe>
     </div>
   </section>
 
-  <!-- STRENGTH -->
+  <!-- Strength -->
   <section id="strength">
-    <h2>3) Strength training (bones, joints, independence)</h2>
-    <figure>
-      <img src="../img/healthy-strength.png" alt="Older adult performing sit-to-stand with a sturdy chair and light dumbbells nearby">
-      <figcaption class="cap">2–3 short sessions a week protect muscle and bone. Progress slowly, safely.</figcaption>
-    </figure>
-
-    <article class="card" style="grid-column:1/-1">
-      <h3>Starter circuit (10–15 minutes)</h3>
-
-      <div class="grid">
-        <div class="card">
-          <h4>1) Sit-to-Stand</h4>
-          <p><strong>Sets:</strong> 2–3 &nbsp; <strong>Reps:</strong> 8–12 &nbsp; <strong>Tempo:</strong> 2 sec up / 3 sec down</p>
-          <p>From a chair, stand up, sit down slowly. Progress: add a pause at bottom or light weight.</p>
-        </div>
-
-        <div class="card">
-          <h4>2) Wall Push-ups</h4>
-          <p><strong>Sets:</strong> 2–3 &nbsp; <strong>Reps:</strong> 8–12 &nbsp; <strong>Tempo:</strong> 2/3</p>
-          <p>Hands on wall, body straight. Progress to kitchen-counter push-ups.</p>
-        </div>
-
-        <div class="card">
-          <h4>3) Hip Hinge (Romanian deadlift pattern)</h4>
-          <p><strong>Sets:</strong> 2–3 &nbsp; <strong>Reps:</strong> 8–12</p>
-          <p>Hands on thighs, push hips back with slight knee bend; long spine; stand tall. Progress: hold a light weight.</p>
-        </div>
-
-        <div class="card">
-          <h4>4) March & Balance</h4>
-          <p><strong>Sets:</strong> 2 &nbsp; <strong>Time:</strong> 30–45s</p>
-          <p>Standing march (hold chair if needed). Progress to single-leg stands 10–20s each.</p>
-        </div>
-      </div>
-
-      <p class="meta">Rest 30–60s between moves. If new to exercise or you have long-term conditions, check with your clinician first.</p>
-
-      <details class="card" style="margin-top:10px">
-        <summary><strong>Video demos (external)</strong></summary>
-        <ul>
-          <li><a target="_blank" rel="noopener" href="https://www.nhs.uk/live-well/exercise/sitting-exercises/">NHS — Sit-to-Stand appears in Sitting Exercises</a></li>
-          <li><a target="_blank" rel="noopener" href="https://www.nia.nih.gov/health/exercise-and-physical-activity/4-types-exercise">NIA/Go4Life — 4 Types of Exercise (strength/balance basics)</a></li>
-          <li><a target="_blank" rel="noopener" href="https://www.youtube.com/@SilverSneakers">SilverSneakers — channel (wall/counter push-ups & beginner strength)</a></li>
-          <li><a target="_blank" rel="noopener" href="https://www.youtube.com/@HASfit">HASfit — channel (senior beginner strength playlists)</a></li>
-        </ul>
-      </details>
-    </article>
-
-    <div class="grid">
-      <article class="card">
-        <h3>Bone health</h3>
-        <p>Include <em>weight-bearing</em> moves (standing, marching, step-ups). Add light impact if appropriate (heel drops). Calcium + vitamin D support bone turnover.</p>
-      </article>
-      <article class="card">
-        <h3>Joints & arthritis</h3>
-        <p>Short, frequent sessions beat long ones. Warm up well; finish with a gentle mobility cool-down.</p>
-      </article>
-      <article class="card">
-        <h3>Progression</h3>
-        <p>When 12 reps feel easy, add a small weight (0.5–1 kg) or a third set. Keep form slow and controlled.</p>
-      </article>
+    <h2>Strength Training</h2>
+    <p>2–3 sessions a week. Start with bodyweight, then progress to light dumbbells.</p>
+    <ul>
+      <li><strong>Sit-to-Stand:</strong> 2–3 sets × 8–12 reps</li>
+      <li><strong>Wall Push-ups:</strong> 2–3 sets × 8–12 reps</li>
+      <li><strong>Hip Hinge:</strong> 2–3 sets × 8–12 reps</li>
+      <li><strong>March &amp; Balance:</strong> 2 sets × 30–45s</li>
+    </ul>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/Mo1lyJ5cN3k" title="SilverSneakers Beginner Strength" allowfullscreen></iframe>
+    </div>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/IUZ3Yxok6N8" title="HASfit Senior Strength Training" allowfullscreen></iframe>
     </div>
   </section>
 
-  <!-- WALKING -->
+  <!-- Walking -->
   <section id="walking">
-    <h2>4) Walking (foundation for heart, brain &amp; mood)</h2>
-    <figure>
-      <img src="../img/healthy-walking.png" alt="Two older adults walking on a park path with steady posture">
-      <figcaption class="cap">Aim for most days. Any pace counts; pockets of brisk walking add extra benefit.</figcaption>
-    </figure>
-    <ul>
-      <li><strong>Cadence tip:</strong> gentle conversation pace = good; sprinkle in 1–3 minute brisk intervals.</li>
-      <li><strong>Posture:</strong> tall through the crown of your head, relaxed shoulders, arm swing.</li>
-      <li><strong>Feet &amp; ankles:</strong> roll through the foot; occasional grass or gravel walking (if safe) challenges balance.</li>
-      <li><strong>Brain boost:</strong> nature walking lowers stress; social walking lifts mood and adherence.</li>
-    </ul>
-    <p class="meta"><a target="_blank" rel="noopener" href="https://www.nia.nih.gov/health/exercise-and-physical-activity/how-start-walking">NIA — How to start walking</a></p>
+    <h2>Walking</h2>
+    <p>Walking improves heart, mood, and brain health. Brisk intervals add extra benefit.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/44ScXWFaVBw" title="Go4Life Walking Tips" allowfullscreen></iframe>
+    </div>
   </section>
 
-  <!-- SWIMMING -->
+  <!-- Swimming -->
   <section id="swimming">
-    <h2>5) Swimming &amp; water exercise (low-impact, whole-body)</h2>
-    <figure>
-      <img src="../img/healthy-swimming.png" alt="Older adult lane swimming and water-aerobics class equipment at poolside">
-      <figcaption class="cap">Water supports joints and provides gentle resistance — ideal for sore knees, hips, and backs.</figcaption>
-    </figure>
-    <div class="grid">
-      <article class="card">
-        <h3>Why it helps</h3>
-        <ul>
-          <li>Buoyancy reduces joint load while water’s resistance builds strength & endurance.</li>
-          <li>Helps temperature control and calms the nervous system.</li>
-        </ul>
-      </article>
-      <article class="card">
-        <h3>Getting started</h3>
-        <ul>
-          <li>Begin with 15–20 minutes; build by 2–5 minutes weekly.</li>
-          <li>Aqua-aerobics gives structure + social support.</li>
-          <li>Use noodles/floats for confidence & technique practice.</li>
-        </ul>
-      </article>
-      <article class="card">
-        <h3>Safety</h3>
-        <ul>
-          <li>Warm shoulders/hips before entering; exit slowly to avoid dizziness.</li>
-          <li>If you have heart or balance conditions, check advice from your clinician.</li>
-        </ul>
-      </article>
+    <h2>Swimming &amp; Water Exercise</h2>
+    <p>Water supports joints and offers natural resistance.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/SvSzzv0tA0E" title="Water Aerobics for Seniors" allowfullscreen></iframe>
     </div>
-    <p class="meta"><a target="_blank" rel="noopener" href="https://www.swimming.org/justswim/">Swim England — Just Swim (programmes & tips)</a></p>
   </section>
 
-  <!-- BALANCE -->
+  <!-- Balance -->
   <section id="balance">
-    <h2>6) Balance &amp; steadiness (Tai Chi • Qi Gong • Yoga • Chair Yoga)</h2>
-    <figure>
-      <img src="../img/healthy-balance.png" alt="Group of older adults practising slow balance movements in a bright room">
-      <figcaption class="cap">Slow control builds ankle, hip, and core reactions that prevent falls.</figcaption>
-    </figure>
-
-    <div class="grid">
-      <article class="card">
-        <h3>Tai Chi</h3>
-        <p>Slow, flowing sequences that train weight shift, ankle strategy, and focused breathing. Evidence supports fall reduction.</p>
-        <ul>
-          <li><strong>Mini-practice:</strong> Weight shift side-to-side — <strong>Sets:</strong> 2 &nbsp; <strong>Time:</strong> 30–45s</li>
-          <li><strong>Stepping flow:</strong> Step-back & reach — <strong>Sets:</strong> 2 &nbsp; <strong>Reps:</strong> 8 each side</li>
-        </ul>
-        <p class="meta">We’ll have a dedicated <a href="../guides.html">Tai Chi guide</a> soon.</p>
-      </article>
-
-      <article class="card">
-        <h3>Qi Gong</h3>
-        <p>Gentle, repetitive patterns with coordinated breath. Great for joint-friendly mobility and calm attention.</p>
-        <ul>
-          <li><strong>Eight Brocades sample:</strong> “Drawing the Bow” — <strong>Sets:</strong> 2 &nbsp; <strong>Reps:</strong> 6–8 each side</li>
-        </ul>
-        <p class="meta">See the upcoming <a href="../guides.html">Qi Gong section</a>.</p>
-      </article>
-
-      <article class="card">
-        <h3>Yoga (gentle)</h3>
-        <p>Choose beginner/chair classes. Focus on hip hinges, spinal length, and breath-led movement. Avoid end-range holds if you have osteoporosis (no deep spinal flexion/rotation).</p>
-      </article>
-
-      <article class="card">
-        <h3>Chair Yoga</h3>
-        <p>All poses adapted to seated/standing with support. Builds confidence for those with limited mobility or balance concerns.</p>
-      </article>
+    <h2>Balance (Tai Chi • Qi Gong • Yoga • Chair Yoga)</h2>
+    <p>Balance training prevents falls and boosts core stability.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/k1Z5cEY8gdo" title="Tai Chi for Seniors" allowfullscreen></iframe>
     </div>
-
-    <details class="card" style="margin-top:10px">
-      <summary><strong>Video demos (external)</strong></summary>
-      <ul>
-        <li><a target="_blank" rel="noopener" href="https://www.nhs.uk/live-well/exercise/balance-exercises/">NHS — Balance exercises (how-tos)</a></li>
-        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/@SilverSneakers">SilverSneakers — channel (balance & chair yoga sessions)</a></li>
-        <li><a target="_blank" rel="noopener" href="https://www.nia.nih.gov/health/exercise-physical-activity">NIA/Go4Life — balance & flexibility resources</a></li>
-        <li><a target="_blank" rel="noopener" href="https://www.youtube.com/@HASfit">HASfit — channel (senior balance & mobility workouts)</a></li>
-      </ul>
-    </details>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/cEOS2zoyQw4" title="Qi Gong Eight Brocades" allowfullscreen></iframe>
+    </div>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/-Ts01MC2mIo" title="Chair Yoga for Seniors" allowfullscreen></iframe>
+    </div>
   </section>
 
-  <!-- NUTRITION & MICROBIOME -->
+  <!-- Nutrition -->
   <section id="nutrition">
-    <h2>7) Nutrition &amp; the microbiome (feed your helpers)</h2>
-    <figure>
-      <img src="../img/healthy-gut.png" alt="Colourful bowls of vegetables, beans, whole grains and fermented foods on a table">
-      <figcaption class="cap">Your microbes love plants, fibre, and fermented foods — they pay you back in better health.</figcaption>
-    </figure>
-    <div class="grid">
-      <article class="card">
-        <h3>Daily “plant points”</h3>
-        <p>Aim for variety: 2–3 veg + 1 fruit per main meal; beans/lentils most days; whole grains; nuts/seeds.</p>
-      </article>
-      <article class="card">
-        <h3>Fibre targets</h3>
-        <p>Build toward ~25–30g/day (gradually, with fluids). Oats, beans, berries, veg, whole grains.</p>
-      </article>
-      <article class="card">
-        <h3>Fermented foods</h3>
-        <p>Live yoghurt/kefir, sauerkraut/kimchi, kombucha (if tolerated). Start small if new to you.</p>
-      </article>
-      <article class="card">
-        <h3>Inflammation & joints</h3>
-        <p>Omega-3s (oily fish or algae), herbs/spices (turmeric, ginger), lots of colourful plants.</p>
-      </article>
-    </div>
-    <p class="meta">Digestive conditions? Adjust fibre/ferments with your clinician or dietitian.</p>
+    <h2>Nutrition &amp; the Microbiome</h2>
+    <p>Feed your gut microbes — they repay you with energy, immunity, and brain support.</p>
+    <ul>
+      <li>25–30g fibre/day (beans, oats, veg, fruit)</li>
+      <li>Fermented foods (yoghurt, kefir, kimchi)</li>
+      <li>Healthy fats (olive oil, nuts, oily fish)</li>
+    </ul>
   </section>
 
-  <!-- MACROS -->
+  <!-- Macros -->
   <section id="macros">
-    <h2>8) Macronutrients: what to prioritise</h2>
-    <figure>
-      <img src="../img/healthy-macros.png" alt="Simple plate showing protein, colourful veg, whole grains, and healthy fats">
-      <figcaption class="cap">Each meal: protein + colourful plants + quality carbs + healthy fats.</figcaption>
-    </figure>
-    <div class="grid">
-      <article class="card">
-        <h3>Protein (muscle &amp; repair)</h3>
-        <p>Include at each meal: eggs, fish, poultry, tofu/tempeh, beans, Greek yoghurt, lentils. Many older adults do best with <strong>~20–30g protein per meal</strong> spread across the day.</p>
-      </article>
-      <article class="card">
-        <h3>Carbohydrates (energy)</h3>
-        <p>Prefer slow-release: oats, wholegrain bread, brown rice, quinoa, beans, root veg. Pair with protein & fats for stable energy.</p>
-      </article>
-      <article class="card">
-        <h3>Fats (hormones & brain)</h3>
-        <p>Olive oil, nuts, seeds, avocado, oily fish or algae. Limit ultra-processed trans/industrial fats.</p>
-      </article>
-    </div>
+    <h2>Macronutrients</h2>
+    <ul>
+      <li><strong>Protein:</strong> 20–30g per meal (muscle repair)</li>
+      <li><strong>Carbs:</strong> whole grains, roots, beans</li>
+      <li><strong>Fats:</strong> olive oil, avocado, nuts, seeds</li>
+    </ul>
   </section>
 
-  <!-- BLUEBERRIES / BRAIN FOODS -->
+  <!-- Blueberries -->
   <section id="blueberries">
-    <h2>9) Blueberries &amp; brain foods (polyphenols for cognition)</h2>
-    <figure>
-      <img src="../img/healthy-blueberries.png" alt="Bowl of blueberries and mixed berries on a wooden board">
-      <figcaption class="cap">Berries, greens, olive oil, nuts, beans, and fish are consistently brain-friendly.</figcaption>
-    </figure>
-    <ul>
-      <li><strong>Berries:</strong> rich in polyphenols that support blood flow & antioxidant defences.</li>
-      <li><strong>Leafy greens:</strong> folate & carotenoids for brain & eye health.</li>
-      <li><strong>Nuts & seeds:</strong> vitamin E, magnesium, healthy fats.</li>
-      <li><strong>Hydration & caffeine:</strong> modest tea/coffee can aid focus; avoid late in the day if sleep suffers.</li>
-    </ul>
+    <h2>Blueberries &amp; Brain Foods</h2>
+    <p>Berries, leafy greens, nuts, and olive oil improve memory and focus.</p>
   </section>
 
-  <!-- HYDRATION -->
+  <!-- Hydration -->
   <section id="hydration">
-    <h2>10) Hydration (small sips, big difference)</h2>
-    <figure>
-      <img src="../img/healthy-hydration.png" alt="Carafe of water with lemon slices and two glasses on a table">
-      <figcaption class="cap">Dehydration can masquerade as fatigue, dizziness, or confusion.</figcaption>
-    </figure>
-    <ul>
-      <li>Keep water visible; flavour with lemon, mint, berries if it helps.</li>
-      <li>Use a small glass and refill often if a big bottle feels daunting.</li>
-      <li>Soups, stews, fruit/veg contribute to fluid intake.</li>
-    </ul>
+    <h2>Hydration</h2>
+    <p>Dehydration can mimic fatigue or confusion. Small sips often are best.</p>
   </section>
 
-  <!-- COGNITION & SLEEP -->
+  <!-- Sleep -->
   <section id="sleep">
-    <h2>11) Cognition &amp; sleep (repair and remember)</h2>
-    <figure>
-      <img src="../img/healthy-sleep.png" alt="Calm bedroom corner with a book and warm lamp">
-      <figcaption class="cap">Consistent timing + wind-down routines improve sleep quality and next-day clarity.</figcaption>
-    </figure>
-    <div class="grid">
-      <article class="card">
-        <h3>Sleep basics</h3>
-        <ul>
-          <li>Regular bed/wake times; dim lights 1–2 hours before bed.</li>
-          <li>Warm bath/shower; if awake &gt;20 minutes, move to a calm room until sleepy.</li>
-        </ul>
-        <p class="meta">See <a href="./sleep.html">Sleep &amp; Insomnia</a> for full toolkits.</p>
-      </article>
-      <article class="card">
-        <h3>Brain training</h3>
-        <ul>
-          <li>Learn new skills (language, music, crafts) + social engagement.</li>
-          <li>Combine movement with thinking (dance steps, garden planning).</li>
-        </ul>
-      </article>
-      <article class="card">
-        <h3>Hearing &amp; vision</h3>
-        <p>Untreated hearing or vision loss increases cognitive load. Get checked; use aids consistently.</p>
-      </article>
-    </div>
+    <h2>Cognition &amp; Sleep</h2>
+    <p>7–9 hours of quality sleep repairs memory and mood.</p>
   </section>
 
-  <!-- SOCIAL -->
+  <!-- Social -->
   <section id="social">
-    <h2>12) Community, purpose &amp; mood</h2>
-    <figure>
-      <img src="../img/healthy-community.png" alt="Community group sharing tea after a gentle movement class">
-      <figcaption class="cap">People keep people going. Movement is easier — and more fun — together.</figcaption>
-    </figure>
-    <ul>
-      <li>Join a walking group, swim session, or gentle class (50+ or beginners).</li>
-      <li>Volunteer or join a club for rhythm and purpose.</li>
-      <li>If low mood or anxiety persist, speak with your GP and see our <a href="./depression.html">Depression</a> and <a href="./anxiety.html">Anxiety</a> pages.</li>
-    </ul>
+    <h2>Community &amp; Purpose</h2>
+    <p>Group activities (walking, classes, volunteering) build purpose and prevent isolation.</p>
   </section>
 
   <!-- Disclaimer -->
   <section id="disclaimer" class="disclaimer">
     <h2>Important Note</h2>
-    <p>
-      The information on this page is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice.
-      If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you’re outside the UK, contact your local emergency number.
-    </p>
-    <p>
-      For non-emergency concerns, consider speaking with a qualified health professional or one of the support services listed on our Wellbeing pages.
-    </p>
+    <p>The information here is for <strong>general understanding</strong>. It is not a substitute for professional medical advice. If you feel unsafe, call <strong>999</strong> (UK).</p>
   </section>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
     <p>© 2025 Patch &amp; Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
 
-<!-- Mobile menu script -->
 <script>
   (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
-
+    const header=document.getElementById('siteHeader');
+    const toggle=header.querySelector('.menu-toggle');
+    const nav=document.getElementById('primaryNav');
     function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
+      if(on){header.classList.add('menu-open');toggle.classList.add('menu-open');toggle.setAttribute('aria-expanded','true');}
+      else{header.classList.remove('menu-open');toggle.classList.remove('menu-open');toggle.setAttribute('aria-expanded','false');}
     }
-    if(toggle){
-      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    }
-    if(nav){
-      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-    }
+    if(toggle){toggle.addEventListener('click',()=>setExpanded(!header.classList.contains('menu-open')));}
+    if(nav){nav.addEventListener('click',e=>{if(e.target.tagName==='A')setExpanded(false);});}
   })();
 </script>
 

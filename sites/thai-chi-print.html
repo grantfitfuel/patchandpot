@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tai Chi – Beginner (Print)</title>
+  <link rel="stylesheet" href="style.css?v=43">
+  <style>
+    :root { --pp-green:#4CAF50; }
+    body { background:#0e1512; color:#e9f0ec; }
+    main { max-width:920px; margin:2rem auto; padding:0 1rem; }
+    h1 { margin:0 0 .25rem; }
+    .lead { color:#cfe3d7; }
+    .print-btn { display:inline-block; margin:1rem 0 1.5rem; padding:.6rem .9rem; background:var(--pp-green); color:#fff; border-radius:8px; text-decoration:none; }
+    figure { background:#fff7e6; /* cream */ color:#222; border-radius:10px; padding:1rem; margin:1rem 0; }
+    figure img { width:100%; height:auto; display:block; border-radius:6px; }
+    figcaption { margin-top:.5rem; font-size:0.95rem; color:#333; }
+    hr { border:0; height:1px; background:#26302b; margin:2rem 0; }
+
+    @media print {
+      .print-btn { display:none !important; }
+      body { background:#fff; color:#000; }
+      figure { page-break-inside:avoid; }
+      @page { size: A4; margin: 16mm; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Tai Chi – Beginner</h1>
+    <p class="lead">Commencing → Parting the Wild Horse’s Mane → Wave Hands Like Clouds. Full-body then mid-body views.</p>
+    <a class="print-btn" href="javascript:window.print()">Print / Save as PDF</a>
+
+    <!-- EXACT ORDER: your filenames are the source of truth -->
+    <figure>
+      <img src="img/tai-commence-full.png" alt="Commencing Form — full body">
+      <figcaption><strong>Commencing Form</strong> — full-body stance and posture.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/tai-commence-mid.png" alt="Commencing Form — mid body">
+      <figcaption><strong>Commencing Form</strong> — mid-body view (arm path, breathing focus).</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/tai-horse-full.png" alt="Parting the Wild Horse’s Mane — full body">
+      <figcaption><strong>Parting the Wild Horse’s Mane</strong> — full-body stance and step.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/tai-horse-mid.png" alt="Parting the Wild Horse’s Mane — mid body">
+      <figcaption><strong>Parting the Wild Horse’s Mane</strong> — mid-body (hand flow, torso turn).</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/tai-clouds-full.png" alt="Wave Hands Like Clouds — full body">
+      <figcaption><strong>Wave Hands Like Clouds</strong> — stepping and weight shift.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/tai-clouds-mid.png" alt="Wave Hands Like Clouds — mid body">
+      <figcaption><strong>Wave Hands Like Clouds</strong> — circular hand path and torso rotation.</figcaption>
+    </figure>
+
+    <hr>
+    <p style="font-size:.95rem;color:#cfe3d7;">Tip: If any image looks out of order here, the filename in <code>/sites/img/</code> is the one to rename. This page prints exactly as shown.</p>
+  </main>
+</body>
+</html>

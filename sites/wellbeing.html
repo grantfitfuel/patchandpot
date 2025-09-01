@@ -5,72 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellbeing – Patch & Pot</title>
   <link rel="stylesheet" href="style.css?v=34">
-
-  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-
-  <!-- Page-local styles kept minimal and high-contrast -->
   <style>
-    /* Bright green topic buttons */
-    .mini-nav { display:flex; flex-wrap:wrap; gap:.5rem; margin:1rem 0 .75rem; }
-    .mini-nav a{
-      background:#4CAF50; color:#fff; text-decoration:none;
-      padding:.45rem .8rem; border-radius:6px; font-size:.9rem;
-    }
-    .mini-nav a:hover{ background:#45a049; }
-
-    /* Cards + text contrast */
-    .card{ background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:1rem; margin:1rem 0; color:#eaeaea; }
-    .card h2,.card h3{ color:#fff; margin-top:0; }
-    .meta{ color:#d6d6d6; }
-
-    /* Practice guides list */
-    .practice-pdfs ul{ list-style:none; padding:0; margin:.25rem 0 1rem; }
-    .practice-pdfs li{ margin:.3rem 0; }
-    .practice-pdfs a{ color:#4CAF50; text-decoration:none; }
-    .practice-pdfs a:hover{ text-decoration:underline; }
-    .practice-pdfs h3{ margin:.8rem 0 .4rem; }
-
-    /* Compact Accessibility tile (BSL + AD) */
-    .a11y-card.card{ max-width:520px; }
-    .a11y-card h2{ font-size:1.1rem; margin:.25rem 0 .5rem; }
-    .accessibility-controls{ display:flex; gap:.75rem; flex-wrap:wrap; margin:.25rem 0 .5rem; font-size:.95rem; }
-    .video-wrap{ position:relative; max-width:480px; border-radius:6px; overflow:hidden; background:#000; }
-    #wb-video{ width:100%; height:auto; }
-    #bsl-overlay{
-      position:absolute; right:.5rem; bottom:.5rem; width:25%;
-      border-radius:.25rem; box-shadow:0 1px 8px rgba(0,0,0,.3); background:#000;
-    }
-    #bsl-overlay.minimised{ width:90px; height:60px; overflow:hidden; }
-    #bsl-chrome{ position:absolute; top:0; right:0; display:flex; gap:.25rem; padding:.15rem; }
-    #bsl-chrome button{
-      background:#222; color:#eee; border:1px solid #444; border-radius:3px;
-      width:22px; height:20px; font-size:12px; line-height:18px; cursor:pointer;
-    }
-    .hidden{ display:none !important; }
-    .visually-hidden{ position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; border:0; }
-
-    /* Disclaimer */
-    .disclaimer{ background:#161616; border-left:4px solid #555; padding:.8rem; margin:2rem 0 1rem; font-size:.95rem; color:#e8e8e8; }
+    .mini-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .75rem}
+    .mini-nav a{background:#4CAF50;color:#fff;text-decoration:none;padding:.45rem .8rem;border-radius:6px;font-size:.9rem}
+    .mini-nav a:hover{background:#45a049}
+    .card{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:1rem 0;color:#eaeaea}
+    .card h2,.card h3{color:#fff;margin-top:0}
+    .meta{color:#d6d6d6}
+    .practice-pdfs ul{list-style:none;padding:0;margin:.25rem 0 1rem}
+    .practice-pdfs li{margin:.3rem 0}
+    .practice-pdfs a{color:#4CAF50;text-decoration:none}
+    .practice-pdfs a:hover{text-decoration:underline}
+    .practice-pdfs h3{margin:.8rem 0 .4rem}
+    /* Accessibility tile */
+    .a11y-card.card{max-width:520px}
+    .a11y-card h2{font-size:1.1rem;margin:.25rem 0 .5rem}
+    .accessibility-controls{display:flex;gap:.75rem;flex-wrap:wrap;margin:.25rem 0 .5rem;font-size:.95rem}
+    .video-wrap{position:relative;max-width:480px;border-radius:6px;overflow:hidden;background:#000}
+    #wb-video{width:100%;height:auto}
+    #bsl-overlay{position:absolute;right:.5rem;bottom:.5rem;width:25%;border-radius:.25rem;box-shadow:0 1px 8px rgba(0,0,0,.3);background:#000}
+    #bsl-overlay.minimised{width:90px;height:60px;overflow:hidden}
+    #bsl-chrome{position:absolute;top:0;right:0;display:flex;gap:.25rem;padding:.15rem}
+    #bsl-chrome button{background:#222;color:#eee;border:1px solid #444;border-radius:3px;width:22px;height:20px;font-size:12px;line-height:18px;cursor:pointer}
+    .hidden{display:none!important}
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0}
+    .disclaimer{background:#161616;border-left:4px solid #555;padding:.8rem;margin:2rem 0 1rem;font-size:.95rem;color:#e8e8e8}
   </style>
 </head>
 <body>
-
 <header class="site-header" id="siteHeader">
   <div class="brand">
     <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
-
-  <!-- Hamburger -->
   <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
     <span class="menu-ico"><span></span><span></span><span></span></span>
   </button>
-
-  <!-- Primary nav -->
   <nav class="nav" id="primaryNav" aria-label="Primary">
     <a href="index.html">Home</a>
     <a href="growing.html">Growing</a>
@@ -87,7 +61,6 @@
   <h1>Wellbeing</h1>
   <p class="lead">Explore resources for mental and emotional health — practical tools, kind explanations, and links to support.</p>
 
-  <!-- Topic mini-nav (bright green) -->
   <nav class="mini-nav" aria-label="Wellbeing topics">
     <a href="wellbeing/anxiety.html">Anxiety</a>
     <a href="wellbeing/depression.html">Depression</a>
@@ -110,37 +83,27 @@
 
   <p class="meta">Choose a topic above to open the detailed page. Each page includes practical steps, scripts, and regional links.</p>
 
-  <!-- Accessibility (compact): Grounding Technique with BSL/AD options -->
+  <!-- Accessibility: Grounding video with BSL/AD -->
   <section class="card a11y-card" aria-labelledby="a11y-video-title">
     <h2 id="a11y-video-title">Grounding technique (accessible)</h2>
     <div class="accessibility-controls" aria-label="Accessibility controls">
       <label><input type="checkbox" id="pref-bsl"> Show BSL interpreter</label>
       <label><input type="checkbox" id="pref-ad"> Enable audio description</label>
-      <a href="media/wellbeing/grounding-technique.mp4" style="margin-left:auto; color:#4CAF50; text-decoration:none;">Open video</a>
+      <a href="./media/wellbeing/grounding-technique.mp4" style="margin-left:auto;color:#4CAF50;text-decoration:none" target="_blank" rel="noopener">Open video</a>
     </div>
-
     <div class="video-wrap">
-      <video id="wb-video" controls preload="metadata"
-             poster="img/wellbeing/grounding-poster.jpg" aria-describedby="wb-video-desc">
-        <source src="media/wellbeing/grounding-technique.mp4" type="video/mp4">
-        <track kind="captions" src="media/wellbeing/grounding-technique.en.vtt" srclang="en" label="English captions" default>
-        <track kind="descriptions" src="media/wellbeing/grounding-technique.ad.vtt" srclang="en" label="Audio description">
+      <video id="wb-video" controls preload="metadata" poster="img/wellbeing/grounding-poster.jpg" aria-describedby="wb-video-desc">
+        <source src="./media/wellbeing/grounding-technique.mp4" type="video/mp4">
+        <track kind="captions" src="./media/wellbeing/grounding-technique.en.vtt" srclang="en" label="English captions" default>
+        <track kind="descriptions" src="./media/wellbeing/grounding-technique.ad.vtt" srclang="en" label="Audio description">
       </video>
-
-      <!-- BSL overlay (starts hidden/minimised) -->
       <div id="bsl-overlay" class="hidden minimised" aria-hidden="true">
-        <div id="bsl-chrome">
-          <button id="bsl-min" title="Minimise">—</button>
-          <button id="bsl-close" title="Hide">×</button>
-        </div>
+        <div id="bsl-chrome"><button id="bsl-min" title="Minimise">—</button><button id="bsl-close" title="Hide">×</button></div>
         <video id="bsl-video" muted playsinline>
-          <source src="media/wellbeing/grounding-technique-bsl.mp4" type="video/mp4">
+          <source src="./media/wellbeing/grounding-technique-bsl.mp4" type="video/mp4">
         </video>
       </div>
-
-      <p id="wb-video-desc" class="visually-hidden">
-        Video with captions; optional audio description and BSL interpreter overlay.
-      </p>
+      <p id="wb-video-desc" class="visually-hidden">Video with captions; optional audio description and BSL interpreter overlay.</p>
     </div>
   </section>
 
@@ -151,41 +114,38 @@
 
     <h3>Tai Chi</h3>
     <ul>
-      <li><a href="pdf/tai-chi-beginner.pdf" target="_blank">Tai Chi – Beginner (PDF)</a></li>
-      <li><a href="pdf/tai-chi-intermediate.pdf" target="_blank">Tai Chi – Intermediate (PDF)</a></li>
-      <li><a href="pdf/tai-chi-advanced.pdf" target="_blank">Tai Chi – Advanced (PDF)</a></li>
+      <li><a href="./pdf/tai-chi-beginner.pdf" target="_blank" rel="noopener">Tai Chi – Beginner (PDF)</a></li>
+      <li><a href="./pdf/tai-chi-intermediate.pdf" target="_blank" rel="noopener">Tai Chi – Intermediate (PDF)</a></li>
+      <li><a href="./pdf/tai-chi-advanced.pdf" target="_blank" rel="noopener">Tai Chi – Advanced (PDF)</a></li>
     </ul>
 
     <h3>Qi Gong</h3>
     <ul>
-      <li><a href="pdf/qi-gong-beginner.pdf" target="_blank">Qi Gong – Beginner (PDF)</a></li>
-      <li><a href="pdf/qi-gong-intermediate.pdf" target="_blank">Qi Gong – Intermediate (PDF)</a></li>
-      <li><a href="pdf/qi-gong-advanced.pdf" target="_blank">Qi Gong – Advanced (PDF)</a></li>
+      <li><a href="./pdf/qi-gong-beginner.pdf" target="_blank" rel="noopener">Qi Gong – Beginner (PDF)</a></li>
+      <li><a href="./pdf/qi-gong-intermediate.pdf" target="_blank" rel="noopener">Qi Gong – Intermediate (PDF)</a></li>
+      <li><a href="./pdf/qi-gong-advanced.pdf" target="_blank" rel="noopener">Qi Gong – Advanced (PDF)</a></li>
     </ul>
 
     <h3>Chair Yoga</h3>
     <ul>
-      <li><a href="pdf/chair-yoga-beginner.pdf" target="_blank">Chair Yoga – Beginner (PDF)</a></li>
-      <li><a href="pdf/chair-yoga-intermediate.pdf" target="_blank">Chair Yoga – Intermediate (PDF)</a></li>
-      <li><a href="pdf/chair-yoga-advanced.pdf" target="_blank">Chair Yoga – Advanced (PDF)</a></li>
+      <li><a href="./pdf/chair-yoga-beginner.pdf" target="_blank" rel="noopener">Chair Yoga – Beginner (PDF)</a></li>
+      <li><a href="./pdf/chair-yoga-intermediate.pdf" target="_blank" rel="noopener">Chair Yoga – Intermediate (PDF)</a></li>
+      <li><a href="./pdf/chair-yoga-advanced.pdf" target="_blank" rel="noopener">Chair Yoga – Advanced (PDF)</a></li>
     </ul>
 
     <h3>Healthy Ageing</h3>
     <ul>
-      <li><a href="pdf/healthy-ageing-beginner.pdf" target="_blank">Healthy Ageing – Beginner (PDF)</a></li>
-      <li><a href="pdf/healthy-ageing-intermediate.pdf" target="_blank">Healthy Ageing – Intermediate (PDF)</a></li>
-      <li><a href="pdf/healthy-ageing-advanced.pdf" target="_blank">Healthy Ageing – Advanced (PDF)</a></li>
+      <li><a href="./pdf/healthy-ageing-beginner.pdf" target="_blank" rel="noopener">Healthy Ageing – Beginner (PDF)</a></li>
+      <li><a href="./pdf/healthy-ageing-intermediate.pdf" target="_blank" rel="noopener">Healthy Ageing – Intermediate (PDF)</a></li>
+      <li><a href="./pdf/healthy-ageing-advanced.pdf" target="_blank" rel="noopener">Healthy Ageing – Advanced (PDF)</a></li>
     </ul>
 
     <h3>Grounding Technique</h3>
     <ul>
-      <li><a href="media/wellbeing/grounding-technique.mp4" target="_blank">Grounding Technique — Video</a></li>
-      <!-- If you later export a PDF: -->
-      <!-- <li><a href="pdf/grounding-technique.pdf" target="_blank">Grounding Technique — PDF</a></li> -->
+      <li><a href="./media/wellbeing/grounding-technique.mp4" target="_blank" rel="noopener">Grounding Technique — Video</a></li>
     </ul>
   </section>
 
-  <!-- Disclaimer -->
   <section class="disclaimer" role="note">
     <h2>Important Note</h2>
     <p>The information across these pages is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you are outside the UK, contact your local emergency number.</p>
@@ -201,38 +161,20 @@
   </div>
 </footer>
 
-<!-- Mobile menu script (unchanged) -->
 <script>
   (function(){
     const header = document.getElementById('siteHeader');
     const toggle = header.querySelector('.menu-toggle');
     const nav = document.getElementById('primaryNav');
-
     function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
+      if(on){ header.classList.add('menu-open'); toggle.classList.add('menu-open'); toggle.setAttribute('aria-expanded','true'); }
+      else { header.classList.remove('menu-open'); toggle.classList.remove('menu-open'); toggle.setAttribute('aria-expanded','false'); }
     }
-    if(toggle){
-      toggle.addEventListener('click', () =>
-        setExpanded(!header.classList.contains('menu-open'))
-      );
-    }
-    if(nav){
-      nav.addEventListener('click', e => {
-        if(e.target.tagName === 'A') setExpanded(false);
-      });
-    }
+    if(toggle){ toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open'))); }
+    if(nav){ nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); }); }
   })();
 </script>
 
-<!-- Accessibility JS (overlay starts hidden; can minimise/close) -->
 <script>
 (function(){
   const bsl = document.getElementById('pref-bsl');
@@ -243,18 +185,15 @@
   const btnMin = document.getElementById('bsl-min');
   const btnClose = document.getElementById('bsl-close');
 
-  // Load saved prefs
   let prefs = {};
   try { prefs = JSON.parse(localStorage.getItem('a11y-prefs') || '{}'); } catch(e){}
   bsl.checked = !!prefs.bsl; ad.checked = !!prefs.ad;
   if (bsl.checked){ wrap.classList.remove('hidden'); wrap.setAttribute('aria-hidden','false'); }
 
-  // Descriptions track initial state
   for (const t of (vid.textTracks||[])) {
     if (t.kind==='descriptions') t.mode = ad.checked ? 'showing':'disabled';
   }
 
-  // Keep BSL overlay synced to main video
   function sync(){ try{ ov.currentTime=vid.currentTime; }catch(e){} }
   ['play','seeked','pause','ended'].forEach(ev=>{
     vid.addEventListener(ev, ()=>{ if (wrap.classList.contains('hidden')) return;
@@ -264,7 +203,6 @@
     });
   });
 
-  // Toggle handlers
   bsl.addEventListener('change', ()=>{
     if(bsl.checked){
       wrap.classList.remove('hidden'); wrap.setAttribute('aria-hidden','false');
@@ -279,13 +217,11 @@
     save();
   });
 
-  // Overlay chrome
   btnMin.addEventListener('click', ()=> wrap.classList.toggle('minimised'));
   btnClose.addEventListener('click', ()=>{ ov.pause(); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); });
 
   function save(){ localStorage.setItem('a11y-prefs', JSON.stringify({bsl:bsl.checked,ad:ad.checked})); }
 })();
 </script>
-
 </body>
 </html>

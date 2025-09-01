@@ -12,17 +12,11 @@
     h1 { margin:0 0 .25rem; }
     .lead { color:#cfe3d7; }
     .print-btn { display:inline-block; margin:1rem 0 1.5rem; padding:.6rem .9rem; background:var(--pp-green); color:#fff; border-radius:8px; text-decoration:none; }
-    figure { background:#fff7e6; /* cream */ color:#222; border-radius:10px; padding:1rem; margin:1rem 0; }
+    figure { background:#fff7e6; color:#222; border-radius:10px; padding:1rem; margin:1rem 0; }
     figure img { width:100%; height:auto; display:block; border-radius:6px; }
     figcaption { margin-top:.5rem; font-size:0.95rem; color:#333; }
     hr { border:0; height:1px; background:#26302b; margin:2rem 0; }
-
-    @media print {
-      .print-btn { display:none !important; }
-      body { background:#fff; color:#000; }
-      figure { page-break-inside:avoid; }
-      @page { size: A4; margin: 16mm; }
-    }
+    @media print { .print-btn{display:none} body{background:#fff;color:#000} figure{page-break-inside:avoid} @page{size:A4;margin:16mm} }
   </style>
 </head>
 <body>
@@ -31,14 +25,18 @@
     <p class="lead">Commencing → Parting the Wild Horse’s Mane → Wave Hands Like Clouds. Full-body then mid-body views.</p>
     <a class="print-btn" href="javascript:window.print()">Print / Save as PDF</a>
 
-    <!-- EXACT ORDER: your filenames are the source of truth -->
+    <!-- EXACT ORDER with filename fallbacks -->
     <figure>
-      <img src="img/tai-commence-full.png" alt="Commencing Form — full body">
+      <img src="img/tai-commence-full.png"
+           alt="Commencing Form — full body"
+           onerror="this.onerror=null; this.src='img/tai-commencing-full.png';">
       <figcaption><strong>Commencing Form</strong> — full-body stance and posture.</figcaption>
     </figure>
 
     <figure>
-      <img src="img/tai-commence-mid.png" alt="Commencing Form — mid body">
+      <img src="img/tai-commence-mid.png"
+           alt="Commencing Form — mid body"
+           onerror="this.onerror=null; this.src='img/tai-commencing-mid.png';">
       <figcaption><strong>Commencing Form</strong> — mid-body view (arm path, breathing focus).</figcaption>
     </figure>
 
@@ -63,7 +61,7 @@
     </figure>
 
     <hr>
-    <p style="font-size:.95rem;color:#cfe3d7;">Tip: If any image looks out of order here, the filename in <code>/sites/img/</code> is the one to rename. This page prints exactly as shown.</p>
+    <p style="font-size:.95rem;color:#cfe3d7;">Tip: tap each image to confirm; if one still doesn’t show, check the exact filename in <code>/sites/img/</code>.</p>
   </main>
 </body>
 </html>

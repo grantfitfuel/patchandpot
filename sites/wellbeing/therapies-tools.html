@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Therapies &amp; Tools – Patch &amp; Pot</title>
-  <link rel="stylesheet" href="../style.css?v=tt-fixed">
+  <title>Therapies &amp; Tools – Patch & Pot</title>
+  <link rel="stylesheet" href="../style.css?v=tt11">
   <style>
     .tool-card h4{margin:.2rem 0 .25rem}
     .badge{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);border-radius:999px;padding:.2rem .55rem;font-size:.85rem;margin-left:.35rem}
@@ -16,9 +16,29 @@
     .do-now strong{color:var(--accent,#1ea672)}
     figure img{width:100%;height:auto;border-radius:12px;border:1px solid var(--stroke);background:#0a0f0c}
     .mini-nav a{white-space:nowrap}
-    /* Sticky back-to-top */
-    #backToTop{position:fixed;bottom:1rem;right:1rem;background:var(--accent,#1ea672);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:20px;cursor:pointer;display:none;z-index:1000}
-    #backToTop.show{display:block}
+
+    /* Per-section back-to-top link */
+    .back-top{margin:.6rem 0 1.6rem}
+    .back-top a{font-size:.95rem;color:var(--accent,#1ea672);text-decoration:none;border-bottom:1px dashed var(--accent,#1ea672)}
+    .back-top a:hover{opacity:.85}
+
+    /* Sticky back-to-top (mobile) */
+    #backToTop {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: var(--accent,#1ea672);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+    }
+    #backToTop.show { display: block; }
   </style>
 </head>
 <body>
@@ -58,7 +78,7 @@
   </p>
 
   <!-- MINI NAV -->
-  <nav class="mini-nav" aria-label="On this page">
+  <nav class="mini-nav" id="top-nav" aria-label="On this page">
     <a href="#cbt">CBT</a>
     <a href="#neuroscience">Neuroscience</a>
     <a href="#neurolinguistics">Reframing</a>
@@ -109,6 +129,7 @@
         <p><a href="../pdf/cbt-thought-record.pdf">CBT Thought Record (A4)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 2) Neuroscience -->
@@ -137,6 +158,7 @@
           “<em>After</em> I ______, I’ll ______ for 2 minutes.”</div>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 3) Reframing -->
@@ -166,6 +188,7 @@
         <p><a href="../pdf/reframe-cheat-sheet.pdf">Reframing Cheat Sheet (A4)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 4) Affirmations -->
@@ -194,6 +217,7 @@
         <p><a href="../pdf/affirmation-cards.pdf">Affirmation Cards (A4 cut-outs)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 5) Biases -->
@@ -221,6 +245,7 @@
         <p><a href="../pdf/bias-spotter.pdf">Bias Spotter (A4)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 6) Breathing & Grounding -->
@@ -259,6 +284,7 @@
         </p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 7) Window of Tolerance -->
@@ -287,6 +313,7 @@
         <p><a href="../pdf/window-of-tolerance.pdf">Window of Tolerance &amp; Reset (A4)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 8) Behavioural Activation -->
@@ -315,6 +342,7 @@
         <p><a href="../pdf/behavioural-activation-planner.pdf">Behavioural Activation Planner (A4)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 9) Values & Acceptance (ACT) -->
@@ -344,6 +372,7 @@
         <p><a href="../pdf/values-action-sheet.pdf">Values &amp; Action Sheet (A4)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 10) Self-Compassion -->
@@ -372,6 +401,7 @@
         <p><a href="../pdf/self-compassion-cards.pdf">Self-Compassion Cards (A4 cut-outs)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 11) Journaling -->
@@ -400,6 +430,7 @@
         <p><a href="../pdf/journaling-prompts.pdf">Journal Prompts (A4)</a></p>
       </article>
     </div>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 12) Toolbox -->
@@ -418,6 +449,7 @@
       <li><a href="../pdf/self-compassion-cards.pdf">Self-Compassion Cards</a></li>
       <li><a href="../pdf/journaling-prompts.pdf">Journal Prompts</a></li>
     </ul>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 13) Accessibility -->
@@ -425,6 +457,7 @@
     <h2>13) Accessibility</h2>
     <p>We’re working toward optional <strong>BSL</strong> overlays and audio description across pages.
        If you spot an access issue, please let us know via <a href="../contact.html">Contact</a>.</p>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- 14) REGIONAL LINKS -->
@@ -473,6 +506,7 @@
       <li><a href="https://www.mentalhealthireland.ie/" target="_blank" rel="noopener">Mental Health Ireland</a></li>
       <li><a href="https://spunout.ie/" target="_blank" rel="noopener">SpunOut.ie (youth support)</a></li>
     </ul>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 
   <!-- DISCLAIMER -->
@@ -485,6 +519,7 @@
     <p>
       For non-emergency concerns, consider speaking with a qualified health professional or one of the support services listed above.
     </p>
+    <p class="back-top"><a href="#top">↑ Back to top</a></p>
   </section>
 </main>
 
@@ -511,7 +546,7 @@
 })();
 </script>
 
-<!-- Back to Top -->
+<!-- Back to Top (sticky) -->
 <button id="backToTop" aria-label="Back to top">↑</button>
 <script>
   const backToTop=document.getElementById('backToTop');

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Healthy Ageing – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=ha6">
+  <link rel="stylesheet" href="../style.css?v=ha7">
   <style>
     /* light helpers for embeds and callouts */
     .yt-wrap{position:relative;aspect-ratio:16/9;background:#0a0f0c;border:1px solid var(--stroke);border-radius:12px;overflow:hidden;margin:.6rem 0 1rem}
@@ -72,8 +72,6 @@
     <a href="#disclaimer">Disclaimer</a>
   </nav>
 
-  <!-- other sections unchanged... -->
-
   <!-- BALANCE -->
   <section id="balance">
     <h2>6) Balance &amp; steadiness (Tai Chi • Qi Gong • Yoga • Chair Yoga)</h2>
@@ -95,7 +93,7 @@
       </article>
       <article class="card exercise">
         <h3>Chair Yoga (seated/standing support)</h3>
-        <div class="yt-wrap"><div class="yt" data-id="T-RteSQTyfA"></div></div>
+        <div class="yt-wrap"><div class="yt" data-id="k6ZrFS9h9Sg"></div></div>
         <p class="note">Chair-supported yoga stretches for strength and flexibility.</p>
       </article>
     </div>
@@ -110,7 +108,7 @@
       <div class="yt-wrap"><div class="yt" data-id="z_GKdFf3qv4"></div></div>
     </article>
 
-    <!-- NEW PDF RESOURCES SECTION -->
+    <!-- PDF RESOURCES -->
     <article class="card" style="margin-top:10px">
       <h3>PDF Resources</h3>
       <p>
@@ -129,8 +127,8 @@
     </article>
   </section>
 
-  <!-- rest of sections unchanged ... -->
-
+  <!-- rest of the page unchanged (nutrition, macros, hydration, sleep, etc.) -->
+  
   <!-- DISCLAIMER -->
   <section id="disclaimer" class="disclaimer">
     <h2>Important Note</h2>
@@ -166,13 +164,12 @@
   })();
 </script>
 
-<!-- Build GDPR-friendly YouTube iframes from data-id so GitHub doesn't strip them -->
 <script>
 (function () {
   var nodes = document.querySelectorAll('.yt[data-id]');
   nodes.forEach(function (el) {
     var id = el.getAttribute('data-id');
-    if(!id || id.indexOf('VIDEO_ID_')===0) return; // skip placeholders
+    if(!id || id.indexOf('VIDEO_ID_')===0) return;
     var iframe = document.createElement('iframe');
     iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1';
     iframe.title = 'YouTube video';

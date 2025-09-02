@@ -116,7 +116,7 @@
       <figcaption class="cap">You’re not alone — connection calms the nervous system.</figcaption>
     </figure>
   </section>
-
+  <section class="help-links-mount" data-include="help-links"></section>
   <!-- Standardised Disclaimer -->
   <section class="disclaimer" id="disclaimer">
   <h2>Important Note</h2>
@@ -167,6 +167,26 @@
     }
   })();
 </script>
-
+<script>
+(function(){
+  const candidates = [
+    '/sites/snippets/help-links.html',  // absolute from domain root
+    '../snippets/help-links.html',      // from /sites/wellbeing/*
+    '../../snippets/help-links.html',   // from deeper paths (if any)
+    'snippets/help-links.html'          // from /sites/*
+  ];
+  function loadInto(el){
+    let i = 0;
+    (function tryNext(){
+      if(i >= candidates.length){ el.innerHTML = '<p>Help links could not be loaded.</p>'; return; }
+      fetch(candidates[i], {cache:'no-store'})
+        .then(r => { if(!r.ok) throw new Error(r.status); return r.text(); })
+        .then(html => { el.innerHTML = html; })
+        .catch(() => { i++; tryNext(); });
+    })();
+  }
+  document.querySelectorAll('[data-include="help-links"]').forEach(loadInto);
+})();
+</script>
 </body>
 </html>

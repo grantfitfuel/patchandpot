@@ -156,22 +156,6 @@
     <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
-  <!-- 4. Support -->
-  <section id="support">
-    <h2>4. Support &amp; Connection</h2>
-    <figure>
-      <img src="../img/depression-support.png" alt="Two hands gently clasped in support">
-      <figcaption class="cap">Human connection is protective against depression’s isolation.</figcaption>
-    </figure>
-    <ul>
-      <li><a href="https://www.samaritans.org" target="_blank" rel="noopener">Samaritans — 116 123, free 24/7</a></li>
-      <li><a href="https://breathingspace.scot" target="_blank" rel="noopener">Breathing Space Scotland</a> — evenings & weekends</li>
-      <li><a href="https://www.nhsinform.scot" target="_blank" rel="noopener">NHS Inform Scotland</a> — advice & services</li>
-      <li><a href="https://www.mind.org.uk" target="_blank" rel="noopener">Mind</a> — national support & information</li>
-    </ul>
-    <div class="back-to-top"><a href="#top">Back to top</a></div>
-  </section>
-
   <!-- 5. Hope -->
   <section id="hope">
     <h2>5. Hope &amp; Recovery</h2>
@@ -215,7 +199,7 @@
     </div>
     <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
-
+  <section class="help-links-mount" data-include="help-links"></section>
   <!-- Disclaimer -->
   <section class="disclaimer" id="disclaimer">
   <h2>Important Note</h2>
@@ -266,6 +250,26 @@
     }
   })();
 </script>
-
+<script>
+(function(){
+  const candidates = [
+    '/sites/snippets/help-links.html',  // absolute from domain root
+    '../snippets/help-links.html',      // from /sites/wellbeing/*
+    '../../snippets/help-links.html',   // from deeper paths (if any)
+    'snippets/help-links.html'          // from /sites/*
+  ];
+  function loadInto(el){
+    let i = 0;
+    (function tryNext(){
+      if(i >= candidates.length){ el.innerHTML = '<p>Help links could not be loaded.</p>'; return; }
+      fetch(candidates[i], {cache:'no-store'})
+        .then(r => { if(!r.ok) throw new Error(r.status); return r.text(); })
+        .then(html => { el.innerHTML = html; })
+        .catch(() => { i++; tryNext(); });
+    })();
+  }
+  document.querySelectorAll('[data-include="help-links"]').forEach(loadInto);
+})();
+</script>
 </body>
 </html>

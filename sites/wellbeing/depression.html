@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Depression – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=41">
+  <link rel="stylesheet" href="../style.css?v=42">
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
+
   <style>
     .backlink { margin-top: 1rem; font-size: .9rem; }
     .backlink a { color: var(--accent,#1ea672); text-decoration: none; }
     .backlink a:hover { text-decoration: underline; }
+    .pill { display:inline-block; padding:.15rem .5rem; border:1px solid var(--stroke); border-radius:999px; font-size:.85rem; background:var(--glass); margin-left:.35rem; }
+    .grid-2 { display:grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width:900px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
+    .callout { background:var(--glass); border:1px solid var(--stroke); border-radius:12px; padding:12px; margin:10px 0; }
+    .cap strong { font-weight:600; }
   </style>
 </head>
 <body>
@@ -49,7 +55,7 @@
   <figcaption class="cap">Depression is not weakness — it’s biology and lived experience. Support can shift the weight.</figcaption>
 </figure>
 
-<main class="wrap">
+<main class="wrap" id="top">
   <h1>Understanding Depression</h1>
   <p class="lead">
     Depression isn’t just “feeling sad.” It can flatten energy, numb emotions, and distort thinking.
@@ -97,29 +103,51 @@
     <h2>2. Biology / How It Happens</h2>
     <figure>
       <img src="../img/depression-biology.png" alt="Notebook with brain sketch, coffee beside it — learning the biology">
-      <figcaption class="cap">Depression involves changes in brain chemistry, sleep, and stress systems.</figcaption>
+      <figcaption class="cap">Depression involves changes in brain chemistry, hormones, sleep, and stress systems.</figcaption>
     </figure>
     <p>
       Depression is not a sign of weakness. It reflects changes across several systems in the brain and body.
-      Understanding these helps explain why depression feels so heavy — and why multiple approaches often work best.
+      Understanding these helps explain why depression feels heavy — and why multiple approaches often work best.
     </p>
-    <ul>
-      <li><strong>Serotonin:</strong> regulates mood, sleep, and appetite. Low signalling is linked with persistent low mood and poor sleep cycles.</li>
-      <li><strong>Dopamine:</strong> drives motivation, reward, and pleasure. When dopamine is reduced, activities feel flat or unrewarding (anhedonia).</li>
-      <li><strong>Norepinephrine:</strong> supports focus and energy. Low levels can bring fatigue, poor concentration, and slowed thinking.</li>
-      <li><strong>GABA:</strong> calms overactive circuits. Low GABA may lead to restlessness, irritability, and racing thoughts within depression.</li>
-      <li><strong>Cortisol:</strong> the main stress hormone. In depression, it can stay high or become dysregulated, disturbing sleep, memory, and immunity.</li>
-      <li><strong>Circadian rhythm:</strong> body clocks often drift; waking too early, or reversed day-night patterns, are common signs.</li>
-    </ul>
-    <p>Everyday factors can influence these chemicals:</p>
-    <ul>
-      <li><strong>Nutrition:</strong> protein provides amino acids (tryptophan, tyrosine) that build serotonin and dopamine. Omega-3 fats support brain signalling.</li>
-      <li><strong>Exercise:</strong> even gentle daily movement raises endorphins, boosts dopamine sensitivity, and regulates cortisol.</li>
-      <li><strong>Sleep:</strong> regular schedules and light exposure reset circadian rhythm, aiding serotonin and melatonin balance.</li>
-    </ul>
+
+    <div class="grid-2">
+      <div>
+        <h3>Neurotransmitters <span class="pill">brain chemicals</span></h3>
+        <ul>
+          <li><strong>Serotonin</strong> — mood stability, sleep, appetite. Disrupted signalling links to low mood and irregular sleep.</li>
+          <li><strong>Dopamine</strong> — motivation, reward, drive. Lower dopamine feels like “no spark” (anhedonia).</li>
+          <li><strong>Norepinephrine</strong> — energy, alertness, focus. Low levels → fatigue and reduced concentration.</li>
+          <li><strong>GABA</strong> — calming, reduces over-activation. Low GABA → restlessness, irritability, poor sleep quality.</li>
+          <li><strong>Cortisol</strong> — stress hormone. Can be chronically high/flattened in depression, disturbing sleep, memory, and immunity.</li>
+        </ul>
+        <div class="callout">
+          <strong>Stabilisers:</strong> regular sleep/wake times; daylight exposure (morning light); gentle daily activity; balanced meals with protein and omega-3s; therapies (e.g., CBT/ACT). Medications (e.g., SSRIs/SNRIs) can support signalling where appropriate via your GP.
+        </div>
+      </div>
+
+      <div>
+        <h3>Hormones <span class="pill">body regulators</span></h3>
+        <ul>
+          <li><strong>Oestrogen &amp; Progesterone</strong> — fluctuate across the menstrual cycle, perimenopause, and menopause. Changes can affect serotonin/dopamine and GABA, increasing vulnerability to low mood, anxiety, and sleep disruption.</li>
+          <li><strong>Testosterone</strong> (men &amp; women) — low levels may reduce energy, motivation, and libido; mood can feel flat.</li>
+          <li><strong>Thyroid hormones</strong> (T3/T4/TSH) — hypothyroidism can mimic or worsen depression (fatigue, low mood, brain fog).</li>
+          <li><strong>Insulin &amp; blood sugar</strong> — large swings can trigger irritability, lethargy, and “brain crashes.”</li>
+        </ul>
+        <div class="callout">
+          <strong>Stabilisers:</strong>
+          <ul>
+            <li><em>Perimenopause/menopause:</em> discuss HRT options with your clinician; CBT for menopause; strength training; consistent sleep routine.</li>
+            <li><em>Thyroid:</em> GP blood tests; treating underactive thyroid often improves mood/energy.</li>
+            <li><em>Testosterone:</em> GP assessment if persistent low energy/libido; treat if deficient.</li>
+            <li><em>Blood sugar:</em> include protein &amp; fibre at meals; steady meal times; limit ultra-processed sugars.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <p class="meta">
-      Treatment often combines talking therapies (like CBT or ACT), medication (SSRIs, SNRIs, others), and lifestyle changes.
-      In Scotland, NHS GPs can guide you to community mental health teams or talking therapy hubs.
+      Treatment often combines talking therapies (CBT, ACT), medication (SSRIs, SNRIs, others), and lifestyle supports (movement, sleep, nutrition).
+      Your GP can coordinate investigations (e.g., thyroid, iron, B12, hormones) and referrals to talking therapy hubs.
     </p>
     <p class="backlink"><a href="#top">↑ Back to top</a></p>
   </section>
@@ -137,6 +165,10 @@
       <li>Allow rest without guilt — energy is genuinely reduced</li>
       <li>Reach out: text a friend, call a helpline, or use a journal</li>
     </ul>
+    <div class="callout">
+      <strong>Try Behavioural Activation:</strong> pick one <em>Body</em> action (2–10 min), one <em>Connection</em> action, and one <em>Meaning/Pleasure</em> action for today.
+      See our <a href="../pdf/behavioural-activation-planner.pdf">planner (PDF)</a>.
+    </div>
     <p class="backlink"><a href="#top">↑ Back to top</a></p>
   </section>
 
@@ -259,6 +291,7 @@
     const header = document.getElementById('siteHeader');
     const toggle = header.querySelector('.menu-toggle');
     const nav = document.getElementById('primaryNav');
+
     function setExpanded(on){
       if(on){
         header.classList.add('menu-open');

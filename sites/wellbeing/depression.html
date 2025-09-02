@@ -13,17 +13,17 @@
   <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
 
   <style>
-    .backlink { margin-top: 1rem; font-size: .9rem; }
-    .backlink a { color: var(--accent,#1ea672); text-decoration: none; }
-    .backlink a:hover { text-decoration: underline; }
-    .pill { display:inline-block; padding:.15rem .5rem; border:1px solid var(--stroke); border-radius:999px; font-size:.85rem; background:var(--glass); margin-left:.35rem; }
-    .grid-2 { display:grid; grid-template-columns: 1fr; gap: 12px; }
-    @media (min-width:900px){ .grid-2 { grid-template-columns: 1fr 1fr; } }
-    .callout { background:var(--glass); border:1px solid var(--stroke); border-radius:12px; padding:12px; margin:10px 0; }
-    .cap strong { font-weight:600; }
+    .back-to-top {
+      margin-top: 1rem;
+      font-size: .9rem;
+    }
+    .back-to-top a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
   </style>
 </head>
-<body>
+<body id="top">
 
 <header class="site-header" id="siteHeader">
   <div class="brand">
@@ -55,7 +55,7 @@
   <figcaption class="cap">Depression is not weakness — it’s biology and lived experience. Support can shift the weight.</figcaption>
 </figure>
 
-<main class="wrap" id="top">
+<main class="wrap">
   <h1>Understanding Depression</h1>
   <p class="lead">
     Depression isn’t just “feeling sad.” It can flatten energy, numb emotions, and distort thinking.
@@ -72,7 +72,6 @@
     <a href="#hope">Hope &amp; recovery</a>
     <a href="#self-talk">Self-talk upgrades</a>
     <a href="#reframes">Reframes</a>
-    <a href="#links">Regional links</a>
     <a href="#disclaimer">Disclaimer</a>
   </nav>
 
@@ -95,7 +94,7 @@
       <li>Negative self-talk: “I’m useless,” “Nothing will help”</li>
       <li>Physical symptoms: aches, slower movements, gut issues</li>
     </ul>
-    <p class="backlink"><a href="#top">↑ Back to top</a></p>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
   <!-- 2. Biology -->
@@ -107,49 +106,37 @@
     </figure>
     <p>
       Depression is not a sign of weakness. It reflects changes across several systems in the brain and body.
-      Understanding these helps explain why depression feels heavy — and why multiple approaches often work best.
     </p>
 
-    <div class="grid-2">
-      <div>
-        <h3>Neurotransmitters <span class="pill">brain chemicals</span></h3>
-        <ul>
-          <li><strong>Serotonin</strong> — mood stability, sleep, appetite. Disrupted signalling links to low mood and irregular sleep.</li>
-          <li><strong>Dopamine</strong> — motivation, reward, drive. Lower dopamine feels like “no spark” (anhedonia).</li>
-          <li><strong>Norepinephrine</strong> — energy, alertness, focus. Low levels → fatigue and reduced concentration.</li>
-          <li><strong>GABA</strong> — calming, reduces over-activation. Low GABA → restlessness, irritability, poor sleep quality.</li>
-          <li><strong>Cortisol</strong> — stress hormone. Can be chronically high/flattened in depression, disturbing sleep, memory, and immunity.</li>
-        </ul>
-        <div class="callout">
-          <strong>Stabilisers:</strong> regular sleep/wake times; daylight exposure (morning light); gentle daily activity; balanced meals with protein and omega-3s; therapies (e.g., CBT/ACT). Medications (e.g., SSRIs/SNRIs) can support signalling where appropriate via your GP.
-        </div>
-      </div>
+    <h3>Neurotransmitters</h3>
+    <ul>
+      <li><strong>Serotonin:</strong> regulates mood, sleep, appetite. Low or disrupted signalling is linked with low mood and poor sleep.</li>
+      <li><strong>Dopamine:</strong> governs motivation and reward. Reduced dopamine makes activities feel unrewarding or joyless (anhedonia).</li>
+      <li><strong>Norepinephrine:</strong> supports energy and alertness. Low levels can cause fatigue, poor focus, and low drive.</li>
+      <li><strong>GABA:</strong> the brain’s calming chemical. Low GABA links to anxiety and agitation within depression.</li>
+      <li><strong>Cortisol:</strong> the stress hormone. In depression, cortisol can stay high, disturbing sleep, memory, and immune function.</li>
+    </ul>
 
-      <div>
-        <h3>Hormones <span class="pill">body regulators</span></h3>
-        <ul>
-          <li><strong>Oestrogen &amp; Progesterone</strong> — fluctuate across the menstrual cycle, perimenopause, and menopause. Changes can affect serotonin/dopamine and GABA, increasing vulnerability to low mood, anxiety, and sleep disruption.</li>
-          <li><strong>Testosterone</strong> (men &amp; women) — low levels may reduce energy, motivation, and libido; mood can feel flat.</li>
-          <li><strong>Thyroid hormones</strong> (T3/T4/TSH) — hypothyroidism can mimic or worsen depression (fatigue, low mood, brain fog).</li>
-          <li><strong>Insulin &amp; blood sugar</strong> — large swings can trigger irritability, lethargy, and “brain crashes.”</li>
-        </ul>
-        <div class="callout">
-          <strong>Stabilisers:</strong>
-          <ul>
-            <li><em>Perimenopause/menopause:</em> discuss HRT options with your clinician; CBT for menopause; strength training; consistent sleep routine.</li>
-            <li><em>Thyroid:</em> GP blood tests; treating underactive thyroid often improves mood/energy.</li>
-            <li><em>Testosterone:</em> GP assessment if persistent low energy/libido; treat if deficient.</li>
-            <li><em>Blood sugar:</em> include protein &amp; fibre at meals; steady meal times; limit ultra-processed sugars.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <h3>Hormones</h3>
+    <ul>
+      <li><strong>Oestrogen & Progesterone:</strong> Fluctuations in menstrual cycle, perimenopause, or menopause can destabilise mood and sleep.</li>
+      <li><strong>Testosterone:</strong> Low levels in men (and women) are linked to reduced energy, drive, and mood.</li>
+      <li><strong>Thyroid hormones:</strong> An underactive thyroid can mimic depression with fatigue, brain fog, and weight changes.</li>
+      <li><strong>Insulin & Blood sugar:</strong> Large swings in glucose can cause irritability, fatigue, or brain fog. Stable meals steady mood.</li>
+    </ul>
 
-    <p class="meta">
-      Treatment often combines talking therapies (CBT, ACT), medication (SSRIs, SNRIs, others), and lifestyle supports (movement, sleep, nutrition).
-      Your GP can coordinate investigations (e.g., thyroid, iron, B12, hormones) and referrals to talking therapy hubs.
+    <p><a href="../pdf/hormones-and-mood.pdf">Download Hormones &amp; Mood Guide (A4 PDF)</a></p>
+
+    <p>
+      Lifestyle factors interact with biology:
     </p>
-    <p class="backlink"><a href="#top">↑ Back to top</a></p>
+    <ul>
+      <li><strong>Nutrition:</strong> balanced meals with protein, complex carbs, and omega-3 fats can support serotonin and dopamine production.</li>
+      <li><strong>Exercise:</strong> even light daily movement raises endorphins and increases dopamine sensitivity, helping mood lift.</li>
+      <li><strong>Sleep:</strong> good sleep hygiene (dim light, regular bedtime, no heavy screens late) helps consolidate memory and reset stress systems.</li>
+    </ul>
+    <p class="meta">Treatment often combines talking therapies (like CBT), medication (SSRIs, SNRIs), and lifestyle changes. In Scotland, NHS GPs can guide you to community mental health teams or talking therapy hubs.</p>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
   <!-- 3. Day-to-day coping -->
@@ -161,15 +148,12 @@
     </figure>
     <ul>
       <li>Keep a simple routine: meals, getting dressed, light activity</li>
-      <li>Break tasks into tiny steps: “Open laptop” can be a full task</li>
+      <li>Break tasks into tiny steps: “Open laptop” is a task in itself</li>
       <li>Allow rest without guilt — energy is genuinely reduced</li>
-      <li>Reach out: text a friend, call a helpline, or use a journal</li>
+      <li>Reach out: text one friend, join a peer group, or write in a journal</li>
     </ul>
-    <div class="callout">
-      <strong>Try Behavioural Activation:</strong> pick one <em>Body</em> action (2–10 min), one <em>Connection</em> action, and one <em>Meaning/Pleasure</em> action for today.
-      See our <a href="../pdf/behavioural-activation-planner.pdf">planner (PDF)</a>.
-    </div>
-    <p class="backlink"><a href="#top">↑ Back to top</a></p>
+    <p><a href="../pdf/BAP.pdf">Download Behavioural Activation Planner (A4 PDF)</a></p>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
   <!-- 4. Support -->
@@ -177,44 +161,15 @@
     <h2>4. Support &amp; Connection</h2>
     <figure>
       <img src="../img/depression-support.png" alt="Two hands gently clasped in support">
-      <figcaption class="cap">Human connection protects against depression’s isolation.</figcaption>
+      <figcaption class="cap">Human connection is protective against depression’s isolation.</figcaption>
     </figure>
-    <p>Support is available 24/7, free and confidential. Start here:</p>
-    <h3>24/7 Helpline – UK &amp; Ireland</h3>
     <ul>
-      <li><a href="https://www.samaritans.org/" target="_blank" rel="noopener">Samaritans – Call <strong>116 123</strong></a></li>
+      <li><a href="https://www.samaritans.org" target="_blank" rel="noopener">Samaritans — 116 123, free 24/7</a></li>
+      <li><a href="https://breathingspace.scot" target="_blank" rel="noopener">Breathing Space Scotland</a> — evenings & weekends</li>
+      <li><a href="https://www.nhsinform.scot" target="_blank" rel="noopener">NHS Inform Scotland</a> — advice & services</li>
+      <li><a href="https://www.mind.org.uk" target="_blank" rel="noopener">Mind</a> — national support & information</li>
     </ul>
-    <h3>Scotland</h3>
-    <ul>
-      <li><a href="https://breathingspace.scot" target="_blank" rel="noopener">Breathing Space Scotland</a></li>
-      <li><a href="https://www.nhsinform.scot" target="_blank" rel="noopener">NHS Inform Scotland</a></li>
-      <li><a href="https://www.samh.org.uk/" target="_blank" rel="noopener">SAMH – Scottish Association for Mental Health</a></li>
-    </ul>
-    <h3>England</h3>
-    <ul>
-      <li><a href="https://www.nhs.uk/mental-health/" target="_blank" rel="noopener">NHS – Mental Health</a></li>
-      <li><a href="https://www.mind.org.uk/" target="_blank" rel="noopener">Mind</a></li>
-      <li><a href="https://www.rethink.org/" target="_blank" rel="noopener">Rethink Mental Illness</a></li>
-    </ul>
-    <h3>Wales</h3>
-    <ul>
-      <li><a href="https://111.wales.nhs.uk/encyclopaedia/m/article/mentalhealth" target="_blank" rel="noopener">NHS 111 Wales</a></li>
-      <li><a href="https://www.mind.org.uk/about-us/mind-cymru/" target="_blank" rel="noopener">Mind Cymru</a></li>
-      <li><a href="https://platfform.org/" target="_blank" rel="noopener">Platfform Wales</a></li>
-    </ul>
-    <h3>Northern Ireland</h3>
-    <ul>
-      <li><a href="https://www.mindingyourhead.info/" target="_blank" rel="noopener">Minding Your Head (HSC NI)</a></li>
-      <li><a href="https://www.inspirewellbeing.org/" target="_blank" rel="noopener">Inspire Wellbeing</a></li>
-      <li><a href="https://www.nidirect.gov.uk/campaigns/mental-health-and-wellbeing" target="_blank" rel="noopener">NI Direct – Mental Health</a></li>
-    </ul>
-    <h3>Ireland (Eire)</h3>
-    <ul>
-      <li><a href="https://www.hse.ie/eng/mental-health/" target="_blank" rel="noopener">HSE – Mental Health</a></li>
-      <li><a href="https://www.mentalhealthireland.ie/" target="_blank" rel="noopener">Mental Health Ireland</a></li>
-      <li><a href="https://spunout.ie/" target="_blank" rel="noopener">SpunOut.ie (youth support)</a></li>
-    </ul>
-    <p class="backlink"><a href="#top">↑ Back to top</a></p>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
   <!-- 5. Hope -->
@@ -228,7 +183,7 @@
       With the right mix of therapy, support, and sometimes medication, many people recover from depression or learn to manage it so life becomes meaningful again. 
       Small consistent steps matter more than dramatic leaps.
     </p>
-    <p class="backlink"><a href="#top">↑ Back to top</a></p>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
   <!-- 6. Self-talk -->
@@ -243,7 +198,7 @@
       <div class="tile"><span class="cap"><strong>From:</strong> “Nothing will ever help.”<br><strong>To:</strong> “This feels endless, but feelings shift.”</span></div>
       <div class="tile"><span class="cap"><strong>From:</strong> “I can’t do anything.”<br><strong>To:</strong> “I can do one tiny step.”</span></div>
     </div>
-    <p class="backlink"><a href="#top">↑ Back to top</a></p>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
   <!-- 7. Reframes -->
@@ -258,22 +213,22 @@
       <div class="tile"><span class="cap"><strong>“I’m a burden.”</strong><br>→ “Needing support is human.”</span></div>
       <div class="tile"><span class="cap"><strong>“This will never change.”</strong><br>→ “The brain can adapt over time.”</span></div>
     </div>
-    <p class="backlink"><a href="#top">↑ Back to top</a></p>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
   </section>
 
   <!-- Disclaimer -->
   <section class="disclaimer" id="disclaimer">
-    <h2>Important Note</h2>
-    <p>
-      The information on this page is for <strong>general understanding and support</strong>. It is
-      <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel
-      unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
-      If you’re outside the UK, contact your local emergency number.
-    </p>
-    <p>
-      For non-emergency concerns, consider speaking with a qualified health professional or one of the
-      support services listed above.
-    </p>
+  <h2>Important Note</h2>
+  <p>
+    The information on this page is for <strong>general understanding and support</strong>. It is
+    <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel
+    unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
+    If you’re outside the UK, contact your local emergency number.
+  </p>
+  <p>
+    For non-emergency concerns, consider speaking with a qualified health professional or one of the
+    support services listed on our site.
+  </p>
   </section>
 </main>
 

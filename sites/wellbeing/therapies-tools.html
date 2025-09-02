@@ -4,17 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Therapies &amp; Tools – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=tt2">
+  <link rel="stylesheet" href="../style.css?v=tt10">
   <style>
     .tool-card h4{margin:.2rem 0 .25rem}
     .badge{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);border-radius:999px;padding:.2rem .55rem;font-size:.85rem;margin-left:.35rem}
     .note{font-size:.92rem;color:var(--muted)}
-    /* Back to top button */
+    .steps{counter-reset: step}
+    .steps li{margin:.4rem 0 .4rem 1.2rem;list-style:none;position:relative}
+    .steps li:before{counter-increment: step;content: counter(step) ".";position:absolute;left:-1.2rem;color:var(--accent,#1ea672);font-weight:600}
+    .do-now{background:var(--glass);border:1px solid var(--stroke);border-radius:12px;padding:12px;margin:10px 0}
+    .do-now strong{color:var(--accent,#1ea672)}
+    figure img{width:100%;height:auto;border-radius:12px;border:1px solid var(--stroke);background:#0a0f0c}
+    .mini-nav a{white-space:nowrap}
+    /* Sticky back-to-top button */
     #backToTop {
       position: fixed;
       bottom: 1rem;
       right: 1rem;
-      background: var(--accent);
+      background: var(--accent,#1ea672);
       color: #fff;
       border: none;
       border-radius: 50%;
@@ -57,33 +64,41 @@
   <figcaption class="cap">Practical, evidence-informed tools you can use at home — simple steps, steady progress.</figcaption>
 </figure>
 
-<main class="wrap">
+<main class="wrap" id="top">
   <h1>Therapies &amp; Tools</h1>
   <p class="lead">
-    This page gathers the approaches we reference across Wellbeing: what they are, why they help, and how to try them safely.
-    Everything is written to be practical and kind, with links to printables and short videos.
+    This page is a self-help workbook. Each section explains a tool (what, why, how), then gives you a quick
+    one-minute practice you can try <em>right now</em>. Printables are optional — the steps here already work.
   </p>
 
+  <!-- MINI NAV -->
   <nav class="mini-nav" aria-label="On this page">
-    <a href="#cbt">CBT (Cognitive Behavioural Therapy)</a>
-    <a href="#neuroscience">Neuroscience &amp; brain change</a>
-    <a href="#neurolinguistics">Neurolinguistics &amp; reframing</a>
-    <a href="#affirmations">Affirmations &amp; scripts</a>
-    <a href="#biases">Common thinking biases</a>
-    <a href="#breathing">Breathing &amp; grounding</a>
-    <a href="#journaling">Journaling prompts</a>
-    <a href="#toolbox">Printable toolbox</a>
+    <a href="#cbt">CBT</a>
+    <a href="#neuroscience">Neuroscience</a>
+    <a href="#neurolinguistics">Reframing</a>
+    <a href="#affirmations">Affirmations</a>
+    <a href="#biases">Biases</a>
+    <a href="#breathing">Breathing &amp; Grounding</a>
+    <a href="#journaling">Journaling</a>
+    <a href="#toolbox">Toolbox</a>
     <a href="#accessibility">Accessibility</a>
     <a href="#links">Regional links</a>
     <a href="#disclaimer">Disclaimer</a>
   </nav>
 
-  <!-- (sections above unchanged, keeping your CBT, neuroscience, affirmations, etc.) -->
+  <!-- (Sections 1–9 unchanged: CBT, neuroscience, reframing, affirmations, biases, breathing, journaling, toolbox, accessibility) -->
 
   <!-- REGIONAL LINKS -->
   <section id="links">
     <h2>10) Regional links</h2>
     <p>Support services differ across the UK and Ireland. Here are trusted places to start:</p>
+
+    <h3>24/7 Helpline – UK &amp; Ireland</h3>
+    <ul>
+      <li><a href="https://www.samaritans.org/" target="_blank" rel="noopener">
+        Samaritans – Call <strong>116 123</strong> (free, 24/7)
+      </a></li>
+    </ul>
 
     <h3>Scotland</h3>
     <ul>
@@ -144,17 +159,17 @@
 
 <!-- Mobile menu -->
 <script>
-  (function(){
-    const header=document.getElementById('siteHeader');
-    const toggle=header?.querySelector('.menu-toggle');
-    const nav=document.getElementById('primaryNav');
-    function setExpanded(on){
-      if(on){ header.classList.add('menu-open'); toggle?.classList.add('menu-open'); toggle?.setAttribute('aria-expanded','true'); }
-      else{ header.classList.remove('menu-open'); toggle?.classList.remove('menu-open'); toggle?.setAttribute('aria-expanded','false'); }
-    }
-    toggle?.addEventListener('click',()=>setExpanded(!header.classList.contains('menu-open')));
-    nav?.addEventListener('click',e=>{ if(e.target.tagName==='A') setExpanded(false); });
-  })();
+(function(){
+  const header=document.getElementById('siteHeader');
+  const toggle=header?.querySelector('.menu-toggle');
+  const nav=document.getElementById('primaryNav');
+  function setExpanded(on){
+    if(on){header.classList.add('menu-open');toggle?.classList.add('menu-open');toggle?.setAttribute('aria-expanded','true');}
+    else{header.classList.remove('menu-open');toggle?.classList.remove('menu-open');toggle?.setAttribute('aria-expanded','false');}
+  }
+  toggle?.addEventListener('click',()=>setExpanded(!header.classList.contains('menu-open')));
+  nav?.addEventListener('click',e=>{if(e.target.tagName==='A') setExpanded(false);});
+})();
 </script>
 
 <!-- Back to Top -->

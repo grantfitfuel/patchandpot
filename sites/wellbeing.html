@@ -10,6 +10,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
   <style>
+    /* YouTube embed wrapper (match site style) */
+.yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border:1px solid #333;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
+.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .mini-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .75rem}
     .mini-nav a{background:#4CAF50;color:#fff;text-decoration:none;padding:.45rem .8rem;border-radius:6px;font-size:.9rem}
     .mini-nav a:hover{background:#45a049}
@@ -92,6 +95,29 @@
     A simple sensory reset: notice <strong>5</strong> things you can see, <strong>4</strong> you can touch,
     <strong>3</strong> you can hear, <strong>2</strong> you can smell, <strong>1</strong> you can taste.
   </p>
+</section>
+<!-- Grounding: standard 5-4-3-2-1 -->
+<section class="card" aria-labelledby="yt-grounding-title">
+  <h2 id="yt-grounding-title">Grounding technique — 5-4-3-2-1</h2>
+  <div class="yt-wrap"><div class="yt" data-id="30VMIEmA114"></div></div>
+  <p class="note">
+    A simple sensory reset: notice <strong>5</strong> things you can see, <strong>4</strong> you can touch,
+    <strong>3</strong> you can hear, <strong>2</strong> you can smell, <strong>1</strong> you can taste.
+  </p>
+</section>
+
+<!-- Grounding in BSL: 5 senses (closest accessible match) -->
+<section class="card" aria-labelledby="bsl-grounding-title">
+  <h2 id="bsl-grounding-title">Grounding via 5 senses — British Sign Language</h2>
+  <div class="yt-wrap"><div class="yt" data-id="s6wfvUUOurg"></div></div>
+  <p class="note">A deaf-friendly mindfulness session using the five senses (BSL with subtitles).</p>
+</section>
+
+<!-- BSL breathing (additional, as requested) -->
+<section class="card" aria-labelledby="bsl-breathing-title">
+  <h2 id="bsl-breathing-title">Breathing for calm — British Sign Language</h2>
+  <div class="yt-wrap"><div class="yt" data-id="C13Gw4XFfs0"></div></div>
+  <p class="note">A clear BSL demonstration of gentle belly breathing for down-regulating stress.</p>
 </section>
 
 <!-- Grounding in BSL: 5 senses (closest accessible match) -->
@@ -217,6 +243,23 @@
   btnClose.addEventListener('click', ()=>{ ov.pause(); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); });
 
   function save(){ localStorage.setItem('a11y-prefs', JSON.stringify({bsl:bsl.checked,ad:ad.checked})); }
+})();
+</script>
+  <script>
+(function () {
+  var nodes = document.querySelectorAll('.yt[data-id]');
+  nodes.forEach(function (el) {
+    var id = el.getAttribute('data-id');
+    if (!id) return;
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1';
+    iframe.title = 'YouTube video';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.loading = 'lazy';
+    el.textContent = '';
+    el.appendChild(iframe);
+  });
 })();
 </script>
 </body>

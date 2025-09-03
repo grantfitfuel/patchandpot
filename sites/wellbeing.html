@@ -10,9 +10,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
   <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
   <style>
-    /* YouTube embed wrapper (match site style) */
-.yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border:1px solid #333;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
-.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .mini-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .75rem}
     .mini-nav a{background:#4CAF50;color:#fff;text-decoration:none;padding:.45rem .8rem;border-radius:6px;font-size:.9rem}
     .mini-nav a:hover{background:#45a049}
@@ -24,19 +21,11 @@
     .practice-pdfs a{color:#4CAF50;text-decoration:none}
     .practice-pdfs a:hover{text-decoration:underline}
     .practice-pdfs h3{margin:.8rem 0 .4rem}
-    /* Accessibility tile */
-    .a11y-card.card{max-width:520px}
-    .a11y-card h2{font-size:1.1rem;margin:.25rem 0 .5rem}
-    .accessibility-controls{display:flex;gap:.75rem;flex-wrap:wrap;margin:.25rem 0 .5rem;font-size:.95rem}
-    .video-wrap{position:relative;max-width:480px;border-radius:6px;overflow:hidden;background:#000}
-    #wb-video{width:100%;height:auto}
-    #bsl-overlay{position:absolute;right:.5rem;bottom:.5rem;width:25%;border-radius:.25rem;box-shadow:0 1px 8px rgba(0,0,0,.3);background:#000}
-    #bsl-overlay.minimised{width:90px;height:60px;overflow:hidden}
-    #bsl-chrome{position:absolute;top:0;right:0;display:flex;gap:.25rem;padding:.15rem}
-    #bsl-chrome button{background:#222;color:#eee;border:1px solid #444;border-radius:3px;width:22px;height:20px;font-size:12px;line-height:18px;cursor:pointer}
-    .hidden{display:none!important}
-    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0}
     .disclaimer{background:#161616;border-left:4px solid #555;padding:.8rem;margin:2rem 0 1rem;font-size:.95rem;color:#e8e8e8}
+
+    /* YouTube embed wrapper */
+    .yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border:1px solid #333;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
+    .yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   </style>
 </head>
 <body>
@@ -86,48 +75,24 @@
 
   <p class="meta">Choose a topic above to open the detailed page. Each page includes practical steps, scripts, and regional links.</p>
 
-  <!-- Accessibility: Grounding video with BSL/AD -->
-  <!-- Grounding: standard 5-4-3-2-1 -->
-<section class="card" aria-labelledby="yt-grounding-title">
-  <h2 id="yt-grounding-title">Grounding technique — 5-4-3-2-1</h2>
-  <div class="yt-wrap"><div class="yt" data-id="30VMIEmA114"></div></div>
-  <p class="note">
-    A simple sensory reset: notice <strong>5</strong> things you can see, <strong>4</strong> you can touch,
-    <strong>3</strong> you can hear, <strong>2</strong> you can smell, <strong>1</strong> you can taste.
-  </p>
-</section>
-<!-- Grounding: standard 5-4-3-2-1 -->
-<section class="card" aria-labelledby="yt-grounding-title">
-  <h2 id="yt-grounding-title">Grounding technique — 5-4-3-2-1</h2>
-  <div class="yt-wrap"><div class="yt" data-id="30VMIEmA114"></div></div>
-  <p class="note">
-    A simple sensory reset: notice <strong>5</strong> things you can see, <strong>4</strong> you can touch,
-    <strong>3</strong> you can hear, <strong>2</strong> you can smell, <strong>1</strong> you can taste.
-  </p>
-</section>
+  <!-- Grounding & breathing videos (YouTube only) -->
+  <section class="card" aria-labelledby="yt-grounding-title">
+    <h2 id="yt-grounding-title">Grounding technique — 5-4-3-2-1</h2>
+    <div class="yt-wrap"><div class="yt" data-id="30VMIEmA114"></div></div>
+    <p class="note">A simple sensory reset: notice <strong>5</strong> things you can see, <strong>4</strong> you can touch, <strong>3</strong> you can hear, <strong>2</strong> you can smell, <strong>1</strong> you can taste.</p>
+  </section>
 
-<!-- Grounding in BSL: 5 senses (closest accessible match) -->
-<section class="card" aria-labelledby="bsl-grounding-title">
-  <h2 id="bsl-grounding-title">Grounding via 5 senses — British Sign Language</h2>
-  <div class="yt-wrap"><div class="yt" data-id="s6wfvUUOurg"></div></div>
-  <p class="note">A deaf-friendly mindfulness session using the five senses (BSL with subtitles).</p>
-</section>
+  <section class="card" aria-labelledby="bsl-grounding-title">
+    <h2 id="bsl-grounding-title">Grounding via five senses — British Sign Language</h2>
+    <div class="yt-wrap"><div class="yt" data-id="s6wfvUUOurg"></div></div>
+    <p class="note">A deaf-friendly mindfulness session using the five senses (BSL with subtitles).</p>
+  </section>
 
-<!-- BSL breathing (additional, as requested) -->
-<section class="card" aria-labelledby="bsl-breathing-title">
-  <h2 id="bsl-breathing-title">Breathing for calm — British Sign Language</h2>
-  <div class="yt-wrap"><div class="yt" data-id="C13Gw4XFfs0"></div></div>
-  <p class="note">A clear BSL demonstration of gentle belly breathing for down-regulating stress.</p>
-</section>
-
-<!-- Grounding in BSL: 5 senses (closest accessible match) -->
-<section class="card" aria-labelledby="bsl-grounding-title">
-  <h2 id="bsl-grounding-title">Grounding via 5 senses — British Sign Language</h2>
-  <div class="yt-wrap"><div class="yt" data-id="s6wfvUUOurg"></div></div>
-  <p class="note">
-    A deaf-friendly mindfulness session using the five senses (BSL with subtitles and spoken track).
-  </p>
-</section>
+  <section class="card" aria-labelledby="bsl-breathing-title">
+    <h2 id="bsl-breathing-title">Breathing for calm — British Sign Language</h2>
+    <div class="yt-wrap"><div class="yt" data-id="C13Gw4XFfs0"></div></div>
+    <p class="note">A clear BSL demonstration of gentle belly breathing for down-regulating stress.</p>
+  </section>
 
   <!-- Practice Guides -->
   <section class="card practice-pdfs" aria-labelledby="practice-guides-title">
@@ -164,7 +129,7 @@
 
     <h3>Grounding Technique</h3>
     <ul>
-      <li><a href="./media/wellbeing/grounding-technique.mp4" target="_blank" rel="noopener">Grounding Technique — Video</a></li>
+      <li><a href="#yt-grounding-title">Grounding Technique — Video (on this page)</a></li>
     </ul>
   </section>
 
@@ -197,55 +162,8 @@
   })();
 </script>
 
+<!-- GDPR-friendly YouTube loader -->
 <script>
-(function(){
-  const bsl = document.getElementById('pref-bsl');
-  const ad  = document.getElementById('pref-ad');
-  const wrap= document.getElementById('bsl-overlay');
-  const ov  = document.getElementById('bsl-video');
-  const vid = document.getElementById('wb-video');
-  const btnMin = document.getElementById('bsl-min');
-  const btnClose = document.getElementById('bsl-close');
-
-  let prefs = {};
-  try { prefs = JSON.parse(localStorage.getItem('a11y-prefs') || '{}'); } catch(e){}
-  bsl.checked = !!prefs.bsl; ad.checked = !!prefs.ad;
-  if (bsl.checked){ wrap.classList.remove('hidden'); wrap.setAttribute('aria-hidden','false'); }
-
-  for (const t of (vid.textTracks||[])) {
-    if (t.kind==='descriptions') t.mode = ad.checked ? 'showing':'disabled';
-  }
-
-  function sync(){ try{ ov.currentTime=vid.currentTime; }catch(e){} }
-  ['play','seeked','pause','ended'].forEach(ev=>{
-    vid.addEventListener(ev, ()=>{ if (wrap.classList.contains('hidden')) return;
-      if(ev==='play'){ sync(); ov.play().catch(()=>{}); }
-      if(ev==='pause'||ev==='ended') ov.pause();
-      if(ev==='seeked') sync();
-    });
-  });
-
-  bsl.addEventListener('change', ()=>{
-    if(bsl.checked){
-      wrap.classList.remove('hidden'); wrap.setAttribute('aria-hidden','false');
-      if(!vid.paused){ sync(); ov.play().catch(()=>{}); }
-    } else {
-      ov.pause(); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true');
-    }
-    save();
-  });
-  ad.addEventListener('change', ()=>{
-    for(const t of(vid.textTracks||[])){ if(t.kind==='descriptions') t.mode = ad.checked?'showing':'disabled'; }
-    save();
-  });
-
-  btnMin.addEventListener('click', ()=> wrap.classList.toggle('minimised'));
-  btnClose.addEventListener('click', ()=>{ ov.pause(); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); });
-
-  function save(){ localStorage.setItem('a11y-prefs', JSON.stringify({bsl:bsl.checked,ad:ad.checked})); }
-})();
-</script>
-  <script>
 (function () {
   var nodes = document.querySelectorAll('.yt[data-id]');
   nodes.forEach(function (el) {

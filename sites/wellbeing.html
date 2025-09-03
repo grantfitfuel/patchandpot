@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wellbeing – Patch & Pot</title>
-  <link rel="stylesheet" href="style.css?v=34">
+  <link rel="stylesheet" href="style.css?v=35">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
@@ -21,11 +21,9 @@
     .practice-pdfs a{color:#4CAF50;text-decoration:none}
     .practice-pdfs a:hover{text-decoration:underline}
     .practice-pdfs h3{margin:.8rem 0 .4rem}
+    .yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
+    .yt-wrap .yt,.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     .disclaimer{background:#161616;border-left:4px solid #555;padding:.8rem;margin:2rem 0 1rem;font-size:.95rem;color:#e8e8e8}
-
-    /* YouTube embed wrapper */
-    .yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border:1px solid #333;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
-    .yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   </style>
 </head>
 <body>
@@ -75,23 +73,29 @@
 
   <p class="meta">Choose a topic above to open the detailed page. Each page includes practical steps, scripts, and regional links.</p>
 
-  <!-- Grounding & breathing videos (YouTube only) -->
+  <!-- Grounding & breathing videos -->
   <section class="card" aria-labelledby="yt-grounding-title">
     <h2 id="yt-grounding-title">Grounding technique — 5-4-3-2-1</h2>
     <div class="yt-wrap"><div class="yt" data-id="30VMIEmA114"></div></div>
-    <p class="note">A simple sensory reset: notice <strong>5</strong> things you can see, <strong>4</strong> you can touch, <strong>3</strong> you can hear, <strong>2</strong> you can smell, <strong>1</strong> you can taste.</p>
+    <p class="note">Notice 5 things you can see, 4 touch, 3 hear, 2 smell, 1 taste — a sensory reset.</p>
   </section>
 
   <section class="card" aria-labelledby="bsl-grounding-title">
     <h2 id="bsl-grounding-title">Grounding via five senses — British Sign Language</h2>
     <div class="yt-wrap"><div class="yt" data-id="s6wfvUUOurg"></div></div>
-    <p class="note">A deaf-friendly mindfulness session using the five senses (BSL with subtitles).</p>
+    <p class="note">A deaf-friendly mindfulness routine using the five senses (BSL with subtitles).</p>
+  </section>
+
+  <section class="card" aria-labelledby="yt-breathing-title">
+    <h2 id="yt-breathing-title">Breathing for calm</h2>
+    <div class="yt-wrap"><div class="yt" data-id="nmFUDkj1Aq0"></div></div>
+    <p class="note">Gentle belly breathing practice to calm the nervous system, narrated in English.</p>
   </section>
 
   <section class="card" aria-labelledby="bsl-breathing-title">
     <h2 id="bsl-breathing-title">Breathing for calm — British Sign Language</h2>
     <div class="yt-wrap"><div class="yt" data-id="C13Gw4XFfs0"></div></div>
-    <p class="note">A clear BSL demonstration of gentle belly breathing for down-regulating stress.</p>
+    <p class="note">A clear BSL demonstration of calming belly breathing.</p>
   </section>
 
   <!-- Practice Guides -->
@@ -126,11 +130,6 @@
       <li><a href="./pdf/healthy-ageing-intermediate.pdf" target="_blank" rel="noopener">Healthy Ageing – Intermediate (PDF)</a></li>
       <li><a href="./pdf/healthy-ageing-advanced.pdf" target="_blank" rel="noopener">Healthy Ageing – Advanced (PDF)</a></li>
     </ul>
-
-    <h3>Grounding Technique</h3>
-    <ul>
-      <li><a href="#yt-grounding-title">Grounding Technique — Video (on this page)</a></li>
-    </ul>
   </section>
 
   <section class="disclaimer" role="note">
@@ -148,6 +147,7 @@
   </div>
 </footer>
 
+<!-- Mobile menu -->
 <script>
   (function(){
     const header = document.getElementById('siteHeader');
@@ -162,13 +162,13 @@
   })();
 </script>
 
-<!-- GDPR-friendly YouTube loader -->
+<!-- Build YouTube iframes -->
 <script>
 (function () {
   var nodes = document.querySelectorAll('.yt[data-id]');
   nodes.forEach(function (el) {
     var id = el.getAttribute('data-id');
-    if (!id) return;
+    if(!id) return;
     var iframe = document.createElement('iframe');
     iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1';
     iframe.title = 'YouTube video';

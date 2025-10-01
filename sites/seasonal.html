@@ -6,89 +6,66 @@
   <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
 
-  <!-- Sitewide styles for consistent header/nav/fonts -->
-  <link rel="stylesheet" href="style.css?v=43">
+  <!-- Global site styles (header, layout, buttons, etc.) -->
+  <link rel="stylesheet" href="style.css?v=44">
 
-  <!-- === Patch & Pot dark skin (page-specific) === -->
+  <!-- Page-specific skin (scoped — won’t touch header/nav) -->
   <style>
     :root{
-      --ink:#e6f0ea; --muted:#a6b6af; --bg:#0e1311; --panel:#161c19; --panel-2:#1b221f;
-      --line:#2b332f; --green:#35c26a;
+      --pp-ink:#e6f0ea; --pp-muted:#a6b6af; --pp-panel:#161c19;
+      --pp-panel-2:#1b221f; --pp-line:#2b332f; --pp-green:#35c26a;
     }
-    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif}
-    a{color:var(--ink);text-decoration:none} a:hover{opacity:.9}
-    header{background:linear-gradient(0deg, rgba(27,36,32,.65), rgba(27,36,32,.65)); border-bottom:1px solid var(--line)}
-    .wrap{max-width:1100px;margin:0 auto;padding:1rem 1.2rem}
-    nav a{margin-right:1rem} nav a[aria-current="page"]{font-weight:700}
-    h1{font-size:clamp(1.6rem,2.8vw,2.2rem);margin:.4rem 0 .2rem}
-    .sub{color:var(--muted);margin:0 0 .8rem}
+    body{ color:var(--pp-ink); }
+    /* Wrap is global; we reuse it */
+    .sub{ color:var(--pp-muted); margin:0 0 .8rem }
 
-    .pp-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1rem;margin:1rem 0}
-    .pp-toolbar{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.6rem .8rem;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px}
-    .pp-toolbar select,.pp-search,.pp-select{background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem}
-    .pp-help{color:var(--muted);margin:.5rem 0 0}
+    /* Cards / toolbars */
+    .pp-card{ background:var(--pp-panel); border:1px solid var(--pp-line); border-radius:16px; padding:1rem; margin:1rem 0 }
+    .pp-toolbar{ display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; padding:.6rem .8rem; background:rgba(255,255,255,.02); border:1px solid var(--pp-line); border-radius:12px }
+    .pp-toolbar select,.pp-search,.pp-select{ background:#0c100e; color:var(--pp-ink); border:1px solid var(--pp-line); border-radius:10px; padding:.5rem .65rem }
+    .pp-help{ color:var(--pp-muted); margin:.5rem 0 0 }
 
-    .pp-filters{display:grid;gap:.6rem 1rem;grid-template-columns:1fr auto;align-items:center}
-    .pp-filters .left{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
-    .pp-filters .right{display:flex;gap:.6rem;align-items:center}
-    .pp-check span{color:var(--ink)}
+    /* Filters row */
+    .pp-filters{ display:grid; gap:.6rem 1rem; grid-template-columns:1fr auto; align-items:center }
+    .pp-filters .left{ display:flex; gap:.6rem; flex-wrap:wrap; align-items:center }
+    .pp-filters .right{ display:flex; gap:.6rem; align-items:center }
+    .pp-check span{ color:var(--pp-ink) }
 
-    .pp-pestwatch{background:var(--panel-2);border-left:4px solid var(--green);border-radius:14px;padding:1rem;margin:1rem 0;border:1px solid var(--line)}
-    .pp-pestwatch h3{margin:.1rem 0 .25rem;font-size:1.05rem}
-    .pp-pestwatch small{display:block;color:var(--muted)}
-    .pp-pestwatch ul{margin:.4rem 0 0;padding-left:1.1rem}
+    /* Pest watch panel */
+    .pp-pestwatch{ background:var(--pp-panel-2); border-left:4px solid var(--pp-green); border-radius:14px; padding:1rem; margin:1rem 0; border:1px solid var(--pp-line) }
+    .pp-pestwatch h3{ margin:.1rem 0 .25rem; font-size:1.05rem }
+    .pp-pestwatch small{ display:block; color:var(--pp-muted) }
+    .pp-pestwatch ul{ margin:.4rem 0 0; padding-left:1.1rem }
 
-    .pp-month-hint{color:var(--muted);margin:.2rem 0 .6rem}
-    .pp-list{list-style:none;padding:0;margin:0}
-    .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
+    /* Today list */
+    .pp-month-hint{ color:var(--pp-muted); margin:.2rem 0 .6rem }
+    .pp-list{ list-style:none; padding:0; margin:0 }
+    .pp-list li{ padding:.55rem .65rem; border:1px dashed var(--pp-line); border-radius:10px; margin:.4rem 0; background:#0f1512 }
 
-    .pp-calendar{display:grid;grid-template-columns:220px repeat(12, minmax(52px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
-    .pp-row{display:contents}
-    .pp-cell,.pp-head{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
-    .pp-head{font-weight:700;background:#121815}
-    .pp-crop{font-weight:700;background:#121815}
-    .pp-tags{display:inline-block;font-size:.8rem;color:var(--muted);margin-left:.4rem}
-
-    .btn,.seasonal-link{display:inline-block;background:var(--green);color:#07100b;border:none;border-radius:999px;padding:.55rem .9rem;font-weight:700}
-    .btn:hover,.seasonal-link:hover{filter:brightness(0.95)}
-
-    footer{border-top:1px solid var(--line);margin-top:2rem}
-    .foot{display:flex;flex-direction:column;gap:.6rem;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;padding:1.2rem 0}
-    .footer-pot{width:22px;height:22px;opacity:.9}
-    .credit{color:var(--muted)}
+    /* Calendar */
+    .pp-calendar{ display:grid; grid-template-columns:220px repeat(12, minmax(52px,1fr)); gap:2px; border:1px solid var(--pp-line); border-radius:16px; overflow:hidden; background:#0f1512 }
+    .pp-row{ display:contents }
+    .pp-cell,.pp-head{ padding:.55rem .6rem; border:1px solid var(--pp-line); font-size:.95rem }
+    .pp-head{ font-weight:700; background:#121815 }
+    .pp-crop{ font-weight:700; background:#121815 }
+    .pp-tags{ display:inline-block; font-size:.8rem; color:var(--pp-muted); margin-left:.4rem }
 
     @media (max-width:760px){
-      .pp-filters{grid-template-columns:1fr}
-      .pp-calendar{grid-template-columns:160px repeat(12, minmax(42px,1fr))}
-      .pp-cell,.pp-head{padding:.45rem}
+      .pp-filters{ grid-template-columns:1fr }
+      .pp-calendar{ grid-template-columns:160px repeat(12, minmax(42px,1fr)) }
+      .pp-cell,.pp-head{ padding:.45rem }
     }
   </style>
 </head>
 <body>
-  <header class="site-header" id="siteHeader">
-  <div class="brand">
-    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
-  </div>
-  <header role="banner">
-    <div class="wrap">
-      <nav aria-label="Main">
-        <a href="index.html">Home</a>
-        <a href="growing.html">Growing</a>
-        <a href="seasonal.html" aria-current="page">Seasonal</a>
-        <a href="recipes.html">Recipes</a>
-        <a href="wellbeing.html">Wellbeing</a>
-        <a href="exercise.html">Exercise</a>
-        <a href="guides.html">Guides</a>
-        <a href="ideas.html">Ideas</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <h1>Seasonal Planting Calendar (UK)</h1>
-      <p class="sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
-    </div>
-  </header>
+
+  <!-- Shared header include (one source of truth) -->
+  <div data-include="partials/header.html"></div>
 
   <main class="wrap" id="maincontent">
+    <h1>Seasonal Planting Calendar (UK)</h1>
+    <p class="sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
+
     <!-- Region + filters -->
     <section class="pp-card">
       <div class="pp-toolbar pp-filters" role="group" aria-label="Region and filters">
@@ -103,7 +80,7 @@
 
           <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops by name">
 
-          <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
+          <label for="pp-category" class="sr-only">Category</label>
           <select id="pp-category" class="pp-select" aria-label="Filter by category">
             <option value="all">All categories</option>
             <option value="leafy">Leafy</option>
@@ -154,12 +131,16 @@
     </div>
   </footer>
 
+  <!-- Header include loader + hamburger wiring -->
+  <script src="js/site.js?v=1" defer></script>
+
+  <!-- Seasonal page logic -->
   <script>
     const PP_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const CUR_M = new Date().getMonth(); // 0..11
     let DATA = { scotland:null, ireland:null, england:null, wales:null };
 
-    // ---------- helpers & renderers ----------
+    /* ---------- helpers & renderers ---------- */
     function inferCategory(name){
       const n = name.toLowerCase();
       if (/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf)/.test(n)) return 'leafy';
@@ -257,7 +238,7 @@
       renderAll();
     }
 
-    // ---------- robust data loader (tries both relative and absolute) ----------
+    /* ---------- robust data loader (tries both relative and absolute) ---------- */
     function tryPaths(paths){
       const attempts = [];
       const next = () => {
@@ -278,42 +259,27 @@
       const box = document.createElement('div');
       box.style.cssText='margin:1rem 0;padding:0.9rem;border:1px solid #36433d;border-radius:12px;background:#1b221f;color:#e6f0ea';
       const tries = (detail.attempts||[]).map(a=>`<li><code>${a.url}</code> — HTTP ${a.status}</li>`).join('');
-      box.innerHTML = `
-        <strong>Data failed to load.</strong><br>
-        I tried the paths below; please ensure the files exist and the JSON is valid.
-        <ul style="margin:.5rem 0 0 .9rem">${tries || '<li>No attempts recorded.</li>'}</ul>
-        <div style="margin-top:.5rem">Open one directly:
-          <a style="text-decoration:underline" href="/data/crops-scotland.json">/data/crops-scotland.json</a> or
-          <a style="text-decoration:underline" href="data/crops-scotland.json">data/crops-scotland.json</a>
-        </div>`;
-      const list = document.getElementById('pp-today-list');
-      if (list) { list.innerHTML=''; list.appendChild(box); }
-      const pest = document.querySelector('#pp-pestwatch ul');
-      if (pest) pest.innerHTML = '<li>Loading failed — likely a wrong path or JSON syntax.</li>';
+      box.innerHTML = `<strong>Data failed to load.</strong><br>I tried the paths below; please ensure the files exist and the JSON is valid.<ul style="margin:.5rem 0 0 .9rem">${tries || '<li>No attempts recorded.</li>'}</ul>`;
+      const list = document.getElementById('pp-today-list'); if (list) { list.innerHTML=''; list.appendChild(box); }
+      const pest = document.querySelector('#pp-pestwatch ul'); if (pest) pest.innerHTML = '<li>Loading failed — likely a wrong path or JSON syntax.</li>';
     }
 
-    // Path logic: if your site publishes /sites as the web root,
-    // then both "data/..." and "/data/..." should resolve to /sites/data.
     const here = location.pathname.replace(/[^/]+$/, ''); // folder of this page
     const rel = `${here}data/`;
     const abs = `/data/`;
 
     Promise.all([
       tryPaths([`${rel}crops-scotland.json`, `${abs}crops-scotland.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
-        DATA.scotland=j; console.log('Loaded', used);
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.scotland=j; console.log('Loaded', used);
       }),
       tryPaths([`${rel}crops-ireland.json`,  `${abs}crops-ireland.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
-        DATA.ireland=j; console.log('Loaded', used);
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.ireland=j; console.log('Loaded', used);
       }),
       tryPaths([`${rel}crops-england.json`,  `${abs}crops-england.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
-        DATA.england=j; console.log('Loaded', used);
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.england=j; console.log('Loaded', used);
       }),
       tryPaths([`${rel}crops-wales.json`,    `${abs}crops-wales.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
-        DATA.wales=j; console.log('Loaded', used);
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.wales=j; console.log('Loaded', used);
       })
     ]).then(init).catch(showLoadError);
   </script>

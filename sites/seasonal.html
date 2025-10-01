@@ -6,10 +6,7 @@
   <title>Seasonal Planting Calendar • Patch and Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
   <style>
-    :root{
-      --pp-green:#2e7d32; --pp-green-2:#1b5e20; --pp-ink:#263238; --pp-grey:#90a4ae; --pp-bg:#f7fdf7; --pp-card:#ffffff;
-      --pp-accent:#a5d6a7; --pp-border:#dfe5e8;
-    }
+    :root{--pp-green:#2e7d32; --pp-green-2:#1b5e20; --pp-ink:#263238; --pp-grey:#90a4ae; --pp-bg:#f7fdf7; --pp-card:#ffffff; --pp-accent:#a5d6a7; --pp-border:#dfe5e8;}
     html{font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; color:var(--pp-ink); background:#fff;}
     body{margin:0;}
     header{background:linear-gradient(0deg,#e8f5e9, #ffffff); border-bottom:1px solid var(--pp-border)}
@@ -18,16 +15,13 @@
     nav a[aria-current="page"]{font-weight:700}
     h1{font-size:clamp(1.5rem,2.8vw,2.2rem); margin:.4rem 0 .2rem}
     .sub{color:#546e7a; margin:0 0 .8rem}
-    /* Toolbar / controls */
     .pp-toolbar{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; padding:.6rem .8rem; background:var(--pp-bg); border:1px solid var(--pp-border); border-radius:.6rem}
     .pp-toolbar label{font-weight:600}
     .pp-toolbar select{padding:.45rem .6rem; border:1px solid #cfd8dc; border-radius:.45rem}
-    /* Pest watch */
     .pp-pestwatch{border-left:4px solid var(--pp-green); background:#f1f8e9; padding:1rem; border-radius:.6rem; margin:1rem 0}
     .pp-pestwatch h3{margin:.1rem 0 .2rem; font-size:1.05rem}
     .pp-pestwatch small{display:block; color:#607d8b}
     .pp-pestwatch ul{margin:.4rem 0 0; padding-left:1.1rem}
-    /* Today list */
     .pp-card{background:var(--pp-card); border:1px solid var(--pp-border); border-radius:.6rem; padding:1rem; margin:1rem 0}
     .pp-card h2{margin:.2rem 0 .6rem; font-size:1.25rem}
     .pp-month-hint{color:#607d8b; margin:.2rem 0 .6rem}
@@ -39,10 +33,7 @@
     .pp-flag-plant{background:#e3f2fd}
     .pp-flag-harvest{background:#fff8e1}
     .pp-dot{margin-right:.25rem}
-    .pp-sow::before{content:"🌱"}
-    .pp-plant::before{content:"🪴"}
-    .pp-harvest::before{content:"🥕"}
-    /* Calendar */
+    .pp-sow::before{content:"🌱"} .pp-plant::before{content:"🪴"} .pp-harvest::before{content:"🥕"}
     .pp-section-title{display:flex; align-items:center; gap:.7rem; margin:1.2rem 0 .6rem}
     .pp-key{color:#607d8b; font-size:.95rem; margin:.2rem 0 .8rem}
     .pp-calendar{display:grid; grid-template-columns: 180px repeat(12, minmax(52px,1fr)); gap:2px; align-items:stretch; border:1px solid var(--pp-border); border-radius:.6rem; overflow:hidden}
@@ -50,15 +41,11 @@
     .pp-cell,.pp-head{padding:.55rem .6rem; background:#fafafa; border:1px solid var(--pp-border); font-size:.95rem}
     .pp-head{font-weight:700; background:#eef5ee}
     .pp-crop{font-weight:700; background:#f7fdf7}
-    /* Hero image (optional) */
     .pp-hero{width:100%; max-height:48vh; object-fit:cover; border-radius:.6rem; border:1px solid var(--pp-border); margin:1rem 0}
-    /* Footer */
     footer{border-top:1px solid var(--pp-border); margin-top:2rem}
     footer .foot{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; justify-content:space-between; color:#607d8b; font-size:.9rem}
     .credit{font-size:.8em; color:#777}
-    /* Accessibility: respect larger fonts / line height */
     .wrap{line-height:1.5}
-    /* Small screens */
     @media (max-width:720px){
       .pp-calendar{grid-template-columns: 140px repeat(12, minmax(42px,1fr))}
       .pp-head,.pp-cell{padding:.45rem .45rem; font-size:.9rem}
@@ -69,18 +56,22 @@
   <header role="banner">
     <div class="wrap">
       <nav aria-label="Main">
-        <a href="/" >Home</a>
-        <a href="/guides/" >Guides</a>
-        <a href="/seasonal.html" aria-current="page">Seasonal</a>
-        <a href="/contact/">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="growing.html">Growing</a>
+        <a href="seasonal.html" aria-current="page">Seasonal</a>
+        <a href="recipes.html">Recipes</a>
+        <a href="wellbeing.html">Wellbeing</a>
+        <a href="exercise.html">Exercise</a>
+        <a href="guides.html">Guides</a>
+        <a href="ideas.html">Ideas</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <h1>Seasonal Planting Calendar (UK)</h1>
-      <p class="sub">Small-space sowing, planting & harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
+      <p class="sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
     </div>
   </header>
 
   <main class="wrap" id="maincontent">
-    <!-- Region selector -->
     <section aria-labelledby="controls-title" class="pp-card">
       <h2 id="controls-title" class="sr-only" style="position:absolute; left:-9999px;">Controls</h2>
       <div class="pp-toolbar" role="group" aria-label="Region selector">
@@ -96,24 +87,20 @@
       </div>
     </section>
 
-    <!-- Optional: seasonal hero (swap by region + season) -->
     <img id="pp-hero" class="pp-hero" alt="Seasonal container garden visual">
 
-    <!-- Pest watch banner -->
     <section aria-labelledby="pestwatch-title" class="pp-pestwatch" id="pp-pestwatch">
       <h3 id="pestwatch-title">Pest Watch</h3>
       <small>Small spaces edition</small>
       <ul><li>Loading…</li></ul>
     </section>
 
-    <!-- What Can I Plant Today -->
     <section aria-labelledby="today-title" class="pp-card">
       <h2 id="today-title">What Can I Plant Today?</h2>
       <p class="pp-month-hint" id="pp-month-hint"></p>
       <ul id="pp-today-list" class="pp-list"></ul>
     </section>
 
-    <!-- Calendar -->
     <section aria-labelledby="calendar-title">
       <div class="pp-section-title">
         <h2 id="calendar-title">Seasonal Planting Calendar</h2>
@@ -131,13 +118,10 @@
   </footer>
 
   <script>
-    // ---------- Helpers ----------
     const PP_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const now = new Date();
-    const CUR_M_IDX = now.getMonth(); // 0..11
+    const CUR_M_IDX = now.getMonth();
 
-    // ---------- Data (starter set; expand anytime) ----------
-    // Key: months by index 0..11
     const DATA = {
       scotland: {
         pestwatch: {
@@ -245,57 +229,33 @@
       }
     };
 
-    // ---------- Renderers ----------
     function setMonthHints(){
       document.getElementById('pp-today-month').textContent = `It’s ${PP_MONTHS[CUR_M_IDX]}.`;
       document.getElementById('pp-month-hint').textContent = `Here’s what suits containers now in ${PP_MONTHS[CUR_M_IDX]}.`;
     }
-
     function renderPestWatch(regionKey){
-      const entry = DATA[regionKey].pestwatch[CUR_M_IDX] ||
-        { title:"Pest Watch", items:["No major alerts this month. Keep an eye on slugs after rain."] };
+      const entry = DATA[regionKey].pestwatch[CUR_M_IDX] || { title:"Pest Watch", items:["No major alerts this month. Keep an eye on slugs after rain."] };
       const el = document.getElementById('pp-pestwatch');
-      el.innerHTML = `
-        <h3>${entry.title}</h3>
-        <small>${PP_MONTHS[CUR_M_IDX]} – small spaces edition</small>
-        <ul>${entry.items.map(i=>`<li>${i}</li>`).join("")}</ul>
-      `;
+      el.innerHTML = `<h3>${entry.title}</h3><small>${PP_MONTHS[CUR_M_IDX]} – small spaces edition</small><ul>${entry.items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
     }
-
     function renderToday(regionKey){
       const list = document.getElementById('pp-today-list');
       const items = [];
       DATA[regionKey].crops.forEach(c=>{
-        const s = (c.months.sow||[]).includes(CUR_M_IDX);
-        const p = (c.months.plant||[]).includes(CUR_M_IDX);
-        const h = (c.months.harvest||[]).includes(CUR_M_IDX);
-        if (s||p||h){
-          items.push(`
-            <li>
-              <strong>${c.name}</strong>
-              <span class="pp-flags">
-                ${s?'<span class="pp-flag pp-flag-sow"><span class="pp-dot pp-sow"></span>Sow</span>':''}
-                ${p?'<span class="pp-flag pp-flag-plant"><span class="pp-dot pp-plant"></span>Plant</span>':''}
-                ${h?'<span class="pp-flag pp-flag-harvest"><span class="pp-dot pp-harvest"></span>Harvest</span>':''}
-              </span>
-            </li>
-          `);
+        const s=(c.months.sow||[]).includes(CUR_M_IDX);
+        const p=(c.months.plant||[]).includes(CUR_M_IDX);
+        const h=(c.months.harvest||[]).includes(CUR_M_IDX);
+        if(s||p||h){
+          items.push(`<li><strong>${c.name}</strong><span class="pp-flags">${s?'<span class="pp-flag pp-flag-sow"><span class="pp-dot pp-sow"></span>Sow</span>':''}${p?'<span class="pp-flag pp-flag-plant"><span class="pp-dot pp-plant"></span>Plant</span>':''}${h?'<span class="pp-flag pp-flag-harvest"><span class="pp-dot pp-harvest"></span>Harvest</span>':''}</span></li>`);
         }
       });
       const combos = DATA[regionKey].todayCombos||[];
-      if (combos.length){
-        items.push(`<li><em>Companion ideas:</em> ${combos.slice(0,2).join(' • ')}</li>`);
-      }
+      if(combos.length){ items.push(`<li><em>Companion ideas:</em> ${combos.slice(0,2).join(' • ')}</li>`); }
       list.innerHTML = items.length ? items.join("") : `<li>No ideal sow/plant/harvest tasks this month. Try prep, cleaning pots, or planning ahead.</li>`;
     }
-
     function renderCalendar(regionKey){
       const wrap = document.getElementById('pp-calendar');
-      const header = `
-        <div class="pp-row" role="row">
-          <div class="pp-head" role="columnheader">Crop</div>
-          ${PP_MONTHS.map(m=>`<div class="pp-head" role="columnheader">${m}</div>`).join("")}
-        </div>`;
+      const header = `<div class="pp-row" role="row"><div class="pp-head" role="columnheader">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head" role="columnheader">${m}</div>`).join("")}</div>`;
       const rows = DATA[regionKey].crops.map(c=>{
         const cells = PP_MONTHS.map((_, idx)=>{
           const s=(c.months.sow||[]).includes(idx);
@@ -305,26 +265,19 @@
           const label = [s?"Sow":"",p?"Plant":"",h?"Harvest":""].filter(Boolean).join(", ");
           return `<div class="pp-cell" role="cell" aria-label="${c.name} ${PP_MONTHS[idx]} ${label}">${marks}</div>`;
         }).join("");
-        return `
-          <div class="pp-row" role="row">
-            <div class="pp-cell pp-crop" role="rowheader">${c.name}</div>
-            ${cells}
-          </div>`;
+        return `<div class="pp-row" role="row"><div class="pp-cell pp-crop" role="rowheader">${c.name}</div>${cells}</div>`;
       }).join("");
       wrap.innerHTML = header + rows;
     }
-
     function swapHero(regionKey){
       const hero = document.getElementById('pp-hero');
-      if (!hero) return;
+      if(!hero) return;
       const m = CUR_M_IDX;
       const season = [11,0,1].includes(m)?"winter":[2,3,4].includes(m)?"spring":[5,6,7].includes(m)?"summer":"autumn";
-      // Placeholder paths – replace with your real images when ready:
-      hero.src = `/assets/images/hero/${regionKey}-${season}.jpg`;
+      hero.src = `img/hero-${regionKey}-${season}.jpg`;  // <-- relative path
       hero.alt = `Seasonal container garden – ${regionKey} • ${season}`;
     }
 
-    // ---------- Init ----------
     function initSeasonal(){
       const sel = document.getElementById('pp-region');
       const saved = localStorage.getItem('pp-region') || 'scotland';
@@ -332,11 +285,8 @@
       const renderAll = ()=>{
         const r = sel.value;
         localStorage.setItem('pp-region', r);
-        setMonthHints();
-        renderPestWatch(r);
-        renderToday(r);
-        renderCalendar(r);
-        swapHero(r);
+        document.title = `Seasonal Planting (${r.charAt(0).toUpperCase()+r.slice(1)}) • Patch and Pot`;
+        setMonthHints(); renderPestWatch(r); renderToday(r); renderCalendar(r); swapHero(r);
       };
       sel.addEventListener('change', renderAll);
       renderAll();

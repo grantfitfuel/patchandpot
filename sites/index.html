@@ -22,6 +22,49 @@
     .menu-ico span { background: #fff !important; height: 3px !important; }
     /* remove any hero overlay on this page specifically */
     .hero .overlay { display: none !important; }
+
+    /* --- Compact seasonal strip (homepage) --- */
+    .seasonal-strip { 
+      margin: 0; 
+      background: #f1f8e9; 
+      border-top: 1px solid #dfe5e8; 
+      border-bottom: 1px solid #dfe5e8;
+    }
+    .seasonal-strip .wrap { 
+      display: grid; 
+      grid-template-columns: 1fr auto; 
+      gap: .75rem 1rem; 
+      align-items: center; 
+      padding: .8rem 1rem;
+    }
+    .seasonal-mini { display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+    .seasonal-mini strong { font-weight:700; }
+    .seasonal-controls { display:flex; align-items:center; gap:.5rem; }
+    .seasonal-controls label { font-weight:600; }
+    .seasonal-controls select { 
+      padding:.35rem .55rem; border:1px solid #cfd8dc; border-radius:.4rem; 
+      background:#fff;
+    }
+    .seasonal-link { 
+      text-decoration:none; 
+      font-weight:600; 
+      color:#1b5e20; 
+      border:1px solid #c8e6c9; 
+      background:#e8f5e9; 
+      padding:.35rem .6rem; 
+      border-radius:.4rem;
+      white-space:nowrap;
+    }
+    .seasonal-pills { display:flex; gap:.35rem; flex-wrap:wrap; }
+    .pill { 
+      background:#fff; border:1px dashed #cfd8dc; 
+      padding:.25rem .5rem; border-radius:.4rem; 
+      font-size:.9rem;
+    }
+    @media (max-width:720px){
+      .seasonal-strip .wrap { grid-template-columns: 1fr; }
+      .seasonal-controls { justify-content: space-between; }
+    }
   </style>
 </head>
 <body>
@@ -53,7 +96,7 @@
 <!-- HERO (uses global .hero styles) -->
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
-    <img src="img/hero.jpg?v=ideasA1" alt="Person tending plants on a balcony, planting into a terracotta pot">
+    <img id="ppHero" src="img/hero.jpg?v=ideasA1" alt="Person tending plants on a balcony, planting into a terracotta pot">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -67,6 +110,28 @@
     </div>
   </div>
 </header>
+
+<!-- NEW: compact seasonal strip -->
+<section class="seasonal-strip" aria-label="Seasonal updates">
+  <div class="wrap">
+    <div class="seasonal-mini">
+      <strong id="homePestTitle">Pest Watch</strong>
+      <div id="homePestPills" class="seasonal-pills" aria-live="polite">
+        <!-- filled by JS: short pest bullets for current month/region -->
+      </div>
+    </div>
+    <div class="seasonal-controls">
+      <label for="homeRegion">Region:</label>
+      <select id="homeRegion" aria-label="Choose your region for seasonal tips">
+        <option value="scotland">Scotland</option>
+        <option value="ireland">Ireland</option>
+        <option value="england">England</option>
+        <option value="wales">Wales</option>
+      </select>
+      <a class="seasonal-link" href="seasonal.html" aria-label="Open full seasonal calendar and what to plant today">View full calendar</a>
+    </div>
+  </div>
+</section>
 
 <main class="wrap">
   <section class="grid" aria-label="Featured guides">
@@ -92,7 +157,7 @@
   <div class="wrap footer-inner">
     <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
+    <p class="credit" style="font-size:.8em;color:#777;">Grant Cameron Anthony</p>
   </div>
 </footer>
 
@@ -125,6 +190,103 @@
         if(e.target.tagName === 'A') setExpanded(false);
       });
     }
+  })();
+</script>
+
+<!-- Seasonal mini-logic (region + pest watch + optional hero swap) -->
+<script>
+  (function(){
+    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const now = new Date();
+    const M = now.getMonth(); // 0..11
+
+    // Minimal pest data (extend same structure as seasonal.html)
+    const PEST = {
+      scotland: {
+        8: {t:"Pest Watch – September (Scotland)", i:[
+          "Slugs/snails after rain",
+          "Cabbage white caterpillars",
+          "Late blight risk"
+        ]},
+        9: {t:"Pest Watch – October (Scotland)", i:[
+          "Slugs in damp weather",
+          "Grey mould on salads",
+          "Rodents after harvest"
+        ]}
+      },
+      ireland: {
+        8: {t:"Pest Watch – September (Ireland)", i:[
+          "Slugs/snails in wet spells",
+          "Aphids on greens",
+          "Tomato blight risk"
+        ]},
+        9: {t:"Pest Watch – October (Ireland)", i:[
+          "Snails under pot rims",
+          "Mildew on courgettes",
+          "Wireworm after potato lifts"
+        ]}
+      },
+      england: {
+        8: {t:"Pest Watch – September (England)", i:[
+          "Aphids on brassicas",
+          "Powdery mildew on courgettes",
+          "Carrot fly"
+        ]},
+        9: {t:"Pest Watch – October (England)", i:[
+          "Slugs in wet spells",
+          "Whitefly on sheltered patios",
+          "Pigeons on winter greens"
+        ]}
+      },
+      wales: {
+        8: {t:"Pest Watch – September (Wales)", i:[
+          "Mildew in damp air",
+          "Aphids on late brassicas",
+          "Slugs"
+        ]},
+        9: {t:"Pest Watch – October (Wales)", i:[
+          "Blight in wet spells",
+          "White rust on rocket",
+          "Vine weevils in pots"
+        ]}
+      }
+    };
+
+    const sel = document.getElementById('homeRegion');
+    const titleEl = document.getElementById('homePestTitle');
+    const pills = document.getElementById('homePestPills');
+    const hero = document.getElementById('ppHero');
+
+    function seasonByMonth(m){
+      return [11,0,1].includes(m) ? "winter" : [2,3,4].includes(m) ? "spring" : [5,6,7].includes(m) ? "summer" : "autumn";
+    }
+
+    function render(){
+      const region = sel.value;
+      localStorage.setItem('pp-region', region);
+
+      // Pest banner
+      const entry = (PEST[region] && PEST[region][M]) || {t:"Pest Watch", i:["Keep an eye on slugs after rain."]};
+      titleEl.textContent = entry.t;
+      pills.innerHTML = entry.i.map(x=>`<span class="pill">${x}</span>`).join('');
+
+      // Optional hero swap (only if you add these files; otherwise the default stays)
+      if(hero){
+        const season = seasonByMonth(M);
+        // Try swapping to /img/hero-<region>-<season>.jpg if present in your repo
+        const candidate = `img/hero-${region}-${season}.jpg`;
+        // Preload check – if it fails, keep the existing src silently
+        const testImg = new Image();
+        testImg.onload = () => { hero.src = candidate; hero.alt = \`Container garden – \${region} • \${season}\`; };
+        testImg.src = candidate;
+      }
+    }
+
+    // Init
+    const saved = localStorage.getItem('pp-region') || 'scotland';
+    sel.value = saved;
+    sel.addEventListener('change', render);
+    render();
   })();
 </script>
 

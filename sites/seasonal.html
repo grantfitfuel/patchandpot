@@ -5,61 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-
-  <!-- Global site styles (header, layout, buttons, etc.) -->
-  <link rel="stylesheet" href="style.css?v=44">
-
-  <!-- Page-specific skin (scoped — won’t touch header/nav) -->
+  <link rel="stylesheet" href="style.css?v=45">
   <style>
-    :root{
-      --pp-ink:#e6f0ea; --pp-muted:#a6b6af; --pp-panel:#161c19;
-      --pp-panel-2:#1b221f; --pp-line:#2b332f; --pp-green:#35c26a;
-    }
+    /* Page skin (scoped; won't affect header) */
+    :root{ --pp-ink:#e6f0ea; --pp-muted:#a6b6af; --pp-panel:#161c19; --pp-panel-2:#1b221f; --pp-line:#2b332f; --pp-green:#35c26a; }
     body{ color:var(--pp-ink); }
-    /* Wrap is global; we reuse it */
     .sub{ color:var(--pp-muted); margin:0 0 .8rem }
 
-    /* Cards / toolbars */
     .pp-card{ background:var(--pp-panel); border:1px solid var(--pp-line); border-radius:16px; padding:1rem; margin:1rem 0 }
     .pp-toolbar{ display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; padding:.6rem .8rem; background:rgba(255,255,255,.02); border:1px solid var(--pp-line); border-radius:12px }
     .pp-toolbar select,.pp-search,.pp-select{ background:#0c100e; color:var(--pp-ink); border:1px solid var(--pp-line); border-radius:10px; padding:.5rem .65rem }
     .pp-help{ color:var(--pp-muted); margin:.5rem 0 0 }
-
-    /* Filters row */
     .pp-filters{ display:grid; gap:.6rem 1rem; grid-template-columns:1fr auto; align-items:center }
     .pp-filters .left{ display:flex; gap:.6rem; flex-wrap:wrap; align-items:center }
     .pp-filters .right{ display:flex; gap:.6rem; align-items:center }
     .pp-check span{ color:var(--pp-ink) }
 
-    /* Pest watch panel */
     .pp-pestwatch{ background:var(--pp-panel-2); border-left:4px solid var(--pp-green); border-radius:14px; padding:1rem; margin:1rem 0; border:1px solid var(--pp-line) }
     .pp-pestwatch h3{ margin:.1rem 0 .25rem; font-size:1.05rem }
-    .pp-pestwatch small{ display:block; color:var(--pp-muted) }
     .pp-pestwatch ul{ margin:.4rem 0 0; padding-left:1.1rem }
 
-    /* Today list */
     .pp-month-hint{ color:var(--pp-muted); margin:.2rem 0 .6rem }
     .pp-list{ list-style:none; padding:0; margin:0 }
     .pp-list li{ padding:.55rem .65rem; border:1px dashed var(--pp-line); border-radius:10px; margin:.4rem 0; background:#0f1512 }
 
-    /* Calendar */
     .pp-calendar{ display:grid; grid-template-columns:220px repeat(12, minmax(52px,1fr)); gap:2px; border:1px solid var(--pp-line); border-radius:16px; overflow:hidden; background:#0f1512 }
     .pp-row{ display:contents }
     .pp-cell,.pp-head{ padding:.55rem .6rem; border:1px solid var(--pp-line); font-size:.95rem }
     .pp-head{ font-weight:700; background:#121815 }
-    .pp-crop{ font-weight:700; background:#121815 }
+    .pp-crop{ font-weight:700; background:#121815; white-space:nowrap }
     .pp-tags{ display:inline-block; font-size:.8rem; color:var(--pp-muted); margin-left:.4rem }
 
     @media (max-width:760px){
       .pp-filters{ grid-template-columns:1fr }
       .pp-calendar{ grid-template-columns:160px repeat(12, minmax(42px,1fr)) }
       .pp-cell,.pp-head{ padding:.45rem }
+      h1{ font-size:1.8rem }
+      .sub{ font-size:1rem }
     }
   </style>
 </head>
 <body>
 
-  <!-- Shared header include (one source of truth) -->
+  <!-- Shared header include -->
   <div data-include="partials/header.html"></div>
 
   <main class="wrap" id="maincontent">
@@ -105,8 +93,7 @@
 
     <!-- Pest watch -->
     <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
-      <h3 id="pestwatch-title">Pest Watch</h3>
-      <small>Small spaces edition</small>
+      <h3 id="pestwatch-title">Pest Watch – <span id="pp-month-name"></span> (<span id="pp-region-name"></span>)</h3>
       <ul><li>Loading…</li></ul>
     </section>
 
@@ -124,23 +111,23 @@
     </section>
   </main>
 
+  <!-- Footer (icon centered at top; text centered below) -->
   <footer role="contentinfo">
-    <div class="wrap foot">
+    <div class="footer-inner">
       <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
-      <div>© Patch &amp; Pot | <span class="credit">Created by Grant Cameron Anthony</span></div>
+      <p>© Patch &amp; Pot | Created by Grant Cameron Anthony</p>
     </div>
   </footer>
 
-  <!-- Header include loader + hamburger wiring -->
-  <script src="js/site.js?v=1" defer></script>
+  <!-- Include loader + header wiring -->
+  <script src="js/site.js" defer></script>
 
-  <!-- Seasonal page logic -->
+  <!-- Seasonal logic -->
   <script>
     const PP_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const CUR_M = new Date().getMonth(); // 0..11
     let DATA = { scotland:null, ireland:null, england:null, wales:null };
 
-    /* ---------- helpers & renderers ---------- */
     function inferCategory(name){
       const n = name.toLowerCase();
       if (/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf)/.test(n)) return 'leafy';
@@ -151,17 +138,26 @@
       if (/(parsley|coriander|cilantro|basil|mint|thyme|sage|chive)/.test(n)) return 'herbs';
       return 'other';
     }
+
     function setMonthHints(){
-      const el = document.getElementById('pp-month-hint');
-      if (el) el.textContent = `Here’s what suits containers now in ${PP_MONTHS[CUR_M]}.`;
+      const monthName = PP_MONTHS[CUR_M];
+      document.getElementById('pp-month-hint').textContent = `Here’s what suits containers now in ${monthName}.`;
+      document.getElementById('pp-month-name').textContent = monthName;
     }
+
+    function currentRegionName(key){
+      return key.charAt(0).toUpperCase()+key.slice(1);
+    }
+
     function renderPestWatch(regionKey){
       const region = DATA[regionKey] || {};
       const entry = (region.pestwatch && region.pestwatch[String(CUR_M)]) ||
-        { title:"Pest Watch", items:["No major alerts this month. Keep an eye on slugs after rain."] };
-      const el = document.getElementById('pp-pestwatch');
-      el.innerHTML = `<h3>${entry.title}</h3><small>${PP_MONTHS[CUR_M]} – small spaces edition</small><ul>${(entry.items||[]).map(i=>`<li>${i}</li>`).join("")}</ul>`;
+        { items:["No major alerts this month. Keep an eye on slugs after rain."] };
+      document.getElementById('pp-region-name').textContent = currentRegionName(regionKey);
+      const list = (entry.items||[]).map(i=>`<li>${i}</li>`).join("");
+      document.querySelector('#pp-pestwatch ul').innerHTML = list || '<li>No items.</li>';
     }
+
     function getFilters(){
       return {
         q: document.getElementById('pp-search').value.trim().toLowerCase(),
@@ -169,6 +165,7 @@
         thisMonth: document.getElementById('pp-this-month').checked
       };
     }
+
     function applyFilters(regionCrops){
       const f = getFilters();
       return (regionCrops || []).filter(c=>{
@@ -185,6 +182,7 @@
         return true;
       });
     }
+
     function renderToday(regionKey){
       const region = DATA[regionKey] || {};
       const list = document.getElementById('pp-today-list');
@@ -201,6 +199,7 @@
       });
       list.innerHTML = items.length ? items.join("") : `<li>No items match your filters for ${PP_MONTHS[CUR_M]}.</li>`;
     }
+
     function renderCalendar(regionKey){
       const region = DATA[regionKey] || {};
       const wrap = document.getElementById('pp-calendar');
@@ -220,6 +219,7 @@
       }).join("");
       wrap.innerHTML = head + rows;
     }
+
     function renderAll(){
       const sel = document.getElementById('pp-region');
       const r = sel.value;
@@ -227,6 +227,7 @@
       document.title = `Seasonal Planting (${r[0].toUpperCase()+r.slice(1)}) • Patch & Pot`;
       setMonthHints(); renderPestWatch(r); renderToday(r); renderCalendar(r);
     }
+
     function init(){
       const sel = document.getElementById('pp-region');
       const saved = localStorage.getItem('pp-region') || 'scotland';
@@ -238,7 +239,7 @@
       renderAll();
     }
 
-    /* ---------- robust data loader (tries both relative and absolute) ---------- */
+    /* Robust data loader (tries relative and absolute paths) */
     function tryPaths(paths){
       const attempts = [];
       const next = () => {
@@ -259,28 +260,20 @@
       const box = document.createElement('div');
       box.style.cssText='margin:1rem 0;padding:0.9rem;border:1px solid #36433d;border-radius:12px;background:#1b221f;color:#e6f0ea';
       const tries = (detail.attempts||[]).map(a=>`<li><code>${a.url}</code> — HTTP ${a.status}</li>`).join('');
-      box.innerHTML = `<strong>Data failed to load.</strong><br>I tried the paths below; please ensure the files exist and the JSON is valid.<ul style="margin:.5rem 0 0 .9rem">${tries || '<li>No attempts recorded.</li>'}</ul>`;
+      box.innerHTML = `<strong>Data failed to load.</strong><ul style="margin:.5rem 0 0 .9rem">${tries || '<li>No attempts recorded.</li>'}</ul>`;
       const list = document.getElementById('pp-today-list'); if (list) { list.innerHTML=''; list.appendChild(box); }
-      const pest = document.querySelector('#pp-pestwatch ul'); if (pest) pest.innerHTML = '<li>Loading failed — likely a wrong path or JSON syntax.</li>';
+      const pest = document.querySelector('#pp-pestwatch ul'); if (pest) pest.innerHTML = '<li>Loading failed.</li>';
     }
 
     const here = location.pathname.replace(/[^/]+$/, ''); // folder of this page
     const rel = `${here}data/`;
-    const abs = `/data/`;
+    const abs = `/sites/data/`;  // NOTE: your repo root uses /sites/
 
     Promise.all([
-      tryPaths([`${rel}crops-scotland.json`, `${abs}crops-scotland.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.scotland=j; console.log('Loaded', used);
-      }),
-      tryPaths([`${rel}crops-ireland.json`,  `${abs}crops-ireland.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.ireland=j; console.log('Loaded', used);
-      }),
-      tryPaths([`${rel}crops-england.json`,  `${abs}crops-england.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.england=j; console.log('Loaded', used);
-      }),
-      tryPaths([`${rel}crops-wales.json`,    `${abs}crops-wales.json`]).then(({j,used,attempts})=>{
-        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts}; DATA.wales=j; console.log('Loaded', used);
-      })
+      tryPaths([`${rel}crops-scotland.json`, `${abs}crops-scotland.json`]).then(({j})=>{ DATA.scotland=j; }),
+      tryPaths([`${rel}crops-ireland.json`,  `${abs}crops-ireland.json`]).then(({j})=>{ DATA.ireland=j; }),
+      tryPaths([`${rel}crops-england.json`,  `${abs}crops-england.json`]).then(({j})=>{ DATA.england=j; }),
+      tryPaths([`${rel}crops-wales.json`,    `${abs}crops-wales.json`]).then(({j})=>{ DATA.wales=j; })
     ]).then(init).catch(showLoadError);
   </script>
 </body>

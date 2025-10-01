@@ -1,5 +1,5 @@
 /* =========================================
-   Patch & Pot — Global Styles (2025 refresh)
+   Patch & Pot — Global Styles (FULL FILE)
    Dark theme, responsive header, a11y polish
    ========================================= */
 
@@ -22,8 +22,8 @@
   --maxw:1140px;
   --radius:16px;
 
-  /* Misc */
-  --idea-ar:1/1;          /* default square aspect */
+  /* Default square aspect for thumbs */
+  --idea-ar:1/1;
 }
 
 /* ---------- Base / resets ---------- */
@@ -43,7 +43,7 @@ a:hover{ text-decoration:underline }
 .wrap{ max-width:var(--maxw); margin:0 auto; padding:16px 20px }
 h1,h2,h3{ line-height:1.25 }
 
-/* Better focus visibility */
+/* Focus visibility */
 :focus-visible{
   outline:2px solid var(--green-2);
   outline-offset:3px;
@@ -55,13 +55,13 @@ h1,h2,h3{ line-height:1.25 }
   *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
 }
 
-/* SR-only utility */
+/* Screen-reader-only utility */
 .sr-only{
   position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
 }
 
 /* =========================================
-   HEADER / NAV
+   HEADER / NAV (shared header.html)
    ========================================= */
 .site-header{
   position:relative; z-index:50;
@@ -139,10 +139,7 @@ h1,h2,h3{ line-height:1.25 }
   object-fit:cover; object-position:center;
   filter:brightness(1) saturate(1.05);
 }
-.hero .overlay{
-  position:absolute; inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45));
-}
+.hero .overlay{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45)) }
 .hero .content{ position:absolute; left:0; right:0; bottom:0 }
 .eyebrow{
   display:inline-block; background:rgba(255,255,255,.10);
@@ -215,7 +212,7 @@ figcaption.cap{ text-align:center; font-size:.95rem; color:#c0d0c4; margin-top:6
 .scroller .thumb img{ width:100%; height:100%; object-fit:cover; object-position:center }
 .scroller .cap{ padding:.7rem .9rem; color:#c0d0c4; font-size:.95rem }
 
-/* Help box */
+/* Helper block */
 .help-links{ background:var(--glass); border:1px solid var(--stroke); border-radius:12px; padding:12px; margin-top:12px }
 .help-links h2{ margin:.2rem 0 .4rem }
 .help-links h3{ margin:.8rem 0 .2rem; font-size:1.05rem }
@@ -282,20 +279,34 @@ figcaption.cap{ text-align:center; font-size:.95rem; color:#c0d0c4; margin-top:6
 }
 
 /* =========================================
-   Footer
+   Footer (centred small pot + centred text)
    ========================================= */
 footer{
   border-top:1px solid #142116;
   margin-top:28px;
   background:var(--panel);
   text-align:center;
-  padding:16px 0;
+  padding:20px 0;
 }
 .footer-inner{
-  display:flex; flex-direction:column; align-items:center; gap:8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
 }
-.footer-icon{ height:40px; width:auto; opacity:.95 }
-footer p{ font-size:.9em; color:var(--muted); margin:0 }
+.footer-pot,
+.footer-icon{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+  opacity:.95;
+}
+footer p{
+  margin:0;
+  font-size:.9rem;
+  color:var(--muted);
+}
 
 /* =========================================
    Print (basic)

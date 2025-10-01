@@ -3,60 +3,83 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Seasonal Planting Calendar • Patch and Pot (UK)</title>
+  <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-  <style>
-    :root{--pp-green:#2e7d32; --pp-ink:#263238; --pp-border:#dfe5e8;}
-    html{font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; color:var(--pp-ink); background:#fff;}
-    body{margin:0;}
-    header{background:linear-gradient(0deg,#e8f5e9,#ffffff); border-bottom:1px solid var(--pp-border)}
-    .wrap{max-width:1100px; margin:0 auto; padding:1rem 1.2rem;}
-    nav a{margin-right:1rem; text-decoration:none; color:var(--pp-ink)}
-    nav a[aria-current="page"]{font-weight:700}
-    h1{font-size:clamp(1.5rem,2.8vw,2.2rem); margin:.4rem 0 .2rem}
-    .sub{color:#546e7a; margin:0 0 .8rem}
 
-    /* Cards / sections */
-    .pp-card{background:#fff; border:1px solid var(--pp-border); border-radius:.6rem; padding:1rem; margin:1rem 0}
-    .pp-toolbar{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; padding:.6rem .8rem; background:#f7fdf7; border:1px solid var(--pp-border); border-radius:.6rem}
+  <!-- Pull in sitewide styles for consistent header/nav/fonts -->
+  <link rel="stylesheet" href="style.css?v=43">
+
+  <!-- === Patch & Pot dark skin (page-specific) === -->
+  <style>
+    :root{
+      --ink:#e6f0ea;             /* main text on dark */
+      --muted:#a6b6af;           /* secondary text */
+      --bg:#0e1311;              /* page background */
+      --panel:#161c19;           /* cards/panels */
+      --panel-2:#1b221f;         /* alt panels (pest watch) */
+      --line:#2b332f;            /* subtle borders */
+      --green:#35c26a;           /* accent green (buttons, links) */
+    }
+
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif}
+    a{color:var(--ink);text-decoration:none}
+    a:hover{opacity:.9}
+
+    header{background:linear-gradient(0deg, rgba(27,36,32,.65), rgba(27,36,32,.65)); border-bottom:1px solid var(--line)}
+    .wrap{max-width:1100px;margin:0 auto;padding:1rem 1.2rem}
+    nav a{margin-right:1rem}
+    nav a[aria-current="page"]{font-weight:700}
+
+    h1{font-size:clamp(1.6rem,2.8vw,2.2rem);margin:.4rem 0 .2rem}
+    .sub{color:var(--muted);margin:0 0 .8rem}
+
+    /* Cards / toolbars */
+    .pp-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1rem;margin:1rem 0}
+    .pp-toolbar{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.6rem .8rem;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px}
+    .pp-toolbar select,.pp-search,.pp-select{
+      background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem
+    }
+    .pp-help{color:var(--muted);margin:.5rem 0 0}
 
     /* Filters row */
-    .pp-filters{display:grid; gap:.6rem 1rem; grid-template-columns: 1fr auto; align-items:center}
-    .pp-filters .left{display:flex; gap:.6rem; flex-wrap:wrap; align-items:center}
-    .pp-filters .right{display:flex; gap:.6rem; align-items:center}
-    .pp-search{min-width:220px; padding:.45rem .6rem; border:1px solid #cfd8dc; border-radius:.45rem}
-    .pp-select{padding:.45rem .6rem; border:1px solid #cfd8dc; border-radius:.45rem}
-    .pp-check{display:flex; align-items:center; gap:.4rem}
-    .pp-help{font-size:.9rem; color:#607d8b}
+    .pp-filters{display:grid;gap:.6rem 1rem;grid-template-columns:1fr auto;align-items:center}
+    .pp-filters .left{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .pp-filters .right{display:flex;gap:.6rem;align-items:center}
+    .pp-check span{color:var(--ink)}
 
-    /* Pest watch */
-    .pp-pestwatch{border-left:4px solid var(--pp-green); background:#f1f8e9; padding:1rem; border-radius:.6rem; margin:1rem 0}
-    .pp-pestwatch h3{margin:.1rem 0 .2rem; font-size:1.05rem}
-    .pp-pestwatch small{display:block; color:#607d8b}
-    .pp-pestwatch ul{margin:.4rem 0 0; padding-left:1.1rem}
+    /* Pest watch panel (green tint) */
+    .pp-pestwatch{background:var(--panel-2);border-left:4px solid var(--green);border-radius:14px;padding:1rem;margin:1rem 0;border:1px solid var(--line)}
+    .pp-pestwatch h3{margin:.1rem 0 .25rem;font-size:1.05rem}
+    .pp-pestwatch small{display:block;color:var(--muted)}
+    .pp-pestwatch ul{margin:.4rem 0 0;padding-left:1.1rem}
 
     /* Today list */
-    .pp-card h2{margin:.2rem 0 .6rem; font-size:1.25rem}
-    .pp-month-hint{color:#607d8b; margin:.2rem 0 .6rem}
-    .pp-list{list-style:none; padding:0; margin:0}
-    .pp-list li{padding:.5rem .6rem; border:1px dashed #cfd8dc; border-radius:.5rem; margin:.4rem 0}
+    .pp-month-hint{color:var(--muted);margin:.2rem 0 .6rem}
+    .pp-list{list-style:none;padding:0;margin:0}
+    .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
-    /* Calendar grid */
-    .pp-calendar{display:grid; grid-template-columns: 220px repeat(12, minmax(52px,1fr)); gap:2px; border:1px solid var(--pp-border); border-radius:.6rem; overflow:hidden}
+    /* Calendar */
+    .pp-calendar{display:grid;grid-template-columns:220px repeat(12, minmax(52px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
-    .pp-cell,.pp-head{padding:.5rem .6rem; border:1px solid var(--pp-border); font-size:.95rem}
-    .pp-head{font-weight:700; background:#eef5ee}
-    .pp-crop{font-weight:700; background:#f7fdf7}
-    .pp-tags{display:inline-block; font-size:.8rem; color:#607d8b; margin-left:.4rem}
+    .pp-cell,.pp-head{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
+    .pp-head{font-weight:700;background:#121815}
+    .pp-crop{font-weight:700;background:#121815}
+    .pp-tags{display:inline-block;font-size:.8rem;color:var(--muted);margin-left:.4rem}
 
-    footer{border-top:1px solid var(--pp-border); margin-top:2rem}
-    footer .foot{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; justify-content:space-between; color:#607d8b; font-size:.9rem}
-    .credit{font-size:.8em; color:#777}
+    /* Buttons (if any links styled as buttons) */
+    .btn,.seasonal-link{display:inline-block;background:var(--green);color:#07100b;border:none;border-radius:999px;padding:.55rem .9rem;font-weight:700}
+    .btn:hover,.seasonal-link:hover{filter:brightness(0.95)}
+
+    /* Footer (centre pot + credit line) */
+    footer{border-top:1px solid var(--line);margin-top:2rem}
+    .foot{display:flex;flex-direction:column;gap:.6rem;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;padding:1.2rem 0}
+    .footer-pot{width:22px;height:22px;opacity:.9}
+    .credit{color:var(--muted)}
 
     @media (max-width:760px){
-      .pp-filters{grid-template-columns: 1fr}
-      .pp-calendar{grid-template-columns: 160px repeat(12, minmax(42px,1fr))}
-      .pp-cell,.pp-head{padding:.4rem}
+      .pp-filters{grid-template-columns:1fr}
+      .pp-calendar{grid-template-columns:160px repeat(12, minmax(42px,1fr))}
+      .pp-cell,.pp-head{padding:.45rem}
     }
   </style>
 </head>
@@ -114,7 +137,7 @@
           </label>
         </div>
       </div>
-      <p class="pp-help">Tip: pick a **Region**, type to **search**, choose a **Category**, or toggle **This month only** for a quick focused view.</p>
+      <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
     </section>
 
     <!-- Pest watch -->
@@ -140,8 +163,8 @@
 
   <footer role="contentinfo">
     <div class="wrap foot">
-      <div>© Patch and Pot • All Rights Reserved</div>
-      <div class="credit">Grant Cameron Anthony</div>
+      <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
+      <div>© Patch &amp; Pot | <span class="credit">Grant Cameron Anthony</span></div>
     </div>
   </footer>
 
@@ -156,9 +179,9 @@
       if (/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf)/.test(n)) return 'leafy';
       if (/(carrot|beet|beetroot|radish|turnip|parsnip|root)/.test(n)) return 'roots';
       if (/(pea|bean)/.test(n)) return 'legumes';
-      if (/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|strawber|blueber|raspber|fruit|runner)/.test(n)) return 'fruit';
+      if (/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|strawber|blueber|raspber|runner)/.test(n)) return 'fruit';
       if (/(onion|garlic|leek|shallot|spring onion)/.test(n)) return 'alliums';
-      if (/(parsley|coriander|cilantro|basil|mint|thyme|sage|chive|herb)/.test(n)) return 'herbs';
+      if (/(parsley|coriander|cilantro|basil|mint|thyme|sage|chive)/.test(n)) return 'herbs';
       return 'other';
     }
 
@@ -179,11 +202,11 @@
       `;
     }
 
-    // --- filtering
+    // --- filters
     function getFilters(){
       return {
         q: document.getElementById('pp-search').value.trim().toLowerCase(),
-        cat: document.getElementById('pp-category').value, // 'all' or category
+        cat: document.getElementById('pp-category').value,
         thisMonth: document.getElementById('pp-this-month').checked
       };
     }
@@ -192,7 +215,7 @@
       const f = getFilters();
       return (regionCrops || []).filter(c=>{
         const name = c.name || '';
-        const cat = (c.category || inferCategory(name));
+        const cat = c.category || inferCategory(name);
         if (f.q && !name.toLowerCase().includes(f.q)) return false;
         if (f.cat !== 'all' && cat !== f.cat) return false;
         if (f.thisMonth){
@@ -217,10 +240,7 @@
         const h = (c.months.harvest||[]).includes(CUR_M);
         if (s||p||h){
           const tag = c.category || inferCategory(c.name);
-          items.push(
-            `<li><strong>${c.name}</strong> ${s?"🌱":""}${p?" 🪴":""}${h?" 🥕":""}` +
-            ` <span class="pp-tags">(${tag})</span></li>`
-          );
+          items.push(`<li><strong>${c.name}</strong> ${s?"🌱":""}${p?" 🪴":""}${h?" 🥕":""} <span class="pp-tags">(${tag})</span></li>`);
         }
       });
 
@@ -257,7 +277,7 @@
       const sel = document.getElementById('pp-region');
       const r = sel.value;
       localStorage.setItem('pp-region', r);
-      document.title = `Seasonal Planting (${r[0].toUpperCase()+r.slice(1)}) • Patch and Pot`;
+      document.title = `Seasonal Planting (${r[0].toUpperCase()+r.slice(1)}) • Patch & Pot`;
       setMonthHints();
       renderPestWatch(r);
       renderToday(r);
@@ -269,7 +289,6 @@
       const saved = localStorage.getItem('pp-region') || 'scotland';
       sel.value = saved;
 
-      // Wire filters
       document.getElementById('pp-search').addEventListener('input', renderAll);
       document.getElementById('pp-category').addEventListener('change', renderAll);
       document.getElementById('pp-this-month').addEventListener('change', renderAll);

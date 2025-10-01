@@ -6,59 +6,42 @@
   <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
 
-  <!-- Pull in sitewide styles for consistent header/nav/fonts -->
+  <!-- Sitewide styles for consistent header/nav/fonts -->
   <link rel="stylesheet" href="style.css?v=43">
 
   <!-- === Patch & Pot dark skin (page-specific) === -->
   <style>
     :root{
-      --ink:#e6f0ea;             /* main text on dark */
-      --muted:#a6b6af;           /* secondary text */
-      --bg:#0e1311;              /* page background */
-      --panel:#161c19;           /* cards/panels */
-      --panel-2:#1b221f;         /* alt panels (pest watch) */
-      --line:#2b332f;            /* subtle borders */
-      --green:#35c26a;           /* accent green (buttons, links) */
+      --ink:#e6f0ea; --muted:#a6b6af; --bg:#0e1311; --panel:#161c19; --panel-2:#1b221f;
+      --line:#2b332f; --green:#35c26a;
     }
-
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif}
-    a{color:var(--ink);text-decoration:none}
-    a:hover{opacity:.9}
-
+    a{color:var(--ink);text-decoration:none} a:hover{opacity:.9}
     header{background:linear-gradient(0deg, rgba(27,36,32,.65), rgba(27,36,32,.65)); border-bottom:1px solid var(--line)}
     .wrap{max-width:1100px;margin:0 auto;padding:1rem 1.2rem}
-    nav a{margin-right:1rem}
-    nav a[aria-current="page"]{font-weight:700}
-
+    nav a{margin-right:1rem} nav a[aria-current="page"]{font-weight:700}
     h1{font-size:clamp(1.6rem,2.8vw,2.2rem);margin:.4rem 0 .2rem}
     .sub{color:var(--muted);margin:0 0 .8rem}
 
-    /* Cards / toolbars */
     .pp-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1rem;margin:1rem 0}
     .pp-toolbar{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.6rem .8rem;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px}
-    .pp-toolbar select,.pp-search,.pp-select{
-      background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem
-    }
+    .pp-toolbar select,.pp-search,.pp-select{background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem}
     .pp-help{color:var(--muted);margin:.5rem 0 0}
 
-    /* Filters row */
     .pp-filters{display:grid;gap:.6rem 1rem;grid-template-columns:1fr auto;align-items:center}
     .pp-filters .left{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
     .pp-filters .right{display:flex;gap:.6rem;align-items:center}
     .pp-check span{color:var(--ink)}
 
-    /* Pest watch panel (green tint) */
     .pp-pestwatch{background:var(--panel-2);border-left:4px solid var(--green);border-radius:14px;padding:1rem;margin:1rem 0;border:1px solid var(--line)}
     .pp-pestwatch h3{margin:.1rem 0 .25rem;font-size:1.05rem}
     .pp-pestwatch small{display:block;color:var(--muted)}
     .pp-pestwatch ul{margin:.4rem 0 0;padding-left:1.1rem}
 
-    /* Today list */
     .pp-month-hint{color:var(--muted);margin:.2rem 0 .6rem}
     .pp-list{list-style:none;padding:0;margin:0}
     .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
-    /* Calendar */
     .pp-calendar{display:grid;grid-template-columns:220px repeat(12, minmax(52px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
     .pp-cell,.pp-head{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
@@ -66,11 +49,9 @@
     .pp-crop{font-weight:700;background:#121815}
     .pp-tags{display:inline-block;font-size:.8rem;color:var(--muted);margin-left:.4rem}
 
-    /* Buttons (if any links styled as buttons) */
     .btn,.seasonal-link{display:inline-block;background:var(--green);color:#07100b;border:none;border-radius:999px;padding:.55rem .9rem;font-weight:700}
     .btn:hover,.seasonal-link:hover{filter:brightness(0.95)}
 
-    /* Footer (centre pot + credit line) */
     footer{border-top:1px solid var(--line);margin-top:2rem}
     .foot{display:flex;flex-direction:column;gap:.6rem;align-items:center;justify-content:center;color:var(--muted);font-size:.95rem;padding:1.2rem 0}
     .footer-pot{width:22px;height:22px;opacity:.9}
@@ -173,7 +154,7 @@
     const CUR_M = new Date().getMonth(); // 0..11
     let DATA = { scotland:null, ireland:null, england:null, wales:null };
 
-    // --- categoriser: uses explicit crop.category if present, else infers from name
+    // ---------- helpers & renderers ----------
     function inferCategory(name){
       const n = name.toLowerCase();
       if (/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf)/.test(n)) return 'leafy';
@@ -184,25 +165,17 @@
       if (/(parsley|coriander|cilantro|basil|mint|thyme|sage|chive)/.test(n)) return 'herbs';
       return 'other';
     }
-
     function setMonthHints(){
-      document.getElementById('pp-today-month').textContent = `It’s ${PP_MONTHS[CUR_M]}.`;
-      document.getElementById('pp-month-hint').textContent = `Here’s what suits containers now in ${PP_MONTHS[CUR_M]}.`;
+      const el = document.getElementById('pp-month-hint');
+      if (el) el.textContent = `Here’s what suits containers now in ${PP_MONTHS[CUR_M]}.`;
     }
-
     function renderPestWatch(regionKey){
-      const region = DATA[regionKey];
+      const region = DATA[regionKey] || {};
       const entry = (region.pestwatch && region.pestwatch[String(CUR_M)]) ||
         { title:"Pest Watch", items:["No major alerts this month. Keep an eye on slugs after rain."] };
       const el = document.getElementById('pp-pestwatch');
-      el.innerHTML = `
-        <h3>${entry.title}</h3>
-        <small>${PP_MONTHS[CUR_M]} – small spaces edition</small>
-        <ul>${entry.items.map(i=>`<li>${i}</li>`).join("")}</ul>
-      `;
+      el.innerHTML = `<h3>${entry.title}</h3><small>${PP_MONTHS[CUR_M]} – small spaces edition</small><ul>${(entry.items||[]).map(i=>`<li>${i}</li>`).join("")}</ul>`;
     }
-
-    // --- filters
     function getFilters(){
       return {
         q: document.getElementById('pp-search').value.trim().toLowerCase(),
@@ -210,7 +183,6 @@
         thisMonth: document.getElementById('pp-this-month').checked
       };
     }
-
     function applyFilters(regionCrops){
       const f = getFilters();
       return (regionCrops || []).filter(c=>{
@@ -227,13 +199,11 @@
         return true;
       });
     }
-
     function renderToday(regionKey){
-      const region = DATA[regionKey];
+      const region = DATA[regionKey] || {};
       const list = document.getElementById('pp-today-list');
       const items = [];
-      const crops = applyFilters(region.crops);
-
+      const crops = applyFilters(region.crops || []);
       crops.forEach(c=>{
         const s = (c.months.sow||[]).includes(CUR_M);
         const p = (c.months.plant||[]).includes(CUR_M);
@@ -243,20 +213,13 @@
           items.push(`<li><strong>${c.name}</strong> ${s?"🌱":""}${p?" 🪴":""}${h?" 🥕":""} <span class="pp-tags">(${tag})</span></li>`);
         }
       });
-
       list.innerHTML = items.length ? items.join("") : `<li>No items match your filters for ${PP_MONTHS[CUR_M]}.</li>`;
     }
-
     function renderCalendar(regionKey){
-      const region = DATA[regionKey];
+      const region = DATA[regionKey] || {};
       const wrap = document.getElementById('pp-calendar');
-      const head = `
-        <div class="pp-row" role="row">
-          <div class="pp-head" role="columnheader">Crop</div>
-          ${PP_MONTHS.map(m=>`<div class="pp-head" role="columnheader">${m}</div>`).join("")}
-        </div>`;
-
-      const crops = applyFilters(region.crops);
+      const head = `<div class="pp-row" role="row"><div class="pp-head" role="columnheader">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head" role="columnheader">${m}</div>`).join("")}</div>`;
+      const crops = applyFilters(region.crops || []);
       const rows = crops.map(c=>{
         const cat = c.category || inferCategory(c.name);
         const cells = PP_MONTHS.map((_, i)=>{
@@ -269,44 +232,85 @@
         }).join("");
         return `<div class="pp-row" role="row"><div class="pp-cell pp-crop" role="rowheader">${c.name} <span class="pp-tags">(${cat})</span></div>${cells}</div>`;
       }).join("");
-
       wrap.innerHTML = head + rows;
     }
-
     function renderAll(){
       const sel = document.getElementById('pp-region');
       const r = sel.value;
       localStorage.setItem('pp-region', r);
       document.title = `Seasonal Planting (${r[0].toUpperCase()+r.slice(1)}) • Patch & Pot`;
-      setMonthHints();
-      renderPestWatch(r);
-      renderToday(r);
-      renderCalendar(r);
+      setMonthHints(); renderPestWatch(r); renderToday(r); renderCalendar(r);
     }
-
     function init(){
       const sel = document.getElementById('pp-region');
       const saved = localStorage.getItem('pp-region') || 'scotland';
       sel.value = saved;
-
       document.getElementById('pp-search').addEventListener('input', renderAll);
       document.getElementById('pp-category').addEventListener('change', renderAll);
       document.getElementById('pp-this-month').addEventListener('change', renderAll);
       sel.addEventListener('change', renderAll);
-
       renderAll();
     }
 
-    // Load all region files, then init
+    // ---------- robust data loader (tries both relative and absolute) ----------
+    function tryPaths(paths){
+      const attempts = [];
+      const next = () => {
+        const p = paths.shift();
+        if(!p) return Promise.reject({type:'all-failed', attempts});
+        return fetch(p + (p.includes('?')?'':'?v=' + Date.now()), {cache:'no-store'})
+          .then(r=>{
+            attempts.push({url:p, status:r.status});
+            if(!r.ok) throw {type:'http', url:p, status:r.status, attempts};
+            return r.json().then(j=>({j, used:p, attempts}));
+          })
+          .catch(()=>next());
+      };
+      return next();
+    }
+    function showLoadError(detail){
+      console.error('Load error:', detail);
+      const box = document.createElement('div');
+      box.style.cssText='margin:1rem 0;padding:0.9rem;border:1px solid #36433d;border-radius:12px;background:#1b221f;color:#e6f0ea';
+      const tries = (detail.attempts||[]).map(a=>`<li><code>${a.url}</code> — HTTP ${a.status}</li>`).join('');
+      box.innerHTML = `
+        <strong>Data failed to load.</strong><br>
+        I tried the paths below; please ensure the files exist and the JSON is valid.
+        <ul style="margin:.5rem 0 0 .9rem">${tries || '<li>No attempts recorded.</li>'}</ul>
+        <div style="margin-top:.5rem">Open one directly:
+          <a style="text-decoration:underline" href="/data/crops-scotland.json">/data/crops-scotland.json</a> or
+          <a style="text-decoration:underline" href="data/crops-scotland.json">data/crops-scotland.json</a>
+        </div>`;
+      const list = document.getElementById('pp-today-list');
+      if (list) { list.innerHTML=''; list.appendChild(box); }
+      const pest = document.querySelector('#pp-pestwatch ul');
+      if (pest) pest.innerHTML = '<li>Loading failed — likely a wrong path or JSON syntax.</li>';
+    }
+
+    // Path logic: if your site publishes /sites as the web root,
+    // then both "data/..." and "/data/..." should resolve to /sites/data.
+    const here = location.pathname.replace(/[^/]+$/, ''); // folder of this page
+    const rel = `${here}data/`;
+    const abs = `/data/`;
+
     Promise.all([
-      fetch('data/crops-scotland.json').then(r=>r.json()).then(j=>DATA.scotland=j),
-      fetch('data/crops-ireland.json').then(r=>r.json()).then(j=>DATA.ireland=j),
-      fetch('data/crops-england.json').then(r=>r.json()).then(j=>DATA.england=j),
-      fetch('data/crops-wales.json').then(r=>r.json()).then(j=>DATA.wales=j),
-    ]).then(init).catch(err=>{
-      console.error('Failed to load data:', err);
-      document.getElementById('pp-today-list').innerHTML = '<li>Sorry, data failed to load.</li>';
-    });
+      tryPaths([`${rel}crops-scotland.json`, `${abs}crops-scotland.json`]).then(({j,used,attempts})=>{
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
+        DATA.scotland=j; console.log('Loaded', used);
+      }),
+      tryPaths([`${rel}crops-ireland.json`,  `${abs}crops-ireland.json`]).then(({j,used,attempts})=>{
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
+        DATA.ireland=j; console.log('Loaded', used);
+      }),
+      tryPaths([`${rel}crops-england.json`,  `${abs}crops-england.json`]).then(({j,used,attempts})=>{
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
+        DATA.england=j; console.log('Loaded', used);
+      }),
+      tryPaths([`${rel}crops-wales.json`,    `${abs}crops-wales.json`]).then(({j,used,attempts})=>{
+        if(!j || !Array.isArray(j.crops)) throw {type:'bad-json', url:used, attempts};
+        DATA.wales=j; console.log('Loaded', used);
+      })
+    ]).then(init).catch(showLoadError);
   </script>
 </body>
 </html>

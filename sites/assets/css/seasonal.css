@@ -1,0 +1,32 @@
+.pp-seasonal {margin: 2rem auto; max-width: 1000px; padding: 0 1rem;}
+.pp-toolbar {display: flex; gap: .5rem; align-items: center; margin-bottom: 1rem;}
+.pp-toolbar select {padding: .4rem .6rem; border: 1px solid #ccc; border-radius: .4rem;}
+
+.pp-pestwatch {border-left: 4px solid #2e7d32; background: #f1f8e9; padding: .75rem 1rem; border-radius: .4rem; margin: .75rem 0; font-weight: 600;}
+.pp-pestwatch small {display:block; font-weight:400; opacity:.8}
+
+.pp-today h2, .pp-calendar-wrap h2 {margin: 1.2rem 0 .5rem}
+.pp-month-hint {opacity:.8; margin:.2rem 0 .6rem}
+
+.pp-list {list-style: none; padding: 0; margin: .25rem 0 1rem;}
+.pp-list li {padding: .4rem .6rem; border: 1px dashed #cfd8dc; border-radius: .4rem; margin: .35rem 0;}
+
+.pp-calendar {display: grid; grid-template-columns: 140px repeat(12, minmax(52px, 1fr)); gap: 2px; align-items: stretch;}
+.pp-calendar .pp-row {display: contents;}
+.pp-cell, .pp-head {padding: .5rem; background: #fafafa; border: 1px solid #eceff1; font-size: .95rem;}
+.pp-head {font-weight: 700; background: #eef5ee}
+.pp-crop {font-weight: 600; background: #f7fdf7}
+
+.pp-flag {display: inline-block; min-width: 1.8rem; text-align: center; border-radius: .35rem; padding: .1rem .3rem; font-weight: 700}
+.pp-flag-sow {background:#e8f5e9;}
+.pp-flag-plant {background:#e3f2fd;}
+.pp-flag-harvest {background:#fff8e1;}
+
+.pp-dot {display:inline-block; margin-right:.25rem}
+.pp-sow::before {content:"🌱"}
+.pp-plant::before {content:"🪴"}
+.pp-harvest::before {content:"🥕"}
+
+.pp-hero {width: 100%; max-height: 52vh; object-fit: cover; border-radius: .5rem; margin-top: 1rem;}
+/* Dyslexia-friendly compatibility: respect larger fonts & line-height */
+.pp-seasonal {line-height: 1.5}

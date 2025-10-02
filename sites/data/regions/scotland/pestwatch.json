@@ -1,0 +1,101 @@
+{
+  "region": "Scotland",
+  "pestwatch": {
+    "0": {
+      "title": "Pest Watch \u2013 January (Scotland)",
+      "items": [
+        "Check overwintered brassicas for pigeons \u2013 use netting or fleece.",
+        "Botrytis (grey mould) in damp cold frames \u2013 ventilate on dry days.",
+        "Slugs hiding under pots and debris \u2013 clear regularly."
+      ]
+    },
+    "1": {
+      "title": "Pest Watch \u2013 February (Scotland)",
+      "items": [
+        "Aphids can appear on early sowings during mild spells.",
+        "Slugs damaging salad leaves under cloches.",
+        "Mice eating pea and bean seeds stored in sheds or trays."
+      ]
+    },
+    "2": {
+      "title": "Pest Watch \u2013 March (Scotland)",
+      "items": [
+        "Flea beetle attacking brassica seedlings \u2013 protect with fleece.",
+        "Slugs and snails emerging strongly as temperatures rise.",
+        "Damping-off fungus in crowded seed trays \u2013 improve airflow and avoid overwatering."
+      ]
+    },
+    "3": {
+      "title": "Pest Watch \u2013 April (Scotland)",
+      "items": [
+        "Cabbage root fly \u2013 protect brassicas with collars.",
+        "Carrot fly becomes active \u2013 use fine netting or fleece barriers.",
+        "Slugs active on seedlings \u2013 set traps and hand-pick at dusk."
+      ]
+    },
+    "4": {
+      "title": "Pest Watch \u2013 May (Scotland)",
+      "items": [
+        "Aphids colonising beans and brassicas \u2013 encourage ladybirds.",
+        "Cabbage white butterflies laying eggs on brassicas \u2013 check undersides of leaves.",
+        "Blackfly on broad beans \u2013 pinch out infested shoot tips."
+      ]
+    },
+    "5": {
+      "title": "Pest Watch \u2013 June (Scotland)",
+      "items": [
+        "Potato blight risk rises in warm, damp weather \u2013 remove affected leaves promptly.",
+        "Pea moth caterpillars \u2013 use insect mesh over crops.",
+        "Whitefly on greenhouse tomatoes and cucumbers \u2013 use sticky traps and ventilation."
+      ]
+    },
+    "6": {
+      "title": "Pest Watch \u2013 July (Scotland)",
+      "items": [
+        "Powdery mildew on courgettes \u2013 water at soil level and remove infected leaves.",
+        "Tomato blight spreads in wet conditions \u2013 maintain good airflow.",
+        "Cabbage white caterpillars \u2013 hand-pick or use mesh netting."
+      ]
+    },
+    "7": {
+      "title": "Pest Watch \u2013 August (Scotland)",
+      "items": [
+        "Blight peak risk for potatoes and tomatoes \u2013 harvest early if needed.",
+        "Onion white rot risk \u2013 rotate crops and avoid replanting in same soil.",
+        "Fruit flies around soft fruit \u2013 harvest promptly, avoid fallen fruit."
+      ]
+    },
+    "8": {
+      "title": "Pest Watch \u2013 September (Scotland)",
+      "items": [
+        "Slugs thrive in damp conditions \u2013 use beer traps or copper barriers.",
+        "Grey mould on autumn salads \u2013 increase ventilation.",
+        "Rodents raiding stored crops \u2013 secure storage areas."
+      ]
+    },
+    "9": {
+      "title": "Pest Watch \u2013 October (Scotland)",
+      "items": [
+        "Clubroot risk on brassicas \u2013 lime soil to reduce acidity.",
+        "Moulds in damp polytunnels \u2013 ventilate regularly.",
+        "Rodents near compost heaps \u2013 deter with secure bins."
+      ]
+    },
+    "10": {
+      "title": "Pest Watch \u2013 November (Scotland)",
+      "items": [
+        "Slug damage under cloches \u2013 clear hiding spots and set traps.",
+        "Yellowing brassica leaves encourage pests \u2013 remove promptly.",
+        "Cover leafy veg from pigeons as food sources decline."
+      ]
+    },
+    "11": {
+      "title": "Pest Watch \u2013 December (Scotland)",
+      "items": [
+        "Protect stored root crops (carrots, potatoes) from mice and rats.",
+        "Ventilate greenhouses on mild days to prevent fungal growth.",
+        "Weed around overwintering garlic and onions to reduce pest harbourage."
+      ]
+    }
+  }
+}

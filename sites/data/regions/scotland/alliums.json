@@ -1,0 +1,159 @@
+{
+  "region": "Scotland",
+  "category": "alliums",
+  "crops": [
+    {
+      "name": "Onions (spring sets)",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4
+        ],
+        "harvest": [
+          7,
+          8
+        ]
+      },
+      "depth": "2-3cm (tip just showing)",
+      "spacing": "10cm apart, rows 25cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds",
+      "protection": "Fleece in frosty spells",
+      "tips": "Plant sets pointy end up, firm soil.",
+      "containerMin": "Large tray or deep planter",
+      "notes": "Choose bolt-resistant varieties."
+    },
+    {
+      "name": "Onions (seed)",
+      "months": {
+        "sow": [
+          1,
+          2
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "10cm apart, rows 25cm",
+      "light": "Full sun",
+      "where": "Seed trays, pots, then transplant to beds",
+      "protection": "Heat early sowings under cover",
+      "tips": "Thin seedlings, avoid crowding.",
+      "containerMin": "Deep module tray",
+      "notes": "Slower than sets but more variety."
+    },
+    {
+      "name": "Garlic",
+      "months": {
+        "sow": [],
+        "plant": [
+          9,
+          10,
+          11
+        ],
+        "harvest": [
+          7
+        ]
+      },
+      "depth": "3-4cm",
+      "spacing": "10cm apart, rows 20cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, deep pots",
+      "protection": "Net against birds pulling shoots",
+      "tips": "Use firm soil, don\u2019t overwater.",
+      "containerMin": "25cm deep pot",
+      "notes": "Plant individual cloves, not whole bulbs."
+    },
+    {
+      "name": "Leeks",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          9,
+          10,
+          11,
+          0
+        ]
+      },
+      "depth": "1cm in trays, plant in 15cm-deep holes",
+      "spacing": "15cm apart, rows 30cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds",
+      "protection": "Collars help deter leek moth",
+      "tips": "Trim roots before planting for stronger growth.",
+      "containerMin": "30cm deep trough",
+      "notes": "Earth up stems for longer white shanks."
+    },
+    {
+      "name": "Shallots",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4
+        ],
+        "harvest": [
+          7,
+          8
+        ]
+      },
+      "depth": "2-3cm (tip showing)",
+      "spacing": "15cm apart, rows 25cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, pots",
+      "protection": "Fleece against birds in spring",
+      "tips": "Plant on firm ground.",
+      "containerMin": "Deep tray or 25cm pot",
+      "notes": "Split into clusters when harvested."
+    },
+    {
+      "name": "Spring onions",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "plant": [],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "2-3cm apart in rows",
+      "light": "Full sun",
+      "where": "Pots, raised beds, soil",
+      "protection": "Fleece in early months",
+      "tips": "Sow every 2-3 weeks for a steady crop.",
+      "containerMin": "20cm deep box",
+      "notes": "Fast-growing and compact."
+    }
+  ]
+}

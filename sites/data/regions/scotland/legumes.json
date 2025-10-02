@@ -1,0 +1,220 @@
+{
+  "region": "Scotland",
+  "category": "legumes",
+  "crops": [
+    {
+      "name": "Broad Beans",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          6,
+          7
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "20cm apart, rows 45cm",
+      "light": "Full sun",
+      "where": "Raised beds, soil, large pots",
+      "protection": "Fleece/cloches in early sowings",
+      "tips": "Pinch out tips when first pods set to reduce blackfly.",
+      "containerMin": "30L tub",
+      "notes": "Hardy; can overwinter in mild spots."
+    },
+    {
+      "name": "Runner Beans",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "25cm apart, rows 45cm",
+      "light": "Full sun",
+      "where": "Soil, raised beds, deep pots with supports",
+      "protection": "Use canes/trellis; protect seedlings from slugs.",
+      "tips": "Water well in dry spells to avoid flower drop.",
+      "containerMin": "40L+ deep pot with wigwam support",
+      "notes": "Heavy feeder; mulch base."
+    },
+    {
+      "name": "French Beans (Climbing)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "4cm",
+      "spacing": "20cm apart, rows 45cm",
+      "light": "Full sun",
+      "where": "Soil, raised beds, large pots with canes",
+      "protection": "Net young plants from birds.",
+      "tips": "Pick regularly to prolong harvest.",
+      "containerMin": "35L+",
+      "notes": "Less hardy than broad beans."
+    },
+    {
+      "name": "French Beans (Dwarf)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "4cm",
+      "spacing": "15cm apart, rows 30cm",
+      "light": "Full sun",
+      "where": "Soil, raised beds, pots/planters",
+      "protection": "Protect from slugs at seedling stage.",
+      "tips": "Sow successionally for steady supply.",
+      "containerMin": "25L",
+      "notes": "Quick crop; ideal for containers."
+    },
+    {
+      "name": "Peas",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          3,
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "5cm apart, rows 20cm",
+      "light": "Full sun",
+      "where": "Soil, raised beds, troughs",
+      "protection": "Netting against pigeons; support with twigs or mesh.",
+      "tips": "Harvest frequently to encourage more pods.",
+      "containerMin": "Deep trough or box",
+      "notes": "Many types: mangetout, sugar snap, shelling."
+    },
+    {
+      "name": "Mangetout",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "7cm apart, rows 20cm",
+      "light": "Full sun",
+      "where": "Raised beds, soil, deep troughs",
+      "protection": "Net from birds; slug defence early.",
+      "tips": "Pick pods young for sweetness.",
+      "containerMin": "Deep planter",
+      "notes": "Climbing support required."
+    },
+    {
+      "name": "Sugar Snap Peas",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "8cm apart, rows 20cm",
+      "light": "Full sun",
+      "where": "Raised beds, soil, deep troughs",
+      "protection": "Netting for pigeons, supports for climbing.",
+      "tips": "Harvest when pods swell but before toughening.",
+      "containerMin": "Deep box",
+      "notes": "Sweet pods eaten whole."
+    },
+    {
+      "name": "Soybeans (Edamame)",
+      "months": {
+        "sow": [
+          5,
+          6
+        ],
+        "plant": [
+          6
+        ],
+        "harvest": [
+          9
+        ]
+      },
+      "depth": "3cm",
+      "spacing": "15cm apart, rows 40cm",
+      "light": "Full sun, sheltered",
+      "where": "Soil, raised beds, deep pots",
+      "protection": "Needs warmth; fleece early on.",
+      "tips": "Pick green pods before seeds harden.",
+      "containerMin": "30L pot",
+      "notes": "Borderline in Scotland; grow in warm spots."
+    }
+  ]
+}

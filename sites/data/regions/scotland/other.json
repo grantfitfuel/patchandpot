@@ -1,0 +1,207 @@
+{
+  "region": "Scotland",
+  "categoryBlock": "other",
+  "crops": [
+    {
+      "name": "Asparagus",
+      "category": "other",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          4,
+          5,
+          6
+        ]
+      },
+      "depth": "Crowns 15-20cm deep",
+      "spacing": "30-40cm apart in rows 90cm apart",
+      "light": "Full sun",
+      "where": "Raised beds, direct soil",
+      "protection": "Mulch in winter, net from beetles",
+      "tips": "Do not harvest in first 2 years; cut spears at 10\u201315cm tall.",
+      "containerMin": "Not suitable for pots",
+      "notes": "Perennial; productive for 20+ years."
+    },
+    {
+      "name": "Rhubarb",
+      "category": "other",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3
+        ],
+        "harvest": [
+          3,
+          4,
+          5
+        ]
+      },
+      "depth": "Crowns 5cm below soil",
+      "spacing": "90cm apart",
+      "light": "Full sun or part shade",
+      "where": "Raised beds, direct soil",
+      "protection": "Mulch in winter; net if forcing",
+      "tips": "Harvest lightly in 2nd year; remove flower stalks.",
+      "containerMin": "Very large pot or half-barrel",
+      "notes": "Leaves poisonous; only stalks edible."
+    },
+    {
+      "name": "Globe Artichoke",
+      "category": "other",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "1cm for seeds",
+      "spacing": "90cm apart",
+      "light": "Full sun",
+      "where": "Raised beds, direct soil",
+      "protection": "Mulch crowns in winter",
+      "tips": "Harvest flower buds before opening; cut back after cropping.",
+      "containerMin": "Large tub 50L+",
+      "notes": "Perennial; decorative plant."
+    },
+    {
+      "name": "Jerusalem Artichoke",
+      "category": "other",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3
+        ],
+        "harvest": [
+          10,
+          11
+        ]
+      },
+      "depth": "10-15cm tubers",
+      "spacing": "30cm apart, rows 90cm",
+      "light": "Full sun",
+      "where": "Soil, raised beds",
+      "protection": "Wind protection; tall growth",
+      "tips": "Harvest after frost for sweeter flavour.",
+      "containerMin": "Large bag 40L+",
+      "notes": "Can spread aggressively; grow in contained area."
+    },
+    {
+      "name": "Microgreens (mixed)",
+      "category": "other",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "plant": [],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Surface sow, cover lightly",
+      "spacing": "Broadcast in trays",
+      "light": "Bright windowsill, greenhouse",
+      "where": "Trays, pots, windowsills",
+      "protection": "Keep indoors in winter",
+      "tips": "Harvest at 5-10cm tall; cut with scissors.",
+      "containerMin": "Shallow tray",
+      "notes": "Any small leafy veg/herbs; continuous harvest."
+    },
+    {
+      "name": "Edible Flowers (nasturtium, viola, calendula, borage)",
+      "category": "other",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5-1cm",
+      "spacing": "20-30cm apart",
+      "light": "Full sun",
+      "where": "Pots, raised beds, borders",
+      "protection": "Netting to deter aphids",
+      "tips": "Pick regularly to encourage blooms.",
+      "containerMin": "25cm pots",
+      "notes": "Flowers edible; attract pollinators."
+    },
+    {
+      "name": "Perennial Kale",
+      "category": "leafy",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          6,
+          7
+        ],
+        "harvest": [
+          9,
+          10,
+          11,
+          0,
+          1,
+          2
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "60cm apart",
+      "light": "Full sun",
+      "where": "Raised beds, soil",
+      "protection": "Netting against pigeons and butterflies",
+      "tips": "Harvest leaves regularly; do not cut main stem.",
+      "containerMin": "Large pot 40L+",
+      "notes": "Perennial variety; crops year-round."
+    }
+  ]
+}

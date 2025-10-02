@@ -6,10 +6,10 @@
   <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
 
-  <!-- Sitewide CSS (bump v to bust cache when you update style.css) -->
+  <!-- Sitewide CSS -->
   <link rel="stylesheet" href="style.css?v=47">
 
-  <!-- Page-level light CSS tweaks to guarantee footer layout even if CSS is cached -->
+  <!-- Page-level tweaks -->
   <style>
     .pp-sub { color: var(--muted, #a6b6af); margin: 0 0 .8rem }
     .pp-card { background: var(--panel, #161c19); border:1px solid var(--stroke, #2b332f); border-radius:16px; padding:1rem; margin:1rem 0 }
@@ -61,9 +61,7 @@
             <option value="england">England</option>
             <option value="wales">Wales</option>
           </select>
-
           <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops by name">
-
           <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
           <select id="pp-category" class="pp-select" aria-label="Filter by category">
             <option value="all">All categories</option>
@@ -76,7 +74,6 @@
             <option value="other">Other</option>
           </select>
         </div>
-
         <div class="right">
           <label><input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span></label>
         </div>
@@ -112,7 +109,7 @@
     </div>
   </footer>
 
-  <!-- Header partial loader (kept inline so it always runs) -->
+  <!-- Header partial loader -->
   <script>
     (function loadHeader(){
       const holder = document.querySelector('[data-include="partials/header.html"]');
@@ -121,20 +118,15 @@
         .then(r => r.text())
         .then(html => {
           holder.outerHTML = html;
-
-          // Wire up active link + hamburger
           const header = document.getElementById('siteHeader');
           if(!header) return;
           const toggle = header.querySelector('.menu-toggle');
           const nav = header.querySelector('#primaryNav');
-
-          // Active link highlight (exact href match by filename)
           const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
           header.querySelectorAll('.nav a').forEach(a=>{
             const href = (a.getAttribute('href')||'').toLowerCase();
             if(href === path) a.setAttribute('aria-current','page');
           });
-
           function setExpanded(on){
             if(!toggle) return;
             if(on){ header.classList.add('menu-open'); toggle.classList.add('menu-open'); toggle.setAttribute('aria-expanded','true'); }
@@ -147,7 +139,7 @@
     })();
   </script>
 
-  <!-- Seasonal logic: renderers (kept simple & robust) -->
+  <!-- Seasonal logic: renderers -->
   <script>
     const PP_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const CUR_M = new Date().getMonth();
@@ -276,74 +268,101 @@
     }
   </script>
 
-  <!-- Multi-block data loader with fallback to legacy single files -->
+  <!-- Multi-block data loader -->
   <script>
     const REGION_KEYS = ["scotland","england","ireland","wales"];
     const BLOCKS = ["basics","pestwatch","roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
 
-    // Try a list of URLs until one works (nocache)
+    // Build candidate URLs for a region/block relative to where this page is served
+    function blockUrls(region, block){
+      const hereDir = location.pathname.replace(/[^/]+$/, '');  // folder containing this page
+      return [
+        `${hereDir}data/regions/${region}/${block}.json`,
+        `/sites/data/regions/${region}/${block}.json`,
+        `/data/regions/${region}/${block}.json`
+      ];
+    }
+    function legacyUrls(region){
+      const hereDir = location.pathname.replace(/[^/]+$/, '');
+      return [
+        `${hereDir}data/crops-${region}.json`,
+        `/sites/data/crops-${region}.json`,
+        `/data/crops-${region}.json`
+      ];
+    }
+
+    // Fetch first working URL (nocache) and log it
     function fetchFirstOk(urls){
-      const next = (i)=>
-        i>=urls.length
-          ? Promise.reject(new Error("All paths failed"))
-          : fetch(urls[i] + (urls[i].includes("?")?"":`?v=${Date.now()}`), {cache:"no-store"})
-              .then(r=> r.ok ? r.json() : Promise.reject())
-              .catch(()=> next(i+1));
+      const next = (i) => {
+        if (i >= urls.length) return Promise.reject(new Error("All paths failed"));
+        const u = urls[i] + (urls[i].includes("?") ? "" : `?v=${Date.now()}`);
+        return fetch(u, {cache:"no-store"})
+          .then(r => r.ok ? r.json() : Promise.reject(new Error(String(r.status))))
+          .then(j => { console.log("Loaded:", u); return j; })
+          .catch(() => next(i+1));
+      };
       return next(0);
     }
 
-    function loadRegionBlock(region, block){
-      const base = `data/regions/${region}/${block}.json`;
-      const legacy = `data/crops-${region}.json`;
-
-      if (block === "basics" || block === "pestwatch") {
-        return fetchFirstOk([base]).catch(() =>
-          fetchFirstOk([legacy]).then(j => j[block] || {})
-        );
+    // Normalise block shapes
+    function normalizeBlock(blockName, data){
+      if (blockName === "basics" || blockName === "pestwatch") {
+        return (data && typeof data === "object") ? data : {};
       }
-      // Crop blocks
-      return fetchFirstOk([base]).catch(() =>
-        fetchFirstOk([legacy]).then(j => {
-          const crops = Array.isArray(j.crops) ? j.crops : [];
-          const catMap = {
-            roots: "roots", leafy: "leafy", legumes: "legumes", fruit: "fruit",
-            alliums: "alliums", herbs: "herbs", softfruit: "fruit", other: "other"
-          };
-          const want = catMap[block];
-          if (!want) return [];
-          return crops.filter(c => (c.category || "").toLowerCase().includes(want));
-        })
-      );
+      if (Array.isArray(data)) return data;                   // pure array
+      if (data && typeof data === "object" && Array.isArray(data.crops)) return data.crops; // {crops:[...]}
+      return [];
     }
 
+    // Load a block with fallback to legacy single-file
+    function loadRegionBlock(region, block){
+      return fetchFirstOk(blockUrls(region, block))
+        .then(json => normalizeBlock(block, json))
+        .catch(() =>
+          fetchFirstOk(legacyUrls(region)).then(all => {
+            if (block === "basics" || block === "pestwatch") {
+              return normalizeBlock(block, all[block] || {});
+            }
+            const crops = Array.isArray(all.crops) ? all.crops : [];
+            if (!crops.length) return [];
+            const want = block; // roots/leafy/legumes/fruit/alliums/herbs/softfruit/other
+            return crops.filter(c => (c.category || "").toLowerCase().includes(want));
+          })
+        );
+    }
+
+    // Assemble a region into {region, basics, pestwatch, crops:[...]}
     function assembleRegion(region){
-      const meta = Promise.all([
-        loadRegionBlock(region, "basics").catch(()=>({})),
-        loadRegionBlock(region, "pestwatch").catch(()=>({}))
+      const metaP = Promise.all([
+        loadRegionBlock(region, "basics").catch(() => ({})),
+        loadRegionBlock(region, "pestwatch").catch(() => ({}))
       ]).then(([basics, pestwatch]) => ({ basics, pestwatch }));
 
-      const crops = Promise.all(
+      const cropsP = Promise.all(
         ["roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"]
           .map(b => loadRegionBlock(region, b).then(arr => Array.isArray(arr)?arr:[]).catch(()=>[]))
       ).then(parts => parts.flat());
 
-      return Promise.all([meta, crops]).then(([m, c]) => ({
+      return Promise.all([metaP, cropsP]).then(([m, crops]) => ({
         region: region[0].toUpperCase()+region.slice(1),
         basics: m.basics || {},
         pestwatch: m.pestwatch || {},
-        crops: c || []
+        crops: crops || []
       }));
     }
 
-    Promise.all(REGION_KEYS.map(r => assembleRegion(r).then(obj => (DATA[r]=obj))))
-      .then(()=> init())
-      .catch(err=>{
-        console.error("Data load failed:", err);
-        const list = document.getElementById('pp-today-list');
-        if (list) list.innerHTML = '<li>Sorry, data failed to load.</li>';
-        const pest = document.querySelector('#pp-pestwatch ul');
-        if (pest) pest.innerHTML = '<li>Loading failed.</li>';
-      });
+    // Build DATA then init()
+    Promise.all(REGION_KEYS.map(r =>
+      assembleRegion(r).then(obj => { DATA[r] = obj; })
+    ))
+    .then(() => { init(); })
+    .catch(err => {
+      console.error("Data load failed:", err);
+      const list = document.getElementById('pp-today-list');
+      if (list) list.innerHTML = '<li>Sorry, data failed to load.</li>';
+      const pest = document.querySelector('#pp-pestwatch ul');
+      if (pest) pest.innerHTML = '<li>Loading failed.</li>';
+    });
   </script>
 </body>
 </html>

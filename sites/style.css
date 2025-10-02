@@ -118,6 +118,45 @@ h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(
 .btn.primary{ background:linear-gradient(180deg,var(--green2),var(--green)); color:#061007 }
 .btn.ghost{ background:rgba(255,255,255,.10); border:1px solid var(--stroke); color:#fff }
 
+/* ---------- Seasonal calendar fixes: tablets & phones ---------- */
+
+/* Let crop names wrap gracefully */
+.pp-crop {
+  white-space: normal;         /* allow line breaks */
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  max-height: 2.6em;           /* prevent huge blocks on mobile */
+}
+
+/* iPad / small tablet */
+@media (max-width: 1024px){
+  .pp-calendar {
+    grid-template-columns: 210px repeat(12, minmax(46px,1fr));
+  }
+  .pp-cell, .pp-head {
+    padding: .45rem .45rem;
+    font-size: .92rem;
+  }
+}
+
+/* Phones in portrait (<= 600px) */
+@media (max-width: 600px){
+  .pp-calendar {
+    grid-template-columns: 180px repeat(12, minmax(38px,1fr));
+  }
+  .pp-cell, .pp-head {
+    padding: .35rem .3rem;
+    font-size: .85rem;          /* smaller text */
+    line-height: 1.1;
+  }
+  .pp-crop {
+    font-size: .85rem;
+    max-height: 2.4em;          /* keep to 2 lines max */
+  }
+}
+
 /* ===============================
    PAGE HEROES (subpages)
    =============================== */

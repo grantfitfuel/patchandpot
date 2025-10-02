@@ -1,0 +1,140 @@
+{
+  "region": "Wales",
+  "category": "legumes",
+  "crops": [
+    {
+      "name": "Broad Beans",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          9,
+          10
+        ],
+        "plant": [
+          2,
+          3
+        ],
+        "harvest": [
+          5,
+          6,
+          7
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "20cm apart, rows 45cm",
+      "light": "Full sun",
+      "where": "Raised beds, pots, direct soil",
+      "protection": "Cloche in early sowings, net against pigeons",
+      "tips": "Pinch out tops when pods form to deter blackfly",
+      "containerMin": "Deep pot 30cm",
+      "notes": "Hardy and reliable, overwinter or spring sowings."
+    },
+    {
+      "name": "Runner Beans",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "25cm apart, rows 45cm",
+      "light": "Full sun, sheltered",
+      "where": "Pots with canes, raised beds, direct soil",
+      "protection": "Cloche or fleece until established",
+      "tips": "Provide tall supports, water generously in dry weather",
+      "containerMin": "Large deep pot 40L",
+      "notes": "Train up canes, regular picking encourages more pods."
+    },
+    {
+      "name": "French Beans (Climbing & Dwarf)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "3-5cm",
+      "spacing": "15cm apart, rows 30-45cm",
+      "light": "Full sun",
+      "where": "Pots, raised beds, soil",
+      "protection": "Cloches or fleece in cool spring",
+      "tips": "Climbing types need supports, dwarf are compact for pots",
+      "containerMin": "25L pot (dwarf), 40L pot (climbing)",
+      "notes": "Harvest while young for best flavour."
+    },
+    {
+      "name": "Mangetout & Sugar Snap Peas",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "3-5cm",
+      "spacing": "5-8cm apart, rows 20cm",
+      "light": "Full sun",
+      "where": "Pots, raised beds, soil",
+      "protection": "Netting against birds and mice",
+      "tips": "Provide pea sticks for support, keep well watered",
+      "containerMin": "Deep box or trough 30cm",
+      "notes": "Pick pods regularly to prolong harvest."
+    },
+    {
+      "name": "Garden Peas",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "7cm apart, rows 20cm",
+      "light": "Full sun",
+      "where": "Raised beds, direct soil, troughs",
+      "protection": "Netting against pigeons and mice",
+      "tips": "Mulch to keep roots cool, water in dry spells",
+      "containerMin": "Large trough 30cm deep",
+      "notes": "Choose early, maincrop and late for extended season."
+    }
+  ]
+}

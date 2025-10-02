@@ -1,0 +1,616 @@
+{
+  "region": "Wales",
+  "category": "herbs",
+  "crops": [
+    {
+      "name": "Basil (sweet, Genovese)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm (lightly cover)",
+      "spacing": "25\u201330cm apart",
+      "light": "Full sun, warmth",
+      "where": "Pots, window sills, greenhouse/polytunnel in Wales",
+      "protection": "Protect from cold nights; avoid overwatering",
+      "tips": "Pinch tips to bush; harvest little and often",
+      "containerMin": "15\u201320cm pot",
+      "notes": "Best under cover outdoors in Wales\u2019 cooler summers"
+    },
+    {
+      "name": "Parsley (flat & curly)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "20\u201325cm apart",
+      "light": "Sun/part shade",
+      "where": "Pots, beds, window boxes",
+      "protection": "Fleece in hard frost for winter pickings",
+      "tips": "Slow to germinate\u2014soak seed; keep moist",
+      "containerMin": "20\u201325cm pot",
+      "notes": "Biennial; best flavour year one"
+    },
+    {
+      "name": "Coriander (leaf/cilantro)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "15\u201320cm apart or stations 5 seeds",
+      "light": "Sun/part shade",
+      "where": "Pots, troughs, beds",
+      "protection": "Bolt in heat\u2014give afternoon shade",
+      "tips": "Succession sow every 3 weeks; water evenly",
+      "containerMin": "20cm trough",
+      "notes": "Also harvest green seeds and roots"
+    },
+    {
+      "name": "Dill",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "20\u201325cm",
+      "light": "Full sun, sheltered",
+      "where": "Beds or pots (tall support)",
+      "protection": "Shelter from wind; slugs on seedlings",
+      "tips": "Direct sow\u2014doesn\u2019t like transplanting",
+      "containerMin": "25cm pot",
+      "notes": "Use leaves, flowers, and seeds"
+    },
+    {
+      "name": "Mint (spearmint/peppermint)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          3,
+          4,
+          5
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Plant at same depth as pot",
+      "spacing": "30\u201340cm (spreads)",
+      "light": "Sun/part shade",
+      "where": "Containers (contain runners), beds",
+      "protection": "Containerise to prevent spread",
+      "tips": "Cut back hard to refresh; divide regularly",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Many flavours (apple, chocolate); great for part shade"
+    },
+    {
+      "name": "Thyme (common, lemon)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Surface or 0.5cm (needs light)",
+      "spacing": "25\u201330cm",
+      "light": "Full sun, free-draining",
+      "where": "Pots, rockery, raised beds",
+      "protection": "Avoid winter wet; grit in compost",
+      "tips": "Trim lightly after flowering to keep compact",
+      "containerMin": "20cm pot with gritty mix",
+      "notes": "Perennial; very drought-tolerant once established"
+    },
+    {
+      "name": "Rosemary",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Surface or 0.5cm (slow germinator)",
+      "spacing": "60\u201390cm (upright)",
+      "light": "Full sun, well-drained",
+      "where": "Large pots, raised beds",
+      "protection": "Shelter from severe frost/wet; choose hardy varieties",
+      "tips": "Easier from cuttings than seed; prune after flowering",
+      "containerMin": "30\u201340cm pot",
+      "notes": "Evergreen perennial; aromatic hedging option"
+    },
+    {
+      "name": "Sage (common)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "45cm bush",
+      "light": "Full sun",
+      "where": "Pots, beds (free-draining)",
+      "protection": "Avoid winter wet; add grit",
+      "tips": "Rejuvenate by trimming back after flowering",
+      "containerMin": "30cm pot",
+      "notes": "Good with fatty meats; flowers attract pollinators"
+    },
+    {
+      "name": "Oregano / Marjoram",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Surface or 0.5cm (fine seed)",
+      "spacing": "30cm clumps",
+      "light": "Full sun",
+      "where": "Pots, raised beds, rockery",
+      "protection": "Free-draining compost with grit",
+      "tips": "Cut back after flowering to keep compact",
+      "containerMin": "20\u201325cm pot",
+      "notes": "Perennial; marjoram is the sweeter cousin of oregano"
+    },
+    {
+      "name": "Lemon Balm",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Surface or 0.5cm",
+      "spacing": "30\u201340cm (spreads)",
+      "light": "Sun/part shade",
+      "where": "Pots (contain), beds",
+      "protection": "Contain spread; cut back to renew growth",
+      "tips": "Great for teas; aromatic leaves",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Hardy perennial; attracts bees"
+    },
+    {
+      "name": "French Tarragon",
+      "months": {
+        "sow": [],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Plant at pot depth",
+      "spacing": "45cm",
+      "light": "Full sun, sheltered",
+      "where": "Pots, beds (free-draining)",
+      "protection": "Not fully hardy in severe winters\u2014give shelter/drainage",
+      "tips": "Propagate by division/cuttings (seed is Russian tarragon)",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Essential for classic sauces (B\u00e9arnaise)"
+    },
+    {
+      "name": "Bay (Laurus nobilis)",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Plant at same depth as pot",
+      "spacing": "Container or 1.5\u20133m as shrub",
+      "light": "Sun/part shade",
+      "where": "Large pots or borders",
+      "protection": "Shelter from severe cold/wind; watch bay suckers",
+      "tips": "Prune to shape; good as clipped standards",
+      "containerMin": "35\u201350L tub",
+      "notes": "Evergreen culinary leaves"
+    },
+    {
+      "name": "Sorrel (garden & French)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "30\u201340cm clumps",
+      "light": "Sun/part shade",
+      "where": "Beds or pots",
+      "protection": "Slug control on young leaves",
+      "tips": "Cut flower stalks to keep leaves tender",
+      "containerMin": "25cm pot",
+      "notes": "Tangy lemony leaves for soups & salads"
+    },
+    {
+      "name": "Lovage",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "60\u201390cm (large perennial)",
+      "light": "Sun/part shade",
+      "where": "Bed or very large pot",
+      "protection": "Stake in windy sites",
+      "tips": "Strong celery-like flavour; use sparingly",
+      "containerMin": "35\u201350L tub",
+      "notes": "Tall architectural herb"
+    },
+    {
+      "name": "Borage",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "30\u201340cm",
+      "light": "Full sun",
+      "where": "Beds or large pots",
+      "protection": "Self-seeds freely\u2014deadhead to control",
+      "tips": "Edible flowers & young leaves; bee magnet",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Great companion for strawberries"
+    },
+    {
+      "name": "Summer Savory",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "25\u201330cm",
+      "light": "Full sun",
+      "where": "Pots, beds (free-draining)",
+      "protection": "Avoid waterlogging",
+      "tips": "Good with beans; peppery leaves",
+      "containerMin": "20cm pot",
+      "notes": "Annual; easy and quick"
+    },
+    {
+      "name": "Winter Savory",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "30cm",
+      "light": "Full sun",
+      "where": "Pots, beds",
+      "protection": "Well-drained soil; add grit",
+      "tips": "Evergreen in mild winters; trim lightly after bloom",
+      "containerMin": "20\u201325cm pot",
+      "notes": "Perennial savory; stronger flavour"
+    },
+    {
+      "name": "Hyssop",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "30\u201340cm",
+      "light": "Full sun",
+      "where": "Pots, borders",
+      "protection": "Free-draining compost; avoid winter wet",
+      "tips": "Attracts pollinators; aromatic leaves",
+      "containerMin": "25cm pot",
+      "notes": "Traditional medicinal/culinary herb"
+    },
+    {
+      "name": "Chamomile (German/Matricaria for tea)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Surface (light needed)",
+      "spacing": "20\u201325cm",
+      "light": "Full sun",
+      "where": "Pots, beds",
+      "protection": "Shelter from persistent wet",
+      "tips": "Pick flower heads for drying; succession for steady supply",
+      "containerMin": "20cm pot",
+      "notes": "Roman chamomile is perennial lawn type; German is annual for tea"
+    },
+    {
+      "name": "Fennel (leaf/bronze herb)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "30\u201340cm",
+      "light": "Full sun",
+      "where": "Beds, large pots",
+      "protection": "Shelter from wind; can self-seed",
+      "tips": "Do not plant near dill (crossing); use young fronds",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Bulb fennel is separate (root/veg); this entry is for herb fennel"
+    },
+    {
+      "name": "Stevia (sweetleaf)",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Surface or 0.5cm",
+      "spacing": "30cm",
+      "light": "Full sun, warm",
+      "where": "Pots (indoors over winter)",
+      "protection": "Frost-tender; bring inside before cold",
+      "tips": "Take cuttings late summer for next year",
+      "containerMin": "20\u201325cm pot",
+      "notes": "Leaves used as natural sweetener"
+    }
+  ]
+}

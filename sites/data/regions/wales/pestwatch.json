@@ -1,0 +1,101 @@
+{
+  "region": "Wales",
+  "pestwatch": {
+    "0": {
+      "title": "Pest Watch \u2013 January (Wales)",
+      "items": [
+        "Check overwintered brassicas for pigeons \u2013 netting recommended.",
+        "Grey mould risk in damp greenhouses or cold frames.",
+        "Slugs hiding under pots \u2013 clear debris."
+      ]
+    },
+    "1": {
+      "title": "Pest Watch \u2013 February (Wales)",
+      "items": [
+        "Aphids may appear in mild spells on overwintering greens.",
+        "Slugs damaging salad leaves under cloches.",
+        "Mice eating stored or newly sown pea/bean seeds."
+      ]
+    },
+    "2": {
+      "title": "Pest Watch \u2013 March (Wales)",
+      "items": [
+        "Flea beetle on brassica seedlings.",
+        "Slugs & snails increasing activity.",
+        "Damping-off fungus in seed trays."
+      ]
+    },
+    "3": {
+      "title": "Pest Watch \u2013 April (Wales)",
+      "items": [
+        "Carrot fly \u2013 protect with fleece/netting.",
+        "Cabbage root fly \u2013 use collars.",
+        "Slugs at night \u2013 traps or hand removal."
+      ]
+    },
+    "4": {
+      "title": "Pest Watch \u2013 May (Wales)",
+      "items": [
+        "Aphids on beans and brassicas.",
+        "Cabbage white butterflies laying eggs.",
+        "Blackfly on broad beans \u2013 pinch tips."
+      ]
+    },
+    "5": {
+      "title": "Pest Watch \u2013 June (Wales)",
+      "items": [
+        "Potato blight risk \u2013 remove infected foliage.",
+        "Pea moth caterpillars \u2013 mesh netting.",
+        "Whitefly in greenhouses."
+      ]
+    },
+    "6": {
+      "title": "Pest Watch \u2013 July (Wales)",
+      "items": [
+        "Powdery mildew on courgettes.",
+        "Tomato blight \u2013 water at soil level.",
+        "Cabbage white caterpillars \u2013 net or hand remove."
+      ]
+    },
+    "7": {
+      "title": "Pest Watch \u2013 August (Wales)",
+      "items": [
+        "Potato/tomato blight risk highest.",
+        "Onion white rot \u2013 crop rotation essential.",
+        "Fruit fly near soft fruits \u2013 harvest promptly."
+      ]
+    },
+    "8": {
+      "title": "Pest Watch \u2013 September (Wales)",
+      "items": [
+        "Slugs after autumn rain.",
+        "Grey mould on salads in damp conditions.",
+        "Rodents targeting ripening crops."
+      ]
+    },
+    "9": {
+      "title": "Pest Watch \u2013 October (Wales)",
+      "items": [
+        "Clubroot in brassicas \u2013 lime soil.",
+        "Moulds in greenhouses.",
+        "Rodents around compost bins."
+      ]
+    },
+    "10": {
+      "title": "Pest Watch \u2013 November (Wales)",
+      "items": [
+        "Slugs under cloches.",
+        "Remove yellowing brassica leaves.",
+        "Net brassicas from pigeons."
+      ]
+    },
+    "11": {
+      "title": "Pest Watch \u2013 December (Wales)",
+      "items": [
+        "Protect stored roots from rodents.",
+        "Ventilate greenhouses to avoid mould.",
+        "Weed around garlic/onions."
+      ]
+    }
+  }
+}

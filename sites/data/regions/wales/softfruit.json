@@ -1,0 +1,181 @@
+{
+  "region": "Wales",
+  "category": "softfruit",
+  "crops": [
+    {
+      "name": "Strawberries (summer & perpetual)",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4,
+          9,
+          10
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Set crown at soil level (do not bury)",
+      "spacing": "30\u201340cm apart; rows 45\u201360cm",
+      "light": "Full sun",
+      "where": "Beds, troughs, pots, hanging baskets",
+      "protection": "Netting vs birds; straw/liners to keep fruit clean; slug barriers",
+      "tips": "Remove runners unless propagating; replace plants every 3\u20134 years",
+      "containerMin": "25\u201330cm deep trough or 25cm pot",
+      "notes": "Perpetual (everbearers) crop smaller but longer; summer types heavier, shorter season"
+    },
+    {
+      "name": "Raspberries (summer & autumn)",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Plant canes to nursery soil mark",
+      "spacing": "45\u201360cm between canes; rows 1.5\u20132m apart",
+      "light": "Full sun or light shade",
+      "where": "Direct soil, raised beds, large containers with supports",
+      "protection": "Netting vs birds; mulch to conserve moisture",
+      "tips": "Tie to wires; prune per type (summer: remove fruited canes; autumn: cut all to ground in winter)",
+      "containerMin": "45\u201360L container per 1\u20132 canes",
+      "notes": "Autumn types are simplest for beginners and pots"
+    },
+    {
+      "name": "Blackberries (incl. thornless)",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Plant level with pot soil",
+      "spacing": "2\u20133m between plants",
+      "light": "Full sun; tolerates part shade",
+      "where": "Direct soil with trellis/fence; extra\u2011large planters",
+      "protection": "Netting vs birds if necessary",
+      "tips": "Train on wires; remove fruited canes after harvest; tie in new growth",
+      "containerMin": "60\u201390L planter with strong support",
+      "notes": "Thornless modern cultivars are compact and easier to manage"
+    },
+    {
+      "name": "Blueberries",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4,
+          10
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Plant at same depth as pot; do not bury stem base",
+      "spacing": "1.2\u20131.8m between bushes",
+      "light": "Full sun or light shade",
+      "where": "Containers with ericaceous compost (pH 4.5\u20135.5)",
+      "protection": "Netting vs birds; fleece in late frosts at blossom",
+      "tips": "Use rainwater; grow at least two cultivars for better pollination",
+      "containerMin": "35\u201350L ericaceous container",
+      "notes": "Mulch with pine needles/bark to maintain acidity"
+    },
+    {
+      "name": "Currants (black, red, white)",
+      "months": {
+        "sow": [],
+        "plant": [
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "Plant 5cm deeper than nursery mark (encourages new shoots)",
+      "spacing": "1.5\u20131.8m apart",
+      "light": "Full sun or light shade",
+      "where": "Beds or large pots",
+      "protection": "Netting vs birds; winter wash if scale/aphids noted",
+      "tips": "Prune to open goblet shape; remove old wood to encourage new growth",
+      "containerMin": "40\u201350L container",
+      "notes": "Blackcurrants fruit on young wood; red/white on older spurs\u2014prune accordingly"
+    },
+    {
+      "name": "Gooseberries",
+      "months": {
+        "sow": [],
+        "plant": [
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          6,
+          7
+        ]
+      },
+      "depth": "Plant level with pot soil",
+      "spacing": "1.2\u20131.5m apart",
+      "light": "Full sun or light shade",
+      "where": "Beds, raised beds, large containers",
+      "protection": "Net vs birds; watch for gooseberry sawfly",
+      "tips": "Summer prune sideshoots; maintain open centre to reduce mildew",
+      "containerMin": "40L pot",
+      "notes": "Pick early firm fruits for cooking; fully ripe for dessert"
+    },
+    {
+      "name": "Hybrid berries (Tayberry, Loganberry, Boysenberry)",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          7,
+          8
+        ]
+      },
+      "depth": "Plant to pot depth",
+      "spacing": "2\u20133m between plants",
+      "light": "Full sun, sheltered",
+      "where": "Direct soil with trellis; very large planters with supports",
+      "protection": "Netting vs birds",
+      "tips": "Train long canes on wires; prune like blackberries (remove fruited canes, tie in new)",
+      "containerMin": "75L+ planter with strong support",
+      "notes": "Large aromatic berries with long harvest window"
+    }
+  ]
+}

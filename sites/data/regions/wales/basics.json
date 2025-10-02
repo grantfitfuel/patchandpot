@@ -1,0 +1,49 @@
+{
+  "region": "Wales",
+  "basics": [
+    {
+      "topic": "Soil preparation",
+      "details": "Most crops prefer fertile, well-drained soil with added organic matter. Add compost or well-rotted manure before planting."
+    },
+    {
+      "topic": "Containers & pots",
+      "details": "Choose pots at least 25\u201330 cm deep for root crops and 40L+ bags for potatoes. Ensure drainage holes at the base."
+    },
+    {
+      "topic": "Raised beds",
+      "details": "Ideal for small gardens or wet soils. Fill with a mix of topsoil, compost, and organic matter. Helps improve drainage and warms faster in spring."
+    },
+    {
+      "topic": "Direct soil planting",
+      "details": "Ensure soil is free of large stones and weeds. Rake to a fine tilth before sowing seeds directly."
+    },
+    {
+      "topic": "Seed depth",
+      "details": "Most small seeds (lettuce, carrots, spinach) 0.5\u20131.5 cm deep. Larger seeds (peas, beans, sweetcorn) 3\u20135 cm deep. Potatoes: 10\u201315 cm deep."
+    },
+    {
+      "topic": "Spacing",
+      "details": "Leafy crops 20\u201330 cm apart. Root crops 5\u201310 cm apart in rows 15\u201320 cm apart. Legumes 20\u201325 cm apart. Fruiting crops 40\u201360 cm apart."
+    },
+    {
+      "topic": "Protection",
+      "details": "Use fleece or cloches to protect early sowings. Net brassicas against pigeons and butterflies. Mesh against carrot fly. Cold frames extend season."
+    },
+    {
+      "topic": "Sun vs shade",
+      "details": "Most crops prefer full sun (6+ hours). Leafy crops and herbs like mint tolerate part shade. Avoid deep shade."
+    },
+    {
+      "topic": "Watering",
+      "details": "Keep soil evenly moist, especially in pots. Avoid waterlogging. Mulch helps retain moisture."
+    },
+    {
+      "topic": "Feeding",
+      "details": "Leafy crops: nitrogen-rich feed. Fruiting crops: high-potash feed once flowers form. Root crops: balanced fertiliser at planting."
+    },
+    {
+      "topic": "Season extenders",
+      "details": "Cold frames, cloches, and polytunnels extend the growing season. Greenhouses protect tender crops like tomatoes, cucumbers, and peppers."
+    }
+  ]
+}

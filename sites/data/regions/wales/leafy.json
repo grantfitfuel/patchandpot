@@ -1,0 +1,238 @@
+{
+  "region": "Wales",
+  "category": "leafy",
+  "crops": [
+    {
+      "name": "Lettuce (loose-leaf & cos)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "plant": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "20cm apart, rows 25cm",
+      "light": "Sun/part shade",
+      "where": "Pots, raised beds, soil",
+      "protection": "Fleece early season, net against birds",
+      "tips": "Succession sow every 2-3 weeks for continuity.",
+      "containerMin": "20cm deep tray or box",
+      "notes": "Cut-and-come-again mixes very suitable."
+    },
+    {
+      "name": "Spinach (annual)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          8,
+          9
+        ],
+        "plant": [
+          3,
+          4,
+          5,
+          9
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "15cm apart",
+      "light": "Part shade",
+      "where": "Pots, raised beds, soil",
+      "protection": "Shade cloth in summer, fleece in cold.",
+      "tips": "Keep moist to prevent bolting.",
+      "containerMin": "20cm deep box",
+      "notes": "Perpetual spinach is longer-lasting alternative."
+    },
+    {
+      "name": "Kale (curly, cavolo nero)",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          9,
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "40cm apart",
+      "light": "Full sun/part shade",
+      "where": "Raised beds, large pots",
+      "protection": "Netting vs cabbage white butterflies & pigeons",
+      "tips": "Pick lower leaves first to extend cropping.",
+      "containerMin": "40cm deep tub",
+      "notes": "Hardy, withstands frost well."
+    },
+    {
+      "name": "Chard (rainbow, Swiss)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "plant": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "30cm apart",
+      "light": "Full sun",
+      "where": "Pots, raised beds, soil",
+      "protection": "Net vs pigeons",
+      "tips": "Cut outer leaves for repeat harvest.",
+      "containerMin": "25cm pot",
+      "notes": "Bright stems are decorative and edible."
+    },
+    {
+      "name": "Mustard greens / Oriental leaves (mizuna, pak choi, tatsoi)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          7,
+          8,
+          9
+        ],
+        "plant": [
+          4,
+          5,
+          8,
+          9
+        ],
+        "harvest": [
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "20cm apart",
+      "light": "Sun/part shade",
+      "where": "Pots, beds",
+      "protection": "Netting against flea beetle",
+      "tips": "Best in cooler months, bolt in heat.",
+      "containerMin": "20cm pot",
+      "notes": "Great for cut-and-come-again salads."
+    },
+    {
+      "name": "Cabbage (spring, summer, winter types)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          7,
+          8
+        ],
+        "plant": [
+          4,
+          5,
+          7,
+          8
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          0
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "30\u201345cm apart",
+      "light": "Full sun",
+      "where": "Raised beds, soil, very large pots",
+      "protection": "Collars vs root fly, netting vs butterflies & pigeons",
+      "tips": "Firm soil helps prevent root problems.",
+      "containerMin": "Large tub (45L+)",
+      "notes": "Choose variety for season (spring, summer, winter)."
+    },
+    {
+      "name": "Rocket (arugula)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "10cm apart",
+      "light": "Full sun/part shade",
+      "where": "Pots, raised beds, window boxes",
+      "protection": "Fleece vs flea beetle",
+      "tips": "Frequent sowings prevent plants bolting.",
+      "containerMin": "15cm deep tray",
+      "notes": "Spicy leaf, quick cropping."
+    }
+  ]
+}

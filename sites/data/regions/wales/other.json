@@ -1,0 +1,477 @@
+{
+  "region": "Wales",
+  "category": "other",
+  "crops": [
+    {
+      "name": "Mixed Salad Leaves (cut-and-come-again)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm (broadcast thinly)",
+      "spacing": "Thin to 2\u20133cm (dense mat)",
+      "light": "Sun/part shade",
+      "where": "Trays, window boxes, pots, beds",
+      "protection": "Fleece early/late season; slug traps",
+      "tips": "Sow little-and-often; cut 3\u20135cm above crown for regrowth",
+      "containerMin": "10\u201315cm deep tray",
+      "notes": "Blend of lettuce, mustards, rocket, mizuna etc."
+    },
+    {
+      "name": "Microgreens (tray-grown)",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "plant": [],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Surface sow, press in",
+      "spacing": "Very dense (seed to seed)",
+      "light": "Bright light/indoor window",
+      "where": "Shallow trays indoors",
+      "protection": "None; hygiene to prevent mould",
+      "tips": "Mist, don\u2019t drench; harvest at first true leaf",
+      "containerMin": "Shallow tray (3\u20135cm)",
+      "notes": "Pea shoots, sunflower, radish, broccoli, herbs etc."
+    },
+    {
+      "name": "Sprouting Seeds (jar method)",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "plant": [],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "N/A (soak 6\u201312h)",
+      "spacing": "N/A (jar)",
+      "light": "Indirect light",
+      "where": "Kitchen counter in jar with mesh lid",
+      "protection": "Rinse 2\u20133\u00d7 daily; good drainage to avoid mould",
+      "tips": "Ready in 3\u20136 days; refrigerate to hold",
+      "containerMin": "1L jar",
+      "notes": "Alfalfa, mung, lentil, chickpea, broccoli, radish etc."
+    },
+    {
+      "name": "Corn Salad / Lamb\u2019s Lettuce (M\u00e2che)",
+      "months": {
+        "sow": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "plant": [],
+        "harvest": [
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "8\u201310cm apart (or broadcast and thin)",
+      "light": "Sun/part shade",
+      "where": "Window boxes, beds, pots",
+      "protection": "Fleece in hard frost; slug control",
+      "tips": "Great winter salad; slow but very hardy",
+      "containerMin": "15\u201320cm deep trough",
+      "notes": "Tolerates poor light/cold better than lettuce"
+    },
+    {
+      "name": "Winter Purslane / Miner\u2019s Lettuce (Claytonia)",
+      "months": {
+        "sow": [
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          10,
+          11,
+          0,
+          1,
+          2
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "10\u201315cm",
+      "light": "Part shade OK",
+      "where": "Pots, beds, under fruit bushes",
+      "protection": "Minimal; cover in severe frost",
+      "tips": "Self-seeds lightly; mild juicy leaves",
+      "containerMin": "15\u201320cm pot",
+      "notes": "Excellent low-light winter salad"
+    },
+    {
+      "name": "Land Cress (American / Winter cress)",
+      "months": {
+        "sow": [
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          9,
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "15\u201320cm",
+      "light": "Sun/part shade",
+      "where": "Pots, beds",
+      "protection": "Fleece for very cold snaps; mesh vs flea beetle",
+      "tips": "Peppery cress alternative for cool seasons",
+      "containerMin": "20cm pot",
+      "notes": "Cut leaves; regrows well"
+    },
+    {
+      "name": "New Zealand Spinach (Tetragonia)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1.5cm (pre-soak seed)",
+      "spacing": "40\u201350cm (trailing)",
+      "light": "Full sun",
+      "where": "Beds, large pots/hanging planters",
+      "protection": "Fleece early; loves warmth",
+      "tips": "Harvest tips to encourage branching",
+      "containerMin": "25\u201330L pot",
+      "notes": "Heat-tolerant summer \u2018spinach\u2019"
+    },
+    {
+      "name": "Purslane (summer)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "10\u201315cm",
+      "light": "Full sun, warm",
+      "where": "Pots, beds",
+      "protection": "None; drought tolerant",
+      "tips": "Succulent leaves; rich in omega\u20113",
+      "containerMin": "15\u201320cm pot",
+      "notes": "Self-seeds if allowed"
+    },
+    {
+      "name": "Rhubarb (crowns)",
+      "months": {
+        "sow": [],
+        "plant": [
+          1,
+          2,
+          3,
+          10,
+          11
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "depth": "Plant crown with bud just at/above soil",
+      "spacing": "90\u2013120cm (large perennial)",
+      "light": "Full sun/part shade",
+      "where": "Beds, very large tubs",
+      "protection": "Mulch annually; water in dry spring",
+      "tips": "Do not harvest first year; force with a pot for early stems",
+      "containerMin": "60\u201390L tub",
+      "notes": "Leaves toxic; harvest pink/red stems only"
+    },
+    {
+      "name": "Globe Artichoke",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "90\u2013120cm",
+      "light": "Full sun, sheltered",
+      "where": "Beds, very large planters",
+      "protection": "Mulch crowns over winter; stake in wind",
+      "tips": "Remove flower buds to eat; divide offsets in spring",
+      "containerMin": "60L+ tub",
+      "notes": "Architectural perennial; edible flower buds"
+    },
+    {
+      "name": "Cardoon",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "1\u20131.2m (very large)",
+      "light": "Full sun",
+      "where": "Open ground or very large planters",
+      "protection": "Mulch crowns in winter; stake",
+      "tips": "Blanch leaf stalks with cardboard wraps before harvest",
+      "containerMin": "75L tub",
+      "notes": "Edible midribs; dramatic plant"
+    },
+    {
+      "name": "Sea Kale (Crambe maritima)",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          4,
+          5
+        ]
+      },
+      "depth": "1.5\u20132cm (or plant thongs)",
+      "spacing": "60\u201390cm",
+      "light": "Full sun/part shade",
+      "where": "Well-drained beds; coastal tolerant",
+      "protection": "Mulch; cover to blanch for gourmet shoots",
+      "tips": "Slow to establish; do not harvest until year 3",
+      "containerMin": "50L tub",
+      "notes": "Perennial vegetable; edible shoots and flowers"
+    },
+    {
+      "name": "Asparagus (crowns)",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          4,
+          5
+        ]
+      },
+      "depth": "Plant crowns in 15\u201320cm deep trench, cover gradually",
+      "spacing": "30\u201345cm apart; rows 1.2\u20131.5m",
+      "light": "Full sun, free-draining",
+      "where": "Beds/raised beds; large deep planters",
+      "protection": "Mulch; fern growth supported; protect from beetles if present",
+      "tips": "No harvest first 2 seasons; light pick year 3",
+      "containerMin": "50\u201375L deep planter",
+      "notes": "Long-lived perennial; choose all-male hybrids for yield"
+    },
+    {
+      "name": "Sunflower (edible seeds & shoots)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "30\u201345cm (dwarf for pots)",
+      "light": "Full sun",
+      "where": "Pots, beds; trays for shoots year-round indoors",
+      "protection": "Stake tall types; net heads from birds if saving seed",
+      "tips": "Use dwarf \u2018Teddy Bear\u2019/\u2018Big Smile\u2019 for containers",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Shoots as microgreens; seeds edible when dried"
+    },
+    {
+      "name": "Edible Flowers (nasturtium, viola, calendula)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm (nasturtium 2cm)",
+      "spacing": "20\u201330cm clumps",
+      "light": "Sun/part shade",
+      "where": "Window boxes, pots, beds",
+      "protection": "Nasturtium may attract aphids\u2014use as trap crop",
+      "tips": "Pick flowers regularly to prolong bloom",
+      "containerMin": "20\u201325cm pots",
+      "notes": "Adds colour to salads; also companions"
+    },
+    {
+      "name": "Mushroom Kits (Oyster, Shiitake, Lion\u2019s Mane)",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "plant": [],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "As per kit",
+      "spacing": "N/A",
+      "light": "Indirect light; avoid direct sun",
+      "where": "Indoors, shed, garage (10\u201320\u00b0C)",
+      "protection": "Clean handling; maintain humidity",
+      "tips": "Mist daily; follow kit flush cycles",
+      "containerMin": "Kit bag or bucket",
+      "notes": "Great protein crop for small spaces"
+    }
+  ]
+}

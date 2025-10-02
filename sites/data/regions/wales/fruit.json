@@ -1,0 +1,372 @@
+{
+  "region": "Wales",
+  "category": "fruit",
+  "crops": [
+    {
+      "name": "Tomatoes (cordon)",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "45\u201360cm apart (single-stem trained)",
+      "light": "Full sun, sheltered",
+      "where": "Greenhouse, polytunnel, warm patio (best under cover in Wales)",
+      "protection": "Fleece on cold nights; blight hygiene outdoors",
+      "tips": "Remove side-shoots, feed high-potash weekly once trusses set, water consistently",
+      "containerMin": "10\u201312L pot or grow bag site",
+      "notes": "Choose blight-tolerant/outdoor varieties if growing outside"
+    },
+    {
+      "name": "Tomatoes (bush/tumbler)",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "40\u201345cm apart or one per 8\u201310L pot",
+      "light": "Full sun",
+      "where": "Hanging baskets, window boxes, pots",
+      "protection": "Shelter from persistent rain to reduce blight risk",
+      "tips": "No side-shoot removal for true bush types; steady watering prevents split fruit",
+      "containerMin": "8\u201310L pot or 30cm basket",
+      "notes": "Great for small spaces and balconies"
+    },
+    {
+      "name": "Peppers (Sweet/Bell)",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "40\u201345cm apart",
+      "light": "Full sun, warm",
+      "where": "Greenhouse/polytunnel; very warm patio in summer",
+      "protection": "Requires heat under cover in Wales",
+      "tips": "Stake plants, mist flowers for pollination, feed weekly once flowering",
+      "containerMin": "7\u201310L pot",
+      "notes": "Ripen to red/yellow/orange for sweetness"
+    },
+    {
+      "name": "Chillies",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "35\u201340cm apart",
+      "light": "Full sun, warm",
+      "where": "Greenhouse, sunny windowsill, warm patio in midsummer",
+      "protection": "Best under cover; bring inside late season to ripen",
+      "tips": "Do not overwater; pick regularly to encourage more fruit",
+      "containerMin": "5\u20137L pot (compact types)",
+      "notes": "Heat level varies by variety"
+    },
+    {
+      "name": "Aubergine",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "45cm apart",
+      "light": "Full sun, warm",
+      "where": "Greenhouse, polytunnel",
+      "protection": "Essential under cover in Wales",
+      "tips": "Stake; pinch growing tip after 5\u20136 fruits set to focus ripening",
+      "containerMin": "10\u201312L pot",
+      "notes": "Short-season varieties recommended"
+    },
+    {
+      "name": "Cucumber (greenhouse)",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "45cm apart",
+      "light": "Full sun, warm",
+      "where": "Greenhouse/polytunnel",
+      "protection": "Needs warmth and steady moisture",
+      "tips": "Train up strings/trellis; avoid cold drafts; feed regularly",
+      "containerMin": "25\u201330L pot",
+      "notes": "Choose all-female hybrids for high yield"
+    },
+    {
+      "name": "Cucumber (ridge/outdoor)",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "60cm apart",
+      "light": "Full sun, sheltered",
+      "where": "Beds or large pots outdoors",
+      "protection": "Cloche until nights are mild",
+      "tips": "Mulch to keep roots warm; water at soil level",
+      "containerMin": "30L tub",
+      "notes": "Choose outdoor varieties for open ground"
+    },
+    {
+      "name": "Courgette / Marrow",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "2\u20133cm",
+      "spacing": "90cm apart (single plants)",
+      "light": "Full sun",
+      "where": "Beds or big containers",
+      "protection": "Cloche early in season; slug control",
+      "tips": "Harvest small and often; feed weekly in containers",
+      "containerMin": "35\u201340L tub",
+      "notes": "Patty pan types also suitable for pots"
+    },
+    {
+      "name": "Winter Squash (incl. Pumpkin)",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "2\u20133cm",
+      "spacing": "1\u20131.5m apart (trailing)",
+      "light": "Full sun, warm",
+      "where": "Open soil or very large containers",
+      "protection": "Cloche early; black mulch to warm soil",
+      "tips": "Feed and water generously; lift fruit on tiles late season",
+      "containerMin": "50\u201375L tub",
+      "notes": "Bush types suit containers better than trailing"
+    },
+    {
+      "name": "Sweetcorn",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "2\u20133cm",
+      "spacing": "35\u201345cm each way (block formation)",
+      "light": "Full sun, sheltered",
+      "where": "Beds/raised beds; large planters",
+      "protection": "Cloche young plants; support if windy",
+      "tips": "Grow in blocks for wind pollination; keep well watered in tasseling",
+      "containerMin": "Large planter/bed (depth 30cm+)",
+      "notes": "Check cobs for milky kernels to judge ripeness"
+    },
+    {
+      "name": "Tomatillo",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "60cm apart",
+      "light": "Full sun",
+      "where": "Beds or large pots",
+      "protection": "Fleece if nights cool",
+      "tips": "Grow at least two plants for pollination; supports helpful",
+      "containerMin": "20\u201325L pot",
+      "notes": "Fruits in husks; great for salsa verde"
+    },
+    {
+      "name": "Cucamelon (Melothria)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "30\u201340cm apart (trail/trellis)",
+      "light": "Full sun",
+      "where": "Pots with trellis, hanging baskets",
+      "protection": "Shelter early; prefers warm summer",
+      "tips": "Train onto netting; steady watering improves yield",
+      "containerMin": "20L pot",
+      "notes": "Small, tangy fruits; very productive"
+    },
+    {
+      "name": "Okra (trial)",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "40\u201345cm apart",
+      "light": "Full sun, heat",
+      "where": "Greenhouse or polytunnel only",
+      "protection": "Requires warmth; do not allow roots to chill",
+      "tips": "Pick pods small and often; feed regularly",
+      "containerMin": "15\u201320L pot",
+      "notes": "Borderline crop\u2014best in hot summers or under cover"
+    },
+    {
+      "name": "Physalis / Cape Gooseberry",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "45cm apart",
+      "light": "Full sun",
+      "where": "Greenhouse; warm patio in summer",
+      "protection": "Shelter from wind/rain; bring under cover to finish ripening",
+      "tips": "Fruits ripen when husks turn paper-brown and drop",
+      "containerMin": "15\u201320L pot",
+      "notes": "Tolerates cooler nights better than tomato"
+    }
+  ]
+}

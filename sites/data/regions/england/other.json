@@ -1,0 +1,563 @@
+{
+  "region": "England",
+  "category": "other",
+  "crops": [
+    {
+      "name": "Rhubarb (crowns)",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          0,
+          1,
+          2
+        ],
+        "harvest": [
+          3,
+          4,
+          5
+        ]
+      },
+      "depth": "Crown just below soil surface",
+      "spacing": "90\u2013120cm",
+      "light": "Full sun or light shade",
+      "where": "Soil, large raised beds, half-barrels",
+      "protection": "Mulch in winter; force with a dark pot for early stems",
+      "tips": "Do not harvest in year 1; remove flower stalks",
+      "containerMin": "60\u201390L tub",
+      "notes": "Perennial; split and replant every 5\u20136 years"
+    },
+    {
+      "name": "Asparagus (crowns)",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4
+        ],
+        "harvest": [
+          4,
+          5
+        ]
+      },
+      "depth": "5\u201310cm on a ridge in trench",
+      "spacing": "30\u201345cm; rows 120\u2013150cm",
+      "light": "Full sun",
+      "where": "Deep, well-drained bed or very large box",
+      "protection": "Mulch; protect spears from slugs",
+      "tips": "Do not cut in first 2 years; keep bed weed-free",
+      "containerMin": "Large deep trough (challenging)",
+      "notes": "Long-lived perennial; best in ground"
+    },
+    {
+      "name": "Globe Artichoke",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "1cm (seed); plant crowns at same depth",
+      "spacing": "90cm",
+      "light": "Full sun",
+      "where": "Beds, large planters",
+      "protection": "Mulch crown in winter; stake tall stems",
+      "tips": "Harvest tight buds before bracts open",
+      "containerMin": "60\u201380L tub",
+      "notes": "Architectural perennial; edible flower buds"
+    },
+    {
+      "name": "Cardoon",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "90\u2013120cm",
+      "light": "Full sun",
+      "where": "Beds, large planters (space heavy)",
+      "protection": "Stake; mulch in winter",
+      "tips": "Blanch stems for milder flavour (wrap in late summer)",
+      "containerMin": "80L+ tub",
+      "notes": "Edible stems (leaf stalks); related to artichoke"
+    },
+    {
+      "name": "Horseradish",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4
+        ],
+        "harvest": [
+          9,
+          10,
+          11,
+          0
+        ]
+      },
+      "depth": "Root cuttings 5\u201310cm deep",
+      "spacing": "45\u201360cm",
+      "light": "Sun/part shade",
+      "where": "Containers or contained bed (can spread)",
+      "protection": "Contain roots to prevent invasion",
+      "tips": "Lift a portion of root and replant a side root to maintain",
+      "containerMin": "35\u201345L tub",
+      "notes": "Very vigorous; best confined to pots"
+    },
+    {
+      "name": "Wasabi (shade, cool, damp)",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4,
+          5
+        ],
+        "harvest": [
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "Plant crowns 2\u20133cm deep",
+      "spacing": "30\u201340cm",
+      "light": "Shade to dappled shade",
+      "where": "Shaded damp bed, pots with constant moisture",
+      "protection": "Shelter from heat; use cool water; slug protection",
+      "tips": "Slow-growing; harvest leaf stalks and mature rhizomes",
+      "containerMin": "20\u201330L pot with water-retentive compost",
+      "notes": "Challenging but possible in cool, humid microclimates"
+    },
+    {
+      "name": "Watercress",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Surface sow\u2014requires light",
+      "spacing": "Broadcast in tray or 5\u201310cm plugs",
+      "light": "Sun/part shade",
+      "where": "Trays/tubs with gently running or frequently refreshed water",
+      "protection": "Keep water fresh; avoid stagnation; protect from flea beetle",
+      "tips": "Replace water regularly; snip often to encourage new growth",
+      "containerMin": "Shallow trays or 20\u201330L trough",
+      "notes": "Peppery leaves; water quality is key"
+    },
+    {
+      "name": "Land Cress (American/Barbarea)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "10\u201315cm",
+      "light": "Sun/part shade",
+      "where": "Beds, boxes, pots",
+      "protection": "Fleece against flea beetle",
+      "tips": "Cut-and-come-again; good winter salads in mild areas",
+      "containerMin": "20cm pot",
+      "notes": "Peppery; easier than watercress"
+    },
+    {
+      "name": "Microgreens (various)",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "plant": [],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Surface to 0.5cm depending on seed",
+      "spacing": "Dense broadcast in trays",
+      "light": "Bright window or grow-lights",
+      "where": "Indoors year-round in trays",
+      "protection": "Good hygiene to prevent damping-off",
+      "tips": "7\u201321 day harvests; keep evenly moist; bottom-water",
+      "containerMin": "Shallow trays",
+      "notes": "Use pea shoots, radish, mustard, basil, etc."
+    },
+    {
+      "name": "Salad Mix (cut-and-come-again)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "Broadcast or 5cm apart",
+      "light": "Sun/part shade",
+      "where": "Boxes, troughs, beds",
+      "protection": "Fleece/mesh against flea beetle and pigeons",
+      "tips": "Sow little and often; snip 2\u20133cm above crown",
+      "containerMin": "15\u201320cm deep trough",
+      "notes": "Mix of lettuces, mizuna, mustard, rocket, etc."
+    },
+    {
+      "name": "Edible Flowers \u2013 Nasturtium",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "25\u201330cm",
+      "light": "Sun/part shade",
+      "where": "Pots, baskets, beds",
+      "protection": "Aphids (trap crop); caterpillars\u2014hand pick",
+      "tips": "Leaves, flowers, and seeds edible; great companion plant",
+      "containerMin": "20\u201330cm pot",
+      "notes": "Trailing/climbing forms give good coverage"
+    },
+    {
+      "name": "Edible Flowers \u2013 Calendula",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "25\u201330cm",
+      "light": "Full sun",
+      "where": "Beds, pots",
+      "protection": "Slug protection at seedling stage",
+      "tips": "Deadhead to prolong bloom; petals edible",
+      "containerMin": "20\u201325cm pot",
+      "notes": "Also known as pot marigold"
+    },
+    {
+      "name": "Edible Flowers \u2013 Viola/Pansy",
+      "months": {
+        "sow": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [
+          9,
+          10,
+          11
+        ],
+        "harvest": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Surface sow (light needed)",
+      "spacing": "15\u201320cm",
+      "light": "Sun/part shade",
+      "where": "Pots, baskets, borders",
+      "protection": "Deadhead; protect from slugs",
+      "tips": "Flowers edible; cool-season colour",
+      "containerMin": "18\u201322cm pot",
+      "notes": "Great for edging containers"
+    },
+    {
+      "name": "Edible Flowers \u2013 Borage",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "30\u201340cm",
+      "light": "Full sun",
+      "where": "Beds, pots",
+      "protection": "Can sprawl; stake if needed",
+      "tips": "Flowers taste like cucumber; attracts pollinators",
+      "containerMin": "30cm pot",
+      "notes": "Self-seeds readily"
+    },
+    {
+      "name": "Mushrooms \u2013 Oyster (kits/logs)",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "plant": [],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Follow kit/log instructions",
+      "spacing": "N/A",
+      "light": "Indirect light",
+      "where": "Indoors, garage, shaded shed",
+      "protection": "Cleanliness to avoid contamination",
+      "tips": "Maintain humidity; several flushes possible",
+      "containerMin": "Bags/logs/trays as per kit",
+      "notes": "Fast and rewarding; not grown in soil"
+    },
+    {
+      "name": "Mushrooms \u2013 Shiitake (logs)",
+      "months": {
+        "sow": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "plant": [],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Drill dowels into hardwood logs",
+      "spacing": "As per kit",
+      "light": "Shade",
+      "where": "Shaded outdoor spot",
+      "protection": "Keep logs moist; soak to initiate flushes",
+      "tips": "Use hardwood; patience\u2014first flush may take months",
+      "containerMin": "Hardwood logs",
+      "notes": "Perennial flushes for several years"
+    },
+    {
+      "name": "Dwarf Apple (container)",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          0,
+          1,
+          2,
+          3
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Plant to nursery level",
+      "spacing": "One tree per large tub",
+      "light": "Full sun",
+      "where": "Large pots, patios",
+      "protection": "Blossom frost protection; codling moth traps",
+      "tips": "Use dwarf rootstocks (M27, M9); add pollination partner or self-fertile",
+      "containerMin": "60\u201375L tub",
+      "notes": "Feed and water regularly; refresh compost every 2\u20133 years"
+    },
+    {
+      "name": "Dwarf Pear (container)",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          0,
+          1,
+          2,
+          3
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Plant to nursery level",
+      "spacing": "One tree per large tub",
+      "light": "Full sun",
+      "where": "Large pots, patios",
+      "protection": "Protect blossom from frost; watch for pear midge",
+      "tips": "Use dwarf rootstocks (Quince C); needs pollination partner",
+      "containerMin": "60\u201375L tub",
+      "notes": "Thin fruit to improve size"
+    },
+    {
+      "name": "Dwarf Plum (container)",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          0,
+          1,
+          2,
+          3
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Plant to nursery level",
+      "spacing": "One tree per large tub",
+      "light": "Full sun",
+      "where": "Large pots, patios",
+      "protection": "Protect from silver leaf (prune in summer)",
+      "tips": "Self-fertile varieties available; thin heavy crops",
+      "containerMin": "75L tub",
+      "notes": "Stake young trees; water well in dry spells"
+    }
+  ]
+}

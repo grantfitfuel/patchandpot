@@ -1,0 +1,291 @@
+{
+  "region": "England",
+  "category": "fruit",
+  "crops": [
+    {
+      "name": "Tomato",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "45cm apart",
+      "light": "Full sun",
+      "where": "Pots, growbags, greenhouse, sheltered soil",
+      "protection": "Greenhouse/polytunnel in cooler areas, fleece for frost nights",
+      "tips": "Pinch side shoots on cordons, feed with high potash, water consistently.",
+      "containerMin": "10L pot",
+      "notes": "Bush types suit hanging baskets and small pots."
+    },
+    {
+      "name": "Sweet Pepper",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "40cm apart",
+      "light": "Full sun",
+      "where": "Greenhouse, pots, growbags",
+      "protection": "Needs warmth; polytunnel/greenhouse",
+      "tips": "Stake plants, pick peppers green or ripe.",
+      "containerMin": "7\u201310L pot",
+      "notes": "Prefers long warm summers."
+    },
+    {
+      "name": "Chilli Pepper",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "35cm apart",
+      "light": "Full sun",
+      "where": "Greenhouse, sunny windowsill, pots",
+      "protection": "Polytunnel, greenhouse or conservatory",
+      "tips": "Earlier sowing extends cropping season.",
+      "containerMin": "5\u20137L pot",
+      "notes": "Compact varieties ideal indoors."
+    },
+    {
+      "name": "Aubergine",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "45cm apart",
+      "light": "Full sun",
+      "where": "Greenhouse, pots, growbags",
+      "protection": "Warmth essential \u2013 greenhouse/polytunnel",
+      "tips": "Pollinate flowers by hand if needed.",
+      "containerMin": "10L pot",
+      "notes": "Choose early varieties in UK climate."
+    },
+    {
+      "name": "Courgette",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "90cm apart outdoors",
+      "light": "Full sun",
+      "where": "Soil, raised beds, large pots",
+      "protection": "Cloches or fleece early in season",
+      "tips": "Harvest young for tenderness.",
+      "containerMin": "40L tub",
+      "notes": "One plant produces prolifically."
+    },
+    {
+      "name": "Cucumber",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "45cm apart",
+      "light": "Full sun",
+      "where": "Greenhouse, pots, soil",
+      "protection": "Greenhouse best, outdoor ridge types need fleece early",
+      "tips": "Keep moist, train up supports.",
+      "containerMin": "15\u201320L pot",
+      "notes": "Avoid overwatering young plants."
+    },
+    {
+      "name": "Squash (Winter)",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "2.5cm",
+      "spacing": "90\u2013120cm apart",
+      "light": "Full sun",
+      "where": "Soil, raised beds, large pots",
+      "protection": "Cloches until established",
+      "tips": "Mulch to retain moisture, harvest before frost.",
+      "containerMin": "50L tub",
+      "notes": "Crown Prince, Butternut, etc."
+    },
+    {
+      "name": "Pumpkin",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "2.5cm",
+      "spacing": "120cm apart",
+      "light": "Full sun",
+      "where": "Soil, raised beds, very large pots",
+      "protection": "Cloches early season",
+      "tips": "Feed heavily, water well, limit fruits for size.",
+      "containerMin": "Large 80L+ pot",
+      "notes": "Needs space \u2013 trailing habit."
+    },
+    {
+      "name": "Melon (under cover)",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "60cm apart",
+      "light": "Full sun",
+      "where": "Greenhouse, polytunnel",
+      "protection": "Needs high warmth, greenhouse essential",
+      "tips": "Hand-pollinate, restrict fruit number.",
+      "containerMin": "20L pot",
+      "notes": "Choose early UK-suited varieties."
+    },
+    {
+      "name": "Sweetcorn",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "2.5cm",
+      "spacing": "45cm apart in blocks",
+      "light": "Full sun",
+      "where": "Soil, raised beds, large planters",
+      "protection": "Cloches for seedlings if cold",
+      "tips": "Plant in blocks for pollination.",
+      "containerMin": "50L tub with 3\u20134 plants",
+      "notes": "Harvest when tassels brown, kernels milky."
+    },
+    {
+      "name": "Okra (trial/experimental)",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "30cm apart",
+      "light": "Full sun",
+      "where": "Heated greenhouse, large pots",
+      "protection": "Requires high heat, only under glass",
+      "tips": "Pick pods small and tender.",
+      "containerMin": "15L pot",
+      "notes": "Very marginal crop in UK climate."
+    }
+  ]
+}

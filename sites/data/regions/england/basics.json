@@ -1,0 +1,75 @@
+{
+  "region": "England",
+  "basics": {
+    "climate": {
+      "frost": "Average last frost late March\u2013mid April (south earlier, north later). First autumn frosts often October\u2013November.",
+      "notes": [
+        "Longer growing season than Scotland \u2013 sowing and planting can start 2\u20134 weeks earlier.",
+        "Milder winters in the south allow overwintering of broad beans, garlic, onions.",
+        "High risk of potato and tomato blight in warm, wet summers \u2013 rotate and ventilate."
+      ]
+    },
+    "containers": {
+      "pots": "Minimum depth 20\u201330cm for roots, 10L+ for fruiting crops (tomato, pepper).",
+      "bags": "40L+ bags for potatoes, carrots, parsnips.",
+      "raisedBeds": "Depth 30\u201345cm recommended; improves drainage on clay soils.",
+      "directSoil": "Best for long roots (carrot, parsnip) and large crops (sweetcorn, squash)."
+    },
+    "protection": {
+      "netting": [
+        "Fine mesh against carrot fly, cabbage root fly, pea moth.",
+        "Bird netting (2cm mesh) against pigeons on brassicas and soft fruit."
+      ],
+      "cloches": [
+        "Plastic or fleece cloches extend sowing season.",
+        "Useful for carrots, lettuce, beetroot in spring to warm soil."
+      ],
+      "coldFrames": [
+        "Used to harden off seedlings from greenhouse to outside.",
+        "Protects salads and herbs in winter."
+      ],
+      "greenhouses": [
+        "Ideal for tomatoes, cucumbers, aubergines, peppers.",
+        "Ventilate to avoid fungal diseases; shade in heat."
+      ]
+    },
+    "spacingAndDepth": {
+      "general": "Follow seed packet depth; usually 2\u20133x seed size. Thin to avoid overcrowding.",
+      "leafy": "Sow 1\u20132cm deep, thin to 15\u201325cm apart.",
+      "roots": "Carrots 0.5cm deep, 3\u20135cm apart. Beetroot 2cm deep, 10cm apart.",
+      "legumes": "Beans/peas 5cm deep, 15\u201320cm apart in double rows.",
+      "fruiting": "Tomatoes 0.5cm deep indoors, plant out 40\u201350cm apart.",
+      "alliums": "Onion sets 2\u20133cm deep, 10cm apart. Garlic 5cm deep, 15cm apart.",
+      "herbs": "Lightly cover fine seeds (basil, thyme); plant woody herbs (rosemary, sage) 30\u201360cm apart."
+    },
+    "care": {
+      "watering": [
+        "Water regularly in dry spells \u2013 especially pots and raised beds.",
+        "Avoid wetting leaves at night to reduce fungal disease risk."
+      ],
+      "feeding": [
+        "Leafy crops: high-nitrogen feeds (nettle tea).",
+        "Fruit crops: high-potash feeds (tomato feed, comfrey tea).",
+        "Roots: avoid overfeeding nitrogen \u2013 leads to leafy growth."
+      ],
+      "mulching": [
+        "Use compost, grass clippings, straw to retain moisture.",
+        "Suppress weeds and feed soil."
+      ]
+    },
+    "pestsGeneral": {
+      "slugsSnails": "Active especially spring\u2013autumn; use beer traps, hand pick, copper tape.",
+      "aphids": "Spray with soapy water, encourage ladybirds.",
+      "pigeons": "Net brassicas, peas, seedlings.",
+      "carrotFly": "Use mesh/fleece, sow resistant varieties, avoid thinning in daytime.",
+      "whitefly": "Ventilate greenhouses, use sticky traps."
+    },
+    "glossary": {
+      "cloche": "Portable cover (plastic, glass, fleece) to protect young plants.",
+      "coldFrame": "Low box with transparent lid for hardening seedlings.",
+      "mulch": "Organic matter spread on soil to conserve moisture and suppress weeds.",
+      "earthingUp": "Pulling soil around base of plants (potatoes, leeks) to blanch stems or protect tubers.",
+      "successionSowing": "Sowing small batches at intervals to extend harvest period."
+    }
+  }
+}

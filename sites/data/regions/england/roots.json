@@ -1,0 +1,519 @@
+{
+  "region": "England",
+  "category": "roots",
+  "crops": [
+    {
+      "name": "Carrot (short/early, pot-suitable)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "3\u20135cm apart; rows 15\u201320cm",
+      "light": "Full sun",
+      "where": "Deep pots, raised beds, direct soil",
+      "protection": "Fine mesh/fleece 60cm high against carrot fly; avoid bruising foliage",
+      "tips": "Use short-rooted types for containers; thin at dusk; keep evenly moist to prevent splitting",
+      "containerMin": "30cm deep pot or trough",
+      "notes": "Succession sow every 3\u20134 weeks for continuous harvest"
+    },
+    {
+      "name": "Carrot (maincrop)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [],
+        "harvest": [
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "5\u20137cm; rows 20\u201325cm",
+      "light": "Full sun",
+      "where": "Raised beds, direct soil (stone-free)",
+      "protection": "Carrot fly mesh; water in dry spells",
+      "tips": "Do not over-fertilise; forked roots come from stones or fresh manure",
+      "containerMin": "40cm deep if in containers",
+      "notes": "Store in sand or leave in ground with fleece into winter"
+    },
+    {
+      "name": "Beetroot",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "10cm; rows 25\u201330cm",
+      "light": "Sun/part shade",
+      "where": "Pots, raised beds, direct soil",
+      "protection": "Fleece in early spring",
+      "tips": "Multi-germ seeds produce clusters\u2014thin to one strong seedling; harvest golf-ball size for tenderness",
+      "containerMin": "25cm deep box or pot",
+      "notes": "Leaves edible in salads; water to prevent woody roots"
+    },
+    {
+      "name": "Radish (spring)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "2\u20133cm; rows 15cm",
+      "light": "Sun/part shade",
+      "where": "Pots, boxes, beds",
+      "protection": "Flea beetle mesh in warm spells",
+      "tips": "Fast\u2014harvest 4\u20135 weeks from sowing; keep moist to avoid peppery pithy roots",
+      "containerMin": "15\u201320cm deep tray or pot",
+      "notes": "Great gap-filler between slower crops"
+    },
+    {
+      "name": "Radish (winter/daikon)",
+      "months": {
+        "sow": [
+          7,
+          8
+        ],
+        "plant": [],
+        "harvest": [
+          10,
+          11,
+          0
+        ]
+      },
+      "depth": "1\u20131.5cm",
+      "spacing": "10\u201315cm; rows 30cm",
+      "light": "Full sun",
+      "where": "Deep beds; very deep pots",
+      "protection": "Fleece against flea beetle; water to encourage steady growth",
+      "tips": "Sow late summer for autumn harvest; thin early",
+      "containerMin": "40\u201345cm deep pot",
+      "notes": "Mild flavour; good for pickling"
+    },
+    {
+      "name": "Turnip (salad/mini)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1\u20131.5cm",
+      "spacing": "10\u201315cm; rows 25cm",
+      "light": "Sun/part shade",
+      "where": "Pots, beds",
+      "protection": "Mesh against flea beetle",
+      "tips": "Harvest golf-ball size (Hakurei-types) for sweetness",
+      "containerMin": "25cm deep pot",
+      "notes": "Leaves (turnip greens) are edible"
+    },
+    {
+      "name": "Turnip (maincrop)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "15\u201320cm; rows 30cm",
+      "light": "Full sun",
+      "where": "Beds/soil",
+      "protection": "Net for flea beetle and pigeons",
+      "tips": "Water consistently to avoid woody roots",
+      "containerMin": "30cm deep container",
+      "notes": "Good winter keeper varieties available"
+    },
+    {
+      "name": "Swede (rutabaga)",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [],
+        "harvest": [
+          9,
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "25\u201330cm; rows 40cm",
+      "light": "Full sun",
+      "where": "Beds/soil",
+      "protection": "Net against flea beetle and pigeons",
+      "tips": "Needs long season; firm soil; thin early",
+      "containerMin": "Deep 35\u201340cm container (borderline)",
+      "notes": "Better in ground than pots, but large tubs can work"
+    },
+    {
+      "name": "Parsnip",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4
+        ],
+        "plant": [],
+        "harvest": [
+          9,
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "1.5\u20132cm",
+      "spacing": "10\u201315cm; rows 30\u201340cm",
+      "light": "Full sun",
+      "where": "Deep beds/soil",
+      "protection": "Fleece early to warm soil",
+      "tips": "Use fresh seed; do not transplant; lift after frost for sweetness",
+      "containerMin": "45\u201350cm deep if in containers",
+      "notes": "Slow to germinate\u2014can take 3\u20134 weeks"
+    },
+    {
+      "name": "Celeriac",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "Surface to 0.5cm (needs light)",
+      "spacing": "25\u201330cm; rows 40cm",
+      "light": "Sun/part shade",
+      "where": "Beds, large boxes",
+      "protection": "Fleece in spring; slug control",
+      "tips": "Start indoors early; keep crown exposed; steady moisture is essential",
+      "containerMin": "30\u201335cm deep box",
+      "notes": "Feed regularly; remove outer leaves to swell the crown"
+    },
+    {
+      "name": "Salsify",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [],
+        "harvest": [
+          10,
+          11,
+          0
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "10cm; rows 30cm",
+      "light": "Full sun",
+      "where": "Deep, stone-free soil",
+      "protection": "Fleece early; keep weed-free",
+      "tips": "Do not transplant; lift carefully to avoid breakage",
+      "containerMin": "45cm deep pot (challenging)",
+      "notes": "Delicate, oyster-like flavour"
+    },
+    {
+      "name": "Scorzonera",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [],
+        "harvest": [
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "10\u201315cm; rows 30cm",
+      "light": "Full sun",
+      "where": "Deep, stone-free soil",
+      "protection": "Fleece early; minimal disturbance",
+      "tips": "Similar to salsify; keep moist for straight roots",
+      "containerMin": "45\u201350cm deep pot (challenging)",
+      "notes": "Peel under water to avoid staining"
+    },
+    {
+      "name": "Kohlrabi",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1\u20131.5cm",
+      "spacing": "20\u201325cm",
+      "light": "Sun/part shade",
+      "where": "Beds, boxes, large pots",
+      "protection": "Net against pigeons and flea beetle",
+      "tips": "Harvest tennis-ball size for tenderness",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Technically a swollen stem; treated as a root crop here"
+    },
+    {
+      "name": "Daikon/Mooli (long white radish)",
+      "months": {
+        "sow": [
+          7,
+          8
+        ],
+        "plant": [],
+        "harvest": [
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "1\u20131.5cm",
+      "spacing": "15\u201320cm; rows 30\u201340cm",
+      "light": "Full sun",
+      "where": "Deep beds or barrels",
+      "protection": "Flea beetle mesh; water to prevent bolting",
+      "tips": "Late summer sowing avoids bolting and flea beetle",
+      "containerMin": "50cm deep barrel",
+      "notes": "Great for fermenting and salads"
+    },
+    {
+      "name": "Potato (first earlies)",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4
+        ],
+        "harvest": [
+          6,
+          7
+        ]
+      },
+      "depth": "10\u201315cm tubers",
+      "spacing": "30cm; rows 60cm (in ground)",
+      "light": "Full sun",
+      "where": "Bags, large pots, raised beds",
+      "protection": "Earth up; fleece for late frosts; blight watch",
+      "tips": "Chit tubers 2\u20134 weeks; water well as tubers form",
+      "containerMin": "40\u201350L bag (3 seed tubers)",
+      "notes": "Fastest harvest; great in containers"
+    },
+    {
+      "name": "Potato (second earlies & salad)",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          7,
+          8
+        ]
+      },
+      "depth": "10\u201315cm",
+      "spacing": "35cm; rows 60cm",
+      "light": "Full sun",
+      "where": "Bags, beds",
+      "protection": "Earth up; blight control in wet summers",
+      "tips": "Consistent watering reduces scab and splits",
+      "containerMin": "50L bag",
+      "notes": "Good continuity after first earlies"
+    },
+    {
+      "name": "Potato (maincrop)",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "12\u201315cm",
+      "spacing": "40cm; rows 75cm",
+      "light": "Full sun",
+      "where": "Beds/soil (containers possible but very large)",
+      "protection": "Earth up; blight monitoring; lift before heavy frost",
+      "tips": "Cure skins before storage; store cool and dark",
+      "containerMin": "75L+ tub (space heavy)",
+      "notes": "Best in ground for bulk yields"
+    },
+    {
+      "name": "Sweet potato (warm, container)",
+      "months": {
+        "sow": [],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "Slips planted at nodes 10\u201315cm deep",
+      "spacing": "30\u201345cm (1 plant per large tub)",
+      "light": "Full sun, heat-loving",
+      "where": "Greenhouse/tunnel; warm patio in south",
+      "protection": "Black mulch, fleece early; protect from cold nights",
+      "tips": "Use short-season varieties; keep moist and warm",
+      "containerMin": "50\u201370L tub",
+      "notes": "Borderline outdoors; best under cover in much of England"
+    },
+    {
+      "name": "Jerusalem artichoke",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3
+        ],
+        "harvest": [
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "10\u201315cm tubers",
+      "spacing": "30\u201345cm; rows 90cm",
+      "light": "Full sun",
+      "where": "Beds/soil; can be grown in large tubs",
+      "protection": "Shelter from wind; very tall",
+      "tips": "Harvest after frost for sweeter flavour; invasive if not contained",
+      "containerMin": "60L+ tub",
+      "notes": "Perennial; lift thoroughly to prevent spread"
+    },
+    {
+      "name": "Ginger (container, indoors)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "plant": [],
+        "harvest": [
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Rhizomes 5cm deep",
+      "spacing": "20\u201330cm in tubs",
+      "light": "Bright light, warm",
+      "where": "Indoor windowsill/greenhouse",
+      "protection": "Keep above 15\u00b0C; avoid waterlogging",
+      "tips": "Use fresh, sprouting rhizomes; keep humid",
+      "containerMin": "10\u201315L wide pot",
+      "notes": "Edible fresh stem (young) and rhizome"
+    }
+  ]
+}

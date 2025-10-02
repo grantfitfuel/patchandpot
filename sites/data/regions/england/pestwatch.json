@@ -1,0 +1,101 @@
+{
+  "region": "England",
+  "pestwatch": {
+    "0": {
+      "title": "Pest Watch \u2013 January (England)",
+      "items": [
+        "Check overwintered brassicas for pigeon damage \u2013 net if needed.",
+        "Look for botrytis (grey mould) in damp cold frames.",
+        "Slugs hiding under pots \u2013 clear debris."
+      ]
+    },
+    "1": {
+      "title": "Pest Watch \u2013 February (England)",
+      "items": [
+        "Aphids can appear in mild spells on broad beans.",
+        "Slugs active on salad leaves under cloches.",
+        "Mice eating pea/bean seeds in sheds or trays."
+      ]
+    },
+    "2": {
+      "title": "Pest Watch \u2013 March (England)",
+      "items": [
+        "Flea beetle on brassica seedlings.",
+        "Slugs and snails emerging strongly.",
+        "Watch for damping-off in seed trays."
+      ]
+    },
+    "3": {
+      "title": "Pest Watch \u2013 April (England)",
+      "items": [
+        "Cabbage root fly \u2013 protect seedlings with collars.",
+        "Carrot fly \u2013 use fleece or fine netting.",
+        "Slugs at night \u2013 trap and remove."
+      ]
+    },
+    "4": {
+      "title": "Pest Watch \u2013 May (England)",
+      "items": [
+        "Aphids colonising beans and brassicas.",
+        "Cabbage white butterflies \u2013 eggs on brassicas.",
+        "Blackfly on broad beans \u2013 pinch out infested tips."
+      ]
+    },
+    "5": {
+      "title": "Pest Watch \u2013 June (England)",
+      "items": [
+        "Potato blight risk increases \u2013 remove affected leaves.",
+        "Pea moth caterpillars \u2013 use mesh netting.",
+        "Whitefly on greenhouse tomatoes."
+      ]
+    },
+    "6": {
+      "title": "Pest Watch \u2013 July (England)",
+      "items": [
+        "Powdery mildew on courgettes and squashes.",
+        "Tomato blight risk \u2013 water at soil level, ventilate.",
+        "Cabbage white caterpillars \u2013 hand remove."
+      ]
+    },
+    "7": {
+      "title": "Pest Watch \u2013 August (England)",
+      "items": [
+        "Blight peak risk \u2013 potatoes and tomatoes.",
+        "Onion white rot \u2013 avoid replanting in affected soil.",
+        "Fruit flies around soft fruit \u2013 harvest promptly."
+      ]
+    },
+    "8": {
+      "title": "Pest Watch \u2013 September (England)",
+      "items": [
+        "Slugs after rain \u2013 use beer traps, barriers.",
+        "Grey mould on late salads \u2013 improve airflow.",
+        "Rodents raiding stored crops."
+      ]
+    },
+    "9": {
+      "title": "Pest Watch \u2013 October (England)",
+      "items": [
+        "Clubroot risk on brassicas \u2013 lime soil if needed.",
+        "Moulds in damp greenhouses/polytunnels.",
+        "Rodents around compost bins."
+      ]
+    },
+    "10": {
+      "title": "Pest Watch \u2013 November (England)",
+      "items": [
+        "Check for slug damage under cloches.",
+        "Remove yellowing brassica leaves to deter pests.",
+        "Cover leafy veg from pigeons."
+      ]
+    },
+    "11": {
+      "title": "Pest Watch \u2013 December (England)",
+      "items": [
+        "Protect stored root crops from mice.",
+        "Ventilate greenhouses to prevent mould.",
+        "Keep soil around overwintering garlic weed-free."
+      ]
+    }
+  }
+}

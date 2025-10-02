@@ -1,0 +1,552 @@
+{
+  "region": "Ireland",
+  "category": "herbs",
+  "crops": [
+    {
+      "name": "Parsley (Flat/Curly)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "0.5cm (light cover)",
+      "spacing": "10\u201315cm apart (clumps)",
+      "light": "Part shade to sun",
+      "where": "Pots, troughs, raised beds",
+      "protection": "Cloche or fleece in cold snaps; slug protection for seedlings",
+      "tips": "Keep evenly moist; pinch flower stalks to prolong leafing.",
+      "containerMin": "20cm pot",
+      "notes": "Biennial; best grown fresh each year for tender leaves."
+    },
+    {
+      "name": "Coriander (Leaf/Cilantro)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "20cm apart",
+      "light": "Full sun to light shade",
+      "where": "Pots, raised beds",
+      "protection": "Fleece for early/late sowings",
+      "tips": "Succession sow every 2\u20133 weeks; prefers cool, moist roots to prevent bolting.",
+      "containerMin": "20cm pot",
+      "notes": "For coriander seed, allow plants to flower and set."
+    },
+    {
+      "name": "Basil (Genovese/Thai)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm (warm germination 18\u201322\u00b0C)",
+      "spacing": "25\u201330cm apart or 3\u20135 plants per 25\u201330cm pot",
+      "light": "Full sun, sheltered",
+      "where": "Windowsills, greenhouse, warm patio",
+      "protection": "Fleece on cool nights; avoid wet foliage late in day",
+      "tips": "Pinch tops regularly; never let dry out completely.",
+      "containerMin": "20\u201325cm pot",
+      "notes": "Very frost\u2011tender; best as a summer container herb."
+    },
+    {
+      "name": "Dill",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "20\u201325cm apart",
+      "light": "Full sun, sheltered",
+      "where": "Beds, pots (tall)",
+      "protection": "Stake in windy spots; cloche if early",
+      "tips": "Hates root disturbance\u2014direct sow where it will grow.",
+      "containerMin": "25cm deep pot",
+      "notes": "Leaves and seeds for pickling/fish dishes."
+    },
+    {
+      "name": "Mint (Spearmint/Peppermint)",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Shallow (cover roots 2\u20133cm)",
+      "spacing": "30cm apart or 1 plant per pot",
+      "light": "Part shade to sun",
+      "where": "Pots (contain rhizomes), beds",
+      "protection": "Mulch in winter in exposed gardens",
+      "tips": "Grow in pots to control spread; cut back hard mid\u2011summer to refresh.",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Water loving; great near a tap."
+    },
+    {
+      "name": "Rosemary",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          0,
+          1,
+          2
+        ]
+      },
+      "depth": "Surface sow or plant rooted cuttings",
+      "spacing": "45\u201360cm apart",
+      "light": "Full sun",
+      "where": "Pots, raised beds, borders (free\u2011draining)",
+      "protection": "Shelter from cold, wet winds; avoid waterlogging",
+      "tips": "Best from cuttings; prune lightly after flowering to keep compact.",
+      "containerMin": "30cm pot (larger long\u2011term)",
+      "notes": "Evergreen; culinary and ornamental."
+    },
+    {
+      "name": "Thyme",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          0
+        ]
+      },
+      "depth": "Surface sow (very fine)",
+      "spacing": "20\u201325cm apart",
+      "light": "Full sun",
+      "where": "Pots, rockeries, raised beds (sharp drainage)",
+      "protection": "Protect from winter wet; gravel mulch around crown",
+      "tips": "Trim after flowering to prevent woodiness.",
+      "containerMin": "20cm pot",
+      "notes": "Aromatic; attracts pollinators."
+    },
+    {
+      "name": "Sage (Common)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "40\u201350cm apart",
+      "light": "Full sun",
+      "where": "Pots, raised beds (free\u2011draining)",
+      "protection": "Mulch/root protection over winter in wet areas",
+      "tips": "Replace every few years as plants get woody.",
+      "containerMin": "30cm pot",
+      "notes": "Great with poultry and beans."
+    },
+    {
+      "name": "Oregano / Marjoram",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Surface sow; press in",
+      "spacing": "25\u201330cm",
+      "light": "Full sun",
+      "where": "Pots, borders (well\u2011drained)",
+      "protection": "Shelter from winter wet",
+      "tips": "Cut back after flowering; divide clumps to renew.",
+      "containerMin": "25cm pot",
+      "notes": "Marjoram is slightly sweeter/milder."
+    },
+    {
+      "name": "Chervil",
+      "months": {
+        "sow": [
+          3,
+          4,
+          8,
+          9,
+          10
+        ],
+        "plant": [],
+        "harvest": [
+          4,
+          5,
+          6,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "15\u201320cm",
+      "light": "Part shade",
+      "where": "Pots, shaded beds",
+      "protection": "Fleece in cool snaps",
+      "tips": "Prefers cool conditions; ideal spring and autumn.",
+      "containerMin": "20cm pot",
+      "notes": "Delicate anise flavour; great with eggs and fish."
+    },
+    {
+      "name": "French Tarragon",
+      "months": {
+        "sow": [],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Plant young plants at same depth",
+      "spacing": "40cm apart",
+      "light": "Full sun, sheltered",
+      "where": "Pots, raised beds",
+      "protection": "Mulch in winter; avoid waterlogging",
+      "tips": "Propagate by division/cuttings\u2014true French tarragon rarely from seed.",
+      "containerMin": "30cm pot",
+      "notes": "Classic with chicken and sauces."
+    },
+    {
+      "name": "Bay (Sweet Bay)",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Plant at pot depth",
+      "spacing": "60\u2013100cm (as shrub)",
+      "light": "Full sun to part shade",
+      "where": "Large pots, borders",
+      "protection": "Shelter from severe frosts and drying winds",
+      "tips": "Clip to shape; repot every 2\u20133 years.",
+      "containerMin": "40L pot",
+      "notes": "Evergreen; leaves used whole in stews."
+    },
+    {
+      "name": "Lemon Balm",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Surface sow (light needed)",
+      "spacing": "30\u201340cm",
+      "light": "Sun to part shade",
+      "where": "Pots, borders",
+      "protection": "Cut back after flowering to avoid legginess",
+      "tips": "Can spread by seed\u2014deadhead if needed.",
+      "containerMin": "25\u201330cm pot",
+      "notes": "Lovely for teas; bee\u2011friendly."
+    },
+    {
+      "name": "Fennel (Leaf/Herb)",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "30cm",
+      "light": "Full sun",
+      "where": "Beds, large pots",
+      "protection": "Stake in windy spots",
+      "tips": "Do not plant near dill (crosses/attracts same pests).",
+      "containerMin": "30cm pot",
+      "notes": "Feathery leaves and seeds for flavouring (not Florence bulb)."
+    },
+    {
+      "name": "Lovage",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5\u20131cm",
+      "spacing": "60\u201390cm (large plant)",
+      "light": "Sun/part shade",
+      "where": "Large tubs, borders",
+      "protection": "Mulch crowns in winter",
+      "tips": "Very vigorous\u2014grow in a tub if space is tight.",
+      "containerMin": "40L pot",
+      "notes": "Celery\u2011like flavour; great in stocks."
+    },
+    {
+      "name": "Sorrel (Garden/French)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "30cm",
+      "light": "Sun to part shade",
+      "where": "Pots, beds",
+      "protection": "Slug control needed on young growth",
+      "tips": "Cut back flower stems to keep leaves tender.",
+      "containerMin": "25cm pot",
+      "notes": "Sharp lemony leaves; perennial."
+    },
+    {
+      "name": "Chives",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          3,
+          4,
+          5
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "Clumps 15\u201320cm",
+      "light": "Sun/part shade",
+      "where": "Pots, beds",
+      "protection": "Minimal; shelter pots in hard frosts",
+      "tips": "Divide clumps every 3 years; edible flowers for salads.",
+      "containerMin": "20cm pot",
+      "notes": "Mild onion flavour; easy container herb."
+    },
+    {
+      "name": "Garlic Chives",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "Clumps 20cm",
+      "light": "Sun/part shade",
+      "where": "Pots, beds",
+      "protection": "Minimal",
+      "tips": "Cut leaves regularly to encourage fresh growth.",
+      "containerMin": "20\u201325cm pot",
+      "notes": "Flat leaves, mild garlic flavour."
+    }
+  ]
+}

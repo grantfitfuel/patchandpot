@@ -1,0 +1,150 @@
+{
+  "region": "Ireland",
+  "category": "softfruit",
+  "crops": [
+    {
+      "name": "Strawberries",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4
+        ],
+        "harvest": [
+          5,
+          6,
+          7
+        ]
+      },
+      "depth": "Crown just above soil",
+      "spacing": "30cm apart, rows 40cm",
+      "light": "Full sun",
+      "where": "Raised beds, hanging baskets, containers",
+      "protection": "Netting against birds, straw mulch to protect fruit",
+      "tips": "Remove runners unless propagating, feed high potash when fruiting",
+      "containerMin": "25cm deep pot or trough",
+      "notes": "Perennial; replace plants every 3\u20134 years"
+    },
+    {
+      "name": "Raspberries",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Plant canes at same depth as nursery",
+      "spacing": "45cm apart in rows, 1.5m between rows",
+      "light": "Full sun, tolerates partial shade",
+      "where": "Raised beds, direct soil with supports",
+      "protection": "Netting to deter birds",
+      "tips": "Tie canes to wires, prune depending on summer/autumn type",
+      "containerMin": "Large 40L container with support",
+      "notes": "Divide between summer-fruiting and autumn-fruiting types"
+    },
+    {
+      "name": "Blackberries",
+      "months": {
+        "sow": [],
+        "plant": [
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "Plant at same level as pot",
+      "spacing": "2m apart",
+      "light": "Full sun, partial shade",
+      "where": "Soil, trained against fence or trellis",
+      "protection": "Net fruit to deter birds",
+      "tips": "Prune old canes after fruiting, tie in new growth",
+      "containerMin": "50L container minimum with strong support",
+      "notes": "Thornless varieties best for gardens"
+    },
+    {
+      "name": "Gooseberries",
+      "months": {
+        "sow": [],
+        "plant": [
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          6,
+          7
+        ]
+      },
+      "depth": "Plant at same depth as pot",
+      "spacing": "1.5m apart",
+      "light": "Full sun, tolerates part shade",
+      "where": "Raised beds, soil",
+      "protection": "Netting against sawfly and birds",
+      "tips": "Prune to open centre, harvest underripe for cooking",
+      "containerMin": "40L pot minimum",
+      "notes": "Can be grown as standards or bushes"
+    },
+    {
+      "name": "Blueberries",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Plant at same level as pot",
+      "spacing": "1.5m apart",
+      "light": "Full sun, partial shade",
+      "where": "Containers with ericaceous compost",
+      "protection": "Net against birds",
+      "tips": "Use rainwater for watering, grow two varieties for pollination",
+      "containerMin": "40L ericaceous pot",
+      "notes": "Acidic soil required; best in pots in alkaline areas"
+    },
+    {
+      "name": "Currants (Red, Black, White)",
+      "months": {
+        "sow": [],
+        "plant": [
+          11,
+          2,
+          3
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "Plant at same level as nursery pot",
+      "spacing": "1.5m apart",
+      "light": "Full sun",
+      "where": "Raised beds, soil",
+      "protection": "Net to protect berries from birds",
+      "tips": "Prune to maintain open structure, feed annually",
+      "containerMin": "40L container",
+      "notes": "Heavy croppers, useful for jams"
+    }
+  ]
+}

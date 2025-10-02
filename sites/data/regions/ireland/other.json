@@ -1,0 +1,227 @@
+{
+  "region": "Ireland",
+  "category": "other",
+  "crops": [
+    {
+      "name": "Courgette",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "90cm apart outdoors",
+      "light": "Full sun, sheltered",
+      "where": "Pots, raised beds, soil",
+      "protection": "Cloche early, fleece against cold nights",
+      "tips": "Harvest young to keep plants cropping.",
+      "containerMin": "40L pot",
+      "notes": "Also known as zucchini."
+    },
+    {
+      "name": "Pumpkin",
+      "months": {
+        "sow": [
+          4
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          9,
+          10
+        ]
+      },
+      "depth": "2-3cm",
+      "spacing": "1m apart",
+      "light": "Full sun",
+      "where": "Soil, large raised bed",
+      "protection": "Cloche when young",
+      "tips": "Feed well, needs space.",
+      "containerMin": "60L+ tub",
+      "notes": "Choose smaller varieties for containers."
+    },
+    {
+      "name": "Sweetcorn",
+      "months": {
+        "sow": [
+          4,
+          5
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "30cm apart in blocks",
+      "light": "Full sun",
+      "where": "Soil, raised beds",
+      "protection": "Cloche when young",
+      "tips": "Plant in blocks for wind pollination.",
+      "containerMin": "Large bed only",
+      "notes": "Sweetcorn requires warm soil."
+    },
+    {
+      "name": "Celery",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "25cm apart",
+      "light": "Full sun, moist soil",
+      "where": "Soil, raised beds",
+      "protection": "Shade cloth in heat",
+      "tips": "Keep watered, blanch stems if desired.",
+      "containerMin": "30cm box",
+      "notes": "Self-blanching varieties easier."
+    },
+    {
+      "name": "Celeriac",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          10,
+          11
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "30cm apart",
+      "light": "Full sun",
+      "where": "Soil, raised beds",
+      "protection": "Fleece early",
+      "tips": "Remove side shoots for bigger roots.",
+      "containerMin": "Deep raised bed",
+      "notes": "Long growing season."
+    },
+    {
+      "name": "Globe Artichoke",
+      "months": {
+        "sow": [
+          3,
+          4
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "90cm apart",
+      "light": "Full sun",
+      "where": "Soil, large raised bed",
+      "protection": "Mulch crowns in winter",
+      "tips": "Cut flower heads to encourage more.",
+      "containerMin": "Large permanent bed",
+      "notes": "Perennial."
+    },
+    {
+      "name": "Asparagus",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          4,
+          5,
+          6
+        ]
+      },
+      "depth": "15cm trenches",
+      "spacing": "30cm apart",
+      "light": "Full sun",
+      "where": "Soil, raised beds",
+      "protection": "Mulch crowns in winter",
+      "tips": "Don\u2019t harvest first 2 years.",
+      "containerMin": "Permanent bed only",
+      "notes": "Perennial crop, lasts 20 years."
+    },
+    {
+      "name": "Rhubarb",
+      "months": {
+        "sow": [],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          4,
+          5,
+          6
+        ]
+      },
+      "depth": "Crown at soil surface",
+      "spacing": "75cm apart",
+      "light": "Full sun, part shade",
+      "where": "Soil, raised beds",
+      "protection": "Mulch in winter",
+      "tips": "Don\u2019t pull in first year.",
+      "containerMin": "50L tub",
+      "notes": "Leaves are poisonous."
+    },
+    {
+      "name": "Kohlrabi",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "20cm apart",
+      "light": "Full sun, part shade",
+      "where": "Beds, pots",
+      "protection": "Netting against pigeons and cabbage root fly",
+      "tips": "Harvest when tennis ball size.",
+      "containerMin": "25cm deep pot",
+      "notes": "Fast growing brassica."
+    }
+  ]
+}

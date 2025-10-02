@@ -1,0 +1,192 @@
+{
+  "region": "Ireland",
+  "category": "legumes",
+  "crops": [
+    {
+      "name": "Broad Bean (Aquadulce/Hardy)",
+      "months": {
+        "sow": [
+          9,
+          10,
+          11,
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          3,
+          4
+        ],
+        "harvest": [
+          6,
+          7
+        ]
+      },
+      "depth": "5-7cm",
+      "spacing": "20-25cm apart, rows 45cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, deep troughs",
+      "protection": "Cloche/fleece in cold snaps; stake rows against wind",
+      "tips": "Pinch out tips at first sign of blackfly; support with string runs.",
+      "containerMin": "30cm deep trough",
+      "notes": "Autumn-sown plants crop earlier the following summer."
+    },
+    {
+      "name": "Pea (Dwarf/Early)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          3,
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "3-5cm",
+      "spacing": "5-7cm apart in double rows 20cm apart",
+      "light": "Full sun",
+      "where": "Beds, raised beds, troughs with low support",
+      "protection": "Net against birds and mice; slug control essential",
+      "tips": "Use twiggy sticks or 40\u201360cm mesh for support; keep evenly watered.",
+      "containerMin": "25\u201330cm deep trough",
+      "notes": "Dwarf types suit balconies and exposed sites."
+    },
+    {
+      "name": "Pea (Mangetout/Sugar Snap)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8
+        ]
+      },
+      "depth": "3-5cm",
+      "spacing": "7-10cm apart, rows 45cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, containers with mesh/trellis",
+      "protection": "Netting against birds; copper tape for slugs in pots",
+      "tips": "Pick pods young and often to prolong cropping.",
+      "containerMin": "30cm deep trough",
+      "notes": "Taller strains need 1\u20131.5m supports."
+    },
+    {
+      "name": "French Bean (Dwarf/Bush)",
+      "months": {
+        "sow": [
+          5,
+          6
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "3-5cm",
+      "spacing": "15-20cm apart, rows 40cm",
+      "light": "Full sun, sheltered",
+      "where": "Beds, raised beds, large containers",
+      "protection": "Wait until soils are warm; fleece if nights <10\u00b0C",
+      "tips": "Mulch to keep moisture; pick regularly for continued yield.",
+      "containerMin": "30cm deep pot",
+      "notes": "Compact and high-yielding in pots."
+    },
+    {
+      "name": "French Bean (Climbing)",
+      "months": {
+        "sow": [
+          5,
+          6
+        ],
+        "plant": [
+          6
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "3-5cm",
+      "spacing": "25cm apart at base of canes",
+      "light": "Full sun, sheltered",
+      "where": "Beds, large containers with cane wigwams/trellis",
+      "protection": "Fleece on cold nights early on; wind protection",
+      "tips": "Train clockwise up canes; feed high potash once flowering.",
+      "containerMin": "40L tub",
+      "notes": "Great vertical crop for small spaces."
+    },
+    {
+      "name": "Runner Bean",
+      "months": {
+        "sow": [
+          5,
+          6
+        ],
+        "plant": [
+          6
+        ],
+        "harvest": [
+          8,
+          9
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "25-30cm apart at base of canes",
+      "light": "Full sun, sheltered",
+      "where": "Beds, large containers with sturdy supports",
+      "protection": "Harden off well; fleece if temperatures dip",
+      "tips": "Keep roots moist; mulch; pick pods small to avoid stringiness.",
+      "containerMin": "45L tub",
+      "notes": "Attracts pollinators; decorative flowers."
+    },
+    {
+      "name": "Broad Bean (Spring Varieties)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4
+        ],
+        "plant": [
+          3,
+          4,
+          5
+        ],
+        "harvest": [
+          7,
+          8
+        ]
+      },
+      "depth": "5cm",
+      "spacing": "20-25cm apart, rows 45cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, troughs",
+      "protection": "Stake in windy gardens; blackfly control by pinching tips",
+      "tips": "Early indoor sowings in modules reduce seed losses to mice.",
+      "containerMin": "30cm deep trough",
+      "notes": "Choose compact cultivars for containers."
+    }
+  ]
+}

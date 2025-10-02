@@ -1,0 +1,240 @@
+{
+  "region": "Ireland",
+  "category": "alliums",
+  "crops": [
+    {
+      "name": "Onion (from seed)",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [],
+        "harvest": [
+          7,
+          8
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "10cm apart, rows 25\u201330cm",
+      "light": "Full sun",
+      "where": "Raised beds, direct soil, large planters",
+      "protection": "Insect mesh against onion fly; fleece for early sowings",
+      "tips": "Use fresh seed; keep weed-free; thin to final spacing early.",
+      "containerMin": "Deep trough 25cm",
+      "notes": "Seed-grown stores well; slower than sets."
+    },
+    {
+      "name": "Onion (from sets)",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          9,
+          10
+        ],
+        "harvest": [
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "Tips just showing above the soil",
+      "spacing": "10cm apart, rows 25\u201330cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, big troughs",
+      "protection": "Bird netting; fleece if late frosts expected",
+      "tips": "Firm soil; rotate yearly to avoid disease build-up.",
+      "containerMin": "25cm deep box",
+      "notes": "Fast and reliable for beginners."
+    },
+    {
+      "name": "Garlic",
+      "months": {
+        "sow": [],
+        "plant": [
+          9,
+          10,
+          11
+        ],
+        "harvest": [
+          6,
+          7
+        ]
+      },
+      "depth": "5\u20136cm (cloves point up)",
+      "spacing": "10\u201315cm apart, rows 25cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, large troughs",
+      "protection": "Netting against birds; good drainage essential in wet spells",
+      "tips": "Autumn plantings give larger bulbs; avoid waterlogging.",
+      "containerMin": "25cm deep trough",
+      "notes": "Softneck types store best; hardneck for scapes."
+    },
+    {
+      "name": "Elephant Garlic",
+      "months": {
+        "sow": [],
+        "plant": [
+          10,
+          11
+        ],
+        "harvest": [
+          7
+        ]
+      },
+      "depth": "10cm",
+      "spacing": "20\u201325cm apart",
+      "light": "Full sun",
+      "where": "Beds, large troughs",
+      "protection": "As for garlic; needs long season",
+      "tips": "Technically a leek; milder flavour; allow room to swell.",
+      "containerMin": "30cm deep trough",
+      "notes": "Great roasted; less pungent than true garlic."
+    },
+    {
+      "name": "Leek",
+      "months": {
+        "sow": [
+          1,
+          2,
+          3
+        ],
+        "plant": [
+          5,
+          6
+        ],
+        "harvest": [
+          9,
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "Sow 1cm; transplant into 15cm dibbed holes",
+      "spacing": "15cm apart, rows 30cm",
+      "light": "Full sun; tolerates part shade",
+      "where": "Beds, raised beds, deep troughs",
+      "protection": "Insect mesh against leek moth & allium leaf miner",
+      "tips": "Trim roots/tops before transplant; water into holes; don\u2019t backfill.",
+      "containerMin": "30cm deep container",
+      "notes": "Earth up for longer white shanks."
+    },
+    {
+      "name": "Shallot",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3
+        ],
+        "harvest": [
+          7,
+          8
+        ]
+      },
+      "depth": "Set just below surface",
+      "spacing": "15cm apart, rows 30cm",
+      "light": "Full sun",
+      "where": "Beds, raised beds, large pots",
+      "protection": "Netting vs birds; rotate with non-alliums",
+      "tips": "Mulch to keep even moisture; lift when tops fall.",
+      "containerMin": "25\u201330cm deep trough",
+      "notes": "Makes clusters from each set."
+    },
+    {
+      "name": "Spring Onion (Scallion)",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "plant": [],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "2\u20133cm apart, rows 10\u201315cm",
+      "light": "Full sun",
+      "where": "Pots, troughs, beds",
+      "protection": "Fleece early; mesh where leaf miner is present",
+      "tips": "Sow thickly for bunching; succession sow 2\u20133 weekly.",
+      "containerMin": "20cm deep pot",
+      "notes": "Ideal container allium."
+    },
+    {
+      "name": "Chives",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          3,
+          4,
+          5
+        ],
+        "harvest": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5cm (light cover)",
+      "spacing": "Clumps 15cm apart",
+      "light": "Sun/part shade",
+      "where": "Pots, beds, borders",
+      "protection": "Minimal; protect pots from freezing winds",
+      "tips": "Divide every 3 years; edible flowers attract pollinators.",
+      "containerMin": "20cm pot",
+      "notes": "Mild onion flavour for salads."
+    },
+    {
+      "name": "Welsh Onion (Perennial Bunching)",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5
+        ],
+        "plant": [
+          4,
+          5
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "10\u201315cm clumps",
+      "light": "Full sun",
+      "where": "Beds, pots",
+      "protection": "Mesh where leaf miner present",
+      "tips": "Cut-and-come-again clumps; divide to propagate.",
+      "containerMin": "25cm trough",
+      "notes": "Good for year\u2011round scallions in mild areas."
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "region": "Ireland",
+  "category": "leafy",
+  "crops": [
+    {
+      "name": "Lettuce",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "plant": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "0.5cm",
+      "spacing": "20cm apart",
+      "light": "Full sun/part shade",
+      "where": "Pots, raised beds, soil",
+      "protection": "Netting against birds and slugs",
+      "tips": "Succession sow every 2 weeks for continuous harvest.",
+      "containerMin": "15cm deep pot",
+      "notes": "Loose-leaf types give multiple cuts."
+    },
+    {
+      "name": "Spinach",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          8,
+          9
+        ],
+        "plant": [
+          3,
+          4,
+          8,
+          9
+        ],
+        "harvest": [
+          4,
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "10cm apart",
+      "light": "Part shade",
+      "where": "Raised beds, pots, soil",
+      "protection": "Netting against pigeons",
+      "tips": "Water well in summer to prevent bolting.",
+      "containerMin": "20cm deep pot",
+      "notes": "Young leaves best for salads."
+    },
+    {
+      "name": "Chard",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [
+          4,
+          5,
+          6
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "25cm apart",
+      "light": "Full sun/part shade",
+      "where": "Raised beds, direct soil",
+      "protection": "Fleece early in year",
+      "tips": "Cut outer leaves first to prolong harvest.",
+      "containerMin": "30cm deep box",
+      "notes": "Colourful stems also edible."
+    },
+    {
+      "name": "Kale",
+      "months": {
+        "sow": [
+          4,
+          5,
+          6
+        ],
+        "plant": [
+          5,
+          6,
+          7
+        ],
+        "harvest": [
+          9,
+          10,
+          11,
+          0,
+          1
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "40cm apart",
+      "light": "Full sun",
+      "where": "Raised beds, soil",
+      "protection": "Netting against cabbage white butterflies",
+      "tips": "Harvest lower leaves first; survives frost.",
+      "containerMin": "40cm deep tub",
+      "notes": "Good winter crop in mild climates."
+    }
+  ]
+}

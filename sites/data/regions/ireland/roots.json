@@ -1,0 +1,202 @@
+{
+  "region": "Ireland",
+  "category": "roots",
+  "crops": [
+    {
+      "name": "Carrot",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "plant": [],
+        "harvest": [
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "0.5-1cm",
+      "spacing": "2-4cm apart, rows 15-20cm",
+      "light": "Full sun",
+      "where": "Direct soil, deep pots (30cm), raised beds",
+      "protection": "Fleece/netting against carrot fly",
+      "tips": "Thin seedlings early, water evenly to prevent splitting."
+    },
+    {
+      "name": "Beetroot",
+      "months": {
+        "sow": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "plant": [],
+        "harvest": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "8-10cm apart",
+      "light": "Full sun, part shade",
+      "where": "Direct soil, raised beds, pots (25cm deep)",
+      "protection": "Cloches in early sowings",
+      "tips": "Harvest small for tenderness, leaves also edible."
+    },
+    {
+      "name": "Parsnip",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4
+        ],
+        "plant": [],
+        "harvest": [
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "1.5cm",
+      "spacing": "10cm apart, rows 30cm",
+      "light": "Full sun",
+      "where": "Direct soil (deep root run), raised beds",
+      "protection": "Fleece if cold spring",
+      "tips": "Use fresh seed, long growing season, improve flavour after frost."
+    },
+    {
+      "name": "Turnip",
+      "months": {
+        "sow": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "plant": [],
+        "harvest": [
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "8-10cm apart",
+      "light": "Full sun",
+      "where": "Soil, raised beds, shallow pots (20cm deep)",
+      "protection": "Netting against flea beetle",
+      "tips": "Harvest when golf-ball size for best taste."
+    },
+    {
+      "name": "Radish",
+      "months": {
+        "sow": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "plant": [],
+        "harvest": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "depth": "1cm",
+      "spacing": "3cm apart",
+      "light": "Full sun, part shade",
+      "where": "Soil, raised beds, pots (15cm deep)",
+      "protection": "Fleece against flea beetle in spring",
+      "tips": "Succession sow every 2-3 weeks."
+    },
+    {
+      "name": "Potato",
+      "months": {
+        "sow": [],
+        "plant": [
+          2,
+          3,
+          4
+        ],
+        "harvest": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "depth": "10-15cm",
+      "spacing": "30cm apart",
+      "light": "Full sun",
+      "where": "Soil, raised beds, grow bags, large pots (40L+)",
+      "protection": "Earth up shoots, fleece against late frost",
+      "tips": "Water well during tuber formation, rotate yearly."
+    },
+    {
+      "name": "Swede",
+      "months": {
+        "sow": [
+          5,
+          6
+        ],
+        "plant": [],
+        "harvest": [
+          10,
+          11,
+          0
+        ]
+      },
+      "depth": "2cm",
+      "spacing": "15cm apart, rows 30cm",
+      "light": "Full sun",
+      "where": "Soil, raised beds",
+      "protection": "Netting against flea beetle and cabbage root fly",
+      "tips": "Firm soil helps prevent misshapen roots."
+    },
+    {
+      "name": "Celery Root (Celeriac)",
+      "months": {
+        "sow": [
+          2,
+          3
+        ],
+        "plant": [
+          5
+        ],
+        "harvest": [
+          9,
+          10,
+          11
+        ]
+      },
+      "depth": "Surface sow, lightly cover",
+      "spacing": "25cm apart",
+      "light": "Full sun",
+      "where": "Soil, raised beds",
+      "protection": "Fleece early in season",
+      "tips": "Keep well watered, remove side shoots to swell roots."
+    }
+  ]
+}

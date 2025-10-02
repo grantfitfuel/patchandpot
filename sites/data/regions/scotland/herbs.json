@@ -1,469 +1,485 @@
-{
-  "region": "Scotland",
-  "category": "herbs",
-  "crops": [
-    {
-      "name": "Basil",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "0.5cm",
-      "spacing": "25cm apart",
-      "light": "Full sun, sheltered",
-      "where": "Pots, windowsill, greenhouse",
-      "protection": "Fleece in cool nights, best under cover in Scotland",
-      "tips": "Pinch out tips to encourage bushiness; avoid overwatering and cold draughts.",
-      "containerMin": "15–20cm pot",
-      "notes": "Tender annual; choose compact varieties for windowsills."
+[
+  {
+    "name": "Basil (pots / under cover)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Parsley (Flat/Curly)",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "1cm",
-      "spacing": "20–25cm apart",
-      "light": "Sun or part shade",
-      "where": "Pots, raised beds, windowsills",
-      "protection": "None usually needed",
-      "tips": "Soak seed overnight; germination is slow. Keep evenly moist.",
-      "containerMin": "20–25cm pot",
-      "notes": "Biennial; grown as annual for best leaf quality."
+    "depth": "0.5cm broadcast in trays; thin to 5cm then pot on",
+    "spacing": "20–25cm apart in containers",
+    "light": "Full sun, warm",
+    "where": "Indoors, greenhouse, sunny patio (after last frost)",
+    "protection": "Fleece or bring indoors <10°C",
+    "tips": "Pinch out tips to bush. Avoid wet leaves in cool weather.",
+    "containerMin": "15–20cm pot per plant or 30cm trough for 3–4 plants",
+    "notes": "Tender annual."
+  },
+  {
+    "name": "Parsley (flat & curly)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Coriander (Leaf/Cilantro)",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "1cm",
-      "spacing": "15–20cm apart",
-      "light": "Full sun to light shade",
-      "where": "Pots, raised beds",
-      "protection": "Fleece in early/late season to extend harvests",
-      "tips": "Succession sow every 3–4 weeks; prefers cooler temps to avoid bolting.",
-      "containerMin": "20cm pot or trough",
-      "notes": "Harvest leaves early; save late plants for seeds (coriander spice)."
+    "depth": "1cm; pre-soak seed overnight",
+    "spacing": "20cm apart",
+    "light": "Full sun to part shade",
+    "where": "Pots, raised beds, soil",
+    "protection": "Cloche or fleece in winter",
+    "tips": "Replace yearly for best leaf quality.",
+    "containerMin": "20cm deep pot",
+    "notes": "Biennial grown as annual."
+  },
+  {
+    "name": "Coriander (leaf)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Mint (Spearmint/Peppermint)",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          3,
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Surface to 0.5cm (fine seed)",
-      "spacing": "30–40cm apart",
-      "light": "Sun or part shade",
-      "where": "Pots (recommended), beds (invasive)",
-      "protection": "None typically",
-      "tips": "Contain roots in pots; water well; cut back hard after flowering.",
-      "containerMin": "25–30cm deep pot",
-      "notes": "Vigorous; divide clumps every 2–3 years."
+    "depth": "1cm, sow in situ",
+    "spacing": "20cm apart or thin to clumps",
+    "light": "Full sun to light shade",
+    "where": "Pots, raised beds, soil",
+    "protection": "Shade in hot spells to reduce bolting",
+    "tips": "Succession sow every 3 weeks.",
+    "containerMin": "20cm pot or window box",
+    "notes": "Fast to bolt if stressed."
+  },
+  {
+    "name": "Chives",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Thyme",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "Surface to 0.5cm",
-      "spacing": "20–25cm apart",
-      "light": "Full sun",
-      "where": "Pots, rockeries, raised beds",
-      "protection": "Protect from winter wet (good drainage essential)",
-      "tips": "Trim lightly after flowering to keep compact.",
-      "containerMin": "15–20cm pot",
-      "notes": "Perennial; prefers poor, well‑drained compost."
+    "depth": "0.5cm",
+    "spacing": "5–10cm clumps",
+    "light": "Full sun to part shade",
+    "where": "Pots, raised beds, soil",
+    "protection": "Mulch crowns over winter in cold areas",
+    "tips": "Cut regularly; edible flowers attract pollinators.",
+    "containerMin": "15cm pot",
+    "notes": "Hardy perennial."
+  },
+  {
+    "name": "Dill",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "plant": [],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Chives",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "0.5cm",
-      "spacing": "10–15cm clump spacing",
-      "light": "Sun or light shade",
-      "where": "Pots, borders, raised beds",
-      "protection": "None typically",
-      "tips": "Divide clumps every 3 years; edible flowers attract pollinators.",
-      "containerMin": "15–20cm pot",
-      "notes": "Hardy perennial."
+    "depth": "1cm",
+    "spacing": "20cm apart",
+    "light": "Full sun, sheltered",
+    "where": "Pots, raised beds, soil",
+    "protection": "Stake if tall; shelter from wind",
+    "tips": "Succession sow; allow some to flower.",
+    "containerMin": "20cm pot",
+    "notes": "Annual; dislikes transplanting."
+  },
+  {
+    "name": "Mint (pots)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [
+        3,
+        4,
+        5
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Sage",
-      "months": {
-        "sow": [
-          3,
-          4
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "0.5cm",
-      "spacing": "40–50cm apart",
-      "light": "Full sun",
-      "where": "Pots, borders",
-      "protection": "Shelter from winter wet/wind",
-      "tips": "Prune lightly after flowering; avoid cutting into old wood.",
-      "containerMin": "25–30cm pot",
-      "notes": "Evergreen shrub; aromatic leaves year‑round."
+    "depth": "Surface or 0.5cm if from seed; plant rooted runners just below surface",
+    "spacing": "30cm apart (contain with pot)",
+    "light": "Full sun to part shade",
+    "where": "Pots (best), raised beds (in sunk pots)",
+    "protection": "Cut back and mulch in winter",
+    "tips": "Vigorous—keep confined to containers.",
+    "containerMin": "20–30cm pot",
+    "notes": "Hardy perennial; many varieties."
+  },
+  {
+    "name": "Thyme (pots)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Rosemary",
-      "months": {
-        "sow": [],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "Plant cuttings 5–8cm deep",
-      "spacing": "60cm apart (upright types)",
-      "light": "Full sun, sheltered",
-      "where": "Pots, borders",
-      "protection": "Protect from hard frost and winter wet",
-      "tips": "Grow in gritty, well‑drained compost; larger pots improve winter survival.",
-      "containerMin": "30–35cm pot",
-      "notes": "Perennial shrub; choose hardier cultivars in Scotland."
+    "depth": "Surface sow/lightly cover",
+    "spacing": "25–30cm apart",
+    "light": "Full sun",
+    "where": "Pots, raised beds",
+    "protection": "Free-draining compost to avoid winter rot",
+    "tips": "Trim lightly after flowering to keep compact.",
+    "containerMin": "20cm pot with gritty compost",
+    "notes": "Hardy evergreen."
+  },
+  {
+    "name": "Sage (pots)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Oregano (Wild Marjoram)",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Surface to 0.3cm (light‑dependent germination)",
-      "spacing": "30cm apart",
-      "light": "Full sun",
-      "where": "Pots, borders, raised beds",
-      "protection": "Good drainage in winter",
-      "tips": "Cut back after flowering; divide clumps to refresh.",
-      "containerMin": "22–25cm pot",
-      "notes": "Fully hardy perennial in Scotland."
+    "depth": "0.5cm",
+    "spacing": "40cm apart",
+    "light": "Full sun",
+    "where": "Pots, raised beds",
+    "protection": "Free-draining compost; avoid wet feet in winter",
+    "tips": "Prune in late spring to prevent woodiness.",
+    "containerMin": "25–30cm pot",
+    "notes": "Hardy evergreen."
+  },
+  {
+    "name": "Oregano/Marjoram",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Sweet Marjoram (Origanum majorana)",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Surface to 0.3cm",
-      "spacing": "25–30cm apart",
-      "light": "Full sun, warm and sheltered",
-      "where": "Pots (recommended), conservatory, sunny patio",
-      "protection": "Fleece or bring under cover in cold spells",
-      "tips": "Treat as tender in Scotland or overwinter indoors; pinch to promote bushiness.",
-      "containerMin": "22–25cm pot",
-      "notes": "Less hardy than oregano; aromatic leaves best before flowering."
+    "depth": "Surface/lightly cover",
+    "spacing": "30cm apart",
+    "light": "Full sun",
+    "where": "Pots, raised beds",
+    "protection": "Gritty compost for winter drainage",
+    "tips": "Dry sprigs for winter use.",
+    "containerMin": "20–25cm pot",
+    "notes": "Perennial (marjoram less hardy)."
+  },
+  {
+    "name": "Rosemary (container)",
+    "category": "herbs",
+    "months": {
+      "sow": [],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Dill",
-      "months": {
-        "sow": [
-          4,
-          5,
-          6,
-          7
-        ],
-        "plant": [],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "0.5–1cm",
-      "spacing": "20–25cm apart",
-      "light": "Full sun, sheltered",
-      "where": "Pots, raised beds",
-      "protection": "Shelter from wind to prevent lodging",
-      "tips": "Sow where it will grow; dislikes root disturbance. Succession sow monthly.",
-      "containerMin": "20–25cm pot",
-      "notes": "Use leaves (dill weed) and seeds."
+    "depth": "Plant to same depth as pot",
+    "spacing": "60cm",
+    "light": "Full sun, sheltered",
+    "where": "Large pot, raised bed",
+    "protection": "Shelter from freezing wind; free-draining compost",
+    "tips": "Avoid overwatering; prune after flowering.",
+    "containerMin": "30–40cm pot",
+    "notes": "Evergreen perennial shrub."
+  },
+  {
+    "name": "Tarragon (French, container)",
+    "category": "herbs",
+    "months": {
+      "sow": [],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Fennel (Leaf/Herb Fennel)",
-      "months": {
-        "sow": [
-          4,
-          5,
-          6,
-          7
-        ],
-        "plant": [],
-        "harvest": [
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "0.5–1cm",
-      "spacing": "30–40cm apart",
-      "light": "Full sun",
-      "where": "Pots, raised beds",
-      "protection": "Shelter from wind",
-      "tips": "Do not plant near dill (crossing/bolting). Cut to base to reshoot.",
-      "containerMin": "25–30cm pot",
-      "notes": "Perennial/short‑lived; bronze varieties are ornamental."
+    "depth": "Plant crowns at same depth",
+    "spacing": "40cm",
+    "light": "Full sun",
+    "where": "Pots, raised beds",
+    "protection": "Overwinter frost-free or mulch well",
+    "tips": "Use French (not Russian) for flavour.",
+    "containerMin": "25–30cm pot",
+    "notes": "Tender perennial."
+  },
+  {
+    "name": "Chervil",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ],
+      "plant": [],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Tarragon (French)",
-      "months": {
-        "sow": [],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Plant rooted divisions/cuttings 5–8cm deep",
-      "spacing": "40cm apart",
-      "light": "Full sun, sheltered",
-      "where": "Pots, raised beds",
-      "protection": "Protect crowns in winter; avoid waterlogging",
-      "tips": "French tarragon is propagated by cuttings/division (seed is usually Russian tarragon).",
-      "containerMin": "25–30cm pot",
-      "notes": "True French tarragon is less hardy; overwinter in a cold frame if possible."
+    "depth": "1cm",
+    "spacing": "15–20cm",
+    "light": "Part shade",
+    "where": "Pots, raised beds",
+    "protection": "Shade net in hot spells",
+    "tips": "Cool-season; great for shoulder seasons.",
+    "containerMin": "18–20cm pot",
+    "notes": "Annual; mild anise flavour."
+  },
+  {
+    "name": "Lovage (container)",
+    "category": "herbs",
+    "months": {
+      "sow": [],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Chervil",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5,
-          8,
-          9
-        ],
-        "plant": [],
-        "harvest": [
-          5,
-          6,
-          7,
-          9,
-          10
-        ]
-      },
-      "depth": "0.5cm",
-      "spacing": "15cm apart",
-      "light": "Part shade (prefers cool)",
-      "where": "Pots, shady raised beds",
-      "protection": "Fleece in early/late season",
-      "tips": "Succession sow; excellent for spring/autumn; bolts in heat.",
-      "containerMin": "20cm pot",
-      "notes": "Delicate anise flavour; great winter/spring herb."
+    "depth": "Plant crowns to same depth",
+    "spacing": "60cm",
+    "light": "Full sun to part shade",
+    "where": "Large pot or bed",
+    "protection": "Mulch crown in winter",
+    "tips": "Very vigorous; treat like perennial celery.",
+    "containerMin": "35–45cm deep pot",
+    "notes": "Hardy perennial."
+  },
+  {
+    "name": "Fennel (leaf/herb, not bulb)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Lemon Balm",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Surface to 0.3cm",
-      "spacing": "40cm apart",
-      "light": "Sun or part shade",
-      "where": "Pots, borders",
-      "protection": "None typically",
-      "tips": "Contain in pots to prevent spreading; trim regularly to keep fresh growth.",
-      "containerMin": "25–30cm pot",
-      "notes": "Hardy perennial; aromatic leaves for tea and salads."
+    "depth": "0.5–1cm",
+    "spacing": "25–30cm",
+    "light": "Full sun",
+    "where": "Pots, raised beds, soil",
+    "protection": "Shelter from wind; dislikes transplanting",
+    "tips": "Do not grow right beside dill.",
+    "containerMin": "25–30cm pot",
+    "notes": "For fronds & seeds. Bulb fennel belongs in roots file."
+  },
+  {
+    "name": "Lemon balm",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Bay (Laurus nobilis)",
-      "months": {
-        "sow": [],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "Plant at same depth as pot",
-      "spacing": "Single specimen (slow-growing)",
-      "light": "Full sun to part shade, sheltered",
-      "where": "Large pots, doorways, patios",
-      "protection": "Protect from severe frost; avoid waterlogging in winter",
-      "tips": "Use free‑draining compost; repot gradually. Prune to shape in late spring.",
-      "containerMin": "35–45L tub for long‑term",
-      "notes": "Evergreen shrub; culinary leaves year‑round."
-    }
-  ]
-}
+    "depth": "Surface/lightly cover",
+    "spacing": "40cm",
+    "light": "Full sun to part shade",
+    "where": "Pots, raised beds",
+    "protection": "Contain rhizomes; prune after flowering",
+    "tips": "Cut back to refresh growth.",
+    "containerMin": "25–30cm pot",
+    "notes": "Hardy perennial; can spread."
+  },
+  {
+    "name": "Bay (container)",
+    "category": "herbs",
+    "months": {
+      "sow": [],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "depth": "Plant at same depth",
+    "spacing": "N/A (single pot specimen)",
+    "light": "Full sun to part shade, sheltered",
+    "where": "Large pot",
+    "protection": "Protect from severe frost; avoid waterlogging",
+    "tips": "Repot with fresh compost every 2–3 years.",
+    "containerMin": "35–45cm pot",
+    "notes": "Evergreen shrub; slow growing."
+  },
+  {
+    "name": "Sorrel (French/Garden)",
+    "category": "herbs",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "depth": "1cm",
+    "spacing": "30cm",
+    "light": "Full sun to part shade",
+    "where": "Pots, beds",
+    "protection": "Mulch in winter",
+    "tips": "Pick young leaves for best flavour.",
+    "containerMin": "25cm pot",
+    "notes": "Hardy perennial."
+  }
+]

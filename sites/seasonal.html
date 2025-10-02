@@ -5,117 +5,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-  <!-- Sitewide CSS -->
-  <link rel="stylesheet" href="style.css?v=48">
+  <link rel="stylesheet" href="style.css?v=48"><!-- bump to bust cache -->
 
-  <!-- Page CSS (self-contained; no patches elsewhere) -->
+  <!-- Page-guarantee styles (only what we must lock in) -->
   <style>
     :root{
-      --ink:#e6f0ea; --muted:#a6b6af; --line:#2b332f;
-      --panel:#161c19; --panel2:#1b221f; --green:#35c26a;
+      --ink:#e6f0ea; --muted:#a6b6af; --bg:#0e1311; --panel:#161c19; --panel2:#1b221f;
+      --line:#2b332f; --green:#35c26a;
     }
-    .pp-sub{color:var(--muted);margin:0 0 .8rem}
-    .pp-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1rem;margin:1rem 0}
-    .pp-toolbar{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px}
-    .pp-select,.pp-search{background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem}
-    .pp-help{color:var(--muted);margin:.5rem 0 0}
-    .pp-filters{display:grid;gap:.6rem 1rem;grid-template-columns:1fr auto;align-items:center}
-    .pp-filters .left{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
-    .pp-filters .right{display:flex;gap:.6rem;align-items:center}
+    html,body{background:var(--bg); color:var(--ink)}
+    .wrap{max-width:1140px; margin:0 auto; padding:16px 20px}
+
+    /* Cards / toolbar */
+    .pp-card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:1rem; margin:1rem 0}
+    .pp-toolbar{display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; padding:.6rem .8rem; background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:12px}
+    .pp-select,.pp-search{background:#0c100e; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:.5rem .65rem}
+    .pp-help{color:var(--muted); margin:.5rem 0 0}
+    .pp-sub{color:var(--muted); margin:0 0 .8rem}
 
     /* Pest watch */
-    .pp-pestwatch{background:var(--panel2);border-left:4px solid var(--green);border-radius:14px;padding:1rem;margin:1rem 0;border:1px solid var(--line)}
-    .pp-pestwatch ul{margin:.4rem 0 0;padding-left:1.1rem}
+    .pp-pestwatch{background:var(--panel2); border-left:4px solid var(--green); border:1px solid var(--line); border-radius:14px; padding:1rem; margin:1rem 0}
+    .pp-pestwatch ul{margin:.4rem 0 0; padding-left:1.1rem}
 
-    /* Legend */
-    .pp-legend{display:flex;align-items:center;gap:18px;color:var(--muted);margin:.4rem 0 1rem}
-    .pp-legend span{display:inline-flex;align-items:center;gap:.35rem}
+    /* Today list */
+    .pp-month-hint{color:var(--muted); margin:.2rem 0 .6rem}
+    .pp-list{list-style:none; padding:0; margin:0}
+    .pp-list li{padding:.55rem .65rem; border:1px dashed var(--line); border-radius:10px; margin:.4rem 0; background:#0f1512}
 
-    /* Calendar grid */
-    .pp-calendar{
-      display:grid;
-      grid-template-columns: 240px repeat(12, minmax(52px,1fr));
-      grid-auto-rows: minmax(48px, auto);   /* <-- allows tall crop names */
-      gap:2px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;
-      background:#0f1512;
-    }
+    /* Key */
+    .pp-key{display:flex; gap:18px; align-items:center; font-size:1rem; margin:.4rem 0 1rem}
+    .pp-key .k{display:inline-flex; align-items:center; gap:.5rem; color:var(--ink)}
+
+    /* Calendar Grid */
+    .pp-calendar{display:grid; grid-template-columns: 260px repeat(12, minmax(48px,1fr)); gap:2px; background:#0f1512; border:1px solid var(--line); border-radius:16px; overflow:auto}
     .pp-row{display:contents}
-    .pp-head,.pp-cell{
-      border:1px solid var(--line);
-      padding:.55rem .6rem;
-      font-size:.95rem;
-      background:#101613;
-    }
-    .pp-head{font-weight:700;background:#121815;position:sticky;top:0;z-index:1}
-    /* Sticky first column (crop names) */
+    .pp-head,.pp-cell{border:1px solid var(--line); padding:.55rem .6rem; font-size:.95rem; background:#121815}
+    .pp-head{font-weight:700; position:sticky; top:0; z-index:2}
     .pp-crop{
-      font-weight:700;background:#121815;
-      position:sticky;left:0;z-index:2;
-      white-space:normal;line-height:1.25;word-break:break-word;
+      background:#141a16; font-weight:700; white-space:normal; word-wrap:break-word; word-break:break-word;
+      align-self:start; display:flex; flex-direction:column; gap:2px;
     }
-    .pp-name{display:block}
-    .pp-tags{display:block;font-size:.82rem;color:var(--muted);margin-top:.1rem}
+    .pp-cell{background:#0f1512; text-align:center; vertical-align:top}
+    .pp-crop .tag{font-size:.8rem; color:var(--muted)}
+    .pp-cell em{font-style:normal}
 
-    /* Emoji cells centred neatly */
-    .pp-cell{display:flex;align-items:center;justify-content:center}
-
-    /* Footer (size is “reasonable”, centred) */
-    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
-    .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-    .footer-pot{width:36px;height:36px;object-fit:contain}
-
-    @media (max-width:900px){
-      .pp-filters{grid-template-columns:1fr}
-      .pp-calendar{grid-template-columns:180px repeat(12, minmax(42px,1fr))}
-      .pp-head,.pp-cell{padding:.45rem;font-size:.9rem}
-      .pp-crop{font-size:.95rem}
+    /* Make the first column sticky on small screens for better reading */
+    @media (max-width: 980px){
+      .pp-calendar{grid-template-columns: 220px repeat(12, minmax(44px,1fr))}
+      .pp-crop{position:sticky; left:0; z-index:3; background:#141a16}
     }
+    @media (max-width: 740px){
+      .pp-calendar{grid-template-columns: 200px repeat(12, minmax(40px,1fr))}
+      .pp-head,.pp-cell{padding:.45rem}
+    }
+
+    /* Footer pot (sensible size & centered) */
+    footer{border-top:1px solid #142116; background:#0a0f0c; margin-top:28px; text-align:center; padding:20px 0}
+    .footer-inner{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px}
+    .footer-pot{width:36px; height:36px; object-fit:contain}
   </style>
 </head>
 <body>
 
-  <!-- Shared HEADER (from partials) -->
+  <!-- Shared header (loaded from partial) -->
   <div data-include="partials/header.html"></div>
 
   <main class="wrap" id="maincontent">
     <h1>Seasonal Planting Calendar (UK)</h1>
     <p class="pp-sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
-    <!-- Filters -->
+    <!-- Controls -->
     <section class="pp-card">
-      <div class="pp-toolbar pp-filters" role="group" aria-label="Region and filters">
-        <div class="left">
-          <label for="pp-region">Region:</label>
-          <select id="pp-region" class="pp-select" aria-label="Choose your region">
-            <option value="scotland">Scotland</option>
-            <option value="england">England</option>
-            <option value="ireland">Ireland</option>
-            <option value="wales">Wales</option>
-          </select>
-          <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops by name">
-          <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
-          <select id="pp-category" class="pp-select" aria-label="Filter by category">
-            <option value="all">All categories</option>
-            <option value="leafy">Leafy</option>
-            <option value="roots">Roots</option>
-            <option value="legumes">Legumes</option>
-            <option value="fruit">Fruiting veg</option>
-            <option value="alliums">Alliums</option>
-            <option value="herbs">Herbs</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="right">
-          <label><input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span></label>
-        </div>
+      <div class="pp-toolbar" role="group" aria-label="Region and filters">
+        <label for="pp-region">Region:</label>
+        <select id="pp-region" class="pp-select" aria-label="Choose your region">
+          <option value="scotland">Scotland</option>
+          <option value="ireland">Ireland</option>
+          <option value="england">England</option>
+          <option value="wales">Wales</option>
+        </select>
+
+        <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)..." aria-label="Search crops by name">
+
+        <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
+        <select id="pp-category" class="pp-select" aria-label="Filter by category">
+          <option value="all">All categories</option>
+          <option value="leafy">Leafy</option>
+          <option value="roots">Roots</option>
+          <option value="legumes">Legumes</option>
+          <option value="fruit">Fruiting veg</option>
+          <option value="alliums">Alliums</option>
+          <option value="herbs">Herbs</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label style="margin-left:auto">
+          <input type="checkbox" id="pp-this-month"> Show activity this month only
+        </label>
       </div>
       <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
     </section>
 
-    <!-- Pest watch -->
+    <!-- Pest Watch -->
     <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
       <h3 id="pestwatch-title">Pest Watch – <span id="pp-month-name"></span> (<span id="pp-region-name"></span>)</h3>
       <ul><li>Loading…</li></ul>
@@ -128,17 +119,19 @@
       <ul id="pp-today-list" class="pp-list"></ul>
     </section>
 
-    <!-- Calendar + legend -->
+    <!-- Calendar + KEY -->
     <section aria-labelledby="calendar-title">
       <h2 id="calendar-title">Seasonal Planting Calendar</h2>
-      <div class="pp-legend" aria-hidden="true">
-        <span>🌱 Sow</span><span>🪴 Plant</span><span>🥕 Harvest</span>
+      <div class="pp-key" aria-hidden="true">
+        <span class="k">🌱 <span>Sow</span></span>
+        <span class="k">🪴 <span>Plant out / transplant</span></span>
+        <span class="k">🥕 <span>Harvest</span></span>
       </div>
       <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
     </section>
   </main>
 
-  <!-- FOOTER -->
+  <!-- Footer -->
   <footer role="contentinfo">
     <div class="footer-inner">
       <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
@@ -146,12 +139,12 @@
     </div>
   </footer>
 
-  <!-- Header loader (phones get hamburger; desktop shows full nav) -->
+  <!-- HEADER LOADER (no cache, highlights current page, hamburger on mobile only) -->
   <script>
     (function loadHeader(){
       const holder = document.querySelector('[data-include="partials/header.html"]');
       if(!holder) return;
-      fetch('partials/header.html', {cache:'no-store'})
+      fetch('partials/header.html?nv='+Date.now(), {cache:'no-store'})
         .then(r=>r.text())
         .then(html=>{
           holder.outerHTML = html;
@@ -159,186 +152,207 @@
           if(!header) return;
           const toggle = header.querySelector('.menu-toggle');
           const nav = header.querySelector('#primaryNav');
-
-          // active link
           const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
           header.querySelectorAll('.nav a').forEach(a=>{
-            const href=(a.getAttribute('href')||'').toLowerCase();
-            if(href===path) a.setAttribute('aria-current','page');
+            const href = (a.getAttribute('href')||'').toLowerCase();
+            if(href === path) a.setAttribute('aria-current','page');
           });
-
-          function setExpanded(on){
+          function setOpen(on){
             if(!toggle) return;
             header.classList.toggle('menu-open', on);
             toggle.classList.toggle('menu-open', on);
             toggle.setAttribute('aria-expanded', on?'true':'false');
           }
-          if(toggle) toggle.addEventListener('click',()=>setExpanded(!header.classList.contains('menu-open')));
-          if(nav) nav.addEventListener('click',e=>{ if(e.target.tagName==='A') setExpanded(false); });
+          toggle && toggle.addEventListener('click', ()=> setOpen(!header.classList.contains('menu-open')));
+          nav && nav.addEventListener('click', e=>{ if(e.target.tagName==='A') setOpen(false) });
         })
-        .catch(()=>{ /* silent if header missing */ });
+        .catch(err=>console.error('Header load failed:', err));
     })();
   </script>
 
-  <!-- Seasonal logic -->
+  <!-- SEASONAL LOGIC (locked to /sites/data/regions/...) -->
   <script>
-    const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const CUR_M=new Date().getMonth();
-    const REGIONS=["scotland","england","ireland","wales"];
-    const BLOCKS=["basics","pestwatch","roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
-    let DATA={scotland:null,england:null,ireland:null,wales:null};
+    const PP_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const CUR_M = new Date().getMonth();
+    const REGION_KEYS = ["scotland","england","ireland","wales"];
+    const BLOCKS = ["basics","pestwatch","roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
+    let DATA = { scotland:null, england:null, ireland:null, wales:null };
 
-    function humanRegion(k){return k? k[0].toUpperCase()+k.slice(1):'';}
+    function niceRegion(k){ return k ? k[0].toUpperCase()+k.slice(1) : ''; }
+
+    // Conservative category inference (only used if a crop has no category)
     function inferCategory(name){
       const n=(name||'').toLowerCase();
-      if(/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf|mizuna|mustard|endive|radicchio|pak|choi|bok|tat\s*soi)/.test(n)) return 'leafy';
-      if(/(carrot|beet|beetroot|radish|turnip|parsnip|root|swede|celeriac|salsify|scorzonera|fennel$)/.test(n)) return 'roots';
-      if(/(pea|bean|chickpea|lentil|soy|edamame)/.test(n)) return 'legumes';
-      if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|blueber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb)/.test(n)) return 'fruit';
-      if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n)) return 'alliums';
-      if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|fennel \(herb\)|lemon balm|bay|stevia|chives)/.test(n)) return 'herbs';
+      if (/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf|mizuna|mustard|endive|pak|choi|bok|tat\s*soi|radicchio)/.test(n)) return 'leafy';
+      if (/(carrot|beet|beetroot|radish|turnip|parsnip|swede|root|celeriac|salsify|scorzonera|kohlrabi|fennel$)/.test(n)) return 'roots';
+      if (/(pea|bean|chickpea|lentil|soy|edamame)/.test(n)) return 'legumes';
+      if (/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|rhubarb)/.test(n)) return 'fruit';
+      if (/(strawber|raspber|blueber|currant|gooseber|blackber|tayber|loganber)/.test(n)) return 'fruit';
+      if (/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n)) return 'alliums';
+      if (/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|fennel \(herb\)|lemon balm|bay|chives)/.test(n)) return 'herbs';
       return 'other';
     }
 
     function setMonthHints(){
-      const m=PP_MONTHS[CUR_M];
-      const el=document.getElementById('pp-month-hint');
-      const me=document.getElementById('pp-month-name');
-      if(el) el.textContent=`Here’s what suits containers now in ${m}.`;
-      if(me) me.textContent=m;
+      const m = PP_MONTHS[CUR_M];
+      const hint = document.getElementById('pp-month-hint');
+      const mEl = document.getElementById('pp-month-name');
+      if(hint) hint.textContent = `Here’s what suits containers now in ${m}.`;
+      if(mEl) mEl.textContent = m;
     }
 
-    // Fetch a single block (strict paths relative to /sites)
-    function fetchBlock(region,block){
-      return fetch(`data/regions/${region}/${block}.json?v=${Date.now()}`,{cache:'no-store'})
-        .then(r=>{ if(!r.ok) throw new Error('missing'); return r.json(); });
+    function renderPestWatch(regionKey){
+      const region = DATA[regionKey] || {};
+      const entry = (region.pestwatch && region.pestwatch[String(CUR_M)]) || { items:["No major alerts this month. Keep an eye on slugs after rain."] };
+      const ul = document.querySelector('#pp-pestwatch ul');
+      const rn = document.getElementById('pp-region-name');
+      if(rn) rn.textContent = niceRegion(regionKey);
+      if(ul) ul.innerHTML = (entry.items||[]).map(i=>`<li>${i}</li>`).join('') || '<li>No items.</li>';
     }
 
-    function loadRegion(region){
-      const meta = Promise.all([
-        fetchBlock(region,'basics').catch(()=>({})),
-        fetchBlock(region,'pestwatch').catch(()=>({}))
-      ]).then(([basics,pestwatch])=>({basics,pestwatch}));
-
-      const crops = Promise.all(
-        ["roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"]
-          .map(b=>fetchBlock(region,b).catch(()=>[]))
-      ).then(parts => parts.flat());
-
-      return Promise.all([meta,crops]).then(([m,c])=>({
-        region:humanRegion(region),
-        basics:m.basics||{},
-        pestwatch:m.pestwatch||{},
-        crops:Array.isArray(c)?c:[]
-      }));
-    }
-
-    // UI rendering
     function getFilters(){
       return {
-        q:(document.getElementById('pp-search')?.value||'').trim().toLowerCase(),
-        cat:document.getElementById('pp-category')?.value||'all',
-        thisMonth:!!document.getElementById('pp-this-month')?.checked
+        q: (document.getElementById('pp-search')?.value || '').trim().toLowerCase(),
+        cat: document.getElementById('pp-category')?.value || 'all',
+        thisMonth: !!document.getElementById('pp-this-month')?.checked
       };
     }
+
     function applyFilters(list){
-      const f=getFilters();
+      const f = getFilters();
       return (list||[]).filter(c=>{
-        const name=c.name||'';
-        const cat=(c.category||inferCategory(name)).toLowerCase();
-        if(f.q && !name.toLowerCase().includes(f.q)) return false;
-        if(f.cat!=='all' && cat!==f.cat) return false;
-        if(f.thisMonth){
+        const name = c.name || '';
+        const cat = c.category || inferCategory(name);
+        if (f.q && !name.toLowerCase().includes(f.q)) return false;
+        if (f.cat !== 'all' && cat !== f.cat) return false;
+        if (f.thisMonth){
           const s=(c.months?.sow||[]).includes(CUR_M);
           const p=(c.months?.plant||[]).includes(CUR_M);
           const h=(c.months?.harvest||[]).includes(CUR_M);
-          if(!(s||p||h)) return false;
+          if (!(s||p||h)) return false;
         }
         return true;
       });
     }
 
-    function renderPestWatch(rk){
-      const r=DATA[rk]||{};
-      const entry=(r.pestwatch && r.pestwatch[String(CUR_M)]) || {items:["No major alerts this month. Keep an eye on slugs after rain."]};
-      const ul=document.querySelector('#pp-pestwatch ul');
-      const rn=document.getElementById('pp-region-name');
-      if(rn) rn.textContent=humanRegion(rk);
-      if(ul) ul.innerHTML=(entry.items||[]).map(i=>`<li>${i}</li>`).join('') || '<li>No items.</li>';
-    }
-
-    function renderToday(rk){
-      const r=DATA[rk]||{};
-      const list=document.getElementById('pp-today-list');
-      const items=[];
-      applyFilters(r.crops||[]).forEach(c=>{
+    function renderToday(regionKey){
+      const region = DATA[regionKey] || {};
+      const list = document.getElementById('pp-today-list');
+      const items = [];
+      applyFilters(region.crops||[]).forEach(c=>{
         const s=(c.months?.sow||[]).includes(CUR_M);
         const p=(c.months?.plant||[]).includes(CUR_M);
         const h=(c.months?.harvest||[]).includes(CUR_M);
         if(s||p||h){
-          const tag=c.category||inferCategory(c.name);
+          const tag = c.category || inferCategory(c.name);
           items.push(`<li><strong>${c.name}</strong> ${s?"🌱":""}${p?" 🪴":""}${h?" 🥕":""} <span class="pp-tags">(${tag})</span></li>`);
         }
       });
       if(list) list.innerHTML = items.length ? items.join('') : `<li>No items match your filters for ${PP_MONTHS[CUR_M]}.</li>`;
     }
 
-    function renderCalendar(rk){
-      const r=DATA[rk]||{};
-      const wrap=document.getElementById('pp-calendar');
+    function renderCalendar(regionKey){
+      const region = DATA[regionKey] || {};
+      const wrap = document.getElementById('pp-calendar');
       if(!wrap) return;
-      const head=`<div class="pp-row" role="row">
-        <div class="pp-head" role="columnheader">Crop</div>
-        ${PP_MONTHS.map(m=>`<div class="pp-head" role="columnheader">${m}</div>`).join("")}
-      </div>`;
-      const rows=applyFilters(r.crops||[]).map(c=>{
-        const cat=c.category||inferCategory(c.name);
-        const cells=PP_MONTHS.map((_,i)=>{
+
+      const head = `
+        <div class="pp-row">
+          <div class="pp-head">Crop</div>
+          ${PP_MONTHS.map(m=>`<div class="pp-head">${m}</div>`).join("")}
+        </div>`;
+
+      const rows = applyFilters(region.crops||[]).map(c=>{
+        const cat = c.category || inferCategory(c.name);
+        const name = c.name || '';
+        const cells = PP_MONTHS.map((_, i)=>{
           const s=(c.months?.sow||[]).includes(i);
           const p=(c.months?.plant||[]).includes(i);
           const h=(c.months?.harvest||[]).includes(i);
-          const marks=[s?"🌱":"",p?"🪴":"",h?"🥕":""].join(" ").trim();
-          const lbl=[s?"Sow":"",p?"Plant":"",h?"Harvest":""].filter(Boolean).join(", ");
-          return `<div class="pp-cell" role="cell" aria-label="${c.name} ${PP_MONTHS[i]} ${lbl}">${marks}</div>`;
+          const marks = [s?"🌱":"",p?"🪴":"",h?"🥕":""].join(" ").trim();
+          const lbl = [s?"Sow":"",p?"Plant":"",h?"Harvest":""].filter(Boolean).join(", ");
+          return `<div class="pp-cell" role="cell" aria-label="${name} ${PP_MONTHS[i]} ${lbl}">${marks}</div>`;
         }).join("");
-        return `<div class="pp-row" role="row">
-          <div class="pp-cell pp-crop" role="rowheader">
-            <span class="pp-name">${c.name}</span>
-            <span class="pp-tags">(${cat})</span>
-          </div>${cells}
-        </div>`;
+
+        return `
+          <div class="pp-row" role="row">
+            <div class="pp-cell pp-crop" role="rowheader">
+              <span>${name}</span>
+              <span class="tag">(${cat})</span>
+            </div>
+            ${cells}
+          </div>`;
       }).join("");
-      wrap.innerHTML=head+rows;
+
+      wrap.innerHTML = head + rows;
     }
 
     function renderAll(){
-      const sel=document.getElementById('pp-region');
-      const r=sel ? sel.value : 'scotland';
+      const sel = document.getElementById('pp-region');
+      const r = sel ? sel.value : 'scotland';
       localStorage.setItem('pp-region', r);
-      document.title=`Seasonal Planting (${humanRegion(r)}) • Patch & Pot`;
+      document.title = `Seasonal Planting (${niceRegion(r)}) • Patch & Pot`;
       setMonthHints();
       renderPestWatch(r);
       renderToday(r);
       renderCalendar(r);
     }
 
-    // init after data
-    function init(){
-      const sel=document.getElementById('pp-region');
-      if(sel) sel.value=localStorage.getItem('pp-region')||'scotland';
-      ['pp-search','pp-category','pp-this-month'].forEach(id=>{
-        const el=document.getElementById(id);
-        if(!el) return;
-        el.addEventListener(id==='pp-search'?'input':'change',renderAll);
+    /* ---------------- Data Loader (LOCKED PATHS) ---------------- */
+    const ROOT = 'data/regions/'; // relative to /sites/seasonal.html
+
+    function loadJSON(path){
+      return fetch(path + (path.includes('?')?'':'?v='+Date.now()), {cache:'no-store'}).then(r=>{
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        return r.json();
       });
-      if(sel) sel.addEventListener('change',renderAll);
+    }
+
+    async function loadRegion(region){
+      // basics & pestwatch are objects; the rest are arrays of crops
+      const out = { region:niceRegion(region), basics:{}, pestwatch:{}, crops:[] };
+
+      // Load meta first (if file missing, keep defaults instead of failing)
+      try { out.basics    = await loadJSON(`${ROOT}${region}/basics.json`); } catch(e){}
+      try { out.pestwatch = await loadJSON(`${ROOT}${region}/pestwatch.json`); } catch(e){}
+
+      // Load crop blocks (missing files are simply skipped)
+      const cropBlocks = ["roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
+      for (const b of cropBlocks){
+        try{
+          const arr = await loadJSON(`${ROOT}${region}/${b}.json`);
+          if (Array.isArray(arr)) out.crops.push(...arr);
+        }catch(e){ /* skip missing block */ }
+      }
+      return out;
+    }
+
+    async function boot(){
+      const sel = document.getElementById('pp-region');
+      if (sel) sel.value = localStorage.getItem('pp-region') || 'scotland';
+
+      // Load all regions in parallel (so switching is instant)
+      await Promise.all(REGION_KEYS.map(async r=>{
+        try{ DATA[r] = await loadRegion(r); }catch(e){ DATA[r] = {region:niceRegion(r), basics:{}, pestwatch:{}, crops:[]}; }
+      }));
+
+      // Hook filters
+      ['pp-search','pp-category','pp-this-month'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.addEventListener(id==='pp-search'?'input':'change', renderAll);
+      });
+      sel && sel.addEventListener('change', renderAll);
+
       renderAll();
     }
 
-    // Load all regions strictly from /sites/data/regions/<region>/*
-    Promise.all(
-      REGIONS.map(r=>loadRegion(r).then(obj=>DATA[r]=obj).catch(()=>DATA[r]={region:humanRegion(r),crops:[],pestwatch:{}}))
-    ).then(init);
+    boot().catch(err=>{
+      console.error('Data load failed:', err);
+      const list = document.getElementById('pp-today-list');
+      if (list) list.innerHTML = '<li>Data failed to load.</li>';
+      const pest = document.querySelector('#pp-pestwatch ul');
+      if (pest) pest.innerHTML = '<li>Data failed to load.</li>';
+    });
   </script>
 </body>
 </html>

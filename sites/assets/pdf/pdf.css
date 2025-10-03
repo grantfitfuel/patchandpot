@@ -1,134 +1,66 @@
-/* =========================================
-   Patch & Pot — PDF styles (A4 @ 72dpi)
-   ========================================= */
-
 :root{
-  --ink:#1a1f1c;          /* main text (dark)             */
-  --muted:#4c5a53;        /* secondary text               */
-  --line:#d9e3dc;         /* grid frame                   */
-  --cell:#eaf2ec;         /* header cells                 */
-  --soft:#f6faf7;         /* first column background      */
-  --brand:#193d2f;        /* brand title colour           */
-  --accent:#2b7a4b;       /* not loud, used sparingly     */
+  --ink:#1a1f1c; --muted:#4c5a53; --muter:#6b7c73;
+  --line:#d9e3dc; --line2:#e5eee8;
+  --monthW: 54px;
 }
 
-/* ---- A4 sheet scaffold ----
-   Whole content is constrained so all 12 months fit cleanly */
+/* Offscreen root for pages */
+#pdf-sheets-root{ position:fixed; left:-99999px; top:0; z-index:-1; }
+
+/* A4 page (portrait @72dpi: 794x1123) */
 .pdf-sheet{
-  position:fixed; left:-99999px; top:0;
-  /* Full A4 canvas is 794x1123 at 72dpi. We keep a safe inner width
-     to guarantee the last column never clips on iOS/Safari. */
-  width:794px; min-height:1123px; 
-  box-sizing:border-box;
-  padding:26px 26px 30px;
+  position:relative;
+  width:794px; min-height:1123px;
+  box-sizing:border-box; padding:28px 26px 72px;
   background:#fff; color:var(--ink);
-  font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
+  font:15px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
 
-/* A single centered page container that we render to canvas */
-.pdf-page{
-  /* keep a fixed inner width that accounts for borders so the grid fits */
-  width:742px;  /* 794 - (2*26) padding minus fudge so nothing clips */
-  margin:0 auto;
-}
+/* Header */
+.pdf-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin:0 0 8px }
+.pdf-title{ font-weight:900; font-size:26px; letter-spacing:.2px; margin:0 }
+.pdf-sub{ color:var(--muted); margin:0 0 10px; font-size:14px }
 
-/* ---- Head / subhead ---- */
-.pdf-head{ 
-  display:flex; align-items:flex-end; justify-content:space-between; 
-  margin:0 0 10px 
-}
-.pdf-title{ 
-  font-weight:800; font-size:28px; letter-spacing:.2px; margin:0; 
-  color:var(--brand);
-}
-.pdf-sub{ color:var(--muted); margin:2px 0 10px; font-size:14px }
-
-/* Small legend row */
+/* Legend */
 .legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px; color:var(--ink) }
 .legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* ---- Meta banner (Basics / Pest Watch) ---- */
-.meta-panel{
-  background:#15201b; color:#eaf2ec; border-radius:10px;
-  padding:10px 12px; margin:10px 0 10px;
-}
-.meta-panel h4{ margin:0 0 8px; font-size:15px }
-.meta-panel p, .meta-panel li{ margin:0; font-size:14px; line-height:1.45 }
+/* Info blocks */
+.block{ border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:10px 0; background:#fbfdfb }
+.block h3{ margin:.1rem 0 .4rem; font-size:15px }
+.block p{ margin:.2rem 0; color:var(--muted) }
+.block ul{ margin:.25rem 0 .25rem 1.1rem }
 
-/* ---- Calendar grid ----
-   Fixed column widths that fit the inner 742px exactly */
+/* Grid */
+.pdf-grid-wrap{ border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff }
 .pdf-grid{
-  width:742px; /* match .pdf-page width so borders never overflow */
-  border:1px solid var(--line); border-radius:12px; overflow:hidden;
   display:grid;
-  /* 1 crop column + 12 month columns */
-  grid-template-columns: 208px repeat(12, 44px);
-  /* 208 + (12*44) = 736 (+ 2px borders accounted inside) */
-  background:#fff;
+  grid-auto-rows:minmax(28px,auto);
+  grid-template-columns:minmax(210px,1.2fr) repeat(12, var(--monthW));
 }
-
 .pdf-row{ display:contents }
+.pdf-headcell,.pdf-cell{ border:1px solid var(--line2); padding:7px 9px; font-size:13px; background:#fff; color:var(--ink) }
+.pdf-headcell{ font-weight:800; background:#f4f8f5; white-space:nowrap; text-align:center }
+.pdf-headcell:first-child{ text-align:left }
+.pdf-cell{ text-align:center; line-height:1.1 }
 
-.pdf-headcell,
-.pdf-cell{
-  border:1px solid #e5eee8;
-  padding:8px 10px; 
-  font-size:13px; 
-  color:var(--ink); 
-  background:#fff;
-}
-
-.pdf-headcell{
-  font-weight:700; 
-  background:var(--cell);
-  text-align:left;
-}
-
-/* first column (crop names) */
+/* Crop cell */
 .pdf-crop{
-  font-weight:700; 
-  background:var(--soft);
-  display:flex; flex-direction:column; gap:4px;
-  color:var(--ink);            /* FULL contrast */
-  opacity:1 !important;        /* never dim     */
+  font-weight:800; background:#f7faf8; display:block; padding:7px 9px;
+  color:var(--ink); white-space:normal; word-break:break-word; hyphens:auto;
 }
-.pdf-crop .name{ color:var(--ink); font-weight:800; }
-.pdf-tag{ font-weight:600; color:#5b6d64; font-size:12px }
+.pdf-tag{ font-weight:700; color:var(--muter); font-size:12px; display:block; margin-top:2px }
 
-/* small helper for “Sow/Plant/Harvest” labels if you use them */
-.pdf-meta{ color:var(--muted); font-size:12px }
-
-/* Emoji cells */
-.pdf-cell{ text-align:center; line-height:1.2; }
-
-/* Keep month headings tight so last letter doesn’t wrap */
-.pdf-month{ font-weight:700; font-size:12px; letter-spacing:.2px; }
-
-/* ---- Watercolour washes (DISABLED by default for readability) ----
-   If you decide to use them again, re-enable by adding .wash-on to .pdf-page */
-.pdf-page.wash-on .wash{ opacity:.14; }
-.wash{
-  position:absolute; inset:0; pointer-events:none; 
-  opacity:0;           /* locked off by default */
-  mix-blend-mode:multiply; 
-  z-index:0;
-}
-/* gentle neutral wash so it never fights the text */
-.wash-neutral{ 
-  background:
-   radial-gradient(600px 340px at 15% 20%, #dfeee6 0, transparent 60%),
-   radial-gradient(520px 300px at 85% 70%, #eaf5ef 0, transparent 65%),
-   radial-gradient(420px 260px at 40% 88%, #f5fbf7 0, transparent 55%);
-}
-
-/* ---- Footer ---- */
+/* Footer (only last page) */
 .pdf-footer{
-  margin:10px 0 0; padding:10px 0 0;
-  border-top:1px solid var(--line);
-  display:flex; align-items:center; justify-content:center; gap:8px;
-  color:var(--muted); font-size:12px;
+  position:absolute; left:0; right:0; bottom:18px; text-align:center;
+  color:var(--muted); font-size:12.5px;
 }
-.pdf-footer img{ width:16px; height:16px; object-fit:contain; display:inline-block }
+.pdf-footer .logo{ width:26px; height:26px; object-fit:contain; display:block; margin:0 auto 6px }
+.pdf-footer p{ margin:0 }
 
-/* ---- Utility ---- */
-.mt-10{ margin-top:10px }
+/* Keep blocks intact */
+.pdf-grid-wrap, .pdf-grid, .pdf-row, .pdf-crop, .block { break-inside: avoid; page-break-inside: avoid }
+
+/* No shadows while rasterising */
+*{ box-shadow:none !important; text-shadow:none !important; }

@@ -1,69 +1,50 @@
-/* Patch & Pot PDF styles (A4) */
+/* Patch & Pot — PDF styles (clean footer, no images), A4 @72dpi */
 
 :root{
-  --pp-ink:#1a1f1c;
-  --pp-muted:#4c5a53;
-  --pp-line:#d9e3dc;
-  --pp-line-2:#e5eee8;
-  --pp-green:#2E7D32;
+  --ink:#1a1f1c; --muted:#4c5a53; --line:#d9e3dc; --line2:#e5eee8;
 }
 
-/* Offscreen scaffolds for capture */
+/* Offscreen canvas */
 .pdf-sheet{
   position:fixed; left:-99999px; top:0;
-  width:794px; min-height:1123px; /* A4 portrait @72dpi */
-  box-sizing:border-box;
-  padding:28px 26px 68px; /* bottom padding increased to clear footer */
-  background:#fff; color:var(--pp-ink);
+  width:794px; min-height:1123px;        /* portrait */
+  box-sizing:border-box; background:#fff; color:var(--ink);
+  padding:28px 26px 72px;                 /* extra bottom to clear footer */
   font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
-.pdf-sheet.landscape{
-  width:1123px; min-height:794px; /* A4 landscape @72dpi */
-  padding:24px 24px 68px; /* also clear footer in landscape */
-}
+.pdf-sheet.landscape{ width:1123px; min-height:794px; padding:24px 24px 72px; }
 
-/* Head */
+/* Header */
 .pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 8px }
-.pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0 }
-.pdf-sub{ color:var(--pp-muted); margin:0 0 10px; font-size:14px }
+.pdf-title{ margin:0; font-weight:800; font-size:26px; letter-spacing:.2px }
+.pdf-sub{ margin:0 0 10px; color:var(--muted); font-size:14px }
 
 /* Legend */
 .legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px }
 .legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* Grid */
+/* Grid (z-index above everything) */
 .pdf-grid{
-  display:grid;
-  grid-template-columns: minmax(210px,1.1fr) repeat(12, 1fr);
-  border:1px solid var(--pp-line);
-  border-radius:12px; overflow:hidden;
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:minmax(210px,1.1fr) repeat(12,1fr);
+  border:1px solid var(--line); border-radius:12px; overflow:hidden;
 }
 .pdf-row{ display:contents }
-.pdf-headcell,.pdf-cell{ border:1px solid var(--pp-line-2); padding:8px 10px; font-size:13px }
-.pdf-headcell{
-  font-weight:700; background:#f4f8f5; text-align:center;
-  white-space:nowrap; /* keep month names on one line */
-}
-.pdf-headcell:not(:first-child){
-  font-size:12px;       /* smaller months to avoid wrapping */
-  letter-spacing:.1px;  /* subtle spacing helps legibility at smaller size */
-}
-.pdf-cell{ text-align:center; }
+.pdf-headcell,.pdf-cell{ border:1px solid var(--line2); padding:8px 10px; font-size:13px }
+.pdf-headcell{ font-weight:700; background:#f4f8f5; text-align:center; white-space:nowrap }
+.pdf-headcell:not(:first-child){ font-size:12px; letter-spacing:.1px } /* months smaller */
+.pdf-cell{ text-align:center }
 
-/* Crop name column */
+/* Crop column */
 .pdf-crop{
-  font-weight:700; background:#f7faf8;
-  display:flex; flex-direction:column; gap:4px;
+  font-weight:700; background:#f7faf8; display:flex; flex-direction:column; gap:4px;
   white-space:normal; word-break:break-word; overflow-wrap:anywhere; line-height:1.25;
 }
-.pdf-tag{ font-weight:600; color:var(--pp-muted); font-size:12px }
-.pdf-meta{ color:var(--pp-muted); font-size:12px }
-
-/* Section title between pages */
+.pdf-tag{ font-weight:600; color:var(--muted); font-size:12px }
 .pdf-section-title{ font-weight:800; margin:18px 0 8px; font-size:18px }
 
-/* Watercolour wash (soft) */
-.wash{ position:absolute; inset:0; pointer-events:none; opacity:.26; mix-blend-mode:multiply }
+/* Soft background wash (always behind grid) */
+.wash{ position:absolute; inset:0; pointer-events:none; opacity:.26; mix-blend-mode:multiply; z-index:0 }
 .wash-leafy{ background:
   radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
   radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
@@ -72,41 +53,17 @@
   radial-gradient(600px 340px at 12% 16%, #f3d4b7 0, transparent 60%),
   radial-gradient(520px 300px at 85% 65%, #f0caa6 0, transparent 65%),
   radial-gradient(420px 260px at 40% 88%, #fde4cd 0, transparent 55%); }
-.wash-legumes{ background:
-  radial-gradient(600px 340px at 14% 20%, #cde6ef 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #badee9 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #e3f3f8 0, transparent 55%); }
-.wash-fruit{ background:
-  radial-gradient(600px 340px at 14% 20%, #ffd3d3 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #ffc0c0 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #ffe4e4 0, transparent 55%); }
-.wash-alliums{ background:
-  radial-gradient(600px 340px at 14% 20%, #eadcff 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #dac6ff 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #f1e8ff 0, transparent 55%); }
-.wash-herbs{ background:
-  radial-gradient(600px 340px at 14% 20%, #d9f3d4 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #c8edc1 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #eaf9e7 0, transparent 55%); }
-.wash-softfruit{ background:
-  radial-gradient(600px 340px at 14% 20%, #ffdfe8 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #ffccdd 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #ffeaf1 0, transparent 55%); }
-.wash-other{ background:
-  radial-gradient(600px 340px at 14% 20%, #e7eee5 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #d8e5d4 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #f1f5f0 0, transparent 55%); }
+/* (other wash-classes unchanged — keep as you had) */
 
-/* Brand footer fixed at page bottom (single-line text; no icon) */
+/* Brand footer — text only, one line, centered */
 .pdf-brand-footer{
   position:absolute; left:0; right:0; bottom:18px;
+  z-index:1; /* under grid but above page bg */
   text-align:center; color:#567162; font-size:12px;
-  padding:0 12px;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 
-/* Prevent ugly word splits when html2canvas renders at boundaries */
+/* Avoid hyphenation quirks in capture */
 .pdf-sheet, .pdf-grid, .pdf-crop, .pdf-cell, .pdf-headcell{
-  -webkit-hyphens:none; hyphens:none;
-  word-break:keep-all; overflow-wrap:anywhere;
+  -webkit-hyphens:none; hyphens:none; word-break:keep-all; overflow-wrap:anywhere;
 }

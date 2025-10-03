@@ -1,11 +1,19 @@
-/* Patch & Pot PDF generator – jsPDF only (no emoji for iOS reliability) */
+/* Patch & Pot • PDF Generator (on-brand, iOS-safe, no emoji)
+   - Landscape/Portrait chooser
+   - Optional intro page (Basics + current-month Pest Watch)
+   - Clean grid with S/P/H marks, zebra rows, repeat header, safe page breaks
+   - Centred footer with logo (above) + text (below)
+*/
 (function(){
-  function titleCase(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ''; }
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-  // fetch helpers (cache-busted)
+  // ---------- helpers ----------
+  const titleCase = s => s ? s.charAt(0).toUpperCase()+s.slice(1) : '';
+  const now = new Date(); const CUR_M = now.getMonth();
+
   function fetchJSON(url){
     return fetch(url + (url.includes('?')?'':'?v=' + Date.now()), {cache:'no-store'})
-      .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status + ' for ' + url)));
+      .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status+' for '+url)));
   }
 
   async function loadRegion(region){
@@ -15,11 +23,7 @@
       fetchJSON(base + b + '.json').catch(()=> (b==='basics'||b==='pestwatch') ? {} : [])
     ));
     const [basics, pestwatch, ...cropBlocks] = results;
-    // flatten crops (blocks are arrays)
-    const crops = cropBlocks.reduce((acc, blk)=>{
-      if (Array.isArray(blk)) acc.push(...blk);
-      return acc;
-    }, []);
+    const crops = cropBlocks.reduce((acc, blk)=> Array.isArray(blk) ? acc.concat(blk) : acc, []);
     return { basics, pestwatch, crops };
   }
 
@@ -42,137 +46,228 @@
     return marks;
   }
 
-  // simple multi-page table writer (landscape A4, mm)
-  function drawPDF(sel, data){
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({orientation:'landscape', unit:'mm', format:'a4'});
+  function splitText(doc, text, maxWidth, fontSize){
+    doc.setFontSize(fontSize);
+    return doc.splitTextToSize(text || '', maxWidth);
+  }
 
+  function loadImageAsDataURL(src){
+    return fetch(src, {cache:'no-store'})
+      .then(r => r.ok ? r.blob() : Promise.reject(new Error('Logo not found')))
+      .then(blob => new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(blob); }));
+  }
+
+  // ---------- drawing ----------
+  function drawFooter(doc, pw, ph, margin, logoDataURL){
+    const y = ph - margin + 2;
+    const logoH = 8; // mm
+    if (logoDataURL){
+      const logoW = logoH; // square icon
+      doc.addImage(logoDataURL, 'PNG', (pw - logoW)/2, y - logoH - 3, logoW, logoH, undefined, 'FAST');
+    }
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(40,40,40);
+    doc.text('© 2025 Patch & Pot | Created by Grant Cameron Anthony', pw/2, ph - margin + 8, {align:'center'});
+  }
+
+  function drawHeaderBar(doc, leftX, topY, width){
+    // subtle green brand bar
+    doc.setFillColor(46,125,50);      // --green rgb approx
+    doc.setDrawColor(46,125,50);
+    doc.roundedRect(leftX, topY - 9, width, 7, 2, 2, 'F');
+  }
+
+  function drawTableHeader(doc, leftX, y, firstColW, colW, headH, tableW){
+    doc.setFillColor(243,247,245);
+    doc.setDrawColor(220,226,220);
+    doc.rect(leftX, y, tableW, headH, 'FD');
+
+    doc.setFont('helvetica','bold'); doc.setTextColor(0,0,0);
+    doc.setFontSize(10);
+    doc.text('Crop', leftX + 2.2, y + 5.8);
+
+    doc.setFontSize(9);
+    for(let i=0;i<12;i++){
+      const x = leftX + firstColW + i*colW;
+      doc.line(x, y, x, y + headH); // vertical separators
+      doc.text(MONTHS[i], x + colW/2, y + 5.6, {align:'center'});
+    }
+    // right edge
+    doc.line(leftX + tableW, y, leftX + tableW, y + headH);
+  }
+
+  function drawIntroPage(doc, pw, margin, sel, basics, pestwatch){
+    const maxW = pw - margin*2;
+    let y = margin + 12;
+
+    // Title + legend line
+    doc.setFont('helvetica','bold'); doc.setTextColor(0,0,0);
+    doc.setFontSize(20);
+    doc.text(`Seasonal Planting — ${titleCase(sel.region)}`, margin, y);
+    y += 7;
+
+    doc.setFont('helvetica','normal'); doc.setFontSize(11);
+    const filterLine = `Filter: ${sel.category==='all'?'All categories':titleCase(sel.category)}${sel.q? ' • Search: '+sel.q : ''}`;
+    doc.text(filterLine, margin, y);
+    doc.text('Legend: S = Sow   P = Plant   H = Harvest', margin + maxW, y, {align:'right'});
+    y += 6;
+
+    // Basics (if present)
+    const hasBasics = basics && (basics.containers || basics.sun || basics.soil || basics.tips);
+    if (hasBasics){
+      doc.setFont('helvetica','bold'); doc.setFontSize(13);
+      doc.text('Basics (Small-space Growing)', margin, y); y += 4;
+
+      doc.setFont('helvetica','normal'); doc.setFontSize(10);
+      const chunks = [];
+      if (basics.containers) chunks.push(`Containers: ${basics.containers}`);
+      if (basics.sun)        chunks.push(`Light: ${basics.sun}`);
+      if (basics.soil)       chunks.push(`Soil: ${basics.soil}`);
+      if (basics.tips)       chunks.push(`Tips: ${basics.tips}`);
+
+      chunks.forEach(txt=>{
+        const lines = doc.splitTextToSize(txt, maxW);
+        doc.text(lines, margin, y);
+        y += lines.length*4 + 2;
+      });
+      y += 2;
+    }
+
+    // Pest Watch (current month)
+    const monthEntry = (pestwatch && pestwatch[String(CUR_M)]) || null;
+    if (monthEntry && monthEntry.items && monthEntry.items.length){
+      doc.setFont('helvetica','bold'); doc.setFontSize(13);
+      doc.text(`Pest Watch — ${MONTHS[CUR_M]}`, margin, y); y += 4;
+
+      doc.setFont('helvetica','normal'); doc.setFontSize(10);
+      monthEntry.items.forEach(item=>{
+        const bullets = doc.splitTextToSize('• ' + item, maxW);
+        doc.text(bullets, margin, y);
+        y += bullets.length*4 + 1;
+      });
+    }
+  }
+
+  function drawGridPages(doc, sel, crops, logoDataURL){
     const pw = doc.internal.pageSize.getWidth();
     const ph = doc.internal.pageSize.getHeight();
     const margin = 12;
-    const topY = margin + 8;
     const leftX = margin;
+    const topY = margin + 22;
 
-    // Title
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(18);
-    doc.text(`Seasonal Planting Calendar — ${titleCase(sel.region)}`, leftX, margin + 4);
-
-    // Sub / legend
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(10);
-    doc.text(`Filter: ${sel.category === 'all' ? 'All categories' : titleCase(sel.category)}${sel.q? ' | Search: '+sel.q : ''}`, leftX, margin + 10);
-    doc.text('Legend: S = Sow   P = Plant   H = Harvest', pw - margin, margin + 10, {align:'right'});
-
-    // Column sizes
-    const firstColW = 62;                          // crop name
+    const firstColW = 64;                       // crop column
     const tableW = pw - margin - leftX;
     const monthsW = tableW - firstColW;
-    const colW = monthsW / 12;                     // ~17-18mm
-    const rowH = 7.2;                              // consistent height
-    const headH = 8.6;
+    const colW = Math.floor((monthsW / 12) * 100) / 100;  // round to avoid float drift
+    const actualTableW = firstColW + (colW * 12);         // fully aligned width
+    const rowH = 7.4;                          // row height
+    const headH = 9.2;                         // header height
+    const bottomLimit = ph - margin - 14;      // leave space for footer
 
-    // Header row
-    let y = topY + 6;
-    doc.setFillColor(243,247,245);
-    doc.setDrawColor(220,226,220);
-    doc.rect(leftX, y, firstColW, headH, 'FD');
-    doc.setFont('helvetica','bold'); doc.setFontSize(10);
-    doc.text('Crop', leftX + 2.2, y + 5.8);
+    // header ribbon
+    drawHeaderBar(doc, leftX, topY, actualTableW);
 
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    for(let i=0;i<12;i++){
-      const x = leftX + firstColW + i*colW;
-      doc.rect(x, y, colW, headH, 'FD');
-      doc.setFont('helvetica','bold'); doc.setFontSize(9);
-      doc.text(months[i], x + colW/2, y + 5.6, {align:'center'});
-    }
-
-    // Rows
+    // header row
+    let y = topY;
+    drawTableHeader(doc, leftX, y, firstColW, colW, headH, actualTableW);
     y += headH;
-    const bottomLimit = ph - margin - 10; // leave space for footer
 
-    const crops = applyFilters(data.crops, sel);
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(10);
-
-    for (let idx=0; idx<crops.length; idx++){
-      const c = crops[idx];
-      // page break if needed
+    // rows
+    doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(0,0,0);
+    crops.forEach((c, idx) => {
+      // page break check
       if (y + rowH > bottomLimit){
-        // footer before page break
-        drawFooter(doc, pw, ph, margin);
-        doc.addPage('a4','landscape');
-        // redraw header on new page
-        y = margin + 14;
-        doc.setFillColor(243,247,245);
-        doc.setDrawColor(220,226,220);
-        doc.rect(leftX, y, firstColW, headH, 'FD');
-        doc.setFont('helvetica','bold'); doc.setFontSize(10);
-        doc.text('Crop', leftX + 2.2, y + 5.8);
-        for(let i=0;i<12;i++){
-          const x = leftX + firstColW + i*colW;
-          doc.rect(x, y, colW, headH, 'FD');
-          doc.setFont('helvetica','bold'); doc.setFontSize(9);
-          doc.text(months[i], x + colW/2, y + 5.6, {align:'center'});
-        }
+        drawFooter(doc, pw, ph, margin, logoDataURL);
+        doc.addPage(doc.internal.pageSize.getWidth() > doc.internal.pageSize.getHeight() ? 'a4':'a4', doc.internal.pageSize.getWidth() > doc.internal.pageSize.getHeight() ? 'landscape':'portrait');
+
+        // new page header
+        drawHeaderBar(doc, leftX, topY, actualTableW);
+        y = topY;
+        drawTableHeader(doc, leftX, y, firstColW, colW, headH, actualTableW);
         y += headH;
-        doc.setFont('helvetica','normal'); doc.setFontSize(10);
       }
 
-      // zebra fill
+      // zebra row
       if (idx % 2 === 0){
         doc.setFillColor(248,250,249);
-        doc.rect(leftX, y, tableW, rowH, 'F');
+        doc.rect(leftX, y, actualTableW, rowH, 'F');
       }
 
-      // crop name + tag
-      const tag = (c.category||'').toUpperCase();
+      // crop name + tag (two lines)
       const nameX = leftX + 2;
-      const nameY = y + 4.9;
-      doc.setTextColor(0,0,0);
+      const nameY = y + 4.8;
       doc.text(c.name, nameX, nameY);
       doc.setFontSize(8); doc.setTextColor(90,100,95);
-      doc.text(`(${tag})`, nameX, nameY + 3.2);
+      doc.text(`(${(c.category||'').toUpperCase()})`, nameX, nameY + 3.2);
       doc.setFontSize(10); doc.setTextColor(0,0,0);
 
-      // month marks
+      // cells
       const marks = monthMarks(c);
-      for(let i=0;i<12;i++){
+      for (let i=0; i<12; i++){
         const x = leftX + firstColW + i*colW;
         doc.setDrawColor(230,235,230);
-        doc.rect(x, y, colW, rowH); // cell border
+        doc.rect(x, y, colW, rowH);
         const m = marks[i];
         if (m){
           doc.setFont('helvetica','bold'); doc.setFontSize(10);
-          doc.text(m, x + colW/2, y + 4.6, {align:'center'});
-          doc.setFont('helvetica','normal'); doc.setFontSize(10);
+          doc.text(m, x + colW/2, y + 4.7, {align:'center'});
+          doc.setFont('helvetica','normal');
         }
       }
       y += rowH;
+    });
+
+    drawFooter(doc, pw, ph, margin, logoDataURL);
+  }
+
+  async function buildPDF(sel, includeIntro=true){
+    const region = (sel.region || 'scotland').toLowerCase();
+    const data = await loadRegion(region);
+    const crops = applyFilters(data.crops, sel);
+
+    // Orientation chooser (quick, no UI clutter)
+    const wantLandscape = window.confirm('Create PDF in Landscape? (Cancel for Portrait)');
+    const orientation = wantLandscape ? 'landscape' : 'portrait';
+
+    // init jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({orientation, unit:'mm', format:'a4'});
+
+    // preload logo (optional)
+    let logoDataURL = null;
+    try { logoDataURL = await loadImageAsDataURL('img/patchandpot-icon.png'); } catch(_) {}
+
+    // Intro page
+    if (includeIntro){
+      const margin = 14;
+      const pw = doc.internal.pageSize.getWidth();
+      const ph = doc.internal.pageSize.getHeight();
+
+      drawIntroPage(doc, pw, margin, sel, data.basics || {}, data.pestwatch || {});
+      // footer on intro
+      drawFooter(doc, pw, ph, margin, logoDataURL);
+      doc.addPage('a4', orientation);
     }
 
-    // final footer
-    drawFooter(doc, pw, ph, margin);
+    // Grid pages
+    drawGridPages(doc, sel, crops, logoDataURL);
 
     // filename
     const file = `PatchAndPot-${titleCase(sel.region)}-${sel.category==='all'?'All':titleCase(sel.category)}.pdf`;
     doc.save(file);
   }
 
-  function drawFooter(doc, pw, ph, margin){
-    const text = '© 2025 Patch & Pot | Created by Grant Cameron Anthony';
-    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(40,40,40);
-    doc.text(text, pw/2, ph - margin + 2, {align:'center'});
-  }
-
+  // ---------- public API ----------
   window.PP_PDF = {
     generate: async function(sel){
-      // minimal guard
-      if (!window.jspdf || !window.jspdf.jsPDF) throw new Error('jsPDF missing');
-      const region = (sel.region || 'scotland').toLowerCase();
-      const data = await loadRegion(region);
-      drawPDF(sel, data);
+      if (!window.jspdf || !window.jspdf.jsPDF){
+        alert('PDF engine not found'); return;
+      }
+      try{
+        await buildPDF(sel, /*includeIntro*/ true);
+      }catch(err){
+        console.error(err);
+        alert('Sorry, PDF generation failed.');
+      }
     }
   };
 })();

@@ -22,6 +22,9 @@
     .pp-filters .left{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
     .pp-filters .right{display:flex;gap:.6rem;align-items:center}
 
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .85rem;border-radius:999px;border:0;font-weight:700;cursor:pointer}
+    .btn.green{background:var(--green);color:#061007}
+
     .pp-pestwatch{background:var(--panel2);border-left:4px solid var(--green);border-radius:14px;padding:1rem;margin:1rem 0;border:1px solid var(--line)}
     .pp-pestwatch ul{margin:.4rem 0 0;padding-left:1.1rem}
 
@@ -39,7 +42,7 @@
     .pp-head{font-weight:700;background:#121815}
     .pp-cell{line-height:1.25}
 
-    /* Crop name cell: allow wrapping and natural height on all devices */
+    /* Crop name cell: wrap, natural height (no clipping) */
     .pp-crop{
       background:#121815;
       font-weight:700;
@@ -47,7 +50,6 @@
       word-break:break-word;
       line-height:1.25;
       display:block;
-      min-height:auto;
       padding:.55rem .6rem;
     }
     .pp-crop .name{display:block}
@@ -79,6 +81,7 @@
     <h1>Seasonal Planting Calendar (UK)</h1>
     <p class="pp-sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
+    <!-- Filters + PDF button -->
     <section class="pp-card">
       <div class="pp-toolbar pp-filters" role="group" aria-label="Region and filters">
         <div class="left">
@@ -89,9 +92,11 @@
             <option value="england">England</option>
             <option value="wales">Wales</option>
           </select>
-          <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…">
+
+          <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops">
+
           <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
-          <select id="pp-category" class="pp-select">
+          <select id="pp-category" class="pp-select" aria-label="Filter by category">
             <option value="all">All categories</option>
             <option value="leafy">Leafy</option>
             <option value="roots">Roots</option>
@@ -102,39 +107,40 @@
             <option value="other">Other</option>
           </select>
         </div>
+
         <div class="right">
           <label><input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span></label>
-
-          <!-- Download PDF button (works with generator) -->
-          <button id="pp-download-pdf" class="btn primary" type="button" aria-label="Download filtered list as PDF">
-            Download PDF
-          </button>
+          <button id="pp-download-pdf" class="btn green" type="button" aria-label="Download calendar as PDF">⬇ Download PDF</button>
         </div>
       </div>
-      <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
+      <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong>. The PDF will use the same filters.</p>
     </section>
 
+    <!-- Pest watch -->
     <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
       <h3 id="pestwatch-title">Pest Watch – <span id="pp-month-name"></span> (<span id="pp-region-name"></span>)</h3>
       <small>Small spaces edition</small>
       <ul><li>Loading…</li></ul>
     </section>
 
+    <!-- Today -->
     <section class="pp-card" aria-labelledby="today-title">
       <h2 id="today-title">What Can I Plant Today?</h2>
       <p class="pp-month-hint" id="pp-month-hint"></p>
       <ul id="pp-today-list" class="pp-list"></ul>
     </section>
 
+    <!-- Legend -->
     <div class="pp-legend" aria-hidden="true">
       <span>🌱 <em>Sow</em></span>
       <span>🪴 <em>Plant</em></span>
       <span>🥕 <em>Harvest</em></span>
     </div>
 
+    <!-- Calendar -->
     <section aria-labelledby="calendar-title">
       <h2 id="calendar-title">Seasonal Planting Calendar</h2>
-      <p class="rotation-title">If using a narrow phone rotate it 90 degrees to see full range of months</p>
+      <p class="rotation-title">On narrow phones, rotate your device to see more months.</p>
       <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
       <div id="pp-error" class="pp-error" style="display:none"></div>
     </section>
@@ -292,11 +298,8 @@
       }
     }
 
-    // -------- data loader (no legacy fallback, fixed paths under /sites/) --------
-    function fetchJSON(url){
-      return fetch(url+`?v=${Date.now()}`,{cache:'no-store'})
-        .then(r=> r.ok ? r.json() : Promise.reject(url));
-    }
+    // data loader (no legacy fallback; fixed paths under /sites/)
+    function fetchJSON(url){ return fetch(url+`?v=${Date.now()}`,{cache:'no-store'}).then(r=> r.ok ? r.json() : Promise.reject(url)); }
     function loadBlock(region, block){
       const url=`data/regions/${region}/${block}.json`;
       return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
@@ -346,24 +349,9 @@
       });
   </script>
 
-  <!-- PDF assets (kept separate) -->
-  <link rel="stylesheet" href="assets/pdf/pdf.css">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
-  <script src="assets/pdf/pdf-generator.js" defer></script>
-  <script>
-    (function(){
-      const tryInit = () => {
-        if (window.PP_PDF && window.html2canvas && window.jspdf && document.getElementById('pp-download-pdf')) {
-          window.PP_PDF.init({ buttonId: 'pp-download-pdf' });
-          return true;
-        }
-        return false;
-      };
-      if (tryInit()) return;
-      let n=0; const t=setInterval(()=>{ n++; if (tryInit() || n>40) clearInterval(t); }, 100);
-      window.addEventListener('load', tryInit, { once:true });
-    })();
-  </script>
+  <!-- PDF (external) -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="assets/pdf/pdf-generator.js?v=5"></script>
+  <script> document.addEventListener('DOMContentLoaded', () => window.PP_PDF && window.PP_PDF.init()); </script>
 </body>
 </html>

@@ -1,111 +1,124 @@
 /* ===============================
-   Patch & Pot — PDF styles (scoped)
-   Only targets .pdf-sheet so it never affects site pages
+   Patch & Pot – PDF Styles (A4)
+   Light, clean, with soft "watercolour" washes
    =============================== */
 
-/* A4 scaffold (offscreen render) */
-.pdf-sheet{
-  position:fixed; left:-99999px; top:0;
-  width:794px; min-height:1123px; /* A4 @ 72dpi */
-  box-sizing:border-box; padding:28px 26px 30px;
-  background:#ffffff; color:#1a1f1c;
-  font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
+:root{
+  --ink:#1a1f1c;
+  --muted:#4c5a53;
+  --line:#d9e3dc;
+  --panel:#f7faf8;
+  --green:#2E7D32;
 }
 
-/* Brand colours (light, print-friendly) */
-:root{
-  --pp-green:#2E7D32;
-  --pp-green-2:#7ed495;
-  --pp-ink:#233229;
-  --pp-muted:#53665a;
-  --pp-line:#d9e3dc;
-  --pp-head:#f4f8f5;
-  --pp-crop:#f7faf8;
+/* A4 sheet scaffold (offscreen DOM rendered to canvas) */
+.pdf-sheet{
+  position:fixed; left:-99999px; top:0;
+  width:794px; min-height:1123px; /* A4 @ 72dpi portrait */
+  box-sizing:border-box; padding:28px 26px 34px;
+  background:#fff; color:var(--ink);
+  font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
 
 /* Header */
 .pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 8px }
-.pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0; color:var(--pp-ink) }
-.pdf-sub{ color:var(--pp-muted); margin:0 0 10px; font-size:14px }
+.pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0 }
+.pdf-sub{ color:var(--muted); margin:0 0 10px; font-size:14px }
 
-/* Legend + meta line */
-.legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px; color:var(--pp-ink) }
+/* Legend */
+.legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:8px 0 12px }
 .legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* Optional meta blocks */
-.meta-wrap{ display:grid; grid-template-columns:1fr; gap:8px; margin:6px 0 12px }
-.meta-block{ background:#fbfcfb; border:1px solid var(--pp-line); border-radius:10px; padding:8px 10px; color:var(--pp-ink); font-size:13px }
-.meta-block h4{ margin:.1rem 0 .4rem; font-size:14px; color:var(--pp-ink) }
-.meta-list{ margin:0; padding-left:1rem }
+/* Basics & Pestwatch block (optional) */
+.pdf-meta{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:8px 0 14px; font-size:13px; color:var(--muted) }
+.pdf-meta h4{ margin:.1rem 0 .3rem; font-size:14px; color:var(--ink) }
+.pdf-meta ul{ margin:.2rem 0 0 1.1rem }
 
 /* Grid */
-.pdf-grid{ display:grid; grid-template-columns: minmax(220px,1.1fr) repeat(12, 1fr); border:1px solid var(--pp-line); border-radius:12px; overflow:hidden }
+.pdf-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns: minmax(220px,1.1fr) repeat(12, 1fr);
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+}
 .pdf-row{ display:contents }
-.pdf-headcell,.pdf-cell{ border:1px solid #e5eee8; padding:8px 10px; font-size:12.5px; line-height:1.25; background:#fff; color:var(--pp-ink) }
-.pdf-headcell{ font-weight:700; background:var(--pp-head); text-align:center; white-space:nowrap }
-.pdf-cell{ text-align:center }
+.pdf-headcell,.pdf-cell{ border:1px solid #e5eee8; padding:8px 10px; font-size:13px }
+.pdf-headcell{
+  font-weight:700; background:#f4f8f5;
+  text-align:center; white-space:nowrap; font-size:12px; letter-spacing:.1px
+}
+.pdf-crop{
+  font-weight:700; background:#f7faf8;
+  display:flex; flex-direction:column; gap:4px; padding:8px 10px;
+  white-space:normal; word-break:break-word; line-height:1.25
+}
+.pdf-tag{ font-weight:600; color:var(--muted); font-size:12px }
+.pdf-cell{ text-align:center; line-height:1.15 }
 
-/* Crop col */
-.pdf-crop{ font-weight:700; background:var(--pp-crop); display:flex; flex-direction:column; gap:3px }
-.pdf-name{ word-break:break-word }
-.pdf-tag{ font-weight:600; color:var(--pp-muted); font-size:12px }
+/* Soft “watercolour” washes (category themed) */
+.wash{ position:absolute; inset:0; pointer-events:none; opacity:.24; mix-blend-mode:multiply }
+.wash-leafy{
+  background:
+    radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
+    radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
+    radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%);
+}
+.wash-roots{
+  background:
+    radial-gradient(600px 340px at 12% 16%, #f3d4b7 0, transparent 60%),
+    radial-gradient(520px 300px at 85% 65%, #f0caa6 0, transparent 65%),
+    radial-gradient(420px 260px at 40% 88%, #fde4cd 0, transparent 55%);
+}
+.wash-legumes{
+  background:
+    radial-gradient(600px 340px at 14% 20%, #cde6ef 0, transparent 60%),
+    radial-gradient(520px 300px at 88% 68%, #badee9 0, transparent 65%),
+    radial-gradient(420px 260px at 42% 90%, #e3f3f8 0, transparent 55%);
+}
+.wash-fruit{
+  background:
+    radial-gradient(600px 340px at 14% 20%, #ffd3d3 0, transparent 60%),
+    radial-gradient(520px 300px at 88% 68%, #ffc0c0 0, transparent 65%),
+    radial-gradient(420px 260px at 42% 90%, #ffe4e4 0, transparent 55%);
+}
+.wash-alliums{
+  background:
+    radial-gradient(600px 340px at 14% 20%, #eadcff 0, transparent 60%),
+    radial-gradient(520px 300px at 88% 68%, #dac6ff 0, transparent 65%),
+    radial-gradient(420px 260px at 42% 90%, #f1e8ff 0, transparent 55%);
+}
+.wash-herbs{
+  background:
+    radial-gradient(600px 340px at 14% 20%, #d9f3d4 0, transparent 60%),
+    radial-gradient(520px 300px at 88% 68%, #c8edc1 0, transparent 65%),
+    radial-gradient(420px 260px at 42% 90%, #eaf9e7 0, transparent 55%);
+}
+.wash-softfruit{
+  background:
+    radial-gradient(600px 340px at 14% 20%, #ffdfe8 0, transparent 60%),
+    radial-gradient(520px 300px at 88% 68%, #ffccdd 0, transparent 65%),
+    radial-gradient(420px 260px at 42% 90%, #ffeaf1 0, transparent 55%);
+}
+.wash-other{
+  background:
+    radial-gradient(600px 340px at 14% 20%, #e7eee5 0, transparent 60%),
+    radial-gradient(520px 300px at 88% 68%, #d8e5d4 0, transparent 65%),
+    radial-gradient(420px 260px at 42% 90%, #f1f5f0 0, transparent 55%);
+}
 
-/* Keep rows intact if possible */
-.pdf-row-break{ page-break-inside: avoid; break-inside: avoid }
-
-/* Category “watercolour” washes (soft, print-friendly) */
-.wash{ position:absolute; inset:0; pointer-events:none; opacity:.23; mix-blend-mode:multiply }
-.wash-leafy{ background:
-  radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
-  radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
-  radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%); }
-.wash-roots{ background:
-  radial-gradient(600px 340px at 12% 16%, #f3d4b7 0, transparent 60%),
-  radial-gradient(520px 300px at 85% 65%, #f0caa6 0, transparent 65%),
-  radial-gradient(420px 260px at 40% 88%, #fde4cd 0, transparent 55%); }
-.wash-legumes{ background:
-  radial-gradient(600px 340px at 14% 20%, #cde6ef 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #badee9 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #e3f3f8 0, transparent 55%); }
-.wash-fruit{ background:
-  radial-gradient(600px 340px at 14% 20%, #ffd3d3 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #ffc0c0 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #ffe4e4 0, transparent 55%); }
-.wash-alliums{ background:
-  radial-gradient(600px 340px at 14% 20%, #eadcff 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #dac6ff 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #f1e8ff 0, transparent 55%); }
-.wash-herbs{ background:
-  radial-gradient(600px 340px at 14% 20%, #d9f3d4 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #c8edc1 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #eaf9e7 0, transparent 55%); }
-.wash-softfruit{ background:
-  radial-gradient(600px 340px at 14% 20%, #ffdfe8 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #ffccdd 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #ffeaf1 0, transparent 55%); }
-.wash-other{ background:
-  radial-gradient(600px 340px at 14% 20%, #e7eee5 0, transparent 60%),
-  radial-gradient(520px 300px at 88% 68%, #d8e5d4 0, transparent 65%),
-  radial-gradient(420px 260px at 42% 90%, #f1f5f0 0, transparent 55%); }
-
-/* Footer (fixed at end of last page) */
+/* Footer (fixed visual block at bottom of each sheet) */
 .pdf-footer{
-  margin-top:14px;
-  text-align:center;
-  color:var(--pp-muted);
-  font-size:12.5px;
+  margin-top:10px; padding-top:10px; border-top:1px solid var(--line);
+  display:flex; align-items:center; gap:8px; justify-content:center; color:var(--muted); font-size:12px
 }
-.pdf-footer .brand{
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  gap:6px; margin-bottom:6px;
-}
-.pdf-footer .brand img{
-  width:28px; height:28px; object-fit:contain;
+.pdf-footer .pot{
+  width:18px; height:18px; object-fit:contain; display:inline-block;
 }
 
-/* Print niceties */
+/* Landscape helper (the generator sets width/height for canvas) */
 @media print {
-  .pdf-sheet{ position:static; left:auto; top:auto; }
-  .wash{ opacity:.18 }
+  .pdf-sheet { position:static; left:auto; min-height:auto; }
 }

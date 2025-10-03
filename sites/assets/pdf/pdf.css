@@ -1,7 +1,9 @@
-/* Patch & Pot – PDF scaffolding (kept minimal, does not affect site theme) */
+/* Patch & Pot – PDF styles (kept minimal; does NOT darken the site) */
 :root{
   --pp-ink:#1a1f1c;
   --pp-muted:#4c5a53;
   --pp-line:#dfe7e2;
-  --pp-accent:#2f8f4a;
+  --pp-accent:#2f8f4a;     /* brand green */
 }
+
+/* no global rules here on purpose */

@@ -3,132 +3,140 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Create Seasonal PDF – Patch & Pot</title>
+  <title>Create Seasonal PDF • Patch & Pot</title>
+  <meta name="description" content="Create a nicely formatted A4 PDF from the Seasonal calendar, using your chosen region and category.">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="style.css?v=51">
+  <!-- PDF-only CSS -->
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=51">
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="style.css?v=45">
-  <link rel="stylesheet" href="pdf.css?v=45">
-
-  <!-- Page-local fixes -->
+  <!-- Page-local: keep page readable on dark theme -->
   <style>
-    body.pdf-page {
-      background:#fff !important;
-      color:#222 !important;
-    }
-    .pdf-wrap {
-      max-width:900px;
-      margin:0 auto;
-      padding:20px;
-      background:#fff;
-    }
-    .pdf-controls {
-      background:#f9f9f9;
-      border:1px solid #ddd;
-      border-radius:8px;
-      padding:18px;
-      margin:20px 0;
-    }
-    .pdf-controls label {
-      font-weight:600;
-      margin-right:6px;
-    }
-    .pdf-controls select,
-    .pdf-controls input[type=checkbox] {
-      margin-right:12px;
-    }
-    .btn.primary {
-      background:#2e7d32;
-      color:#fff;
-      padding:10px 18px;
-      border-radius:6px;
-      border:none;
-      cursor:pointer;
-    }
-    .btn.primary:hover { background:#1b5e20; }
-    footer {
-      text-align:center;
-      margin-top:40px;
-      font-size:.9em;
-      color:#555;
-    }
-    footer img {
-      display:block;
-      margin:0 auto 8px;
-      width:60px;
-      height:auto;
-    }
+    .wrap{max-width:1140px;margin:0 auto;padding:16px 20px}
+    .pp-card{background:var(--panel,#161c19);border:1px solid var(--line,#2b332f);border-radius:16px;padding:1rem;margin:1rem 0}
+    .controls{display:flex;gap:.75rem 1rem;flex-wrap:wrap;align-items:center}
+    .controls label{font-weight:600}
+    .controls select,.controls input[type=checkbox]{background:#0c100e;border:1px solid var(--line,#2b332f);color:var(--ink,#e6f0ea);border-radius:10px;padding:.5rem .65rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:999px;padding:.6rem 1rem;font-weight:700;border:1px solid transparent;cursor:pointer}
+    .btn.primary{background:#28a745;border-color:#24963e;color:#fff}
+    .btn.primary:hover{background:#23923d}
+    .muted{color:var(--muted,#a6b6af)}
+    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+    .footer-pot{width:36px;height:36px;object-fit:contain}
   </style>
 </head>
+<body>
 
-<body class="pdf-page">
-<header class="site-header">
-  <div class="brand">
-    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo">
-    <span class="site-title">Patch &amp; Pot</span>
-  </div>
-</header>
+  <!-- HEADER PARTIAL (same mechanism as seasonal.html) -->
+  <div data-include="partials/header.html"></div>
 
-<main class="pdf-wrap">
-  <h1>Create Seasonal PDF</h1>
-  <p>Export a nicely formatted A4 PDF for a region and category, with optional Basics &amp; Pest Watch pages.</p>
+  <main class="wrap" id="maincontent">
+    <h1>Create Seasonal PDF</h1>
+    <p class="muted">Export a formatted A4 PDF for a region &amp; category. You can optionally include <em>Basics</em> and <em>Pest Watch</em> pages. Orientation supports <strong>Portrait</strong> or <strong>Landscape</strong>.</p>
 
-  <div class="pdf-controls">
-    <label for="region">Region:</label>
-    <select id="region">
-      <option value="scotland">Scotland</option>
-      <option value="ireland">Ireland</option>
-      <option value="england">England</option>
-      <option value="wales">Wales</option>
-    </select>
+    <section class="pp-card">
+      <div class="controls" aria-label="PDF controls">
+        <label for="pp-region">Region:</label>
+        <select id="pp-region">
+          <option value="scotland">Scotland</option>
+          <option value="ireland">Ireland</option>
+          <option value="england">England</option>
+          <option value="wales">Wales</option>
+        </select>
 
-    <label for="category">Category:</label>
-    <select id="category">
-      <option value="all">All categories</option>
-      <option value="roots">Roots</option>
-      <option value="leafy">Leafy</option>
-      <option value="legumes">Legumes</option>
-      <option value="fruit">Fruit</option>
-      <option value="alliums">Alliums</option>
-      <option value="herbs">Herbs</option>
-      <option value="softfruit">Soft Fruit</option>
-      <option value="other">Other</option>
-    </select>
+        <label for="pp-category">Category:</label>
+        <select id="pp-category">
+          <option value="all">All categories</option>
+          <option value="leafy">Leafy</option>
+          <option value="roots">Roots</option>
+          <option value="legumes">Legumes</option>
+          <option value="fruit">Fruiting veg</option>
+          <option value="alliums">Alliums</option>
+          <option value="herbs">Herbs</option>
+          <option value="softfruit">Soft fruit</option>
+          <option value="other">Other</option>
+        </select>
 
-    <label for="orientation">Orientation:</label>
-    <select id="orientation">
-      <option value="portrait">Portrait</option>
-      <option value="landscape">Landscape</option>
-    </select>
+        <label for="pp-orient">PDF:</label>
+        <select id="pp-orient">
+          <option value="landscape">Landscape</option>
+          <option value="portrait">Portrait</option>
+        </select>
 
-    <label>
-      <input type="checkbox" id="includeBasics" checked> Include Basics page
-    </label>
+        <label><input type="checkbox" id="pp-inc-basics" checked> Include Basics</label>
+        <label><input type="checkbox" id="pp-inc-pest" checked> Include Pest Watch</label>
 
-    <label>
-      <input type="checkbox" id="includePestWatch" checked> Include Pest Watch page
-    </label>
+        <button id="pp-generate" class="btn primary" type="button">Generate PDF</button>
+      </div>
+      <p class="muted">Tip: uses JSON at <code>data/regions/&lt;region&gt;/{basics,pestwatch,roots,leafy,legumes,fruit,alliums,herbs,softfruit,other}.json</code>.</p>
+    </section>
+  </main>
 
-    <button id="generateBtn" class="btn primary">Generate PDF</button>
-  </div>
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
+      <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
+    </div>
+  </footer>
 
-  <p class="lead">Tip: This uses your exhaustive JSON at <code>data/regions/&lt;region&gt;/</code>. The PDF is multi-page if needed.</p>
-</main>
+  <!-- Header partial loader (identical behaviour to seasonal.html) -->
+  <script>
+    (function loadHeader(){
+      const holder = document.querySelector('[data-include="partials/header.html"]');
+      if(!holder) return;
+      fetch('partials/header.html', {cache:'no-store'})
+        .then(r => r.text())
+        .then(html => {
+          holder.outerHTML = html;
+          const header = document.getElementById('siteHeader');
+          if(!header) return;
+          const toggle = header.querySelector('.menu-toggle');
+          const nav = header.querySelector('#primaryNav');
 
-<footer>
-  <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon">
-  <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
-</footer>
+          // Active link highlight
+          const fn = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+          header.querySelectorAll('.nav a').forEach(a=>{
+            const href = (a.getAttribute('href')||'').toLowerCase();
+            if(href === fn) a.setAttribute('aria-current','page');
+          });
 
-<!-- Scripts -->
-<script src="pdf-generator.js?v=45"></script>
-<script>
-  document.getElementById("generateBtn").addEventListener("click", generateSeasonalPDF);
-</script>
+          function setExpanded(on){
+            if(on){ header.classList.add('menu-open'); toggle?.classList.add('menu-open'); toggle?.setAttribute('aria-expanded','true'); }
+            else { header.classList.remove('menu-open'); toggle?.classList.remove('menu-open'); toggle?.setAttribute('aria-expanded','false'); }
+          }
+          toggle?.addEventListener('click', ()=> setExpanded(!header.classList.contains('menu-open')));
+          nav?.addEventListener('click', e => { if(e.target.tagName==='A') setExpanded(false); });
+        })
+        .catch(err => console.error('Header load failed:', err));
+    })();
+  </script>
+
+  <!-- Dependencies (kept external to avoid bloat in your repo) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- Generator (separate file; see below) -->
+  <script src="assets/pdf/pdf-generator.js?v=51"></script>
+  <script>
+    // Wire the button after everything is loaded (prevents “not a function”)
+    window.addEventListener('DOMContentLoaded', function(){
+      const btn = document.getElementById('pp-generate');
+      if(btn && window.PP_PDF && typeof PP_PDF.generate === 'function'){
+        btn.addEventListener('click', () => {
+          PP_PDF.generate({
+            region: document.getElementById('pp-region').value,
+            category: document.getElementById('pp-category').value,
+            orientation: document.getElementById('pp-orient').value,
+            includeBasics: document.getElementById('pp-inc-basics').checked,
+            includePest: document.getElementById('pp-inc-pest').checked
+          });
+        });
+      } else {
+        console.error('PDF generator not initialised');
+      }
+    });
+  </script>
 </body>
 </html>

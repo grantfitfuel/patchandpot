@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Seasonal PDF • Patch &amp; Pot</title>
+  <link rel="stylesheet" href="style.css?v=51">
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=7">
+</head>
+<body>
+  <!-- HEADER PARTIAL -->
+  <div data-include="partials/header.html"></div>
+
+  <main class="wrap">
+    <h1>Create Seasonal PDF</h1>
+    <p class="pp-sub">Export a nicely formatted A4 PDF for a region and category, with optional Basics &amp; Pest Watch pages.</p>
+
+    <section class="pp-card">
+      <div class="pp-toolbar" style="display:flex;flex-wrap:wrap;gap:.8rem 1rem;align-items:center">
+        <label>Region:
+          <select id="pdf-region" class="pp-select">
+            <option value="scotland">Scotland</option>
+            <option value="ireland">Ireland</option>
+            <option value="england">England</option>
+            <option value="wales">Wales</option>
+          </select>
+        </label>
+
+        <label>Category:
+          <select id="pdf-category" class="pp-select">
+            <option value="all">All categories</option>
+            <option value="leafy">Leafy</option>
+            <option value="roots">Roots</option>
+            <option value="legumes">Legumes</option>
+            <option value="fruit">Fruiting veg</option>
+            <option value="alliums">Alliums</option>
+            <option value="herbs">Herbs</option>
+            <option value="softfruit">Soft fruit</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+
+        <label>Orientation:
+          <select id="pdf-orient" class="pp-select">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+        </label>
+
+        <label><input type="checkbox" id="pdf-include-basics" checked> Include Basics page</label>
+        <label><input type="checkbox" id="pdf-include-pest" checked> Include Pest Watch page</label>
+
+        <button id="btn-generate" class="btn primary">Generate PDF</button>
+      </div>
+      <p class="pp-help">Tip: This uses your exhaustive JSON at <code>data/regions/&lt;region&gt;/</code>. The PDF is multi-page if needed.</p>
+    </section>
+
+    <!-- Hidden canvas container for PDF assembly -->
+    <div id="pdf-staging" aria-hidden="true"></div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
+      <p>© Patch &amp; Pot | <span class="credit">Created by Grant Cameron Anthony</span></p>
+    </div>
+  </footer>
+
+  <!-- Header partial loader -->
+  <script>
+    (function(){
+      const holder = document.querySelector('[data-include="partials/header.html"]');
+      if(!holder) return;
+      fetch('partials/header.html', {cache:'no-store'}).then(r=>r.text()).then(html=>{
+        holder.outerHTML = html;
+        const header=document.getElementById('siteHeader');
+        const toggle=header?.querySelector('.menu-toggle');
+        const nav=header?.querySelector('#primaryNav');
+        const fn=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+        header?.querySelectorAll('.nav a').forEach(a=>{
+          if((a.getAttribute('href')||'').toLowerCase()===fn){ a.setAttribute('aria-current','page'); }
+        });
+        function setOpen(on){ header?.classList.toggle('menu-open',on); toggle?.classList.toggle('menu-open',on); toggle?.setAttribute('aria-expanded',on?'true':'false'); }
+        toggle?.addEventListener('click', ()=>setOpen(!header.classList.contains('menu-open')));
+        nav?.addEventListener('click', e=>{ if(e.target.tagName==='A') setOpen(false); });
+      });
+    })();
+  </script>
+
+  <!-- html2canvas + jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- PDF generator logic -->
+  <script src="assets/pdf/pdf-generator.js?v=7"></script>
+
+  <!-- Bridge: seed controls from seasonal.html query (if present) and init -->
+  <script>
+    (function(){
+      const q=new URLSearchParams(location.search);
+      const r=q.get('region'); const c=q.get('category'); const m=q.get('thisMonth');
+      if(r) document.getElementById('pdf-region').value = r;
+      if(c) document.getElementById('pdf-category').value = c;
+      // orientation default stays; include flags default to true
+      window.PP_PDF && window.PP_PDF.init();
+    })();
+  </script>
+</body>
+</html>

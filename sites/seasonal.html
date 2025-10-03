@@ -53,6 +53,10 @@
     .footer-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
     .footer-pot{width:28px;height:28px;object-fit:contain}
   </style>
+  <style id="pp-hotfix">
+  html, body, #siteHeader, main, footer { opacity: 1 !important; filter: none !important; }
+  #maincontent, .pp-card, .pp-pestwatch, .pp-list, .pp-calendar { color: var(--ink) !important; }
+</style>
 </head>
 <body>
 
@@ -299,10 +303,10 @@
   </script>
 
   <!-- PDF libs + generator -->
-  <link rel="stylesheet" href="assets/pdf/pdf.css?v=pp-54">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
-  <script src="assets/pdf/pdf-generator.js?v=pp-54" defer></script>
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=pp-56">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+<script src="assets/pdf/pdf-generator.js?v=pp-56" defer></script>
   <script>
     // Button wiring (iOS-friendly alerts on any failure)
     window.addEventListener('load', ()=>{

@@ -1,7 +1,8 @@
 // /sites/assets/pdf/pdf-generator.js
-// Generates a polished PDF from the current filters on /seasonal.html
+// Builds a printable A4 sheet using your .pdf-sheet scaffold and renders via html2canvas + jsPDF
+
 (function(){
-  if (window.PP_PDF_READY) return; // guard
+  if (window.PP_PDF_READY) return;
   window.PP_PDF_READY = true;
 
   const { jsPDF } = window.jspdf || {};
@@ -10,236 +11,227 @@
     return;
   }
 
-  // Utilities
-  function $(sel, root=document){ return root.querySelector(sel); }
-  function cloneClean(node){
-    const n = node.cloneNode(true);
-    // Remove aria-live noisy states; keep text only
-    n.querySelectorAll('[aria-live]').forEach(el=>el.removeAttribute('aria-live'));
-    return n;
-  }
+  // Helpers
+  const $ = (sel, root=document) => root.querySelector(sel);
 
-  function ensureStyles(printRoot){
-    // Minimal print skin so it looks like the site, minus dark backgrounds
-    const css = `
-      @page { margin: 16mm; }
-      body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:#0d1b12; }
-      .pp-title { font-weight: 900; font-size: 18px; margin: 0 0 4px; }
-      .pp-subtle { color:#3c5a49; margin: 0 0 8px; }
-      .pp-section { margin: 8px 0 12px; }
-      .pp-legend { display:flex; gap:12px; font-size: 12px; margin: 4px 0 8px; }
-      .pp-legend span { display:inline-flex; gap:6px; align-items:center }
-      .card { border:1px solid #ccd8cf; border-radius:10px; padding:10px; background:#fff; }
-      .list { margin:6px 0 0; padding-left:18px; }
-      .grid { width:100%; border-collapse:collapse; font-size:12px; }
-      .grid th, .grid td { border:1px solid #d8e3db; padding:6px 7px; vertical-align:top; }
-      .grid th { background:#eef5f0; font-weight:800; position:sticky; top:0 }
-      .name { font-weight:800 }
-      .tag { color:#496a57; font-weight:600; margin-left:6px; font-size:11px }
-      .months { text-align:center; white-space:nowrap }
-    `;
-    const style = document.createElement('style');
-    style.textContent = css;
-    printRoot.appendChild(style);
-  }
-
-  function buildPrintable() {
-    const root = document.createElement('div');
-    root.id = 'pp-pdf-root';
-    root.style.position = 'fixed';
-    root.style.left = '-99999px';
-    root.style.top = '0';
-    root.style.width = '1200px'; // wide canvas for landscape clarity
-    root.style.background = '#fff';
-    root.style.zIndex = '-1';
-
-    ensureStyles(root);
-
-    // Title / meta (region + filters)
+  function currentFilters(){
     const regionSel = $('#pp-region');
-    const regionName = regionSel ? regionSel.options[regionSel.selectedIndex].text : 'Region';
+    const regionVal = regionSel ? regionSel.value : 'scotland';
+    const regionText = regionSel ? regionSel.options[regionSel.selectedIndex].text : 'Scotland';
+
     const catSel = $('#pp-category');
+    const catVal = catSel ? catSel.value : 'all';
     const catText = catSel ? catSel.options[catSel.selectedIndex].text : 'All categories';
-    const query = ($('#pp-search')?.value || '').trim();
-    const thisMonth = $('#pp-this-month')?.checked;
 
-    const title = document.createElement('div');
-    title.className = 'pp-section';
-    title.innerHTML = `
-      <div class="pp-title">Patch &amp; Pot — Seasonal Planting Calendar</div>
-      <div class="pp-subtle">Region: <strong>${regionName}</strong> • Category: <strong>${catText}</strong>${query?` • Search: “${query}”`:''}${thisMonth?' • This month only':''}</div>
-      <div class="pp-legend">
-        <span>🌱 <em>Sow</em></span>
-        <span>🪴 <em>Plant</em></span>
-        <span>🥕 <em>Harvest</em></span>
-      </div>
-    `;
-    root.appendChild(title);
+    const q = ($('#pp-search')?.value || '').trim();
+    const thisMonth = !!$('#pp-this-month')?.checked;
 
-    // Pestwatch (clone and restyle)
-    const pestSrc = $('#pp-pestwatch');
-    if (pestSrc) {
-      const pw = document.createElement('div');
-      pw.className = 'pp-section card';
-      const h = pestSrc.querySelector('h3')?.textContent || 'Pest Watch';
-      const items = Array.from(pestSrc.querySelectorAll('ul li')).map(li=>li.textContent);
-      pw.innerHTML = `<div class="name">${h}</div><ul class="list">${items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
-      root.appendChild(pw);
-    }
-
-    // Today list
-    const todaySrc = $('#pp-today-list');
-    if (todaySrc) {
-      const items = Array.from(todaySrc.querySelectorAll('li')).map(li=>li.textContent);
-      const card = document.createElement('div');
-      card.className = 'pp-section card';
-      card.innerHTML = `<div class="name">What Can I Plant Today?</div><ul class="list">${items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
-      root.appendChild(card);
-    }
-
-    // Calendar grid: rebuild as a light table (no black boxes, no huge gaps)
-    const cal = $('#pp-calendar');
-    if (cal) {
-      const table = document.createElement('table');
-      table.className = 'pp-section grid';
-
-      // Header
-      const thead = document.createElement('thead');
-      const hr = document.createElement('tr');
-      hr.innerHTML = `<th>Crop</th>${Array.from({length:12},(_,i)=>`<th>${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][i]}</th>`).join('')}`;
-      thead.appendChild(hr);
-      table.appendChild(thead);
-
-      // Rows
-      const tbody = document.createElement('tbody');
-      // In page, cal is a grid; rebuild by reading row chunks:
-      const rows = [];
-      // Each logical row is 13 cells: 1 crop + 12 months; divs are in order because display:contents on .pp-row
-      const cells = Array.from(cal.children);
-      let buffer = [];
-      for (const cell of cells) {
-        const isHeaderCell = cell.classList.contains('pp-head');
-        if (isHeaderCell) continue; // skip the visual header row; we already built a <thead>
-        buffer.push(cell);
-        // a logical row completes when we accumulate 13 cells (crop + 12 months)
-        if (buffer.length === 13) {
-          rows.push(buffer);
-          buffer = [];
-        }
-      }
-      rows.forEach(Row=>{
-        const tr = document.createElement('tr');
-        // crop cell
-        const cropCell = document.createElement('td');
-        const name = Row[0]?.querySelector('.name')?.textContent || Row[0]?.textContent || '';
-        const tag  = Row[0]?.querySelector('.pp-tags')?.textContent || '';
-        cropCell.innerHTML = `<span class="name">${name}</span>${tag?` <span class="tag">${tag}</span>`:''}`;
-        tr.appendChild(cropCell);
-        // months
-        for (let i=1;i<Row.length;i++){
-          const txt = Row[i].textContent.trim();
-          const td = document.createElement('td');
-          td.className='months';
-          td.textContent = txt;
-          tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-      });
-
-      table.appendChild(tbody);
-      root.appendChild(table);
-    }
-
-    document.body.appendChild(root);
-    return root;
+    return { regionVal, regionText, catVal, catText, q, thisMonth };
   }
 
-  async function generatePDF(){
-    try{
-      const orient = (document.getElementById('pp-pdf-orientation')?.value || 'landscape').toLowerCase();
-      const printable = buildPrintable();
+  function monthNames(){ return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; }
 
-      // Render to canvas
-      const canvas = await html2canvas(printable, {
-        backgroundColor:'#ffffff',
-        useCORS:true,
-        scale:2,               // crisp text
-        windowWidth: 1200      // match our print root width
-      });
+  function collectCalendarRows(){
+    // Rebuild from the rendered calendar so PDF mirrors the on-screen filters
+    const grid = $('#pp-calendar');
+    if (!grid) return [];
 
-      // Build PDF
-      const pdf = new jsPDF({
-        orientation: orient,
-        unit: 'mm',
-        format: 'a4',
-        compress: true
-      });
+    // The grid is: one header row (we skip it), then logical rows of 13 cells each (1 crop + 12 months)
+    const cells = Array.from(grid.children).filter(el => !el.classList.contains('pp-head'));
+    const rows = [];
+    let buf = [];
+    for (const cell of cells){
+      buf.push(cell);
+      if (buf.length === 13){ rows.push(buf); buf = []; }
+    }
+    return rows;
+  }
 
-      const pageW = pdf.internal.pageSize.getWidth();
-      const pageH = pdf.internal.pageSize.getHeight();
+  function buildSheet(){
+    const { regionText, catVal, catText, q, thisMonth } = currentFilters();
+    const M = new Date().getMonth();
 
-      // Fit image to page width, maintain aspect ratio
-      const imgData = canvas.toDataURL('image/jpeg', 0.92);
-      const imgWmm = pageW - 20;  // 10mm margins each side (we already set @page but image should fit)
-      const pxPerMM = canvas.width / (pageW); // approx
-      const imgHmm = (canvas.height / pxPerMM) - 20; // rough fit with margins
+    // Root printable sheet (A4 at 72dpi: 794x1123) – uses your CSS
+    const sheet = document.createElement('div');
+    sheet.className = 'pdf-sheet';
+    sheet.style.position = 'fixed'; // ensure positioned ancestor for .wash
+    sheet.style.zIndex = -1;
+    sheet.style.left = '-99999px';
+    sheet.style.top = '0';
 
-      // Calculate ratio
-      const ratio = imgWmm / (canvas.width / pxPerMM);
-      const drawW = imgWmm;
-      const drawH = (canvas.height / pxPerMM) * ratio;
+    // Title + meta
+    const head = document.createElement('div');
+    head.className = 'pdf-head';
+    head.innerHTML = `
+      <h1 class="pdf-title">Patch &amp; Pot — Seasonal Planting</h1>
+      <div class="pdf-meta">Generated ${new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'})}</div>
+    `;
+    sheet.appendChild(head);
 
-      // If height exceeds one page, paginate
-      if (drawH <= (pageH - 20)) {
-        // Single page
-        pdf.addImage(imgData, 'JPEG', 10, 10, drawW, drawH);
-      } else {
-        // Multi-page
-        let y = 10;
-        const pageContentH = pageH - 20; // top/bottom margins
-        const sliceHpx = (pageContentH / drawH) * canvas.height; // how many px per page
-        const tempCanvas = document.createElement('canvas');
-        const ctx = tempCanvas.getContext('2d');
+    const sub = document.createElement('div');
+    sub.className = 'pdf-sub';
+    sub.textContent = `Region: ${regionText} • Category: ${catText}${q ? ` • Search: “${q}”` : ''}${thisMonth ? ' • This month only' : ''}`;
+    sheet.appendChild(sub);
 
-        let sY = 0;
-        let pageIndex = 0;
-        while (sY < canvas.height) {
-          const remaining = canvas.height - sY;
-          const partH = Math.min(sliceHpx, remaining);
+    // Legend
+    const legend = document.createElement('div');
+    legend.className = 'legend';
+    legend.innerHTML = `
+      <span>🌱 Sow</span>
+      <span>🪴 Plant</span>
+      <span>🥕 Harvest</span>
+    `;
+    sheet.appendChild(legend);
 
-          tempCanvas.width = canvas.width;
-          tempCanvas.height = partH;
+    // Grid (div-based to match your CSS)
+    const pdfGrid = document.createElement('div');
+    pdfGrid.className = 'pdf-grid';
 
-          ctx.clearRect(0,0,tempCanvas.width,tempCanvas.height);
-          ctx.drawImage(canvas, 0, sY, canvas.width, partH, 0, 0, canvas.width, partH);
+    // Header row
+    const hCrop = document.createElement('div');
+    hCrop.className = 'pdf-headcell';
+    hCrop.textContent = 'Crop';
+    pdfGrid.appendChild(hCrop);
 
-          const partData = tempCanvas.toDataURL('image/jpeg', 0.92);
-          if (pageIndex>0) pdf.addPage();
-          pdf.addImage(partData, 'JPEG', 10, 10, drawW, pageContentH);
+    monthNames().forEach(m=>{
+      const hc = document.createElement('div');
+      hc.className = 'pdf-headcell';
+      hc.textContent = m;
+      pdfGrid.appendChild(hc);
+    });
 
-          sY += partH;
-          pageIndex++;
-        }
+    // Data rows pulled from on-page calendar
+    const rows = collectCalendarRows();
+    rows.forEach(cells=>{
+      // Crop cell (first in the 13)
+      const cropCell = document.createElement('div');
+      cropCell.className = 'pdf-cell pdf-crop';
+
+      const nm = cells[0].querySelector('.name')?.textContent ||
+                 cells[0].textContent.trim() || '';
+      const tag = cells[0].querySelector('.pp-tags')?.textContent || '';
+
+      const nEl = document.createElement('div');
+      nEl.className = 'name';
+      nEl.textContent = nm;
+      cropCell.appendChild(nEl);
+
+      if (tag){
+        const tEl = document.createElement('div');
+        tEl.className = 'pdf-tag';
+        tEl.textContent = tag.replace(/[()]/g,'').trim();
+        cropCell.appendChild(tEl);
       }
 
-      pdf.save('Patch-and-Pot-Seasonal.pdf');
-      printable.remove();
-    } catch(err){
-      console.error('PDF generation failed:', err);
+      pdfGrid.appendChild(cropCell);
+
+      // 12 month cells (emojis from on-page cells)
+      for (let i=1;i<cells.length;i++){
+        const val = cells[i].textContent.trim();
+        const td = document.createElement('div');
+        td.className = 'pdf-cell';
+        td.style.textAlign = 'center';
+        td.textContent = val;
+        pdfGrid.appendChild(td);
+      }
+    });
+
+    sheet.appendChild(pdfGrid);
+
+    // Soft “watercolour” wash for the selected category (if specific category chosen)
+    const washCat = (()=>{
+      const map = { leafy:'leafy', roots:'roots', legumes:'legumes', fruit:'fruit', alliums:'alliums', herbs:'herbs', softfruit:'softfruit', other:'other' };
+      return map[catVal] || null;
+    })();
+    if (washCat){
+      const wash = document.createElement('div');
+      wash.className = `wash wash-${washCat}`;
+      sheet.appendChild(wash);
+    }
+
+    document.body.appendChild(sheet);
+    return sheet;
+  }
+
+  async function renderSheetToPDF(sheet){
+    const orient = (document.getElementById('pp-pdf-orientation')?.value || 'landscape').toLowerCase();
+
+    // Render
+    const canvas = await html2canvas(sheet, {
+      backgroundColor:'#ffffff',
+      useCORS:true,
+      scale:2
+    });
+
+    // Build PDF
+    const pdf = new jsPDF({
+      orientation: orient,
+      unit: 'mm',
+      format: 'a4',
+      compress: true
+    });
+
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 10; // mm
+    const usableW = pageW - margin*2;
+    const usableH = pageH - margin*2;
+
+    // Image sizing
+    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+    const pxPerMM = canvas.width / usableW; // approx px per mm at target width
+    const drawW = usableW;
+    const drawH = canvas.height / pxPerMM;
+
+    if (drawH <= usableH){
+      pdf.addImage(imgData, 'JPEG', margin, margin, drawW, drawH);
+    } else {
+      // paginate by slicing the canvas vertically
+      const temp = document.createElement('canvas');
+      const ctx = temp.getContext('2d');
+      const sliceHpx = usableH * pxPerMM;
+      let ypx = 0;
+      let page = 0;
+
+      while (ypx < canvas.height){
+        const partH = Math.min(sliceHpx, canvas.height - ypx);
+        temp.width = canvas.width;
+        temp.height = partH;
+
+        ctx.clearRect(0,0,temp.width,temp.height);
+        ctx.drawImage(canvas, 0, ypx, canvas.width, partH, 0, 0, canvas.width, partH);
+
+        const partData = temp.toDataURL('image/jpeg', 0.92);
+        if (page > 0) pdf.addPage(undefined, orient);
+        pdf.addImage(partData, 'JPEG', margin, margin, drawW, usableH);
+
+        ypx += partH;
+        page++;
+      }
+    }
+
+    pdf.save('Patch-and-Pot-Seasonal.pdf');
+  }
+
+  async function onGenerate(){
+    try{
+      const sheet = buildSheet();
+      await renderSheetToPDF(sheet);
+      sheet.remove();
+    }catch(e){
+      console.error('PDF generation failed:', e);
       alert('Sorry, PDF generation failed.');
     }
   }
 
-  function wireButton(){
+  function wire(){
     const btn = document.getElementById('pp-pdf-btn');
-    if (!btn) return;
-    btn.addEventListener('click', generatePDF);
+    if (btn) btn.addEventListener('click', onGenerate);
   }
 
-  // Wait for DOM
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wireButton);
+    document.addEventListener('DOMContentLoaded', wire);
   } else {
-    wireButton();
+    wire();
   }
 })();

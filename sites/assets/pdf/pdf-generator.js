@@ -1,4 +1,4 @@
-/* Patch & Pot – PDF generator (A4) */
+/* Patch & Pot – PDF generator (A4, high-contrast) */
 window.PP_PDF = (function(){
   const { jsPDF } = window.jspdf || {};
   const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -90,8 +90,10 @@ window.PP_PDF = (function(){
     const head=$el('div'); head.className='pdf-head';
     const title=$el('h1'); title.className='pdf-title';
     title.textContent=`Seasonal Planting — ${regionName}`;
-    const filler=$el('div'); head.appendChild(title); head.appendChild(filler);
+    head.appendChild(title);
+    head.appendChild($el('div'));
     sheet.appendChild(head);
+
     const sub=$el('div'); sub.className='pdf-sub';
     sub.textContent=`${cat==='all'?'All categories':cat[0].toUpperCase()+cat.slice(1)} • ${monthName} • Page ${pageIndex+1}/${totalPages}`;
     sheet.appendChild(sub);
@@ -109,9 +111,9 @@ window.PP_PDF = (function(){
       <ul>${(((pestwatch && pestwatch[String(monthIndex)] && pestwatch[String(monthIndex)].items) || ['Keep an eye on slugs after rain.']).map(i=>`<li>${i}</li>`).join(''))}</ul>`;
     sheet.appendChild(meta);
 
-    // grid
+    // grid (NO wash div anymore)
     const grid=$el('div'); grid.className='pdf-grid';
-    const wash=$el('div'); wash.className=`wash wash-${cat==='all'?'other':cat}`; grid.appendChild(wash);
+
     const headRow=$el('div'); headRow.className='pdf-row';
     const hc0=$el('div'); hc0.className='pdf-headcell'; hc0.textContent='Crop'; headRow.appendChild(hc0);
     MONTHS.forEach(m=>{ const hc=$el('div'); hc.className='pdf-headcell'; hc.textContent=m; headRow.appendChild(hc); });
@@ -160,7 +162,7 @@ window.PP_PDF = (function(){
       const pageH=doc.internal.pageSize.getHeight();
       const imgW=canvas.width, imgH=canvas.height;
 
-      const margin=6; // small safety margin to prevent right-edge clipping
+      const margin=8; /* small safety margin to prevent edge clipping */
       const ratio=Math.min((pageW-2*margin)/imgW,(pageH-2*margin)/imgH);
       const w=imgW*ratio, h=imgH*ratio;
       const x=(pageW-w)/2, y=(pageH-h)/2;
@@ -176,7 +178,7 @@ window.PP_PDF = (function(){
 
   function init(){
     const btn=document.getElementById('pp-pdf-btn');
-    if(!btn || !jsPDF || !window.html2canvas) return;
+    if(!btn || !jsPDF || !window.html2canvas){ return; }
     btn.addEventListener('click', async ()=>{
       try{
         const {region,cat,thisMonth,monthIndex,monthName}=currentFilters();

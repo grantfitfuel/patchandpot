@@ -2,86 +2,81 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-  <link rel="stylesheet" href="style.css?v=51">
+  <link rel="stylesheet" href="style.css?v=53">
 
   <!-- Page-local locks so layout is solid even with a cached style.css -->
   <style>
-    :root{
-      --ink:#eef7f1; --ink-strong:#ffffff;
-      --muted:#b9c8bf;
-      --panel:#151c18; --panel2:#1b221f; --bg:#0f1411;
-      --line:#2d3832; --green:#35c26a;
-      --month-w:64px; /* fixed month column width for consistent grid */
-    }
-    html,body{background:var(--bg);color:var(--ink)}
+    :root{ --ink:#e6f0ea; --muted:#a6b6af; --panel:#161c19; --panel2:#1b221f; --line:#2b332f; --green:#35c26a; }
     .wrap{max-width:1140px;margin:0 auto;padding:16px 20px}
-
-    h1{color:var(--ink-strong);margin:.2rem 0 .6rem}
     .pp-sub{color:var(--muted);margin:0 0 .8rem}
 
-    /* Cards / toolbar */
     .pp-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1rem;margin:1rem 0}
-    .pp-toolbar{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.6rem .8rem;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px}
-    .pp-select,.pp-search{background:#0c110d;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem}
+    .pp-toolbar{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px}
+    .pp-select,.pp-search{background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem}
     .pp-help{color:var(--muted);margin:.5rem 0 0}
+    .sr-only{position:absolute;left:-9999px}
 
     .pp-filters{display:grid;gap:.6rem 1rem;grid-template-columns:1fr auto;align-items:center}
     .pp-filters .left{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
     .pp-filters .right{display:flex;gap:.6rem;align-items:center}
 
-    /* Pest watch */
+    .pp-pdfbar{display:flex;flex-wrap:wrap;gap:.6rem .8rem;align-items:center;margin:.6rem 0 0}
+    .pp-pdfbar .btn{display:inline-flex;align-items:center;gap:.45rem;background:var(--green);color:#07100b;font-weight:800;padding:.6rem .9rem;border-radius:10px;border:0;cursor:pointer}
+    .pp-pdfbar select,.pp-pdfbar input[type="checkbox"]{background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.45rem .6rem}
+    .pp-pdfbar label{display:inline-flex;align-items:center;gap:.35rem}
+
     .pp-pestwatch{background:var(--panel2);border-left:4px solid var(--green);border-radius:14px;padding:1rem;margin:1rem 0;border:1px solid var(--line)}
-    .pp-pestwatch h3{margin:.1rem 0 .25rem;color:var(--ink-strong)}
-    .pp-pestwatch small{display:block;color:var(--muted)}
     .pp-pestwatch ul{margin:.4rem 0 0;padding-left:1.1rem}
 
-    /* Legend */
-    .pp-legend{display:flex;gap:18px;align-items:center;color:var(--ink);margin:.6rem 0 .8rem}
+    .pp-legend{display:flex;gap:18px;align-items:center;color:var(--ink);margin:.6rem 0 .6rem}
     .pp-legend span{display:inline-flex;align-items:center;gap:.35rem}
 
-    /* Today list */
     .pp-month-hint{color:var(--muted);margin:.2rem 0 .6rem}
     .pp-list{list-style:none;padding:0;margin:0}
-    .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#101612}
+    .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
-    /* Calendar: wrap in a scroll container so months keep width */
-    .pp-calendar-wrap{border:1px solid var(--line);border-radius:16px;overflow-x:auto;overflow-y:hidden;background:#0f1512}
-    .pp-calendar{display:grid;grid-auto-rows:minmax(44px,auto);grid-template-columns:minmax(240px,1.2fr) repeat(12, var(--month-w));gap:2px;min-width: calc(240px + 12 * var(--month-w) + 2px);}
-
+    /* Calendar grid */
+    .pp-calendar{display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
     .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
-    .pp-head{font-weight:800;background:#121815;color:var(--ink-strong);white-space:nowrap;font-size:.9rem;letter-spacing:.2px}
-    .pp-cell{line-height:1.25;text-align:center}
+    .pp-head{font-weight:700;background:#121815}
+    .pp-cell{line-height:1.25}
 
-    /* Crop name cell: wrap, never clip, readable */
+    /* Crop name cell: wrap + natural height */
     .pp-crop{
-      background:#121815;color:var(--ink-strong);
-      font-weight:800;line-height:1.28;
-      white-space:normal;word-break:break-word;
-      display:block;padding:.6rem .65rem;
+      background:#121815;
+      font-weight:700;
+      white-space:normal; word-break:break-word; line-height:1.25;
+      display:block; padding:.55rem .6rem;
     }
     .pp-crop .name{display:block}
-    .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:700;margin-top:.15rem}
+    .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
 
-    .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem;margin-top:.8rem}
+    .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem}
 
-    /* Footer – no pot icon to avoid overlap */
-    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:16px 0}
+    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
     .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-    footer p{margin:0;color:#a7b7ad}
+    .footer-inner p{margin:0;color:#a7b7ad}
 
-    /* Phone / Tablet */
-    .rotation-title{color:#9fb4a8;font-size:.92rem;margin:.35rem 0 .6rem}
     @media (max-width: 900px){
-      .pp-head,.pp-cell{padding:.48rem}
+      .pp-calendar{grid-template-columns:minmax(200px,1.3fr) repeat(12,minmax(40px,1fr))}
+      .pp-head,.pp-cell{padding:.45rem}
     }
     @media (max-width: 680px){
-      .pp-head,.pp-cell{padding:.44rem}
+      .pp-calendar{grid-template-columns:minmax(188px,1.5fr) repeat(12,minmax(34px,1fr))}
+      .pp-head,.pp-cell{padding:.42rem}
+      .pp-crop{padding:.48rem .52rem}
     }
+
+    /* Rotation advisory text right above the calendar */
+    .rotation-title{color:var(--muted); font-size:.95rem; margin:.2rem 0 .6rem}
   </style>
+
+  <!-- PDF styles (for offscreen sheet) -->
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=53">
 </head>
 <body>
 
@@ -92,7 +87,7 @@
     <h1>Seasonal Planting Calendar (UK)</h1>
     <p class="pp-sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
-    <!-- Filters -->
+    <!-- FILTERS -->
     <section class="pp-card">
       <div class="pp-toolbar pp-filters" role="group" aria-label="Region and filters">
         <div class="left">
@@ -103,9 +98,9 @@
             <option value="england">England</option>
             <option value="wales">Wales</option>
           </select>
-          <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops">
-          <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
-          <select id="pp-category" class="pp-select" aria-label="Filter by category">
+          <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…">
+          <label for="pp-category" class="sr-only">Category</label>
+          <select id="pp-category" class="pp-select">
             <option value="all">All categories</option>
             <option value="leafy">Leafy</option>
             <option value="roots">Roots</option>
@@ -113,6 +108,7 @@
             <option value="fruit">Fruiting veg</option>
             <option value="alliums">Alliums</option>
             <option value="herbs">Herbs</option>
+            <option value="softfruit">Soft fruit</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -120,17 +116,32 @@
           <label><input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span></label>
         </div>
       </div>
-      <p class="pp-help">Tip: on a narrow phone, rotate 90° to see the full range of months.</p>
+
+      <!-- PDF toolbar (lives INSIDE seasonal page) -->
+      <div class="pp-pdfbar" role="group" aria-label="PDF options">
+        <label for="pdf-orient">Orientation:</label>
+        <select id="pdf-orient">
+          <option value="portrait">Portrait (A4)</option>
+          <option value="landscape">Landscape (A4)</option>
+        </select>
+
+        <label><input type="checkbox" id="pdf-inc-basics" checked> Include Basics</label>
+        <label><input type="checkbox" id="pdf-inc-pest" checked> Include Pest Watch</label>
+
+        <button id="pp-generate-pdf" class="btn">Generate PDF</button>
+      </div>
+
+      <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
     </section>
 
-    <!-- Pest watch -->
+    <!-- PEST WATCH -->
     <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
       <h3 id="pestwatch-title">Pest Watch – <span id="pp-month-name"></span> (<span id="pp-region-name"></span>)</h3>
       <small>Small spaces edition</small>
       <ul><li>Loading…</li></ul>
     </section>
 
-    <!-- What to plant today -->
+    <!-- TODAY -->
     <section class="pp-card" aria-labelledby="today-title">
       <h2 id="today-title">What Can I Plant Today?</h2>
       <p class="pp-month-hint" id="pp-month-hint"></p>
@@ -147,21 +158,20 @@
     <!-- Calendar -->
     <section aria-labelledby="calendar-title">
       <h2 id="calendar-title">Seasonal Planting Calendar</h2>
-      <div class="pp-calendar-wrap">
-        <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
-      </div>
+      <p class="rotation-title">If using a narrow phone rotate it 90° to see the full range of months.</p>
+      <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
       <div id="pp-error" class="pp-error" style="display:none"></div>
     </section>
   </main>
 
-  <!-- FOOTER (no pot icon) -->
+  <!-- FOOTER -->
   <footer role="contentinfo">
     <div class="footer-inner">
       <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
     </div>
   </footer>
 
-  <!-- Load shared header -->
+  <!-- Header partial -->
   <script>
     (function(){
       const holder = document.querySelector('[data-include="partials/header.html"]');
@@ -192,12 +202,11 @@
     })();
   </script>
 
-  <!-- Seasonal app -->
+  <!-- Seasonal logic -->
   <script>
     const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const CUR_M=new Date().getMonth();
     const REGION_KEYS=["scotland","england","ireland","wales"];
-    const BLOCKS=["basics","pestwatch","roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
 
     let DATA={scotland:null,england:null,ireland:null,wales:null};
     const MISSING=Object.fromEntries(REGION_KEYS.map(r=>[r,new Set()]));
@@ -271,7 +280,7 @@
     function renderCalendar(regionKey){
       const region=DATA[regionKey]||{};
       const wrap=document.getElementById('pp-calendar');
-      const head=`<div class="pp-row"><div class="pp-head">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head" title="${m}">${m}</div>`).join('')}</div>`;
+      const head=`<div class="pp-row"><div class="pp-head">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head">${m}</div>`).join('')}</div>`;
       const rows=applyFilters(region.crops||[]).map(c=>{
         const cat=c.category||inferCategory(c.name);
         const cells=PP_MONTHS.map((_,i)=>{
@@ -306,7 +315,7 @@
       }
     }
 
-    // -------- data loader (no legacy fallback, fixed paths under /sites/data/regions) --------
+    // Data loader (no legacy fallback)
     function fetchJSON(url){
       return fetch(url+`?v=${Date.now()}`,{cache:'no-store'})
         .then(r=> r.ok ? r.json() : Promise.reject(url));
@@ -359,5 +368,15 @@
         }
       });
   </script>
+
+  <!-- PDF libs -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- PDF generator that hooks the seasonal controls -->
+  <script src="assets/pdf/pdf-generator.js?v=53"></script>
+
+  <!-- offscreen PDF sheets root (the generator uses it) -->
+  <div id="pdf-sheets-root" aria-hidden="true"></div>
 </body>
 </html>

@@ -2,16 +2,14 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
   <link rel="stylesheet" href="style.css?v=51">
 
-  <!-- Page-local locks so layout is solid even with a cached style.css -->
+  <!-- Page-local locks to ensure layout stays correct even with a cached style.css -->
   <style>
-    :root{
-      --ink:#e6f0ea; --muted:#a6b6af; --panel:#161c19; --panel2:#1b221f; --line:#2b332f; --green:#35c26a;
-    }
+    :root{ --ink:#e6f0ea; --muted:#a6b6af; --panel:#161c19; --panel2:#1b221f; --line:#2b332f; --green:#35c26a; }
     .wrap{max-width:1140px;margin:0 auto;padding:16px 20px}
     .pp-sub{color:var(--muted);margin:0 0 .8rem}
 
@@ -34,45 +32,52 @@
     .pp-list{list-style:none;padding:0;margin:0}
     .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
-    /* Calendar grid (name column grows a touch on narrow screens) */
+    .rotation-title{color:var(--muted);font-size:.92rem;margin:.4rem 0 1rem}
+
+    /* Calendar grid */
     .pp-calendar{display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
-    .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
-    .pp-head{font-weight:700;background:#121815}
+    .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.92rem}
+    .pp-head{font-weight:700;background:#121815;white-space:nowrap}
     .pp-cell{line-height:1.25;text-align:center}
 
-    /* Crop name cell: wrap, no clipping, matches cell padding */
+    /* Crop name cell: allow wrapping and natural height on all devices */
     .pp-crop{
-      background:#121815;font-weight:700;white-space:normal;word-break:break-word;overflow-wrap:anywhere;
-      line-height:1.25;display:block;padding:.55rem .6rem;
+      background:#121815;
+      font-weight:700;
+      white-space:normal;
+      word-break:break-word;
+      line-height:1.25;
+      display:block;
+      padding:.55rem .6rem;
     }
     .pp-crop .name{display:block}
     .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
 
     .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem}
 
-    .rotation-hint{margin:.3rem 0 .8rem;color:var(--muted);font-size:.95rem}
-    @media (min-width: 700px){ .rotation-hint{display:none} }
+    /* PDF button (Patch & Pot style) */
+    .pp-actions{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:.6rem}
+    .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.7rem 1rem;border-radius:12px;font-weight:700;border:0;cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg,#7ed495,#2E7D32); color:#061007}
+    .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--line);color:#fff}
+    .btn small{font-weight:500;opacity:.9}
 
-    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
-    .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-    .footer-pot{width:36px;height:36px;object-fit:contain}
+    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:14px 0}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+    .footer-pot{width:24px;height:24px;object-fit:contain}
+    footer p{margin:0;color:#9ab09f;font-size:.95rem}
 
     @media (max-width: 900px){
       .pp-calendar{grid-template-columns:minmax(200px,1.3fr) repeat(12,minmax(40px,1fr))}
       .pp-head,.pp-cell{padding:.45rem}
+      .pp-head{font-size:.9rem}
     }
     @media (max-width: 680px){
-      .pp-calendar{grid-template-columns:minmax(188px,1.5fr) repeat(12,minmax(34px,1fr))}
-      .pp-head,.pp-cell{padding:.42rem}
-      .pp-crop{padding:.48rem .52rem}
+      .pp-calendar{grid-template-columns:minmax(188px,1.5fr) repeat(12,minmax(32px,1fr))}
+      .pp-head,.pp-cell{padding:.38rem}
+      .pp-head{font-size:.85rem}
     }
-
-    /* PDF button cluster */
-    .pp-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 0}
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1rem;border-radius:12px;font-weight:700;border:0;cursor:pointer}
-    .btn.primary{background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007;text-decoration:none}
-    .btn.ghost{background:rgba(255,255,255,.08);border:1px solid var(--line);color:#fff;text-decoration:none}
   </style>
 </head>
 <body>
@@ -109,24 +114,31 @@
         </div>
         <div class="right">
           <label><input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span></label>
-          <div class="pp-actions">
-            <!-- PDF generator lives on its own page; we link with current filters -->
-            <a id="pp-open-pdf" class="btn primary" href="pdf.html">Make a PDF</a>
-            <a class="btn ghost" href="guides.html#seasonal">How to use this calendar</a>
-          </div>
         </div>
       </div>
-      <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
+
+      <div class="pp-actions">
+        <button class="btn primary" id="pp-pdf-btn">Download PDF</button>
+        <label class="btn ghost" for="pp-orient" style="gap:.4rem;cursor:pointer">
+          <span>Orientation:</span>
+          <select id="pp-orient" class="pp-select" style="padding:.35rem .5rem">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+        </label>
+        <label class="btn ghost" for="pp-inc-meta" style="gap:.5rem;cursor:pointer">
+          <input type="checkbox" id="pp-inc-meta" checked> <span>Include Basics &amp; Pest Watch</span>
+        </label>
+        <span class="pp-help"><small>On a narrow phone, rotate to landscape to see all months.</small></span>
+      </div>
     </section>
 
-    <!-- Pest watch -->
     <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
       <h3 id="pestwatch-title">Pest Watch – <span id="pp-month-name"></span> (<span id="pp-region-name"></span>)</h3>
       <small>Small spaces edition</small>
       <ul><li>Loading…</li></ul>
     </section>
 
-    <!-- What Can I Plant Today -->
     <section class="pp-card" aria-labelledby="today-title">
       <h2 id="today-title">What Can I Plant Today?</h2>
       <p class="pp-month-hint" id="pp-month-hint"></p>
@@ -141,7 +153,7 @@
 
     <section aria-labelledby="calendar-title">
       <h2 id="calendar-title">Seasonal Planting Calendar</h2>
-      <p class="rotation-hint">On narrow phones, rotate your device 90° to view all months.</p>
+      <p class="rotation-title">If using a narrow phone, rotate it 90° to view the full range of months.</p>
       <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
       <div id="pp-error" class="pp-error" style="display:none"></div>
     </section>
@@ -150,7 +162,7 @@
   <footer role="contentinfo">
     <div class="footer-inner">
       <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
-      <p>© Patch &amp; Pot | <span class="credit">Created by Grant Cameron Anthony</span></p>
+      <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
     </div>
   </footer>
 
@@ -185,7 +197,7 @@
     })();
   </script>
 
-  <!-- Seasonal app (fixed paths under /sites/ -> data/regions/...) -->
+  <!-- Seasonal app -->
   <script>
     const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const CUR_M=new Date().getMonth();
@@ -210,7 +222,7 @@
       if(/(pea|bean|chickpea|lentil|soy|edamame)/.test(n))return"legumes";
       if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|blueber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb|cape gooseberry|tomatillo)/.test(n))return"fruit";
       if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n))return"alliums";
-      if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|fennel \(herb\)|lemon balm|bay|stevia|rosemary|chives)/.test(n))return"herbs";
+      if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|fennel \(herb\)|lemon balm|bay|stevia|rosemary)/.test(n))return"herbs";
       return"other";
     }
     function getFilters(){
@@ -288,16 +300,6 @@
       localStorage.setItem('pp-region',r);
       document.title=`Seasonal Planting (${humanRegion(r)}) • Patch & Pot`;
       setMonthHints(); renderPestWatch(r); renderToday(r); renderCalendar(r);
-
-      // Wire the PDF button to pdf.html with current filters
-      const q = new URLSearchParams({
-        region: r,
-        category: document.getElementById('pp-category')?.value || 'all',
-        thisMonth: document.getElementById('pp-this-month')?.checked ? '1':'0'
-      }).toString();
-      const link = document.getElementById('pp-open-pdf');
-      if (link) link.href = `pdf.html?${q}`;
-
       const miss=[...MISSING[r]].sort();
       const box=document.getElementById('pp-error');
       if(miss.length){
@@ -309,7 +311,7 @@
       }
     }
 
-    // -------- data loader (no legacy fallback) --------
+    // -------- data loader (fixed paths under /sites/, no legacy fallback) --------
     function fetchJSON(url){
       return fetch(url+`?v=${Date.now()}`,{cache:'no-store'})
         .then(r=> r.ok ? r.json() : Promise.reject(url));
@@ -321,7 +323,6 @@
     function assembleRegion(region){
       const metaP = Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')])
         .then(([basics,pestwatch])=>({basics,pestwatch}));
-
       const cropP = Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b)))
         .then(parts=>{
           const merged=[];
@@ -362,6 +363,33 @@
           box.innerHTML='<strong>Data couldn’t be loaded.</strong><br>Check JSON exists under <code>data/regions/&lt;region&gt;/</code>.';
         }
       });
+
+    // -------- PDF button hookup (kept here, generator is external) --------
+    document.addEventListener('DOMContentLoaded',()=>{
+      const btn = document.getElementById('pp-pdf-btn');
+      const orientSel = document.getElementById('pp-orient');
+      const incMeta = document.getElementById('pp-inc-meta');
+      if(btn){
+        btn.addEventListener('click', ()=>{
+          const region = document.getElementById('pp-region')?.value || 'scotland';
+          const cat = document.getElementById('pp-category')?.value || 'all';
+          const onlyThisMonth = !!document.getElementById('pp-this-month')?.checked;
+          const orientation = orientSel?.value || 'portrait';
+          const includeMeta = !!incMeta?.checked;
+          if(window.PP_PDF && typeof window.PP_PDF.generate === 'function'){
+            window.PP_PDF.generate({ region, category: cat, thisMonthOnly: onlyThisMonth, orientation, includeMeta });
+          } else {
+            alert('PDF generator not found. Check assets/pdf/pdf-generator.js is loaded.');
+          }
+        });
+      }
+    });
   </script>
+
+  <!-- PDF assets (scoped; do not affect page look) -->
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=7">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="assets/pdf/pdf-generator.js?v=9"></script>
 </body>
 </html>

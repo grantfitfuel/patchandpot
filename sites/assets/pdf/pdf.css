@@ -1,120 +1,161 @@
-/* ---------- Patch & Pot • PDF styles (A4) ---------- */
+/* ===== Patch & Pot PDF Styles ===== */
 
-/* A4 canvas in physical units so html2pdf lays out predictably */
-:root{
-  --page-w: 210mm;
-  --page-h: 297mm;
-  --content-w: 180mm;   /* page width minus margins */
-  --g-line: #e1ebe4;
-  --ink: #1a1f1c;
-  --muted: #4c5a53;
-}
-
-.pdf-sheet{
+/* A4 sheet scaffold (offscreen for generation) */
+.pdf-sheet {
   position: fixed;
-  left: -99999px; top: 0;
-  width: var(--page-w);
-  min-height: var(--page-h);
-  background: #fff; color: var(--ink);
+  left: -99999px;
+  top: 0;
+  width: 794px;              /* A4 width @ 72dpi */
+  min-height: 1123px;        /* A4 height @ 72dpi */
   box-sizing: border-box;
-  padding: 12mm 15mm;   /* 210 - 2*15 = 180mm usable */
-  font: 12pt/1.45 system-ui,-apple-system,"Segoe UI",Inter,Roboto,Arial,sans-serif;
+  padding: 28px 26px 30px;
+  background: #fff;
+  color: #1a1f1c;
+  font: 16px/1.45 system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial, sans-serif;
 }
 
-/* Header */
-.pdf-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:8mm; margin:0 0 3mm }
-.pdf-title{ font-weight:800; font-size:18pt; margin:0 }
-.pdf-sub{ color: var(--muted); margin: 1mm 0 0; font-size: 10pt }
-
-/* Legend (uses letters not emoji to avoid tofu in PDF fonts) */
-.legend{ display:flex; gap:10mm; align-items:center; font-size:10pt; margin: 1mm 0 4mm; color:var(--muted) }
-.legend .mark{ display:inline-block; width:5mm; text-align:center; font-weight:800; color:#0a3 }
-
-/* Section headings */
-.section{ position:relative; margin: 5mm 0 3mm }
-.section h2{ font-size: 16pt; margin:0 0 1mm }
-.section small{ color:var(--muted) }
-
-/* ------------- LIST (two column, no page-split in items) ------------- */
-.list{
-  column-count: 2;
-  column-gap: 8mm;
-  width: var(--content-w);
+/* Headings / meta */
+.pdf-head { 
+  display: flex; 
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 12px;
 }
-.list-item{
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  margin: 1mm 0 0;
-  font-size: 11pt;
+.pdf-title { 
+  font-weight: 800; 
+  font-size: 26px; 
+  margin: 0; 
 }
-.list-item .tag{ color:var(--muted); font-weight:600; font-size:10pt }
-
-/* ------------- GRID (calendar) ------------- */
-/* Fit inside content width exactly; first column wide for names */
-.grid{
-  width: var(--content-w);
-  display: grid;
-  grid-template-columns: 68mm repeat(12, 9.3mm); /* 68 + (12*9.3) = 179.6mm */
-  border: 0.3mm solid var(--g-line);
-  border-radius: 3mm;
-  overflow: hidden;
+.pdf-sub { 
+  color: #4c5a53; 
+  margin: 0 0 10px; 
+  font-size: 14px; 
 }
-.row{ display: contents }
-.hc,.cell{ border: 0.3mm solid var(--g-line); padding: 1.8mm 2mm; font-size: 9.5pt }
-.hc{ font-weight:800; background:#f5f8f6; text-align:center }
-.crop{
-  font-weight:800; background:#f9fbfa;
-  display:flex; flex-direction:column; gap:0.6mm;
-  word-break: keep-all;
+.pdf-meta { 
+  color: #4c5a53; 
+  font-size: 13px; 
 }
-.crop .meta{ color:var(--muted); font-weight:600; font-size: 9pt }
-.cell{ text-align:center; font-weight:700; letter-spacing:.2pt }
 
-/* marks (letters instead of emoji, keep visible in all PDF fonts) */
-.sow{ color:#0a3 }      /* S */
-.plant{ color:#0a5 }    /* P */
-.harv{ color:#d4610a }  /* H */
+/* Legend */
+.legend { 
+  display: flex; 
+  gap: 18px; 
+  align-items: center; 
+  font-size: 14px; 
+  margin: 6px 0 12px; 
+}
+.legend span { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: .35rem; 
+}
 
-/* ------------- SOFT WATERCOLOR WASHES (per category) ------------- */
-.wash{ position:absolute; inset:0; pointer-events:none; opacity:.26; mix-blend-mode:multiply }
-.wash-leafy{ background:
-  radial-gradient(90mm 55mm at 15% 18%, #bfe9c8 0, transparent 60%),
-  radial-gradient(80mm 48mm at 90% 70%, #a5d9b1 0, transparent 65%),
-  radial-gradient(65mm 42mm at 40% 90%, #dff4e4 0, transparent 55%); }
-.wash-roots{ background:
-  radial-gradient(90mm 55mm at 12% 16%, #f3d4b7 0, transparent 60%),
-  radial-gradient(80mm 48mm at 85% 65%, #f0caa6 0, transparent 65%),
-  radial-gradient(65mm 42mm at 40% 88%, #fde4cd 0, transparent 55%); }
-.wash-legumes{ background:
-  radial-gradient(90mm 55mm at 14% 20%, #cde6ef 0, transparent 60%),
-  radial-gradient(80mm 48mm at 88% 68%, #badee9 0, transparent 65%),
-  radial-gradient(65mm 42mm at 42% 90%, #e3f3f8 0, transparent 55%); }
-.wash-fruit{ background:
-  radial-gradient(90mm 55mm at 14% 20%, #ffd3d3 0, transparent 60%),
-  radial-gradient(80mm 48mm at 88% 68%, #ffc0c0 0, transparent 65%),
-  radial-gradient(65mm 42mm at 42% 90%, #ffe4e4 0, transparent 55%); }
-.wash-alliums{ background:
-  radial-gradient(90mm 55mm at 14% 20%, #eadcff 0, transparent 60%),
-  radial-gradient(80mm 48mm at 88% 68%, #dac6ff 0, transparent 65%),
-  radial-gradient(65mm 42mm at 42% 90%, #f1e8ff 0, transparent 55%); }
-.wash-herbs{ background:
-  radial-gradient(90mm 55mm at 14% 20%, #d9f3d4 0, transparent 60%),
-  radial-gradient(80mm 48mm at 88% 68%, #c8edc1 0, transparent 65%),
-  radial-gradient(65mm 42mm at 42% 90%, #eaf9e7 0, transparent 55%); }
-.wash-softfruit{ background:
-  radial-gradient(90mm 55mm at 14% 20%, #ffdfe8 0, transparent 60%),
-  radial-gradient(80mm 48mm at 88% 68%, #ffccdd 0, transparent 65%),
-  radial-gradient(65mm 42mm at 42% 90%, #ffeaf1 0, transparent 55%); }
-.wash-other{ background:
-  radial-gradient(90mm 55mm at 14% 20%, #e7eee5 0, transparent 60%),
-  radial-gradient(80mm 48mm at 88% 68%, #d8e5d4 0, transparent 65%),
-  radial-gradient(65mm 42mm at 42% 90%, #f1f5f0 0, transparent 55%); }
+/* Sections */
+.pdf-section { 
+  margin: 16px 0 18px; 
+}
+.pdf-title2 { 
+  font-size: 18px; 
+  font-weight: 800; 
+  margin: 12px 0 8px; 
+}
+.pdf-title3 { 
+  font-size: 15px; 
+  font-weight: 800; 
+  margin: 10px 0 6px; 
+}
+.pdf-ul { 
+  margin: 6px 0 6px 20px; 
+  padding: 0; 
+}
+.pdf-ul li { 
+  margin: 2px 0; 
+}
 
-/* Page-break rules */
-.page-break{ page-break-before: always }
-.avoid-split{ break-inside: avoid; page-break-inside: avoid }
+/* Calendar grid */
+.pdf-grid { 
+  display: grid; 
+  grid-template-columns: minmax(210px,1.1fr) repeat(12,1fr); 
+  border: 1px solid #d9e3dc; 
+  border-radius: 12px; 
+  overflow: hidden; 
+  margin: 14px 0; 
+}
+.pdf-row { display: contents; }
+.pdf-headcell, .pdf-cell { 
+  border: 1px solid #e5eee8; 
+  padding: 8px 10px; 
+  font-size: 13px; 
+}
+.pdf-headcell { 
+  font-weight: 700; 
+  background: #f4f8f5; 
+}
+.pdf-cell { 
+  vertical-align: top; 
+  line-height: 1.3; 
+}
+.pdf-crop { 
+  font-weight: 700; 
+  background: #f7faf8; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 4px; 
+}
+.pdf-tag { 
+  font-weight: 600; 
+  color: #6b7c73; 
+  font-size: 12px; 
+}
 
-/* Print adjustments (if someone prints directly) */
-@media print{
-  .pdf-sheet{ position: static; left:auto; top:auto; }
+/* Prevent row splits across pages */
+.pdf-keep { break-inside: avoid; page-break-inside: avoid; }
+
+/* Soft “watercolour” washes (category themed) */
+.wash { 
+  position: absolute; 
+  inset: 0; 
+  pointer-events: none; 
+  opacity: .26; 
+  mix-blend-mode: multiply; 
+}
+.wash-leafy { background:
+  radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
+  radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
+  radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%);
+}
+.wash-roots { background:
+  radial-gradient(600px 340px at 12% 16%, #f3d4b7 0, transparent 60%),
+  radial-gradient(520px 300px at 85% 65%, #f0caa6 0, transparent 65%),
+  radial-gradient(420px 260px at 40% 88%, #fde4cd 0, transparent 55%);
+}
+.wash-legumes { background:
+  radial-gradient(600px 340px at 14% 20%, #cde6ef 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #badee9 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #e3f3f8 0, transparent 55%);
+}
+.wash-fruit { background:
+  radial-gradient(600px 340px at 14% 20%, #ffd3d3 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #ffc0c0 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #ffe4e4 0, transparent 55%);
+}
+.wash-alliums { background:
+  radial-gradient(600px 340px at 14% 20%, #eadcff 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #dac6ff 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #f1e8ff 0, transparent 55%);
+}
+.wash-herbs { background:
+  radial-gradient(600px 340px at 14% 20%, #d9f3d4 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #c8edc1 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #eaf9e7 0, transparent 55%);
+}
+.wash-softfruit { background:
+  radial-gradient(600px 340px at 14% 20%, #ffdfe8 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #ffccdd 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #ffeaf1 0, transparent 55%);
+}
+.wash-other { background:
+  radial-gradient(600px 340px at 14% 20%, #e7eee5 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #d8e5d4 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #f1f5f0 0, transparent 55%);
 }

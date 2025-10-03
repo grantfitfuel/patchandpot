@@ -1,79 +1,104 @@
-/* ========= PDF Layout Styles ========= */
+/* Patch & Pot PDF styles (A4) */
 
-.pdf-sheet {
-  position: fixed;
-  left: -99999px; top: 0;
-  width: 794px; min-height: 1123px;   /* A4 at 72dpi */
-  box-sizing: border-box;
-  padding: 28px 26px 40px;
-  background: #ffffff;
-  color: #1a1f1c;
-  font: 15px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+:root{
+  --pp-ink:#1a1f1c;
+  --pp-muted:#4c5a53;
+  --pp-line:#d9e3dc;
+  --pp-line-2:#e5eee8;
+  --pp-green:#2E7D32;
 }
 
-.pdf-head { 
-  display:flex; align-items:baseline; justify-content:space-between; 
-  margin:0 0 12px 
+/* Offscreen scaffolds for capture */
+.pdf-sheet{
+  position:fixed; left:-99999px; top:0;
+  width:794px; min-height:1123px; /* A4 portrait @72dpi */
+  box-sizing:border-box; padding:28px 26px 30px;
+  background:#fff; color:var(--pp-ink);
+  font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
-.pdf-title { 
-  font-weight:800; font-size:26px; letter-spacing:.2px; margin:0 
-}
-.pdf-sub { 
-  color:#4c5a53; margin:0 0 12px; font-size:14px 
-}
-
-.legend { 
-  display:flex; gap:18px; align-items:center; 
-  font-size:14px; margin:6px 0 14px 
-}
-.legend span { 
-  display:inline-flex; align-items:center; gap:.35rem 
+.pdf-sheet.landscape{
+  width:1123px; min-height:794px; /* A4 landscape @72dpi */
 }
 
-/* Grid table */
-.pdf-grid { 
-  display:grid; 
-  grid-template-columns: minmax(210px,1.2fr) repeat(12,1fr);
-  border:1px solid #d9e3dc; border-radius:12px; overflow:hidden;
-}
-.pdf-row { display:contents }
-.pdf-headcell, .pdf-cell {
-  border:1px solid #e5eee8;
-  padding:8px 10px;
-  font-size:13px;
-}
-.pdf-headcell { 
-  font-weight:700; background:#f4f8f5; text-align:center 
-}
-.pdf-cell { text-align:center; font-size:12px }
+/* Head */
+.pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 8px }
+.pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0 }
+.pdf-sub{ color:var(--pp-muted); margin:0 0 10px; font-size:14px }
 
-/* Crop label column */
-.pdf-crop { 
-  font-weight:700; background:#f7faf8; 
-  display:flex; flex-direction:column; 
-  gap:3px; align-items:flex-start;
-}
-.pdf-name { font-size:13px; font-weight:700 }
-.pdf-tag { font-weight:600; color:#6b7c73; font-size:12px }
+/* Legend */
+.legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px }
+.legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* Page-break safety */
-.pdf-row { break-inside: avoid; }
+/* Grid */
+.pdf-grid{
+  display:grid;
+  grid-template-columns: minmax(210px,1.1fr) repeat(12, 1fr);
+  border:1px solid var(--pp-line);
+  border-radius:12px; overflow:hidden;
+}
+.pdf-row{ display:contents }
+.pdf-headcell,.pdf-cell{ border:1px solid var(--pp-line-2); padding:8px 10px; font-size:13px }
+.pdf-headcell{ font-weight:700; background:#f4f8f5; text-align:center }
+.pdf-cell{ text-align:center; }
 
-/* ---- Brand Footer ---- */
-.pdf-footer {
-  text-align: center;
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid #d9e3dc;
+/* Crop name column */
+.pdf-crop{
+  font-weight:700; background:#f7faf8;
+  display:flex; flex-direction:column; gap:4px;
+  white-space:normal; word-break:break-word; overflow-wrap:anywhere; line-height:1.25;
 }
-.pdf-footer img {
-  display:block;
-  margin: 0 auto 10px;
-  width: 48px; height: auto;
+.pdf-tag{ font-weight:600; color:var(--pp-muted); font-size:12px }
+.pdf-meta{ color:var(--pp-muted); font-size:12px }
+
+/* Section title between pages */
+.pdf-section-title{ font-weight:800; margin:18px 0 8px; font-size:18px }
+
+/* Watercolour wash (soft) */
+.wash{ position:absolute; inset:0; pointer-events:none; opacity:.26; mix-blend-mode:multiply }
+.wash-leafy{ background:
+  radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
+  radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
+  radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%); }
+.wash-roots{ background:
+  radial-gradient(600px 340px at 12% 16%, #f3d4b7 0, transparent 60%),
+  radial-gradient(520px 300px at 85% 65%, #f0caa6 0, transparent 65%),
+  radial-gradient(420px 260px at 40% 88%, #fde4cd 0, transparent 55%); }
+.wash-legumes{ background:
+  radial-gradient(600px 340px at 14% 20%, #cde6ef 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #badee9 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #e3f3f8 0, transparent 55%); }
+.wash-fruit{ background:
+  radial-gradient(600px 340px at 14% 20%, #ffd3d3 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #ffc0c0 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #ffe4e4 0, transparent 55%); }
+.wash-alliums{ background:
+  radial-gradient(600px 340px at 14% 20%, #eadcff 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #dac6ff 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #f1e8ff 0, transparent 55%); }
+.wash-herbs{ background:
+  radial-gradient(600px 340px at 14% 20%, #d9f3d4 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #c8edc1 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #eaf9e7 0, transparent 55%); }
+.wash-softfruit{ background:
+  radial-gradient(600px 340px at 14% 20%, #ffdfe8 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #ffccdd 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #ffeaf1 0, transparent 55%); }
+.wash-other{ background:
+  radial-gradient(600px 340px at 14% 20%, #e7eee5 0, transparent 60%),
+  radial-gradient(520px 300px at 88% 68%, #d8e5d4 0, transparent 65%),
+  radial-gradient(420px 260px at 42% 90%, #f1f5f0 0, transparent 55%); }
+
+/* Brand footer fixed at page bottom (logo above text, centered) */
+.pdf-brand-footer{
+  position:absolute; left:0; right:0; bottom:18px;
+  text-align:center; color:#567162; font-size:12px;
 }
-.pdf-footer p {
-  margin:0;
-  font-size: 13px;
-  font-weight:600;
-  color:#35c26a;  /* Patch & Pot green */
+.pdf-brand-footer img{
+  display:block; margin:0 auto 6px; width:32px; height:32px; object-fit:contain;
+}
+
+/* Prevent ugly word splits when html2canvas renders at boundaries */
+.pdf-sheet, .pdf-grid, .pdf-crop, .pdf-cell, .pdf-headcell{
+  -webkit-hyphens:none; hyphens:none;
+  word-break:keep-all; overflow-wrap:anywhere;
 }

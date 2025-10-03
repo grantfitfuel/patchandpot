@@ -108,10 +108,17 @@
           </select>
         </div>
 
-        <div class="right">
-          <label><input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span></label>
-          <button id="pp-download-pdf" class="btn green" type="button" aria-label="Download calendar as PDF">⬇ Download PDF</button>
-        </div>
+        <<div class="pp-pdf-controls" style="display:flex;gap:.5rem;align-items:center">
+  <label for="pp-pdf-orient" style="font-size:.9rem;color:var(--muted)">Orientation:</label>
+  <select id="pp-pdf-orient" class="pp-select" style="padding:.35rem .5rem">
+    <option value="portrait">Portrait</option>
+    <option value="landscape">Landscape</option>
+  </select>
+
+  <button id="pp-make-pdf" class="pp-btn">
+    📄 Download this view (PDF)
+  </button>
+</div>
       </div>
       <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong>. The PDF will use the same filters.</p>
     </section>

@@ -47,13 +47,19 @@
       word-break:break-word;
       line-height:1.25;
       display:block;
-      min-height:auto;      /* remove hard constraints */
-      padding:.55rem .6rem; /* ensure same padding as cells */
+      min-height:auto;
+      padding:.55rem .6rem;
     }
     .pp-crop .name{display:block}
     .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
 
     .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem}
+
+    /* Actions (PDF button) */
+    .pp-actions{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:12px;font-weight:700;border:1px solid var(--line);cursor:pointer;text-decoration:none}
+    .btn.primary{background:var(--green);color:#061007;border:none}
+    .btn:hover{filter:brightness(.95)}
 
     footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
     .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
@@ -107,6 +113,14 @@
         </div>
       </div>
       <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
+
+      <!-- ✅ NEW: PDF action button (visible, styled) -->
+      <div class="pp-actions">
+        <button id="pp-download-pdf" class="btn primary" type="button">
+          Download PDF (region + category)
+        </button>
+        <small class="pp-help">Creates a one-page watercolour-style PDF for the chosen <strong>Region</strong> and <strong>Category</strong>.</small>
+      </div>
     </section>
 
     <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
@@ -297,13 +311,10 @@
       return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
     }
     function assembleRegion(region){
-      // Load meta
       const metaP = Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')])
         .then(([basics,pestwatch])=>({basics,pestwatch}));
-      // Load crop blocks and flatten
       const cropP = Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b)))
         .then(parts=>{
-          // parts can be arrays or objects; we only want arrays of crops
           const merged=[];
           parts.forEach(block=>{
             if(Array.isArray(block)) merged.push(...block);
@@ -313,7 +324,6 @@
         });
 
       return Promise.all([metaP,cropP]).then(([meta,crops])=>{
-        console.log(`[${region}] loaded: basics=${!!meta.basics}, pestwatch=${!!meta.pestwatch}, crops=${crops.length}`);
         return { region:humanRegion(region), basics:meta.basics||{}, pestwatch:meta.pestwatch||{}, crops };
       });
     }
@@ -344,10 +354,19 @@
         }
       });
   </script>
+
+  <!-- PDF assets (generator reads current region + category from the DOM) -->
   <link rel="stylesheet" href="assets/pdf/pdf.css">
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="assets/pdf/pdf-generator.js"></script>
-<script> window.PP_PDF && window.PP_PDF.init(); </script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="assets/pdf/pdf-generator.js"></script>
+  <script>
+    // Make sure the generator sees the button
+    window.PP_PDF && window.PP_PDF.init({
+      buttonId: 'pp-download-pdf',
+      regionSelectId: 'pp-region',
+      categorySelectId: 'pp-category'
+    });
+  </script>
 </body>
 </html>

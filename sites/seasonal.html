@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
+  <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-  <link rel="stylesheet" href="style.css?v=49">
+  <link rel="stylesheet" href="style.css?v=50">
 
   <!-- Page-local locks so layout is solid even with a cached style.css -->
   <style>
@@ -32,16 +32,26 @@
     .pp-list{list-style:none;padding:0;margin:0}
     .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
-    .pp-calendar{display:grid;grid-template-columns:minmax(220px,1.1fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
+    /* Calendar grid */
+    .pp-calendar{display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
     .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
     .pp-head{font-weight:700;background:#121815}
-    .pp-cell{line-height:1.2}
+    .pp-cell{line-height:1.25}
 
-    /* crop names: wrap, auto-height (no clipping) */
-    .pp-crop{background:#121815;font-weight:700;white-space:normal;word-break:break-word;line-height:1.25;min-height:42px;display:flex;align-items:center}
+    /* Crop name cell: allow wrapping and natural height on all devices */
+    .pp-crop{
+      background:#121815;
+      font-weight:700;
+      white-space:normal;
+      word-break:break-word;
+      line-height:1.25;
+      display:block;
+      min-height:auto;      /* remove hard constraints */
+      padding:.55rem .6rem; /* ensure same padding as cells */
+    }
     .pp-crop .name{display:block}
-    .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-left:.35rem}
+    .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
 
     .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem}
 
@@ -50,13 +60,13 @@
     .footer-pot{width:36px;height:36px;object-fit:contain}
 
     @media (max-width: 900px){
-      .pp-calendar{grid-template-columns:minmax(190px,1.2fr) repeat(12,minmax(40px,1fr))}
+      .pp-calendar{grid-template-columns:minmax(200px,1.3fr) repeat(12,minmax(40px,1fr))}
       .pp-head,.pp-cell{padding:.45rem}
     }
     @media (max-width: 680px){
-      .pp-calendar{grid-template-columns:minmax(172px,1.4fr) repeat(12,minmax(34px,1fr))}
+      .pp-calendar{grid-template-columns:minmax(188px,1.5fr) repeat(12,minmax(34px,1fr))}
       .pp-head,.pp-cell{padding:.42rem}
-      .pp-crop{min-height:48px}
+      .pp-crop{padding:.48rem .52rem}
     }
   </style>
 </head>
@@ -170,7 +180,7 @@
     const BLOCKS=["basics","pestwatch","roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
 
     let DATA={scotland:null,england:null,ireland:null,wales:null};
-    const MISSING={scotland:new Set(),england:new Set(),ireland:new Set(),wales:new Set()};
+    const MISSING=Object.fromEntries(REGION_KEYS.map(r=>[r,new Set()]));
 
     function humanRegion(k){return k? k[0].toUpperCase()+k.slice(1):""}
     function setMonthHints(){
@@ -185,7 +195,7 @@
       if(/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf|mizuna|mustard|endive|radicchio|pak|choi|bok|tat\s*soi|watercress)/.test(n))return"leafy";
       if(/(carrot|beet|beetroot|radish|turnip|parsnip|root|swede|celeriac|salsify|scorzonera|fennel)/.test(n))return"roots";
       if(/(pea|bean|chickpea|lentil|soy|edamame)/.test(n))return"legumes";
-      if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|blueber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb)/.test(n))return"fruit";
+      if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|blueber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb|cape gooseberry|tomatillo)/.test(n))return"fruit";
       if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n))return"alliums";
       if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|fennel \(herb\)|lemon balm|bay|stevia|rosemary)/.test(n))return"herbs";
       return"other";
@@ -253,7 +263,7 @@
           return `<div class="pp-cell" aria-label="${c.name} ${PP_MONTHS[i]} ${lbl}">${marks}</div>`;
         }).join('');
         return `<div class="pp-row">
-          <div class="pp-cell pp-crop"><span class="name">${c.name}</span> <span class="pp-tags">(${cat})</span></div>
+          <div class="pp-crop"><span class="name">${c.name}</span><span class="pp-tags">(${cat})</span></div>
           ${cells}
         </div>`;
       }).join('');
@@ -265,7 +275,6 @@
       localStorage.setItem('pp-region',r);
       document.title=`Seasonal Planting (${humanRegion(r)}) • Patch & Pot`;
       setMonthHints(); renderPestWatch(r); renderToday(r); renderCalendar(r);
-      // show missing for this region if any
       const miss=[...MISSING[r]].sort();
       const box=document.getElementById('pp-error');
       if(miss.length){
@@ -277,23 +286,35 @@
       }
     }
 
-    // -------- data loader (NO legacy fallback) --------
-    function fetchJSON(url){ return fetch(url+`?v=${Date.now()}`,{cache:'no-store'}).then(r=> r.ok ? r.json() : Promise.reject(url)); }
+    // -------- data loader (no legacy fallback, fixed paths under /sites/) --------
+    function fetchJSON(url){
+      return fetch(url+`?v=${Date.now()}`,{cache:'no-store'})
+        .then(r=> r.ok ? r.json() : Promise.reject(url));
+    }
     function loadBlock(region, block){
       const url=`data/regions/${region}/${block}.json`;
       return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
     }
     function assembleRegion(region){
-      return Promise.all([
-        loadBlock(region,'basics'),
-        loadBlock(region,'pestwatch'),
-        Promise.all(BLOCKS.slice(2).map(b=>loadBlock(region,b))).then(parts=>parts.flat())
-      ]).then(([basics,pestwatch,crops])=>({
-        region:humanRegion(region),
-        basics:basics||{},
-        pestwatch:pestwatch||{},
-        crops:(crops||[]).filter(c=>c && c.name)
-      }));
+      // Load meta
+      const metaP = Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')])
+        .then(([basics,pestwatch])=>({basics,pestwatch}));
+      // Load crop blocks and flatten
+      const cropP = Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b)))
+        .then(parts=>{
+          // parts can be arrays or objects; we only want arrays of crops
+          const merged=[];
+          parts.forEach(block=>{
+            if(Array.isArray(block)) merged.push(...block);
+            else if(block && Array.isArray(block.crops)) merged.push(...block.crops);
+          });
+          return merged.filter(c=>c && c.name);
+        });
+
+      return Promise.all([metaP,cropP]).then(([meta,crops])=>{
+        console.log(`[${region}] loaded: basics=${!!meta.basics}, pestwatch=${!!meta.pestwatch}, crops=${crops.length}`);
+        return { region:humanRegion(region), basics:meta.basics||{}, pestwatch:meta.pestwatch||{}, crops };
+      });
     }
 
     function boot(){
@@ -310,12 +331,16 @@
     Promise.all(REGION_KEYS.map(r=>assembleRegion(r).then(obj=>DATA[r]=obj)))
       .then(boot)
       .catch(err=>{
-        console.error(err);
-        document.querySelector('#pp-pestwatch ul').innerHTML='<li>Loading failed.</li>';
-        document.getElementById('pp-today-list').innerHTML='<li>Data failed to load.</li>';
-        const box=document.getElementById('pp-error');
-        box.style.display='block';
-        box.innerHTML='<strong>Data couldn’t be loaded.</strong><br>Check JSON exists under <code>data/regions/&lt;region&gt;/</code>.';
+        console.error('Load error:', err);
+        const pest = document.querySelector('#pp-pestwatch ul');
+        const list = document.getElementById('pp-today-list');
+        const box  = document.getElementById('pp-error');
+        pest && (pest.innerHTML='<li>Loading failed.</li>');
+        list && (list.innerHTML='<li>Data failed to load.</li>');
+        if(box){
+          box.style.display='block';
+          box.innerHTML='<strong>Data couldn’t be loaded.</strong><br>Check JSON exists under <code>data/regions/&lt;region&gt;/</code>.';
+        }
       });
   </script>
 </body>

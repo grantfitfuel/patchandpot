@@ -1,1786 +1,1002 @@
-{
-  "region": "Scotland",
-  "category": "leafy",
-  "crops": [
-    {
-      "name": "Lettuce – looseleaf",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 15,
-            "between_rows": 25
-          }
-        },
-        "sunlight": "Sun spring/autumn; part shade summer",
-        "where": "Pots, window boxes, beds",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Succession sow every 2–3 weeks",
-          "Keep evenly moist"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+[
+  {
+    "name": "Lettuce – Looseleaf (cut & come again)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+      ],
+      "plant": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "harvest": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Lettuce – butterhead",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          7
-        ],
-        "plant": [
-          3,
-          4,
-          5,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 20,
-            "between_rows": 25
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Pots/beds",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Firm in well to reduce bolting"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 24,
-        "min_depth_cm": 20
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "Baby leaf 5–10 cm; heads 20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, troughs, raised beds, soil",
+    "protection": "Fleece early/late; shade cloth in hot spells; slug barriers",
+    "tips": "Succession sow every 2–3 weeks; keep evenly moist to prevent bitterness.",
+    "containerMin": "≥20 cm deep trough",
+    "notes": "Choose bolt‑resistant for summer, hardy for autumn."
+  },
+  {
+    "name": "Lettuce – Butterhead",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        3,
+        4,
+        5
+      ],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
     },
-    {
-      "name": "Lettuce – romaine/cos",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          3,
-          4,
-          5
-        ],
-        "harvest": [
-          5,
-          6,
-          7
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.8,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 30
-          }
-        },
-        "sunlight": "Sun (cool), part shade in heat",
-        "where": "Beds/boxes",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Water at roots; avoid heat stress"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 24,
-        "min_depth_cm": 22
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, soil",
+    "protection": "Fleece in spring/autumn; protect from slugs & pigeons",
+    "tips": "Firm in well after transplant; water at base to reduce tipburn.",
+    "containerMin": "≥25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Lettuce – Romaine/Cos",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        3,
+        4,
+        5
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Lettuce – iceberg/crisphead",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "plant": [
-          3,
-          4
-        ],
-        "harvest": [
-          5,
-          6,
-          7
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.8,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 30
-          }
-        },
-        "sunlight": "Sun (cool)",
-        "where": "Beds/boxes",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Needs steady cool to heart well"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 26,
-        "min_depth_cm": 22
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Large pots, beds",
+    "protection": "Slug controls; fleece early/late",
+    "tips": "Needs steady moisture; best spring and late summer.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Lettuce – Crisphead/Iceberg",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
     },
-    {
-      "name": "Cut-and-come salad mix",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ],
-        "plant": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ],
-        "harvest": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.3,
-          "spacing_cm": {
-            "in_row": 2,
-            "between_rows": 10
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Shallow trays/window boxes",
-        "protection": {
-          "fleece": "protect early/late season"
-        },
-        "tips": [
-          "Harvest baby leaves repeatedly"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 18,
-        "min_depth_cm": 10
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "30 cm",
+    "light": "Sun",
+    "where": "Beds, large pots",
+    "protection": "Fleece early; steady watering",
+    "tips": "Cooler periods reduce bolting; don’t overcrowd.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Lettuce – Oakleaf & Specialty",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "plant": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Spinach (true)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          2,
-          3,
-          7,
-          8
-        ],
-        "harvest": [
-          2,
-          3,
-          4,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1.5,
-          "spacing_cm": {
-            "in_row": 10,
-            "between_rows": 25
-          }
-        },
-        "sunlight": "Part shade/cool",
-        "where": "Pots/beds",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Bolts in heat—keep cool and moist"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 20
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm (heads) / 5–10 cm (baby)",
+    "light": "Sun/part shade",
+    "where": "Pots, troughs, beds",
+    "protection": "Fleece early; shade in heat; slug watch",
+    "tips": "Cut outer leaves repeatedly; flavour best in cool growth.",
+    "containerMin": "≥20–25 cm trough",
+    "notes": ""
+  },
+  {
+    "name": "Spinach (true)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        8
+      ],
+      "plant": [],
+      "harvest": [
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ]
     },
-    {
-      "name": "Perpetual spinach (leaf beet)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 2,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 35
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Pots/beds",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Pick outer leaves; very hardy & long-lived"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 26,
-        "min_depth_cm": 24
-      },
-      "notes": ""
+    "depth": "1–1.5 cm",
+    "spacing": "10–15 cm",
+    "light": "Part shade in summer; sun in cool months",
+    "where": "Pots, beds, soil",
+    "protection": "Use mesh vs leaf miner; shade cloth in heat",
+    "tips": "Succession sow; keep moist; harvest outer leaves.",
+    "containerMin": "≥20 cm box",
+    "notes": "Use bolt‑resistant for spring; hardy types for autumn."
+  },
+  {
+    "name": "Perpetual Spinach (Leaf Beet)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "plant": [
+        4,
+        5
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
     },
-    {
-      "name": "Swiss chard (rainbow)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 2,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 35
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Pots/beds",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Colourful stems; remove oldest leaves"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 26,
-        "min_depth_cm": 24
-      },
-      "notes": ""
+    "depth": "2 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, soil",
+    "protection": "Fleece early; slug rings for young plants",
+    "tips": "Very forgiving; pick little‑and‑often for long season.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Swiss Chard (Rainbow/White)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        4,
+        5
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Kale – dwarf curly",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          0,
-          1,
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1.5,
-          "spacing_cm": {
-            "in_row": 45,
-            "between_rows": 45
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Large pots/beds",
-        "protection": {
-          "netting": "bird netting vs pigeons",
-          "fleece": "protect from cold snaps; harden off before planting out",
-          "mesh": "insect mesh vs cabbage pests"
-        },
-        "tips": [
-          "Pick side leaves through winter; firm in well"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 35,
-        "min_depth_cm": 30
-      },
-      "notes": ""
+    "depth": "2 cm",
+    "spacing": "30–35 cm",
+    "light": "Sun/part shade",
+    "where": "Large pots, beds",
+    "protection": "Fleece early; wind shelter",
+    "tips": "Harvest outer leaves; leave heart to keep producing.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Kale – Curly (winter)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        0,
+        1,
+        2,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Kale – cavolo nero",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          0,
-          1,
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1.5,
-          "spacing_cm": {
-            "in_row": 45,
-            "between_rows": 45
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Large pots/beds",
-        "protection": {
-          "netting": "bird netting vs pigeons",
-          "fleece": "protect from cold snaps; harden off before planting out",
-          "mesh": "insect mesh vs cabbage pests"
-        },
-        "tips": [
-          "Stake in wind; harvest regularly"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 35,
-        "min_depth_cm": 30
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "45 cm",
+    "light": "Full sun",
+    "where": "Large pots, raised beds, soil",
+    "protection": "Net against pigeons & cabbage whites; collars vs root fly",
+    "tips": "Pick young leaves; withstands frost.",
+    "containerMin": "≥35–40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Kale – Cavolo Nero (Tuscan)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Kale – red Russian/Siberian",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          0,
-          1,
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1.5,
-          "spacing_cm": {
-            "in_row": 40,
-            "between_rows": 40
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Pots/beds",
-        "protection": {
-          "netting": "bird netting vs pigeons",
-          "fleece": "protect from cold snaps; harden off before planting out",
-          "mesh": "insect mesh vs cabbage pests"
-        },
-        "tips": [
-          "Best flavour after frost"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 32,
-        "min_depth_cm": 28
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "45 cm",
+    "light": "Full sun",
+    "where": "Large pots, beds",
+    "protection": "Netting for butterflies/birds",
+    "tips": "Harvest central leaves regularly; great for soups.",
+    "containerMin": "≥40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Kale – Red Russian / Siberian",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Cabbage – summer (Hispi/small hearts)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3
-        ],
-        "plant": [
-          3,
-          4
-        ],
-        "harvest": [
-          6,
-          7
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 40,
-            "between_rows": 45
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Beds/boxes (deep)",
-        "protection": {
-          "netting": "bird netting vs pigeons",
-          "mesh": "insect mesh vs cabbage root fly & caterpillars"
-        },
-        "tips": [
-          "Collars deter root fly; water in well"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 32,
-        "min_depth_cm": 30
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "40–45 cm",
+    "light": "Full sun",
+    "where": "Beds, pots",
+    "protection": "Net from pigeons; flea beetle mesh early",
+    "tips": "Very hardy; tender baby leaves.",
+    "containerMin": "≥35–40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Collards / Spring Greens (loose cabbage)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Cabbage – autumn",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          3,
-          4
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 45,
-            "between_rows": 50
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Beds/boxes",
-        "protection": {
-          "netting": "bird netting vs pigeons",
-          "mesh": "insect mesh whole season"
-        },
-        "tips": [
-          "Firm ground; steady water"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 34,
-        "min_depth_cm": 30
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun",
+    "where": "Beds/large pots",
+    "protection": "Netting vs pigeons & butterflies",
+    "tips": "Harvest outer leaves; reliable cool‑season green.",
+    "containerMin": "≥30–35 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Chinese Cabbage (Napa/Wong Bok)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        6,
+        7
+      ],
+      "plant": [
+        7
+      ],
+      "harvest": [
+        8,
+        9
+      ]
     },
-    {
-      "name": "Cabbage – winter (January King/savoy)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          0,
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 50,
-            "between_rows": 60
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Beds/boxes",
-        "protection": {
-          "netting": "bird netting vs pigeons",
-          "mesh": "protect from caterpillars until late season"
-        },
-        "tips": [
-          "Very hardy"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 36,
-        "min_depth_cm": 32
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "30–35 cm",
+    "light": "Sun/shelter",
+    "where": "Beds, large pots",
+    "protection": "Mesh vs flea beetle; water evenly; cloche as nights cool",
+    "tips": "Best after solstice to reduce bolting.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Pak Choi / Bok Choi",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "plant": [
+        3,
+        7
+      ],
+      "harvest": [
+        5,
+        6,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Cabbage – red",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 45,
-            "between_rows": 50
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Beds/boxes",
-        "protection": {
-          "netting": "bird netting vs pigeons",
-          "mesh": "caterpillars/root fly"
-        },
-        "tips": [
-          "Net against pigeons"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 34,
-        "min_depth_cm": 30
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, under cloche",
+    "protection": "Mesh vs flea beetle; shade in heat",
+    "tips": "Spring & late‑summer sowings are safest.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Tatsoi",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Chinese cabbage (napa)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          7,
-          8
-        ],
-        "harvest": [
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 30,
-            "between_rows": 35
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Beds/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Autumn sowing avoids bolting"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 28,
-        "min_depth_cm": 26
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Very cold hardy; great late crop.",
+    "containerMin": "≥20–25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Mizuna",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Pak choi",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 20,
-            "between_rows": 25
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Fast; water well in dry spells"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 24,
-        "min_depth_cm": 22
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle; shade in heat",
+    "tips": "Cut‑and‑come‑again; mild mustard flavour.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Mibuna",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Tatsoi",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 20,
-            "between_rows": 25
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Rosettes tolerate cold well"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 20
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Tender, fast‑growing rosettes.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Komatsuna",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "plant": [],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
     },
-    {
-      "name": "Mizuna",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 15,
-            "between_rows": 20
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Cut-and-come again"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 20,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Pick continuously to delay bolting.",
+    "containerMin": "≥25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Mustard Greens (Green Wave, Giant Red, Mix)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Mibuna",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 15,
-            "between_rows": 20
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Milder than mizuna"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 20,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "15–20 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Hotter in heat; keep watered for milder leaves.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Shungiku (Chrysanthemum greens)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
     },
-    {
-      "name": "Komatsuna (mustard spinach)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 20,
-            "between_rows": 25
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Heat tolerant for a brassica leaf"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 20
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun",
+    "where": "Pots, beds",
+    "protection": "—",
+    "tips": "Pinch for bushiness; edible flowers too.",
+    "containerMin": "≥20–25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "New Zealand Spinach (Tetragonia)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Choi sum",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 20,
-            "between_rows": 25
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Harvest flowering stems tender"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 20
-      },
-      "notes": ""
+    "depth": "1.5–2 cm (pre‑soak)",
+    "spacing": "45 cm (sprawling)",
+    "light": "Sun, warmth",
+    "where": "Large tubs, beds",
+    "protection": "Fleece early",
+    "tips": "Keep picked; thrives in summer heat.",
+    "containerMin": "≥30–40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Malabar Spinach (Basella) – under cover",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Mustard greens (various)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 15,
-            "between_rows": 20
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Peppery leaves; quick"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 20,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "30 cm with support",
+    "light": "Very warm & bright",
+    "where": "Large pots in greenhouse",
+    "protection": "Greenhouse/polytunnel",
+    "tips": "Climber; pinch tips; treat as annual in Scotland.",
+    "containerMin": "≥30 cm pot + trellis",
+    "notes": ""
+  },
+  {
+    "name": "Amaranth (Callaloo) – leaf",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Rocket (arugula)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 15,
-            "between_rows": 20
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/boxes",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Succession sow monthly"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 20,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun, warmth",
+    "where": "Pots/beds",
+    "protection": "Cloche early",
+    "tips": "Harvest young leaves for tenderness.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Tree Spinach (Magenta Spreen)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Wild rocket (Diplotaxis)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          6,
-          7
-        ],
-        "harvest": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 15,
-            "between_rows": 20
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Pots/beds",
-        "protection": {
-          "mesh": "0.8–1.3mm insect mesh vs flea beetle (Apr–Sep)"
-        },
-        "tips": [
-          "Perennial-ish; spicier"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 20,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+    "depth": "Surface press 0.5 cm",
+    "spacing": "45–60 cm",
+    "light": "Sun",
+    "where": "Beds/large pots",
+    "protection": "Stake in wind",
+    "tips": "Pick tender tops; mild flavour.",
+    "containerMin": "≥40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Orache / Atriplex (Mountain Spinach)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
     },
-    {
-      "name": "Endive (frisée)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          7,
-          8
-        ],
-        "harvest": [
-          9,
-          10
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.8,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 30
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Beds/boxes",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Blanch hearts if desired"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 24,
-        "min_depth_cm": 22
-      },
-      "notes": ""
+    "depth": "1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun",
+    "where": "Beds/large pots",
+    "protection": "—",
+    "tips": "Use tips and young leaves; colourful varieties.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Corn Salad / Lamb’s Lettuce (Valerianella)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        6,
+        7,
+        8
+      ],
+      "plant": [
+        7,
+        8
+      ],
+      "harvest": [
+        0,
+        1,
+        2,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Escarole",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          7,
-          8
-        ],
-        "harvest": [
-          9,
-          10
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.8,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 30
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Beds/boxes",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Hardy autumn salad"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 24,
-        "min_depth_cm": 22
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "10–15 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, greenhouse borders",
+    "protection": "Cloche/fleece in winter",
+    "tips": "Very hardy; ideal for winter salads.",
+    "containerMin": "≥15–20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Winter Purslane / Claytonia (Miner’s lettuce)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Radicchio",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          6,
-          7
-        ],
-        "plant": [
-          7,
-          8
-        ],
-        "harvest": [
-          9,
-          10
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 30
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Beds/boxes",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Colour improves with cold"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 24,
-        "min_depth_cm": 22
-      },
-      "notes": ""
+    "depth": "0.5 cm",
+    "spacing": "10–15 cm",
+    "light": "Shade tolerant",
+    "where": "Pots, beds, greenhouse",
+    "protection": "Cloche in severe cold",
+    "tips": "Mild leaves all winter; may self‑seed lightly.",
+    "containerMin": "≥15–20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Land Cress (Upland)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Corn salad (lamb’s lettuce/mâche)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          9,
-          10
-        ],
-        "harvest": [
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 10,
-            "between_rows": 20
-          }
-        },
-        "sunlight": "Part shade/cool",
-        "where": "Pots/boxes",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Great winter salad"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 20,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "15–20 cm",
+    "light": "Part shade",
+    "where": "Pots/beds",
+    "protection": "Fleece in cold snaps",
+    "tips": "Peppery winter green; easy & hardy.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Sorrel – French/Garden",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Claytonia (winter purslane/miner’s lettuce)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          9,
-          10
-        ],
-        "harvest": [
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 8,
-            "between_rows": 15
-          }
-        },
-        "sunlight": "Shade/part",
-        "where": "Pots/shady spots",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Very shade-tolerant winter salad"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 18,
-        "min_depth_cm": 12
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/beds",
+    "protection": "Mulch; divide every few years",
+    "tips": "Perennial; tangy leaves; harvest modestly first year.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Red‑Veined Sorrel (Bloody Dock)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Watercress (pot-grown)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 10,
-            "between_rows": 15
-          }
-        },
-        "sunlight": "Part shade",
-        "where": "Self-watering pots/trays kept moist",
-        "protection": {},
-        "tips": [
-          "Use clean water; do not collect wild"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 18
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "30–35 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/beds",
+    "protection": "Mulch; protect in severe frost",
+    "tips": "Striking veins; milder young leaves.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Salad Burnet",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        3,
+        5,
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Land cress (American cress)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          9,
-          10
-        ],
-        "harvest": [
-          9,
-          10,
-          11
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 8,
-            "between_rows": 15
-          }
-        },
-        "sunlight": "Part shade/cool",
-        "where": "Pots/beds",
-        "protection": {
-          "fleece": "protect from cold snaps; harden off before planting out"
-        },
-        "tips": [
-          "Peppery leaves; great winter stand-in for watercress"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 18,
-        "min_depth_cm": 14
-      },
-      "notes": ""
+    "depth": "0.5–1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/beds",
+    "protection": "—",
+    "tips": "Cucumber‑like flavour; pick young leaves.",
+    "containerMin": "≥25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Cress – Curled/Broadleaf (leaf)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Sorrel – garden",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "harvest": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 30,
-            "between_rows": 40
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Pots/beds",
-        "protection": {},
-        "tips": [
-          "Perennial; tangy leaves"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 24,
-        "min_depth_cm": 22
-      },
-      "notes": ""
+    "depth": "Surface, keep damp",
+    "spacing": "Dense broadcast / thin to 1–2 cm",
+    "light": "Indoors bright / shade‑tolerant",
+    "where": "Trays, pots, windowsills",
+    "protection": "Indoors winter; ventilate to avoid mould",
+    "tips": "Cut when 5–7 cm tall; very fast crop.",
+    "containerMin": "Shallow tray",
+    "notes": "Micro/leaf crop; great filler"
+  },
+  {
+    "name": "Pea Shoots (from dried peas)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
     },
-    {
-      "name": "Sorrel – red veined",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "plant": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ],
-        "harvest": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 0.5,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 35
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Pots/beds",
-        "protection": {},
-        "tips": [
-          "Great for salads; ornamental"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 20
-      },
-      "notes": ""
-    },
-    {
-      "name": "Nasturtium (edible leaves/flowers)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1.5,
-          "spacing_cm": {
-            "in_row": 30,
-            "between_rows": 40
-          }
-        },
-        "sunlight": "Sun/part",
-        "where": "Pots/hanging/ground cover",
-        "protection": {},
-        "tips": [
-          "Also acts as aphid trap crop"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 26,
-        "min_depth_cm": 24
-      },
-      "notes": ""
-    },
-    {
-      "name": "Calendula (pot marigold, edible)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1,
-          "spacing_cm": {
-            "in_row": 25,
-            "between_rows": 30
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Pots/beds",
-        "protection": {},
-        "tips": [
-          "Deadhead to prolong flowering"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 22,
-        "min_depth_cm": 20
-      },
-      "notes": ""
-    },
-    {
-      "name": "Sea kale (blanched shoots/leaves)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3
-        ],
-        "plant": [
-          9,
-          10
-        ],
-        "harvest": [
-          2,
-          3,
-          4,
-          5
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1.5,
-          "spacing_cm": {
-            "in_row": 60,
-            "between_rows": 75
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Large pots/ground",
-        "protection": {},
-        "tips": [
-          "Perennial; can force/blanch in spring"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 40,
-        "min_depth_cm": 40
-      },
-      "notes": ""
-    },
-    {
-      "name": "Cardoon (leaf stalks blanched)",
-      "category": "leafy",
-      "months": {
-        "sow": [
-          2,
-          3
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          8,
-          9
-        ]
-      },
-      "details": {
-        "planting": {
-          "seed_depth_cm": 1.5,
-          "spacing_cm": {
-            "in_row": 90,
-            "between_rows": 120
-          }
-        },
-        "sunlight": "Sun",
-        "where": "Very large pots/ground",
-        "protection": {},
-        "tips": [
-          "Tie/blanch stalks before harvest"
-        ]
-      },
-      "containers": {
-        "min_pot_diameter_cm": 50,
-        "min_depth_cm": 45
-      },
-      "notes": ""
-    }
-  ]
-}
+    "depth": "2–3 cm",
+    "spacing": "Dense broadcast / 2–3 cm",
+    "light": "Bright shade–sun",
+    "where": "Trays, pots",
+    "protection": "Slugs if outdoors; protect early",
+    "tips": "Cut at 10–15 cm; regrows once or twice.",
+    "containerMin": "20 cm tray/box",
+    "notes": "Use dried marrowfat peas."
+  }
+]

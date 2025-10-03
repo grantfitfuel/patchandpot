@@ -1,0 +1,595 @@
+[
+  {
+    "name": "Nasturtium (edible flowers & leaves)",
+    "category": "other",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "depth": "1–1.5 cm",
+    "spacing": "25–30 cm (trailing)",
+    "light": "Sun/part shade",
+    "where": "Pots/hanging baskets/beds",
+    "protection": "Protect from early slugs; wind shelter",
+    "tips": "Great aphid trap crop; flowers, leaves & seeds edible (capers).",
+    "containerMin": "≥25–30 cm pot",
+    "notes": "Can sprawl; choose compact/bushy for pots."
+  },
+  {
+    "name": "Calendula (pot marigold)",
+    "category": "other",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "1–1.5 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun",
+    "where": "Pots/beds",
+    "protection": "—",
+    "tips": "Deadhead to keep flowering; petals edible, mild saffron note.",
+    "containerMin": "≥20–25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Borage (edible flowers)",
+    "category": "other",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "1–2 cm",
+    "spacing": "35–45 cm",
+    "light": "Sun",
+    "where": "Beds/large pots",
+    "protection": "Stake if windy; self-seeds",
+    "tips": "Use flowers & young leaves; attracts pollinators strongly.",
+    "containerMin": "≥30–35 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Viola/Pansy (edible blossoms)",
+    "category": "other",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        8
+      ],
+      "plant": [
+        3,
+        8
+      ],
+      "harvest": [
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ]
+    },
+    "depth": "Surface/0.5 cm",
+    "spacing": "15–20 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/window boxes",
+    "protection": "Cloche in cold snaps",
+    "tips": "Choose edible-labelled varieties; mild floral flavour.",
+    "containerMin": "≥15–20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Cornflower (edible petals)",
+    "category": "other",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
+    },
+    "depth": "1–1.5 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun",
+    "where": "Pots/beds",
+    "protection": "—",
+    "tips": "Petals for garnish; great for cut flowers.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Microgreens (mixed tray sowing)",
+    "category": "other",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "Surface to 0.5 cm",
+    "spacing": "Dense broadcast",
+    "light": "Bright window / grow light",
+    "where": "Shallow trays indoors",
+    "protection": "Ventilate to avoid damping-off",
+    "tips": "Ready in 7–21 days depending on species; keep evenly moist.",
+    "containerMin": "Shallow tray",
+    "notes": "Use broccoli, radish, mustard, kohlrabi, beet, etc."
+  },
+  {
+    "name": "Wheatgrass (juice)",
+    "category": "other",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "1–2 cm",
+    "spacing": "Dense broadcast",
+    "light": "Bright window / grow light",
+    "where": "Shallow trays indoors",
+    "protection": "Ventilate; avoid waterlogging",
+    "tips": "Harvest at 10–15 cm; regrow once.",
+    "containerMin": "Shallow tray",
+    "notes": "Use hard red wheat berries."
+  },
+  {
+    "name": "Jar Sprouts (alfalfa, mung, radish, fenugreek, etc.)",
+    "category": "other",
+    "months": {
+      "sow": [],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "—",
+    "spacing": "—",
+    "light": "Indoors (no soil)",
+    "where": "Sprouting jar with mesh lid",
+    "protection": "Food-safe hygiene; rinse 2–3× daily",
+    "tips": "Ready in 3–6 days; keep at room temp away from direct sun.",
+    "containerMin": "1L jar",
+    "notes": "Not planted; purely kitchen sprouting."
+  },
+  {
+    "name": "Oyster Mushrooms (kit)",
+    "category": "other",
+    "months": {
+      "sow": [],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "— (kit)",
+    "spacing": "— (kit blocks)",
+    "light": "Low light / indirect",
+    "where": "Indoor kit (kitchen/utility)",
+    "protection": "Follow RH & temp guidance; misting as directed",
+    "tips": "Fruiting in flushes; harvest when caps flatten slightly.",
+    "containerMin": "Kit block",
+    "notes": "Excellent beginner mushroom."
+  },
+  {
+    "name": "Shiitake Mushrooms (kit/log)",
+    "category": "other",
+    "months": {
+      "sow": [],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "— (log/kit)",
+    "spacing": "—",
+    "light": "Low light / indirect",
+    "where": "Indoor kit or outdoor shady spot (log)",
+    "protection": "Maintain humidity; cold-shock logs per supplier",
+    "tips": "Multiple flushes; cut at stalk base.",
+    "containerMin": "Kit or inoculated log",
+    "notes": "Longer-term on logs outdoors."
+  },
+  {
+    "name": "Asparagus (crowns in containers)",
+    "category": "other",
+    "months": {
+      "sow": [],
+      "plant": [
+        2,
+        3
+      ],
+      "harvest": [
+        4,
+        5
+      ]
+    },
+    "depth": "Crowns 15–20 cm deep",
+    "spacing": "40–45 cm (3 per 50–60L tub)",
+    "light": "Sun",
+    "where": "Large deep tubs / raised beds",
+    "protection": "Mulch; protect new spears from frost",
+    "tips": "Do not harvest year 1; light in year 2; fuller from year 3.",
+    "containerMin": "≥50–60 L deep tub",
+    "notes": "Choose compact varieties for pots."
+  },
+  {
+    "name": "Globe Artichoke (perennial)",
+    "category": "other",
+    "months": {
+      "sow": [
+        1,
+        2
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        5,
+        6
+      ]
+    },
+    "depth": "1 cm (seed) / plant at crown level",
+    "spacing": "90–100 cm",
+    "light": "Sun/shelter",
+    "where": "Large tubs / beds",
+    "protection": "Stake against wind; mulch crown in winter",
+    "tips": "Remove first-year buds; harvest young tight buds.",
+    "containerMin": "≥50–70 L tub",
+    "notes": "Shorter season in Scotland; shelter helps."
+  },
+  {
+    "name": "Jerusalem Artichoke (tubers)",
+    "category": "other",
+    "months": {
+      "sow": [],
+      "plant": [
+        2,
+        3
+      ],
+      "harvest": [
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "10–15 cm (tubers)",
+    "spacing": "30–40 cm",
+    "light": "Sun",
+    "where": "Beds/large tubs",
+    "protection": "Windbreak; can be invasive—contain in tubs",
+    "tips": "Top growth tall; harvest after frost for best flavour.",
+    "containerMin": "≥40–50 L tub",
+    "notes": "Screening plant; saves space if tubbed."
+  },
+  {
+    "name": "Sea Kale (perennial, blanched shoots)",
+    "category": "other",
+    "months": {
+      "sow": [
+        1,
+        2
+      ],
+      "plant": [
+        3
+      ],
+      "harvest": [
+        3,
+        4
+      ]
+    },
+    "depth": "1 cm (seed) / crowns at depth per supplier",
+    "spacing": "60–75 cm",
+    "light": "Sun/part shade",
+    "where": "Beds/large tubs (free-draining)",
+    "protection": "Protect from slugs; mulch; blanch for pale shoots",
+    "tips": "Slow to establish; superb perennial edible.",
+    "containerMin": "≥40 L tub",
+    "notes": "Protected status in wild; grow from seed/crown."
+  },
+  {
+    "name": "Good King Henry (perennial green)",
+    "category": "other",
+    "months": {
+      "sow": [
+        2,
+        3
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "40 cm",
+    "light": "Sun/part shade",
+    "where": "Beds/pots",
+    "protection": "Mulch in winter",
+    "tips": "Harvest sparingly year 1; perennial ‘perpetual spinach’ vibe.",
+    "containerMin": "≥30–35 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Rhubarb (culinary)",
+    "category": "other",
+    "months": {
+      "sow": [],
+      "plant": [
+        2
+      ],
+      "harvest": [
+        3,
+        4,
+        5
+      ]
+    },
+    "depth": "Plant crown with bud just at/above soil",
+    "spacing": "90 cm",
+    "light": "Sun/part shade",
+    "where": "Beds/huge pots",
+    "protection": "Mulch; force in late winter for earlies",
+    "tips": "Don’t harvest first year; remove flower stalks.",
+    "containerMin": "≥60–80 L tub",
+    "notes": "Leaves poisonous; stalks edible only."
+  },
+  {
+    "name": "Cape Gooseberry / Physalis (cool climate in greenhouse best)",
+    "category": "other",
+    "months": {
+      "sow": [
+        2
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        8,
+        9
+      ]
+    },
+    "depth": "0.5 cm",
+    "spacing": "45–60 cm",
+    "light": "Full sun, warmth",
+    "where": "Greenhouse pots; sheltered warm patios",
+    "protection": "Fleece in cold nights; greenhouse for reliability",
+    "tips": "Allow husks to dry paper-brown before picking.",
+    "containerMin": "≥20–25 L pot",
+    "notes": "Treat as tender annual in Scotland."
+  },
+  {
+    "name": "Chamomile (German, tea)",
+    "category": "other",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
+    },
+    "depth": "Surface/0.5 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun",
+    "where": "Pots/beds",
+    "protection": "—",
+    "tips": "Pick flowers for drying; mild apple-like tea.",
+    "containerMin": "≥20 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Lemon Balm (tea)",
+    "category": "other",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "0.5 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/beds",
+    "protection": "Contain in pots—can spread",
+    "tips": "Cut back to encourage fresh growth; great iced tea herb.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": "Perennial; dies back in winter."
+  },
+  {
+    "name": "Edible Chrysanthemum ‘Shungiku’ (also in leafy but for flowers here)",
+    "category": "other",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun",
+    "where": "Pots/beds",
+    "protection": "—",
+    "tips": "Use both leaves (leafy) and petals (other) for garnish.",
+    "containerMin": "≥20–25 cm pot",
+    "notes": "Dual-listed for completeness."
+  },
+  {
+    "name": "Daylily (edible buds & flowers)",
+    "category": "other",
+    "months": {
+      "sow": [
+        2,
+        3
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
+    },
+    "depth": "Divisions at crown depth",
+    "spacing": "45–60 cm",
+    "light": "Sun/part shade",
+    "where": "Beds/large pots",
+    "protection": "—",
+    "tips": "Use unopened buds stir-fried; confirm edible Hemerocallis types.",
+    "containerMin": "≥35–40 cm pot",
+    "notes": "Check variety edibility before use."
+  }
+]

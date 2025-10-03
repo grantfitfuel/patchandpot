@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-  <link rel="stylesheet" href="style.css?v=pp-54">
+  <link rel="stylesheet" href="style.css?v=pp-60">
 
   <!-- Hard guards so nothing can “dim” this page -->
   <style>
@@ -36,6 +36,7 @@
     .pp-list{list-style:none;padding:0;margin:0}
     .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
+    /* Calendar grid */
     .pp-calendar{display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
     .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
@@ -52,10 +53,6 @@
     footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:16px 0}
     .footer-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
     .footer-pot{width:28px;height:28px;object-fit:contain}
-  </style>
-  <!-- keep text readable even if a global overlay appears -->
-  <style id="pp-hotfix">
-    #maincontent, .pp-card, .pp-pestwatch, .pp-list, .pp-calendar { color: var(--ink) !important; }
   </style>
 </head>
 <body>
@@ -113,9 +110,9 @@
     </section>
 
     <div class="pp-legend" aria-hidden="true">
-      <span>🌱 <em>Sow</em></span>
-      <span>🪴 <em>Plant</em></span>
-      <span>🥕 <em>Harvest</em></span>
+      <span>S = <em>Sow</em></span>
+      <span>P = <em>Plant</em></span>
+      <span>H = <em>Harvest</em></span>
     </div>
 
     <p class="note-rotate">On a narrow phone, rotate to landscape to see all months.</p>
@@ -134,7 +131,7 @@
     </div>
   </footer>
 
-  <!-- Load shared header -->
+  <!-- Header partial loader -->
   <script>
     (function(){
       const holder=document.querySelector('[data-include="partials/header.html"]');
@@ -234,7 +231,7 @@
         const h=(c.months?.harvest||[]).includes(CUR_M);
         if(s||p||h){
           const tag=c.category||inferCategory(c.name);
-          items.push(`<li><strong>${c.name}</strong> ${s?"🌱":""}${p?" 🪴":""}${h?" 🥕":""} <span class="pp-tags">(${tag})</span></li>`);
+          items.push(`<li><strong>${c.name}</strong> ${s?"S":""}${p?" P":""}${h?" H":""} <span class="pp-tags">(${tag})</span></li>`);
         }
       });
       list.innerHTML=items.length?items.join(''):`<li>No items match your filters for ${PP_MONTHS[CUR_M]}.</li>`;
@@ -249,9 +246,8 @@
           const s=(c.months?.sow||[]).includes(i);
           const p=(c.months?.plant||[]).includes(i);
           const h=(c.months?.harvest||[]).includes(i);
-          const marks=[s?"🌱":"",p?"🪴":"",h?"🥕":""].join(' ').trim();
-          const lbl=[s?"Sow":"",p?"Plant":"",h?"Harvest":""].filter(Boolean).join(', ');
-          return `<div class="pp-cell" aria-label="${c.name} ${PP_MONTHS[i]} ${lbl}">${marks}</div>`;
+          const marks=[s?"S":"",p?"P":"",h?"H":""].join(' ').trim();
+          return `<div class="pp-cell">${marks}</div>`;
         }).join('');
         return `<div class="pp-row">
           <div class="pp-cell pp-crop"><span class="name">${c.name}</span><span class="pp-tags">(${cat})</span></div>
@@ -315,9 +311,9 @@
   </script>
 
   <!-- PDF assets (load ONCE, at the very end) -->
-  <link rel="stylesheet" href="assets/pdf/pdf.css?v=pp-56">
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=pp-60">
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
-  <script src="assets/pdf/pdf-generator.js?v=pp-56" defer></script>
+  <script src="assets/pdf/pdf-generator.js?v=pp-60" defer></script>
   <script>
     // Button wiring (iOS-friendly)
     window.addEventListener('load', ()=>{

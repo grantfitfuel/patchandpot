@@ -1,12 +1,10 @@
-/* Patch & Pot PDF generator – multi-page, portrait/landscape, basics+pestwatch optional,
-   brand footer fixed, grid free of emoji in cells (icons only, no text labels) */
+/* Patch & Pot PDF generator – footer fix + month nowrap
+   - Footer is now a single-line text (no icon), with extra bottom padding in CSS.
+   - Month headers use smaller font and no-wrap (handled in CSS). */
 
 window.PP_PDF = (function(){
   const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-  // ---- helpers ------------------------------------------------------------
   const qs = sel => document.querySelector(sel);
-  const qsa = sel => Array.from(document.querySelectorAll(sel));
   const fetchJSON = url => fetch(url + `?v=${Date.now()}`, {cache:'no-store'}).then(r => r.ok ? r.json() : Promise.reject(url));
 
   function humanRegion(k){ return k ? (k[0].toUpperCase() + k.slice(1)) : ''; }
@@ -22,12 +20,11 @@ window.PP_PDF = (function(){
   }
   function byCategory(want, c){ return want==='all' ? true : ( (c.category||inferCategory(c.name)) === want ); }
 
-  // join meta blocks (basics + pestwatch as paragraphs)
   function metaToHTML(regionKey, basics, pestwatch){
     const m = new Date().getMonth();
     const month = MONTHS[m];
     const lines = [];
-    if(basics && basics.soil) lines.push(`<p class="pdf-meta"><strong>Soil:</strong> ${basics.soil}</p>`);
+    if(basics && basics.soil) lines.push(`<p class="pdf-meta"><strong>Soil:</strong> ${basics.soil}</p>");
     if(basics && basics.watering) lines.push(`<p class="pdf-meta"><strong>Watering:</strong> ${basics.watering}</p>`);
     if(basics && basics.light) lines.push(`<p class="pdf-meta"><strong>Light:</strong> ${basics.light}</p>`);
     if(basics && basics.tools) lines.push(`<p class="pdf-meta"><strong>Tools:</strong> ${basics.tools}</p>`);
@@ -38,7 +35,6 @@ window.PP_PDF = (function(){
     return lines.join('');
   }
 
-  // per-category wash class
   function washClass(cat){
     return ({
       leafy:'wash-leafy', roots:'wash-roots', legumes:'wash-legumes', fruit:'wash-fruit',
@@ -46,7 +42,6 @@ window.PP_PDF = (function(){
     })[cat] || 'wash-other';
   }
 
-  // build one A4 sheet (returns DOM element)
   function buildSheet({title, subtitle, crops, category, regionKey, includeLegend, orientation, basics, pestwatch}){
     const sheet = document.createElement('section');
     sheet.className = 'pdf-sheet' + (orientation==='landscape' ? ' landscape' : '');
@@ -63,40 +58,36 @@ window.PP_PDF = (function(){
       sheet.appendChild(legend);
     }
 
-    // Optional meta page preface (Basics + Pest Watch) — only when requested
     if (basics || pestwatch){
-      const meta = document.createElement('div');
-      meta.innerHTML = metaToHTML(regionKey, basics, pestwatch);
-      if (meta.textContent.trim()){
+      const metaHTML = metaToHTML(regionKey, basics, pestwatch);
+      if (metaHTML.trim()){
         const metaTitle = document.createElement('div');
         metaTitle.className = 'pdf-section-title';
         metaTitle.textContent = 'Notes';
         sheet.appendChild(metaTitle);
+        const meta = document.createElement('div');
+        meta.innerHTML = metaHTML;
         sheet.appendChild(meta);
       }
     }
 
-    // grid wrapper
     const grid = document.createElement('div');
     grid.className = 'pdf-grid';
-    // header row
+
     const heads = ['Crop', ...MONTHS];
-    heads.forEach((h,i)=>{
+    heads.forEach(h=>{
       const c = document.createElement('div');
       c.className = 'pdf-headcell';
       c.textContent = h;
       grid.appendChild(c);
     });
 
-    // rows
     crops.forEach(crop=>{
-      // left crop cell
       const nameCell = document.createElement('div');
       nameCell.className = 'pdf-crop pdf-cell';
       nameCell.innerHTML = `<div>${crop.name}</div><div class="pdf-tag">(${crop.category || inferCategory(crop.name)})</div>`;
       grid.appendChild(nameCell);
 
-      // 12 months cells with ONLY icons (no extra text)
       for (let i=0;i<12;i++){
         const s=(crop.months?.sow||[]).includes(i);
         const p=(crop.months?.plant||[]).includes(i);
@@ -108,24 +99,21 @@ window.PP_PDF = (function(){
       }
     });
 
-    // soft wash
     const wash = document.createElement('div');
     wash.className = `wash ${washClass(category)}`;
     sheet.style.position = 'relative';
     sheet.appendChild(wash);
 
-    // brand footer (fixed)
+    // Single-line brand footer (no icon)
     const brand = document.createElement('div');
     brand.className = 'pdf-brand-footer';
-    brand.innerHTML = `<img src="img/patchandpot-icon.png" alt="Patch &amp; Pot logo"><div>© Patch &amp; Pot • patchandpot.com</div>`;
+    brand.textContent = '© 2025 Patch & Pot | Created by Grant Cameron Anthony';
     sheet.appendChild(brand);
 
-    // attach grid
     sheet.appendChild(grid);
     return sheet;
   }
 
-  // split long lists into multiple sheets (approx: N rows per page depending on orientation)
   function paginate(crops, perPage){
     const pages = [];
     for (let i=0; i<crops.length; i+=perPage){
@@ -134,21 +122,18 @@ window.PP_PDF = (function(){
     return pages;
   }
 
-  // ---- main init ----------------------------------------------------------
   async function init(){
-    // seed UI from querystring (if landing from seasonal)
     const q = new URLSearchParams(location.search);
     if(q.get('region')) qs('#pdf-region').value = q.get('region');
     if(q.get('category')) qs('#pdf-category').value = q.get('category');
 
     qs('#btn-generate').addEventListener('click', async ()=>{
       const region = qs('#pdf-region').value;
-      const category = qs('#pdf-category').value; // 'all' or specific
-      const orient = qs('#pdf-orient').value;     // portrait/landscape
+      const category = qs('#pdf-category').value;
+      const orient = qs('#pdf-orient').value;
       const wantBasics = qs('#pdf-include-basics').checked;
       const wantPest   = qs('#pdf-include-pest').checked;
 
-      // Load data blocks
       const base = `data/regions/${region}/`;
       const [basics, pestwatch, roots, leafy, legumes, fruit, alliums, herbs, softfruit, other] = await Promise.all([
         fetchJSON(base+'basics.json').catch(()=>({})),
@@ -167,42 +152,33 @@ window.PP_PDF = (function(){
         .concat(roots, leafy, legumes, fruit, alliums, herbs, softfruit, other)
         .filter(x=>x && x.name);
 
-      if (category !== 'all'){
-        crops = crops.filter(c => byCategory(category, c));
-      }
+      if (category !== 'all') crops = crops.filter(c => byCategory(category, c));
 
-      // page size heuristic (more rows in portrait than landscape due to width)
       const perPage = (orient === 'portrait') ? 22 : 18;
       const pages = paginate(crops, perPage);
 
-      const staging = qs('#pdf-staging');
-      staging.innerHTML = ''; // clear previous
+      const staging = document.getElementById('pdf-staging');
+      staging.innerHTML = '';
       const sheets = [];
 
-      // First page includes legend & optional notes
       pages.forEach((chunk, idx)=>{
         const title = `Seasonal Planting – ${humanRegion(region)}${category==='all'?'':` • ${category}`}`;
         const sub   = `What to sow (🌱), plant out (🪴), and harvest (🥕) across the year.`;
-
-        const includeLegend = (idx===0);
-        const metaBasics    = (idx===0 && wantBasics) ? basics : null;
-        const metaPest      = (idx===0 && wantPest)   ? pestwatch : null;
-
         const sheet = buildSheet({
           title, subtitle: sub, crops: chunk, category, regionKey: region,
-          includeLegend, orientation: orient, basics: metaBasics, pestwatch: metaPest
+          includeLegend: idx===0, orientation: orient,
+          basics: (idx===0 && wantBasics) ? basics : null,
+          pestwatch: (idx===0 && wantPest) ? pestwatch : null
         });
         staging.appendChild(sheet);
         sheets.push(sheet);
       });
 
-      // render to PDF
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF({ orientation: orient, unit:'pt', format:'a4', compress:true });
 
       for (let i=0;i<sheets.length;i++){
         const node = sheets[i];
-        // html2canvas at 2x for sharper text
         const canvas = await html2canvas(node, {
           backgroundColor:'#ffffff',
           scale:2,

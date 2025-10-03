@@ -2,14 +2,15 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-  <link rel="stylesheet" href="style.css?v=51">
+  <link rel="stylesheet" href="style.css?v=PP-locked-51">
 
-  <!-- Page-local locks so layout is solid even with a cached style.css -->
+  <!-- Local, page-scoped fixes to stop any dim overlays/opacity leaks -->
   <style>
     :root{ --ink:#e6f0ea; --muted:#a6b6af; --panel:#161c19; --panel2:#1b221f; --line:#2b332f; --green:#35c26a; }
+    body{opacity:1!important;filter:none!important}
     .wrap{max-width:1140px;margin:0 auto;padding:16px 20px}
     .pp-sub{color:var(--muted);margin:0 0 .8rem}
 
@@ -33,52 +34,42 @@
     .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
     /* Calendar grid */
-    .pp-calendar{display:grid;grid-template-columns:minmax(230px,1.2fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512;margin-bottom:36px}
+    .pp-calendar{display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
-    .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.9rem}
+    .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
     .pp-head{font-weight:700;background:#121815;white-space:nowrap}
-    .pp-head{font-size:.88rem; letter-spacing:.1px}
     .pp-cell{line-height:1.25}
+    .pp-head small{font-size:.88em}
 
-    /* Crop name cell: wrap nicely, readable */
-    .pp-crop{
-      background:#121815;
-      font-weight:700;
-      white-space:normal;
-      word-break:break-word;
-      line-height:1.25;
-      display:block;
-      min-height:auto;
-      padding:.55rem .6rem;
-    }
+    /* Crop cell – no clipping, readable */
+    .pp-crop{background:#121815;font-weight:700;white-space:normal;word-break:break-word;line-height:1.25;display:block}
     .pp-crop .name{display:block}
     .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
 
-    .rotation-title{color:var(--muted);margin:.4rem 0 .6rem;font-size:.95rem}
+    /* toolbar actions */
+    .btn{display:inline-flex;align-items:center;gap:.45rem;border-radius:10px;padding:.55rem .9rem;font-weight:700;border:1px solid #294b3a;background:#2f8f4a;color:#0b140f}
+    .btn:hover{filter:brightness(1.05)}
+    .btn.ghost{background:#0c100e;color:var(--ink);border-color:var(--line)}
 
-    .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem}
+    .note-rotate{color:var(--muted);margin:.5rem 0 1rem}
 
-    /* Footer stays clear of grid */
-    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c}
-    .footer-inner{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;padding:18px 0}
-    .footer-pot{display:none} /* per brief: no pot in seasonal footer to avoid overlap */
-    footer p{color:#cfe6d6;margin:0}
+    .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem;margin-top:10px}
 
-    /* PDF controls row (small, on the right) */
-    .pp-actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-    .btn{display:inline-flex;gap:.5rem;align-items:center;border:none;border-radius:10px;font-weight:700;cursor:pointer}
-    .btn.primary{background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007;padding:.6rem .9rem}
-    .btn.ghost{background:rgba(255,255,255,.08);border:1px solid var(--line);color:#fff;padding:.55rem .8rem}
+    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:16px 0}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+    .footer-pot{width:28px;height:28px;object-fit:contain;margin-bottom:6px}
+
+    /* prevent month header wrapping the last letter */
+    .pp-head{letter-spacing:.01em}
+    .pp-head:empty{display:none}
 
     @media (max-width: 900px){
-      .pp-calendar{grid-template-columns:minmax(210px,1.3fr) repeat(12,minmax(40px,1fr))}
+      .pp-calendar{grid-template-columns:minmax(200px,1.3fr) repeat(12,minmax(40px,1fr))}
       .pp-head,.pp-cell{padding:.45rem}
-      .pp-head{font-size:.82rem}
     }
     @media (max-width: 680px){
-      .pp-calendar{grid-template-columns:minmax(190px,1.5fr) repeat(12,minmax(34px,1fr))}
+      .pp-calendar{grid-template-columns:minmax(188px,1.5fr) repeat(12,minmax(34px,1fr))}
       .pp-head,.pp-cell{padding:.42rem}
-      .pp-head{font-size:.78rem}
     }
   </style>
 </head>
@@ -114,15 +105,10 @@
             <option value="other">Other</option>
           </select>
         </div>
-        <div class="right pp-actions">
-          <label for="pp-orient" title="PDF orientation">Page:</label>
-          <select id="pp-orient" class="pp-select">
-            <option value="portrait">Portrait</option>
-            <option value="landscape">Landscape</option>
-          </select>
-          <button id="pp-pdf-btn" class="btn primary" type="button">Download PDF</button>
-          <label class="btn ghost" style="gap:.4rem;">
-            <input id="pp-include-meta" type="checkbox" style="accent-color:#2E7D32"> Include basics & pest watch
+        <div class="right">
+          <button id="pp-make-pdf" class="btn" type="button" aria-label="Download this view as PDF">📄 Download PDF</button>
+          <label style="display:inline-flex;align-items:center;gap:.4rem">
+            <input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span>
           </label>
         </div>
       </div>
@@ -147,9 +133,10 @@
       <span>🥕 <em>Harvest</em></span>
     </div>
 
+    <p class="note-rotate">On a narrow phone, rotate to landscape to see all months.</p>
+
     <section aria-labelledby="calendar-title">
       <h2 id="calendar-title">Seasonal Planting Calendar</h2>
-      <p class="rotation-title">On a narrow phone, rotate 90° to view the full range of months.</p>
       <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
       <div id="pp-error" class="pp-error" style="display:none"></div>
     </section>
@@ -157,7 +144,7 @@
 
   <footer role="contentinfo">
     <div class="footer-inner">
-      <!-- per brief: no pot icon here to avoid overlap -->
+      <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
       <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
     </div>
   </footer>
@@ -165,17 +152,17 @@
   <!-- Load shared header -->
   <script>
     (function(){
-      const holder = document.querySelector('[data-include="partials/header.html"]');
+      const holder=document.querySelector('[data-include="partials/header.html"]');
       if(!holder) return;
-      fetch('partials/header.html', {cache:'no-store'})
+      fetch('partials/header.html',{cache:'no-store'})
         .then(r=>r.text())
         .then(html=>{
-          holder.outerHTML = html;
-          const header = document.getElementById('siteHeader');
+          holder.outerHTML=html;
+          const header=document.getElementById('siteHeader');
           if(!header) return;
-          const toggle = header.querySelector('.menu-toggle');
-          const nav = header.querySelector('#primaryNav');
-          const fn = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+          const toggle=header.querySelector('.menu-toggle');
+          const nav=header.querySelector('#primaryNav');
+          const fn=(location.pathname.split('/').pop()||'index.html').toLowerCase();
           header.querySelectorAll('.nav a').forEach(a=>{
             if((a.getAttribute('href')||'').toLowerCase()===fn){ a.setAttribute('aria-current','page'); }
           });
@@ -193,13 +180,12 @@
     })();
   </script>
 
-  <!-- Seasonal app + expose current selection for PDF -->
+  <!-- Seasonal data + UI -->
   <script>
     const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const CUR_M=new Date().getMonth();
     const REGION_KEYS=["scotland","england","ireland","wales"];
     const BLOCKS=["basics","pestwatch","roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
-
     let DATA={scotland:null,england:null,ireland:null,wales:null};
     const MISSING=Object.fromEntries(REGION_KEYS.map(r=>[r,new Set()]));
 
@@ -272,7 +258,7 @@
     function renderCalendar(regionKey){
       const region=DATA[regionKey]||{};
       const wrap=document.getElementById('pp-calendar');
-      const head=`<div class="pp-row"><div class="pp-head">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head">${m}</div>`).join('')}</div>`;
+      const head=`<div class="pp-row"><div class="pp-head">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head"><small>${m}</small></div>`).join('')}</div>`;
       const rows=applyFilters(region.crops||[]).map(c=>{
         const cat=c.category||inferCategory(c.name);
         const cells=PP_MONTHS.map((_,i)=>{
@@ -284,7 +270,7 @@
           return `<div class="pp-cell" aria-label="${c.name} ${PP_MONTHS[i]} ${lbl}">${marks}</div>`;
         }).join('');
         return `<div class="pp-row">
-          <div class="pp-crop"><span class="name">${c.name}</span><span class="pp-tags">(${cat})</span></div>
+          <div class="pp-cell pp-crop"><span class="name">${c.name}</span><span class="pp-tags">(${cat})</span></div>
           ${cells}
         </div>`;
       }).join('');
@@ -302,16 +288,11 @@
         box.style.display='block';
         box.innerHTML = `<strong>Missing files for ${humanRegion(r)}:</strong><br>${miss.map(x=>`<code>data/regions/${r}/${x}.json</code>`).join('<br>')}`;
       }else{
-        box.style.display='none';
-        box.innerHTML='';
+        box.style.display='none'; box.innerHTML='';
       }
     }
 
-    // -------- data loader (no legacy fallback, fixed paths under /sites/) --------
-    function fetchJSON(url){
-      return fetch(url+`?v=${Date.now()}`,{cache:'no-store'})
-        .then(r=> r.ok ? r.json() : Promise.reject(url));
-    }
+    function fetchJSON(url){ return fetch(url+`?v=${Date.now()}`,{cache:'no-store'}).then(r=> r.ok ? r.json() : Promise.reject(url)); }
     function loadBlock(region, block){
       const url=`data/regions/${region}/${block}.json`;
       return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
@@ -328,10 +309,7 @@
           });
           return merged.filter(c=>c && c.name);
         });
-
-      return Promise.all([metaP,cropP]).then(([meta,crops])=>{
-        return { region:humanRegion(region), basics:meta.basics||{}, pestwatch:meta.pestwatch||{}, crops };
-      });
+      return Promise.all([metaP,cropP]).then(([meta,crops])=>({ region:humanRegion(region), basics:meta.basics||{}, pestwatch:meta.pestwatch||{}, crops }));
     }
 
     function boot(){
@@ -349,43 +327,53 @@
       .then(boot)
       .catch(err=>{
         console.error('Load error:', err);
-        const pest = document.querySelector('#pp-pestwatch ul');
-        const list = document.getElementById('pp-today-list');
-        const box  = document.getElementById('pp-error');
+        const pest=document.querySelector('#pp-pestwatch ul');
+        const list=document.getElementById('pp-today-list');
+        const box=document.getElementById('pp-error');
         pest && (pest.innerHTML='<li>Loading failed.</li>');
         list && (list.innerHTML='<li>Data failed to load.</li>');
-        if(box){
-          box.style.display='block';
-          box.innerHTML='<strong>Data couldn’t be loaded.</strong><br>Check JSON exists under <code>data/regions/&lt;region&gt;/</code>.';
-        }
+        if(box){ box.style.display='block'; box.innerHTML='<strong>Data couldn’t be loaded.</strong><br>Check JSON exists under <code>data/regions/&lt;region&gt;/</code>.'; }
       });
 
-    // ---- Expose a stable getter for the PDF generator (no flip-flop) ----
-    window.PP_APP = {
-      getState(){
-        const sel=document.getElementById('pp-region');
-        const regionKey = sel? sel.value : 'scotland';
-        const regionData = DATA[regionKey] || {crops:[], basics:{}, pestwatch:{}};
-        const filters = getFilters();
-        const filtered = applyFilters(regionData.crops||[]);
-        return {
-          regionKey,
-          regionName: humanRegion(regionKey),
-          monthIndex: CUR_M,
-          monthName: PP_MONTHS[CUR_M],
-          filters,
-          basics: regionData.basics || {},
-          pestwatch: regionData.pestwatch || {},
-          crops: filtered
-        };
+    // expose a tiny hook the PDF generator uses to read current view
+    window.PP_VIEW = {
+      getState: () => {
+        const r=document.getElementById('pp-region')?.value||'scotland';
+        const cat=document.getElementById('pp-category')?.value||'all';
+        const q=(document.getElementById('pp-search')?.value||'').trim();
+        const thisMonth=!!document.getElementById('pp-this-month')?.checked;
+        return { region:r, category:cat, q, thisMonth, data:DATA[r] };
       }
     };
   </script>
 
-  <!-- PDF generator assets (kept separate) -->
-  <link rel="stylesheet" href="assets/pdf/pdf.css?v=6">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="assets/pdf/pdf-generator.js?v=6"></script>
+  <!-- PDF assets (kept under /sites/assets/pdf/) -->
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=PP-locked-51">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+  <script src="assets/pdf/pdf-generator.js?v=PP-locked-51" defer></script>
+  <script>
+    // bind once scripts have loaded
+    window.addEventListener('load', function(){
+      const btn=document.getElementById('pp-make-pdf');
+      if(!btn) return;
+      btn.addEventListener('click', async ()=>{
+        if(!window.PP_PDF||!window.PP_PDF.generate){
+          alert('PDF generator not found. Check assets/pdf/pdf-generator.js is loaded.');
+          return;
+        }
+        try{
+          btn.disabled=true; btn.textContent='Building…';
+          const st=window.PP_VIEW.getState();
+          await window.PP_PDF.generate(st); // uses current filters + data already in memory
+        }catch(e){
+          console.error(e);
+          alert('Sorry, PDF generation failed. Check the console for details.');
+        }finally{
+          btn.disabled=false; btn.textContent='📄 Download PDF';
+        }
+      });
+    });
+  </script>
 </body>
 </html>

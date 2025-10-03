@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
+  <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
   <link rel="stylesheet" href="style.css?v=50">
 
@@ -55,12 +55,6 @@
 
     .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem}
 
-    /* Actions (PDF button) */
-    .pp-actions{display:flex;gap:.6rem;align-items:center;margin-top:.6rem;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:12px;font-weight:700;border:1px solid var(--line);cursor:pointer;text-decoration:none}
-    .btn.primary{background:var(--green);color:#061007;border:none}
-    .btn:hover{filter:brightness(.95)}
-
     footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
     .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
     .footer-pot{width:36px;height:36px;object-fit:contain}
@@ -110,17 +104,14 @@
         </div>
         <div class="right">
           <label><input type="checkbox" id="pp-this-month"> <span>Show activity this month only</span></label>
+
+          <!-- Download PDF button (works with generator) -->
+          <button id="pp-download-pdf" class="btn primary" type="button" aria-label="Download filtered list as PDF">
+            Download PDF
+          </button>
         </div>
       </div>
       <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
-
-      <!-- ✅ NEW: PDF action button (visible, styled) -->
-      <div class="pp-actions">
-        <button id="pp-download-pdf" class="btn primary" type="button">
-          Download PDF (region + category)
-        </button>
-        <small class="pp-help">Creates a one-page watercolour-style PDF for the chosen <strong>Region</strong> and <strong>Category</strong>.</small>
-      </div>
     </section>
 
     <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
@@ -355,18 +346,24 @@
       });
   </script>
 
-  <!-- PDF assets (generator reads current region + category from the DOM) -->
+  <!-- PDF assets (kept separate) -->
   <link rel="stylesheet" href="assets/pdf/pdf.css">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="assets/pdf/pdf-generator.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+  <script src="assets/pdf/pdf-generator.js" defer></script>
   <script>
-    // Make sure the generator sees the button
-    window.PP_PDF && window.PP_PDF.init({
-      buttonId: 'pp-download-pdf',
-      regionSelectId: 'pp-region',
-      categorySelectId: 'pp-category'
-    });
+    (function(){
+      const tryInit = () => {
+        if (window.PP_PDF && window.html2canvas && window.jspdf && document.getElementById('pp-download-pdf')) {
+          window.PP_PDF.init({ buttonId: 'pp-download-pdf' });
+          return true;
+        }
+        return false;
+      };
+      if (tryInit()) return;
+      let n=0; const t=setInterval(()=>{ n++; if (tryInit() || n>40) clearInterval(t); }, 100);
+      window.addEventListener('load', tryInit, { once:true });
+    })();
   </script>
 </body>
 </html>

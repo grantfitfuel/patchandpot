@@ -326,5 +326,21 @@
       });
     });
   </script>
+  <!-- jsPDF and autoTable -->
+<script src="/assets/pdf/jspdf.umd.min.js"></script>
+<script src="/assets/pdf/jspdf.plugin.autotable.min.js"></script>
+
+<!-- Our generator -->
+<script src="/assets/pdf/pdf-generator.js"></script>
+
+<!-- Wire the button -->
+<script>
+  document.getElementById("downloadPdfBtn")
+    .addEventListener("click", () => {
+      generatePDF();
+    });
+</script>
+</body>
+</html>
 </body>
 </html>

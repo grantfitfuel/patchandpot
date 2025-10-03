@@ -1,66 +1,52 @@
-/* =========================================
-   Patch & Pot – PDF Styles (A4)
-   Light, clean, no dark theme bleed.
-   ========================================= */
-
+/* ===== Patch & Pot PDF theme (light, crisp) ===== */
 :root{
-  --pdf-ink:#1a1f1c;
-  --pdf-muted:#4c5a53;
-  --pdf-line:#d9e3dc;
-  --pdf-line-2:#e5eee8;
-  --pdf-green:#35c26a;
-  --pdf-accent:#0f4e2a; /* darker green for small accents */
-  --pdf-font: 15px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
+  --ink:#1a1f1c;
+  --muted:#4c5a53;
+  --line:#d9e3dc;
+  --line2:#e5eee8;
+  --green:#2E7D32;
+  --green2:#7ed495;
 }
 
-/* A4 sheet scaffold (offscreen during build) */
+/* A4 offscreen staging */
 .pdf-sheet{
   position:fixed; left:-99999px; top:0;
-  width:794px; min-height:1123px; /* A4 @ 72dpi */
-  box-sizing:border-box; padding:26px 24px 30px;
-  background:#fff; color:var(--pdf-ink);
-  font: var(--pdf-font);
+  width:794px; min-height:1123px; /* A4 @72dpi portrait; landscape handled in JS */
+  box-sizing:border-box; padding:28px 26px 30px;
+  background:#fff; color:var(--ink);
+  font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
 
 /* Header */
-.pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 6px }
-.pdf-title{ font-weight:800; font-size:24px; letter-spacing:.2px; margin:0; color:var(--pdf-ink) }
-.pdf-sub{ color:var(--pdf-muted); margin:0 0 8px; font-size:13px }
-.legend{ display:flex; gap:16px; align-items:center; font-size:13px; margin:6px 0 12px; color:var(--pdf-ink) }
+.pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 8px }
+.pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0; color:var(--ink) }
+.pdf-sub{ color:var(--muted); margin:0 0 10px; font-size:14px }
+
+/* Legend */
+.legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px; color:var(--ink) }
 .legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* Baseline grid (crop + 12 months) */
-.pdf-grid{
-  display:grid;
-  grid-template-columns: minmax(220px,1.2fr) repeat(12, 1fr);
-  border:1px solid var(--pdf-line);
-  border-radius:12px; overflow:hidden;
-}
+/* Optional meta box (Basics + Pest watch) */
+.meta-wrap{ border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:8px 0 12px; background:#f8fbf9 }
+.meta-wrap h4{ margin:.1rem 0 .35rem; font-size:14px }
+.meta-wrap ul{ margin:.3rem 0 0 .9rem }
+
+/* Grid */
+.pdf-grid{ display:grid; grid-template-columns: minmax(220px,1.2fr) repeat(12, 1fr); border:1px solid var(--line); border-radius:12px; overflow:hidden }
 .pdf-row{ display:contents }
-.pdf-headcell,.pdf-cell{
-  border:1px solid var(--pdf-line-2);
-  padding:7px 9px; font-size:12.5px; color:var(--pdf-ink);
-}
-.pdf-headcell{
-  font-weight:700; background:#f4f8f5; white-space:nowrap; text-align:center;
-}
-.pdf-cell{ text-align:center; line-height:1.1 }
+.pdf-headcell,.pdf-cell{ border:1px solid var(--line2); padding:8px 10px; font-size:13px; color:var(--ink) }
+.pdf-headcell{ font-weight:700; background:#f4f8f5; white-space:nowrap; font-size:12.5px; letter-spacing:.1px }
+.pdf-cell{ line-height:1.2; text-align:center }
 
-/* Crop cell (left column) */
-.pdf-crop{
-  font-weight:700; background:#f7faf8; display:flex; flex-direction:column; gap:2px;
-  white-space:normal; word-break:normal; hyphens:auto;
-}
-.pdf-name{ font-weight:800 }
-.pdf-tag{ font-weight:600; color:var(--pdf-muted); font-size:11.5px }
+/* Crop cell (name + tag) */
+.pdf-crop{ font-weight:700; background:#f7faf8; display:flex; flex-direction:column; gap:4px; text-align:left }
+.pdf-tag{ font-weight:600; color:var(--muted); font-size:12px }
 
-/* Meta blocks before grid (optional) */
-.pdf-meta{ color:var(--pdf-muted); font-size:12.5px; margin:8px 0 12px }
-.pdf-meta h4{ margin:.2rem 0 .35rem; font-size:13.5px; color:var(--pdf-ink) }
-.pdf-meta ul{ margin:.2rem 0 .6rem 1.1rem }
+/* Month marks */
+.mark{ font-size:14px } /* 🌱 🪴 🥕 */
 
-/* Soft “watercolour” washes (category themed) — used subtly */
-.wash{ position:absolute; inset:0; pointer-events:none; opacity:.2; mix-blend-mode:multiply }
+/* Soft “watercolour” washes (category-themed) – very subtle */
+.wash{ position:absolute; inset:0; pointer-events:none; opacity:.22; mix-blend-mode:multiply }
 .wash-leafy{ background:
   radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
   radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
@@ -94,14 +80,10 @@
   radial-gradient(520px 300px at 88% 68%, #d8e5d4 0, transparent 65%),
   radial-gradient(420px 260px at 42% 90%, #f1f5f0 0, transparent 55%); }
 
-/* Footer (brand) — logo above, text below, centred */
+/* Footer branding (fixed) */
 .pdf-footer{
-  margin-top:14px; padding-top:8px; border-top:1px solid var(--pdf-line);
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+  margin-top:12px; padding-top:10px; border-top:1px solid var(--line);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  color:var(--muted); font-size:12.5px;
 }
-.pdf-footer .brand-mark{ width:26px; height:26px; object-fit:contain }
-.pdf-footer p{ margin:0; font-size:12px; color:var(--pdf-muted) }
-
-/* Page-break handling */
-.pdf-pagebreak{ page-break-before:always }
-.pdf-avoid-break{ page-break-inside:avoid }
+.pdf-logo{ width:34px; height:34px; object-fit:contain }

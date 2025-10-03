@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
-  <link rel="stylesheet" href="style.css?v=PP-locked-51">
+  <link rel="stylesheet" href="style.css?v=PP-52">
 
-  <!-- Local, page-scoped fixes to stop any dim overlays/opacity leaks -->
+  <!-- Hard guard so the page can’t be “dimmed” by any stray overlay -->
   <style>
     :root{ --ink:#e6f0ea; --muted:#a6b6af; --panel:#161c19; --panel2:#1b221f; --line:#2b332f; --green:#35c26a; }
-    body{opacity:1!important;filter:none!important}
+    html,body,main,footer,#siteHeader{opacity:1!important;filter:none!important}
     .wrap{max-width:1140px;margin:0 auto;padding:16px 20px}
     .pp-sub{color:var(--muted);margin:0 0 .8rem}
 
@@ -33,35 +33,26 @@
     .pp-list{list-style:none;padding:0;margin:0}
     .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:#0f1512}
 
-    /* Calendar grid */
+    /* Calendar */
     .pp-calendar{display:grid;grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(46px,1fr));gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512}
     .pp-row{display:contents}
     .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem}
-    .pp-head{font-weight:700;background:#121815;white-space:nowrap}
+    .pp-head{font-weight:700;background:#121815;white-space:nowrap;letter-spacing:.01em}
     .pp-cell{line-height:1.25}
-    .pp-head small{font-size:.88em}
-
-    /* Crop cell – no clipping, readable */
     .pp-crop{background:#121815;font-weight:700;white-space:normal;word-break:break-word;line-height:1.25;display:block}
     .pp-crop .name{display:block}
     .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
 
-    /* toolbar actions */
     .btn{display:inline-flex;align-items:center;gap:.45rem;border-radius:10px;padding:.55rem .9rem;font-weight:700;border:1px solid #294b3a;background:#2f8f4a;color:#0b140f}
+    .btn[disabled]{opacity:.7;cursor:wait}
     .btn:hover{filter:brightness(1.05)}
-    .btn.ghost{background:#0c100e;color:var(--ink);border-color:var(--line)}
-
     .note-rotate{color:var(--muted);margin:.5rem 0 1rem}
 
     .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem;margin-top:10px}
 
     footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:16px 0}
-    .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-    .footer-pot{width:28px;height:28px;object-fit:contain;margin-bottom:6px}
-
-    /* prevent month header wrapping the last letter */
-    .pp-head{letter-spacing:.01em}
-    .pp-head:empty{display:none}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+    .footer-pot{width:28px;height:28px;object-fit:contain;margin-bottom:2px}
 
     @media (max-width: 900px){
       .pp-calendar{grid-template-columns:minmax(200px,1.3fr) repeat(12,minmax(40px,1fr))}
@@ -204,7 +195,7 @@
       if(/(pea|bean|chickpea|lentil|soy|edamame)/.test(n))return"legumes";
       if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|blueber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb|cape gooseberry|tomatillo)/.test(n))return"fruit";
       if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n))return"alliums";
-      if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|fennel \(herb\)|lemon balm|bay|stevia|rosemary)/.test(n))return"herbs";
+      if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|lemon balm|bay|stevia|rosemary)/.test(n))return"herbs";
       return"other";
     }
     function getFilters(){
@@ -258,7 +249,7 @@
     function renderCalendar(regionKey){
       const region=DATA[regionKey]||{};
       const wrap=document.getElementById('pp-calendar');
-      const head=`<div class="pp-row"><div class="pp-head">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head"><small>${m}</small></div>`).join('')}</div>`;
+      const head=`<div class="pp-row"><div class="pp-head">Crop</div>${PP_MONTHS.map(m=>`<div class="pp-head">${m}</div>`).join('')}</div>`;
       const rows=applyFilters(region.crops||[]).map(c=>{
         const cat=c.category||inferCategory(c.name);
         const cells=PP_MONTHS.map((_,i)=>{
@@ -298,8 +289,7 @@
       return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
     }
     function assembleRegion(region){
-      const metaP = Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')])
-        .then(([basics,pestwatch])=>({basics,pestwatch}));
+      const metaP = Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')]).then(([basics,pestwatch])=>({basics,pestwatch}));
       const cropP = Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b)))
         .then(parts=>{
           const merged=[];
@@ -335,7 +325,7 @@
         if(box){ box.style.display='block'; box.innerHTML='<strong>Data couldn’t be loaded.</strong><br>Check JSON exists under <code>data/regions/&lt;region&gt;/</code>.'; }
       });
 
-    // expose a tiny hook the PDF generator uses to read current view
+    // expose state for the PDF
     window.PP_VIEW = {
       getState: () => {
         const r=document.getElementById('pp-region')?.value||'scotland';
@@ -347,25 +337,31 @@
     };
   </script>
 
-  <!-- PDF assets (kept under /sites/assets/pdf/) -->
-  <link rel="stylesheet" href="assets/pdf/pdf.css?v=PP-locked-51">
+  <!-- PDF assets -->
+  <link rel="stylesheet" href="assets/pdf/pdf.css?v=PP-52">
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
-  <script src="assets/pdf/pdf-generator.js?v=PP-locked-51" defer></script>
+  <script src="assets/pdf/pdf-generator.js?v=PP-52" defer></script>
   <script>
-    // bind once scripts have loaded
+    // Ensure data is ready before building a PDF
+    async function ensureDataReady(region, tries=60){
+      while(tries-- > 0){
+        if(window.PP_VIEW && window.PP_VIEW.getState().data && window.PP_VIEW.getState().data.crops?.length) return true;
+        await new Promise(r=>setTimeout(r,100));
+      }
+      return false;
+    }
     window.addEventListener('load', function(){
       const btn=document.getElementById('pp-make-pdf');
       if(!btn) return;
       btn.addEventListener('click', async ()=>{
-        if(!window.PP_PDF||!window.PP_PDF.generate){
-          alert('PDF generator not found. Check assets/pdf/pdf-generator.js is loaded.');
-          return;
-        }
         try{
           btn.disabled=true; btn.textContent='Building…';
           const st=window.PP_VIEW.getState();
-          await window.PP_PDF.generate(st); // uses current filters + data already in memory
+          const ok=await ensureDataReady(st.region);
+          if(!ok) throw new Error('Region data not ready.');
+          if(!window.PP_PDF || !window.PP_PDF.generate) throw new Error('Generator missing.');
+          await window.PP_PDF.generate(st);
         }catch(e){
           console.error(e);
           alert('Sorry, PDF generation failed. Check the console for details.');

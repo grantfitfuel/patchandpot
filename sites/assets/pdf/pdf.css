@@ -12,12 +12,14 @@
 .pdf-sheet{
   position:fixed; left:-99999px; top:0;
   width:794px; min-height:1123px; /* A4 portrait @72dpi */
-  box-sizing:border-box; padding:28px 26px 30px;
+  box-sizing:border-box;
+  padding:28px 26px 68px; /* bottom padding increased to clear footer */
   background:#fff; color:var(--pp-ink);
   font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
 .pdf-sheet.landscape{
   width:1123px; min-height:794px; /* A4 landscape @72dpi */
+  padding:24px 24px 68px; /* also clear footer in landscape */
 }
 
 /* Head */
@@ -38,7 +40,14 @@
 }
 .pdf-row{ display:contents }
 .pdf-headcell,.pdf-cell{ border:1px solid var(--pp-line-2); padding:8px 10px; font-size:13px }
-.pdf-headcell{ font-weight:700; background:#f4f8f5; text-align:center }
+.pdf-headcell{
+  font-weight:700; background:#f4f8f5; text-align:center;
+  white-space:nowrap; /* keep month names on one line */
+}
+.pdf-headcell:not(:first-child){
+  font-size:12px;       /* smaller months to avoid wrapping */
+  letter-spacing:.1px;  /* subtle spacing helps legibility at smaller size */
+}
 .pdf-cell{ text-align:center; }
 
 /* Crop name column */
@@ -88,13 +97,12 @@
   radial-gradient(520px 300px at 88% 68%, #d8e5d4 0, transparent 65%),
   radial-gradient(420px 260px at 42% 90%, #f1f5f0 0, transparent 55%); }
 
-/* Brand footer fixed at page bottom (logo above text, centered) */
+/* Brand footer fixed at page bottom (single-line text; no icon) */
 .pdf-brand-footer{
   position:absolute; left:0; right:0; bottom:18px;
   text-align:center; color:#567162; font-size:12px;
-}
-.pdf-brand-footer img{
-  display:block; margin:0 auto 6px; width:32px; height:32px; object-fit:contain;
+  padding:0 12px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 
 /* Prevent ugly word splits when html2canvas renders at boundaries */

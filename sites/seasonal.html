@@ -53,10 +53,10 @@
     .footer-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
     .footer-pot{width:28px;height:28px;object-fit:contain}
   </style>
+  <!-- keep text readable even if a global overlay appears -->
   <style id="pp-hotfix">
-  html, body, #siteHeader, main, footer { opacity: 1 !important; filter: none !important; }
-  #maincontent, .pp-card, .pp-pestwatch, .pp-list, .pp-calendar { color: var(--ink) !important; }
-</style>
+    #maincontent, .pp-card, .pp-pestwatch, .pp-list, .pp-calendar { color: var(--ink) !important; }
+  </style>
 </head>
 <body>
 
@@ -134,7 +134,7 @@
     </div>
   </footer>
 
-  <!-- Header partial loader -->
+  <!-- Load shared header -->
   <script>
     (function(){
       const holder=document.querySelector('[data-include="partials/header.html"]');
@@ -164,7 +164,7 @@
     })();
   </script>
 
-  <!-- Seasonal app (unchanged logic for page rendering) -->
+  <!-- Seasonal app -->
   <script>
     const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const CUR_M=new Date().getMonth();
@@ -176,8 +176,10 @@
     function humanRegion(k){return k? k[0].toUpperCase()+k.slice(1):""}
     function setMonthHints(){
       const m=PP_MONTHS[CUR_M];
-      document.getElementById('pp-month-hint').textContent=`Here’s what suits containers now in ${m}.`;
-      document.getElementById('pp-month-name').textContent=m;
+      const hint=document.getElementById('pp-month-hint');
+      const mEl=document.getElementById('pp-month-name');
+      if(hint) hint.textContent=`Here’s what suits containers now in ${m}.`;
+      if(mEl) mEl.textContent=m;
     }
     function inferCategory(name){
       const n=(name||"").toLowerCase();
@@ -217,8 +219,10 @@
     function renderPestWatch(regionKey){
       const region=DATA[regionKey]||{};
       const entry=(region.pestwatch && region.pestwatch[String(CUR_M)])||{items:["No major alerts this month. Keep an eye on slugs after rain."]};
-      document.getElementById('pp-region-name').textContent=humanRegion(regionKey);
-      document.querySelector('#pp-pestwatch ul').innerHTML=(entry.items||[]).map(i=>`<li>${i}</li>`).join('')||'<li>No items.</li>';
+      const ul=document.querySelector('#pp-pestwatch ul');
+      const rn=document.getElementById('pp-region-name');
+      if(rn) rn.textContent=humanRegion(regionKey);
+      if(ul) ul.innerHTML=(entry.items||[]).map(i=>`<li>${i}</li>`).join('')||'<li>No items.</li>';
     }
     function renderToday(regionKey){
       const region=DATA[regionKey]||{};
@@ -246,7 +250,8 @@
           const p=(c.months?.plant||[]).includes(i);
           const h=(c.months?.harvest||[]).includes(i);
           const marks=[s?"🌱":"",p?"🪴":"",h?"🥕":""].join(' ').trim();
-          return `<div class="pp-cell">${marks}</div>`;
+          const lbl=[s?"Sow":"",p?"Plant":"",h?"Harvest":""].filter(Boolean).join(', ');
+          return `<div class="pp-cell" aria-label="${c.name} ${PP_MONTHS[i]} ${lbl}">${marks}</div>`;
         }).join('');
         return `<div class="pp-row">
           <div class="pp-cell pp-crop"><span class="name">${c.name}</span><span class="pp-tags">(${cat})</span></div>
@@ -267,7 +272,8 @@
         box.style.display='block';
         box.innerHTML = `<strong>Missing files for ${humanRegion(r)}:</strong><br>${miss.map(x=>`<code>data/regions/${r}/${x}.json</code>`).join('<br>')}`;
       }else{
-        box.style.display='none'; box.innerHTML='';
+        box.style.display='none';
+        box.innerHTML='';
       }
     }
     function fetchJSON(url){ return fetch(url+`?v=${Date.now()}`,{cache:'no-store'}).then(r=> r.ok ? r.json() : Promise.reject(url)); }
@@ -276,9 +282,15 @@
       return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
     }
     function assembleRegion(region){
-      const metaP=Promise.all([loadBlock(region,'basics'),loadBlock(region,'pestwatch')]).then(([basics,pestwatch])=>({basics,pestwatch}));
-      const cropP=Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b))).then(parts=>parts.flat());
-      return Promise.all([metaP,cropP]).then(([meta,crops])=>({ region:humanRegion(region), basics:meta.basics||{}, pestwatch:meta.pestwatch||{}, crops:(crops||[]).filter(c=>c && c.name) }));
+      const metaP=Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')]).then(([basics,pestwatch])=>({basics,pestwatch}));
+      const cropP=Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b)))
+        .then(parts=>parts.flat());
+      return Promise.all([metaP,cropP]).then(([meta,crops])=>({
+        region:humanRegion(region),
+        basics:meta.basics||{},
+        pestwatch:meta.pestwatch||{},
+        crops:(crops||[]).filter(c=>c && c.name)
+      }));
     }
     function boot(){
       const sel=document.getElementById('pp-region');
@@ -292,7 +304,7 @@
     }
     Promise.all(REGION_KEYS.map(r=>assembleRegion(r).then(o=>DATA[r]=o))).then(boot);
 
-    // Expose selection only; generator will fetch data itself.
+    // Selection shared with the PDF generator
     window.PP_VIEW = {
       getSelection: () => ({
         region: document.getElementById('pp-region')?.value || 'scotland',
@@ -302,13 +314,12 @@
     };
   </script>
 
-  <!-- PDF libs + generator -->
+  <!-- PDF assets (load ONCE, at the very end) -->
   <link rel="stylesheet" href="assets/pdf/pdf.css?v=pp-56">
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
-<script src="assets/pdf/pdf-generator.js?v=pp-56" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+  <script src="assets/pdf/pdf-generator.js?v=pp-56" defer></script>
   <script>
-    // Button wiring (iOS-friendly alerts on any failure)
+    // Button wiring (iOS-friendly)
     window.addEventListener('load', ()=>{
       const btn=document.getElementById('pp-make-pdf');
       if(!btn) return;
@@ -316,8 +327,7 @@
         try{
           btn.disabled=true; btn.textContent='Building…';
           if(!window.PP_PDF || !window.PP_PDF.generate){ alert('PDF generator not found.'); return; }
-          const sel=window.PP_VIEW.getSelection();
-          await window.PP_PDF.generate(sel);
+          await window.PP_PDF.generate(window.PP_VIEW.getSelection());
         }catch(e){
           alert('Sorry, PDF generation failed.');
         }finally{
@@ -326,21 +336,5 @@
       });
     });
   </script>
-  <!-- jsPDF and autoTable -->
-<script src="/assets/pdf/jspdf.umd.min.js"></script>
-<script src="/assets/pdf/jspdf.plugin.autotable.min.js"></script>
-
-<!-- Our generator -->
-<script src="/assets/pdf/pdf-generator.js"></script>
-
-<!-- Wire the button -->
-<script>
-  document.getElementById("downloadPdfBtn")
-    .addEventListener("click", () => {
-      generatePDF();
-    });
-</script>
-</body>
-</html>
 </body>
 </html>

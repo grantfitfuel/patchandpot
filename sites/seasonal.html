@@ -3,100 +3,106 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
+  <title>Seasonal Planting Calendar • Patch & Pot (UK)</title>
   <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch.">
+  <link rel="preload" href="img/patchandpot-icon.png" as="image">
+
+  <!-- Base site stylesheet (keep yours); inline page locks below ensure readability -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="assets/pdf/pdf.css?v=1">
 
+  <!-- Page locks so text is readable and controls never sit off-screen -->
   <style>
-    /* ---- seasonal page locks: readable, stable, never off-screen ---- */
     :root{
-      --ink:#ffffff; --muted:#cfe2d5; --line:#253029; --panel:#0f1512; --panel2:#121815;
-      --btn:#2f8f4a; --btnBorder:#294b3a;
+      --ink:#f5fff7; --muted:#c5d3c9; --panel:#121814; --panel2:#161e19;
+      --line:#26302a; --accent:#2f8f4a; --accent-2:#7ed495;
     }
-    html,body,#siteHeader,main,footer{opacity:1!important;filter:none!important}
+    html,body{background:#0c110e;color:var(--ink)}
     .wrap{max-width:1140px;margin:0 auto;padding:16px 20px}
+    h1,h2,h3,strong{color:var(--ink)}
+    .sub{color:var(--muted);margin:.35rem 0 1rem}
 
-    /* readable base inside seasonal content */
-    main.wrap, .pp-card, .pp-pestwatch, .pp-list, .pp-calendar, .pp-legend, .pp-help { color:var(--ink); }
-
-    .pp-sub{color:var(--muted);margin:0 0 .8rem}
-
-    .pp-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:1rem;margin:1rem 0}
-    .pp-toolbar{display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:center}
-    .pp-toolbar .left{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
-    .pp-toolbar .right{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:flex-end}
-    .pp-select,.pp-search{background:#0c100e;color:#fff;border:1px solid var(--line);border-radius:10px;padding:.5rem .65rem}
-    .pp-help{color:var(--muted);margin:.5rem 0 0}
-
-    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:10px;padding:.6rem .9rem;font-weight:700;border:1px solid var(--btnBorder);background:var(--btn);color:#0b140f;white-space:nowrap}
+    /* Card + toolbar */
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1rem;margin:1rem 0}
+    .toolbar{display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:center}
+    .toolbar .left{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+    .toolbar .right{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:flex-end}
+    .sel,.search{background:#0b120e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.55rem .7rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:10px;padding:.62rem .95rem;font-weight:750;border:1px solid #2a4a38;background:var(--accent);color:#09130e;white-space:nowrap}
     .btn[disabled]{opacity:.7;cursor:wait}
+    .help{color:var(--muted);margin:.5rem 0 0}
 
-    .pp-pestwatch{background:var(--panel2);border-left:4px solid #35c26a;border-radius:14px;padding:1rem;margin:1rem 0;border:1px solid var(--line);color:#fff}
-    .pp-pestwatch small{color:var(--muted)}
-    .pp-pestwatch ul{margin:.4rem 0 0;padding-left:1.1rem}
+    /* Pest watch panel */
+    .pest{background:var(--panel2);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:1rem;margin:1rem 0}
+    .pest small{color:var(--muted)}
+    .pest ul{margin:.4rem 0 0;padding-left:1.1rem}
 
-    .pp-legend{display:flex;gap:18px;align-items:center;color:#fff;margin:.6rem 0 .6rem}
-    .pp-legend span{display:inline-flex;align-items:center;gap:.35rem}
-    .pp-month-hint{color:var(--muted);margin:.2rem 0 .6rem}
+    /* What can I plant today list */
+    .list{list-style:none;margin:0;padding:0}
+    .list li{background:#0f1512;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;padding:.55rem .65rem}
 
-    .pp-list{list-style:none;padding:0;margin:0}
-    .pp-list li{padding:.55rem .65rem;border:1px dashed var(--line);border-radius:10px;margin:.4rem 0;background:var(--panel);color:#fff}
-    .note-rotate{color:var(--muted);margin:.5rem 0 1rem}
+    /* Legend */
+    .legend{display:flex;gap:18px;align-items:center;margin:.6rem 0 .6rem;color:var(--ink)}
+    .legend span{display:inline-flex;gap:.35rem;align-items:center}
 
-    /* 12-month grid: ensures Dec visible; month names can wrap */
-    .pp-calendar{
+    /* Calendar grid (12 months incl. Dec) */
+    .grid{
       display:grid;
-      grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(46px,1fr));
-      gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel);color:#fff
+      grid-template-columns:minmax(220px,1.2fr) repeat(12,minmax(52px,1fr));
+      gap:2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0f1512;color:var(--ink)
     }
-    .pp-row{display:contents}
-    .pp-head,.pp-cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.92rem;line-height:1.3;white-space:normal;word-break:break-word}
-    .pp-head{font-weight:800;background:#0f1713;text-align:center}
-    .pp-head.sm{font-size:.85rem}
-    .pp-cell{font-size:1rem;text-align:center}
-    .pp-crop{background:#101a15;font-weight:800;text-align:left}
-    .pp-crop .name{display:block}
-    .pp-tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
+    .row{display:contents}
+    .head,.cell{padding:.55rem .6rem;border:1px solid var(--line);font-size:.92rem;line-height:1.3;white-space:normal}
+    .head{font-weight:800;background:#121815;text-align:center}
+    .cell{text-align:center;font-size:1rem}
+    .crop{background:#121815;font-weight:800;text-align:left}
+    .tags{display:block;font-size:.82rem;color:var(--muted);font-weight:600;margin-top:.15rem}
 
-    .pp-error{background:#331c1c;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.8rem 1rem;margin-top:10px;display:none}
+    .note{color:var(--muted);margin:.5rem 0 1rem}
 
-    /* footer: pot centred with text beneath, all centred */
+    .error{display:none;margin-top:10px;padding:.8rem 1rem;border-radius:12px;background:#3a2323;border:1px solid #6c2b2b;color:#ffd7d7}
+
+    /* Footer – pot centred, text under it (centred) */
     footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:16px 0}
-    .footer-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .footer-pot{width:34px;height:34px;object-fit:contain}
+    .f-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .pot{width:30px;height:30px;object-fit:contain}
 
-    /* never push button off-screen */
+    /* Keep toolbar controls on-screen on mobile */
     @media (max-width:900px){
-      .pp-toolbar{grid-template-columns:1fr}
-      .pp-toolbar .right{justify-content:flex-start}
+      .toolbar{grid-template-columns:1fr}
+      .toolbar .right{justify-content:flex-start}
+      .grid{grid-template-columns:minmax(200px,1.2fr) repeat(12,minmax(44px,1fr))}
+      .head,.cell{padding:.45rem}
+    }
+    @media (max-width:680px){
+      .grid{grid-template-columns:minmax(188px,1.3fr) repeat(12,minmax(38px,1fr))}
+      .head{font-size:.8rem}
+      .cell{font-size:.95rem}
     }
   </style>
 </head>
 <body>
-
-  <!-- Shared header -->
+  <!-- Shared site header (kept) -->
   <div data-include="partials/header.html"></div>
 
   <main class="wrap" id="maincontent">
     <h1>Seasonal Planting Calendar (UK)</h1>
-    <p class="pp-sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
+    <p class="sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
-    <section class="pp-card">
-      <div class="pp-toolbar" role="group" aria-label="Region and filters">
+    <section class="card">
+      <div class="toolbar" role="group" aria-label="Region and filters">
         <div class="left">
           <label for="pp-region">Region:</label>
-          <select id="pp-region" class="pp-select" aria-label="Choose your region">
+          <select id="pp-region" class="sel" aria-label="Choose your region">
             <option value="scotland">Scotland</option>
             <option value="ireland">Ireland</option>
             <option value="england">England</option>
             <option value="wales">Wales</option>
           </select>
 
-          <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops by name">
+          <input id="pp-search" class="search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops by name">
 
           <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
-          <select id="pp-category" class="pp-select" aria-label="Filter by category">
+          <select id="pp-category" class="sel" aria-label="Filter by category">
             <option value="all">All categories</option>
             <option value="leafy">Leafy</option>
             <option value="roots">Roots</option>
@@ -115,44 +121,43 @@
           </label>
         </div>
       </div>
-      <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
+      <p class="help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
     </section>
 
-    <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
+    <section class="pest" id="pp-pestwatch" aria-labelledby="pestwatch-title">
       <h3 id="pestwatch-title">Pest Watch – <span id="pp-month-name"></span> (<span id="pp-region-name"></span>)</h3>
       <small>Small spaces edition</small>
       <ul><li>Loading…</li></ul>
     </section>
 
-    <section class="pp-card" aria-labelledby="today-title">
+    <section class="card" aria-labelledby="today-title">
       <h2 id="today-title">What Can I Plant Today?</h2>
-      <p class="pp-month-hint" id="pp-month-hint"></p>
-      <ul id="pp-today-list" class="pp-list"></ul>
+      <p id="pp-month-hint" class="sub"></p>
+      <ul id="pp-today-list" class="list"></ul>
     </section>
 
-    <div class="pp-legend" aria-hidden="true">
+    <div class="legend" aria-hidden="true">
       <span>🌱 <em>Sow</em></span>
       <span>🪴 <em>Plant</em></span>
       <span>🥕 <em>Harvest</em></span>
     </div>
-
-    <p class="note-rotate">On a narrow phone, rotate to landscape to see all months.</p>
+    <p class="note">On a narrow phone, rotate to landscape to see all months.</p>
 
     <section aria-labelledby="calendar-title">
       <h2 id="calendar-title">Seasonal Planting Calendar</h2>
-      <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
-      <div id="pp-error" class="pp-error"></div>
+      <div id="pp-calendar" class="grid" role="table" aria-label="Seasonal planting calendar"></div>
+      <div id="pp-error" class="error"></div>
     </section>
   </main>
 
   <footer role="contentinfo">
-    <div class="footer-inner">
-      <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
+    <div class="f-inner">
+      <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="pot" onerror="this.style.display='none'">
       <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
     </div>
   </footer>
 
-  <!-- include header -->
+  <!-- Load header partial + nav current state -->
   <script>
     (function(){
       const holder=document.querySelector('[data-include="partials/header.html"]');
@@ -177,15 +182,21 @@
     })();
   </script>
 
-  <!-- seasonal logic -->
+  <!-- Seasonal logic (loads JSON, renders, exposes selection) -->
   <script>
-    const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const CUR_M=(new Date()).getMonth();
+    const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const CURM=(new Date()).getMonth();
     const REGIONS=["scotland","england","ireland","wales"];
     const BLOCKS=["basics","pestwatch","roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
     let DATA={scotland:null,england:null,ireland:null,wales:null};
     const MISSING=Object.fromEntries(REGIONS.map(r=>[r,new Set()]));
-    const humanRegion=k=>k? k[0].toUpperCase()+k.slice(1):"";
+
+    const H=(k)=>k? k[0].toUpperCase()+k.slice(1):"";
+
+    function setMonthHints(){
+      document.getElementById('pp-month-hint').textContent=`Here’s what suits containers now in ${MONTHS[CURM]}.`;
+      document.getElementById('pp-month-name').textContent=MONTHS[CURM];
+    }
 
     function inferCategory(name){
       const n=(name||"").toLowerCase();
@@ -196,23 +207,6 @@
       if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n))return"alliums";
       if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|lemon balm|bay|stevia|rosemary)/.test(n))return"herbs";
       return"other";
-    }
-
-    const fetchJSON=url=>fetch(`${url}?v=${Date.now()}`,{cache:'no-store'}).then(r=> r.ok ? r.json() : Promise.reject(url));
-    function loadBlock(region,block){
-      const url=`data/regions/${region}/${block}.json`;
-      return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
-    }
-    function assembleRegion(region){
-      const metaP=Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')]).then(([basics,pestwatch])=>({basics,pestwatch}));
-      const cropP=Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b)))
-        .then(parts=>parts.flat().filter(c=>c && c.name));
-      return Promise.all([metaP,cropP]).then(([meta,crops])=>({region:humanRegion(region), basics:meta.basics||{}, pestwatch:meta.pestwatch||{}, crops}));
-    }
-
-    function setMonthHints(){
-      document.getElementById('pp-month-hint').textContent=`Here’s what suits containers now in ${PP_MONTHS[CUR_M]}.`;
-      document.getElementById('pp-month-name').textContent=PP_MONTHS[CUR_M];
     }
 
     function getFilters(){
@@ -233,9 +227,9 @@
         if(f.q && !name.toLowerCase().includes(f.q)) return false;
         if(f.cat!=="all" && cat!==f.cat) return false;
         if(f.monthOnly){
-          const s=(c.months?.sow||[]).includes(CUR_M);
-          const p=(c.months?.plant||[]).includes(CUR_M);
-          const h=(c.months?.harvest||[]).includes(CUR_M);
+          const s=(c.months?.sow||[]).includes(CURM);
+          const p=(c.months?.plant||[]).includes(CURM);
+          const h=(c.months?.harvest||[]).includes(CURM);
           if(!(s||p||h)) return false;
         }
         return true;
@@ -244,8 +238,8 @@
 
     function renderPestWatch(regionKey){
       const region=DATA[regionKey] || {};
-      const entry=(region.pestwatch && region.pestwatch[String(CUR_M)]) || { items:["No major alerts this month. Keep an eye on slugs after rain."] };
-      document.getElementById('pp-region-name').textContent=humanRegion(regionKey);
+      const entry=(region.pestwatch && region.pestwatch[String(CURM)]) || { items:["No major alerts this month. Keep an eye on slugs after rain."] };
+      document.getElementById('pp-region-name').textContent=H(regionKey);
       document.querySelector('#pp-pestwatch ul').innerHTML=(entry.items||[]).map(i=>`<li>${i}</li>`).join('') || '<li>No items.</li>';
     }
 
@@ -254,35 +248,35 @@
       const list=document.getElementById('pp-today-list');
       const items=[];
       applyFilters(region.crops||[]).forEach(c=>{
-        const s=(c.months?.sow||[]).includes(CUR_M);
-        const p=(c.months?.plant||[]).includes(CUR_M);
-        const h=(c.months?.harvest||[]).includes(CUR_M);
+        const s=(c.months?.sow||[]).includes(CURM);
+        const p=(c.months?.plant||[]).includes(CURM);
+        const h=(c.months?.harvest||[]).includes(CURM);
         if(s||p||h){
           const tag=c.category||inferCategory(c.name);
-          items.push(`<li><strong>${c.name}</strong> ${s?"🌱":""}${p?" 🪴":""}${h?" 🥕":""} <span class="pp-tags">(${tag})</span></li>`);
+          items.push(`<li><strong>${c.name}</strong> ${s?"🌱":""}${p?" 🪴":""}${h?" 🥕":""} <span class="tags">(${tag})</span></li>`);
         }
       });
-      list.innerHTML=items.length?items.join(''):`<li>No items match your filters for ${PP_MONTHS[CUR_M]}.</li>`;
+      list.innerHTML=items.length?items.join(''):`<li>No items match your filters for ${MONTHS[CURM]}.</li>`;
     }
 
     function renderCalendar(regionKey){
       const region=DATA[regionKey] || {};
       const wrap=document.getElementById('pp-calendar');
-      const head=`<div class="pp-row">
-        <div class="pp-head sm">Crop</div>
-        ${PP_MONTHS.map(m=>`<div class="pp-head sm">${m}</div>`).join('')}
+      const head=`<div class="row">
+        <div class="head">Crop</div>
+        ${MONTHS.map(m=>`<div class="head">${m}</div>`).join('')}
       </div>`;
       const rows=applyFilters(region.crops||[]).map(c=>{
         const cat=c.category||inferCategory(c.name);
-        const cells=PP_MONTHS.map((_,i)=>{
+        const cells=MONTHS.map((_,i)=>{
           const s=(c.months?.sow||[]).includes(i);
           const p=(c.months?.plant||[]).includes(i);
           const h=(c.months?.harvest||[]).includes(i);
           const marks=[s?"🌱":"",p?"🪴":"",h?"🥕":""].filter(Boolean).join(" ");
-          return `<div class="pp-cell">${marks}</div>`;
+          return `<div class="cell">${marks}</div>`;
         }).join('');
-        return `<div class="pp-row">
-          <div class="pp-crop"><span class="name">${c.name}</span><span class="pp-tags">(${cat})</span></div>
+        return `<div class="row">
+          <div class="crop"><span class="name">${c.name}</span><span class="tags">(${cat})</span></div>
           ${cells}
         </div>`;
       }).join('');
@@ -292,14 +286,26 @@
     function renderAll(){
       const {region}=getFilters();
       localStorage.setItem('pp-region',region);
-      document.title=`Seasonal Planting (${humanRegion(region)}) • Patch & Pot`;
+      document.title=`Seasonal Planting (${H(region)}) • Patch & Pot`;
       setMonthHints(); renderPestWatch(region); renderToday(region); renderCalendar(region);
       const miss=[...MISSING[region]].sort();
       const box=document.getElementById('pp-error');
       if(miss.length){
         box.style.display='block';
-        box.innerHTML=`<strong>Missing files for ${humanRegion(region)}:</strong><br>${miss.map(x=>`<code>data/regions/${region}/${x}.json</code>`).join('<br>')}`;
+        box.innerHTML=`<strong>Missing files for ${H(region)}:</strong><br>${miss.map(x=>`<code>data/regions/${region}/${x}.json</code>`).join('<br>')}`;
       }else{ box.style.display='none'; box.innerHTML=''; }
+    }
+
+    function fetchJSON(url){ return fetch(`${url}?v=${Date.now()}`,{cache:'no-store'}).then(r=> r.ok ? r.json() : Promise.reject(url)); }
+    function loadBlock(region, block){
+      const url=`data/regions/${region}/${block}.json`;
+      return fetchJSON(url).catch(()=>{ MISSING[region].add(block); return (block==='basics'||block==='pestwatch')?{}:[]; });
+    }
+    function assembleRegion(region){
+      const metaP=Promise.all([loadBlock(region,'basics'), loadBlock(region,'pestwatch')]).then(([basics,pestwatch])=>({basics,pestwatch}));
+      const cropP=Promise.all(['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>loadBlock(region,b)))
+        .then(parts=>parts.flat().filter(c=>c && c.name));
+      return Promise.all([metaP,cropP]).then(([meta,crops])=>({region:H(region), basics:meta.basics||{}, pestwatch:meta.pestwatch||{}, crops}));
     }
 
     function boot(){
@@ -311,10 +317,9 @@
       sel && sel.addEventListener('change',renderAll);
       renderAll();
     }
-
     Promise.all(REGIONS.map(r=>assembleRegion(r).then(o=>DATA[r]=o))).then(boot);
 
-    // expose selection for PDF
+    // Expose current UI selection for the PDF generator
     window.PP_VIEW = {
       getSelection: () => ({
         region: document.getElementById('pp-region')?.value || 'scotland',
@@ -325,30 +330,25 @@
     };
   </script>
 
-  <!-- local PDF libs + generator -->
-  <script src="assets/pdf/jspdf.umd.min.js"></script>
-  <script src="assets/pdf/jspdf.plugin.autotable.min.js"></script>
-  <script src="assets/pdf/pdf-generator.js?v=1"></script>
+  <!-- ===== PDF libs via CDN (per your instruction) ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
 
-  <!-- wire button with hard errors so we never see vague 'failed' again -->
+  <!-- PDF generator (local) -->
+  <script src="assets/pdf/pdf-generator.js?v=pp-final"></script>
+
+  <!-- Wire the button (iOS-friendly) -->
   <script>
     (function(){
       const btn=document.getElementById('pp-make-pdf');
-      function pdfReady(){
-        const j = window.jspdf;
-        if (!j) throw new Error('PDF engine not found (assets/pdf/jspdf.umd.min.js).');
-        const ctor = j.jsPDF || window.jsPDF;
-        if (!ctor) throw new Error('jsPDF constructor missing (bad file contents).');
-        if (!(ctor.API && ctor.API.autoTable)) throw new Error('AutoTable plugin missing (assets/pdf/jspdf.plugin.autotable.min.js).');
-      }
-      btn?.addEventListener('click', async ()=>{
+      if(!btn) return;
+      btn.addEventListener('click', async ()=>{
         try{
           btn.disabled=true; btn.textContent='Building…';
-          pdfReady();
+          if(!window.PP_PDF || !window.PP_PDF.generate){ alert('PDF generator not found.'); return; }
           await window.PP_PDF.generate(window.PP_VIEW.getSelection());
         }catch(err){
-          alert(err?.message || 'PDF build failed.');
-          console.error(err);
+          alert('PDF build failed.');
         }finally{
           btn.disabled=false; btn.textContent='📄 Download PDF';
         }

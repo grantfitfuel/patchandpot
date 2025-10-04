@@ -1,6 +1,5 @@
-/* A4 base */
 :root{
-  --ink:#111; --muted:#465049; --line:#d9e3dc; --green:#2E7D32; --green2:#7ed495;
+  --ink:#111; --muted:#465049; --line:#d9e3dc; --green:#2E7D32;
 }
 .pdf-sheet{
   position:fixed; left:-99999px; top:0;
@@ -9,54 +8,34 @@
   background:#fff; color:var(--ink);
   font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
-
-/* Header */
 .pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 10px }
 .pdf-title{ font-weight:900; font-size:26px; letter-spacing:.2px; margin:0; color:#0f2617 }
 .pdf-sub{ color:var(--muted); margin:0 0 10px; font-size:14px }
 
-/* Legend */
 .legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px }
 .legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* Basics + Pest sections */
-.section-title{
-  margin:12px 0 6px; font-weight:800; font-size:16px; color:#0f2617
-}
+.section-title{ margin:12px 0 6px; font-weight:800; font-size:16px; color:#0f2617 }
 .section-body{ font-size:14px; color:#233127 }
 .section-body ul{ margin:6px 0 0 18px }
 
-/* Calendar grid */
-.pdf-grid{
-  display:grid; grid-template-columns: minmax(220px,1.1fr) repeat(12, 1fr);
-  border:1px solid var(--line); border-radius:12px; overflow:hidden
-}
+.pdf-grid{ display:grid; grid-template-columns: minmax(220px,1.1fr) repeat(12, 1fr);
+  border:1px solid var(--line); border-radius:12px; overflow:hidden }
 .pdf-row{ display:contents }
 .pdf-headcell,.pdf-cell{
   border:1px solid #e5eee8; padding:8px 10px; font-size:12px; line-height:1.25
 }
 .pdf-headcell{ font-weight:800; background:#eff7f1; text-align:center }
-.pdf-crop{
-  font-weight:800; background:#f4faf6; display:flex; flex-direction:column; gap:4px;
-  min-height:22px;
-}
+.pdf-crop{ font-weight:800; background:#f4faf6; display:flex; flex-direction:column; gap:4px; min-height:22px }
 .pdf-tag{ font-weight:600; color:#6b7c73; font-size:11px }
-
-/* Row height helper for long names */
 .pdf-cell{ min-height:22px }
 
-/* Footer */
-.pdf-footer{
-  margin-top:14px; display:flex; justify-content:center; align-items:center; gap:10px;
-  color:#1f2c25; font-size:12px
-}
+.pdf-footer{ margin-top:14px; display:flex; justify-content:center; align-items:center; gap:10px;
+  color:#1f2c25; font-size:12px }
 .pdf-footer img{ width:18px; height:18px; object-fit:contain; display:inline-block }
 
-/* Soft “watercolour” background for the sheet */
-.pdf-wash{
-  position:absolute; inset:0; pointer-events:none; mix-blend-mode:multiply; opacity:.12;
+.pdf-wash{ position:absolute; inset:0; pointer-events:none; mix-blend-mode:multiply; opacity:.12;
   background:
     radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
     radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
-    radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%);
-}
+    radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%); }

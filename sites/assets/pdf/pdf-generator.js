@@ -1,191 +1,217 @@
-/* Patch & Pot — PDF Generator (A4, portrait/landscape). Builds clean pages with green header,
-   optional Basics & Pest Watch, emoji grid, branded footer. */
+/* Patch & Pot — PDF Generator (A4, portrait/landscape), emoji grid, taller rows */
 (function(){
-  const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const POT_ICON='img/patchandpot-icon.png';
+  const PP_MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const POT_ICON = 'img/patchandpot-icon.png'; // small inline in footer
 
-  // ---------- small DOM helpers ----------
-  function el(tag, attrs={}, html){ const n=document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v)); if(html!=null) n.innerHTML=html; return n; }
-  const H=(t,a,h)=>el(t,a,h);
-
-  // ---------- data loader (reads JSON from /sites/data/regions/<region>/) ----------
-  function fetchJSON(url){ return fetch(url+`?v=${Date.now()}`,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(url)); }
-
+  /* data loader (reads JSON from /sites/data/regions/<region>/*) */
+  function fetchJSON(url){ return fetch(url+`?v=${Date.now()}`, {cache:'no-store'}).then(r=>r.json()); }
   async function loadRegion(region){
-    const base=`data/regions/${region}/`;
-    const basicsP = fetchJSON(base+'basics.json').catch(()=>({}));
-    const pestP   = fetchJSON(base+'pestwatch.json').catch(()=>({}));
-    const blocks  = ['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'];
-    const blockPromises = blocks.map(b=>fetchJSON(base+`${b}.json`).catch(()=>[]));
-    const [basics,pestwatch,...parts] = await Promise.all([basicsP,pestP,...blockPromises]);
+    const base = `data/regions/${region}/`;
+    const [basics, pestwatch, ...parts] = await Promise.all([
+      fetchJSON(base+'basics.json').catch(()=>({})),
+      fetchJSON(base+'pestwatch.json').catch(()=>({})),
+      ...['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'].map(b=>fetchJSON(base+b+'.json').catch(()=>[]))
+    ]);
     const crops = parts.flat().filter(c=>c && c.name);
     return { basics, pestwatch, crops };
   }
 
-  // ---------- filtering used for grid ----------
+  /* filtering logic mirrors page */
   function inferCategory(name){
     const n=(name||"").toLowerCase();
-    if(/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf|mizuna|mustard|endive|radicchio|pak|choi|bok|tat\s*soi|watercress)/.test(n))return"leafy";
+    if(/(lettuce|spinach|chard|rocket|kale|cabbage|leaf|mizuna|mustard|endive|radicchio|pak|choi|bok|tat\s*soi|watercress)/.test(n))return"leafy";
     if(/(carrot|beet|beetroot|radish|turnip|parsnip|root|swede|celeriac|salsify|scorzonera|fennel)/.test(n))return"roots";
     if(/(pea|bean|chickpea|lentil|soy|edamame)/.test(n))return"legumes";
-    if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb|cape gooseberry|tomatillo)/.test(n))return"fruit";
+    if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|gooseber|currant|blueber|fig|apple|pear|plum|cherry|rhubarb|tomatillo|cape gooseberry)/.test(n))return"fruit";
     if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n))return"alliums";
-    if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|lemon balm|bay|stevia|rosemary)/.test(n))return"herbs";
+    if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|lemon balm|bay|rosemary|stevia)/.test(n))return"herbs";
     return "other";
   }
-  function applyFilters(crops,{category,q}){
+  function applyFilters(crops, {category,q}){
     const qq=(q||'').toLowerCase();
     return (crops||[]).filter(c=>{
       const cat=c.category||inferCategory(c.name);
-      if(category && category!=='all' && category!==cat) return false;
+      if(category && category!=='all' && cat!==category) return false;
       if(qq && !(c.name||'').toLowerCase().includes(qq)) return false;
       return true;
     });
   }
 
-  // ---------- build one table chunk to fit the page ----------
-  function buildTableChunk(doc, cropsSlice){
-    const tbl = H('table',{class:'table avoid-break'});
-    const thead = H('thead');
-    const hr = H('tr');
-    hr.appendChild(H('th',{class:'crop'},'Crop'));
-    PP_MONTHS.forEach(m=> hr.appendChild(H('th',{class:'month'},m)));
-    thead.appendChild(hr); tbl.appendChild(thead);
+  /* footer (small pot + brand inline, centred) */
+  async function drawFooter(doc,pageWidth,pageHeight){
+    const y = pageHeight - 10;
+    // small text
+    doc.setFont('helvetica','normal').setFontSize(9);
+    const text = '© 2025 Patch & Pot | Created by Grant Cameron Anthony';
+    const textWidth = doc.getTextWidth(text);
+    const cx = pageWidth/2;
 
-    const tb = H('tbody');
-    cropsSlice.forEach(c=>{
-      const tr = H('tr');
-      const cropCell = H('td',{class:'crop'}, c.name);
-      tr.appendChild(cropCell);
-      // months (emoji)
-      PP_MONTHS.forEach((_,i)=>{
-        const s=(c.months?.sow||[]).includes(i);
-        const p=(c.months?.plant||[]).includes(i);
-        const h=(c.months?.harvest||[]).includes(i);
-        const marks=[s?"🌱":"",p?"🪴":"",h?"🥕":""].join(' ').trim();
-        tr.appendChild(H('td',{class:'month'}, marks));
-      });
-      tb.appendChild(tr);
-      // small tags row (category) for extra height + clarity
-      const tagTr = H('tr');
-      const cat = c.category||inferCategory(c.name);
-      tagTr.appendChild(H('td',{class:'tags muted',colspan:(1+PP_MONTHS.length)}, `(${cat})`));
-      tb.appendChild(tagTr);
+    // optional pot icon (if it fails, just text)
+    try {
+      // Put pot 8x8mm to the left of text
+      const potW=6, potH=6;
+      const totalW = potW + 2 + textWidth;
+      const startX = cx - totalW/2;
+      const imgX = startX, imgY = y - potH + 1.5;
+      doc.addImage(POT_ICON, 'PNG', imgX, imgY, potW, potH);
+      doc.text(text, startX + potW + 2, y);
+    } catch {
+      doc.text(text, cx - textWidth/2, y);
+    }
+  }
+
+  function legendLine(doc, x, y){
+    doc.setFont('helvetica','bold').setFontSize(11);
+    doc.text('🌱 Sow   🪴 Plant   🥕 Harvest', x, y);
+  }
+
+  function titleBar(doc, pageWidth, text){
+    // green bar with dark text
+    const m = 12;
+    const h = 10;
+    doc.setFillColor(46,125,50); // brand green
+    doc.roundedRect(m, m, pageWidth - m*2, h, 2, 2, 'F');
+    doc.setFont('helvetica','bold').setFontSize(13).setTextColor(0,0,0);
+    doc.text(text, m+4, m + 7);
+    doc.setTextColor(0,0,0);
+  }
+
+  function monthHeaderRow(){
+    return [{content:'Crop', styles:{halign:'left'}}].concat(PP_MONTHS.map(m=>({content:m, styles:{halign:'center'}})));
+  }
+
+  function cropRow(crop){
+    const marks = (i)=> {
+      const s=(crop.months?.sow||[]).includes(i);
+      const p=(crop.months?.plant||[]).includes(i);
+      const h=(crop.months?.harvest||[]).includes(i);
+      return (s?'🌱':'') + (p?' 🪴':'') + (h?' 🥕':'');
+    };
+    return [{content:`${crop.name}\n(${crop.category||inferCategory(crop.name)})`, styles:{halign:'left'}}]
+      .concat(PP_MONTHS.map((_,i)=>({content:marks(i).trim(), styles:{halign:'center'}})));
+  }
+
+  function buildTableBody(crops){
+    return crops.map(c=>cropRow(c));
+  }
+
+  async function addBasicsAndPest(doc, regionKey, basics, pestwatch, pageWidth){
+    const m=16, y0=28;
+    doc.setFillColor(27,34,31);
+    doc.setDrawColor(126,212,149);
+    doc.roundedRect(m, y0, pageWidth - m*2, 30, 3, 3, 'F'); // dark block
+    doc.setTextColor(255,255,255);
+    doc.setFont('helvetica','bold').setFontSize(12);
+    doc.text('Basics', m+6, y0+8);
+    doc.setFont('helvetica','normal').setFontSize(11);
+
+    const basicsText = (basics?.text) ? basics.text
+      : (Array.isArray(basics?.tips) ? basics.tips.join('  •  ')
+      : 'Good hygiene, drainage, right pot size, and consistent watering.');
+
+    const wrapWidth = pageWidth - m*2 - 12;
+    doc.text(doc.splitTextToSize(basicsText, wrapWidth), m+6, y0+14);
+
+    // Pest Watch (current month)
+    const cur = new Date().getMonth();
+    const items = (pestwatch && pestwatch[String(cur)] && pestwatch[String(cur)].items) || ['Keep an eye on slugs after rain.'];
+
+    let y = y0 + 30 + 6;
+    doc.setFont('helvetica','bold').setFontSize(12);
+    doc.setTextColor(255,255,255);
+    doc.text(`Pest Watch — ${regionKey[0].toUpperCase()+regionKey.slice(1)}`, m+6, y);
+    doc.setFont('helvetica','normal').setFontSize(11);
+
+    y += 5;
+    doc.setTextColor(220,235,225);
+    items.forEach(line=>{
+      doc.text(`• ${line}`, m+8, y);
+      y += 5;
     });
-    tbl.appendChild(tb);
-    doc.appendChild(tbl);
+
+    // footer on this page
+    const {w,h} = doc.internal.pageSize;
+    await drawFooter(doc, w, h);
   }
 
-  // ---------- make one PDF page (DOM) ----------
-  function makePage(container,{region,filterLabel,legend=true,headerTitle,basicsBlock,pestList}){
-    const page = H('section',{class:'page'});
-    // header bar
-    const head = H('div',{class:'header'},
-      `<div>${headerTitle}</div>
-       <div class="legend">${legend?
-        `<span>🌱 Sow</span><span>🪴 Plant</span><span>🥕 Harvest</span>`:''}
-        <span class="muted" style="margin-left:18px">Filter: ${filterLabel}</span>
-       </div>`);
-    page.appendChild(head);
+  async function addCropTables(doc, crops, regionKey, page, includeLegend){
+    const isPortrait = page !== 'landscape';
+    const margin = 10; // mm
+    const {w:PW, h:PH} = doc.internal.pageSize;
 
-    if(basicsBlock){
-      const panel = H('div',{class:'panel avoid-break'});
-      panel.innerHTML = `<h3>Basics</h3><div class="muted">${basicsBlock}</div>`;
-      page.appendChild(panel);
-    }
-    if(pestList && pestList.length){
-      const panel = H('div',{class:'panel avoid-break'});
-      panel.innerHTML = `<h3>Pest Watch — ${PP_MONTHS[new Date().getMonth()]}</h3>`+
-        `<ul>${pestList.map(i=>`<li>${i}</li>`).join('')}</ul>`;
-      page.appendChild(panel);
-    }
+    // column widths tuned so month headers never wrap
+    // available inner width:
+    const innerW = (isPortrait ? 190 : 277) - margin*0; // jsPDF A4 inner width approx; we’ll still set columnStyles explicitly
+    const monthW = isPortrait ? 12 : 16; // keep headers visible
+    const cropW  = isPortrait ? 72 : 90;
 
-    container.appendChild(page);
-    return page;
+    const head = [ monthHeaderRow() ];
+    const body = buildTableBody(crops);
+
+    // Title strip + legend
+    titleBar(doc, PW, `Seasonal Planting — ${regionKey[0].toUpperCase()+regionKey.slice(1)}`);
+    if (includeLegend) legendLine(doc, 12, 26);
+
+    doc.autoTable({
+      head,
+      body,
+      startY: 32,
+      theme: 'grid',
+      styles: {
+        font: 'helvetica',
+        fontSize: 10,
+        cellPadding: 2.2,
+        minCellHeight: 9.5,      // row height (taller than before)
+        lineWidth: 0.15,
+        textColor: [0,0,0]
+      },
+      headStyles: {
+        fillColor: [46,125,50], // brand green header
+        textColor: [0,0,0],
+        lineWidth: 0.15
+      },
+      alternateRowStyles: { fillColor: [242,248,245] },
+      columnStyles: Object.assign(
+        { 0: { cellWidth: cropW, halign: 'left' } },
+        ...PP_MONTHS.map((_,i)=>({ [i+1]: { cellWidth: monthW, halign: 'center' } }))
+      ),
+      willDrawCell: (data)=>{ /* noop */ },
+      didDrawPage: async (data)=>{
+        // small footer on each page
+        const {w,h} = doc.internal.pageSize;
+        await drawFooter(doc, w, h);
+      },
+      pageBreak: 'auto',
+      rowPageBreak: 'auto',
+      tableWidth: 'wrap'
+    });
   }
 
-  // ---------- render DOM → PDF with html2canvas + jsPDF ----------
-  async function domToPdfAndDownload(root, orientation, filename){
+  async function buildPdf({region, category, q, page='portrait', includeBasics=true}){
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({orientation, unit:'px', format:'a4', compress:true});
-    const pages = Array.from(root.querySelectorAll('.page'));
+    const doc = new jsPDF({ orientation: (page==='landscape'?'landscape':'portrait'), unit: 'mm', format: 'a4', compress: true });
 
-    for(let i=0;i<pages.length;i++){
-      const p=pages[i];
-      // pad to avoid clipping shadows / radii
-      const canvas = await html2canvas(p,{backgroundColor:'#ffffff', scale:2, useCORS:true});
-      const img = canvas.toDataURL('image/jpeg',0.92);
-      const pageW = orientation==='landscape' ? 1123 : 794;
-      const pageH = orientation==='landscape' ? 794 : 1123;
-      if(i>0) pdf.addPage([pageW,pageH], orientation);
-      pdf.addImage(img,'JPEG',0,0,pageW,pageH);
-      // footer branding
-      pdf.setFontSize(10);
-      pdf.setTextColor(74,90,82);
-      const y = pageH - 20;
-      pdf.text('© 2025 Patch & Pot | Created by Grant Cameron Anthony', pageW/2, y, {align:'center'});
-      // tiny pot icon centered (optional)
-      try{
-        const pot = await (await fetch(POT_ICON)).blob();
-        const potUrl = await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.readAsDataURL(pot); });
-        pdf.addImage(potUrl,'PNG', (pageW/2)-60, y-10, 12, 12);
-      }catch(_){}
+    const regionKey = (region||'scotland').toLowerCase();
+    const data = await loadRegion(regionKey);
+    const filtered = applyFilters(data.crops, {category, q});
+
+    // Optionally add Basics & Pest page (page 1)
+    if(includeBasics){
+      titleBar(doc, doc.internal.pageSize.getWidth(), `Seasonal Planting — ${regionKey[0].toUpperCase()+regionKey.slice(1)}`);
+      await addBasicsAndPest(doc, regionKey, data.basics, data.pestwatch, doc.internal.pageSize.getWidth());
+      doc.addPage(doc.internal.pageSize.getWidth()>doc.internal.pageSize.getHeight()?'landscape':'p'); // next page
     }
-    pdf.save(filename);
+
+    await addCropTables(doc, filtered, regionKey, page, !includeBasics);
+
+    // Save
+    const nice = (s)=>s[0].toUpperCase()+s.slice(1);
+    doc.save(`Patch&Pot_Seasonal_${nice(regionKey)}.pdf`);
   }
 
-  // ---------- main: build all pages then export ----------
-  async function generate({region='scotland',category='all',q='',page='portrait',includeMeta=true}){
-    // Load selection data fresh (so Basics/Pest are always available)
-    const data = await loadRegion(region);
-    const crops = applyFilters(data.crops,{category,q});
-
-    // Build hidden render root
-    const container = H('div',{class:`ppdf ${page==='landscape'?'land':''}`, style:'position:fixed;left:-99999px;top:0;z-index:-1'});
-    document.body.appendChild(container);
-
-    const title = `Seasonal Planting — ${region[0].toUpperCase()+region.slice(1)}`;
-    const filterLabel = category==='all' ? 'All categories' : category;
-
-    // Page 1: meta (optional)
-    if(includeMeta){
-      const p1 = makePage(container,{region,filterLabel,headerTitle:
-        `<span>${title}</span><span class="muted" style="font-weight:600">• Generated ${new Date().toLocaleDateString('en-GB')}</span>`});
-
-      // Basics text (if present)
-      const basicsText = (data.basics && data.basics.text) ? data.basics.text
-        : 'Good hygiene, drainage, right pot size, and consistent watering.';
-      const pest = (data.pestwatch && data.pestwatch[String(new Date().getMonth())] && data.pestwatch[String(new Date().getMonth())].items) || [];
-
-      // panels
-      const basicsPanel = H('div',{class:'panel avoid-break'});
-      basicsPanel.innerHTML = `<h3>Basics</h3><div class="muted">${basicsText}</div>`;
-      p1.appendChild(basicsPanel);
-
-      if(pest.length){
-        const pestPanel = H('div',{class:'panel avoid-break'});
-        pestPanel.innerHTML = `<h3>Pest Watch — ${PP_MONTHS[new Date().getMonth()]}</h3><ul>${pest.map(i=>`<li>${i}</li>`).join('')}</ul>`;
-        p1.appendChild(pestPanel);
-      }
+  window.PP_PDF = {
+    async generate(sel){
+      await buildPdf(sel||{region:'scotland', page:'portrait', includeBasics:true});
     }
-
-    // Grid pages (paginate)
-    const rowsPerPage = page==='landscape' ? 18 : 15; // each crop uses 2 rows (name+tags)
-    for(let i=0;i<crops.length;i+=rowsPerPage){
-      const chunk = crops.slice(i,i+rowsPerPage);
-      const pg = makePage(container,{region,filterLabel,headerTitle:
-        `<span>${title}</span><span class="muted">• Legend: 🌱 Sow  🪴 Plant  🥕 Harvest</span>`});
-      buildTableChunk(pg, chunk);
-    }
-
-    // Export to PDF
-    const fn = `Seasonal-Planting-${region}-${new Date().toISOString().slice(0,10)}.pdf`;
-    await domToPdfAndDownload(container, page==='landscape'?'landscape':'portrait', fn);
-
-    // Clean up
-    container.remove();
-  }
-
-  // expose
-  window.PP_PDF = { generate };
+  };
 })();

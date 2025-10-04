@@ -1,8 +1,31 @@
-/* Patch & Pot – pdf.css (kept tiny; PDF uses jsPDF/autoTable for layout) */
-
-/* Nothing here changes your web page theme.
-   We keep this file so your existing link doesn't 404 and
-   for any future print-specific tweaks if needed. */
+/* Patch & Pot — PDF styles */
 :root{
-  --pp-green: #2E7D32;
+  --ink:#111; --muted:#4b4f52; --line:#dfe7e2; --stripe:#f6faf7;
+  --green:#2E7D32;
 }
+*{box-sizing:border-box}
+.pp-pdf{font-family:-apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink)}
+.pp-pdf h1,.pp-pdf h2,.pp-pdf h3{margin:.3rem 0}
+.pp-pdf .legend{font-size:.9rem;color:var(--muted)}
+.pp-pdf .brand{display:flex;align-items:center;justify-content:center;gap:6px;margin:.6rem 0 .2rem}
+.pp-pdf .brand img{height:16px;width:16px}
+
+/* table */
+.pp-pdf table{width:100%;border-collapse:collapse;border-spacing:0}
+.pp-pdf th,.pp-pdf td{border:1px solid var(--line);padding:6px 7px;font-size:11.5px;vertical-align:middle}
+.pp-pdf th{background:#144d22;color:#fff;font-weight:800}
+.pp-pdf tr:nth-child(even) td{background:var(--stripe)}
+.pp-pdf .crop{font-weight:700}
+.pp-pdf .tag{display:block;color:#6a7377;font-size:10px}
+.pp-pdf .center{text-align:center}
+
+/* TALLER ROWS for long crop names */
+.pp-pdf td{line-height:1.35;padding-top:9px;padding-bottom:9px}
+
+/* header bar */
+.pp-pdf .bar{
+  background:#2E7D32;color:#08200f;border-radius:8px;height:16px;margin:0 0 4px;display:block
+}
+
+/* footer */
+.pp-pdf .footer{margin-top:8px;text-align:center;font-size:11px;color:#43614e}

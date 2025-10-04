@@ -1,33 +1,73 @@
-/* A4 sheet scaffold (kept for compatibility – not required by jsPDF path) */
+/* ===============================
+   Patch & Pot PDF – A4 theme
+   =============================== */
+
+/* A4 portrait @ 72dpi scaffolding (kept off-screen) */
 .pdf-sheet{
   position:fixed; left:-99999px; top:0;
-  width:794px; min-height:1123px; /* A4 @ 72dpi */
+  width:794px; min-height:1123px;
   box-sizing:border-box; padding:28px 26px 30px;
   background:#fff; color:#1a1f1c;
   font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
-.pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 8px }
-.pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0 }
-.pdf-sub{ color:#4c5a53; margin:0 0 10px; font-size:14px }
-.legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px }
+
+/* Brand colours */
+:root{
+  --pp-green:#2E7D32;      /* brand green */
+  --pp-ink:#061007;        /* very dark text for contrast on green */
+  --pp-line:#e7efe9;       /* soft grid lines */
+  --pp-head:#f4f8f5;       /* header cells */
+  --pp-muted:#4c5a53;
+}
+
+/* Title bar */
+.pdf-titlebar{
+  display:flex; align-items:baseline; justify-content:space-between;
+  background:var(--pp-green); color:var(--pp-ink);
+  border-radius:10px; padding:10px 14px; margin:0 0 10px;
+}
+.pdf-title{ font-weight:800; font-size:22px; margin:0 }
+.pdf-sub{ margin:0; font-weight:600; opacity:.9 }
+
+/* Legend (inline, under title) */
+.legend{ display:flex; gap:18px; align-items:center; font-size:14px; color:#1a1f1c; margin:8px 0 12px }
 .legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-.pdf-grid{ display:grid; grid-template-columns: minmax(210px,1.1fr) repeat(12, 1fr); border:1px solid #d9e3dc; border-radius:12px; overflow:hidden }
-.pdf-row{ display:contents }
-.pdf-headcell,.pdf-cell{ border:1px solid #e5eee8; padding:8px 10px; font-size:13px }
-.pdf-headcell{ font-weight:700; background:#f4f8f5 }
-.pdf-crop{ font-weight:700; background:#f7faf8; display:flex; flex-direction:column; gap:4px }
-.pdf-tag{ font-weight:600; color:#6b7c73; font-size:12px }
-.pdf-meta{ color:#4c5a53; font-size:12px }
+/* “Basics / Pest Watch” blocks */
+.pdf-block{
+  background:#0f1512; color:#eef7f0; border-radius:12px;
+  border:1px solid #1e2b25; padding:12px 14px; margin:10px 0 14px;
+}
+.pdf-block h3{ font-size:15px; margin:0 0 6px; color:#effaf2 }
+.pdf-block ul{ margin:6px 0 0 18px; padding:0 }
+.pdf-block li{ margin:3px 0 }
 
-/* soft washes (kept) */
-.wash{ position:absolute; inset:0; pointer-events:none; opacity:.26; mix-blend-mode:multiply }
-.wash-leafy{ background:
-  radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
-  radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
-  radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%); }
-.wash-roots{ background:
-  radial-gradient(600px 340px at 12% 16%, #f3d4b7 0, transparent 60%),
-  radial-gradient(520px 300px at 85% 65%, #f0caa6 0, transparent 65%),
-  radial-gradient(420px 260px at 40% 88%, #fde4cd 0, transparent 55%); }
-/* ...other washes unchanged... */
+/* Grid */
+.pdf-grid{ display:grid; grid-template-columns: minmax(220px,1.15fr) repeat(12, minmax(44px,1fr)); border:1px solid var(--pp-line); border-radius:12px; overflow:hidden }
+.pdf-row{ display:contents }
+
+.pdf-headcell,.pdf-cell{
+  border:1px solid var(--pp-line);
+  padding:10px 10px; /* TALLER rows */
+  font-size:13.5px;
+  line-height:1.35;
+  white-space:normal; word-break:break-word;
+}
+.pdf-headcell{ font-weight:800; background:var(--pp-head) }
+
+.pdf-crop{
+  background:#f7faf8; display:flex; flex-direction:column; gap:4px; font-weight:700;
+}
+.pdf-tag{ font-weight:600; color:#6b7c73; font-size:12px }
+
+/* Footer brand line (text-only) */
+.pdf-footer{
+  text-align:center; font-size:12.5px; color:#3e4b45; margin-top:14px;
+}
+
+/* Page breaks for html2canvas -> jsPDF batching */
+.page-break{ break-after:page; page-break-after:always }
+
+/* Small tweaks on narrow columns so month letters don’t wrap */
+.month-head{ font-variant-numeric:tabular-nums; letter-spacing:.15px; text-align:center }
+.month-cell{ text-align:center }

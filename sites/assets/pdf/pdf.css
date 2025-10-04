@@ -1,62 +1,50 @@
-/* ===== Patch & Pot – PDF sheet (A4, offscreen) ===== */
+/* Patch & Pot PDF styles */
 :root{
-  --ink:#1a1f1c; --muted:#4c5a53;
-  --line:#e5eee8; --grid:#d9e3dc; --header:#2E7D32; --headerInk:#0b140f;
+  --ink:#111; --ink2:#333; --muted:#5a6a62;
+  --line:#e6efe9; --line2:#dbe7e0;
+  --brand:#2E7D32; --brandDark:#1d5522;
 }
-.pdf-sheet{
-  position:fixed; left:-100000px; top:0; /* offscreen */
-  width:794px; min-height:1123px; /* A4 @ 72dpi */
-  box-sizing:border-box; padding:24px 24px 32px;
-  background:#fff; color:var(--ink);
-  font:16px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink)}
 
-/* Title row */
-.pdf-titlebar{
-  display:flex; align-items:baseline; justify-content:space-between;
-  background:var(--header); color:var(--headerInk);
-  padding:10px 14px; border-radius:12px;
-  margin:0 0 10px;
-}
-.pdf-title{ font-weight:900; font-size:22px; margin:0 }
-.pdf-sub{ color:rgba(0,0,0,.65); font-size:12.5px; margin:0 }
-.pdf-legend{ font-size:13px; display:flex; gap:14px; align-items:center; margin:6px 0 10px }
-.pdf-legend span{ display:inline-flex; align-items:center; gap:.35rem }
+.pdf-sheet{width:210mm;min-height:297mm;padding:14mm 12mm 16mm;background:#fff}
+.pdf-sheet[data-orient="landscape"]{width:297mm;min-height:210mm}
+
+.pdf-titlebar{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:6mm}
+.pdf-title{margin:0;font-size:18pt;font-weight:900;color:#0d140f;letter-spacing:.2px}
+.pdf-sub{margin:.2rem 0 0;color:var(--muted);font-size:10pt}
+
+.pdf-legend{display:flex;gap:14px;align-items:center;margin:-2mm 0 3mm;color:#2a372f;font-weight:600}
+.pdf-legend span{display:inline-flex;align-items:center;gap:.35rem}
+
+.info-card{background:#121a16;color:#f1fff6;border-radius:8px;padding:8px 10px;margin:6px 0 10px;border:1px solid #1a251f}
+.info-card h4{margin:0 0 6px;font-size:12pt}
+.info-card ul{margin:6px 0 0 18px}
+
+.pdf-headbar{height:8mm;border-radius:999px;background:var(--brand)}
+.pdf-foot{margin-top:6mm;text-align:center;color:#6b7c73;font-size:9pt}
+.pdf-foot img{height:18px;width:auto;display:block;margin:3px auto 2px}
 
 .pdf-grid{
   display:grid;
-  grid-template-columns: minmax(240px,1.2fr) repeat(12, minmax(50px,1fr)); /* WIDER months */
-  border:1px solid var(--grid); border-radius:12px; overflow:hidden;
-  background:#f9fbf9;
+  grid-template-columns:minmax(240px,1.25fr) repeat(12,minmax(56px,1fr)); /* wider months */
+  border:1px solid var(--line2);
+  border-radius:8px; overflow:hidden; background:#fff;
 }
-.pdf-row{ display:contents }
+.pdf-row{display:contents}
 .pdf-headcell,.pdf-cell{
-  padding:10px 8px;                 /* TALLER rows */
   border:1px solid var(--line);
-  font-size:13px; line-height:1.35;
+  padding:12px 9px;                       /* taller rows */
+  line-height:1.35;
+  font-size:10pt;
 }
 .pdf-headcell{
-  font-weight:800; background:#eef5ef; white-space:nowrap; /* stop "Ja\nn" */
-  text-align:left;
+  font-weight:800;background:#0f160f;color:#ffffff; /* dark header w/ white text */
+  white-space:nowrap;                                  /* never wrap month name */
 }
 .pdf-crop{
-  background:#f4f8f5; font-weight:800;
-  display:flex; flex-direction:column; gap:3px; white-space:normal; word-break:break-word;
+  font-weight:800;background:#f6fbf8;
+  display:flex;flex-direction:column;gap:2px
 }
-.pdf-tag{ font-weight:600; color:#6b7c73; font-size:12px }
-
-/* Optional info panel (Basics + Pest) */
-.info-card{
-  background:#101614; color:#f2fff6;
-  border:1px solid #24362e; border-left:5px solid var(--header);
-  border-radius:12px; padding:10px 12px; margin:10px 0 12px;
-}
-.info-card h4{ margin:0 0 6px; font-size:15px }
-.info-card ul{ margin:6px 0 0 1.1rem; padding:0 }
-
-/* footer line */
-.pdf-footer{
-  margin-top:10px; font-size:12px; color:#45534a; text-align:center;
-}
-.pdf-footer .brandline{ display:inline-flex; gap:8px; align-items:center }
-.pdf-footer img{ height:14px; width:auto }
+.pdf-tags{font-size:8.5pt;color:#6c7b73;font-weight:600}
+.pdf-cell{background:#ffffff;text-align:center}

@@ -1,243 +1,166 @@
-/* Patch & Pot – PDF Generator (A4, multipage, with Basics/Pest Watch)
-   Drop-in for sites/assets/pdf/pdf-generator.js
-*/
+/* Patch & Pot – PDF generator (A4, multi-page) */
 (function(){
-  const BRAND = {
-    name: 'Patch & Pot',
-    footer: '© 2025 Patch & Pot | Created by Grant Cameron Anthony'
-  };
+  const PP_MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const BLOCKS_META=['basics','pestwatch'];
+  const BLOCKS_CROPS=['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'];
 
-  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function html(tag, attrs={}, content=''){
+    const el=document.createElement(tag);
+    Object.entries(attrs||{}).forEach(([k,v])=>{ if(v!=null) el.setAttribute(k,v); });
+    if(typeof content==='string') el.innerHTML=content;
+    else if(Array.isArray(content)) content.forEach(c=>el.appendChild(c));
+    else if(content instanceof Node) el.appendChild(content);
+    return el;
+  }
 
-  // Utility fetch (no cache so iOS Safari doesn’t stale-cache)
-  const fjson = (url) => fetch(url + `?v=${Date.now()}`, {cache:'no-store'}).then(r => {
-    if(!r.ok) throw new Error('Missing '+url);
-    return r.json();
-  });
+  async function fetchJSON(url){
+    const res = await fetch(url+`?v=${Date.now()}`,{cache:'no-store'});
+    if(!res.ok) throw new Error('fetch:'+url);
+    return res.json();
+  }
 
-  // Assemble region data from your existing JSON layout
   async function loadRegion(regionKey){
-    const base = `data/regions/${regionKey}`;
     // meta
-    const [basics, pestwatch] = await Promise.all([
-      fjson(`${base}/basics.json`).catch(()=>({text:[]}))
-      ,fjson(`${base}/pestwatch.json`).catch(()=>({}))
+    const [basics,pest]=await Promise.all([
+      fetchJSON(`data/regions/${regionKey}/basics.json`).catch(()=>({})),
+      fetchJSON(`data/regions/${regionKey}/pestwatch.json`).catch(()=>({}))
     ]);
-    // crops
-    const blocks = ['roots','leafy','legumes','fruit','alliums','herbs','softfruit','other'];
-    const parts = await Promise.all(blocks.map(b => fjson(`${base}/${b}.json`).catch(()=>[])));
-    const crops = parts.flat().filter(x => x && x.name);
-
-    return { basics, pestwatch, crops };
+    // crops from all blocks
+    const parts = await Promise.all(
+      BLOCKS_CROPS.map(b=>fetchJSON(`data/regions/${regionKey}/${b}.json`).catch(()=>[]))
+    );
+    const crops = parts.flat().filter(c=>c && c.name);
+    return { basics, pestwatch:pest, crops };
   }
 
-  // Category inference (kept in sync with seasonal page)
+  function buildGridDoc(doc, crops, opts){
+    // Title bar
+    const title = html('div',{class:'pdf-titlebar'},
+      `<h2 class="pdf-title">Seasonal Planting — ${opts.regionName}</h2>
+       <p class="pdf-sub">Filter: ${opts.category==='all'?'All categories':opts.category}</p>`
+    );
+    doc.appendChild(title);
+
+    // Legend
+    doc.appendChild(html('div',{class:'pdf-legend'},
+      `<span>🌱 <em>Sow</em></span><span>🪴 <em>Plant</em></span><span>🥕 <em>Harvest</em></span>`
+    ));
+
+    // Grid
+    const grid=html('div',{class:'pdf-grid'});
+    // header row
+    const headRow=html('div',{class:'pdf-row'});
+    headRow.appendChild(html('div',{class:'pdf-headcell'},'Crop'));
+    PP_MONTHS.forEach(m=> headRow.appendChild(html('div',{class:'pdf-headcell'}, m)) );
+    grid.appendChild(headRow);
+
+    // rows
+    crops.forEach(c=>{
+      const r=html('div',{class:'pdf-row'});
+      const tag=c.category?c.category:inferCategory(c.name);
+      r.appendChild(html('div',{class:'pdf-cell pdf-crop'},
+        `<span>${c.name}</span><span class="pdf-tag">(${tag})</span>`
+      ));
+      PP_MONTHS.forEach((_,i)=>{
+        const s=(c.months?.sow||[]).includes(i);
+        const p=(c.months?.plant||[]).includes(i);
+        const h=(c.months?.harvest||[]).includes(i);
+        r.appendChild(html('div',{class:'pdf-cell'}, `${s?"🌱 ":""}${p?"🪴 ":""}${h?"🥕":""}`.trim()));
+      });
+      grid.appendChild(r);
+    });
+    doc.appendChild(grid);
+
+    // Branding footer
+    const foot=html('div',{class:'pdf-footer'},`
+      <span class="brandline">
+        <img src="img/patchandpot-icon.png" onerror="this.style.display='none'"/>
+        © 2025 Patch &amp; Pot | Created by Grant Cameron Anthony
+      </span>`);
+    doc.appendChild(foot);
+  }
+
   function inferCategory(name){
-    const n=(name||'').toLowerCase();
-    if(/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf|mizuna|mustard|endive|pak|choi|bok|tat\s*soi|watercress)/.test(n))return'leafy';
-    if(/(carrot|beet|beetroot|radish|turnip|parsnip|root|swede|celeriac|salsify|scorzonera|fennel)/.test(n))return'roots';
-    if(/(pea|bean|chickpea|lentil|soy|edamame)/.test(n))return'legumes';
-    if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|blueber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb|cape gooseberry|tomatillo)/.test(n))return'fruit';
-    if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n))return'alliums';
-    if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|lemon balm|bay|stevia|rosemary)/.test(n))return'herbs';
-    return 'other';
+    const n=(name||"").toLowerCase();
+    if(/(lettuce|spinach|chard|rocket|kale|cabbage|salad|leaf|mizuna|mustard|endive|pak|choi|bok|tat\s*soi|watercress)/.test(n))return"leafy";
+    if(/(carrot|beet|beetroot|radish|turnip|parsnip|root|swede|celeriac|salsify|scorzonera|fennel)/.test(n))return"roots";
+    if(/(pea|bean|chickpea|lentil|soy|edamame)/.test(n))return"legumes";
+    if(/(tomato|pepper|chilli|aubergine|eggplant|courgette|zucchini|cucumber|squash|pumpkin|melon|cucamelon|strawber|blueber|raspber|gooseber|currant|fig|apple|pear|plum|cherry|rhubarb|cape gooseberry|tomatillo)/.test(n))return"fruit";
+    if(/(onion|garlic|leek|shallot|spring onion|elephant garlic|welsh onion|chive)/.test(n))return"alliums";
+    if(/(parsley|coriander|cilantro|basil|mint|thyme|sage|dill|oregano|marjoram|tarragon|lovage|chervil|lemon balm|bay|stevia|rosemary)/.test(n))return"herbs";
+    return"other";
   }
 
-  function filterCrops(crops, {q='',
-                               category='all'}){
-    const needle = (q||'').trim().toLowerCase();
-    return (crops||[]).filter(c=>{
-      const name = c.name || '';
-      const tag  = c.category || inferCategory(name);
-      if(needle && !name.toLowerCase().includes(needle)) return false;
-      if(category !== 'all' && tag !== category) return false;
+  function applyFilters(allCrops, sel){
+    const q=(sel.q||'').trim().toLowerCase();
+    return allCrops.filter(c=>{
+      if(!c?.name) return false;
+      if(q && !c.name.toLowerCase().includes(q)) return false;
+      if(sel.category && sel.category!=='all'){
+        const cat=c.category||inferCategory(c.name);
+        if(cat!==sel.category) return false;
+      }
       return true;
     });
   }
 
-  // Build one A4 sheet in a hidden DOM, then snapshot with html2canvas
-  function buildSheet({regionLabel, pageLabel, selection, basicsBlock, pestBlock, rows}){
-    const wrap = document.createElement('section');
-    wrap.className = 'pdf-sheet';
+  async function buildSheets(selection){
+    const {region,category,q,includeMeta,orient}=selection;
+    const regionName = region[0].toUpperCase()+region.slice(1);
+    const data = await loadRegion(region);
 
-    // Title bar
-    const head = document.createElement('div');
-    head.className = 'pdf-titlebar';
-    head.innerHTML = `
-      <h2 class="pdf-title">${regionLabel}</h2>
-      <p class="pdf-sub">${pageLabel}</p>
-    `;
-    wrap.appendChild(head);
+    const sheets=[];
+    const sheet = html('section',{class:'pdf-sheet', 'data-orient':orient});
 
-    // legend
-    const legend = document.createElement('div');
-    legend.className = 'legend';
-    legend.innerHTML = `<span>🌱 <strong>Sow</strong></span><span>🪴 <strong>Plant</strong></span><span>🥕 <strong>Harvest</strong></span>`;
-    wrap.appendChild(legend);
+    // Optional Basics & Pest (first page, compact)
+    if(includeMeta){
+      const basics = data.basics?.text || "Good hygiene, drainage, right pot size, and consistent watering.";
+      const month= new Date().getMonth();
+      const pestItems = (data.pestwatch && data.pestwatch[String(month)]?.items) || ["No major alerts this month. Keep an eye on slugs after rain."];
 
-    // Optional blocks (Basics / Pest Watch)
-    if (basicsBlock){
-      const b = document.createElement('div');
-      b.className = 'pdf-block';
-      b.innerHTML = `<h3>Basics</h3><div>${basicsBlock}</div>`;
-      wrap.appendChild(b);
-    }
-    if (pestBlock){
-      const p = document.createElement('div');
-      p.className = 'pdf-block';
-      p.innerHTML = `<h3>Pest Watch — ${selection.monthName}</h3><ul>${pestBlock}</ul>`;
-      wrap.appendChild(p);
+      const info = html('div',{class:'info-card'});
+      info.appendChild(html('h4',{},'Basics'));
+      info.appendChild(html('div',{}, basics));
+      info.appendChild(html('h4',{}, 'Pest Watch – ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month]));
+      const ul=html('ul',{},'');
+      pestItems.forEach(i=> ul.appendChild(html('li',{},i)) );
+      info.appendChild(ul);
+      sheet.appendChild(info);
     }
 
-    // Grid
-    const grid = document.createElement('div');
-    grid.className = 'pdf-grid';
-
-    // Header row
-    const rowH = document.createElement('div'); rowH.className = 'pdf-row';
-    const headCrop = document.createElement('div'); headCrop.className = 'pdf-headcell'; headCrop.textContent='Crop';
-    rowH.appendChild(headCrop);
-    MONTHS.forEach(m=>{
-      const c = document.createElement('div'); c.className='pdf-headcell month-head'; c.textContent=m; rowH.appendChild(c);
-    });
-    grid.appendChild(rowH);
-
-    // Rows (already filtered)
-    rows.forEach(crop=>{
-      const r = document.createElement('div'); r.className='pdf-row';
-
-      const c0 = document.createElement('div');
-      c0.className='pdf-cell pdf-crop';
-      c0.innerHTML = `<span>${crop.name}</span><span class="pdf-tag">(${crop.category||inferCategory(crop.name)})</span>`;
-      r.appendChild(c0);
-
-      for(let i=0;i<12;i++){
-        const cell = document.createElement('div'); cell.className='pdf-cell month-cell';
-        const s = (crop.months?.sow||[]).includes(i);
-        const p = (crop.months?.plant||[]).includes(i);
-        const h = (crop.months?.harvest||[]).includes(i);
-        let marks = [];
-        if(s) marks.push('🌱'); if(p) marks.push('🪴'); if(h) marks.push('🥕');
-        cell.textContent = marks.join(' ');
-        r.appendChild(cell);
-      }
-      grid.appendChild(r);
-    });
-
-    wrap.appendChild(grid);
-
-    // Footer branding (text only)
-    const foot = document.createElement('div');
-    foot.className = 'pdf-footer';
-    foot.textContent = BRAND.footer;
-    wrap.appendChild(foot);
-
-    return wrap;
+    const crops = applyFilters(data.crops, {category,q});
+    buildGridDoc(sheet, crops, {regionName,category});
+    sheets.push(sheet);
+    return sheets;
   }
 
-  async function toPdfPages(sheets, {orientation='p'}){
+  async function renderToPDF(selection){
+    const sheets = await buildSheets(selection);
+
+    // Render each sheet via html2canvas → add to jsPDF
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit:'pt', format:'a4', orientation: (orientation==='l'?'landscape':'portrait') });
+    const pdf = new jsPDF({ orientation: (selection.orient==='landscape'?'landscape':'portrait'), unit:'pt', format:'a4' });
 
     for(let i=0;i<sheets.length;i++){
-      const el = sheets[i];
-      document.body.appendChild(el); // must be attached for fonts/paint
-      /* eslint no-await-in-loop: 0 */
-      const canvas = await html2canvas(el, {
-        scale: 2, backgroundColor:'#ffffff', useCORS:true, logging:false, windowWidth: el.offsetWidth
-      });
+      const node=sheets[i];
+      document.body.appendChild(node); // must be in DOM for html2canvas
+      // scale canvas to page width while keeping aspect
+      const canvas = await html2canvas(node, { backgroundColor:'#ffffff', scale:2, useCORS:true });
       const img = canvas.toDataURL('image/png');
-      const pageW = doc.internal.pageSize.getWidth();
-      const pageH = doc.internal.pageSize.getHeight();
-      doc.addImage(img, 'PNG', 0, 0, pageW, pageH, undefined, 'FAST');
-      document.body.removeChild(el);
-      if (i < sheets.length-1) doc.addPage();
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const ratio = Math.min(pageW/canvas.width, pageH/canvas.height);
+      const w = canvas.width * ratio;
+      const h = canvas.height * ratio;
+      const x = (pageW - w)/2, y=(pageH - h)/2;
+      if(i>0) pdf.addPage();
+      pdf.addImage(img, 'PNG', x, y, w, h, undefined, 'FAST');
+      node.remove();
     }
-    return doc;
+    pdf.save(`patchandpot-seasonal-${selection.region}.pdf`);
   }
 
-  async function buildPdf({region='scotland', category='all', q='', includeMeta=true, landscape=false}){
-    const data = await loadRegion(region);
-    const monthIndex = new Date().getMonth();
-    const monthName = MONTHS[monthIndex];
-
-    // selection, filtered crops
-    const selection = {region, category, q, monthName};
-    const crops = filterCrops(data.crops, selection);
-
-    // Build one or more sheets (paginate ~34 crops per A4 portrait)
-    const limit = landscape ? 22 : 34;
-    const pages = [];
-    const regionLabel = `Seasonal Planting — ${region[0].toUpperCase()+region.slice(1)}`;
-    const pageStyle = landscape ? 'Landscape A4' : 'Portrait A4';
-
-    // First sheet optionally has Basics/Pest Watch
-    let idx = 0;
-    if (includeMeta){
-      const basicsText = (Array.isArray(data.basics?.text) ? data.basics.text : []).map(t=>String(t)).join(' ');
-      const pests = (data.pestwatch && data.pestwatch[String(monthIndex)] && data.pestwatch[String(monthIndex)].items) || [];
-      const pestList = pests.map(li=>`<li>${li}</li>`).join('');
-      const rows = crops.slice(idx, idx+limit);
-      pages.push(buildSheet({
-        regionLabel,
-        pageLabel:`Filter: ${category==='all'?'All categories':category}`,
-        selection,
-        basicsBlock: basicsText ? `<p>${basicsText}</p>` : '',
-        pestBlock: pestList || '',
-        rows
-      }));
-      idx += limit;
-    }
-
-    // Remaining sheets (grid only)
-    while (idx < crops.length){
-      const rows = crops.slice(idx, idx+limit);
-      pages.push(buildSheet({
-        regionLabel,
-        pageLabel:`Filter: ${category==='all'?'All categories':category}`,
-        selection,
-        basicsBlock: '',
-        pestBlock: '',
-        rows
-      }));
-      idx += limit;
-    }
-
-    // Convert to jsPDF
-    const doc = await toPdfPages(pages, {orientation: landscape ? 'l' : 'p'});
-    return doc;
-  }
-
-  // Public API
   window.PP_PDF = {
-    async generate(sel){
-      try{
-        const btn = document.getElementById('pp-make-pdf') || document.querySelector('[data-pp-make-pdf]');
-        btn && (btn.disabled = true, btn.textContent = 'Building…');
-
-        const includeMeta = !!document.getElementById('pp-include-meta')?.checked || true; // default ON if control not present
-        const landscape = (document.getElementById('pp-page')?.value || 'portrait') === 'landscape';
-
-        const doc = await buildPdf({
-          region: (sel?.region)||'scotland',
-          category: (sel?.category)||'all',
-          q: (sel?.q)||'',
-          includeMeta,
-          landscape
-        });
-
-        // File name e.g. seasonal-scotland-2025-10-04.pdf
-        const d = new Date();
-        const yyyy = d.getFullYear(), mm = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0');
-        const fname = `seasonal-${(sel?.region||'scotland')}-${yyyy}-${mm}-${dd}.pdf`;
-        doc.save(fname);
-      }catch(err){
-        alert('Sorry, PDF generation failed.');
-        console.error(err);
-      }finally{
-        const btn = document.getElementById('pp-make-pdf') || document.querySelector('[data-pp-make-pdf]');
-        btn && (btn.disabled = false, btn.textContent = '📄 Download PDF');
-      }
-    }
+    generate: async (sel)=>{ await renderToPDF(sel); }
   };
 })();

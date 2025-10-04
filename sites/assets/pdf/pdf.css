@@ -1,100 +1,62 @@
-/* Patch & Pot – PDF print layout (native print → Save as PDF) */
-/* A4 portrait by default; supports multipage flow. */
-
+/* A4 base */
 :root{
-  --ink:#111; --muted:#40544a; --green:#35c26a; --line:#d9e3dc; --panel:#f7faf8;
+  --ink:#111; --muted:#465049; --line:#d9e3dc; --green:#2E7D32; --green2:#7ed495;
 }
-
-/* Hidden offscreen sheet that we print */
-.pp-pdf-sheet{
-  position: fixed; left: -99999px; top: 0;
-  width: 794px; min-height: 1123px; /* A4 @ 72dpi */
-  box-sizing: border-box;
-  background: #fff; color: var(--ink);
-  padding: 28px 26px 22px;
-  font: 15px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
+.pdf-sheet{
+  position:fixed; left:-99999px; top:0;
+  width:794px; min-height:1123px; /* A4 @ 72dpi */
+  box-sizing:border-box; padding:28px 26px 30px;
+  background:#fff; color:var(--ink);
+  font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
 
 /* Header */
-.pp-pdf-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:0 0 10px }
-.pp-pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0 }
-.pp-pdf-sub{ color:#4b5b54; margin:0; font-size:13px }
+.pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 10px }
+.pdf-title{ font-weight:900; font-size:26px; letter-spacing:.2px; margin:0; color:#0f2617 }
+.pdf-sub{ color:var(--muted); margin:0 0 10px; font-size:14px }
 
 /* Legend */
-.pp-pdf-legend{ display:flex; gap:16px; align-items:center; color:#1c221f; margin:6px 0 12px }
-.pp-pdf-legend .i{ display:inline-flex; align-items:center; gap:.35rem; font-size:13px }
+.legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px }
+.legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* Basics + Pest */
-.pp-pdf-meta{
-  background: var(--panel);
-  border:1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 12px;
-  margin: 0 0 12px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px 12px;
+/* Basics + Pest sections */
+.section-title{
+  margin:12px 0 6px; font-weight:800; font-size:16px; color:#0f2617
 }
-.pp-pdf-meta h4{ margin: 0 0 6px; font-size: 14px }
-.pp-pdf-meta ul{ margin: 0; padding-left: 17px; }
-@media print{
-  .pp-pdf-meta{ break-inside: avoid }
-}
+.section-body{ font-size:14px; color:#233127 }
+.section-body ul{ margin:6px 0 0 18px }
 
-/* Grid */
-.pp-pdf-grid{
-  display:grid;
-  grid-template-columns: minmax(230px,1.25fr) repeat(12, minmax(46px,1fr));
-  border:1px solid var(--line);
-  border-radius:12px;
-  overflow:hidden;
+/* Calendar grid */
+.pdf-grid{
+  display:grid; grid-template-columns: minmax(220px,1.1fr) repeat(12, 1fr);
+  border:1px solid var(--line); border-radius:12px; overflow:hidden
 }
-.pp-pdf-row{ display: contents }
-.pp-pdf-headcell, .pp-pdf-cell{
-  border:1px solid #e5eee8;
-  padding: 9px 10px;
-  font-size: 12.8px;
-  line-height: 1.35;
-  background: #fff;
+.pdf-row{ display:contents }
+.pdf-headcell,.pdf-cell{
+  border:1px solid #e5eee8; padding:8px 10px; font-size:12px; line-height:1.25
 }
-.pp-pdf-headcell{
-  font-weight:700;
-  background:#eaf7ee;
-  color:#0b140f;
+.pdf-headcell{ font-weight:800; background:#eff7f1; text-align:center }
+.pdf-crop{
+  font-weight:800; background:#f4faf6; display:flex; flex-direction:column; gap:4px;
+  min-height:22px;
 }
-.pp-pdf-headcell.small{ font-size:12.2px; letter-spacing:.1px } /* “Dec” never wraps */
+.pdf-tag{ font-weight:600; color:#6b7c73; font-size:11px }
 
-.pp-pdf-crop{
-  font-weight:700; background:#f4faf6;
-  display:flex; flex-direction:column; gap:4px;
+/* Row height helper for long names */
+.pdf-cell{ min-height:22px }
+
+/* Footer */
+.pdf-footer{
+  margin-top:14px; display:flex; justify-content:center; align-items:center; gap:10px;
+  color:#1f2c25; font-size:12px
 }
-.pp-pdf-tag{ font-weight:600; color:#4f625a; font-size:12px }
+.pdf-footer img{ width:18px; height:18px; object-fit:contain; display:inline-block }
 
-/* Make rows taller so names never collide visually with month marks */
-.pp-pdf-cell{ min-height: 22px; display:flex; align-items:center; justify-content:center }
-
-/* Wash (soft watercolour) by category – optional light accent */
-.pp-wash{ position:absolute; inset:0; pointer-events:none; opacity:.20; mix-blend-mode:multiply }
-.pp-wash-leafy{
-  background: radial-gradient(600px 340px at 18% 16%, #bfe9c8 0, transparent 65%),
-              radial-gradient(520px 300px at 88% 76%, #a5d9b1 0, transparent 65%);
+/* Soft “watercolour” background for the sheet */
+.pdf-wash{
+  position:absolute; inset:0; pointer-events:none; mix-blend-mode:multiply; opacity:.12;
+  background:
+    radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
+    radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
+    radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%);
 }
-
-/* Footer (logo left of line) */
-.pp-pdf-footer{
-  margin-top: 12px;
-  padding-top: 8px;
-  border-top: 1px solid var(--line);
-  display:flex; align-items:center; gap:8px; justify-content:flex-start;
-  font-size: 12.2px; color:#26322c;
-}
-.pp-pdf-logo{ width: 22px; height: 22px; object-fit: contain }
-
-/* Print rules */
-@media print{
-  .pp-pdf-sheet{ position: static; left: auto; top: auto; width: auto; min-height: auto; padding: 18mm 14mm }
-  @page{ size: A4 portrait; margin: 12mm }
-}
-
-/* Multipage: avoid splitting the head row */
-.pp-pdf-grid{ break-inside: avoid }

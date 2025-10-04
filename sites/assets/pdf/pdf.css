@@ -1,50 +1,65 @@
-/* Patch & Pot PDF styles */
+/* Patch & Pot – PDF styles (used inside the hidden render container) */
 :root{
-  --ink:#111; --ink2:#333; --muted:#5a6a62;
-  --line:#e6efe9; --line2:#dbe7e0;
-  --brand:#2E7D32; --brandDark:#1d5522;
+  --ink:#0a0f0c;           /* black on white PDF */
+  --muted:#4a5a52;
+  --green:#2E7D32;
+  --line:#e6ece8;
+  --monthw: 56px;          /* wider so month labels fit */
+  --rowh: 30px;            /* taller rows for long crop names */
+  --radius: 12px;
 }
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink)}
 
-.pdf-sheet{width:210mm;min-height:297mm;padding:14mm 12mm 16mm;background:#fff}
-.pdf-sheet[data-orient="landscape"]{width:297mm;min-height:210mm}
+.ppdf { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); }
+.ppdf .page { width: 794px; min-height: 1123px; padding: 28px 26px; box-sizing:border-box; background:#fff; }
+.ppdf h1,h2,h3{ margin:.2rem 0 .6rem; }
+.ppdf .muted{ color:var(--muted); }
 
-.pdf-titlebar{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:6mm}
-.pdf-title{margin:0;font-size:18pt;font-weight:900;color:#0d140f;letter-spacing:.2px}
-.pdf-sub{margin:.2rem 0 0;color:var(--muted);font-size:10pt}
-
-.pdf-legend{display:flex;gap:14px;align-items:center;margin:-2mm 0 3mm;color:#2a372f;font-weight:600}
-.pdf-legend span{display:inline-flex;align-items:center;gap:.35rem}
-
-.info-card{background:#121a16;color:#f1fff6;border-radius:8px;padding:8px 10px;margin:6px 0 10px;border:1px solid #1a251f}
-.info-card h4{margin:0 0 6px;font-size:12pt}
-.info-card ul{margin:6px 0 0 18px}
-
-.pdf-headbar{height:8mm;border-radius:999px;background:var(--brand)}
-.pdf-foot{margin-top:6mm;text-align:center;color:#6b7c73;font-size:9pt}
-.pdf-foot img{height:18px;width:auto;display:block;margin:3px auto 2px}
-
-.pdf-grid{
-  display:grid;
-  grid-template-columns:minmax(240px,1.25fr) repeat(12,minmax(56px,1fr)); /* wider months */
-  border:1px solid var(--line2);
-  border-radius:8px; overflow:hidden; background:#fff;
+/* Header strip */
+.ppdf .header{
+  background:var(--green); color:#0b140f; /* green strip with near-black text */
+  border-radius: var(--radius); padding:10px 14px; margin:6px 0 12px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font-weight:800;
 }
-.pdf-row{display:contents}
-.pdf-headcell,.pdf-cell{
-  border:1px solid var(--line);
-  padding:12px 9px;                       /* taller rows */
-  line-height:1.35;
-  font-size:10pt;
+.ppdf .legend{ display:flex; gap:18px; align-items:center; font-weight:600 }
+.ppdf .legend span{ display:inline-flex; gap:6px; align-items:center }
+
+/* Meta blocks */
+.ppdf .meta{ background:#0f15120f; border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:4px 0 10px }
+
+/* Basics / Pest Watch panel */
+.ppdf .panel{
+  background:#161c19; color:#f0fff3; border-radius:12px; padding:12px 14px; margin:8px 0 12px;
 }
-.pdf-headcell{
-  font-weight:800;background:#0f160f;color:#ffffff; /* dark header w/ white text */
-  white-space:nowrap;                                  /* never wrap month name */
+.ppdf .panel h3{ margin:.1rem 0 .4rem; color:#f0fff3 }
+.ppdf .panel ul{ margin:.35rem 0 0; padding-left:1.2rem }
+
+/* Table */
+.ppdf .table{
+  width:100%; border-collapse:separate; border-spacing:0; table-layout:fixed;
+  border:1px solid var(--line); border-radius:12px; overflow:hidden;
 }
-.pdf-crop{
-  font-weight:800;background:#f6fbf8;
-  display:flex;flex-direction:column;gap:2px
+.ppdf th, .ppdf td{
+  border:1px solid var(--line); padding:6px 8px; height:var(--rowh);
+  vertical-align:middle; font-size:12px; line-height:1.25; word-break:break-word;
 }
-.pdf-tags{font-size:8.5pt;color:#6c7b73;font-weight:600}
-.pdf-cell{background:#ffffff;text-align:center}
+.ppdf th{ background:#f4faf7; font-weight:800; }
+.ppdf th.crop{ width: 260px; }
+.ppdf th.month{ width: var(--monthw); text-align:center }
+.ppdf td.month{ text-align:center; font-size:16px } /* larger emoji */
+.ppdf td.crop{ font-weight:700 }
+.ppdf td.tags{ font-size:11px; color:#70867a; padding-top:0 }
+
+/* Footer branding */
+.ppdf .foot{
+  display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; color:#4a5a52; font-size:12px;
+}
+.ppdf .foot img{ width:18px; height:18px; object-fit:contain }
+
+/* Page breaks */
+.ppdf .avoid-break{ break-inside:avoid; }
+.ppdf .pb{ page-break-before:always }
+
+/* Landscape tweaks (applied via inline style on container when needed) */
+.ppdf.land th.crop{ width: 320px }
+.ppdf.land { --monthw: 60px; --rowh: 30px }

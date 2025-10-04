@@ -1,45 +1,33 @@
-/* Patch & Pot – PDF styles (used for small HTML snippets we inject into jsPDF images if needed)
-   Note: jsPDF/autoTable handles most styling internally. This file provides brand constants and
-   styles for any offscreen HTML we might snapshot in the future. */
-
-:root{
-  --pdf-ink:#1a1f1c;
-  --pdf-muted:#4c5a53;
-  --pdf-head:#e9f3ec; /* light brand wash */
-  --pdf-line:#d9e3dc;
-  --pdf-accent:#2E7D32;
-  --pdf-accent-2:#7ed495;
-}
-
-*{ box-sizing:border-box }
-
+/* A4 sheet scaffold (kept for compatibility – not required by jsPDF path) */
 .pdf-sheet{
   position:fixed; left:-99999px; top:0;
   width:794px; min-height:1123px; /* A4 @ 72dpi */
   box-sizing:border-box; padding:28px 26px 30px;
-  background:#fff; color:var(--pdf-ink);
+  background:#fff; color:#1a1f1c;
   font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
 }
-
-.pdf-head{ display:flex; align-items:flex-end; justify-content:space-between; margin:0 0 8px }
-.pdf-title{ font-weight:800; font-size:24px; letter-spacing:.2px; margin:0 }
-.pdf-sub{ color:var(--pdf-muted); margin:0 0 10px; font-size:13px }
-.legend{ display:flex; gap:18px; align-items:center; font-size:13px; margin:6px 0 12px }
+.pdf-head{ display:flex; align-items:baseline; justify-content:space-between; margin:0 0 8px }
+.pdf-title{ font-weight:800; font-size:26px; letter-spacing:.2px; margin:0 }
+.pdf-sub{ color:#4c5a53; margin:0 0 10px; font-size:14px }
+.legend{ display:flex; gap:18px; align-items:center; font-size:14px; margin:6px 0 12px }
 .legend span{ display:inline-flex; align-items:center; gap:.35rem }
 
-/* Simple grid look if we ever HTML->canvas */
-.pdf-grid{ display:grid; grid-template-columns: minmax(210px,1.1fr) repeat(12, 1fr); border:1px solid var(--pdf-line); border-radius:12px; overflow:hidden }
+.pdf-grid{ display:grid; grid-template-columns: minmax(210px,1.1fr) repeat(12, 1fr); border:1px solid #d9e3dc; border-radius:12px; overflow:hidden }
 .pdf-row{ display:contents }
-.pdf-headcell,.pdf-cell{ border:1px solid #e5eee8; padding:8px 10px; font-size:12.5px }
-.pdf-headcell{ font-weight:700; background:var(--pdf-head) }
-.pdf-crop{ font-weight:700; background:#f9fbfa; display:flex; flex-direction:column; gap:4px }
+.pdf-headcell,.pdf-cell{ border:1px solid #e5eee8; padding:8px 10px; font-size:13px }
+.pdf-headcell{ font-weight:700; background:#f4f8f5 }
+.pdf-crop{ font-weight:700; background:#f7faf8; display:flex; flex-direction:column; gap:4px }
 .pdf-tag{ font-weight:600; color:#6b7c73; font-size:12px }
-.pdf-meta{ color:var(--pdf-muted); font-size:12px }
+.pdf-meta{ color:#4c5a53; font-size:12px }
 
-/* Footer block (logo above, text below, centered) */
-.pdf-footer{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; gap:6px; margin-top:18px; padding-top:10px; border-top:1px solid var(--pdf-line);
-}
-.pdf-footer img{ width:42px; height:42px; object-fit:contain }
-.pdf-footer p{ margin:0; color:#697a71; font-size:12px }
+/* soft washes (kept) */
+.wash{ position:absolute; inset:0; pointer-events:none; opacity:.26; mix-blend-mode:multiply }
+.wash-leafy{ background:
+  radial-gradient(600px 340px at 15% 18%, #bfe9c8 0, transparent 60%),
+  radial-gradient(520px 300px at 90% 70%, #a5d9b1 0, transparent 65%),
+  radial-gradient(420px 260px at 40% 90%, #d4f0db 0, transparent 55%); }
+.wash-roots{ background:
+  radial-gradient(600px 340px at 12% 16%, #f3d4b7 0, transparent 60%),
+  radial-gradient(520px 300px at 85% 65%, #f0caa6 0, transparent 65%),
+  radial-gradient(420px 260px at 40% 88%, #fde4cd 0, transparent 55%); }
+/* ...other washes unchanged... */

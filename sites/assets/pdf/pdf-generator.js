@@ -1,22 +1,23 @@
 /* global jspdf */
-/* Requires: assets/pdf/jspdf.umd.min.js, assets/pdf/jspdf.plugin.autotable.min.js */
+/* Requires local files:
+   - assets/pdf/jspdf.umd.min.js
+   - assets/pdf/jspdf.plugin.autotable.min.js
+*/
 (function(){
   const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const GLYPHS = { sow:"🌱", plant:"🪴", harvest:"🥕" };
 
-  async function fetchJSON(url){
-    const r = await fetch(`${url}?v=${Date.now()}`, {cache:'no-store'});
-    if(!r.ok) throw new Error(`Failed ${url}`);
-    return r.json();
-    }
+  const fetchJSON = (url) =>
+    fetch(`${url}?v=${Date.now()}`, { cache:'no-store' })
+      .then(r => r.ok ? r.json() : Promise.reject(new Error(`Failed to load ${url}`)));
 
   async function loadRegionData(region){
-    // Basics + Pest
     const basics = await fetchJSON(`data/regions/${region}/basics.json`).catch(()=>({}));
-    const pestwatch = await fetchJSON(`data/regions/${region}/pestwatch.json`).catch(()=> ({}));
-    // Crops – merge all blocks
-    const blocks = ["roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
-    const parts = await Promise.all(blocks.map(b => fetchJSON(`data/regions/${region}/${b}.json`).catch(()=>[])));
+    const pestwatch = await fetchJSON(`data/regions/${region}/pestwatch.json`).catch(()=>({}));
+    const parts = await Promise.all(
+      ["roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"]
+        .map(b => fetchJSON(`data/regions/${region}/${b}.json`).catch(()=>[]))
+    );
     const crops = parts.flat().filter(c => c && c.name);
     return { basics, pestwatch, crops };
   }
@@ -59,7 +60,6 @@
     doc.text(text, x, y);
     doc.setFont("helvetica","normal");
   }
-
   function blockParagraph(doc, text, x, y, maxW, lineH){
     const lines = doc.splitTextToSize(text, maxW);
     doc.text(lines, x, y);
@@ -76,7 +76,7 @@
     // Header
     doc.setFont("helvetica","bold");
     doc.setFontSize(20);
-    doc.setTextColor(15, 38, 23); // deep green text
+    doc.setTextColor(15, 38, 23);
     doc.text(`Patch & Pot — Seasonal (${region[0].toUpperCase()+region.slice(1)})`, 40, 48);
     doc.setFont("helvetica","normal");
     doc.setFontSize(11.5);
@@ -88,13 +88,13 @@
     doc.setTextColor(30, 40, 35);
     doc.text(`${GLYPHS.sow} Sow    ${GLYPHS.plant} Plant    ${GLYPHS.harvest} Harvest`, 40, 86);
 
-    // Load region data
+    // Data
     const data = await loadRegionData(region);
     const crops = filterCrops(data.crops, sel);
 
-    let y = 108; // current write position
+    let y = 108;
 
-    // BASICS
+    // Basics (optional)
     if (data.basics && (data.basics.soil || data.basics.tools || data.basics.notes)) {
       sectionTitle(doc, "Basics", 40, y); y += 14;
       doc.setFont("helvetica","normal");
@@ -106,7 +106,7 @@
       if (data.basics.notes)  { y = blockParagraph(doc, `Notes: ${data.basics.notes}`, 40, y, maxW, lh) + 10; }
     }
 
-    // PEST WATCH — full year
+    // Pest Watch (full year)
     sectionTitle(doc, "Pest Watch — Full Year", 40, y); y += 14;
     doc.setFont("helvetica","normal");
     doc.setFontSize(10.5); doc.setTextColor(35,49,39);
@@ -114,7 +114,6 @@
     for (let m = 0; m < 12; m++){
       const entry = data.pestwatch && data.pestwatch[String(m)];
       const items = entry?.items || [];
-      // Month subheading
       doc.setFont("helvetica","bold");
       doc.text(`${MONTHS[m]}`, 40, y); y += 12;
       doc.setFont("helvetica","normal");
@@ -131,14 +130,10 @@
         y += 13;
       }
       y += 4;
-
-      // Page-break safety
-      if (y > 700){
-        doc.addPage(); y = 60;
-      }
+      if (y > 700){ doc.addPage(); y = 60; }
     }
 
-    // CALENDAR GRID
+    // Calendar table
     if (y > 730){ doc.addPage(); y = 60; }
     sectionTitle(doc, "Seasonal Calendar", 40, y); y += 12;
 
@@ -165,7 +160,7 @@
         fontSize: 9.2,
         halign: 'center',
         cellPadding: 4,
-        minCellHeight: 16
+        minCellHeight: 18
       },
       headStyles: {
         fillColor: [239,247,241],
@@ -174,14 +169,11 @@
         halign: 'center'
       },
       columnStyles: {
-        0: { cellWidth: 160, halign: 'left', fontStyle: 'bold' } // crop names
-      },
-      didDrawPage: function (data) {
-        // title kept already; nothing additional
+        0: { cellWidth: 160, halign: 'left', fontStyle: 'bold' }
       }
     });
 
-    // FOOTER (pot icon left + text; centred)
+    // Footer: icon left + text, all centered
     const iconData = await imgToDataURL('img/patchandpot-icon.png');
     const footerY = doc.internal.pageSize.getHeight() - 42;
     const text = '© 2025 Patch & Pot | Created by Grant Cameron Anthony';

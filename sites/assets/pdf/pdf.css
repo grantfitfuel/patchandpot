@@ -1,9 +1,45 @@
-/* Patch & Pot – PDF styles (kept minimal; does NOT darken the site) */
+/* Patch & Pot – PDF styles (used for small HTML snippets we inject into jsPDF images if needed)
+   Note: jsPDF/autoTable handles most styling internally. This file provides brand constants and
+   styles for any offscreen HTML we might snapshot in the future. */
+
 :root{
-  --pp-ink:#1a1f1c;
-  --pp-muted:#4c5a53;
-  --pp-line:#dfe7e2;
-  --pp-accent:#2f8f4a;     /* brand green */
+  --pdf-ink:#1a1f1c;
+  --pdf-muted:#4c5a53;
+  --pdf-head:#e9f3ec; /* light brand wash */
+  --pdf-line:#d9e3dc;
+  --pdf-accent:#2E7D32;
+  --pdf-accent-2:#7ed495;
 }
 
-/* no global rules here on purpose */
+*{ box-sizing:border-box }
+
+.pdf-sheet{
+  position:fixed; left:-99999px; top:0;
+  width:794px; min-height:1123px; /* A4 @ 72dpi */
+  box-sizing:border-box; padding:28px 26px 30px;
+  background:#fff; color:var(--pdf-ink);
+  font:16px/1.45 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif;
+}
+
+.pdf-head{ display:flex; align-items:flex-end; justify-content:space-between; margin:0 0 8px }
+.pdf-title{ font-weight:800; font-size:24px; letter-spacing:.2px; margin:0 }
+.pdf-sub{ color:var(--pdf-muted); margin:0 0 10px; font-size:13px }
+.legend{ display:flex; gap:18px; align-items:center; font-size:13px; margin:6px 0 12px }
+.legend span{ display:inline-flex; align-items:center; gap:.35rem }
+
+/* Simple grid look if we ever HTML->canvas */
+.pdf-grid{ display:grid; grid-template-columns: minmax(210px,1.1fr) repeat(12, 1fr); border:1px solid var(--pdf-line); border-radius:12px; overflow:hidden }
+.pdf-row{ display:contents }
+.pdf-headcell,.pdf-cell{ border:1px solid #e5eee8; padding:8px 10px; font-size:12.5px }
+.pdf-headcell{ font-weight:700; background:var(--pdf-head) }
+.pdf-crop{ font-weight:700; background:#f9fbfa; display:flex; flex-direction:column; gap:4px }
+.pdf-tag{ font-weight:600; color:#6b7c73; font-size:12px }
+.pdf-meta{ color:var(--pdf-muted); font-size:12px }
+
+/* Footer block (logo above, text below, centered) */
+.pdf-footer{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:6px; margin-top:18px; padding-top:10px; border-top:1px solid var(--pdf-line);
+}
+.pdf-footer img{ width:42px; height:42px; object-fit:contain }
+.pdf-footer p{ margin:0; color:#697a71; font-size:12px }

@@ -1,32 +1,38 @@
-/* Patch & Pot – seasonal PDF (A4 portrait)
-   Requires: jsPDF 2.5.x (UMD) + jsPDF-AutoTable 3.8.x (already loaded via CDN)
+/* global jspdf */
+/* External libs are loaded on the page:
+   - jsPDF 2.5.1
+   - jsPDF-AutoTable 3.8.x
+   This generator mirrors the page’s sequential, lazy data loading.
 */
 (function(){
   const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const GLYPHS = { sow:"🌱", plant:"🪴", harvest:"🥕" };
-
-  function nowYear(){ return new Date().getFullYear(); }
+  const CROP_BLOCKS=["roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
 
   async function fetchJSON(url){
     const r = await fetch(`${url}?v=${Date.now()}`, {cache:'no-store'});
-    if(!r.ok) throw new Error(`Failed ${url}`);
+    if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
     return r.json();
   }
 
-  async function loadRegionData(region){
-    const meta = await Promise.allSettled([
-      fetchJSON(`data/regions/${region}/basics.json`),
-      fetchJSON(`data/regions/${region}/pestwatch.json`)
-    ]);
-    const basics = meta[0].status==='fulfilled' ? meta[0].value : {};
-    const pestwatch = meta[1].status==='fulfilled' ? meta[1].value : {};
-
-    const blocks = ["roots","leafy","legumes","fruit","alliums","herbs","softfruit","other"];
-    const parts = await Promise.all(blocks.map(b =>
-      fetchJSON(`data/regions/${region}/${b}.json`).catch(()=>[])
-    ));
-    const crops = parts.flat().filter(c=>c && c.name);
-    return {basics, pestwatch, crops};
+  // Sequential region loader (same as page)
+  async function loadRegionSequential(region){
+    let basics={}, pestwatch={};
+    for (const meta of ['basics','pestwatch']){
+      const url = `data/regions/${region}/${meta}.json`;
+      try{
+        const j = await fetchJSON(url);
+        if(meta==='basics') basics=j||{}; else pestwatch=j||{};
+      }catch(_){ if(meta==='basics') basics={}; else pestwatch={}; }
+    }
+    const crops=[];
+    for (const block of CROP_BLOCKS){
+      const url = `data/regions/${region}/${block}.json`;
+      try{
+        const arr = await fetchJSON(url);
+        if(Array.isArray(arr)) crops.push(...arr.filter(c=>c&&c.name));
+      }catch(_){ /* ignore missing block */ }
+    }
+    return { basics, pestwatch, crops };
   }
 
   function inferCategory(name){
@@ -47,9 +53,10 @@
     const m = (new Date()).getMonth();
     return (crops||[]).filter(c=>{
       if(!c || !c.name) return false;
-      if(q && !c.name.toLowerCase().includes(q)) return false;
-      const infer = c.category || inferCategory(c.name);
-      if(cat!=="all" && infer!==cat) return false;
+      const name = c.name;
+      const derivedCat = (c.category||inferCategory(name));
+      if(q && !name.toLowerCase().includes(q)) return false;
+      if(cat!=="all" && derivedCat!==cat) return false;
       if(mOnly){
         const s=(c.months?.sow||[]).includes(m);
         const p=(c.months?.plant||[]).includes(m);
@@ -73,77 +80,63 @@
     }catch(_){ return null; }
   }
 
-  function H1(doc, text, y){
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(20);
-    doc.setTextColor(15, 38, 23);
-    doc.text(text, 40, y);
-    doc.setFont("helvetica","normal");
-  }
-  function H2(doc, text, y){
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(12.5);
-    doc.setTextColor(15, 38, 23);
-    doc.text(text, 40, y);
-    doc.setFont("helvetica","normal");
-  }
-  function pText(doc, text, x, y, maxW, lineH){
+  function para(doc, text, x, y, maxW, lineH){
     const lines = doc.splitTextToSize(text, maxW);
     doc.text(lines, x, y);
     return y + lines.length * lineH;
   }
 
   async function buildPDF(sel){
-    const jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
-    if(!jsPDFCtor) throw new Error("jsPDF not present");
-
-    const doc = new jsPDFCtor({ unit: "pt", format: "a4", orientation: "portrait" });
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: "pt", format: "a4", orientation: "portrait" });
 
     const region = sel.region || "scotland";
-    const year = nowYear();
+    const year = new Date().getFullYear();
 
     // Header
-    H1(doc, `Patch & Pot — Seasonal (${region[0].toUpperCase()+region.slice(1)})`, 48);
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(20);
+    doc.setTextColor(15, 38, 23);
+    doc.text(`Patch & Pot — Seasonal (${region[0].toUpperCase()+region.slice(1)})`, 40, 48);
     doc.setFont("helvetica","normal");
     doc.setFontSize(11.5);
     doc.setTextColor(35, 49, 39);
     doc.text(`Small-space growing calendar • ${year}`, 40, 66);
 
-    // Legend
+    // Legend letters
     doc.setFontSize(11);
     doc.setTextColor(30, 40, 35);
-    doc.text(`${GLYPHS.sow} Sow    ${GLYPHS.plant} Plant    ${GLYPHS.harvest} Harvest`, 40, 86);
+    doc.text(`S Sow    P Plant    H Harvest`, 40, 86);
 
-    // Region data
-    const data = await loadRegionData(region);
+    // Data (sequential)
+    const data = await loadRegionSequential(region);
     const crops = filterCrops(data.crops, sel);
 
-    let y = 108; // cursor
+    let y = 108;
 
     // Basics
     if (data.basics && (data.basics.soil || data.basics.tools || data.basics.notes)) {
-      H2(doc, "Basics", y); y += 14;
-      doc.setFontSize(10.5); doc.setTextColor(35,49,39);
+      doc.setFont("helvetica","bold"); doc.setFontSize(12.5); doc.text("Basics", 40, y); y += 14;
+      doc.setFont("helvetica","normal"); doc.setFontSize(10.5); doc.setTextColor(35,49,39);
       const maxW = 515, lh = 14;
-      if (data.basics.soil)   { y = pText(doc, `Soil/Compost: ${data.basics.soil}`, 40, y, maxW, lh) + 6; }
-      if (data.basics.tools)  { y = pText(doc, `Tools: ${data.basics.tools}`, 40, y, maxW, lh) + 6; }
-      if (data.basics.notes)  { y = pText(doc, `Notes: ${data.basics.notes}`, 40, y, maxW, lh) + 10; }
+      if (data.basics.soil)   { y = para(doc, `Soil/Compost: ${data.basics.soil}`, 40, y, maxW, lh) + 6; }
+      if (data.basics.tools)  { y = para(doc, `Tools: ${data.basics.tools}`, 40, y, maxW, lh) + 6; }
+      if (data.basics.notes)  { y = para(doc, `Notes: ${data.basics.notes}`, 40, y, maxW, lh) + 10; }
     }
 
-    // Full-year Pest Watch
-    H2(doc, "Pest Watch — Full Year", y); y += 14;
-    doc.setFontSize(10.5); doc.setTextColor(35,49,39);
+    // Pest Watch full year
+    doc.setFont("helvetica","bold"); doc.setFontSize(12.5); doc.text("Pest Watch — Full Year", 40, y); y += 14;
+    doc.setFont("helvetica","normal"); doc.setFontSize(10.5); doc.setTextColor(35,49,39);
 
     for (let m = 0; m < 12; m++){
       const entry = data.pestwatch && data.pestwatch[String(m)];
       const items = entry?.items || [];
-      doc.setFont("helvetica","bold");
-      doc.text(`${MONTHS[m]}`, 40, y); y += 12;
+      doc.setFont("helvetica","bold"); doc.text(`${MONTHS[m]}`, 40, y); y += 12;
       doc.setFont("helvetica","normal");
-
       if (items.length){
         items.forEach(line=>{
-          const lines = doc.splitTextToSize(`• ${line}`, 515);
+          const bullet = `• ${line}`;
+          const lines = doc.splitTextToSize(bullet, 515);
           doc.text(lines, 50, y);
           y += lines.length * 13;
         });
@@ -157,7 +150,7 @@
 
     // Calendar table
     if (y > 730){ doc.addPage(); y = 60; }
-    H2(doc, "Seasonal Calendar", y); y += 12;
+    doc.setFont("helvetica","bold"); doc.setFontSize(12.5); doc.text("Seasonal Calendar", 40, y); y += 12;
 
     const head = ["Crop"].concat(MONTHS);
     const body = crops.map(c=>{
@@ -166,7 +159,7 @@
         const s=(c.months?.sow||[]).includes(i);
         const p=(c.months?.plant||[]).includes(i);
         const h=(c.months?.harvest||[]).includes(i);
-        const marks=[s?GLYPHS.sow:"",p?GLYPHS.plant:"",h?GLYPHS.harvest:""].filter(Boolean).join(" ");
+        const marks=[s?"S":"",p?"P":"",h?"H":""].filter(Boolean).join(" ");
         row.push(marks);
       }
       return row;
@@ -179,10 +172,10 @@
       theme: 'grid',
       styles: {
         font: "helvetica",
-        fontSize: 9.2,
+        fontSize: 9.8,
         halign: 'center',
-        cellPadding: 4,
-        minCellHeight: 16
+        cellPadding: 5,
+        minCellHeight: 20
       },
       headStyles: {
         fillColor: [239,247,241],
@@ -191,11 +184,11 @@
         halign: 'center'
       },
       columnStyles: {
-        0: { cellWidth: 160, halign: 'left', fontStyle: 'bold' }
+        0: { cellWidth: 170, halign: 'left', fontStyle: 'bold' }
       }
     });
 
-    // Footer (pot icon to the LEFT of text, whole block centred)
+    // Footer (icon left, text centred group)
     const iconData = await imgToDataURL('img/patchandpot-icon.png');
     const footerY = doc.internal.pageSize.getHeight() - 42;
     const text = '© 2025 Patch & Pot | Created by Grant Cameron Anthony';
@@ -209,20 +202,28 @@
     const pageW = doc.internal.pageSize.getWidth();
     const startX = (pageW - totalW)/2;
 
-    if (iconData){
-      doc.addImage(iconData, 'PNG', startX, footerY-11, 14, 14);
-      doc.text(text, startX + iconW + gap, footerY);
-    }else{
-      doc.text(text, (pageW - textW)/2, footerY);
+    const pages = doc.getNumberOfPages();
+    for(let p=1;p<=pages;p++){
+      doc.setPage(p);
+      if (iconData){
+        doc.addImage(iconData, 'PNG', startX, footerY-11, 14, 14);
+        doc.text(text, startX + iconW + gap, footerY);
+      }else{
+        doc.text(text, (pageW - textW)/2, footerY);
+      }
     }
 
     return doc;
   }
 
   async function generate(selection){
+    if(!window.jspdf || !window.jspdf.jsPDF || !window.jspdf.jsPDF.prototype.autoTable){
+      alert('PDF libraries not loaded.');
+      return;
+    }
     const doc = await buildPDF(selection || {});
-    const region = (selection?.region||'scotland');
-    doc.save(`patch-and-pot-seasonal-${region}.pdf`);
+    const r = (selection?.region||'scotland');
+    doc.save(`patch-and-pot-seasonal-${r}.pdf`);
   }
 
   window.PP_PDF = { generate };

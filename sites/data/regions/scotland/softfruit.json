@@ -1,123 +1,119 @@
-{
-  "region": "Scotland",
-  "category": "softfruit",
-  "crops": [
-    {
-      "name": "Strawberry",
-      "months": {
-        "sow": [],
-        "plant": [
-          3,
-          4
-        ],
-        "harvest": [
-          6,
-          7
-        ]
-      },
-      "depth": "Crown at soil level",
-      "spacing": "30cm apart",
-      "light": "Full sun",
-      "where": "Pots, hanging baskets, raised beds",
-      "protection": "Netting against birds",
-      "tips": "Mulch with straw, remove runners",
-      "containerMin": "25cm pot",
-      "notes": "Alpine strawberries fruit all summer"
+[
+  {
+    "name": "Strawberry",
+    "months": {
+      "sow": [],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
     },
-    {
-      "name": "Raspberry (Summer)",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2
-        ],
-        "harvest": [
-          7,
-          8
-        ]
-      },
-      "depth": "As nursery pot",
-      "spacing": "45cm apart in rows",
-      "light": "Full sun",
-      "where": "Soil, large raised bed",
-      "protection": "Netting for birds",
-      "tips": "Tie to wires, prune after fruiting",
-      "containerMin": "Deep planter 40L+",
-      "notes": "Autumn types crop later Aug\u2013Oct"
+    "depth": "Crown at soil level",
+    "spacing": "30cm apart",
+    "light": "Full sun",
+    "where": "Pots, hanging baskets, raised beds",
+    "protection": "Netting against birds",
+    "tips": "Mulch with straw, remove runners",
+    "containerMin": "25cm pot",
+    "notes": "Alpine strawberries fruit all summer"
+  },
+  {
+    "name": "Raspberry (Summer)",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Blackcurrant",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2
-        ],
-        "harvest": [
-          7
-        ]
-      },
-      "depth": "Plant 5cm deeper than pot",
-      "spacing": "1.5m apart",
-      "light": "Sun/part shade",
-      "where": "Soil, large bed",
-      "protection": "Netting for birds",
-      "tips": "Mulch to keep moist",
-      "containerMin": "Large half barrel",
-      "notes": "Prune old wood after fruiting"
+    "depth": "As nursery pot",
+    "spacing": "45cm apart in rows",
+    "light": "Full sun",
+    "where": "Soil, large raised bed",
+    "protection": "Netting for birds",
+    "tips": "Tie to wires, prune after fruiting",
+    "containerMin": "Deep planter 40L+",
+    "notes": "Autumn types crop later Aug–Oct"
+  },
+  {
+    "name": "Blackcurrant",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        7
+      ]
     },
-    {
-      "name": "Blueberry",
-      "months": {
-        "sow": [],
-        "plant": [
-          3,
-          4,
-          9,
-          10
-        ],
-        "harvest": [
-          7,
-          8
-        ]
-      },
-      "depth": "As nursery pot",
-      "spacing": "1.5m apart",
-      "light": "Full sun, acid soil",
-      "where": "Pots with ericaceous compost",
-      "protection": "Netting against birds",
-      "tips": "Water with rainwater",
-      "containerMin": "35L ericaceous pot",
-      "notes": "Needs 2+ varieties for pollination"
+    "depth": "Plant 5cm deeper than pot",
+    "spacing": "1.5m apart",
+    "light": "Sun/part shade",
+    "where": "Soil, large bed",
+    "protection": "Netting for birds",
+    "tips": "Mulch to keep moist",
+    "containerMin": "Large half barrel",
+    "notes": "Prune old wood after fruiting"
+  },
+  {
+    "name": "Blueberry",
+    "months": {
+      "sow": [],
+      "plant": [
+        3,
+        4,
+        9,
+        10
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Apple (Patio/Columnar)",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2
-        ],
-        "harvest": [
-          9,
-          10
-        ]
-      },
-      "depth": "As graft union",
-      "spacing": "2m apart in soil",
-      "light": "Full sun",
-      "where": "Soil, pots",
-      "protection": "Guard trunks from rabbits",
-      "tips": "Thin fruits for quality",
-      "containerMin": "50L pot",
-      "notes": "Choose dwarf rootstock for pots"
-    }
-  ]
-}
+    "depth": "As nursery pot",
+    "spacing": "1.5m apart",
+    "light": "Full sun, acid soil",
+    "where": "Pots with ericaceous compost",
+    "protection": "Netting against birds",
+    "tips": "Water with rainwater",
+    "containerMin": "35L ericaceous pot",
+    "notes": "Needs 2+ varieties for pollination"
+  },
+  {
+    "name": "Apple (Patio/Columnar)",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        9,
+        10
+      ]
+    },
+    "depth": "As graft union",
+    "spacing": "2m apart in soil",
+    "light": "Full sun",
+    "where": "Soil, pots",
+    "protection": "Guard trunks from rabbits",
+    "tips": "Thin fruits for quality",
+    "containerMin": "50L pot",
+    "notes": "Choose dwarf rootstock for pots"
+  }
+]

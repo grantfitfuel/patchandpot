@@ -18,13 +18,13 @@
       ]
     },
     "depth": "0.5cm",
-    "spacing": "45cm apart / 1 per 10\u201312L pot",
+    "spacing": "45cm apart / 1 per 10–12L pot",
     "light": "Full sun, sheltered",
     "where": "Pots, grow bags, greenhouse",
     "protection": "Fleece on cold nights; greenhouse in N Scotland",
     "tips": "Start indoors, harden off; feed high potash from first truss; even watering to avoid split/BER.",
-    "containerMin": "10\u201312L",
-    "notes": "Choose early outdoor types in Scotland (e.g., 'Stupice', 'Outdoor Girl')."
+    "containerMin": "10–12L",
+    "notes": "Choose early outdoor types in Scotland (e.g., 'Stupice', 'Outdoor Girl'). Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Tomato (cordon/indeterminate)",
@@ -43,13 +43,13 @@
       ]
     },
     "depth": "0.5cm",
-    "spacing": "Single stem to cane; 40\u201350cm between plants",
+    "spacing": "Single stem to cane; 40–50cm between plants",
     "light": "Full sun, warm",
     "where": "Greenhouse, polytunnel, sheltered patio",
-    "protection": "Greenhouse recommended; fleece when <8\u00b0C nights.",
+    "protection": "Greenhouse recommended; fleece when <8°C nights.",
     "tips": "Pot-on progressively; remove side shoots; tie in; consistent water; vent to reduce blight risk.",
-    "containerMin": "12\u201315L",
-    "notes": "Later but heavier crop under cover."
+    "containerMin": "12–15L",
+    "notes": "Later but heavier crop under cover. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Tomato (cherry)",
@@ -69,13 +69,13 @@
       ]
     },
     "depth": "0.5cm",
-    "spacing": "35\u201345cm",
+    "spacing": "35–45cm",
     "light": "Full sun",
     "where": "Pots/hanging baskets/greenhouse",
     "protection": "Fleece early; cover from prolonged rain.",
     "tips": "Great for baskets; keep fed and picked.",
-    "containerMin": "8\u201310L",
-    "notes": "Early and reliable in cool summers."
+    "containerMin": "8–10L",
+    "notes": "Early and reliable in cool summers. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Pepper (sweet/bell)",
@@ -94,13 +94,13 @@
       ]
     },
     "depth": "0.5cm",
-    "spacing": "30\u201340cm",
+    "spacing": "30–40cm",
     "light": "Full sun, warm",
     "where": "Greenhouse, bright windowsill, warm patio",
-    "protection": "Greenhouse or coldframe; fleece below 10\u00b0C.",
-    "tips": "Start early and keep warm (20\u201325\u00b0C germination). Stake as fruit sets; feed high potash.",
-    "containerMin": "10\u201312L",
-    "notes": "Compact early varieties do best (e.g., 'Gypsy', 'Ace')."
+    "protection": "Greenhouse or coldframe; fleece below 10°C.",
+    "tips": "Start early and keep warm (20–25°C germination). Stake as fruit sets; feed high potash.",
+    "containerMin": "10–12L",
+    "notes": "Compact early varieties do best (e.g., 'Gypsy', 'Ace'). Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Chilli Pepper",
@@ -125,9 +125,9 @@
     "light": "Full sun, warm",
     "where": "Greenhouse, windowsill, patio in warm spells",
     "protection": "Greenhouse; fleece at night early/late season.",
-    "tips": "Start very early for good ripening; bottom heat helps; don\u2019t overwater; pick to encourage set.",
-    "containerMin": "7\u201310L",
-    "notes": "Many chillies colour late\u2014prioritise early cultivars in Scotland."
+    "tips": "Start very early for good ripening; bottom heat helps; don’t overwater; pick to encourage set.",
+    "containerMin": "7–10L",
+    "notes": "Many chillies colour late—prioritise early cultivars in Scotland. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Aubergine (eggplant)",
@@ -151,11 +151,11 @@
     "where": "Greenhouse or polytunnel only",
     "protection": "Greenhouse essential; fleece when cold.",
     "tips": "Start early with heat; focus on small-fruited types; hand-pollinate flowers if needed.",
-    "containerMin": "12\u201315L",
-    "notes": "Marginal outdoors\u2014under cover strongly advised."
+    "containerMin": "12–15L",
+    "notes": "Marginal outdoors—under cover strongly advised. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
-    "name": "Okra (lady\u2019s finger) \u2013 experimental",
+    "name": "Okra (lady’s finger) – experimental",
     "category": "fruit",
     "months": {
       "sow": [
@@ -174,10 +174,10 @@
     "spacing": "40cm",
     "light": "Full sun, very warm",
     "where": "Heated greenhouse/polytunnel",
-    "protection": "Requires consistent warmth >18\u00b0C.",
+    "protection": "Requires consistent warmth >18°C.",
     "tips": "Choose compact early cultivars; grow only in reliably warm microclimates.",
     "containerMin": "15L",
-    "notes": "Challenging in Scotland; greenhouse only."
+    "notes": "Challenging in Scotland; greenhouse only. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Cucumber (greenhouse)",
@@ -202,8 +202,8 @@
     "where": "Greenhouse/polytunnel",
     "protection": "Cover from cold; avoid drafts.",
     "tips": "Train up twine; keep evenly moist; avoid wetting leaves; pick regularly.",
-    "containerMin": "12\u201315L",
-    "notes": "Choose parthenocarpic greenhouse types (all-female)."
+    "containerMin": "12–15L",
+    "notes": "Choose parthenocarpic greenhouse types (all-female). Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Cucumber (ridge/outdoor)",
@@ -227,8 +227,8 @@
     "where": "Sheltered patio, large containers",
     "protection": "Cloche early; protect from wind/cold.",
     "tips": "Harden off well; grow on a wigwam or trellis; mulch to conserve moisture.",
-    "containerMin": "15\u201320L",
-    "notes": "Short-season varieties best outdoors in Scotland."
+    "containerMin": "15–20L",
+    "notes": "Short-season varieties best outdoors in Scotland. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Gherkin (pickling cucumber)",
@@ -247,13 +247,13 @@
       ]
     },
     "depth": "1cm",
-    "spacing": "45\u201360cm",
+    "spacing": "45–60cm",
     "light": "Full sun",
     "where": "Greenhouse or warm patio",
     "protection": "Fleece early season.",
     "tips": "Harvest small and often for crisp pickles; train to support.",
-    "containerMin": "12\u201315L",
-    "notes": "Prolific in pots with support."
+    "containerMin": "12–15L",
+    "notes": "Prolific in pots with support. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Courgette",
@@ -273,13 +273,13 @@
         9
       ]
     },
-    "depth": "2\u20133cm",
+    "depth": "2–3cm",
     "spacing": "90cm apart (or 1 per large pot)",
     "light": "Full sun",
     "where": "Large containers, raised beds",
     "protection": "Cloche early; wind shelter.",
     "tips": "Feed and water generously; harvest very young fruits to keep plant productive.",
-    "containerMin": "35\u201350L",
+    "containerMin": "35–50L",
     "notes": "Compact/bush cultivars are ideal for pots."
   },
   {
@@ -299,7 +299,7 @@
         9
       ]
     },
-    "depth": "2\u20133cm",
+    "depth": "2–3cm",
     "spacing": "100cm+",
     "light": "Full sun",
     "where": "Soil/large beds/very large containers",
@@ -324,14 +324,14 @@
         10
       ]
     },
-    "depth": "2\u20133cm",
-    "spacing": "90\u2013120cm",
+    "depth": "2–3cm",
+    "spacing": "90–120cm",
     "light": "Full sun",
     "where": "Beds or very large containers",
     "protection": "Cloche/fleece early; warm aspect.",
     "tips": "Mulch; train vines; cure fruits in sun post-harvest.",
-    "containerMin": "75\u201390L",
-    "notes": "Needs the warmest microclimate; choose early cultivars."
+    "containerMin": "75–90L",
+    "notes": "Needs the warmest microclimate; choose early cultivars. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Winter Squash (acorn/kabocha)",
@@ -349,14 +349,14 @@
         10
       ]
     },
-    "depth": "2\u20133cm",
-    "spacing": "90\u2013120cm",
+    "depth": "2–3cm",
+    "spacing": "90–120cm",
     "light": "Full sun",
     "where": "Beds or large containers",
     "protection": "Cloche early.",
     "tips": "Earlier than butternut; compact vines suit pots better.",
-    "containerMin": "60\u201375L",
-    "notes": "Reliable set in shorter seasons compared to butternut."
+    "containerMin": "60–75L",
+    "notes": "Reliable set in shorter seasons compared to butternut. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Summer Squash (patty pan)",
@@ -377,13 +377,13 @@
       ]
     },
     "depth": "2cm",
-    "spacing": "80\u2013100cm",
+    "spacing": "80–100cm",
     "light": "Full sun",
     "where": "Large pots/beds",
     "protection": "Cloche early.",
     "tips": "Harvest small and often for best texture.",
-    "containerMin": "35\u201350L",
-    "notes": "Good patio crop with steady feeding."
+    "containerMin": "35–50L",
+    "notes": "Good patio crop with steady feeding. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Pumpkin (small varieties)",
@@ -402,12 +402,12 @@
       ]
     },
     "depth": "3cm",
-    "spacing": "1\u20131.5m",
+    "spacing": "1–1.5m",
     "light": "Full sun",
     "where": "Ground or very large containers",
     "protection": "Cloche early; warmest site.",
     "tips": "Limit fruits per plant to ripen; feed heavily.",
-    "containerMin": "90\u2013120L",
+    "containerMin": "90–120L",
     "notes": "Choose small/mini types for Scotland (e.g., 'Jack Be Little')."
   },
   {
@@ -432,8 +432,8 @@
     "where": "Greenhouse/polytunnel only",
     "protection": "Consistent warmth; pollinate if not parthenocarpic.",
     "tips": "Train on trellis; sling fruits; maintain humidity but ventilate.",
-    "containerMin": "20\u201330L",
-    "notes": "Select fast, small-fruited types e.g., 'Minnesota Midget'."
+    "containerMin": "20–30L",
+    "notes": "Select fast, small-fruited types e.g., 'Minnesota Midget'. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Watermelon (mini, greenhouse)",
@@ -452,13 +452,13 @@
       ]
     },
     "depth": "2cm",
-    "spacing": "60\u201390cm",
+    "spacing": "60–90cm",
     "light": "Full sun, very warm",
     "where": "Heated greenhouse ideal",
-    "protection": "Requires sustained heat >20\u00b0C.",
+    "protection": "Requires sustained heat >20°C.",
     "tips": "Graft or choose ultra-early minis; use thermal mass; limit fruit set.",
-    "containerMin": "25\u201340L",
-    "notes": "Experimental in Scotland; feasible under heat."
+    "containerMin": "25–40L",
+    "notes": "Experimental in Scotland; feasible under heat. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Cucamelon (Mexican sour gherkin)",
@@ -483,8 +483,8 @@
     "where": "Pots/greenhouse/sheltered patio",
     "protection": "Fleece early season.",
     "tips": "Vigorous climber; pick small for best crunch.",
-    "containerMin": "10\u201315L",
-    "notes": "Tolerant and productive in containers."
+    "containerMin": "10–15L",
+    "notes": "Tolerant and productive in containers. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Tomatillo",
@@ -509,7 +509,7 @@
     "where": "Pots/greenhouse/sheltered patio",
     "protection": "Fleece early; needs two plants for pollination.",
     "tips": "Grow at least two plants; stake; harvest when husks split.",
-    "containerMin": "12\u201315L",
+    "containerMin": "12–15L",
     "notes": "Great for salsas; tolerates cooler summers better than tomatoes."
   },
   {
@@ -536,8 +536,8 @@
     "where": "Pots/greenhouse",
     "protection": "Fleece early; protect late season.",
     "tips": "Grows like a small tomato; fruit drops when ripe; store in husk.",
-    "containerMin": "10\u201312L",
-    "notes": "Ripens late\u2014start early under heat."
+    "containerMin": "10–12L",
+    "notes": "Ripens late—start early under heat. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
     "name": "Pea (sugar snap)",
@@ -558,7 +558,7 @@
         7
       ]
     },
-    "depth": "3\u20134cm",
+    "depth": "3–4cm",
     "spacing": "Sow 5cm apart; rows 45cm",
     "light": "Full sun/part sun",
     "where": "Deep troughs/raised beds",
@@ -586,7 +586,7 @@
         7
       ]
     },
-    "depth": "3\u20134cm",
+    "depth": "3–4cm",
     "spacing": "5cm apart",
     "light": "Full sun/part sun",
     "where": "Troughs/beds",
@@ -614,13 +614,13 @@
         9
       ]
     },
-    "depth": "3\u20134cm",
-    "spacing": "15\u201320cm",
+    "depth": "3–4cm",
+    "spacing": "15–20cm",
     "light": "Full sun",
     "where": "Pots/raised beds",
     "protection": "Fleece if cold snaps.",
     "tips": "Warm soil before sowing; pick often for continuous set.",
-    "containerMin": "20\u201325cm deep box",
+    "containerMin": "20–25cm deep box",
     "notes": "Choose dwarf types for exposed sites."
   },
   {
@@ -641,13 +641,13 @@
         9
       ]
     },
-    "depth": "3\u20134cm",
-    "spacing": "At canes 20\u201325cm apart",
+    "depth": "3–4cm",
+    "spacing": "At canes 20–25cm apart",
     "light": "Full sun, sheltered",
     "where": "Large pots/raised beds with canes",
     "protection": "Fleece early season.",
     "tips": "Train up canes; keep watered in flower.",
-    "containerMin": "35\u201340cm pot",
+    "containerMin": "35–40cm pot",
     "notes": "Longer season than dwarf but needs shelter."
   },
   {
@@ -667,13 +667,13 @@
         9
       ]
     },
-    "depth": "3\u20135cm",
-    "spacing": "At canes 25\u201330cm apart",
+    "depth": "3–5cm",
+    "spacing": "At canes 25–30cm apart",
     "light": "Full sun, moist soil",
     "where": "Large containers/raised beds",
     "protection": "Wind shelter; mulch to retain moisture.",
     "tips": "Excellent in cool summers; attract pollinators; mist flowers in heat.",
-    "containerMin": "40\u201350cm tub",
+    "containerMin": "40–50cm tub",
     "notes": "Good performer in Scotland vs French beans in cooler seasons."
   },
   {
@@ -694,12 +694,12 @@
       ]
     },
     "depth": "3cm",
-    "spacing": "35\u201340cm in blocks",
+    "spacing": "35–40cm in blocks",
     "light": "Full sun, warmest site",
     "where": "Deep containers/raised beds",
     "protection": "Cloche early; wind shelter.",
     "tips": "Grow in blocks for pollination (at least 9 plants); keep well watered.",
-    "containerMin": "30\u201340L (3 per 40L)",
+    "containerMin": "30–40L (3 per 40L)",
     "notes": "Choose ultra-early types (e.g., 'Swift', 'Earlybird')."
   },
   {
@@ -725,7 +725,7 @@
     "where": "Containers/beds",
     "protection": "Cloche early.",
     "tips": "Harvest immature cobs; fewer heat requirements; reliable.",
-    "containerMin": "30\u201340L",
+    "containerMin": "30–40L",
     "notes": "Easier than sweetcorn to ripen in Scotland."
   },
   {
@@ -744,12 +744,12 @@
       ]
     },
     "depth": "-",
-    "spacing": "1 crown per 40\u201350L tub",
+    "spacing": "1 crown per 40–50L tub",
     "light": "Full sun/part shade",
     "where": "Large tubs/raised beds",
     "protection": "Mulch; protect crown in severe frost.",
     "tips": "Do not harvest first year; feed well; can be forced for early stems.",
-    "containerMin": "40\u201350L",
+    "containerMin": "40–50L",
     "notes": "Technically vegetable; used as fruit. Hardy and dependable."
   },
   {
@@ -768,17 +768,17 @@
         10
       ]
     },
-    "depth": "2\u20133cm",
+    "depth": "2–3cm",
     "spacing": "100cm+",
     "light": "Full sun",
     "where": "Ground/large containers",
     "protection": "Cloche early.",
     "tips": "Train vines; cure fruits after harvest.",
     "containerMin": "75L",
-    "notes": "Shorter season than some pumpkins; feasible under good summer."
+    "notes": "Shorter season than some pumpkins; feasible under good summer. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   },
   {
-    "name": "Bottle Gourd (calabash) \u2013 experimental",
+    "name": "Bottle Gourd (calabash) – experimental",
     "category": "fruit",
     "months": {
       "sow": [
@@ -793,13 +793,13 @@
         10
       ]
     },
-    "depth": "2\u20133cm",
+    "depth": "2–3cm",
     "spacing": "100cm+",
     "light": "Full sun, warm",
     "where": "Greenhouse/polytunnel",
     "protection": "Heat early season.",
     "tips": "Treat like squash; long season needed.",
     "containerMin": "75L",
-    "notes": "Grown for novelty; culinary use when young."
+    "notes": "Grown for novelty; culinary use when young. Best under cover (greenhouse/polytunnel) in Scotland; choose early, compact varieties."
   }
 ]

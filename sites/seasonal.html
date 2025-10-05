@@ -45,7 +45,7 @@
 </head>
 <body>
 
-  <!-- HEADER SLOT (this is the “slot + loader” you were asking about) -->
+  <!-- HEADER SLOT (must be single) -->
   <div id="site-header"></div>
 
   <div class="wrap">
@@ -85,6 +85,11 @@
       <span id="status" class="muted" aria-live="polite"></span>
     </div>
 
+    <div class="section" id="pestBox" hidden>
+      <div id="pestTitle" style="font-weight:700;margin-bottom:.4rem"></div>
+      <ul id="pestList" style="margin:.2rem 0 .2rem 1.2rem"></ul>
+    </div>
+
     <div class="section">
       <div class="legend">
         <span class="pill"><span class="emoji">🌱</span> Sow</span>
@@ -111,11 +116,11 @@
   <!-- FOOTER SLOT -->
   <div id="site-footer"></div>
 
-  <!-- LOAD PARTIALS (this is the “loader at bottom” part) -->
-  <script src="assets/js/header-loader.js?v=hdr3" defer></script>
-  <script src="assets/js/footer-loader.js" defer></script>
+  <!-- PARTIAL LOADERS -->
+  <script src="assets/js/header-loader.js?v=hdr-final" defer></script>
+  <script src="assets/js/footer-loader.js?v=ftr-final" defer></script>
 
   <!-- PAGE LOGIC -->
-  <script src="assets/js/seasonal.js?v=portrait-scroll-landscape-fit" defer></script>
+  <script src="assets/js/seasonal.js?v=stable-1" defer></script>
 </body>
 </html>

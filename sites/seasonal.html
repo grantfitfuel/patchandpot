@@ -1,60 +1,65 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Seasonal Planting Calendar (UK) — Patch & Pot</title>
   <meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
-
   <style>
     :root{
-      --bg:#0b0f14; --ink:#ffffff; --inkdim:#cfd3d8;
+      --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8;
       --glass:#0f131a; --stroke:#1f2630; --accent:#4caf50;
       --maxw:1100px; --r:14px;
     }
     html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
+    a{color:var(--ink)}
+    /* page wrap sits under the global header/navbar */
     .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
     h1{margin:.2rem 0 .6rem;font-size:2.2rem}
     .lead{color:var(--inkdim)}
 
-    /* Control bar */
+    /* top controls */
     .bar{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
     .control{display:flex;align-items:center;gap:8px}
     select,input[type="text"]{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
     .btn{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:999px;padding:8px 12px;cursor:pointer}
     .muted{color:var(--inkdim)}
 
-    /* Pest Watch + Sections */
+    /* sections */
     .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
     .pw-title{font-weight:700;margin:0 0 .4rem}
 
-    /* Table */
+    /* emoji legend + table */
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
+    .pill .emoji{font-size:1rem}
     .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
     table{border-collapse:collapse;width:100%;min-width:980px}
     th,td{border:1px solid var(--stroke);padding:8px 10px;text-align:center}
     thead th{position:sticky;top:0;background:#0f141b}
     th:first-child, td:first-child{text-align:left;min-width:220px}
     .emoji{font-size:1.05rem}
-    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
-    .pill .emoji{font-size:1rem}
 
-    /* Debug */
+    /* debug */
     #debug{display:none;margin-top:10px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#11161f;border:1px solid #253041;border-radius:12px;padding:10px;color:#ffe08a}
     #debug.show{display:block}
 
-    /* Footer (seasonal page spec) */
+    /* footer — SPEC: pot icon centred above the text */
     footer{margin:32px 0 16px;text-align:center;color:var(--inkdim)}
     .pot-icon{display:block;width:46px;height:auto;margin:0 auto 8px}
     .footer-line{opacity:.75}
   </style>
 </head>
 <body>
+
+  <!-- Header slot: leave your global site header/nav intact.
+       If you use an include, it can render above this .wrap as usual. -->
+
   <div class="wrap">
     <h1>Seasonal Planting Calendar (UK)</h1>
     <p class="lead">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
-    <!-- Controls -->
+    <!-- controls -->
     <div class="bar">
       <div class="control">
         <label for="regionSel" class="muted">Region:</label>
@@ -93,13 +98,13 @@
       <span id="status" class="muted" aria-live="polite"></span>
     </div>
 
-    <!-- Pest Watch -->
+    <!-- pest watch -->
     <div class="section" id="pestwatchBox" hidden>
       <div class="pw-title" id="pwTitle"></div>
       <ul id="pwList" style="margin:.2rem 0 .2rem 1.2rem"></ul>
     </div>
 
-    <!-- Legend -->
+    <!-- legend -->
     <div class="section">
       <div class="legend">
         <span class="pill"><span class="emoji">🌱</span> Sow</span>
@@ -109,11 +114,11 @@
       </div>
     </div>
 
-    <!-- Table -->
+    <!-- table -->
     <div class="section table-wrap">
       <table id="calTable" aria-label="Seasonal calendar">
         <thead>
-          <tr id="theadRow">
+          <tr>
             <th>Crop</th>
             <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
             <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
@@ -123,27 +128,16 @@
       </table>
     </div>
 
-    <!-- Debug -->
+    <!-- debug -->
     <div id="debug" aria-live="polite"></div>
 
-    <!-- Footer -->
+    <!-- footer (icon centred above text) -->
     <footer>
       <img src="/img/patchandpot-pot.png" alt="Patch & Pot pot icon" class="pot-icon" onerror="this.style.display='none'">
       <div class="footer-line">© 2025 Patch &amp; Pot — Grow Anywhere</div>
     </footer>
   </div>
 
-  <!-- Help modal (lightweight) -->
-  <div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center">
-    <div style="background:#0f141b;border:1px solid #1f2630;border-radius:12px;max-width:680px;padding:16px;color:#fff">
-      <h3 id="helpTitle" style="margin:.2rem 0 .6rem">How to use this calendar</h3>
-      <p>Pick a region, optionally type to search, choose a category, or toggle <em>This month only</em> to focus on what’s active right now. Data loads from <code>data/regions/{region}/{block}.json</code> and <code>pestwatch.json</code>.</p>
-      <div style="text-align:right;margin-top:8px">
-        <button id="closeHelp" class="btn" type="button">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="assets/js/seasonal.js?v=emoji-table-rb1" defer></script>
+  <script src="assets/js/seasonal.js?v=rb-emoji-table-final" defer></script>
 </body>
 </html>

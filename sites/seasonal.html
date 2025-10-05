@@ -44,6 +44,31 @@
   .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
   .pill .emoji{font-size:1rem}
 
+  /* Mini in-page nav */
+.inpage {
+  display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 12px;
+}
+.inpage a {
+  text-decoration:none; color:#cfd3d8; border:1px solid var(--stroke);
+  border-radius:999px; padding:6px 10px; background:var(--glass);
+}
+.inpage a:hover { color:#fff; }
+
+/* Collapsible sections (details/summary) */
+.fold { border:1px solid var(--stroke); border-radius:var(--r); background:var(--glass); margin:12px 0; }
+.fold summary {
+  cursor:pointer; list-style:none; padding:12px 14px; display:flex; align-items:center; gap:10px;
+  font-weight:700; color:#fff;
+}
+.fold summary::-webkit-details-marker { display:none; }
+.fold__hint { font-weight:400; color:#9fb0a5; font-size:.95rem; margin-left:auto; }
+.fold__body { padding:10px 14px 14px; }
+.fold .basics-list { margin-top:6px; }
+.fold .pest-list { margin:.2rem 0 .2rem 1.2rem; }
+
+/* tiny anchor offsets for sticky header */
+.anchor-offset { position:relative; top:-70px; visibility:hidden; }
+
   /* BASICS */
   .basics-title{margin:.2rem 0 .6rem}
   .basics-list{list-style:none;margin:0;padding:0;column-gap:28px}
@@ -317,42 +342,58 @@
   }
 
   function renderBasics(list){
-    const ul=els.basicsList;
-    ul.innerHTML='';
-    // Split embedded bullets if present
-    const expanded=(list||[]).flatMap(line=>{
-      if(typeof line!=='string') return [];
-      const parts=line.split(/(?:^|\s)•\s+/g).map(s=>s.trim()).filter(Boolean);
-      return parts.length?parts:[line.trim()];
-    });
-    if(!expanded.length){ els.basicsBox.hidden=true; return; }
-    expanded.forEach(p=>{
-      const li=document.createElement('li');
-      const m=p.match(/^([^:]{1,80}):\s*(.+)$/);
-      if(m){
-        const s=document.createElement('strong'); s.textContent=m[1]+': ';
-        li.appendChild(s); li.appendChild(document.createTextNode(m[2]));
-      }else{
-        li.textContent=p;
-      }
-      ul.appendChild(li);
-    });
-    els.basicsBox.hidden=false;
+  const ul = els.basicsList;
+  ul.innerHTML = '';
+  // Expand embedded bullets if present
+  const expanded = (list || []).flatMap(line => {
+    if (typeof line !== 'string') return [];
+    const parts = line.split(/(?:^|\s)•\s+/g).map(s => s.trim()).filter(Boolean);
+    return parts.length ? parts : [line.trim()];
+  });
+
+  if (!expanded.length){
+    els.basicsFold.hidden = true;
+    return;
   }
 
-  function renderPest(region,pestMap){
-    if(!pestMap || typeof pestMap!=='object'){ els.pestBox.hidden=true; return; }
-    const m=(new Date()).getMonth();
-    const items=pestMap[m]||[];
-    els.pestTitle.textContent=`Pest Watch — ${MONTHS[m]} (${region[0].toUpperCase()+region.slice(1)})`;
-    els.pestList.innerHTML='';
-    if(!items.length){
-      els.pestList.innerHTML='<li>No major alerts this month.</li>';
-    }else{
-      items.forEach(t=>{ const li=document.createElement('li'); li.textContent=String(t); els.pestList.appendChild(li); });
+  expanded.forEach(p => {
+    const li = document.createElement('li');
+    const m = p.match(/^([^:]{1,80}):\s*(.+)$/);
+    if (m){
+      const s = document.createElement('strong');
+      s.textContent = m[1] + ': ';
+      li.appendChild(s);
+      li.appendChild(document.createTextNode(m[2]));
+    } else {
+      li.textContent = p;
     }
-    els.pestBox.hidden=false;
+    ul.appendChild(li);
+  });
+
+  els.basicsFold.hidden = false;
+}
+
+function renderPest(region, pestMap){
+  if (!pestMap || typeof pestMap !== 'object'){
+    els.pestFold.hidden = true;
+    return;
   }
+  const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const m = (new Date()).getMonth();
+  const items = pestMap[m] || [];
+  els.pestTitle.textContent = `Pest Watch — ${MONTHS[m]} (${region[0].toUpperCase()+region.slice(1)})`;
+  els.pestList.innerHTML = '';
+  if (!items.length){
+    els.pestList.innerHTML = '<li>No major alerts this month.</li>';
+  } else {
+    items.forEach(t => {
+      const li = document.createElement('li');
+      li.textContent = String(t);
+      els.pestList.appendChild(li);
+    });
+  }
+  els.pestFold.hidden = false;
+}
 
   function filterCrops(crops){
     const q=(els.search.value||'').toLowerCase().trim();

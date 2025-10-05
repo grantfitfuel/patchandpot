@@ -1,52 +1,101 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Seasonal Planting Calendar (UK) — Patch & Pot</title>
-  <meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    :root{ --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8; --glass:#0f131a; --stroke:#1f2630; --maxw:1100px; --r:14px }
-    html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
-    h1{margin:.2rem 0 .6rem;font-size:2.2rem}
-    .lead{color:var(--inkdim)}
-    .bar{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
-    .control{display:flex;align-items:center;gap:8px}
-    select,input[type="text"]{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
-    .muted{color:var(--inkdim)}
-    .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
-    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
-    .pill .emoji{font-size:1rem}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seasonal Planting Calendar (UK) — Patch & Pot</title>
+<meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
+<style>
+  :root{
+    --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
+    --maxw:1100px; --r:14px;
+  }
+  html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
 
-    /* ===== TABLE ===== */
-    .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+  /* ====== HEADER (INLINE) ====== */
+  .pp-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid var(--stroke)}
+  .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .pp-header__brand{display:flex;align-items:center;text-decoration:none}
+  .pp-header__logo{height:28px;width:auto;display:block}
+  .pp-header__nav{display:none;gap:16px;margin-left:auto}
+  .pp-nav__link{color:#cfd3d8;text-decoration:none;padding:6px 4px}
+  .pp-nav__link:hover{color:#fff}
+  .pp-header__burger{margin-left:auto;background:transparent;border:0;width:40px;height:40px;
+    display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
+  .pp-burger-bar{width:22px;height:2px;background:#e6e6ea;display:block}
+  @media(min-width:900px){.pp-header__nav{display:flex}.pp-header__burger{display:none}}
+  .pp-header--open .pp-header__nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;
+    background:#0b0f14;border-bottom:1px solid var(--stroke);padding:10px 16px;gap:10px}
 
-    /* Portrait: names + visible month context; scroll for rest */
-    @media (orientation:portrait){
-      table{border-collapse:collapse;width:auto;min-width:920px;table-layout:auto}
-      thead th{position:sticky;top:0;background:#0f141b}
-      th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
-      th:first-child, td:first-child{ text-align:left; min-width:180px; max-width:220px; white-space:normal; word-break:break-word }
-      tbody tr{min-height:64px}
-    }
-    /* Landscape: show Jan–Dec without scroll */
-    @media (orientation:landscape){
-      table{border-collapse:collapse;width:100%;table-layout:fixed}
-      thead th{position:sticky;top:0;background:#0f141b}
-      th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
-      th:first-child, td:first-child{ text-align:left; width:32%; white-space:normal; word-break:break-word }
-      th:not(:first-child), td:not(:first-child){ width:calc(68% / 12) }
-      tbody tr{min-height:60px}
-    }
-  </style>
+  /* ====== PAGE ====== */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
+  h1{margin:.4rem 0 .7rem;font-size:2.2rem}
+  .lead{color:var(--ink-d)}
+
+  .bar{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px;
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
+  .control{display:flex;align-items:center;gap:8px}
+  select,input[type="text"]{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
+  .muted{color:var(--ink-d)}
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
+  .pill .emoji{font-size:1rem}
+
+  /* ====== TABLE ====== */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+  table{border-collapse:collapse}
+  thead th{position:sticky;top:0;background:#0f141b}
+  th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
+
+  /* Portrait: names reasonably tight so months are visible; scroll for full width */
+  @media (orientation:portrait){
+    table{width:auto;min-width:920px;table-layout:auto}
+    th:first-child, td:first-child{ text-align:left; min-width:180px; max-width:220px; white-space:normal; word-break:break-word }
+    tbody tr{min-height:64px}
+  }
+  /* Landscape/tablet/desktop: fit Jan–Dec without scroll */
+  @media (orientation:landscape){
+    table{width:100%;table-layout:fixed}
+    th:first-child, td:first-child{ text-align:left; width:32%; white-space:normal; word-break:break-word }
+    th:not(:first-child), td:not(:first-child){ width:calc(68% / 12) }
+    tbody tr{min-height:60px}
+  }
+
+  /* ====== FOOTER (INLINE) ====== */
+  .site-footer{background:#0b0f14;padding:28px 18px;text-align:center;border-top:1px solid var(--stroke)}
+  .site-footer__logo{width:140px;height:auto;display:block;margin:0 auto 12px}
+  .site-footer p{margin:0;font-size:.9rem;color:#ccc}
+  .site-footer p + p{margin-top:4px}
+</style>
 </head>
 <body>
 
-  <!-- HEADER SLOT (must be single) -->
-  <div id="site-header"></div>
+  <!-- HEADER INLINE -->
+  <header id="ppHeader" class="pp-header" role="banner">
+    <div class="pp-header__inner">
+      <a class="pp-header__brand" href="/">
+        <!-- hard-wired logo -->
+        <img src="/img/patchandpot-logo.png" alt="Patch & Pot" class="pp-header__logo">
+      </a>
+      <button class="pp-header__burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+        <span class="pp-burger-bar"></span>
+        <span class="pp-burger-bar"></span>
+        <span class="pp-burger-bar"></span>
+      </button>
+      <nav class="pp-header__nav" id="ppNav" aria-label="Primary">
+        <a href="/"            class="pp-nav__link">Home</a>
+        <a href="/growing"     class="pp-nav__link">Growing</a>
+        <a href="/seasonal"    class="pp-nav__link">Seasonal</a>
+        <a href="/recipes"     class="pp-nav__link">Recipes</a>
+        <a href="/wellbeing"   class="pp-nav__link">Wellbeing</a>
+        <a href="/exercise"    class="pp-nav__link">Exercise</a>
+        <a href="/guides"      class="pp-nav__link">Guides</a>
+        <a href="/ideas"       class="pp-nav__link">Ideas</a>
+        <a href="/contact"     class="pp-nav__link">Contact</a>
+      </nav>
+    </div>
+  </header>
 
   <div class="wrap">
     <h1>Seasonal Planting Calendar (UK)</h1>
@@ -100,7 +149,7 @@
     </div>
 
     <div class="section table-wrap">
-      <table id="calTable" aria-label="Seasonal calendar">
+      <table aria-label="Seasonal calendar">
         <thead>
           <tr>
             <th>Crop</th>
@@ -113,14 +162,157 @@
     </div>
   </div>
 
-  <!-- FOOTER SLOT -->
-  <div id="site-footer"></div>
+  <!-- FOOTER INLINE -->
+  <footer class="site-footer">
+    <!-- hard-wired logo -->
+    <img class="site-footer__logo" src="/img/patchandpot-logo.png" alt="Patch & Pot">
+    <p>© 2025 Patch & Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
+  </footer>
 
-  <!-- PARTIAL LOADERS -->
-  <script src="assets/js/header-loader.js?v=hdr-final" defer></script>
-  <script src="assets/js/footer-loader.js?v=ftr-final" defer></script>
+<script>
+/* ===== header burger (inline) ===== */
+(function(){
+  const root=document.getElementById('ppHeader');
+  if(!root) return;
+  const btn=root.querySelector('#ppBurger');
+  const nav=root.querySelector('#ppNav');
+  btn.addEventListener('click',()=>{
+    const open=root.classList.toggle('pp-header--open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  });
+  nav.addEventListener('click',e=>{
+    if(e.target.closest('a')){root.classList.remove('pp-header--open');btn.setAttribute('aria-expanded','false');}
+  });
+})();
 
-  <!-- PAGE LOGIC -->
-  <script src="assets/js/seasonal.js?v=stable-1" defer></script>
+/* ===== seasonal logic (inline; robust JSON handling) ===== */
+(function(){
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const EMO = { sow:"🌱", plant:"🌿", harvest:"🧺" };
+
+  const els = {
+    region:    document.getElementById('regionSel'),
+    cat:       document.getElementById('catSel'),
+    search:    document.getElementById('searchBox'),
+    monthOnly: document.getElementById('monthOnly'),
+    status:    document.getElementById('status'),
+    tbody:     document.getElementById('tbody'),
+    pestBox:   document.getElementById('pestBox'),
+    pestTitle: document.getElementById('pestTitle'),
+    pestList:  document.getElementById('pestList')
+  };
+
+  function bust(url){ return `${url}${url.includes('?')?'&':'?'}v=${Date.now()}`; }
+  async function fetchJSON(url){
+    try{
+      const r = await fetch(bust(url), {cache:'no-store'});
+      if(!r.ok) throw 0;
+      return await r.json();
+    }catch(_){ return null; }
+  }
+
+  async function loadRegion(region){
+    const base = `data/regions/${region}`;
+    const blocks = ['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
+
+    const parts = await Promise.all(blocks.map(async (block)=>{
+      const arr = await fetchJSON(`${base}/${block}.json`);
+      if (!Array.isArray(arr)) return [];
+      return arr.map(c=>{
+        const crop={...c};
+        crop._block = block;
+        if (!crop.category) crop.category = block;  // ensure category exists for filter
+        return crop;
+      });
+    }));
+
+    const crops = parts.flat().filter(Boolean).filter(c=>c.name);
+    const pest  = await fetchJSON(`${base}/pestwatch.json`);
+    return { crops, pest };
+  }
+
+  function filterCrops(crops){
+    const q=(els.search.value||'').toLowerCase().trim();
+    const cat=(els.cat.value||'all').toLowerCase();
+    const mOnly=els.monthOnly.checked;
+    const m=(new Date()).getMonth();
+
+    return (crops||[]).filter(c=>{
+      if (q && !c.name.toLowerCase().includes(q)) return false;
+      if (cat!=='all'){
+        const cc=(c.category||'').toLowerCase();
+        const bb=(c._block||'').toLowerCase();
+        if (cc!==cat && bb!==cat) return false;
+      }
+      if (mOnly){
+        const s=(c.months?.sow||[]).includes(m);
+        const p=(c.months?.plant||[]).includes(m);
+        const h=(c.months?.harvest||[]).includes(m);
+        if(!(s||p||h)) return false;
+      }
+      return true;
+    });
+  }
+
+  function cellMarks(c,m){
+    const out=[];
+    if ((c.months?.sow||[]).includes(m)) out.push(EMO.sow);
+    if ((c.months?.plant||[]).includes(m)) out.push(EMO.plant);
+    if ((c.months?.harvest||[]).includes(m)) out.push(EMO.harvest);
+    return out.join(' ');
+  }
+
+  function renderPest(region, pest){
+    if (!pest || typeof pest !== 'object'){ els.pestBox.hidden=true; return; }
+    const m = String((new Date()).getMonth());
+    const items = (pest[m]?.items) || [];
+    els.pestTitle.textContent = `Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;
+    els.pestList.innerHTML='';
+    if (!items.length){
+      const li=document.createElement('li'); li.textContent='No major alerts this month.'; els.pestList.appendChild(li);
+    }else{
+      items.forEach(t=>{ const li=document.createElement('li'); li.textContent=t; els.pestList.appendChild(li); });
+    }
+    els.pestBox.hidden=false;
+  }
+
+  function renderTable(data){
+    const crops = filterCrops(data.crops||[]);
+    els.status.textContent = `${(els.region.value||'scotland').replace(/^\w/,c=>c.toUpperCase())} — ${crops.length} crops shown`;
+
+    const frag=document.createDocumentFragment();
+    crops.forEach(c=>{
+      const tr=document.createElement('tr');
+      const name=document.createElement('td'); name.textContent=c.name; tr.appendChild(name);
+      for(let i=0;i<12;i++){
+        const td=document.createElement('td'); const marks=cellMarks(c,i);
+        if(marks) td.textContent=marks; tr.appendChild(td);
+      }
+      frag.appendChild(tr);
+    });
+    els.tbody.innerHTML=''; els.tbody.appendChild(frag);
+  }
+
+  let regionData=null;
+  async function refresh(){
+    const region=els.region.value||'scotland';
+    if(!regionData || regionData.region!==region){
+      els.status.textContent='Loading…';
+      const loaded=await loadRegion(region);
+      regionData={...loaded, region};
+      renderPest(region, loaded.pest);
+    }
+    renderTable(regionData);
+  }
+
+  els.region.addEventListener('change', refresh);
+  els.cat.addEventListener('change', refresh);
+  els.monthOnly.addEventListener('change', refresh);
+  let t=null; els.search.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(refresh,150); });
+
+  refresh();
+})();
+</script>
 </body>
 </html>

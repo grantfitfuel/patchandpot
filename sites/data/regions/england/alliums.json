@@ -1,189 +1,155 @@
-{
-  "region": "England",
-  "category": "alliums",
-  "crops": [
-    {
-      "name": "Onions (from seed)",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3
-        ],
-        "plant": [],
-        "harvest": [
-          7,
-          8
-        ]
-      },
-      "depth": "1cm",
-      "spacing": "10cm apart, rows 25-30cm",
-      "light": "Full sun",
-      "where": "Raised beds, direct soil, large planters",
-      "protection": "Netting against onion fly; fleece in early months",
-      "tips": "Thin seedlings early; keep weed-free.",
-      "containerMin": "Deep trough 25cm",
-      "notes": "Slower than sets but stores well."
+[
+  {
+    "name": "Onions (spring sets)",
+    "months": {
+      "sow": [],
+      "plant": [
+        2,
+        3,
+        4
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Onions (from sets)",
-      "months": {
-        "sow": [],
-        "plant": [
-          2,
-          3,
-          9
-        ],
-        "harvest": [
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Just below soil surface",
-      "spacing": "10cm apart, rows 25-30cm",
-      "light": "Full sun",
-      "where": "Raised beds, pots, direct soil",
-      "protection": "Bird netting; fleece against frost in spring plantings",
-      "tips": "Plant with tips just showing above soil.",
-      "containerMin": "25cm deep box",
-      "notes": "Faster and easier than seed."
+    "depth": "2-3cm (tip just showing)",
+    "spacing": "10cm apart, rows 25cm",
+    "light": "Full sun",
+    "where": "Beds, raised beds",
+    "protection": "Fleece in frosty spells",
+    "tips": "Plant sets pointy end up, firm soil.",
+    "containerMin": "Large tray or deep planter",
+    "notes": "Choose bolt-resistant varieties."
+  },
+  {
+    "name": "Onions (seed)",
+    "months": {
+      "sow": [
+        1,
+        2
+      ],
+      "plant": [
+        4,
+        5
+      ],
+      "harvest": [
+        8,
+        9
+      ]
     },
-    {
-      "name": "Garlic",
-      "months": {
-        "sow": [],
-        "plant": [
-          9,
-          10,
-          11
-        ],
-        "harvest": [
-          6,
-          7
-        ]
-      },
-      "depth": "5-6cm",
-      "spacing": "10-15cm apart, rows 25cm",
-      "light": "Full sun",
-      "where": "Raised beds, direct soil, large troughs",
-      "protection": "Netting against birds; cloches in wet winters",
-      "tips": "Plant individual cloves pointed side up.",
-      "containerMin": "25cm deep trough",
-      "notes": "Best planted in autumn for larger bulbs."
+    "depth": "1cm",
+    "spacing": "10cm apart, rows 25cm",
+    "light": "Full sun",
+    "where": "Seed trays, pots, then transplant to beds",
+    "protection": "Heat early sowings under cover",
+    "tips": "Thin seedlings, avoid crowding.",
+    "containerMin": "Deep module tray",
+    "notes": "Slower than sets but more variety."
+  },
+  {
+    "name": "Garlic",
+    "months": {
+      "sow": [],
+      "plant": [
+        9,
+        10,
+        11
+      ],
+      "harvest": [
+        7
+      ]
     },
-    {
-      "name": "Leeks",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          9,
-          10,
-          11,
-          0,
-          1
-        ]
-      },
-      "depth": "Sow seed 1cm; transplant into dibbed holes 15cm deep",
-      "spacing": "15cm apart, rows 30cm",
-      "light": "Full sun, tolerates partial shade",
-      "where": "Beds, soil, large troughs",
-      "protection": "Netting against leek moth and allium leaf miner",
-      "tips": "Trim roots and tops before transplanting; water into hole, don\u2019t backfill.",
-      "containerMin": "30cm deep container",
-      "notes": "Earth up stems for longer white shanks."
+    "depth": "3-4cm",
+    "spacing": "10cm apart, rows 20cm",
+    "light": "Full sun",
+    "where": "Beds, raised beds, deep pots",
+    "protection": "Net against birds pulling shoots",
+    "tips": "Use firm soil, don’t overwater.",
+    "containerMin": "25cm deep pot",
+    "notes": "Plant individual cloves, not whole bulbs."
+  },
+  {
+    "name": "Leeks",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        9,
+        10,
+        11,
+        0
+      ]
     },
-    {
-      "name": "Shallots",
-      "months": {
-        "sow": [],
-        "plant": [
-          2,
-          3
-        ],
-        "harvest": [
-          7,
-          8
-        ]
-      },
-      "depth": "Set just below surface",
-      "spacing": "15cm apart, rows 30cm",
-      "light": "Full sun",
-      "where": "Beds, soil, large pots",
-      "protection": "Netting against birds and onion fly",
-      "tips": "Keep weed-free and harvest once tops fall over.",
-      "containerMin": "Deep trough 25cm",
-      "notes": "Produces clusters of bulbs."
+    "depth": "1cm in trays, plant in 15cm-deep holes",
+    "spacing": "15cm apart, rows 30cm",
+    "light": "Full sun",
+    "where": "Beds, raised beds",
+    "protection": "Collars help deter leek moth",
+    "tips": "Trim roots before planting for stronger growth.",
+    "containerMin": "30cm deep trough",
+    "notes": "Earth up stems for longer white shanks."
+  },
+  {
+    "name": "Shallots",
+    "months": {
+      "sow": [],
+      "plant": [
+        2,
+        3,
+        4
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Spring Onions",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "plant": [],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "1cm",
-      "spacing": "2cm apart, rows 10cm",
-      "light": "Full sun",
-      "where": "Pots, beds, troughs",
-      "protection": "Fleece in cold spells; netting against pests",
-      "tips": "Succession sow every 2-3 weeks for continuous crop.",
-      "containerMin": "20cm deep pot",
-      "notes": "Quick and ideal for containers."
+    "depth": "2-3cm (tip showing)",
+    "spacing": "15cm apart, rows 25cm",
+    "light": "Full sun",
+    "where": "Beds, raised beds, pots",
+    "protection": "Fleece against birds in spring",
+    "tips": "Plant on firm ground.",
+    "containerMin": "Deep tray or 25cm pot",
+    "notes": "Split into clusters when harvested."
+  },
+  {
+    "name": "Spring onions",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Chives",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          3,
-          4,
-          5
-        ],
-        "harvest": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "0.5cm",
-      "spacing": "Clumps 15cm apart",
-      "light": "Sun or part shade",
-      "where": "Pots, beds, borders",
-      "protection": "Minimal; protect from heavy frosts in pots",
-      "tips": "Divide clumps every 3 years to maintain vigour.",
-      "containerMin": "20cm pot",
-      "notes": "Leaves and flowers both edible."
-    }
-  ]
-}
+    "depth": "1cm",
+    "spacing": "2-3cm apart in rows",
+    "light": "Full sun",
+    "where": "Pots, raised beds, soil",
+    "protection": "Fleece in early months",
+    "tips": "Sow every 2-3 weeks for a steady crop.",
+    "containerMin": "20cm deep box",
+    "notes": "Fast-growing and compact."
+  }
+]

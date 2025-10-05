@@ -1,342 +1,216 @@
-{
-  "crops": [
-    {
-      "name": "Broad bean (spring-sown)",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3
-        ],
-        "plant": [
-          3,
-          4
-        ],
-        "harvest": [
-          6,
-          7
-        ]
-      },
-      "depth": "5cm",
-      "spacing": "20\u201325cm; rows 45cm",
-      "light": "Full sun",
-      "where": "Beds, large containers, raised beds",
-      "protection": "Net from pigeons; support with canes/string; fleece in hard frosts",
-      "tips": "Pinch out the top growth when first pods set to deter blackfly",
-      "containerMin": "30\u201340L tub (3\u20134 plants)",
-      "notes": "Hardy; good early crop for small spaces"
+[
+  {
+    "name": "Broad Beans",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
     },
-    {
-      "name": "Broad bean (autumn-sown/overwintering)",
-      "months": {
-        "sow": [
-          9,
-          10,
-          11
-        ],
-        "plant": [
-          2,
-          3
-        ],
-        "harvest": [
-          5,
-          6
-        ]
-      },
-      "depth": "5cm",
-      "spacing": "20\u201325cm; rows 45cm",
-      "light": "Full sun",
-      "where": "Beds, raised beds; sheltered spot",
-      "protection": "Fleece in severe cold; net from pigeons",
-      "tips": "Choose overwintering varieties (e.g., \u2018Aquadulce Claudia\u2019); avoid waterlogging",
-      "containerMin": "Large deep trough",
-      "notes": "Earlier harvest than spring-sown in milder areas"
+    "depth": "5cm",
+    "spacing": "20cm apart, rows 45cm",
+    "light": "Full sun",
+    "where": "Raised beds, soil, large pots",
+    "protection": "Fleece/cloches in early sowings",
+    "tips": "Pinch out tips when first pods set to reduce blackfly.",
+    "containerMin": "30L tub",
+    "notes": "Hardy; can overwinter in mild spots."
+  },
+  {
+    "name": "Runner Beans",
+    "months": {
+      "sow": [
+        4,
+        5
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Pea (early dwarf)",
-      "months": {
-        "sow": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "plant": [
-          3,
-          4
-        ],
-        "harvest": [
-          5,
-          6,
-          7
-        ]
-      },
-      "depth": "3\u20135cm",
-      "spacing": "5cm; double rows 20cm apart",
-      "light": "Full sun",
-      "where": "Beds, troughs, deep window boxes",
-      "protection": "Net from birds and mice; slug protection",
-      "tips": "Use twiggy sticks or short net for support; water at flowering",
-      "containerMin": "25\u201330cm deep trough",
-      "notes": "Compact, great for balconies"
+    "depth": "5cm",
+    "spacing": "25cm apart, rows 45cm",
+    "light": "Full sun",
+    "where": "Soil, raised beds, deep pots with supports",
+    "protection": "Use canes/trellis; protect seedlings from slugs.",
+    "tips": "Water well in dry spells to avoid flower drop.",
+    "containerMin": "40L+ deep pot with wigwam support",
+    "notes": "Heavy feeder; mulch base."
+  },
+  {
+    "name": "French Beans (Climbing)",
+    "months": {
+      "sow": [
+        4,
+        5,
+        6
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Pea (maincrop shelling)",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          6,
-          7,
-          8
-        ]
-      },
-      "depth": "3\u20135cm",
-      "spacing": "7\u201310cm; rows 20\u201325cm apart",
-      "light": "Full sun",
-      "where": "Beds, raised beds",
-      "protection": "Bird netting; slug control",
-      "tips": "Regular picking prolongs cropping; keep evenly moist",
-      "containerMin": "Deep trough with trellis",
-      "notes": "Choose mildew-resistant varieties for late sowings"
+    "depth": "4cm",
+    "spacing": "20cm apart, rows 45cm",
+    "light": "Full sun",
+    "where": "Soil, raised beds, large pots with canes",
+    "protection": "Net young plants from birds.",
+    "tips": "Pick regularly to prolong harvest.",
+    "containerMin": "35L+",
+    "notes": "Less hardy than broad beans."
+  },
+  {
+    "name": "French Beans (Dwarf)",
+    "months": {
+      "sow": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [
+        5,
+        6
+      ],
+      "harvest": [
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Sugar snap pea",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          6,
-          7,
-          8
-        ]
-      },
-      "depth": "3\u20135cm",
-      "spacing": "7\u201310cm; rows 20\u201325cm",
-      "light": "Full sun",
-      "where": "Beds, troughs",
-      "protection": "Net from birds; trellis support",
-      "tips": "Pick pods when plump but still crisp",
-      "containerMin": "30cm deep trough with 1.2m trellis",
-      "notes": "Edible pods; very productive in cool summers"
+    "depth": "4cm",
+    "spacing": "15cm apart, rows 30cm",
+    "light": "Full sun",
+    "where": "Soil, raised beds, pots/planters",
+    "protection": "Protect from slugs at seedling stage.",
+    "tips": "Sow successionally for steady supply.",
+    "containerMin": "25L",
+    "notes": "Quick crop; ideal for containers."
+  },
+  {
+    "name": "Peas",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "plant": [
+        3,
+        4,
+        5
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Mangetout (snow pea)",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          4,
-          5
-        ],
-        "harvest": [
-          6,
-          7,
-          8
-        ]
-      },
-      "depth": "3\u20135cm",
-      "spacing": "7\u201310cm; rows 20\u201325cm",
-      "light": "Full sun",
-      "where": "Beds, troughs, pots",
-      "protection": "Bird netting; trellis support",
-      "tips": "Pick flat pods young for best flavour",
-      "containerMin": "30cm deep trough",
-      "notes": "Quick and reliable"
+    "depth": "5cm",
+    "spacing": "5cm apart, rows 20cm",
+    "light": "Full sun",
+    "where": "Soil, raised beds, troughs",
+    "protection": "Netting against pigeons; support with twigs or mesh.",
+    "tips": "Harvest frequently to encourage more pods.",
+    "containerMin": "Deep trough or box",
+    "notes": "Many types: mangetout, sugar snap, shelling."
+  },
+  {
+    "name": "Mangetout",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        4,
+        5
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Runner bean (climbing)",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "5cm",
-      "spacing": "25\u201330cm at base of canes (double rows 45cm apart)",
-      "light": "Full sun",
-      "where": "Beds, large containers",
-      "protection": "Shelter from wind; slug protection at plant-out",
-      "tips": "Keep well watered, especially at flowering; pick often",
-      "containerMin": "40\u201350L tub with 2\u20132.4m wigwam",
-      "notes": "Decorative flowers; attracts pollinators"
+    "depth": "5cm",
+    "spacing": "7cm apart, rows 20cm",
+    "light": "Full sun",
+    "where": "Raised beds, soil, deep troughs",
+    "protection": "Net from birds; slug defence early.",
+    "tips": "Pick pods young for sweetness.",
+    "containerMin": "Deep planter",
+    "notes": "Climbing support required."
+  },
+  {
+    "name": "Sugar Snap Peas",
+    "months": {
+      "sow": [
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        4,
+        5
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "French bean (bush/dwarf)",
-      "months": {
-        "sow": [
-          4,
-          5,
-          6
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "3\u20135cm",
-      "spacing": "15\u201320cm; rows 40\u201345cm",
-      "light": "Full sun",
-      "where": "Beds, raised beds, containers",
-      "protection": "Fleece if cold nights; slug protection",
-      "tips": "Stagger sowings for continuous pods",
-      "containerMin": "30\u201335cm wide box or pot",
-      "notes": "Reliable and compact"
+    "depth": "5cm",
+    "spacing": "8cm apart, rows 20cm",
+    "light": "Full sun",
+    "where": "Raised beds, soil, deep troughs",
+    "protection": "Netting for pigeons, supports for climbing.",
+    "tips": "Harvest when pods swell but before toughening.",
+    "containerMin": "Deep box",
+    "notes": "Sweet pods eaten whole."
+  },
+  {
+    "name": "Soybeans (Edamame)",
+    "months": {
+      "sow": [
+        5,
+        6
+      ],
+      "plant": [
+        6
+      ],
+      "harvest": [
+        9
+      ]
     },
-    {
-      "name": "French bean (climbing)",
-      "months": {
-        "sow": [
-          4,
-          5
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "3\u20135cm",
-      "spacing": "25cm at canes",
-      "light": "Full sun",
-      "where": "Beds, containers with tall support",
-      "protection": "Shelter from wind; slug protection",
-      "tips": "Train up canes/trellis; water regularly",
-      "containerMin": "40L tub with 1.8\u20132m canes",
-      "notes": "More pods per plant than bush types"
-    },
-    {
-      "name": "Edamame / Soybean (warm)",
-      "months": {
-        "sow": [
-          4,
-          5
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          8,
-          9
-        ]
-      },
-      "depth": "3\u20134cm",
-      "spacing": "20\u201325cm; rows 45cm",
-      "light": "Full sun, heat-loving",
-      "where": "Warm bed, polytunnel, greenhouse edge",
-      "protection": "Warm microclimate; fleece if cold; slug protection",
-      "tips": "Short-season varieties only; pick pods when green and full",
-      "containerMin": "35\u201340cm pot (3 plants)",
-      "notes": "Borderline outdoors except warm southern sites"
-    },
-    {
-      "name": "Chickpea (garbanzo)",
-      "months": {
-        "sow": [
-          3,
-          4
-        ],
-        "plant": [],
-        "harvest": [
-          8,
-          9
-        ]
-      },
-      "depth": "3\u20134cm",
-      "spacing": "15\u201320cm; rows 30\u201335cm",
-      "light": "Full sun, dry conditions",
-      "where": "Free-draining beds, troughs",
-      "protection": "Keep relatively dry; avoid waterlogging",
-      "tips": "Self-supporting little bushes; pick fresh green pods for best flavour",
-      "containerMin": "Deep trough",
-      "notes": "Experimental but doable in warm summers"
-    },
-    {
-      "name": "Lentil (experimental)",
-      "months": {
-        "sow": [
-          3,
-          4
-        ],
-        "plant": [],
-        "harvest": [
-          8,
-          9
-        ]
-      },
-      "depth": "2\u20133cm",
-      "spacing": "10\u201315cm; rows 25\u201330cm",
-      "light": "Full sun",
-      "where": "Free-draining beds, troughs",
-      "protection": "Dry, warm site; minimal nitrogen feed",
-      "tips": "Small yields; grow as curiosity or for micro-lentils",
-      "containerMin": "Trough/bed",
-      "notes": "Best under cover in cool summers"
-    },
-    {
-      "name": "Yardlong bean (asparagus bean) \u2013 under cover",
-      "months": {
-        "sow": [
-          4,
-          5
-        ],
-        "plant": [
-          5,
-          6
-        ],
-        "harvest": [
-          8,
-          9
-        ]
-      },
-      "depth": "3cm",
-      "spacing": "25\u201330cm at supports",
-      "light": "Full sun, heat-loving",
-      "where": "Greenhouse/polytunnel with tall trellis",
-      "protection": "Warmth essential; protect from slugs at base",
-      "tips": "Train vertically; harvest pods young and long",
-      "containerMin": "40\u201350L tub with tall trellis",
-      "notes": "Not for cool outdoor sites; treat like climbing French beans"
-    }
-  ]
-}
+    "depth": "3cm",
+    "spacing": "15cm apart, rows 40cm",
+    "light": "Full sun, sheltered",
+    "where": "Soil, raised beds, deep pots",
+    "protection": "Needs warmth; fleece early on.",
+    "tips": "Pick green pods before seeds harden.",
+    "containerMin": "30L pot",
+    "notes": "Borderline in Scotland; grow in warm spots."
+  }
+]

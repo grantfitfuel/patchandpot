@@ -1,185 +1,119 @@
-{
-  "region": "England",
-  "category": "softfruit",
-  "crops": [
-    {
-      "name": "Strawberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          3,
-          4,
-          5,
-          8,
-          9
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Crown just above soil level",
-      "spacing": "30-40cm apart",
-      "light": "Full sun",
-      "where": "Raised beds, pots, hanging baskets",
-      "protection": "Netting against birds; straw mulch against rot",
-      "tips": "Remove runners unless propagating; water regularly.",
-      "containerMin": "25cm pot or hanging basket",
-      "notes": "Early, mid, and late varieties extend the season."
+[
+  {
+    "name": "Strawberry",
+    "months": {
+      "sow": [],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
     },
-    {
-      "name": "Raspberries (summer)",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2,
-          3
-        ],
-        "harvest": [
-          6,
-          7
-        ]
-      },
-      "depth": "Plant to same depth as nursery pot",
-      "spacing": "40-50cm apart in rows",
-      "light": "Full sun or part shade",
-      "where": "Soil, raised beds, large containers",
-      "protection": "Netting against birds; mulch for moisture",
-      "tips": "Support canes with wires; prune after fruiting.",
-      "containerMin": "40L+ deep container",
-      "notes": "Summer-fruiting raspberries fruit on last year\u2019s canes."
+    "depth": "Crown at soil level",
+    "spacing": "30cm apart",
+    "light": "Full sun",
+    "where": "Pots, hanging baskets, raised beds",
+    "protection": "Netting against birds",
+    "tips": "Mulch with straw, remove runners",
+    "containerMin": "25cm pot",
+    "notes": "Alpine strawberries fruit all summer"
+  },
+  {
+    "name": "Raspberry (Summer)",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Raspberries (autumn)",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2,
-          3
-        ],
-        "harvest": [
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "Plant to same depth as nursery pot",
-      "spacing": "40-50cm apart",
-      "light": "Full sun or part shade",
-      "where": "Soil, raised beds, large containers",
-      "protection": "Netting against birds; mulch",
-      "tips": "Cut all canes to ground in Feb for new growth.",
-      "containerMin": "40L+ container",
-      "notes": "Autumn-fruiting types fruit on new canes each year."
+    "depth": "As nursery pot",
+    "spacing": "45cm apart in rows",
+    "light": "Full sun",
+    "where": "Soil, large raised bed",
+    "protection": "Netting for birds",
+    "tips": "Tie to wires, prune after fruiting",
+    "containerMin": "Deep planter 40L+",
+    "notes": "Autumn types crop later Aug–Oct"
+  },
+  {
+    "name": "Blackcurrant",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        7
+      ]
     },
-    {
-      "name": "Blackberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2,
-          3
-        ],
-        "harvest": [
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "Same depth as nursery pot",
-      "spacing": "2-3m apart (train along wires)",
-      "light": "Full sun or part shade",
-      "where": "Soil, large raised beds",
-      "protection": "Netting against birds",
-      "tips": "Tie in new canes; prune fruited canes to ground.",
-      "containerMin": "Minimum 50L container",
-      "notes": "Thornless cultivars are easiest for small spaces."
+    "depth": "Plant 5cm deeper than pot",
+    "spacing": "1.5m apart",
+    "light": "Sun/part shade",
+    "where": "Soil, large bed",
+    "protection": "Netting for birds",
+    "tips": "Mulch to keep moist",
+    "containerMin": "Large half barrel",
+    "notes": "Prune old wood after fruiting"
+  },
+  {
+    "name": "Blueberry",
+    "months": {
+      "sow": [],
+      "plant": [
+        3,
+        4,
+        9,
+        10
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Gooseberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2,
-          3
-        ],
-        "harvest": [
-          6,
-          7
-        ]
-      },
-      "depth": "Plant at same level as nursery pot",
-      "spacing": "1-1.5m apart",
-      "light": "Full sun or light shade",
-      "where": "Soil, large raised beds, pots",
-      "protection": "Netting against birds; gloves for thorns",
-      "tips": "Prune to open centre; mulch yearly.",
-      "containerMin": "40L+ pot",
-      "notes": "Harvest green for cooking, ripe for dessert."
+    "depth": "As nursery pot",
+    "spacing": "1.5m apart",
+    "light": "Full sun, acid soil",
+    "where": "Pots with ericaceous compost",
+    "protection": "Netting against birds",
+    "tips": "Water with rainwater",
+    "containerMin": "35L ericaceous pot",
+    "notes": "Needs 2+ varieties for pollination"
+  },
+  {
+    "name": "Apple (Patio/Columnar)",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        9,
+        10
+      ]
     },
-    {
-      "name": "Currants (red, white, black)",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          0,
-          1,
-          2,
-          3
-        ],
-        "harvest": [
-          7,
-          8
-        ]
-      },
-      "depth": "Set slightly deeper than nursery soil level",
-      "spacing": "1.5m apart",
-      "light": "Full sun or part shade",
-      "where": "Soil, raised beds, large pots",
-      "protection": "Netting against birds",
-      "tips": "Prune in winter; remove old stems.",
-      "containerMin": "40L pot minimum",
-      "notes": "Blackcurrants best pruned hard to promote new wood."
-    },
-    {
-      "name": "Blueberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          3,
-          4,
-          10,
-          11
-        ],
-        "harvest": [
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Same depth as pot",
-      "spacing": "1.2-1.5m apart",
-      "light": "Full sun or light shade",
-      "where": "Ericaceous compost in pots",
-      "protection": "Netting against birds; rainwater only",
-      "tips": "Keep acidic soil (pH <5.5); mulch with pine needles.",
-      "containerMin": "40L+ ericaceous pot",
-      "notes": "Needs ericaceous compost and rainwater."
-    }
-  ]
-}
+    "depth": "As graft union",
+    "spacing": "2m apart in soil",
+    "light": "Full sun",
+    "where": "Soil, pots",
+    "protection": "Guard trunks from rabbits",
+    "tips": "Thin fruits for quality",
+    "containerMin": "50L pot",
+    "notes": "Choose dwarf rootstock for pots"
+  }
+]

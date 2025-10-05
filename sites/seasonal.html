@@ -9,14 +9,17 @@
   :root{
     --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
     --maxw:1100px; --r:14px;
+    --header-logo-h: 42px;   /* header pot size (bigger) */
+    --footer-logo-w: 80px;   /* footer pot size (smaller) */
   }
   html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
 
-  /* ====== HEADER (INLINE) ====== */
+  /* ===== HEADER (INLINE) ===== */
   .pp-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid var(--stroke)}
-  .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
-  .pp-header__brand{display:flex;align-items:center;text-decoration:none}
-  .pp-header__logo{height:28px;width:auto;display:block}
+  .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  .pp-header__brand{display:flex;align-items:center;text-decoration:none;gap:10px}
+  .pp-header__logo{height:var(--header-logo-h);width:auto;display:block}
+  .pp-header__brand span{font-weight:600;font-size:1.2rem;color:#fff}
   .pp-header__nav{display:none;gap:16px;margin-left:auto}
   .pp-nav__link{color:#cfd3d8;text-decoration:none;padding:6px 4px}
   .pp-nav__link:hover{color:#fff}
@@ -27,11 +30,10 @@
   .pp-header--open .pp-header__nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;
     background:#0b0f14;border-bottom:1px solid var(--stroke);padding:10px 16px;gap:10px}
 
-  /* ====== PAGE ====== */
+  /* ===== PAGE ===== */
   .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
   h1{margin:.4rem 0 .7rem;font-size:2.2rem}
   .lead{color:var(--ink-d)}
-
   .bar{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px;
     display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
   .control{display:flex;align-items:center;gap:8px}
@@ -42,42 +44,38 @@
   .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
   .pill .emoji{font-size:1rem}
 
-  /* ====== TABLE ====== */
+  /* ===== TABLE ===== */
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
   table{border-collapse:collapse}
   thead th{position:sticky;top:0;background:#0f141b}
   th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
-
-  /* Portrait: names reasonably tight so months are visible; scroll for full width */
   @media (orientation:portrait){
-    table{width:auto;min-width:920px;table-layout:auto}
-    th:first-child, td:first-child{ text-align:left; min-width:180px; max-width:220px; white-space:normal; word-break:break-word }
+    table{min-width:920px}
+    th:first-child, td:first-child{ text-align:left; min-width:180px; max-width:220px; word-break:break-word }
     tbody tr{min-height:64px}
   }
-  /* Landscape/tablet/desktop: fit Jan–Dec without scroll */
   @media (orientation:landscape){
     table{width:100%;table-layout:fixed}
-    th:first-child, td:first-child{ text-align:left; width:32%; white-space:normal; word-break:break-word }
+    th:first-child, td:first-child{ text-align:left; width:32%; word-break:break-word }
     th:not(:first-child), td:not(:first-child){ width:calc(68% / 12) }
     tbody tr{min-height:60px}
   }
 
-  /* ====== FOOTER (INLINE) ====== */
-  .site-footer{background:#0b0f14;padding:28px 18px;text-align:center;border-top:1px solid var(--stroke)}
-  .site-footer__logo{width:140px;height:auto;display:block;margin:0 auto 12px}
+  /* ===== FOOTER (INLINE) ===== */
+  .site-footer{background:#0b0f14;padding:24px 18px;text-align:center;border-top:1px solid var(--stroke)}
+  .site-footer__logo{width:var(--footer-logo-w);height:auto;display:block;margin:0 auto 10px}
   .site-footer p{margin:0;font-size:.9rem;color:#ccc}
   .site-footer p + p{margin-top:4px}
 </style>
 </head>
 <body>
 
-  <!-- HEADER INLINE -->
+  <!-- HEADER -->
   <header id="ppHeader" class="pp-header" role="banner">
     <div class="pp-header__inner">
       <a class="pp-header__brand" href="/">
-        <!-- hard-wired logo -->
         <img src="/img/patchandpot-logo.png" alt="Patch & Pot" class="pp-header__logo">
-        <span class="site-title">Patch &amp; Pot</span>
+        <span>Patch &amp; Pot</span>
       </a>
       <button class="pp-header__burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
         <span class="pp-burger-bar"></span>
@@ -102,6 +100,7 @@
     <h1>Seasonal Planting Calendar (UK)</h1>
     <p class="lead">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
+    <!-- Controls -->
     <div class="bar">
       <div class="control">
         <label for="regionSel" class="muted">Region:</label>
@@ -135,20 +134,30 @@
       <span id="status" class="muted" aria-live="polite"></span>
     </div>
 
+    <!-- Basics -->
+    <div class="section" id="basicsBox" hidden>
+      <h3 style="margin:.2rem 0 .6rem">Basics</h3>
+      <div id="basicSoil"  style="margin:.1rem 0"></div>
+      <div id="basicTools" style="margin:.1rem 0"></div>
+      <div id="basicNotes" style="margin:.1rem 0"></div>
+    </div>
+
+    <!-- Pest Watch -->
     <div class="section" id="pestBox" hidden>
       <div id="pestTitle" style="font-weight:700;margin-bottom:.4rem"></div>
       <ul id="pestList" style="margin:.2rem 0 .2rem 1.2rem"></ul>
     </div>
 
+    <!-- Legend -->
     <div class="section">
       <div class="legend">
         <span class="pill"><span class="emoji">🌱</span> Sow</span>
         <span class="pill"><span class="emoji">🌿</span> Plant</span>
         <span class="pill"><span class="emoji">🧺</span> Harvest</span>
-        <span class="muted">— marks appear in the month cells.</span>
       </div>
     </div>
 
+    <!-- Table -->
     <div class="section table-wrap">
       <table aria-label="Seasonal calendar">
         <thead>
@@ -160,19 +169,19 @@
         </thead>
         <tbody id="tbody"></tbody>
       </table>
+      <div id="emptyMsg" class="muted" style="display:none;margin-top:6px">No crops found.</div>
     </div>
   </div>
 
-  <!-- FOOTER INLINE -->
+  <!-- FOOTER -->
   <footer class="site-footer">
-    <!-- hard-wired logo -->
     <img class="site-footer__logo" src="/img/patchandpot-logo.png" alt="Patch & Pot">
     <p>© 2025 Patch & Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </footer>
 
 <script>
-/* ===== header burger (inline) ===== */
+/* ===== header burger ===== */
 (function(){
   const root=document.getElementById('ppHeader');
   if(!root) return;
@@ -187,50 +196,81 @@
   });
 })();
 
-/* ===== seasonal logic (inline; robust JSON handling) ===== */
+/* ===== seasonal JSON logic (ALL files, absolute paths) ===== */
 (function(){
   const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const EMO = { sow:"🌱", plant:"🌿", harvest:"🧺" };
-
   const els = {
-    region:    document.getElementById('regionSel'),
-    cat:       document.getElementById('catSel'),
-    search:    document.getElementById('searchBox'),
-    monthOnly: document.getElementById('monthOnly'),
-    status:    document.getElementById('status'),
-    tbody:     document.getElementById('tbody'),
-    pestBox:   document.getElementById('pestBox'),
-    pestTitle: document.getElementById('pestTitle'),
-    pestList:  document.getElementById('pestList')
+    region:document.getElementById('regionSel'),
+    cat:document.getElementById('catSel'),
+    search:document.getElementById('searchBox'),
+    monthOnly:document.getElementById('monthOnly'),
+    status:document.getElementById('status'),
+    tbody:document.getElementById('tbody'),
+    emptyMsg:document.getElementById('emptyMsg'),
+    basicsBox:document.getElementById('basicsBox'),
+    basicSoil:document.getElementById('basicSoil'),
+    basicTools:document.getElementById('basicTools'),
+    basicNotes:document.getElementById('basicNotes'),
+    pestBox:document.getElementById('pestBox'),
+    pestTitle:document.getElementById('pestTitle'),
+    pestList:document.getElementById('pestList')
   };
 
-  function bust(url){ return `${url}${url.includes('?')?'&':'?'}v=${Date.now()}`; }
-  async function fetchJSON(url){
-    try{
-      const r = await fetch(bust(url), {cache:'no-store'});
-      if(!r.ok) throw 0;
-      return await r.json();
-    }catch(_){ return null; }
-  }
+  const BLOCKS = ['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
+
+  function bust(url){return `${url}${url.includes('?')?'&':'?'}v=${Date.now()}`;}
+  async function fetchJSON(url){try{const r=await fetch(bust(url),{cache:'no-store'});if(!r.ok)throw 0;return await r.json();}catch(_){return null;}}
 
   async function loadRegion(region){
-    const base = `data/regions/${region}`;
-    const blocks = ['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
+    const base = `/data/regions/${region}`; // ABSOLUTE path
+    const [basics, pest, ...parts] = await Promise.all([
+      fetchJSON(`${base}/basics.json`),
+      fetchJSON(`${base}/pestwatch.json`),
+      ...BLOCKS.map(b => fetchJSON(`${base}/${b}.json`))
+    ]);
 
-    const parts = await Promise.all(blocks.map(async (block)=>{
-      const arr = await fetchJSON(`${base}/${block}.json`);
-      if (!Array.isArray(arr)) return [];
-      return arr.map(c=>{
-        const crop={...c};
-        crop._block = block;
-        if (!crop.category) crop.category = block;  // ensure category exists for filter
-        return crop;
-      });
-    }));
+    // Merge & annotate crop blocks
+    let crops=[];
+    parts.forEach((arr, idx)=>{
+      const block = BLOCKS[idx];
+      if (Array.isArray(arr)){
+        arr.forEach(c=>{
+          if(!c || !c.name) return;
+          const crop = {...c};
+          if(!crop.category) crop.category = block;
+          crop._block = block;
+          crops.push(crop);
+        });
+      }
+    });
 
-    const crops = parts.flat().filter(Boolean).filter(c=>c.name);
-    const pest  = await fetchJSON(`${base}/pestwatch.json`);
-    return { crops, pest };
+    return { basics: basics||{}, pest: pest||{}, crops, region };
+  }
+
+  function renderBasics(basics){
+    const hasSoil  = basics && basics.soil;
+    const hasTools = basics && basics.tools;
+    const hasNotes = basics && basics.notes;
+    if(!(hasSoil||hasTools||hasNotes)){ els.basicsBox.hidden=true; return; }
+    els.basicSoil.textContent  = hasSoil  ? `Soil/Compost: ${basics.soil}`   : '';
+    els.basicTools.textContent = hasTools ? `Tools: ${basics.tools}`         : '';
+    els.basicNotes.textContent = hasNotes ? `Notes: ${basics.notes}`         : '';
+    els.basicsBox.hidden=false;
+  }
+
+  function renderPest(region, pest){
+    if(!pest || typeof pest!=='object'){ els.pestBox.hidden=true; return; }
+    const m = String((new Date()).getMonth());
+    const items = (pest[m]?.items) || [];
+    els.pestTitle.textContent = `Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;
+    els.pestList.innerHTML = '';
+    if (!items.length){
+      const li=document.createElement('li'); li.textContent='No major alerts this month.'; els.pestList.appendChild(li);
+    } else {
+      items.forEach(t=>{ const li=document.createElement('li'); li.textContent=t; els.pestList.appendChild(li); });
+    }
+    els.pestBox.hidden=false;
   }
 
   function filterCrops(crops){
@@ -238,7 +278,6 @@
     const cat=(els.cat.value||'all').toLowerCase();
     const mOnly=els.monthOnly.checked;
     const m=(new Date()).getMonth();
-
     return (crops||[]).filter(c=>{
       if (q && !c.name.toLowerCase().includes(q)) return false;
       if (cat!=='all'){
@@ -264,47 +303,37 @@
     return out.join(' ');
   }
 
-  function renderPest(region, pest){
-    if (!pest || typeof pest !== 'object'){ els.pestBox.hidden=true; return; }
-    const m = String((new Date()).getMonth());
-    const items = (pest[m]?.items) || [];
-    els.pestTitle.textContent = `Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;
-    els.pestList.innerHTML='';
-    if (!items.length){
-      const li=document.createElement('li'); li.textContent='No major alerts this month.'; els.pestList.appendChild(li);
-    }else{
-      items.forEach(t=>{ const li=document.createElement('li'); li.textContent=t; els.pestList.appendChild(li); });
-    }
-    els.pestBox.hidden=false;
-  }
-
-  function renderTable(data){
-    const crops = filterCrops(data.crops||[]);
-    els.status.textContent = `${(els.region.value||'scotland').replace(/^\w/,c=>c.toUpperCase())} — ${crops.length} crops shown`;
+  function renderTable(crops, region){
+    const list = filterCrops(crops||[]);
+    els.status.textContent = `${region[0].toUpperCase()+region.slice(1)} — ${list.length} crops shown`;
 
     const frag=document.createDocumentFragment();
-    crops.forEach(c=>{
+    list.forEach(c=>{
       const tr=document.createElement('tr');
       const name=document.createElement('td'); name.textContent=c.name; tr.appendChild(name);
       for(let i=0;i<12;i++){
         const td=document.createElement('td'); const marks=cellMarks(c,i);
-        if(marks) td.textContent=marks; tr.appendChild(td);
+        if(marks) td.textContent=marks;
+        tr.appendChild(td);
       }
       frag.appendChild(tr);
     });
     els.tbody.innerHTML=''; els.tbody.appendChild(frag);
+    els.emptyMsg.style.display = list.length ? 'none' : 'block';
   }
 
-  let regionData=null;
+  let cache = { region:null, data:null };
+
   async function refresh(){
-    const region=els.region.value||'scotland';
-    if(!regionData || regionData.region!==region){
-      els.status.textContent='Loading…';
-      const loaded=await loadRegion(region);
-      regionData={...loaded, region};
-      renderPest(region, loaded.pest);
+    const region = (els.region.value||'scotland').toLowerCase();
+    if (!cache.data || cache.region !== region){
+      els.status.textContent = 'Loading…';
+      cache.data = await loadRegion(region);
+      cache.region = region;
+      renderBasics(cache.data.basics);
+      renderPest(region, cache.data.pest);
     }
-    renderTable(regionData);
+    renderTable(cache.data.crops, region);
   }
 
   els.region.addEventListener('change', refresh);

@@ -1,100 +1,100 @@
 {
-  "region": "Wales",
+  "region": "Scotland",
   "pestwatch": {
     "0": {
-      "title": "Pest Watch \u2013 January (Wales)",
+      "title": "Pest Watch – January (Scotland)",
       "items": [
-        "Check overwintered brassicas for pigeons \u2013 netting recommended.",
-        "Grey mould risk in damp greenhouses or cold frames.",
-        "Slugs hiding under pots \u2013 clear debris."
+        "Check overwintered brassicas for pigeons – use netting or fleece.",
+        "Botrytis (grey mould) in damp cold frames – ventilate on dry days.",
+        "Slugs hiding under pots and debris – clear regularly."
       ]
     },
     "1": {
-      "title": "Pest Watch \u2013 February (Wales)",
+      "title": "Pest Watch – February (Scotland)",
       "items": [
-        "Aphids may appear in mild spells on overwintering greens.",
+        "Aphids can appear on early sowings during mild spells.",
         "Slugs damaging salad leaves under cloches.",
-        "Mice eating stored or newly sown pea/bean seeds."
+        "Mice eating pea and bean seeds stored in sheds or trays."
       ]
     },
     "2": {
-      "title": "Pest Watch \u2013 March (Wales)",
+      "title": "Pest Watch – March (Scotland)",
       "items": [
-        "Flea beetle on brassica seedlings.",
-        "Slugs & snails increasing activity.",
-        "Damping-off fungus in seed trays."
+        "Flea beetle attacking brassica seedlings – protect with fleece.",
+        "Slugs and snails emerging strongly as temperatures rise.",
+        "Damping-off fungus in crowded seed trays – improve airflow and avoid overwatering."
       ]
     },
     "3": {
-      "title": "Pest Watch \u2013 April (Wales)",
+      "title": "Pest Watch – April (Scotland)",
       "items": [
-        "Carrot fly \u2013 protect with fleece/netting.",
-        "Cabbage root fly \u2013 use collars.",
-        "Slugs at night \u2013 traps or hand removal."
+        "Cabbage root fly – protect brassicas with collars.",
+        "Carrot fly becomes active – use fine netting or fleece barriers.",
+        "Slugs active on seedlings – set traps and hand-pick at dusk."
       ]
     },
     "4": {
-      "title": "Pest Watch \u2013 May (Wales)",
+      "title": "Pest Watch – May (Scotland)",
       "items": [
-        "Aphids on beans and brassicas.",
-        "Cabbage white butterflies laying eggs.",
-        "Blackfly on broad beans \u2013 pinch tips."
+        "Aphids colonising beans and brassicas – encourage ladybirds.",
+        "Cabbage white butterflies laying eggs on brassicas – check undersides of leaves.",
+        "Blackfly on broad beans – pinch out infested shoot tips."
       ]
     },
     "5": {
-      "title": "Pest Watch \u2013 June (Wales)",
+      "title": "Pest Watch – June (Scotland)",
       "items": [
-        "Potato blight risk \u2013 remove infected foliage.",
-        "Pea moth caterpillars \u2013 mesh netting.",
-        "Whitefly in greenhouses."
+        "Potato blight risk rises in warm, damp weather – remove affected leaves promptly.",
+        "Pea moth caterpillars – use insect mesh over crops.",
+        "Whitefly on greenhouse tomatoes and cucumbers – use sticky traps and ventilation."
       ]
     },
     "6": {
-      "title": "Pest Watch \u2013 July (Wales)",
+      "title": "Pest Watch – July (Scotland)",
       "items": [
-        "Powdery mildew on courgettes.",
-        "Tomato blight \u2013 water at soil level.",
-        "Cabbage white caterpillars \u2013 net or hand remove."
+        "Powdery mildew on courgettes – water at soil level and remove infected leaves.",
+        "Tomato blight spreads in wet conditions – maintain good airflow.",
+        "Cabbage white caterpillars – hand-pick or use mesh netting."
       ]
     },
     "7": {
-      "title": "Pest Watch \u2013 August (Wales)",
+      "title": "Pest Watch – August (Scotland)",
       "items": [
-        "Potato/tomato blight risk highest.",
-        "Onion white rot \u2013 crop rotation essential.",
-        "Fruit fly near soft fruits \u2013 harvest promptly."
+        "Blight peak risk for potatoes and tomatoes – harvest early if needed.",
+        "Onion white rot risk – rotate crops and avoid replanting in same soil.",
+        "Fruit flies around soft fruit – harvest promptly, avoid fallen fruit."
       ]
     },
     "8": {
-      "title": "Pest Watch \u2013 September (Wales)",
+      "title": "Pest Watch – September (Scotland)",
       "items": [
-        "Slugs after autumn rain.",
-        "Grey mould on salads in damp conditions.",
-        "Rodents targeting ripening crops."
+        "Slugs thrive in damp conditions – use beer traps or copper barriers.",
+        "Grey mould on autumn salads – increase ventilation.",
+        "Rodents raiding stored crops – secure storage areas."
       ]
     },
     "9": {
-      "title": "Pest Watch \u2013 October (Wales)",
+      "title": "Pest Watch – October (Scotland)",
       "items": [
-        "Clubroot in brassicas \u2013 lime soil.",
-        "Moulds in greenhouses.",
-        "Rodents around compost bins."
+        "Clubroot risk on brassicas – lime soil to reduce acidity.",
+        "Moulds in damp polytunnels – ventilate regularly.",
+        "Rodents near compost heaps – deter with secure bins."
       ]
     },
     "10": {
-      "title": "Pest Watch \u2013 November (Wales)",
+      "title": "Pest Watch – November (Scotland)",
       "items": [
-        "Slugs under cloches.",
-        "Remove yellowing brassica leaves.",
-        "Net brassicas from pigeons."
+        "Slug damage under cloches – clear hiding spots and set traps.",
+        "Yellowing brassica leaves encourage pests – remove promptly.",
+        "Cover leafy veg from pigeons as food sources decline."
       ]
     },
     "11": {
-      "title": "Pest Watch \u2013 December (Wales)",
+      "title": "Pest Watch – December (Scotland)",
       "items": [
-        "Protect stored roots from rodents.",
-        "Ventilate greenhouses to avoid mould.",
-        "Weed around garlic/onions."
+        "Protect stored root crops (carrots, potatoes) from mice and rats.",
+        "Ventilate greenhouses on mild days to prevent fungal growth.",
+        "Weed around overwintering garlic and onions to reduce pest harbourage."
       ]
     }
   }

@@ -45,32 +45,21 @@
   .pill .emoji{font-size:1rem}
 
   /* Mini in-page nav */
-.inpage {
-  display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 12px;
-}
-.inpage a {
-  text-decoration:none; color:#cfd3d8; border:1px solid var(--stroke);
-  border-radius:999px; padding:6px 10px; background:var(--glass);
-}
-.inpage a:hover { color:#fff; }
+  .inpage{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 12px}
+  .inpage a{text-decoration:none;color:#cfd3d8;border:1px solid var(--stroke);border-radius:999px;padding:6px 10px;background:var(--glass)}
+  .inpage a:hover{color:#fff}
 
-/* Collapsible sections (details/summary) */
-.fold { border:1px solid var(--stroke); border-radius:var(--r); background:var(--glass); margin:12px 0; }
-.fold summary {
-  cursor:pointer; list-style:none; padding:12px 14px; display:flex; align-items:center; gap:10px;
-  font-weight:700; color:#fff;
-}
-.fold summary::-webkit-details-marker { display:none; }
-.fold__hint { font-weight:400; color:#9fb0a5; font-size:.95rem; margin-left:auto; }
-.fold__body { padding:10px 14px 14px; }
-.fold .basics-list { margin-top:6px; }
-.fold .pest-list { margin:.2rem 0 .2rem 1.2rem; }
+  /* Collapsible sections */
+  .fold{border:1px solid var(--stroke);border-radius:var(--r);background:var(--glass);margin:12px 0}
+  .fold summary{cursor:pointer;list-style:none;padding:12px 14px;display:flex;align-items:center;gap:10px;font-weight:700;color:#fff}
+  .fold summary::-webkit-details-marker{display:none}
+  .fold__hint{font-weight:400;color:#9fb0a5;font-size:.95rem;margin-left:auto}
+  .fold__body{padding:10px 14px 14px}
+  .fold .basics-list{margin-top:6px}
+  .fold .pest-list{margin:.2rem 0 .2rem 1.2rem}
+  .anchor-offset{position:relative;top:-70px;visibility:hidden}
 
-/* tiny anchor offsets for sticky header */
-.anchor-offset { position:relative; top:-70px; visibility:hidden; }
-
-  /* BASICS */
-  .basics-title{margin:.2rem 0 .6rem}
+  /* BASICS list bullets */
   .basics-list{list-style:none;margin:0;padding:0;column-gap:28px}
   .basics-list li{position:relative;margin:0 0 10px 0;padding-left:20px;line-height:1.5;color:#e6e9ed}
   .basics-list li::before{content:"•";position:absolute;left:0;top:0;color:#8bd48b;font-weight:700;line-height:1}
@@ -167,23 +156,20 @@
     <span id="status" class="muted" aria-live="polite"></span>
   </div>
 
+  <!-- Mini in-page nav -->
+  <nav class="inpage" aria-label="On this page">
+    <a href="#legend">Legend</a>
+    <a href="#calendar">Calendar</a>
+    <a href="#basics">Basics</a>
+    <a href="#pestwatch">Pest Watch</a>
+  </nav>
+
   <!-- Diagnostics -->
   <details id="diag"><summary>Diagnostics</summary><pre id="diagPre"></pre></details>
 
-  <!-- Basics -->
-  <div class="section" id="basicsBox" hidden>
-    <h3 class="basics-title">Basics</h3>
-    <ul id="basicsList" class="basics-list"></ul>
-  </div>
-
-  <!-- Pest Watch -->
-  <div class="section" id="pestBox" hidden>
-    <div id="pestTitle" style="font-weight:700;margin-bottom:.4rem"></div>
-    <ul id="pestList" style="margin:.2rem 0 .2rem 1.2rem"></ul>
-  </div>
-
   <!-- Legend -->
-  <div class="section">
+  <span id="legend" class="anchor-offset"></span>
+  <div class="section" id="legend-section">
     <div class="legend">
       <span class="pill"><span class="emoji">🌱</span> Sow</span>
       <span class="pill"><span class="emoji">🌿</span> Plant</span>
@@ -192,6 +178,7 @@
   </div>
 
   <!-- Table -->
+  <span id="calendar" class="anchor-offset"></span>
   <div class="section table-wrap">
     <table aria-label="Seasonal calendar">
       <thead>
@@ -205,6 +192,31 @@
     </table>
     <div id="emptyMsg" class="muted" style="display:none;margin-top:6px">No crops found.</div>
   </div>
+
+  <!-- Basics (collapsed) -->
+  <span id="basics" class="anchor-offset"></span>
+  <details id="basicsFold" class="fold" open="false">
+    <summary>
+      Basics
+      <span class="fold__hint">Tap to expand</span>
+    </summary>
+    <div class="fold__body">
+      <ul id="basicsList" class="basics-list"></ul>
+    </div>
+  </details>
+
+  <!-- Pest Watch (collapsed) -->
+  <span id="pestwatch" class="anchor-offset"></span>
+  <details id="pestFold" class="fold" open="false">
+    <summary>
+      Pest Watch
+      <span class="fold__hint">Tap to expand</span>
+    </summary>
+    <div class="fold__body">
+      <div id="pestTitle" style="font-weight:700;margin-bottom:.4rem"></div>
+      <ul id="pestList" class="pest-list"></ul>
+    </div>
+  </details>
 </div>
 
 <footer class="site-footer">
@@ -214,7 +226,7 @@
 </footer>
 
 <script>
-/* ===== Header burger ===== */
+/* Header burger */
 (function(){
   const root=document.getElementById('ppHeader'); if(!root) return;
   const btn=root.querySelector('#ppBurger'); const nav=root.querySelector('#ppNav');
@@ -230,7 +242,7 @@
   });
 })();
 
-/* ===== Seasonal loader ===== */
+/* Seasonal loader */
 (function(){
   const $=id=>document.getElementById(id);
   const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -243,9 +255,9 @@
     status: $("status"),
     tbody: $("tbody"),
     emptyMsg: $("emptyMsg"),
-    basicsBox: $("basicsBox"),
+    basicsFold: $("basicsFold"),
     basicsList: $("basicsList"),
-    pestBox: $("pestBox"),
+    pestFold: $("pestFold"),
     pestTitle: $("pestTitle"),
     pestList: $("pestList"),
     diag: $("diag"),
@@ -257,7 +269,7 @@
 
   const debugOn=new URLSearchParams(location.search).get('debug')==='1';
   if(debugOn && els.diag) els.diag.setAttribute('open','');
-  const log=(s)=>{ if(debugOn && els.diagPre) els.diagPre.textContent += s + "\\n"; };
+  const log=s=>{ if(debugOn && els.diagPre) els.diagPre.textContent+=s+"\\n"; };
 
   const bust=u=>`${u}${u.includes('?')?'&':'?'}v=${Date.now()}`;
   async function get(region,file){
@@ -278,7 +290,7 @@
     if(!b) return [];
     if(Array.isArray(b)) return b.map(String);
     const lines=[];
-    for(const [section,val] of Object.entries(b)){
+    for(const [section,val] of Object.entries(b||{})){
       if(val==null) continue;
       if(typeof val==='string' && val.trim()){
         lines.push(`${niceKey(section)}: ${val.trim()}`);
@@ -298,12 +310,12 @@
     if(p.pestwatch) p=p.pestwatch;
     const out={};
     if(Array.isArray(p) && p.length===12){
-      p.forEach((v,i)=>{ out[i] = Array.isArray(v)?v : Array.isArray(v?.items)?v.items : (typeof v==='string'?[v]:[]); });
+      p.forEach((v,i)=>{ out[i]=Array.isArray(v)?v:(Array.isArray(v?.items)?v.items:(typeof v==='string'?[v]:[])); });
       return out;
     }
     Object.keys(p).forEach(k=>{
       const v=p[k];
-      out[+k]= Array.isArray(v)?v : Array.isArray(v?.items)?v.items : (typeof v==='string'?[v]:[]);
+      out[+k]=Array.isArray(v)?v:(Array.isArray(v?.items)?v.items:(typeof v==='string'?[v]:[]));
     });
     return out;
   }
@@ -313,10 +325,10 @@
     if(debugOn && els.diagPre) els.diagPre.textContent='';
     log(`Region = ${region}`);
 
-    const basicsRaw = await get(region,'basics.json');
-    const pestRaw   = await get(region,'pestwatch.json');
-    const basicsList= normalizeBasics(basicsRaw);
-    const pestMap   = normalizePest(pestRaw);
+    const basicsRaw=await get(region,'basics.json');
+    const pestRaw=await get(region,'pestwatch.json');
+    const basicsList=normalizeBasics(basicsRaw);
+    const pestMap=normalizePest(pestRaw);
 
     const crops=[];
     for(const block of BLOCKS){
@@ -324,7 +336,7 @@
       let used=null;
       for(const fname of names){
         const j=await get(region,fname);
-        const arr= Array.isArray(j)?j : (Array.isArray(j?.crops)?j.crops:null);
+        const arr=Array.isArray(j)?j:(Array.isArray(j?.crops)?j.crops:null);
         if(arr){
           arr.forEach(c=>{
             if(!c || !c.name) return;
@@ -342,58 +354,35 @@
   }
 
   function renderBasics(list){
-  const ul = els.basicsList;
-  ul.innerHTML = '';
-  // Expand embedded bullets if present
-  const expanded = (list || []).flatMap(line => {
-    if (typeof line !== 'string') return [];
-    const parts = line.split(/(?:^|\s)•\s+/g).map(s => s.trim()).filter(Boolean);
-    return parts.length ? parts : [line.trim()];
-  });
-
-  if (!expanded.length){
-    els.basicsFold.hidden = true;
-    return;
-  }
-
-  expanded.forEach(p => {
-    const li = document.createElement('li');
-    const m = p.match(/^([^:]{1,80}):\s*(.+)$/);
-    if (m){
-      const s = document.createElement('strong');
-      s.textContent = m[1] + ': ';
-      li.appendChild(s);
-      li.appendChild(document.createTextNode(m[2]));
-    } else {
-      li.textContent = p;
-    }
-    ul.appendChild(li);
-  });
-
-  els.basicsFold.hidden = false;
-}
-
-function renderPest(region, pestMap){
-  if (!pestMap || typeof pestMap !== 'object'){
-    els.pestFold.hidden = true;
-    return;
-  }
-  const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const m = (new Date()).getMonth();
-  const items = pestMap[m] || [];
-  els.pestTitle.textContent = `Pest Watch — ${MONTHS[m]} (${region[0].toUpperCase()+region.slice(1)})`;
-  els.pestList.innerHTML = '';
-  if (!items.length){
-    els.pestList.innerHTML = '<li>No major alerts this month.</li>';
-  } else {
-    items.forEach(t => {
-      const li = document.createElement('li');
-      li.textContent = String(t);
-      els.pestList.appendChild(li);
+    const ul=els.basicsList; ul.innerHTML='';
+    const expanded=(list||[]).flatMap(line=>{
+      if(typeof line!=='string') return [];
+      const parts=line.split(/(?:^|\s)•\s+/g).map(s=>s.trim()).filter(Boolean);
+      return parts.length?parts:[line.trim()];
     });
+    if(!expanded.length){ els.basicsFold.hidden=true; return; }
+    expanded.forEach(p=>{
+      const li=document.createElement('li');
+      const m=p.match(/^([^:]{1,80}):\s*(.+)$/);
+      if(m){
+        const s=document.createElement('strong'); s.textContent=m[1]+': ';
+        li.appendChild(s); li.appendChild(document.createTextNode(m[2]));
+      }else{ li.textContent=p; }
+      ul.appendChild(li);
+    });
+    els.basicsFold.hidden=false;
   }
-  els.pestFold.hidden = false;
-}
+
+  function renderPest(region,pestMap){
+    if(!pestMap || typeof pestMap!=='object'){ els.pestFold.hidden=true; return; }
+    const m=(new Date()).getMonth();
+    const items=pestMap[m]||[];
+    els.pestTitle.textContent=`Pest Watch — ${MONTHS[m]} (${region[0].toUpperCase()+region.slice(1)})`;
+    els.pestList.innerHTML='';
+    if(!items.length){ els.pestList.innerHTML='<li>No major alerts this month.</li>'; }
+    else{ items.forEach(t=>{ const li=document.createElement('li'); li.textContent=String(t); els.pestList.appendChild(li); }); }
+    els.pestFold.hidden=false;
+  }
 
   function filterCrops(crops){
     const q=(els.search.value||'').toLowerCase().trim();

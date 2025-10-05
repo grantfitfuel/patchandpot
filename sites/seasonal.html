@@ -7,62 +7,46 @@
   <meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
   <link rel="stylesheet" href="style.css">
   <style>
-    :root{
-      --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8;
-      --glass:#0f131a; --stroke:#1f2630; --maxw:1100px; --r:14px;
-      --firstcol-portrait: 320px;  /* portrait: wider name col, scroll months */
-      --firstcol-land:     34%;    /* landscape: tighter so months fit */
-    }
+    :root{ --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8; --glass:#0f131a; --stroke:#1f2630; --maxw:1100px; --r:14px }
     html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
-    a{color:var(--ink)}
     .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
     h1{margin:.2rem 0 .6rem;font-size:2.2rem}
     .lead{color:var(--inkdim)}
-
     .bar{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
     .control{display:flex;align-items:center;gap:8px}
     select,input[type="text"]{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
     .muted{color:var(--inkdim)}
-
     .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
-    .pw-title{font-weight:700;margin:0 0 .4rem}
-
     .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
     .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
     .pill .emoji{font-size:1rem}
 
-    /* ===== TABLE rules ===== */
+    /* ===== TABLE ===== */
     .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
 
-    /* Portrait: SCROLLABLE grid. Don’t force 12 months to fit. */
+    /* Portrait: names + visible month context; scroll for rest */
     @media (orientation:portrait){
-      table{border-collapse:collapse;width:auto;min-width:1180px;table-layout:auto}
+      table{border-collapse:collapse;width:auto;min-width:920px;table-layout:auto}
       thead th{position:sticky;top:0;background:#0f141b}
-      th,td{border:1px solid var(--stroke);padding:12px;text-align:center;vertical-align:top;line-height:1.35}
-      th:first-child, td:first-child{ text-align:left; min-width:var(--firstcol-portrait); white-space:normal; word-break:break-word }
+      th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
+      th:first-child, td:first-child{ text-align:left; min-width:180px; max-width:220px; white-space:normal; word-break:break-word }
       tbody tr{min-height:64px}
     }
-
-    /* Landscape: SHOW ALL 12 MONTHS (no horizontal scroll). */
+    /* Landscape: show Jan–Dec without scroll */
     @media (orientation:landscape){
       table{border-collapse:collapse;width:100%;table-layout:fixed}
       thead th{position:sticky;top:0;background:#0f141b}
       th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
-      th:first-child, td:first-child{ text-align:left; width:var(--firstcol-land); white-space:normal; word-break:break-word }
-      th:not(:first-child), td:not(:first-child){ width:calc((100% - var(--firstcol-land)) / 12) }
+      th:first-child, td:first-child{ text-align:left; width:32%; white-space:normal; word-break:break-word }
+      th:not(:first-child), td:not(:first-child){ width:calc(68% / 12) }
       tbody tr{min-height:60px}
     }
-
-    .emoji{font-size:1.05rem}
-
-    /* Debug */
-    #debug{display:none;margin-top:10px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#11161f;border:1px solid #253041;border-radius:12px;padding:10px;color:#ffe08a}
-    #debug.show{display:block}
   </style>
 </head>
 <body>
-  <!-- Header partial slot(s): accept both ids -->
-  <div id="site-header"></div><div id="header"></div>
+
+  <!-- HEADER SLOT (this is the “slot + loader” you were asking about) -->
+  <div id="site-header"></div>
 
   <div class="wrap">
     <h1>Seasonal Planting Calendar (UK)</h1>
@@ -79,7 +63,7 @@
         </select>
       </div>
       <div class="control" style="flex:1 1 220px">
-        <input id="searchBox" type="text" placeholder="Search crops (e.g., carrot, lettuce)" />
+        <input id="searchBox" type="text" placeholder="Search crops (e.g., carrot, lettuce)">
       </div>
       <div class="control">
         <select id="catSel">
@@ -99,11 +83,6 @@
         <label for="monthOnly" class="muted">Show activity this month only</label>
       </div>
       <span id="status" class="muted" aria-live="polite"></span>
-    </div>
-
-    <div class="section" id="pestwatchBox" hidden>
-      <div class="pw-title" id="pwTitle"></div>
-      <ul id="pwList" style="margin:.2rem 0 .2rem 1.2rem"></ul>
     </div>
 
     <div class="section">
@@ -127,33 +106,16 @@
         <tbody id="tbody"></tbody>
       </table>
     </div>
-
-    <div id="debug" aria-live="polite"></div>
   </div>
 
-  <!-- Footer partial slot -->
+  <!-- FOOTER SLOT -->
   <div id="site-footer"></div>
 
-  <!-- partial loaders -->
-  <script src="assets/js/header-loader.js" defer></script>
+  <!-- LOAD PARTIALS (this is the “loader at bottom” part) -->
+  <script src="assets/js/header-loader.js?v=hdr3" defer></script>
   <script src="assets/js/footer-loader.js" defer></script>
 
-  <!-- header “hard fallback” if loader misses -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(async () => {
-        const container = document.querySelector('#site-header,#header');
-        if (container && container.children.length === 0) {
-          try{
-            const r = await fetch('/sites/partials/header.html',{cache:'no-store'});
-            if (r.ok) container.innerHTML = await r.text();
-          }catch(_){}
-        }
-      }, 350);
-    });
-  </script>
-
-  <!-- page logic -->
-  <script src="assets/js/seasonal.js?v=rb-portrait-scroll-landscape-fit" defer></script>
+  <!-- PAGE LOGIC -->
+  <script src="assets/js/seasonal.js?v=portrait-scroll-landscape-fit" defer></script>
 </body>
 </html>

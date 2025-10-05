@@ -5,68 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planner — Patch & Pot</title>
   <meta name="description" content="What to sow, plant, and harvest by month, with regional data for Scotland, England, Wales, and Ireland.">
-
   <style>
     :root{
-      --bg:#0b0f14; --ink:#ffffff; --ink-dim:#cfd3d8;
+      --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8;
       --glass:#0f131a; --stroke:#1f2630; --accent:#4caf50;
-      --maxw:1100px; --radius:14px;
+      --maxw:1100px; --r:14px;
     }
-    html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.45 Inter,system-ui,Arial,sans-serif}
-    a{color:var(--ink); text-decoration:underline}
-    .wrap{max-width:var(--maxw); margin:0 auto; padding:18px 20px}
-    h1{margin:.2rem 0 .6rem; font-size:1.9rem}
-    .lead{color:var(--ink-dim)}
-
-    .section{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:14px; margin:12px 0}
-    .bar,.controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
-    .chip,button{background:var(--glass); border:1px solid var(--stroke); color:var(--ink); border-radius:999px; padding:8px 12px; cursor:pointer}
-    .chip[aria-pressed="true"], button.primary{outline:2px solid var(--accent)}
-    select{background:var(--glass); color:var(--ink); border:1px solid var(--stroke); border-radius:10px; padding:8px 10px}
-    .muted{color:var(--ink-dim)}
-
-    /* Months scroller */
-    .scroller{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:8px}
-    .months{display:grid; gap:12px; grid-auto-flow:column; grid-auto-columns:minmax(240px, 1fr); padding-bottom:4px; min-width:1020px}
-    .month{background:#0f141b; border:1px solid var(--stroke); border-radius:12px; padding:12px; min-height:220px}
-    .month h3{margin:0 0 .5rem; font-size:1.1rem}
-    .pill{display:inline-block; border:1px solid var(--stroke); border-radius:8px; padding:4px 8px; margin:3px 4px 0 0; font-size:.9rem}
+    html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
+    a{color:var(--ink)}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
+    h1{margin:.2rem 0 .6rem;font-size:1.9rem}
+    .lead{color:var(--inkdim)}
+    .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
+    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+    select{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
+    button{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:999px;padding:8px 12px;cursor:pointer}
+    button.primary{outline:2px solid var(--accent)}
+    .muted{color:var(--inkdim)}
+    .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+    .months{display:grid;gap:12px;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);padding-bottom:4px;min-width:1020px}
+    .month{background:#0f141b;border:1px solid var(--stroke);border-radius:12px;padding:12px;min-height:220px}
+    .month h3{margin:0 0 .5rem;font-size:1.1rem}
+    .pill{display:inline-block;border:1px solid var(--stroke);border-radius:8px;padding:4px 8px;margin:3px 4px 0 0;font-size:.9rem}
     .pill.sow{border-color:#3fa7ff}
     .pill.plant{border-color:#ffc252}
     .pill.harvest{border-color:#6be46b}
-    .empty{color:var(--ink-dim); font-style:italic}
-
-    .legend{display:flex; flex-wrap:wrap; gap:8px}
-
-    /* Debug */
-    #debug{display:none; margin-top:10px; white-space:pre-wrap; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#11161f; border:1px solid #253041; border-radius:12px; padding:10px; color:#ffe08a}
+    .empty{color:var(--inkdim);font-style:italic}
+    #debug{display:none;margin-top:10px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#11161f;border:1px solid #253041;border-radius:12px;padding:10px;color:#ffe08a}
     #debug.show{display:block}
-
-    /* Footer (page) */
-    footer{margin:24px 0 12px; text-align:center; color:var(--ink-dim)}
-    .pot-icon{display:block; width:46px; height:auto; margin:0 auto 8px}
-    .footer-line{opacity:.6}
-
-    /* Print (PDF generator) */
-    @media print {
-      body{background:#fff; color:#000}
-      a{color:#000}
-      .wrap{max-width:none}
-      .section{break-inside:avoid}
-      .scroller{overflow:visible}
-      .months{grid-auto-columns:minmax(180px, 1fr)}
-      .month{border-color:#ddd; background:#fff}
-      .pill{border-color:#999; color:#000}
-      .pill.sow{border-color:#3fa7ff}
-      .pill.plant{border-color:#ffc252}
-      .pill.harvest{border-color:#26a826}
-      #debug{display:none !important}
-      /* PDF footer rule: pot icon to the LEFT of centered text */
-      footer{text-align:center}
-      .pot-icon{display:none}
-      .pdf-footer{display:flex; justify-content:center; align-items:center; gap:10px}
-      .pdf-footer img{width:28px; height:auto; margin:0}
-    }
+    footer{margin:24px 0 12px;text-align:center;color:var(--inkdim)}
+    .pot-icon{display:block;width:46px;height:auto;margin:0 auto 8px}
   </style>
 </head>
 <body>
@@ -86,31 +54,27 @@
 
         <label for="blockSel" class="muted">Block</label>
         <select id="blockSel" aria-label="Block">
+          <!-- ONLY blocks that exist in every region -->
           <option>alliums</option>
-          <option>brassicas</option>
-          <option>cucurbits</option>
-          <option>flowers</option>
-          <option>fruits</option>
+          <option>fruit</option>
           <option>herbs</option>
+          <option>leafy</option>
           <option>legumes</option>
-          <option>nightshades</option>
+          <option>other</option>
           <option>roots</option>
-          <option>salads</option>
+          <option>softfruit</option>
         </select>
 
         <button id="loadBtn" class="primary" type="button">Generate calendar</button>
-        <button id="pdfBtn" type="button" title="Generate PDF via print styles">Download PDF</button>
         <span id="status" class="muted" aria-live="polite"></span>
       </div>
     </div>
 
     <div class="section">
-      <div class="legend">
-        <span class="pill sow">Sow</span>
-        <span class="pill plant">Plant</span>
-        <span class="pill harvest">Harvest</span>
-        <span class="muted">— labels appear under each month.</span>
-      </div>
+      <span class="pill sow">Sow</span>
+      <span class="pill plant">Plant</span>
+      <span class="pill harvest">Harvest</span>
+      <span class="muted">— labels appear under each month.</span>
     </div>
 
     <div class="section scroller">
@@ -120,17 +84,11 @@
     <div id="debug" aria-live="polite"></div>
 
     <footer>
-      <img src="/img/patchandpot-pot.png" alt="" class="pot-icon">
-      <div class="footer-line">© Patch &amp; Pot — Grow Anywhere</div>
-      <!-- PDF-only layout swaps to .pdf-footer -->
-      <div class="pdf-footer" aria-hidden="true">
-        <img src="/img/patchandpot-pot.png" alt="">
-        <span>© Patch &amp; Pot — Grow Anywhere</span>
-      </div>
+      <img src="/img/patchandpot-pot.png" alt="" class="pot-icon" onerror="this.style.display='none'">
+      © Patch &amp; Pot — Grow Anywhere
     </footer>
   </div>
 
-  <!-- IMPORTANT: seasonal.html lives in /sites/, so this relative path is correct -->
-  <script src="assets/js/seasonal.js?v=final-lock-3" defer></script>
+  <script src="assets/js/seasonal.js?v=lock-fix" defer></script>
 </body>
 </html>

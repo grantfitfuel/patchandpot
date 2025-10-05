@@ -1,9 +1,12 @@
-/* Patch & Pot — Seasonal (final, no PDF)
-   - Locked blocks: alliums, fruit, herbs, leafy, legumes, other, roots, softfruit
-   - Month-first JSON only; merges all blocks for selected region
-   - Search + Category + "This month only"
+/* Patch & Pot — Seasonal (emoji table rollback; NO PDF)
+   Uses existing crop-first JSONs exactly as-is:
+   [
+     { "name":"Carrot", "months":{ "sow":[2,3], "plant":["apr"], "harvest":[9,10] } },
+     ...
+   ]
+   - Merges blocks: alliums, fruit, herbs, leafy, legumes, other, roots, softfruit
+   - Search, category filter, and "this month only"
    - Pest Watch panel from pestwatch.json
-   - Debug panel shows missing/invalid files
 */
 (() => {
   const $ = s => document.querySelector(s);
@@ -11,9 +14,9 @@
   const catSel    = $('#catSel');
   const searchBox = $('#searchBox');
   const monthOnly = $('#monthOnly');
-  const monthsWrap= $('#months');
   const statusEl  = $('#status');
   const debugEl   = $('#debug');
+  const tbody     = $('#tbody');
   const pwBox     = $('#pestwatchBox');
   const pwTitle   = $('#pwTitle');
   const pwList    = $('#pwList');
@@ -23,157 +26,146 @@
 
   const BLOCKS = ['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
   const MONTHS = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-  const Title  = s => s.charAt(0).toUpperCase() + s.slice(1);
-  const nowIdx = (new Date()).getMonth();
+  const NAME_TO_IDX = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+  const M = new Date().getMonth();
 
-  // ---------- Utilities ----------
+  const EMO = { sow:'🌱', plant:'🌿', harvest:'🧺' }; // emojis you preferred
+
+  const Title = s => s.charAt(0).toUpperCase() + s.slice(1);
   function showDebug(msg){ debugEl.textContent = msg; debugEl.classList.add('show'); }
   function hideDebug(){ debugEl.textContent = ''; debugEl.classList.remove('show'); }
+
   async function fetchJSON(url){
     const r = await fetch(url + '?t=' + Date.now(), {cache:'no-store'});
     if(!r.ok) throw new Error(`HTTP ${r.status} — ${url}`);
     return r.json();
   }
 
-  function clearMonths(){ monthsWrap.innerHTML = ''; }
-
-  // ---------- Merge month-first blocks into month map with categories ----------
-  function newMonthMap(){
-    const out = {};
-    MONTHS.forEach(k => out[k] = { sow:[], plant:[], harvest:[] });
-    return out;
+  function monthIdx(x){
+    if (typeof x === 'number') {
+      if (x>=0 && x<=11) return x;
+      if (x>=1 && x<=12) return x-1;
+      return -1;
+    }
+    const s = String(x||'').trim().toLowerCase();
+    if (s in NAME_TO_IDX) return NAME_TO_IDX[s];
+    const n = Number(s);
+    return Number.isNaN(n) ? -1 : monthIdx(n);
   }
-  function pushUnique(arr, item){
-    // item = {name, cat}
-    if (!arr.some(x => x.name === item.name && x.cat === item.cat)) arr.push(item);
+
+  // Convert crop.months lists into a Set for quick lookup
+  function monthSet(v){
+    if (v == null) return new Set();
+    let arr = [];
+    if (Array.isArray(v)) arr = v;
+    else if (typeof v === 'object') arr = Object.keys(v);
+    else if (typeof v === 'string') arr = v.split(',').map(s=>s.trim());
+    return new Set(arr.map(monthIdx).filter(i=>i>=0 && i<=11));
   }
 
-  // Render one month card
-  function renderMonthCard(mKey, data, filters){
-    const card = document.createElement('div');
-    card.className = 'month';
-    card.setAttribute('role','listitem');
-    card.innerHTML = `
-      <h3>${Title(mKey)}</h3>
-      <div class="row sow"></div>
-      <div class="row plant"></div>
-      <div class="row harvest"></div>
-    `;
-    const rows = {
-      sow: card.querySelector('.row.sow'),
-      plant: card.querySelector('.row.plant'),
-      harvest: card.querySelector('.row.harvest')
-    };
+  function renderTable(crops){
+    tbody.innerHTML = '';
+    crops.forEach(c=>{
+      const tr = document.createElement('tr');
+      const name = document.createElement('td');
+      name.textContent = c.name;
+      tr.appendChild(name);
 
-    const q = (filters.q || '').toLowerCase();
-    const cat = (filters.cat || 'all').toLowerCase();
+      const S = monthSet(c.months?.sow),
+            P = monthSet(c.months?.plant),
+            H = monthSet(c.months?.harvest);
 
-    ['sow','plant','harvest'].forEach(kind=>{
-      const list = Array.isArray(data[kind]) ? data[kind] : [];
-      const filtered = list.filter(it => {
-        if (q && !it.name.toLowerCase().includes(q)) return false;
-        if (cat !== 'all' && it.cat !== cat) return false;
-        return true;
-      });
-
-      if (!filtered.length){
-        const em = document.createElement('div');
-        em.className = 'empty';
-        em.textContent = `No ${kind}`;
-        rows[kind].appendChild(em);
-      } else {
-        filtered.forEach(it=>{
-          const pill = document.createElement('span');
-          pill.className = `pill ${kind}`;
-          pill.textContent = it.name;
-          rows[kind].appendChild(pill);
-        });
+      for(let i=0;i<12;i++){
+        const td = document.createElement('td');
+        const bits = [];
+        if (S.has(i)) bits.push(EMO.sow);
+        if (P.has(i)) bits.push(EMO.plant);
+        if (H.has(i)) bits.push(EMO.harvest);
+        td.innerHTML = bits.length ? `<span class="emoji">${bits.join(' ')}</span>` : '';
+        tr.appendChild(td);
       }
+      tbody.appendChild(tr);
     });
-
-    monthsWrap.appendChild(card);
   }
 
-  // ---------- Pest Watch ----------
+  function applyFilters(allCrops){
+    const q = (searchBox.value||'').toLowerCase();
+    const cat = (catSel.value||'all').toLowerCase();
+    const only = monthOnly.checked;
+
+    return allCrops.filter(c=>{
+      if (!c || !c.name) return false;
+      if (q && !c.name.toLowerCase().includes(q)) return false;
+      if (cat !== 'all' && c._cat !== cat) return false;
+      if (only){
+        const s=monthSet(c.months?.sow).has(M);
+        const p=monthSet(c.months?.plant).has(M);
+        const h=monthSet(c.months?.harvest).has(M);
+        if (!(s||p||h)) return false;
+      }
+      return true;
+    });
+  }
+
   async function renderPestWatch(region){
     try{
       const pw = await fetchJSON(`data/regions/${region}/pestwatch.json`);
-      const entry = pw[String(nowIdx)] || pw[String(nowIdx+1)] || pw[MONTHS[nowIdx]] || pw[MONTHS[nowIdx].toUpperCase()] || {};
+      const entry = pw[String(M)] ?? pw[String(M+1)] ?? pw[MONTHS[M]] ?? pw[MONTHS[M].toUpperCase()] ?? {};
       const items = Array.isArray(entry.items) ? entry.items : (Array.isArray(entry) ? entry : []);
-      pwTitle.textContent = `Pest Watch — ${Title(MONTHS[nowIdx])} (${Title(region)})`;
+      pwTitle.textContent = `Pest Watch — ${Title(MONTHS[M])} (${Title(region)})`;
       pwList.innerHTML = '';
       (items.length ? items : ['No major alerts this month.']).forEach(t=>{
         const li = document.createElement('li'); li.textContent = t; pwList.appendChild(li);
       });
       pwBox.hidden = false;
-    }catch(err){
-      pwBox.hidden = true; // hide if file missing
-    }
+    }catch(_){ pwBox.hidden = true; }
   }
 
-  // ---------- Main load ----------
   async function load(){
     const region = (regionSel.value||'scotland').toLowerCase();
-
-    statusEl.textContent = 'Loading…';
     hideDebug();
-    clearMonths();
+    statusEl.textContent = 'Loading…';
 
-    // Merge all known blocks for the region
-    const monthMap = newMonthMap();
-    const tried = [];
-    const missing = [];
+    const tried=[], missing=[];
+    let allCrops = [];
 
+    // Merge crops from each existing block, tagging category as the block filename
     for (const block of BLOCKS){
       const url = `data/regions/${region}/${block}.json`;
       tried.push(url);
       try{
-        const json = await fetchJSON(url);
-        const months = (json && json.months) ? json.months : null;
-        if(!months){ missing.push(url + ' (wrong shape)'); continue; }
-
-        // Add items with category = block
-        MONTHS.forEach((mk, mi)=>{
-          const m = months[mk] || months[mk.toUpperCase()] || {};
-          const add = (kind) => {
-            const src = Array.isArray(m[kind]) ? m[kind] : [];
-            src.forEach(name => pushUnique(monthMap[mk][kind], {name: String(name), cat: block}));
-          };
-          add('sow'); add('plant'); add('harvest');
-        });
-      }catch(_){
-        missing.push(url);
-      }
+        const part = await fetchJSON(url);
+        const arr = Array.isArray(part) ? part
+                  : Array.isArray(part?.crops) ? part.crops
+                  : [];
+        // tag category = block (so filters can work)
+        arr.forEach(c => { if (c && c.name) allCrops.push({...c, _cat:block}); });
+      }catch(_){ missing.push(url); }
     }
 
-    // Render Pest Watch
+    // Pest Watch
     renderPestWatch(region).catch(()=>{});
 
-    // Render months (optionally only current month)
-    const q = searchBox.value || '';
-    const cat = catSel.value || 'all';
-    const filters = { q, cat };
+    // Filters + render
+    const filtered = applyFilters(allCrops).sort((a,b)=> a.name.localeCompare(b.name));
+    renderTable(filtered);
 
-    const toRender = monthOnly.checked ? [MONTHS[nowIdx]] : MONTHS;
-    toRender.forEach(mk => renderMonthCard(mk, monthMap[mk], filters));
-
-    statusEl.textContent = `${Title(region)} — calendar loaded`;
+    statusEl.textContent = `${Title(region)} — ${filtered.length} crop${filtered.length===1?'':'s'} shown`;
 
     if (missing.length){
-      showDebug('Missing or invalid files:\n' + missing.map(x=>' • '+x).join('\n') + '\n\nTried:\n' + tried.map(x=>' • '+x).join('\n'));
+      showDebug('Missing files (skipped):\n' + missing.map(u=>' • '+u).join('\n') + '\n\nTried:\n' + tried.map(u=>' • '+u).join('\n'));
     }
   }
 
-  // ---------- Events ----------
+  // Events
   regionSel.addEventListener('change', load);
-  searchBox.addEventListener('input', () => load());
   catSel.addEventListener('change', load);
+  searchBox.addEventListener('input', () => load());
   monthOnly.addEventListener('change', load);
 
-  helpBtn.addEventListener('click', ()=> helpModal.classList.add('show'));
-  closeHelp.addEventListener('click', ()=> helpModal.classList.remove('show'));
-  helpModal.addEventListener('click', (e)=>{ if(e.target===helpModal) helpModal.classList.remove('show'); });
+  helpBtn.addEventListener('click', ()=> helpModal.style.display='flex');
+  closeHelp.addEventListener('click', ()=> helpModal.style.display='none');
+  helpModal.addEventListener('click', e=>{ if(e.target===helpModal) helpModal.style.display='none'; });
 
-  // First paint
   document.addEventListener('DOMContentLoaded', load);
 })();

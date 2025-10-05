@@ -4,40 +4,40 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planting Calendar (UK) — Patch & Pot</title>
-  <meta name="description" content="Small-space sowing, planting and harvesting calendar with regional variants for Scotland, Ireland, England and Wales.">
+  <meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
+
   <style>
     :root{
-      --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8;
+      --bg:#0b0f14; --ink:#ffffff; --inkdim:#cfd3d8;
       --glass:#0f131a; --stroke:#1f2630; --accent:#4caf50;
       --maxw:1100px; --r:14px;
     }
     html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
-    a{color:var(--ink)}
     .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
     h1{margin:.2rem 0 .6rem;font-size:2.2rem}
     .lead{color:var(--inkdim)}
 
+    /* Control bar */
     .bar{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
     .control{display:flex;align-items:center;gap:8px}
     select,input[type="text"]{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
     .btn{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:999px;padding:8px 12px;cursor:pointer}
-
-    .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
     .muted{color:var(--inkdim)}
 
-    /* Pest Watch */
+    /* Pest Watch + Sections */
+    .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
     .pw-title{font-weight:700;margin:0 0 .4rem}
 
-    /* Months scroller */
-    .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}
-    .months{display:grid;gap:12px;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);padding-bottom:4px;min-width:1020px}
-    .month{background:#0f141b;border:1px solid var(--stroke);border-radius:12px;padding:12px;min-height:220px}
-    .month h3{margin:0 0 .5rem;font-size:1.1rem}
-    .pill{display:inline-block;border:1px solid var(--stroke);border-radius:8px;padding:4px 8px;margin:3px 4px 0 0;font-size:.9rem}
-    .pill.sow{border-color:#3fa7ff}
-    .pill.plant{border-color:#ffc252}
-    .pill.harvest{border-color:#6be46b}
-    .empty{color:var(--inkdim);font-style:italic}
+    /* Table */
+    .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    table{border-collapse:collapse;width:100%;min-width:980px}
+    th,td{border:1px solid var(--stroke);padding:8px 10px;text-align:center}
+    thead th{position:sticky;top:0;background:#0f141b}
+    th:first-child, td:first-child{text-align:left;min-width:220px}
+    .emoji{font-size:1.05rem}
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
+    .pill .emoji{font-size:1rem}
 
     /* Debug */
     #debug{display:none;margin-top:10px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#11161f;border:1px solid #253041;border-radius:12px;padding:10px;color:#ffe08a}
@@ -47,11 +47,6 @@
     footer{margin:32px 0 16px;text-align:center;color:var(--inkdim)}
     .pot-icon{display:block;width:46px;height:auto;margin:0 auto 8px}
     .footer-line{opacity:.75}
-
-    /* Simple modal */
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center}
-    .modal .card{background:var(--glass);border:1px solid var(--stroke);border-radius:12px;max-width:680px;padding:16px;color:var(--ink)}
-    .modal.show{display:flex}
   </style>
 </head>
 <body>
@@ -59,7 +54,7 @@
     <h1>Seasonal Planting Calendar (UK)</h1>
     <p class="lead">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
-    <!-- Control bar -->
+    <!-- Controls -->
     <div class="bar">
       <div class="control">
         <label for="regionSel" class="muted">Region:</label>
@@ -71,7 +66,7 @@
         </select>
       </div>
 
-      <div class="control" style="flex:1 1 200px">
+      <div class="control" style="flex:1 1 220px">
         <input id="searchBox" type="text" placeholder="Search crops (e.g., carrot, lettuce)" aria-label="Search crops" />
       </div>
 
@@ -94,7 +89,6 @@
         <label for="monthOnly" class="muted">Show activity this month only</label>
       </div>
 
-      <!-- NO PDF button by requirement -->
       <button id="helpBtn" class="btn" type="button" aria-haspopup="dialog">How to use this calendar</button>
       <span id="status" class="muted" aria-live="polite"></span>
     </div>
@@ -107,15 +101,26 @@
 
     <!-- Legend -->
     <div class="section">
-      <span class="pill sow">Sow</span>
-      <span class="pill plant">Plant</span>
-      <span class="pill harvest">Harvest</span>
-      <span class="muted">— labels appear under each month.</span>
+      <div class="legend">
+        <span class="pill"><span class="emoji">🌱</span> Sow</span>
+        <span class="pill"><span class="emoji">🌿</span> Plant</span>
+        <span class="pill"><span class="emoji">🧺</span> Harvest</span>
+        <span class="muted">— marks appear in the month cells.</span>
+      </div>
     </div>
 
-    <!-- Calendar -->
-    <div class="section scroller">
-      <div id="months" class="months" role="list"></div>
+    <!-- Table -->
+    <div class="section table-wrap">
+      <table id="calTable" aria-label="Seasonal calendar">
+        <thead>
+          <tr id="theadRow">
+            <th>Crop</th>
+            <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
+            <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
     </div>
 
     <!-- Debug -->
@@ -128,19 +133,17 @@
     </footer>
   </div>
 
-  <!-- Help modal -->
-  <div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
-    <div class="card">
+  <!-- Help modal (lightweight) -->
+  <div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center">
+    <div style="background:#0f141b;border:1px solid #1f2630;border-radius:12px;max-width:680px;padding:16px;color:#fff">
       <h3 id="helpTitle" style="margin:.2rem 0 .6rem">How to use this calendar</h3>
-      <p>Pick a region, optionally type to search, choose a category, or toggle <em>This month only</em> to focus on what’s active right now.</p>
-      <p class="muted">Data loads from <code>data/regions/{region}/{block}.json</code> and <code>pestwatch.json</code>.</p>
+      <p>Pick a region, optionally type to search, choose a category, or toggle <em>This month only</em> to focus on what’s active right now. Data loads from <code>data/regions/{region}/{block}.json</code> and <code>pestwatch.json</code>.</p>
       <div style="text-align:right;margin-top:8px">
         <button id="closeHelp" class="btn" type="button">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- Page JS (no PDF) -->
-  <script src="assets/js/seasonal.js?v=ui-lock-1" defer></script>
+  <script src="assets/js/seasonal.js?v=emoji-table-rb1" defer></script>
 </body>
 </html>

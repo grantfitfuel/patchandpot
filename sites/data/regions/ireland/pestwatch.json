@@ -1,100 +1,100 @@
 {
-  "region": "Scotland",
+  "region": "Ireland",
   "pestwatch": {
     "0": {
-      "title": "Pest Watch – January (Scotland)",
+      "title": "Pest Watch \u2013 January (Ireland)",
       "items": [
-        "Check overwintered brassicas for pigeons – use netting or fleece.",
-        "Botrytis (grey mould) in damp cold frames – ventilate on dry days.",
-        "Slugs hiding under pots and debris – clear regularly."
+        "Pigeons on overwintered brassicas \u2013 use netting.",
+        "Grey mould (botrytis) in damp frames \u2013 ventilate on dry days.",
+        "Slugs under pot rims and stones \u2013 hand-pick after rain."
       ]
     },
     "1": {
-      "title": "Pest Watch – February (Scotland)",
+      "title": "Pest Watch \u2013 February (Ireland)",
       "items": [
-        "Aphids can appear on early sowings during mild spells.",
-        "Slugs damaging salad leaves under cloches.",
-        "Mice eating pea and bean seeds stored in sheds or trays."
+        "Aphids on early broad beans in mild spells.",
+        "Mice taking pea/bean seeds in sheds \u2013 use secure containers.",
+        "Slugs on salad leaves under cloches."
       ]
     },
     "2": {
-      "title": "Pest Watch – March (Scotland)",
+      "title": "Pest Watch \u2013 March (Ireland)",
       "items": [
-        "Flea beetle attacking brassica seedlings – protect with fleece.",
-        "Slugs and snails emerging strongly as temperatures rise.",
-        "Damping-off fungus in crowded seed trays – improve airflow and avoid overwatering."
+        "Flea beetle nibble on brassica seedlings \u2013 use fine mesh.",
+        "Damping-off in seed trays \u2013 improve airflow, avoid overwatering.",
+        "Snails emerging strongly \u2013 set beer traps."
       ]
     },
     "3": {
-      "title": "Pest Watch – April (Scotland)",
+      "title": "Pest Watch \u2013 April (Ireland)",
       "items": [
-        "Cabbage root fly – protect brassicas with collars.",
-        "Carrot fly becomes active – use fine netting or fleece barriers.",
-        "Slugs active on seedlings – set traps and hand-pick at dusk."
+        "Carrot fly \u2013 cover with insect mesh immediately after sowing.",
+        "Cabbage root fly \u2013 use collars on seedlings.",
+        "Slugs on potatoes and courgettes when planting out."
       ]
     },
     "4": {
-      "title": "Pest Watch – May (Scotland)",
+      "title": "Pest Watch \u2013 May (Ireland)",
       "items": [
-        "Aphids colonising beans and brassicas – encourage ladybirds.",
-        "Cabbage white butterflies laying eggs on brassicas – check undersides of leaves.",
-        "Blackfly on broad beans – pinch out infested shoot tips."
+        "Aphids/blackfly on beans \u2013 pinch out infested tips.",
+        "Cabbage white butterflies laying on brassicas \u2013 check undersides of leaves.",
+        "Cutworm and leatherjackets in pots \u2013 disturb soil, encourage birds."
       ]
     },
     "5": {
-      "title": "Pest Watch – June (Scotland)",
+      "title": "Pest Watch \u2013 June (Ireland)",
       "items": [
-        "Potato blight risk rises in warm, damp weather – remove affected leaves promptly.",
-        "Pea moth caterpillars – use insect mesh over crops.",
-        "Whitefly on greenhouse tomatoes and cucumbers – use sticky traps and ventilation."
+        "Potato blight risk rising in humid weather \u2013 water at soil, remove affected foliage early.",
+        "Whitefly in greenhouses \u2013 use sticky cards and ventilation.",
+        "Pea moth caterpillars \u2013 fine mesh if a known local issue."
       ]
     },
     "6": {
-      "title": "Pest Watch – July (Scotland)",
+      "title": "Pest Watch \u2013 July (Ireland)",
       "items": [
-        "Powdery mildew on courgettes – water at soil level and remove infected leaves.",
-        "Tomato blight spreads in wet conditions – maintain good airflow.",
-        "Cabbage white caterpillars – hand-pick or use mesh netting."
+        "Tomato late blight risk in warm, wet spells \u2013 prune for airflow, avoid leaf wetting.",
+        "Powdery mildew on courgettes \u2013 water roots, remove worst leaves.",
+        "Cabbage white caterpillars \u2013 hand-pick, keep mesh on."
       ]
     },
     "7": {
-      "title": "Pest Watch – August (Scotland)",
+      "title": "Pest Watch \u2013 August (Ireland)",
       "items": [
-        "Blight peak risk for potatoes and tomatoes – harvest early if needed.",
-        "Onion white rot risk – rotate crops and avoid replanting in same soil.",
-        "Fruit flies around soft fruit – harvest promptly, avoid fallen fruit."
+        "Blight peak season \u2013 potatoes and tomatoes especially at risk.",
+        "Onion white rot \u2013 avoid replanting alliums in affected compost.",
+        "Fruit flies around soft fruit \u2013 harvest promptly, remove windfalls."
       ]
     },
     "8": {
-      "title": "Pest Watch – September (Scotland)",
+      "title": "Pest Watch \u2013 September (Ireland)",
       "items": [
-        "Slugs thrive in damp conditions – use beer traps or copper barriers.",
-        "Grey mould on autumn salads – increase ventilation.",
-        "Rodents raiding stored crops – secure storage areas."
+        "Slugs after frequent rain \u2013 refresh barriers and traps.",
+        "Grey mould on salads \u2013 increase spacing/airflow.",
+        "Rodents raiding stored potatoes \u2013 use rodent-proof bins."
       ]
     },
     "9": {
-      "title": "Pest Watch – October (Scotland)",
+      "title": "Pest Watch \u2013 October (Ireland)",
       "items": [
-        "Clubroot risk on brassicas – lime soil to reduce acidity.",
-        "Moulds in damp polytunnels – ventilate regularly.",
-        "Rodents near compost heaps – deter with secure bins."
+        "Clubroot on brassicas in damp soils \u2013 lime new beds/containers if needed.",
+        "Mildews in polytunnels \u2013 ventilate daily.",
+        "Vine weevil in container compost \u2013 inspect when repotting."
       ]
     },
     "10": {
-      "title": "Pest Watch – November (Scotland)",
+      "title": "Pest Watch \u2013 November (Ireland)",
       "items": [
-        "Slug damage under cloches – clear hiding spots and set traps.",
-        "Yellowing brassica leaves encourage pests – remove promptly.",
-        "Cover leafy veg from pigeons as food sources decline."
+        "Pigeons on winter brassicas \u2013 fit netting or bird lines.",
+        "Slugs under cloches \u2013 set traps, reduce hiding spots.",
+        "Grey mould on late tomatoes/peppers \u2013 clear spent plants."
       ]
     },
     "11": {
-      "title": "Pest Watch – December (Scotland)",
+      "title": "Pest Watch \u2013 December (Ireland)",
       "items": [
-        "Protect stored root crops (carrots, potatoes) from mice and rats.",
-        "Ventilate greenhouses on mild days to prevent fungal growth.",
-        "Weed around overwintering garlic and onions to reduce pest harbourage."
+        "Mice on stored roots \u2013 check hessian/boxes weekly.",
+        "Ventilate greenhouses on dry days to reduce mould pressure.",
+        "Weed around garlic/clove plantings to reduce pest cover."
       ]
     }
   }

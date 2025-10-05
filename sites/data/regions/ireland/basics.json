@@ -1,148 +1,95 @@
 {
-  "region": "Scotland",
-  "containers_vs_ground": {
-    "pots": "Always ensure drainage holes. Add a thin layer of broken crockery, coarse grit, or chunky bark at the base to prevent clogging, not to increase drainage volume. Use peat‑free, all‑purpose compost mixed with 10–20% grit or perlite for aeration. In windy spots, choose wider pots to reduce tipping.",
-    "window_boxes": "Choose shallow‑rooted salads and herbs (lettuce, rocket, chives, parsley). Water little and often in warm spells; consider capillary matting or a reservoir insert. Fix securely against strong winds.",
-    "grow_bags": "Ideal for tomatoes, peppers, cucumbers. Lay flat, fluff compost, pierce extra drainage holes, and use rigid pot collars or bottomless pots to increase root volume. Insert strong canes or strings at setup.",
-    "raised_beds": "Depth 20–30 cm is enough for most veg; 30–45 cm for long roots. Fill with ~60% topsoil, 40% mature compost. Warm up faster in spring and drain better than heavy ground soils.",
-    "direct_soil": "Loosen to at least a spade’s depth; remove stones for root crops. Add 2–5 cm compost annually. Avoid fresh manure before sowing carrots/parsnips (causes forking). Mulch to retain moisture.",
-    "vertical": "Use trellis, pea netting, strings, or obelisks for peas, beans, cucumbers, and small squashes. Train stems early; tie in loosely with soft ties. Vertical systems improve airflow and sunlight use.",
-    "indoors_windowsill": "Great for microgreens, herbs, chilli seedlings. Rotate trays for even light. Avoid scorching behind sunny glass; ventilate and raise pots on saucers to prevent waterlogging."
-  },
-  "protection_and_structures": {
-    "netting_bird": "Mesh size ~7–20 mm for pigeons. Keep taut, off leaves, and pegged well. Avoid snagging wildlife—use proper frames; remove promptly after harvest.",
-    "insect_mesh": "0.8–1.3 mm mesh protects against carrot fly, leek moth, cabbage white butterflies, flea beetle, whitefly (partly). Keep sealed at edges with boards/pegs. Lift only to weed/water.",
-    "fleece": "19–30 g/m². For frost and wind‑chill protection, and to speed early growth. Remove/ventilate in warm, bright weather to prevent scorch and mould.",
-    "cloches": "Tunnel or bell cloches add warmth and shelter in spring/autumn. Vent on sunny days. Anchor well in wind.",
-    "cold_frames": "Ideal for hardening off and extending the season. Open a little more each day, reduce if hard frosts are forecast (‘take a beat’ and protect at night).",
-    "greenhouses_polytunnels": "Boost heat‑loving crops (tomatoes, peppers, aubergine, melons). Vent daily to reduce humidity and blight risk. Water soil, not leaves."
-  },
-  "light_and_aspect": {
-    "full_sun": "6–8+ hours direct sun; best for fruiting crops (tomatoes, peppers) and roots (carrots, beetroot).",
-    "part_shade": "3–5 hours or bright dappled light; good for salads, spinach, chard, many herbs.",
-    "shade_tolerant": "1–3 hours; try winter salads, mint, chives, parsley, sorrel. Growth slower."
-  },
-  "watering_and_feeding": {
-    "watering_basics": "Water deeply and less often to drive roots down. Morning watering reduces scorch and slug pressure. Avoid wetting leaves of mildew‑prone crops (courgettes, cucumbers).",
-    "mulch": "Apply 2–3 cm compost, leafmould, or fine bark to reduce evaporation and soil splash (helps lower blight risk).",
-    "feeds": "Mix slow‑release fertiliser at planting. Switch to high‑potash feed (e.g., tomato feed) once flowering begins for tomatoes/peppers/courgettes. Use comfrey/nettle teas if desired."
-  },
-  "soil_and_compost": {
-    "peat_free": "Choose a quality peat‑free multi‑purpose for containers; enrich with sieved compost for seedlings. Add 10–20% grit/perlite for drainage in pots.",
-    "pH_and_lime": "Brassicas prefer pH 6.5–7. Add lime to acidic soils in winter if needed (not for potatoes).",
-    "refreshing_pots": "Top‑dress long‑term pots each spring: remove top 3–5 cm, replace with fresh compost + slow‑release fertiliser."
-  },
-  "sowing_and_spacing_guides": {
-    "depth_rule": "Sow most seeds at 2–3× their own diameter. Tiny seeds barely covered; large seeds deeper and firmed.",
-    "spacing_reference": "Leafy salads 10–25 cm in row; roots 3–10 cm in row depending on crop; beans 20–30 cm; brassicas 40–60 cm.",
-    "thinning": "Thin in the evening to avoid carrot‑fly attention; water after to settle roots. Transplant thinnings where suitable."
-  },
-  "seedling_care": {
-    "pricking_out": "Handle by seed leaves, not stems. Pot on before roots spiral.",
-    "hardening_off": "7–10 days: shade → dappled light → full exposure; protect if frost forecast (‘take a beat’)."
-  },
-  "frost_and_wind": {
-    "last_frost_window": "Typically late April to mid‑May (cooler/high sites later). Keep fleece/frames ready.",
-    "wind_shelter": "Cluster pots, use screens/trellis, and heavier/wider containers to limit tipping."
-  },
-  "container_sizes_reference_cm": {
-    "salad_leaves": {
-      "diameter_min": 20,
-      "depth_min": 15
-    },
-    "spinach_chard": {
-      "diameter_min": 24,
-      "depth_min": 22
-    },
-    "carrots_short": {
-      "diameter_min": 28,
-      "depth_min": 28
-    },
-    "beetroot": {
-      "diameter_min": 26,
-      "depth_min": 24
-    },
-    "potatoes_bags": {
-      "volume_l_min": 40,
-      "depth_min": 40
-    },
-    "tomato_bush": {
-      "diameter_min": 30,
-      "depth_min": 28
-    },
-    "tomato_cordon": {
-      "diameter_min": 35,
-      "depth_min": 30
-    },
-    "pepper_chilli": {
-      "diameter_min": 26,
-      "depth_min": 24
-    },
-    "cucumber": {
-      "diameter_min": 35,
-      "depth_min": 30
-    },
-    "courgette": {
-      "diameter_min": 40,
-      "depth_min": 35
-    },
-    "beans_climbing": {
-      "diameter_min": 35,
-      "depth_min": 30
-    },
-    "peas_dwarf": {
-      "trough_min_w": 20,
-      "depth_min": 20
-    }
-  },
-  "companion_planting": {
-    "principles": [
-      "Aroma masking or distraction (e.g., onions near carrots).",
-      "Trap crops (nasturtiums draw aphids/cabbage whites away).",
-      "Attract beneficials (dill, fennel, calendula, borage for pollinators & predators).",
-      "Canopy sharing (tall with shade‑tolerant underplanting)."
+  "region": "Ireland",
+  "category": "basics",
+  "climate_note": "Ireland has a mild, maritime climate: long, cool springs; frequent rain; fewer summer heat spikes than England; strong, wet westerlies in the west. Prioritise drainage, airflow and slug management.",
+  "getting_started": {
+    "containers": [
+      "Start with what you have: food\u2011grade buckets, sturdy totes, timber crates (lined), or fabric grow bags.",
+      "Drill 8\u201312 drainage holes (8\u201310mm) in rigid containers; raise on bricks/battens to prevent waterlogging.",
+      "Add a drainage layer only if pots are very tall: 2\u20133cm coarse bark or chunky gravel; otherwise rely on good compost."
     ],
-    "combos": [
-      "Carrot + Spring onion/Chive (confuse carrot fly).",
-      "Tomato + Basil/Tagetes (aroma masking; marigolds deter whitefly/aphids).",
-      "Cabbage family + Nasturtium (trap for caterpillars).",
-      "Lettuce under Beans or Sweetcorn (shade in midsummer).",
-      "Strawberry + Garlic/Chive (may deter mildew/pests)."
+    "growing_media": [
+      "Best mix for containers: 50% peat\u2011free multi\u2011purpose + 30% composted bark/wood\u2011fibre + 20% finished garden/green\u2011waste compost.",
+      "For heavy rain areas, add 10\u201315% horticultural grit or perlite for airflow.",
+      "Refresh the top 5\u20138cm each new season; fully replace tired mix for hungry crops (tomatoes, potatoes)."
+    ],
+    "fertility": [
+      "Slow release base: well\u2011rotted compost or worm castings (5\u201310% by volume).",
+      "Liquid feeds: seaweed extract (overall health), comfrey tea (high potash for fruiting), nettle tea (nitrogen for leafy growth).",
+      "Top\u2011dress long\u2011season pots mid\u2011summer with 1\u20132cm worm castings."
     ]
   },
-  "organic_pest_control_playbook": {
-    "slugs_snails": "Night hand‑pick; beer traps; copper tape on pots; rough mulch (grit). Keep rims dry; avoid overwatering in evenings.",
-    "aphids_whitefly": "Blast with water; soft soap sprays; encourage ladybirds/hoverflies with flowers; remove heavily infested tips.",
-    "spider_mite": "Increase humidity and airflow; mist underside; shade in heat; introduce predatory mites if under cover.",
-    "vine_weevil": "Check compost when repotting; sticky traps for adults; use biological nematodes in warm, moist compost (label directions).",
-    "carrot_fly": "0.8 mm insect mesh or 60 cm vertical barrier; thin at dusk; avoid bruising foliage.",
-    "cabbage_whites": "Insect mesh over brassicas; inspect undersides for eggs; hand‑remove caterpillars.",
-    "leek_moth_onion_fly": "Insect mesh April–October; rotate alliums; remove affected leaves promptly.",
-    "blight_tomato_potato": "Water soil, not leaves; space and ventilate; remove first signs; do not compost infected material; choose early varieties outdoors in cool/wet seasons."
+  "layout_sun_wind": {
+    "sun": [
+      "Full sun = 6+ hours direct; part shade = 3\u20135 hours. Herbs and leafy greens tolerate part shade well.",
+      "Use reflective backdrops (pale walls) and bright surfaces to bounce light into yards/balconies."
+    ],
+    "wind_rain": [
+      "Shelter from prevailing south\u2011westerlies with mesh screens or a run of tall pots/trellis.",
+      "Tilt saucers after downpours to avoid standing water; check pots aren\u2019t waterlogged after storms."
+    ]
   },
-  "hygiene_rotation": {
-    "clean_tools": "Disinfect snips/secateurs periodically.",
-    "remove_debris": "Old leaves/fruit harbour pests; clear promptly.",
-    "rotation_lightweight": "Even in pots, avoid repeating the same crop family in the same compost/pot back‑to‑back; refresh compost between families."
+  "watering": {
+    "rules": [
+      "Water deeply but less often; aim for moisture like a wrung\u2011out sponge 5\u20138cm down.",
+      "Morning is best; avoid wetting foliage at night to reduce moulds in cool, damp weather.",
+      "Mulch pots with 2\u20133cm straw/bark to reduce splash and slugs."
+    ],
+    "water_saving": [
+      "Use butts on downpipes; store overflow in lidded tubs.",
+      "Group thirsty crops (tomatoes, cucumbers) near the tap; drought\u2011tolerant herbs on edges."
+    ]
   },
-  "accessibility_and_cost_savers": {
-    "cardboard_pots": "Make tubes from cardboard; plant whole—biodegrades. Great for peas/beans/sweetcorn.",
-    "drainage_fillers": "Use broken crockery, chunky bark, or reused polystyrene in the lower third to reduce weight (keep a compost layer above).",
-    "cuttings_and_divisions": "Propagate mint, rosemary, thyme, sage from cuttings; divide chives and strawberries to expand for free.",
-    "tool_min_kit": "Hand trowel, transplanter, snips/secateurs, watering can/rose, gloves, a few canes & soft ties."
+  "protection": {
+    "netting_fleece_cloches": [
+      "Insect mesh (0.8mm) over brassicas & carrots (flea beetle, cabbage white, carrot fly).",
+      "Fleece in spring/autumn cold snaps; vent on mild days to avoid damp build\u2011up.",
+      "Hoops: 20mm MDPE pipe over rebar; clip mesh/fleece; anchor with bricks or sandbags in strong winds."
+    ],
+    "cold_frames_greenhouse": [
+      "Cold frames extend shoulder seasons; prop lid for airflow in damp spells.",
+      "Mini\u2011polytunnel or plastic greenhouse: anchor well; open daily in humid weather to limit mildew/grey mould."
+    ]
   },
-  "safety_and_chemicals": {
-    "food_crops": "Avoid synthetic pesticides on edible crops whenever possible. Prefer organic/physical controls. If you must treat, follow label exactly and observe pre‑harvest intervals.",
-    "allergies_pets": "Some plants are toxic to pets. Wash produce. Wear gloves if sensitive."
-  },
-  "regional_notes": {
-    "climate": "Cooler, windier, with later springs and shorter heat spells. Prioritise season extension (fleece, cloches, cold frames) and wind‑shelter for containers.",
-    "microclimates": "Urban courtyards and south‑facing walls can behave like a warmer region—use them for tomatoes/peppers."
-  },
-  "glossary": {
-    "cloche": "Portable low tunnel/shelter for rows or small beds.",
-    "hardening_off": "Gradual acclimatisation of indoor‑raised plants to outdoor conditions.",
-    "tilth": "Fine, crumbly soil surface ideal for sowing.",
-    "potash": "Potassium‑rich fertiliser supporting flowering and fruiting."
-  }
+  "supports": [
+    "Cane teepees for peas/beans (bind with twine or cable ties).",
+    "String training for tomatoes/cucumbers; secure top lines firmly in windy sites.",
+    "Low corrals (short canes + twine) keep leafy pots upright during storms."
+  ],
+  "slug_snail_strategy": [
+    "Physical: copper tape on pot rims; coarse grit rings; hand pick at dusk; beer traps refreshed every 2\u20133 days.",
+    "Habitat: clear dense weeds and pot\u2011saucers where slugs hide; encourage frogs, ground beetles, birds.",
+    "Barriers: wool pellets around crowns; re\u2011apply after heavy rain.",
+    "Biological: nematodes when soil 5\u201312\u00b0C (often April\u2013September); re\u2011treat 6 weeks later."
+  ],
+  "spacing_depth_quick_guide": [
+    "General rule: sow seeds at \u22482\u20133\u00d7 seed thickness (fine seed often surface or 0.5cm).",
+    "Thinnings: carrots/radish 2\u20134cm; beetroot 8\u201310cm; lettuce 20\u201325cm; kale/cabbage 40\u201360cm in large planters.",
+    "Container depth: roots (carrot/parsnip) 30\u201340cm deep; potatoes 35\u201345L bags; tomatoes 10\u201315L minimum."
+  ],
+  "seed_starting": [
+    "Start tender crops (tomato, chilli, cucumber) indoors Feb\u2013Apr with a propagator or warm windowsill (18\u201322\u00b0C).",
+    "Provide bright light to avoid legginess; use a clip\u2011on LED if windows are dull.",
+    "Prick out to modules once first true leaves appear; pot on before roots circle."
+  ],
+  "planting_on": [
+    "Harden off 7\u201310 days before outside: gradually increase outdoor time, avoid cold winds.",
+    "Transplant on a still, mild day; water in with seaweed solution to reduce shock."
+  ],
+  "season_extension_calendar": [
+    "Jan\u2013Mar: sow hardy leaves under fleece/cold frame; chit potatoes late Feb (earlies).",
+    "Apr\u2013May: cloche/mesh for brassicas; set out hardy herbs; keep tender crops inside if nights <8\u00b0C.",
+    "Jun\u2013Aug: ventilate covers daily; shade greenhouse in heat spikes; mulch and feed fruiting pots.",
+    "Sep\u2013Nov: plant garlic; sow overwintering salads; add fleece on cold nights.",
+    "Dec: tidy, mulch perennials; service tools; plan rotations for containers."
+  ],
+  "hygiene_rotation": [
+    "Rotate families in pots if reusing mix: brassicas \u279c legumes \u279c roots/others \u279c fruiting.",
+    "Disinfect trays/tools each season; remove yellowing leaves promptly to reduce disease pressure."
+  ],
+  "accessibility_cost_savers": [
+    "Cardboard cylinders/folded boxes as biodegradable starter pots; remove bases at planting.",
+    "Use free pallets to build waist\u2011high planters (line with damp\u2011proof membrane + drainage holes).",
+    "Make pot feet from wine cork stacks or bricks to lift containers off wet ground."
+  ]
 }

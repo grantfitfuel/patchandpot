@@ -1,150 +1,119 @@
-{
-  "region": "Ireland",
-  "category": "softfruit",
-  "crops": [
-    {
-      "name": "Strawberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          2,
-          3,
-          4
-        ],
-        "harvest": [
-          5,
-          6,
-          7
-        ]
-      },
-      "depth": "Crown just above soil",
-      "spacing": "30cm apart, rows 40cm",
-      "light": "Full sun",
-      "where": "Raised beds, hanging baskets, containers",
-      "protection": "Netting against birds, straw mulch to protect fruit",
-      "tips": "Remove runners unless propagating, feed high potash when fruiting",
-      "containerMin": "25cm deep pot or trough",
-      "notes": "Perennial; replace plants every 3\u20134 years"
+[
+  {
+    "name": "Strawberry",
+    "months": {
+      "sow": [],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
     },
-    {
-      "name": "Raspberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          10,
-          11,
-          2,
-          3
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Plant canes at same depth as nursery",
-      "spacing": "45cm apart in rows, 1.5m between rows",
-      "light": "Full sun, tolerates partial shade",
-      "where": "Raised beds, direct soil with supports",
-      "protection": "Netting to deter birds",
-      "tips": "Tie canes to wires, prune depending on summer/autumn type",
-      "containerMin": "Large 40L container with support",
-      "notes": "Divide between summer-fruiting and autumn-fruiting types"
+    "depth": "Crown at soil level",
+    "spacing": "30cm apart",
+    "light": "Full sun",
+    "where": "Pots, hanging baskets, raised beds",
+    "protection": "Netting against birds",
+    "tips": "Mulch with straw, remove runners",
+    "containerMin": "25cm pot",
+    "notes": "Alpine strawberries fruit all summer"
+  },
+  {
+    "name": "Raspberry (Summer)",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Blackberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          2,
-          3
-        ],
-        "harvest": [
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "Plant at same level as pot",
-      "spacing": "2m apart",
-      "light": "Full sun, partial shade",
-      "where": "Soil, trained against fence or trellis",
-      "protection": "Net fruit to deter birds",
-      "tips": "Prune old canes after fruiting, tie in new growth",
-      "containerMin": "50L container minimum with strong support",
-      "notes": "Thornless varieties best for gardens"
+    "depth": "As nursery pot",
+    "spacing": "45cm apart in rows",
+    "light": "Full sun",
+    "where": "Soil, large raised bed",
+    "protection": "Netting for birds",
+    "tips": "Tie to wires, prune after fruiting",
+    "containerMin": "Deep planter 40L+",
+    "notes": "Autumn types crop later Aug–Oct"
+  },
+  {
+    "name": "Blackcurrant",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        7
+      ]
     },
-    {
-      "name": "Gooseberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          2,
-          3
-        ],
-        "harvest": [
-          6,
-          7
-        ]
-      },
-      "depth": "Plant at same depth as pot",
-      "spacing": "1.5m apart",
-      "light": "Full sun, tolerates part shade",
-      "where": "Raised beds, soil",
-      "protection": "Netting against sawfly and birds",
-      "tips": "Prune to open centre, harvest underripe for cooking",
-      "containerMin": "40L pot minimum",
-      "notes": "Can be grown as standards or bushes"
+    "depth": "Plant 5cm deeper than pot",
+    "spacing": "1.5m apart",
+    "light": "Sun/part shade",
+    "where": "Soil, large bed",
+    "protection": "Netting for birds",
+    "tips": "Mulch to keep moist",
+    "containerMin": "Large half barrel",
+    "notes": "Prune old wood after fruiting"
+  },
+  {
+    "name": "Blueberry",
+    "months": {
+      "sow": [],
+      "plant": [
+        3,
+        4,
+        9,
+        10
+      ],
+      "harvest": [
+        7,
+        8
+      ]
     },
-    {
-      "name": "Blueberries",
-      "months": {
-        "sow": [],
-        "plant": [
-          3,
-          4
-        ],
-        "harvest": [
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "Plant at same level as pot",
-      "spacing": "1.5m apart",
-      "light": "Full sun, partial shade",
-      "where": "Containers with ericaceous compost",
-      "protection": "Net against birds",
-      "tips": "Use rainwater for watering, grow two varieties for pollination",
-      "containerMin": "40L ericaceous pot",
-      "notes": "Acidic soil required; best in pots in alkaline areas"
+    "depth": "As nursery pot",
+    "spacing": "1.5m apart",
+    "light": "Full sun, acid soil",
+    "where": "Pots with ericaceous compost",
+    "protection": "Netting against birds",
+    "tips": "Water with rainwater",
+    "containerMin": "35L ericaceous pot",
+    "notes": "Needs 2+ varieties for pollination"
+  },
+  {
+    "name": "Apple (Patio/Columnar)",
+    "months": {
+      "sow": [],
+      "plant": [
+        11,
+        0,
+        1,
+        2
+      ],
+      "harvest": [
+        9,
+        10
+      ]
     },
-    {
-      "name": "Currants (Red, Black, White)",
-      "months": {
-        "sow": [],
-        "plant": [
-          11,
-          2,
-          3
-        ],
-        "harvest": [
-          6,
-          7,
-          8
-        ]
-      },
-      "depth": "Plant at same level as nursery pot",
-      "spacing": "1.5m apart",
-      "light": "Full sun",
-      "where": "Raised beds, soil",
-      "protection": "Net to protect berries from birds",
-      "tips": "Prune to maintain open structure, feed annually",
-      "containerMin": "40L container",
-      "notes": "Heavy croppers, useful for jams"
-    }
-  ]
-}
+    "depth": "As graft union",
+    "spacing": "2m apart in soil",
+    "light": "Full sun",
+    "where": "Soil, pots",
+    "protection": "Guard trunks from rabbits",
+    "tips": "Thin fruits for quality",
+    "containerMin": "50L pot",
+    "notes": "Choose dwarf rootstock for pots"
+  }
+]

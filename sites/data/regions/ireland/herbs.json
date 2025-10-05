@@ -4,16 +4,14 @@
     "category": "herbs",
     "months": {
       "sow": [
-        2,
         3,
         4
       ],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
-        5,
         6,
         7,
         8,
@@ -39,8 +37,7 @@
         4,
         5,
         6,
-        7,
-        8
+        7
       ],
       "plant": [],
       "harvest": [
@@ -48,9 +45,7 @@
         6,
         7,
         8,
-        9,
-        10,
-        10
+        9
       ]
     },
     "depth": "1cm; pre-soak seed overnight",
@@ -72,12 +67,10 @@
         4,
         5,
         6,
-        7,
-        8
+        7
       ],
       "plant": [],
       "harvest": [
-        5,
         6,
         7,
         8,
@@ -111,8 +104,7 @@
         6,
         7,
         8,
-        9,
-        10
+        9
       ]
     },
     "depth": "0.5cm",
@@ -132,12 +124,10 @@
         3,
         4,
         5,
-        6,
-        7
+        6
       ],
       "plant": [],
       "harvest": [
-        5,
         6,
         7,
         8,
@@ -174,9 +164,7 @@
         6,
         7,
         8,
-        9,
-        10,
-        10
+        9
       ]
     },
     "depth": "Surface or 0.5cm if from seed; plant rooted runners just below surface",
@@ -198,17 +186,15 @@
         5
       ],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
         5,
         6,
         7,
         8,
-        9,
-        10,
-        10
+        9
       ]
     },
     "depth": "Surface sow/lightly cover",
@@ -230,17 +216,15 @@
         5
       ],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
         5,
         6,
         7,
         8,
-        9,
-        10,
-        10
+        9
       ]
     },
     "depth": "0.5cm",
@@ -262,16 +246,15 @@
         5
       ],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
         5,
         6,
         7,
         8,
-        9,
-        10
+        9
       ]
     },
     "depth": "Surface/lightly cover",
@@ -289,17 +272,15 @@
     "months": {
       "sow": [],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
         5,
         6,
         7,
         8,
-        9,
-        10,
-        10
+        9
       ]
     },
     "depth": "Plant to same depth as pot",
@@ -317,11 +298,10 @@
     "months": {
       "sow": [],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
-        5,
         6,
         7,
         8,
@@ -342,15 +322,14 @@
     "category": "herbs",
     "months": {
       "sow": [
-        1,
         2,
         3,
+        4,
         8,
         9
       ],
       "plant": [],
       "harvest": [
-        5,
         6,
         7,
         8,
@@ -372,8 +351,8 @@
     "months": {
       "sow": [],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
         6,
@@ -396,7 +375,6 @@
     "category": "herbs",
     "months": {
       "sow": [
-        4,
         5,
         6,
         7
@@ -428,17 +406,15 @@
         5
       ],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
         5,
         6,
         7,
         8,
-        9,
-        10,
-        10
+        9
       ]
     },
     "depth": "Surface/lightly cover",
@@ -456,17 +432,15 @@
     "months": {
       "sow": [],
       "plant": [
-        4,
-        5
+        5,
+        6
       ],
       "harvest": [
         5,
         6,
         7,
         8,
-        9,
-        10,
-        10
+        9
       ]
     },
     "depth": "Plant at same depth",

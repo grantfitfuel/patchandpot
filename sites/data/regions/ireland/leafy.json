@@ -1,138 +1,1002 @@
-{
-  "region": "Ireland",
-  "category": "leafy",
-  "crops": [
-    {
-      "name": "Lettuce",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "plant": [
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "depth": "0.5cm",
-      "spacing": "20cm apart",
-      "light": "Full sun/part shade",
-      "where": "Pots, raised beds, soil",
-      "protection": "Netting against birds and slugs",
-      "tips": "Succession sow every 2 weeks for continuous harvest.",
-      "containerMin": "15cm deep pot",
-      "notes": "Loose-leaf types give multiple cuts."
+[
+  {
+    "name": "Lettuce – Looseleaf (cut & come again)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+      ],
+      "plant": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "harvest": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
     },
-    {
-      "name": "Spinach",
-      "months": {
-        "sow": [
-          2,
-          3,
-          4,
-          8,
-          9
-        ],
-        "plant": [
-          3,
-          4,
-          8,
-          9
-        ],
-        "harvest": [
-          4,
-          5,
-          6,
-          9,
-          10
-        ]
-      },
-      "depth": "1.5cm",
-      "spacing": "10cm apart",
-      "light": "Part shade",
-      "where": "Raised beds, pots, soil",
-      "protection": "Netting against pigeons",
-      "tips": "Water well in summer to prevent bolting.",
-      "containerMin": "20cm deep pot",
-      "notes": "Young leaves best for salads."
+    "depth": "0.5–1 cm",
+    "spacing": "Baby leaf 5–10 cm; heads 20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, troughs, raised beds, soil",
+    "protection": "Fleece early/late; shade cloth in hot spells; slug barriers",
+    "tips": "Succession sow every 2–3 weeks; keep evenly moist to prevent bitterness.",
+    "containerMin": "≥20 cm deep trough",
+    "notes": "Choose bolt‑resistant for summer, hardy for autumn."
+  },
+  {
+    "name": "Lettuce – Butterhead",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        3,
+        4,
+        5
+      ],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
     },
-    {
-      "name": "Chard",
-      "months": {
-        "sow": [
-          3,
-          4,
-          5,
-          6,
-          7
-        ],
-        "plant": [
-          4,
-          5,
-          6
-        ],
-        "harvest": [
-          6,
-          7,
-          8,
-          9,
-          10
-        ]
-      },
-      "depth": "2cm",
-      "spacing": "25cm apart",
-      "light": "Full sun/part shade",
-      "where": "Raised beds, direct soil",
-      "protection": "Fleece early in year",
-      "tips": "Cut outer leaves first to prolong harvest.",
-      "containerMin": "30cm deep box",
-      "notes": "Colourful stems also edible."
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, soil",
+    "protection": "Fleece in spring/autumn; protect from slugs & pigeons",
+    "tips": "Firm in well after transplant; water at base to reduce tipburn.",
+    "containerMin": "≥25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Lettuce – Romaine/Cos",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        3,
+        4,
+        5
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
     },
-    {
-      "name": "Kale",
-      "months": {
-        "sow": [
-          4,
-          5,
-          6
-        ],
-        "plant": [
-          5,
-          6,
-          7
-        ],
-        "harvest": [
-          9,
-          10,
-          11,
-          0,
-          1
-        ]
-      },
-      "depth": "1cm",
-      "spacing": "40cm apart",
-      "light": "Full sun",
-      "where": "Raised beds, soil",
-      "protection": "Netting against cabbage white butterflies",
-      "tips": "Harvest lower leaves first; survives frost.",
-      "containerMin": "40cm deep tub",
-      "notes": "Good winter crop in mild climates."
-    }
-  ]
-}
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Large pots, beds",
+    "protection": "Slug controls; fleece early/late",
+    "tips": "Needs steady moisture; best spring and late summer.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Lettuce – Crisphead/Iceberg",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "30 cm",
+    "light": "Sun",
+    "where": "Beds, large pots",
+    "protection": "Fleece early; steady watering",
+    "tips": "Cooler periods reduce bolting; don’t overcrowd.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Lettuce – Oakleaf & Specialty",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "plant": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm (heads) / 5–10 cm (baby)",
+    "light": "Sun/part shade",
+    "where": "Pots, troughs, beds",
+    "protection": "Fleece early; shade in heat; slug watch",
+    "tips": "Cut outer leaves repeatedly; flavour best in cool growth.",
+    "containerMin": "≥20–25 cm trough",
+    "notes": ""
+  },
+  {
+    "name": "Spinach (true)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        6,
+        7,
+        8
+      ],
+      "plant": [],
+      "harvest": [
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ]
+    },
+    "depth": "1–1.5 cm",
+    "spacing": "10–15 cm",
+    "light": "Part shade in summer; sun in cool months",
+    "where": "Pots, beds, soil",
+    "protection": "Use mesh vs leaf miner; shade cloth in heat",
+    "tips": "Succession sow; keep moist; harvest outer leaves.",
+    "containerMin": "≥20 cm box",
+    "notes": "Use bolt‑resistant for spring; hardy types for autumn."
+  },
+  {
+    "name": "Perpetual Spinach (Leaf Beet)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "plant": [
+        4,
+        5
+      ],
+      "harvest": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "depth": "2 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, soil",
+    "protection": "Fleece early; slug rings for young plants",
+    "tips": "Very forgiving; pick little‑and‑often for long season.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Swiss Chard (Rainbow/White)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        4,
+        5
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "depth": "2 cm",
+    "spacing": "30–35 cm",
+    "light": "Sun/part shade",
+    "where": "Large pots, beds",
+    "protection": "Fleece early; wind shelter",
+    "tips": "Harvest outer leaves; leave heart to keep producing.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Kale – Curly (winter)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        0,
+        1,
+        2,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "45 cm",
+    "light": "Full sun",
+    "where": "Large pots, raised beds, soil",
+    "protection": "Net against pigeons & cabbage whites; collars vs root fly",
+    "tips": "Pick young leaves; withstands frost.",
+    "containerMin": "≥35–40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Kale – Cavolo Nero (Tuscan)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "45 cm",
+    "light": "Full sun",
+    "where": "Large pots, beds",
+    "protection": "Netting for butterflies/birds",
+    "tips": "Harvest central leaves regularly; great for soups.",
+    "containerMin": "≥40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Kale – Red Russian / Siberian",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "40–45 cm",
+    "light": "Full sun",
+    "where": "Beds, pots",
+    "protection": "Net from pigeons; flea beetle mesh early",
+    "tips": "Very hardy; tender baby leaves.",
+    "containerMin": "≥35–40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Collards / Spring Greens (loose cabbage)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun",
+    "where": "Beds/large pots",
+    "protection": "Netting vs pigeons & butterflies",
+    "tips": "Harvest outer leaves; reliable cool‑season green.",
+    "containerMin": "≥30–35 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Chinese Cabbage (Napa/Wong Bok)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        6,
+        7
+      ],
+      "plant": [
+        7
+      ],
+      "harvest": [
+        8,
+        9
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "30–35 cm",
+    "light": "Sun/shelter",
+    "where": "Beds, large pots",
+    "protection": "Mesh vs flea beetle; water evenly; cloche as nights cool",
+    "tips": "Best after solstice to reduce bolting.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Pak Choi / Bok Choi",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "plant": [
+        3,
+        7
+      ],
+      "harvest": [
+        5,
+        6,
+        8,
+        9
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, under cloche",
+    "protection": "Mesh vs flea beetle; shade in heat",
+    "tips": "Spring & late‑summer sowings are safest.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Tatsoi",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Very cold hardy; great late crop.",
+    "containerMin": "≥20–25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Mizuna",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle; shade in heat",
+    "tips": "Cut‑and‑come‑again; mild mustard flavour.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Mibuna",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Tender, fast‑growing rosettes.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Komatsuna",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "plant": [],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Pick continuously to delay bolting.",
+    "containerMin": "≥25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Mustard Greens (Green Wave, Giant Red, Mix)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "15–20 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds",
+    "protection": "Mesh vs flea beetle",
+    "tips": "Hotter in heat; keep watered for milder leaves.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Shungiku (Chrysanthemum greens)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "20–25 cm",
+    "light": "Sun",
+    "where": "Pots, beds",
+    "protection": "—",
+    "tips": "Pinch for bushiness; edible flowers too.",
+    "containerMin": "≥20–25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "New Zealand Spinach (Tetragonia)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "1.5–2 cm (pre‑soak)",
+    "spacing": "45 cm (sprawling)",
+    "light": "Sun, warmth",
+    "where": "Large tubs, beds",
+    "protection": "Fleece early",
+    "tips": "Keep picked; thrives in summer heat.",
+    "containerMin": "≥30–40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Malabar Spinach (Basella) – under cover",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "30 cm with support",
+    "light": "Very warm & bright",
+    "where": "Large pots in greenhouse",
+    "protection": "Greenhouse/polytunnel",
+    "tips": "Climber; pinch tips; treat as annual in Scotland.",
+    "containerMin": "≥30 cm pot + trellis",
+    "notes": ""
+  },
+  {
+    "name": "Amaranth (Callaloo) – leaf",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun, warmth",
+    "where": "Pots/beds",
+    "protection": "Cloche early",
+    "tips": "Harvest young leaves for tenderness.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Tree Spinach (Magenta Spreen)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "Surface press 0.5 cm",
+    "spacing": "45–60 cm",
+    "light": "Sun",
+    "where": "Beds/large pots",
+    "protection": "Stake in wind",
+    "tips": "Pick tender tops; mild flavour.",
+    "containerMin": "≥40 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Orache / Atriplex (Mountain Spinach)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [],
+      "harvest": [
+        5,
+        6,
+        7
+      ]
+    },
+    "depth": "1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun",
+    "where": "Beds/large pots",
+    "protection": "—",
+    "tips": "Use tips and young leaves; colourful varieties.",
+    "containerMin": "≥30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Corn Salad / Lamb’s Lettuce (Valerianella)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        6,
+        7,
+        8
+      ],
+      "plant": [
+        7,
+        8
+      ],
+      "harvest": [
+        0,
+        1,
+        2,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "10–15 cm",
+    "light": "Sun/part shade",
+    "where": "Pots, beds, greenhouse borders",
+    "protection": "Cloche/fleece in winter",
+    "tips": "Very hardy; ideal for winter salads.",
+    "containerMin": "≥15–20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Winter Purslane / Claytonia (Miner’s lettuce)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "0.5 cm",
+    "spacing": "10–15 cm",
+    "light": "Shade tolerant",
+    "where": "Pots, beds, greenhouse",
+    "protection": "Cloche in severe cold",
+    "tips": "Mild leaves all winter; may self‑seed lightly.",
+    "containerMin": "≥15–20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Land Cress (Upland)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        1,
+        6,
+        7
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "15–20 cm",
+    "light": "Part shade",
+    "where": "Pots/beds",
+    "protection": "Fleece in cold snaps",
+    "tips": "Peppery winter green; easy & hardy.",
+    "containerMin": "≥20 cm box",
+    "notes": ""
+  },
+  {
+    "name": "Sorrel – French/Garden",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "30–40 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/beds",
+    "protection": "Mulch; divide every few years",
+    "tips": "Perennial; tangy leaves; harvest modestly first year.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Red‑Veined Sorrel (Bloody Dock)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "plant": [
+        3,
+        4
+      ],
+      "harvest": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "30–35 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/beds",
+    "protection": "Mulch; protect in severe frost",
+    "tips": "Striking veins; milder young leaves.",
+    "containerMin": "≥25–30 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Salad Burnet",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        2,
+        3,
+        4
+      ],
+      "plant": [
+        4
+      ],
+      "harvest": [
+        3,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "depth": "0.5–1 cm",
+    "spacing": "25–30 cm",
+    "light": "Sun/part shade",
+    "where": "Pots/beds",
+    "protection": "—",
+    "tips": "Cucumber‑like flavour; pick young leaves.",
+    "containerMin": "≥25 cm pot",
+    "notes": ""
+  },
+  {
+    "name": "Cress – Curled/Broadleaf (leaf)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "Surface, keep damp",
+    "spacing": "Dense broadcast / thin to 1–2 cm",
+    "light": "Indoors bright / shade‑tolerant",
+    "where": "Trays, pots, windowsills",
+    "protection": "Indoors winter; ventilate to avoid mould",
+    "tips": "Cut when 5–7 cm tall; very fast crop.",
+    "containerMin": "Shallow tray",
+    "notes": "Micro/leaf crop; great filler"
+  },
+  {
+    "name": "Pea Shoots (from dried peas)",
+    "category": "leafy",
+    "months": {
+      "sow": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "plant": [],
+      "harvest": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "depth": "2–3 cm",
+    "spacing": "Dense broadcast / 2–3 cm",
+    "light": "Bright shade–sun",
+    "where": "Trays, pots",
+    "protection": "Slugs if outdoors; protect early",
+    "tips": "Cut at 10–15 cm; regrows once or twice.",
+    "containerMin": "20 cm tray/box",
+    "notes": "Use dried marrowfat peas."
+  }
+]

@@ -44,6 +44,21 @@
   .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
   .pill .emoji{font-size:1rem}
 
+  /* Basics formatting */
+.basics-title{margin:.2rem 0 .6rem}
+.basics-list{list-style:none;margin:0;padding:0;column-gap:28px}
+.basics-list li{
+  position:relative;margin:0 0 10px 0;padding-left:20px;line-height:1.5;color:#e6e9ed
+}
+.basics-list li::before{
+  content:"•"; position:absolute; left:0; top:0; color:#8bd48b; /* soft green bullet */
+  font-weight:700; line-height:1
+}
+.basics-list strong{color:#fff;font-weight:600}
+@media(min-width:900px){
+  .basics-list{column-count:2}       /* two columns on desktop/tablet landscape */
+}
+
   /* Table */
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
   table{border-collapse:collapse}
@@ -138,12 +153,10 @@
   <details id="diag"><summary>Diagnostics</summary><pre id="diagPre"></pre></details>
 
   <!-- Basics -->
-  <div class="section" id="basicsBox" hidden>
-    <h3 style="margin:.2rem 0 .6rem">Basics</h3>
-    <div id="basicSoil"></div>
-    <div id="basicTools"></div>
-    <div id="basicNotes"></div>
-  </div>
+<div class="section" id="basicsBox" hidden>
+  <h3 class="basics-title">Basics</h3>
+  <ul id="basicsList" class="basics-list"></ul>
+</div>
 
   <!-- Pest Watch -->
   <div class="section" id="pestBox" hidden>
@@ -261,31 +274,35 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
   }
 
   function renderBasics(b){
-    if (b.soil || b.tools || b.notes) {
-      els.basicSoil.textContent  = b.soil  ? `Soil/Compost: ${b.soil}` : '';
-      els.basicTools.textContent = b.tools ? `Tools: ${b.tools}`       : '';
-      els.basicNotes.textContent = b.notes ? `Notes: ${b.notes}`       : '';
-      els.basicsBox.hidden = false; return;
-    }
-    const lines = [];
-    if (b.containers_vs_ground?.pots)        lines.push(`Pots: ${b.containers_vs_ground.pots}`);
-    if (b.containers_vs_ground?.grow_bags)   lines.push(`Grow bags: ${b.containers_vs_ground.grow_bags}`);
-    if (b.containers_vs_ground?.raised_beds) lines.push(`Raised beds: ${b.containers_vs_ground.raised_beds}`);
-    if (b.watering_and_feeding?.watering_basics) lines.push(`Watering: ${b.watering_and_feeding.watering_basics}`);
-    if (b.watering_and_feeding?.feeds)           lines.push(`Feeding: ${b.watering_and_feeding.feeds}`);
-    if (b.protection_and_structures?.insect_mesh) lines.push(`Insect mesh: ${b.protection_and_structures.insect_mesh}`);
-    if (b.protection_and_structures?.netting_bird) lines.push(`Bird netting: ${b.protection_and_structures.netting_bird}`);
-    if (b.frost_and_wind?.last_frost_window)   lines.push(`Last frost window: ${b.frost_and_wind.last_frost_window}`);
+  const box = els.basicsBox;
+  const list = document.getElementById('basicsList');
+  list.innerHTML = '';
 
-    if (lines.length){
-      els.basicSoil.textContent  = `Basics:`;
-      els.basicTools.textContent = '• ' + lines.slice(0, 3).join('\n• ');
-      els.basicNotes.textContent = lines.slice(3, 7).length ? ('• ' + lines.slice(3, 7).join('\n• ')) : '';
-      els.basicsBox.hidden = false;
-    } else {
-      els.basicsBox.hidden = true;
+  // Merge known fields; keep order: soil -> tools -> notes
+  const text = [b.soil, b.tools, b.notes].filter(Boolean).join('  ');
+  if(!text){ box.hidden = true; return; }
+
+  // Split on bullets like: "• Pots: … • Watering: …"
+  const parts = text.split(/(?:^|\s)•\s+/g).map(s=>s.trim()).filter(Boolean);
+
+  parts.forEach(p=>{
+    const li = document.createElement('li');
+
+    // If it looks like "Label: content", bold the label
+    const m = p.match(/^([^:]{1,50}):\s*(.+)$/); // up to first colon
+    if(m){
+      const strong = document.createElement('strong');
+      strong.textContent = m[1] + ': ';
+      li.appendChild(strong);
+      li.appendChild(document.createTextNode(m[2]));
+    }else{
+      li.textContent = p;
     }
-  }
+    list.appendChild(li);
+  });
+
+  box.hidden = false;
+}
 
   function renderPest(region,pest){
     if(!pest || typeof pest!=='object'){ els.pestBox.hidden=true; return; }

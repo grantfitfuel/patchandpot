@@ -1,38 +1,6 @@
-<!-- Patch & Pot — Global Footer (LOCKED) -->
-<footer class="pp-footer" role="contentinfo" aria-label="Site footer">
-  <!-- 1) Try raster icon path; 2) if it fails, show inline SVG -->
-  <img id="pp-footer-pot" alt="" class="pp-footer__pot" src="/img/patchandpot-pot.png" />
-  <div class="pp-footer__text">© 2025 Patch &amp; Pot | Grant Cameron Anthony</div>
-
-  <svg id="pp-footer-pot-fallback" class="pp-footer__pot" width="46" height="46" viewBox="0 0 64 64" aria-hidden="true" style="display:none">
-    <path fill="#8B5E3C" d="M10 22h44c0 8-8 14-22 14S10 30 10 22z"></path>
-    <path fill="#6B4A2F" d="M16 36h32l-3 16c-1 6-7 10-13 10s-12-4-13-10l-3-16z"></path>
-    <path fill="#3B7A57" d="M26 18c-3-6 3-12 8-12-3 2-3 6-1 9 4-2 8-2 11 0-6 1-10 4-12 7-2-2-4-3-6-4z"></path>
-  </svg>
+<footer style="text-align:center;padding:20px 10px;border-top:1px solid #1f2630;background:#0b0f14;color:#e6e6ea">
+  <img src="img/patchandpot-icon.png" alt="Patch & Pot icon" style="height:34px;width:auto;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto">
+  <div style="font-size:0.9rem;opacity:.85">
+    © 2025 Patch & Pot | Grant Cameron Anthony
+  </div>
 </footer>
-
-<style>
-  .pp-footer{margin:32px 0 16px;text-align:center;color:var(--inkdim,#cfd3d8)}
-  .pp-footer__pot{display:block;width:46px;height:auto;margin:0 auto 8px}
-  .pp-footer__text{opacity:.9}
-</style>
-
-<script>
-  (function(){
-    const img = document.getElementById('pp-footer-pot');
-    const svg = document.getElementById('pp-footer-pot-fallback');
-    function showSVG(){ if(svg) svg.style.display='block'; if(img) img.style.display='none'; }
-    if (img) {
-      img.addEventListener('error', showSVG);
-      // try additional paths quickly; if both fail, show SVG
-      const tryPaths = ['/img/patchandpot-pot.png','img/patchandpot-pot.png','/img/patchandpot-icon.png'];
-      let tried = 0;
-      (function probe(){
-        if (!img.complete || img.naturalWidth) return; // already loaded
-        if (tried >= tryPaths.length){ showSVG(); return; }
-        img.src = tryPaths[tried++];
-        setTimeout(probe, 120);
-      })();
-    } else { showSVG(); }
-  })();
-</script>

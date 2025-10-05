@@ -7,8 +7,12 @@
   <meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
   <link rel="stylesheet" href="style.css">
   <style>
-    :root{ --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8; --glass:#0f131a; --stroke:#1f2630; --maxw:1100px; --r:14px;
-           --firstcol: 44%; /* portrait default */ }
+    :root{
+      --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8;
+      --glass:#0f131a; --stroke:#1f2630; --maxw:1100px; --r:14px;
+      --firstcol-portrait: 320px;  /* portrait: wider name col, scroll months */
+      --firstcol-land:     34%;    /* landscape: tighter so months fit */
+    }
     html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
     a{color:var(--ink)}
     .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
@@ -27,38 +31,37 @@
     .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
     .pill .emoji{font-size:1rem}
 
-    /* ===== TABLE that fits Jan–Dec in landscape ===== */
+    /* ===== TABLE rules ===== */
     .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
-    table{border-collapse:collapse;width:100%;table-layout:fixed}
-    thead th{position:sticky;top:0;background:#0f141b}
-    th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
-    /* first column narrower + wrapping */
-    th:first-child, td:first-child{ text-align:left; width:var(--firstcol); white-space:normal; word-break:break-word }
-    /* every month column shares the remainder evenly */
-    th:not(:first-child), td:not(:first-child){ width:calc((100% - var(--firstcol)) / 12) }
-    /* taller rows so crop names don’t crush emoji cells */
-    tbody tr{min-height:64px}
+
+    /* Portrait: SCROLLABLE grid. Don’t force 12 months to fit. */
+    @media (orientation:portrait){
+      table{border-collapse:collapse;width:auto;min-width:1180px;table-layout:auto}
+      thead th{position:sticky;top:0;background:#0f141b}
+      th,td{border:1px solid var(--stroke);padding:12px;text-align:center;vertical-align:top;line-height:1.35}
+      th:first-child, td:first-child{ text-align:left; min-width:var(--firstcol-portrait); white-space:normal; word-break:break-word }
+      tbody tr{min-height:64px}
+    }
+
+    /* Landscape: SHOW ALL 12 MONTHS (no horizontal scroll). */
+    @media (orientation:landscape){
+      table{border-collapse:collapse;width:100%;table-layout:fixed}
+      thead th{position:sticky;top:0;background:#0f141b}
+      th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
+      th:first-child, td:first-child{ text-align:left; width:var(--firstcol-land); white-space:normal; word-break:break-word }
+      th:not(:first-child), td:not(:first-child){ width:calc((100% - var(--firstcol-land)) / 12) }
+      tbody tr{min-height:60px}
+    }
+
     .emoji{font-size:1.05rem}
 
-    /* Landscape: ensure all 12 months fit on screen with no horizontal scroll */
-    @media (orientation:landscape){
-      :root{ --firstcol: 34%; } /* tighter name column so months fit */
-      th,td{padding:8px}
-    }
-
-    /* Small phones: a touch more space for months */
-    @media (max-width:380px){
-      :root{ --firstcol: 48%; }
-      th,td{padding:8px 6px}
-    }
-
-    /* Debug box */
+    /* Debug */
     #debug{display:none;margin-top:10px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#11161f;border:1px solid #253041;border-radius:12px;padding:10px;color:#ffe08a}
     #debug.show{display:block}
   </style>
 </head>
 <body>
-  <!-- HEADER PARTIAL: accept both ids so it can’t “miss” -->
+  <!-- Header partial slot(s): accept both ids -->
   <div id="site-header"></div><div id="header"></div>
 
   <div class="wrap">
@@ -128,29 +131,29 @@
     <div id="debug" aria-live="polite"></div>
   </div>
 
-  <!-- FOOTER PARTIAL SLOT (non-negotiable) -->
+  <!-- Footer partial slot -->
   <div id="site-footer"></div>
 
-  <!-- Partial loaders (header + footer) -->
+  <!-- partial loaders -->
   <script src="assets/js/header-loader.js" defer></script>
   <script src="assets/js/footer-loader.js" defer></script>
 
-  <!-- Header safety shim: if the header slot is still empty, fetch partial directly -->
+  <!-- header “hard fallback” if loader misses -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(async () => {
-        const slot = document.querySelector('#site-header,#header');
-        if (slot && slot.children.length === 0) {
+        const container = document.querySelector('#site-header,#header');
+        if (container && container.children.length === 0) {
           try{
             const r = await fetch('/sites/partials/header.html',{cache:'no-store'});
-            if (r.ok) slot.innerHTML = await r.text();
+            if (r.ok) container.innerHTML = await r.text();
           }catch(_){}
         }
-      }, 400);
+      }, 350);
     });
   </script>
 
-  <!-- Page logic -->
-  <script src="assets/js/seasonal.js?v=emoji-rb-landscape-fit" defer></script>
+  <!-- page logic -->
+  <script src="assets/js/seasonal.js?v=rb-portrait-scroll-landscape-fit" defer></script>
 </body>
 </html>

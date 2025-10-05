@@ -4,24 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seasonal Planner — Patch & Pot</title>
-  <meta name="description" content="What to sow, plant, and harvest by month, with regional data for Scotland, England, Wales, and Ireland.">
+  <meta name="description" content="What to sow, plant, and harvest by month for Scotland, England, Wales, and Ireland.">
   <style>
     :root{
-      --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8;
+      --bg:#0b0f14; --ink:#ffffff; --inkdim:#cfd3d8;
       --glass:#0f131a; --stroke:#1f2630; --accent:#4caf50;
       --maxw:1100px; --r:14px;
     }
     html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
-    a{color:var(--ink)}
     .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
     h1{margin:.2rem 0 .6rem;font-size:1.9rem}
     .lead{color:var(--inkdim)}
+
     .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
     .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
     select{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
     button{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:999px;padding:8px 12px;cursor:pointer}
     button.primary{outline:2px solid var(--accent)}
     .muted{color:var(--inkdim)}
+
+    /* Months scroller */
     .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}
     .months{display:grid;gap:12px;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);padding-bottom:4px;min-width:1020px}
     .month{background:#0f141b;border:1px solid var(--stroke);border-radius:12px;padding:12px;min-height:220px}
@@ -31,10 +33,15 @@
     .pill.plant{border-color:#ffc252}
     .pill.harvest{border-color:#6be46b}
     .empty{color:var(--inkdim);font-style:italic}
+
+    /* Debug box */
     #debug{display:none;margin-top:10px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#11161f;border:1px solid #253041;border-radius:12px;padding:10px;color:#ffe08a}
     #debug.show{display:block}
-    footer{margin:24px 0 12px;text-align:center;color:var(--inkdim)}
+
+    /* Footer — seasonal page spec */
+    footer{margin:32px 0 16px;text-align:center;color:var(--inkdim)}
     .pot-icon{display:block;width:46px;height:auto;margin:0 auto 8px}
+    .footer-line{opacity:.7}
   </style>
 </head>
 <body>
@@ -54,7 +61,7 @@
 
         <label for="blockSel" class="muted">Block</label>
         <select id="blockSel" aria-label="Block">
-          <!-- ONLY blocks that exist in every region -->
+          <!-- LOCKED: only blocks that exist in every region -->
           <option>alliums</option>
           <option>fruit</option>
           <option>herbs</option>
@@ -84,11 +91,12 @@
     <div id="debug" aria-live="polite"></div>
 
     <footer>
-      <img src="/img/patchandpot-pot.png" alt="" class="pot-icon" onerror="this.style.display='none'">
-      © Patch &amp; Pot — Grow Anywhere
+      <img src="/img/patchandpot-pot.png" alt="Patch & Pot pot icon" class="pot-icon" onerror="this.style.display='none'">
+      <div class="footer-line">© 2025 Patch &amp; Pot — Grow Anywhere</div>
     </footer>
   </div>
 
-  <script src="assets/js/seasonal.js?v=lock-fix" defer></script>
+  <!-- seasonal.html lives in /sites/, so this relative path is correct -->
+  <script src="assets/js/seasonal.js?v=lock-final" defer></script>
 </body>
 </html>

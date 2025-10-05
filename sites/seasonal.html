@@ -9,9 +9,12 @@
   :root{
     --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
     --maxw:1100px; --r:14px;
-    --header-logo-h: 46px; --footer-logo-w: 72px;
+    --header-logo-h: 46px;    /* header pot size */
+    --footer-logo-w: 72px;    /* footer pot size */
   }
   html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
+
+  /* Header */
   .pp-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid var(--stroke)}
   .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
   .pp-header__brand{display:flex;align-items:center;text-decoration:none;gap:10px}
@@ -26,6 +29,8 @@
   @media(min-width:900px){.pp-header__nav{display:flex}.pp-header__burger{display:none}}
   .pp-header--open .pp-header__nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;
     background:#0b0f14;border-bottom:1px solid var(--stroke);padding:10px 16px;gap:10px}
+
+  /* Page */
   .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
   h1{margin:.4rem 0 .7rem;font-size:2.2rem}
   .lead{color:var(--ink-d)}
@@ -38,6 +43,8 @@
   .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
   .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
   .pill .emoji{font-size:1rem}
+
+  /* Table */
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
   table{border-collapse:collapse}
   thead th{position:sticky;top:0;background:#0f141b}
@@ -53,10 +60,17 @@
     th:not(:first-child), td:not(:first-child){ width:calc(68% / 12) }
     tbody tr{min-height:60px}
   }
+
+  /* Footer */
   .site-footer{background:#0b0f14;padding:24px 18px;text-align:center;border-top:1px solid var(--stroke)}
   .site-footer__logo{width:var(--footer-logo-w);height:auto;display:block;margin:0 auto 10px}
   .site-footer p{margin:0;font-size:.9rem;color:#ccc}
   .site-footer p + p{margin-top:4px}
+
+  /* Diagnostics (hidden unless ?debug=1) */
+  #diag{display:none;margin:10px 0}
+  #diag pre{white-space:pre-wrap;background:#0f141b;border:1px solid #233046;border-radius:10px;padding:10px;color:#cfe1ff;max-height:280px;overflow:auto}
+  #diag.active{display:block}
 </style>
 </head>
 <body>
@@ -120,16 +134,24 @@
     <span id="status" class="muted" aria-live="polite"></span>
   </div>
 
+  <!-- DEBUG (hidden unless ?debug=1 or key combo) -->
+  <details id="diag"><summary>Diagnostics</summary><pre id="diagPre"></pre></details>
+
+  <!-- Basics -->
   <div class="section" id="basicsBox" hidden>
     <h3 style="margin:.2rem 0 .6rem">Basics</h3>
-    <div id="basicSoil"></div><div id="basicTools"></div><div id="basicNotes"></div>
+    <div id="basicSoil"></div>
+    <div id="basicTools"></div>
+    <div id="basicNotes"></div>
   </div>
 
+  <!-- Pest Watch -->
   <div class="section" id="pestBox" hidden>
     <div id="pestTitle" style="font-weight:700;margin-bottom:.4rem"></div>
     <ul id="pestList" style="margin:.2rem 0 .2rem 1.2rem"></ul>
   </div>
 
+  <!-- Legend -->
   <div class="section">
     <div class="legend">
       <span class="pill"><span class="emoji">🌱</span> Sow</span>
@@ -138,9 +160,16 @@
     </div>
   </div>
 
+  <!-- Table -->
   <div class="section table-wrap">
     <table aria-label="Seasonal calendar">
-      <thead><tr><th>Crop</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Crop</th>
+          <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
+          <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+        </tr>
+      </thead>
       <tbody id="tbody"></tbody>
     </table>
     <div id="emptyMsg" class="muted" style="display:none;margin-top:6px">No crops found.</div>
@@ -154,40 +183,179 @@
 </footer>
 
 <script>
-(function(){const root=document.getElementById('ppHeader');if(!root)return;const btn=root.querySelector('#ppBurger');const nav=root.querySelector('#ppNav');
+/* Header burger */
+(function(){const root=document.getElementById('ppHeader');if(!root)return;
+const btn=root.querySelector('#ppBurger');const nav=root.querySelector('#ppNav');
 btn.addEventListener('click',()=>{const open=root.classList.toggle('pp-header--open');btn.setAttribute('aria-expanded',open?'true':'false');});
 nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove('pp-header--open');btn.setAttribute('aria-expanded','false');}});})();
 
+/* Seasonal loader with multi-path + diagnostics */
 (function(){
-const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const EMO={sow:"🌱",plant:"🌿",harvest:"🧺"};
-const els={region:document.getElementById('regionSel'),cat:document.getElementById('catSel'),search:document.getElementById('searchBox'),
-  monthOnly:document.getElementById('monthOnly'),status:document.getElementById('status'),tbody:document.getElementById('tbody'),
-  emptyMsg:document.getElementById('emptyMsg'),basicsBox:document.getElementById('basicsBox'),basicSoil:document.getElementById('basicSoil'),
-  basicTools:document.getElementById('basicTools'),basicNotes:document.getElementById('basicNotes'),pestBox:document.getElementById('pestBox'),
-  pestTitle:document.getElementById('pestTitle'),pestList:document.getElementById('pestList')};
-const BLOCKS=['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
-function bust(u){return `${u}?v=${Date.now()}`;}
-async function fetchJSON(u){try{const r=await fetch(bust(u),{cache:'no-store'});if(!r.ok)throw 0;return await r.json();}catch(_){return null;}}
-async function loadRegion(region){const base=`data/regions/${region}`;
-  const [basics,pest,...parts]=await Promise.all([fetchJSON(`${base}/basics.json`),fetchJSON(`${base}/pestwatch.json`),...BLOCKS.map(b=>fetchJSON(`${base}/${b}.json`))]);
-  let crops=[];parts.forEach((arr,idx)=>{const block=BLOCKS[idx];if(Array.isArray(arr)){arr.forEach(c=>{if(!c||!c.name)return;const crop={...c};if(!crop.category)crop.category=block;crop._block=block;crops.push(crop);});}});return{basics:basics||{},pest:pest||{},crops,region};}
-function renderBasics(b){if(!(b.soil||b.tools||b.notes)){els.basicsBox.hidden=true;return;}els.basicSoil.textContent=b.soil?`Soil/Compost: ${b.soil}`:'';els.basicTools.textContent=b.tools?`Tools: ${b.tools}`:'';els.basicNotes.textContent=b.notes?`Notes: ${b.notes}`:'';els.basicsBox.hidden=false;}
-function renderPest(region,pest){if(!pest||typeof pest!=='object'){els.pestBox.hidden=true;return;}const m=String((new Date()).getMonth());const items=(pest[m]?.items)||[];
-  els.pestTitle.textContent=`Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;els.pestList.innerHTML='';
-  if(!items.length){const li=document.createElement('li');li.textContent='No major alerts this month.';els.pestList.appendChild(li);}
-  else{items.forEach(t=>{const li=document.createElement('li');li.textContent=t;els.pestList.appendChild(li);});}els.pestBox.hidden=false;}
-function filterCrops(crops){const q=(els.search.value||'').toLowerCase().trim();const cat=(els.cat.value||'all').toLowerCase();const mOnly=els.monthOnly.checked;const m=(new Date()).getMonth();
-  return (crops||[]).filter(c=>{if(q&&!c.name.toLowerCase().includes(q))return false;if(cat!=='all'){const cc=(c.category||'').toLowerCase();const bb=(c._block||'').toLowerCase();if(cc!==cat&&bb!==cat)return false;}
-  if(mOnly){const s=(c.months?.sow||[]).includes(m);const p=(c.months?.plant||[]).includes(m);const h=(c.months?.harvest||[]).includes(m);if(!(s||p||h))return false;}return true;});}
-function cellMarks(c,m){const out=[];if((c.months?.sow||[]).includes(m))out.push(EMO.sow);if((c.months?.plant||[]).includes(m))out.push(EMO.plant);if((c.months?.harvest||[]).includes(m))out.push(EMO.harvest);return out.join(' ');}
-function renderTable(crops,region){const list=filterCrops(crops||[]);els.status.textContent=`${region[0].toUpperCase()+region.slice(1)} — ${list.length} crops shown`;const frag=document.createDocumentFragment();
-  list.forEach(c=>{const tr=document.createElement('tr');const td=document.createElement('td');td.textContent=c.name;tr.appendChild(td);for(let i=0;i<12;i++){const td=document.createElement('td');const marks=cellMarks(c,i);if(marks)td.textContent=marks;tr.appendChild(td);}frag.appendChild(tr);});
-  els.tbody.innerHTML='';els.tbody.appendChild(frag);els.emptyMsg.style.display=list.length?'none':'block';}
-let cache={region:null,data:null};
-async function refresh(){const region=(els.region.value||'scotland').toLowerCase();if(!cache.data||cache.region!==region){els.status.textContent='Loading…';cache.data=await loadRegion(region);cache.region=region;renderBasics(cache.data.basics);renderPest(region,cache.data.pest);}renderTable(cache.data.crops,region);}
-els.region.addEventListener('change',refresh);els.cat.addEventListener('change',refresh);els.monthOnly.addEventListener('change',refresh);let t=null;els.search.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(refresh,150);});
-refresh();
+  const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const EMO={sow:"🌱",plant:"🌿",harvest:"🧺"};
+  const els={region:regionSel,cat:catSel,search:searchBox,monthOnly:monthOnly,status:status,tbody:tbody,
+    emptyMsg:emptyMsg,basicsBox:basicsBox,basicSoil:basicSoil,basicTools:basicTools,basicNotes:basicNotes,
+    pestBox:pestBox,pestTitle:pestTitle,pestList:pestList,diag:diag,diagPre:diagPre};
+
+  const BLOCKS=['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
+  const ALIAS={softfruit:['softfruit','soft-fruit']}; // try both if needed
+
+  const urlParams=new URLSearchParams(location.search);
+  const debugOn=urlParams.get('debug')==='1';
+  if(debugOn) els.diag.classList.add('active');
+  // keyboard quick toggle: press 'd' then 'b' within 800ms
+  (function(){let seq='';window.addEventListener('keydown',e=>{seq+=e.key.toLowerCase();seq=seq.slice(-2);if(seq==='db'){els.diag.classList.toggle('active');}});})();
+
+  function bust(u){return `${u}${u.includes('?')?'&':'?'}v=${Date.now()}`;}
+
+  async function fetchFirstOk(paths, note){
+    for(const url of paths){
+      try{
+        const r=await fetch(bust(url),{cache:'no-store'});
+        if(r.ok){
+          const j=await r.json();
+          logDiag(`OK   ${note}: ${url}`);
+          return {data:j,url};
+        }else{
+          logDiag(`FAIL ${note}: ${url} [${r.status}]`);
+        }
+      }catch(err){
+        logDiag(`ERR  ${note}: ${url} [${err}]`);
+      }
+    }
+    return {data:null,url:null};
+  }
+
+  function buildCandidates(region, file){
+    // Try absolute, then relative, then ./relative
+    return [
+      `/data/regions/${region}/${file}`,
+      `data/regions/${region}/${file}`,
+      `./data/regions/${region}/${file}`,
+      `/sites/data/regions/${region}/${file}` // last-ditch if server maps differently
+    ];
+  }
+
+  function logDiag(line){
+    if(!els.diagPre) return;
+    els.diagPre.textContent += line + "\n";
+  }
+
+  async function loadRegion(region){
+    els.diagPre.textContent=''; // reset
+    logDiag(`Region = ${region}`);
+
+    // basics + pestwatch
+    const basicsP = fetchFirstOk(buildCandidates(region,'basics.json'),'basics.json');
+    const pestP   = fetchFirstOk(buildCandidates(region,'pestwatch.json'),'pestwatch.json');
+
+    // crop blocks (with alias support)
+    const blockPromises = BLOCKS.map(async (block)=>{
+      const names = (ALIAS[block]||[block]).map(n=>`${n}.json`);
+      for(const fname of names){
+        const res = await fetchFirstOk(buildCandidates(region,fname), `${block} (${fname})`);
+        if(res.data){
+          const arr = Array.isArray(res.data) ? res.data
+                    : Array.isArray(res.data?.crops) ? res.data.crops
+                    : null;
+          if(arr) return arr.map(c=>({...(c||{}), _block:block, category:(c&&c.category)||block}));
+        }
+      }
+      return []; // nothing found for this block
+    });
+
+    const [basicsRes, pestRes, ...blocks] = await Promise.all([basicsP, pestP, ...blockPromises]);
+
+    const basics = basicsRes.data || {};
+    const pest   = pestRes.data   || {};
+    const crops  = blocks.flat().filter(x=>x && x.name);
+
+    logDiag(`Loaded crops: ${crops.length} total`);
+    return { basics, pest, crops, region };
+  }
+
+  function renderBasics(b){
+    const has = !!(b.soil||b.tools||b.notes);
+    els.basicsBox.hidden=!has;
+    if(!has) return;
+    els.basicSoil.textContent  = b.soil  ? `Soil/Compost: ${b.soil}` : '';
+    els.basicTools.textContent = b.tools ? `Tools: ${b.tools}`       : '';
+    els.basicNotes.textContent = b.notes ? `Notes: ${b.notes}`       : '';
+  }
+
+  function renderPest(region,p){
+    if(!p || typeof p!=='object'){els.pestBox.hidden=true;return;}
+    const m=String((new Date()).getMonth());
+    const items=(p[m]?.items)||p[m]||[];
+    els.pestTitle.textContent=`Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;
+    els.pestList.innerHTML='';
+    if(!items.length){const li=document.createElement('li');li.textContent='No major alerts this month.';els.pestList.appendChild(li);}
+    else{(Array.isArray(items)?items:[String(items)]).forEach(t=>{const li=document.createElement('li');li.textContent=t;els.pestList.appendChild(li);});}
+    els.pestBox.hidden=false;
+  }
+
+  function filterCrops(crops){
+    const q=(els.search.value||'').toLowerCase().trim();
+    const cat=(els.cat.value||'all').toLowerCase();
+    const mOnly=els.monthOnly.checked;
+    const m=(new Date()).getMonth();
+    return (crops||[]).filter(c=>{
+      if(q && !c.name?.toLowerCase().includes(q)) return false;
+      if(cat!=='all'){
+        const cc=(c.category||'').toLowerCase();
+        const bb=(c._block||'').toLowerCase();
+        if(cc!==cat && bb!==cat) return false;
+      }
+      if(mOnly){
+        const s=(c.months?.sow||[]).includes(m);
+        const p=(c.months?.plant||[]).includes(m);
+        const h=(c.months?.harvest||[]).includes(m);
+        if(!(s||p||h)) return false;
+      }
+      return true;
+    });
+  }
+
+  function cellMarks(c,m){
+    const out=[]; if((c.months?.sow||[]).includes(m)) out.push("🌱");
+    if((c.months?.plant||[]).includes(m)) out.push("🌿");
+    if((c.months?.harvest||[]).includes(m)) out.push("🧺");
+    return out.join(' ');
+  }
+
+  function renderTable(crops, region){
+    const list=filterCrops(crops||[]);
+    els.status.textContent=`${region[0].toUpperCase()+region.slice(1)} — ${list.length} crops shown`;
+    const frag=document.createDocumentFragment();
+    list.forEach(c=>{
+      const tr=document.createElement('tr');
+      const name=document.createElement('td'); name.textContent=c.name||''; tr.appendChild(name);
+      for(let i=0;i<12;i++){ const td=document.createElement('td'); const marks=cellMarks(c,i); if(marks) td.textContent=marks; tr.appendChild(td); }
+      frag.appendChild(tr);
+    });
+    els.tbody.innerHTML=''; els.tbody.appendChild(frag);
+    els.emptyMsg.style.display = list.length ? 'none' : 'block';
+  }
+
+  let cache={region:null,data:null};
+  async function refresh(){
+    const region=(els.region.value||'scotland').toLowerCase();
+    if(!cache.data || cache.region!==region){
+      els.status.textContent='Loading…';
+      cache.data = await loadRegion(region);
+      cache.region = region;
+      renderBasics(cache.data.basics);
+      renderPest(region, cache.data.pest);
+    }
+    renderTable(cache.data.crops, region);
+  }
+
+  els.region.addEventListener('change',refresh);
+  els.cat.addEventListener('change',refresh);
+  els.monthOnly.addEventListener('change',refresh);
+  let t=null; els.search.addEventListener('input',()=>{clearTimeout(t); t=setTimeout(refresh,150);});
+
+  refresh();
 })();
 </script>
 </body>

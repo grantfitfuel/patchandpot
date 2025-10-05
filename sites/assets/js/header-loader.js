@@ -1,29 +1,23 @@
-// Patch & Pot — Header loader (robust + noisy if it fails)
+// Patch & Pot — Header loader (SINGLETON, absolute path)
 (function(){
-  const SLOT = document.querySelector('#site-header, #header');
-  if (!SLOT) return;
+  if (window.__PP_HEADER_LOADED) return; // guard: only once per page
+  const slot = document.getElementById('site-header') || document.getElementById('header');
+  if (!slot) return;
 
-  const CANDIDATES = [
-    '/sites/partials/header.html',   // absolute (works from anywhere)
-    'sites/partials/header.html',    // relative from domain root
-    './partials/header.html'         // relative from /sites/
-  ];
+  const URL = '/sites/partials/header.html'; // absolute path so it works from anywhere
 
   (async () => {
-    for (const url of CANDIDATES) {
-      try {
-        const res = await fetch(url + '?v=hdr3', { cache: 'no-store' });
-        if (res.ok) {
-          SLOT.innerHTML = await res.text();
-          return;
-        }
-      } catch (_) {}
-    }
-    // If we’re here, it failed – show a visible warning so you know
-    SLOT.innerHTML = `
-      <header style="padding:10px 16px;border-bottom:1px solid #1f2630;background:#0b0f14;color:#fff">
-        Patch &amp; Pot (header partial NOT found – fix loader path)
+    try{
+      const r = await fetch(URL + '?v=hdr-final', {cache:'no-store'});
+      if (!r.ok) throw 0;
+      slot.innerHTML = await r.text();
+      window.__PP_HEADER_LOADED = true;
+      slot.setAttribute('data-pp-header','installed');
+    }catch(e){
+      slot.innerHTML = `<header style="padding:10px 16px;border-bottom:1px solid #1f2630;background:#0b0f14;color:#fff">
+        Patch &amp; Pot — header failed to load (${URL})
       </header>`;
-    console.warn('[header-loader] Could not fetch /sites/partials/header.html');
+      console.warn('[header-loader] fetch failed:', URL);
+    }
   })();
 })();

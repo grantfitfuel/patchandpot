@@ -1,15 +1,11 @@
 <!-- Patch & Pot — Global Header (LOCKED) -->
-<header class="pp-header" role="banner">
-  <div class="pp-header__inner">
-    <a class="pp-header__brand" href="/">
-      <img src="img/patchandpot-logo.png" alt="Patch & Pot" class="pp-header__logo">
-    </a><header id="ppHeader" class="pp-header" role="banner">
+<header id="ppHeader" class="pp-header" role="banner">
   <div class="pp-header__inner">
     <a class="pp-header__brand" href="/">
       <img src="/img/patchandpot-logo.png" alt="Patch & Pot" class="pp-header__logo">
     </a>
 
-    <!-- Hamburger (always on mobile) -->
+    <!-- Hamburger (mobile) -->
     <button class="pp-header__burger" id="ppBurger"
             aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
       <span class="pp-burger-bar"></span>
@@ -21,10 +17,11 @@
       <a href="/"            class="pp-nav__link">Home</a>
       <a href="/growing"     class="pp-nav__link">Growing</a>
       <a href="/seasonal"    class="pp-nav__link">Seasonal</a>
-      <a href="/cuttings"    class="pp-nav__link">Cuttings</a>
-      <a href="/grafting"    class="pp-nav__link">Grafting</a>
-      <a href="/flowers"     class="pp-nav__link">Flowers</a>
+      <a href="/recipes"     class="pp-nav__link">Recipes</a>
       <a href="/wellbeing"   class="pp-nav__link">Wellbeing</a>
+      <a href="/exercise"    class="pp-nav__link">Exercise</a>
+      <a href="/guides"      class="pp-nav__link">Guides</a>
+      <a href="/ideas"       class="pp-nav__link">Ideas</a>
       <a href="/contact"     class="pp-nav__link">Contact</a>
     </nav>
   </div>
@@ -60,84 +57,4 @@
     if(e.target.closest('a')){root.classList.remove('pp-header--open');btn.setAttribute('aria-expanded','false');}
   });
 })();
-</script>
-
-    <!-- HAMBURGER (always rendered; hidden only on wide screens by CSS) -->
-    <button class="pp-header__burger" id="ppBurger"
-            aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span class="pp-burger-bar"></span>
-      <span class="pp-burger-bar"></span>
-      <span class="pp-burger-bar"></span>
-    </button>
-
-    <nav class="pp-header__nav" id="ppNav" aria-label="Primary">
-      <a href="/"            class="pp-nav__link">Home</a>
-      <a href="/growing"     class="pp-nav__link">Growing</a>
-      <a href="/seasonal"    class="pp-nav__link">Seasonal</a>
-      <a href="/recipes"     class="pp-nav__link">Recipes</a>
-      <a href="/wellbeing"   class="pp-nav__link">Wellbeing</a>
-      <a href="/exercise"    class="pp-nav__link">Exercise</a>
-      <a href="/guides"      class="pp-nav__link">Guides</a>
-      <a href="/ideas"       class="pp-nav__link">Ideas</a>
-      <a href="/contact"     class="pp-nav__link">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<style>
-  :root{ --bg:#0b0f14; --stroke:#1f2630; --ink:#fff; --inkdim:#cfd3d8; --maxw:1100px }
-  .pp-header{ position:sticky; top:0; z-index:1000; background:var(--bg);
-              border-bottom:1px solid var(--stroke) }
-  .pp-header__inner{ max-width:var(--maxw); margin:0 auto; padding:10px 16px;
-                     display:flex; align-items:center; gap:12px }
-  .pp-header__brand{ display:flex; align-items:center }
-  .pp-header__logo{ height:28px; width:auto; display:block }
-
-  /* nav */
-  .pp-header__nav{ display:none; gap:16px; margin-left:auto }
-  .pp-nav__link{ color:var(--inkdim); text-decoration:none; padding:6px 4px }
-  .pp-nav__link:hover{ color:var(--ink) }
-
-  /* hamburger */
-  .pp-header__burger{ margin-left:auto; background:transparent; border:0;
-                      width:40px; height:40px; display:inline-flex; flex-direction:column;
-                      justify-content:center; align-items:center; gap:5px; cursor:pointer }
-  .pp-burger-bar{ width:22px; height:2px; background:#e6e6ea; display:block }
-
-  /* Wide screens: show nav inline, hide burger */
-  @media (min-width:900px){
-    .pp-header__nav{ display:flex }
-    .pp-header__burger{ display:none }
-  }
-
-  /* Mobile open state */
-  .pp-header--open .pp-header__nav{
-    display:flex; flex-direction:column; position:absolute; left:0; right:0;
-    top:100%; background:var(--bg); border-bottom:1px solid var(--stroke);
-    padding:10px 16px; gap:10px
-  }
-</style>
-
-<script>
-  (function(){
-    const root = document.currentScript.closest('.pp-header');
-    const btn  = root.querySelector('#ppBurger');
-    const nav  = root.querySelector('#ppNav');
-
-    // Ensure hamburger is visible on mobile by default
-    btn.style.display = 'inline-flex';
-
-    btn.addEventListener('click', () => {
-      const open = root.classList.toggle('pp-header--open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-
-    // Close menu when a link is tapped
-    nav.addEventListener('click', (e) => {
-      if (e.target.closest('a')) {
-        root.classList.remove('pp-header--open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-  })();
 </script>

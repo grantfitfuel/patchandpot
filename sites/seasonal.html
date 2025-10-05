@@ -9,8 +9,8 @@
   :root{
     --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
     --maxw:1100px; --r:14px;
-    --header-logo-h: 50px;   /* header pot size */
-    --footer-logo-w: 65px;   /* footer pot size */
+    --header-logo-h: 50px;     /* header pot size */
+    --footer-logo-w: 65px;     /* footer pot size */
   }
   html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
 
@@ -45,19 +45,17 @@
   .pill .emoji{font-size:1rem}
 
   /* Basics formatting */
-.basics-title{margin:.2rem 0 .6rem}
-.basics-list{list-style:none;margin:0;padding:0;column-gap:28px}
-.basics-list li{
-  position:relative;margin:0 0 10px 0;padding-left:20px;line-height:1.5;color:#e6e9ed
-}
-.basics-list li::before{
-  content:"•"; position:absolute; left:0; top:0; color:#8bd48b; /* soft green bullet */
-  font-weight:700; line-height:1
-}
-.basics-list strong{color:#fff;font-weight:600}
-@media(min-width:900px){
-  .basics-list{column-count:2}       /* two columns on desktop/tablet landscape */
-}
+  .basics-title{margin:.2rem 0 .6rem}
+  .basics-list{list-style:none;margin:0;padding:0;column-gap:28px}
+  .basics-list li{
+    position:relative;margin:0 0 10px 0;padding-left:20px;line-height:1.5;color:#e6e9ed
+  }
+  .basics-list li::before{
+    content:"•"; position:absolute; left:0; top:0; color:#8bd48b;
+    font-weight:700; line-height:1
+  }
+  .basics-list strong{color:#fff;font-weight:600}
+  @media(min-width:900px){ .basics-list{column-count:2} }
 
   /* Table */
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
@@ -82,7 +80,7 @@
   .site-footer p{margin:0;font-size:.9rem;color:#ccc}
   .site-footer p + p{margin-top:4px}
 
-  /* Diagnostics (hidden unless ?debug=1) */
+  /* Diagnostics */
   #diag{display:none;margin:10px 0}
   #diag pre{white-space:pre-wrap;background:#0f141b;border:1px solid #233046;border-radius:10px;padding:10px;color:#cfe1ff;max-height:280px;overflow:auto}
   #diag.active{display:block}
@@ -149,14 +147,14 @@
     <span id="status" class="muted" aria-live="polite"></span>
   </div>
 
-  <!-- DEBUG (hidden unless ?debug=1 or 'd'+'b' keys) -->
+  <!-- Diagnostics toggleable with ?debug=1 -->
   <details id="diag"><summary>Diagnostics</summary><pre id="diagPre"></pre></details>
 
   <!-- Basics -->
-<div class="section" id="basicsBox" hidden>
-  <h3 class="basics-title">Basics</h3>
-  <ul id="basicsList" class="basics-list"></ul>
-</div>
+  <div class="section" id="basicsBox" hidden>
+    <h3 class="basics-title">Basics</h3>
+    <ul id="basicsList" class="basics-list"></ul>
+  </div>
 
   <!-- Pest Watch -->
   <div class="section" id="pestBox" hidden>
@@ -197,125 +195,109 @@
 
 <script>
 /* Header burger */
-(function(){const root=document.getElementById('ppHeader');if(!root)return;
-const btn=root.querySelector('#ppBurger');const nav=root.querySelector('#ppNav');
-btn.addEventListener('click',()=>{const open=root.classList.toggle('pp-header--open');btn.setAttribute('aria-expanded',open?'true':'false');});
-nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove('pp-header--open');btn.setAttribute('aria-expanded','false');}});})();
+(function(){
+  const root=document.getElementById('ppHeader'); if(!root) return;
+  const btn=root.querySelector('#ppBurger'); const nav=root.querySelector('#ppNav');
+  btn.addEventListener('click',()=>{
+    const open=root.classList.toggle('pp-header--open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  });
+  nav.addEventListener('click',e=>{
+    if(e.target.closest('a')){
+      root.classList.remove('pp-header--open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
 
-/* Seasonal loader with multi-path + diagnostics + pest/basics fixes */
+/* Seasonal loader */
 (function(){
   const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const EMO={sow:"🌱",plant:"🌿",harvest:"🧺"};
-  const els={region:regionSel,cat:catSel,search:searchBox,monthOnly:monthOnly,status:status,tbody:tbody,
-    emptyMsg:emptyMsg,basicsBox:basicsBox,basicSoil:basicSoil,basicTools:basicTools,basicNotes:basicNotes,
-    pestBox:pestBox,pestTitle:pestTitle,pestList:pestList,diag:diag,diagPre:diagPre};
 
+  // Elements
+  const els={
+    region:document.getElementById('regionSel'),
+    cat:document.getElementById('catSel'),
+    search:document.getElementById('searchBox'),
+    monthOnly:document.getElementById('monthOnly'),
+    status:document.getElementById('status'),
+    tbody:document.getElementById('tbody'),
+    emptyMsg:document.getElementById('emptyMsg'),
+    basicsBox:document.getElementById('basicsBox'),
+    basicsList:document.getElementById('basicsList'),
+    pestBox:document.getElementById('pestBox'),
+    pestTitle:document.getElementById('pestTitle'),
+    pestList:document.getElementById('pestList'),
+    diag:document.getElementById('diag'),
+    diagPre:document.getElementById('diagPre')
+  };
+
+  // Debug toggle with ?debug=1
+  const debugOn=new URLSearchParams(location.search).get('debug')==='1';
+  if(debugOn) els.diag.setAttribute('open','');
+
+  // Data sources
   const BLOCKS=['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
   const ALIAS={softfruit:['softfruit','soft-fruit']};
 
-  const urlParams=new URLSearchParams(location.search);
-  const debugOn=urlParams.get('debug')==='1';
-  if(debugOn) els.diag.classList.add('active');
-  (function(){let seq='';window.addEventListener('keydown',e=>{seq+=e.key.toLowerCase();seq=seq.slice(-2);if(seq==='db'){els.diag.classList.toggle('active');}});})();
-
+  // Cache-bust helper
   function bust(u){return `${u}${u.includes('?')?'&':'?'}v=${Date.now()}`;}
-  async function fetchJSON(u){try{const r=await fetch(bust(u),{cache:'no-store'});if(!r.ok)throw 0;return await r.json();}catch(_){return null;}}
-  function logDiag(line){ if(!els.diagPre) return; els.diagPre.textContent += line + "\n"; }
-
-  function buildCandidates(region,file){
-    return [
-      `/data/regions/${region}/${file}`,
-      `data/regions/${region}/${file}`,
-      `./data/regions/${region}/${file}`,
-      `/sites/data/regions/${region}/${file}`
-    ];
-  }
-
-  async function fetchFirstOk(paths, note){
-    for(const url of paths){
-      try{
-        const r=await fetch(bust(url),{cache:'no-store'});
-        if(r.ok){ const j=await r.json(); logDiag(`OK   ${note}: ${url}`); return {data:j,url}; }
-        logDiag(`FAIL ${note}: ${url} [${r.status}]`);
-      }catch(err){ logDiag(`ERR  ${note}: ${url} [${err}]`); }
-    }
-    return {data:null,url:null};
+  async function fetchJSON(u){
+    try{const r=await fetch(bust(u),{cache:'no-store'}); if(!r.ok) throw 0; return await r.json();}
+    catch(_){return null;}
   }
 
   async function loadRegion(region){
-    els.diagPre.textContent=''; logDiag(`Region = ${region}`);
-
-    const basicsP = fetchFirstOk(buildCandidates(region,'basics.json'),'basics.json');
-    const pestP   = fetchFirstOk(buildCandidates(region,'pestwatch.json'),'pestwatch.json');
-
-    const blockPromises = BLOCKS.map(async (block)=>{
-      const names = (ALIAS[block]||[block]).map(n=>`${n}.json`);
-      for(const fname of names){
-        const res = await fetchFirstOk(buildCandidates(region,fname), `${block} (${fname})`);
-        if(res.data){
-          const arr = Array.isArray(res.data) ? res.data
-                    : Array.isArray(res.data?.crops) ? res.data.crops
-                    : null;
-          if(arr) return arr.map(c=>({...(c||{}), _block:block, category:(c&&c.category)||block}));
-        }
+    log(`Loading region = ${region}`);
+    const basics=await fetchJSON(`/data/regions/${region}/basics.json`)||{};
+    const pest  =await fetchJSON(`/data/regions/${region}/pestwatch.json`)||{};
+    const crops=[];
+    for(const block of BLOCKS){
+      const candidates=(ALIAS[block]||[block]).map(n=>`${n}.json`);
+      let used=null;
+      for(const f of candidates){
+        const j=await fetchJSON(`/data/regions/${region}/${f}`);
+        const arr=Array.isArray(j)?j:Array.isArray(j?.crops)?j.crops:null;
+        if(arr){ arr.forEach(c=>{c._block=block; if(!c.category) c.category=block;}); crops.push(...arr); used=f; break; }
       }
-      return [];
-    });
-
-    const [basicsRes, pestRes, ...blocks] = await Promise.all([basicsP, pestP, ...blockPromises]);
-
-    // Pest can be {pestwatch:{...}} or just {...}
-    const pest = (pestRes.data && (pestRes.data.pestwatch || pestRes.data)) || {};
-    const basics = basicsRes.data || {};
-    const crops  = blocks.flat().filter(x=>x && x.name);
-
-    logDiag(`Loaded crops: ${crops.length} total`);
-    return { basics, pest, crops, region };
+      log(`${block}: ${used?('OK '+used):'missing'}`);
+    }
+    log(`crops total: ${crops.length}`);
+    return {basics,pest,crops};
   }
 
+  // Basics renderer (formatted bullets)
   function renderBasics(b){
-  const box = els.basicsBox;
-  const list = document.getElementById('basicsList');
-  list.innerHTML = '';
+    const box=els.basicsBox; const list=els.basicsList;
+    list.innerHTML='';
+    const text=[b.soil,b.tools,b.notes].filter(Boolean).join('  ');
+    if(!text){box.hidden=true;return;}
+    const parts=text.split(/(?:^|\s)•\s+/g).map(s=>s.trim()).filter(Boolean);
+    parts.forEach(p=>{
+      const li=document.createElement('li');
+      const m=p.match(/^([^:]{1,50}):\s*(.+)$/);
+      if(m){
+        const strong=document.createElement('strong'); strong.textContent=m[1]+': ';
+        li.appendChild(strong); li.appendChild(document.createTextNode(m[2]));
+      }else{
+        li.textContent=p;
+      }
+      list.appendChild(li);
+    });
+    box.hidden=false;
+  }
 
-  // Merge known fields; keep order: soil -> tools -> notes
-  const text = [b.soil, b.tools, b.notes].filter(Boolean).join('  ');
-  if(!text){ box.hidden = true; return; }
-
-  // Split on bullets like: "• Pots: … • Watering: …"
-  const parts = text.split(/(?:^|\s)•\s+/g).map(s=>s.trim()).filter(Boolean);
-
-  parts.forEach(p=>{
-    const li = document.createElement('li');
-
-    // If it looks like "Label: content", bold the label
-    const m = p.match(/^([^:]{1,50}):\s*(.+)$/); // up to first colon
-    if(m){
-      const strong = document.createElement('strong');
-      strong.textContent = m[1] + ': ';
-      li.appendChild(strong);
-      li.appendChild(document.createTextNode(m[2]));
-    }else{
-      li.textContent = p;
-    }
-    list.appendChild(li);
-  });
-
-  box.hidden = false;
-}
-
+  // Pest Watch (current month)
   function renderPest(region,pest){
-    if(!pest || typeof pest!=='object'){ els.pestBox.hidden=true; return; }
-    const m = String((new Date()).getMonth());
-    const entry = pest[m] || {};
-    const items = Array.isArray(entry.items) ? entry.items
-                : Array.isArray(entry) ? entry
-                : (typeof entry === 'string' ? [entry] : []);
-    const titleText = entry.title || `Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;
-    els.pestTitle.textContent = titleText;
-    els.pestList.innerHTML = '';
+    if(!pest||typeof pest!=='object'){els.pestBox.hidden=true;return;}
+    const m=String((new Date()).getMonth());
+    const entry=pest[m]||{};
+    const items=Array.isArray(entry.items)?entry.items:[];
+    els.pestTitle.textContent=entry.title||`Pest Watch — ${MONTHS[+m]} (${cap(region)})`;
+    els.pestList.innerHTML='';
     if(!items.length){
-      const li=document.createElement('li'); li.textContent='No major alerts this month.'; els.pestList.appendChild(li);
+      els.pestList.innerHTML='<li>No major alerts this month.</li>';
     }else{
       items.forEach(t=>{const li=document.createElement('li'); li.textContent=t; els.pestList.appendChild(li);});
     }
@@ -325,13 +307,11 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
   function filterCrops(crops){
     const q=(els.search.value||'').toLowerCase().trim();
     const cat=(els.cat.value||'all').toLowerCase();
-    const mOnly=els.monthOnly.checked;
-    const m=(new Date()).getMonth();
+    const mOnly=els.monthOnly.checked; const m=(new Date()).getMonth();
     return (crops||[]).filter(c=>{
       if(q && !c.name?.toLowerCase().includes(q)) return false;
       if(cat!=='all'){
-        const cc=(c.category||'').toLowerCase();
-        const bb=(c._block||'').toLowerCase();
+        const cc=(c.category||'').toLowerCase(); const bb=(c._block||'').toLowerCase();
         if(cc!==cat && bb!==cat) return false;
       }
       if(mOnly){
@@ -345,7 +325,8 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
   }
 
   function cellMarks(c,m){
-    const out=[]; if((c.months?.sow||[]).includes(m)) out.push(EMO.sow);
+    const out=[];
+    if((c.months?.sow||[]).includes(m)) out.push(EMO.sow);
     if((c.months?.plant||[]).includes(m)) out.push(EMO.plant);
     if((c.months?.harvest||[]).includes(m)) out.push(EMO.harvest);
     return out.join(' ');
@@ -353,18 +334,26 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
 
   function renderTable(crops, region){
     const list=filterCrops(crops||[]);
-    els.status.textContent=`${region[0].toUpperCase()+region.slice(1)} — ${list.length} crops shown`;
+    els.status.textContent=`${cap(region)} — ${list.length} crops shown`;
     const frag=document.createDocumentFragment();
     list.forEach(c=>{
       const tr=document.createElement('tr');
       const name=document.createElement('td'); name.textContent=c.name||''; tr.appendChild(name);
-      for(let i=0;i<12;i++){ const td=document.createElement('td'); const marks=cellMarks(c,i); if(marks) td.textContent=marks; tr.appendChild(td); }
+      for(let i=0;i<12;i++){
+        const td=document.createElement('td'); const marks=cellMarks(c,i);
+        if(marks) td.textContent=marks;
+        tr.appendChild(td);
+      }
       frag.appendChild(tr);
     });
     els.tbody.innerHTML=''; els.tbody.appendChild(frag);
     els.emptyMsg.style.display = list.length ? 'none' : 'block';
   }
 
+  function cap(s){return s? s.charAt(0).toUpperCase()+s.slice(1) : '';}
+  function log(s){ if(debugOn){ els.diagPre.textContent += s + "\n"; } }
+
+  // Refresh flow with cache
   let cache={region:null,data:null};
   async function refresh(){
     const region=(els.region.value||'scotland').toLowerCase();

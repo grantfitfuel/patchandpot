@@ -1,6 +1,12 @@
-<footer role="contentinfo">
-  <div class="footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
-    <p>© Patch &amp; Pot | Created by Grant Cameron Anthony</p>
-  </div>
+<!-- Patch & Pot — Global Footer (LOCKED) -->
+<footer class="pp-footer" role="contentinfo" aria-label="Site footer">
+  <img src="/img/patchandpot-pot.png" alt="" class="pp-footer__pot" onerror="this.style.display='none'">
+  <div class="pp-footer__text">© 2025 Patch &amp; Pot | Grant Cameron Anthony</div>
 </footer>
+
+<style>
+  /* Scoped to footer to avoid bleed */
+  .pp-footer{margin:32px 0 16px;text-align:center;color:var(--inkdim, #cfd3d8)}
+  .pp-footer__pot{display:block;width:46px;height:auto;margin:0 auto 8px}
+  .pp-footer__text{opacity:.85}
+</style>

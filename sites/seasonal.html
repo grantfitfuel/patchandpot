@@ -1,228 +1,136 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Seasonal Planting Calendar • Patch &amp; Pot (UK)</title>
-  <meta name="description" content="UK seasonal planting calendar for small spaces with Scotland, Ireland, England and Wales variants: what to sow, plant and harvest, plus pest watch." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seasonal Planner — Patch & Pot</title>
+  <meta name="description" content="What to sow, plant, and harvest by month, with regional data for Scotland, England, Wales, and Ireland.">
 
-  <!-- Global site CSS -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Page locks (accessibility + readability + responsive grid) -->
   <style>
     :root{
-      --ink:#ffffff;            /* hard white text on dark background */
-      --muted:#d5e2d8;
-      --panel:#121712;
-      --panel2:#161d18;
-      --line:#2a322e;
-      --accent:#35c26a;
+      --bg:#0b0f14; --ink:#ffffff; --ink-dim:#cfd3d8;
+      --glass:#0f131a; --stroke:#1f2630; --accent:#4caf50;
+      --maxw:1100px; --radius:14px;
     }
+    html,body{background:var(--bg); color:var(--ink); margin:0; font:16px/1.45 Inter,system-ui,Arial,sans-serif}
+    a{color:var(--ink); text-decoration:underline}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:18px 20px}
+    h1{margin:.2rem 0 .6rem; font-size:1.9rem}
+    .lead{color:var(--ink-dim)}
 
-    /* force readable text everywhere on this page */
-    body, main, footer, header,
-    h1,h2,h3,h4,h5,h6,
-    p, small, label, span, li, div,
-    input, select, button, a { color: var(--ink) !important; }
+    .section{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:14px; margin:12px 0}
+    .bar,.controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .chip,button{background:var(--glass); border:1px solid var(--stroke); color:var(--ink); border-radius:999px; padding:8px 12px; cursor:pointer}
+    .chip[aria-pressed="true"], button.primary{outline:2px solid var(--accent)}
+    select{background:var(--glass); color:var(--ink); border:1px solid var(--stroke); border-radius:10px; padding:8px 10px}
+    .muted{color:var(--ink-dim)}
 
-    html,body { background:#0b100d; }
-    .wrap{max-width:1140px;margin:0 auto;padding:16px 20px}
+    /* Months scroller */
+    .scroller{overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:8px}
+    .months{display:grid; gap:12px; grid-auto-flow:column; grid-auto-columns:minmax(240px, 1fr); padding-bottom:4px; min-width:1020px}
+    .month{background:#0f141b; border:1px solid var(--stroke); border-radius:12px; padding:12px; min-height:220px}
+    .month h3{margin:0 0 .5rem; font-size:1.1rem}
+    .pill{display:inline-block; border:1px solid var(--stroke); border-radius:8px; padding:4px 8px; margin:3px 4px 0 0; font-size:.9rem}
+    .pill.sow{border-color:#3fa7ff}
+    .pill.plant{border-color:#ffc252}
+    .pill.harvest{border-color:#6be46b}
+    .empty{color:var(--ink-dim); font-style:italic}
 
-    .pp-sub{color:var(--muted)!important;margin:0 0 .8rem}
+    .legend{display:flex; flex-wrap:wrap; gap:8px}
 
-    .pp-card{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:1rem;margin:1rem 0}
-    .pp-toolbar{display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:center}
-    .pp-toolbar .left{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
-    .pp-toolbar .right{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:flex-end}
-    .pp-select,.pp-search{background:#0c100e;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.55rem .7rem}
-    .pp-help{color:var(--muted)!important;margin:.6rem 0 0}
+    /* Debug */
+    #debug{display:none; margin-top:10px; white-space:pre-wrap; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#11161f; border:1px solid #253041; border-radius:12px; padding:10px; color:#ffe08a}
+    #debug.show{display:block}
 
-    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:10px;padding:.6rem .9rem;font-weight:700;border:1px solid #294b3a;background:#2f8f4a;color:#0b140f}
-    .btn[disabled]{opacity:.65;cursor:not-allowed}
+    /* Footer (page) */
+    footer{margin:24px 0 12px; text-align:center; color:var(--ink-dim)}
+    .pot-icon{display:block; width:46px; height:auto; margin:0 auto 8px}
+    .footer-line{opacity:.6}
 
-    .pp-pestwatch{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);
-      border-radius:14px;padding:1rem;margin:1rem 0}
-    .pp-pestwatch small{color:var(--muted)!important}
-    .pp-pestwatch ul{margin:.5rem 0 0;padding-left:1.1rem}
-
-    .pp-legend{display:flex;gap:18px;align-items:center;margin:.6rem 0 .6rem}
-    .pp-legend em{font-style:normal;color:var(--muted)!important}
-
-    .note-rotate{color:var(--muted)!important;margin:.3rem 0 1rem}
-
-    /* Calendar container is scrollable when it cannot fit (prevents Dec cut-off) */
-    .cal-scroller{overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:16px; border:1px solid var(--line)}
-    .pp-calendar{
-      min-width: 100%;
-      width: max(980px, 100%); /* baseline width large enough for 12 cols */
-      display:grid;
-      grid-template-columns:minmax(220px,1.2fr) repeat(12, minmax(64px,1fr));
-      gap:2px;background:#0f1512;
-    }
-    .pp-row{display:contents}
-    .pp-head,.pp-cell{
-      padding:.55rem .6rem;border:1px solid var(--line);font-size:.95rem;line-height:1.3;white-space:normal;word-break:break-word
-    }
-    .pp-head{font-weight:800;background:#121815;text-align:center}
-    .pp-cell{font-size:1.05rem;text-align:center}
-    .pp-crop{background:#121815;font-weight:800;text-align:left}
-    .pp-crop .name{display:block}
-    .pp-tags{display:block;font-size:.82rem;color:var(--muted)!important;font-weight:600;margin-top:.15rem}
-
-    /* Missing-files panel */
-    .pp-error{background:#3a1f22;border:1px solid #6d2b2b;color:#ffd7d7;border-radius:12px;padding:.9rem 1rem;margin-top:12px;display:none}
-    .pp-error code{color:#ffecec}
-
-    /* Footer: pot centred, text under, centred */
-    footer{border-top:1px solid #142116;margin-top:28px;background:#0a0f0c;text-align:center;padding:18px 0}
-    .footer-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .footer-pot{width:34px;height:34px;object-fit:contain}
-
-    /* Phone tweaks */
-    @media (max-width:900px){
-      .pp-toolbar{grid-template-columns:1fr}
-      .pp-toolbar .right{justify-content:flex-start}
-      .pp-calendar{grid-template-columns:minmax(200px,1.1fr) repeat(12, minmax(56px,1fr))}
-    }
-    /* Small phones & landscape: compress more so 12 months fit */
-    @media (max-width:680px){
-      .pp-calendar{grid-template-columns:minmax(188px,1.1fr) repeat(12, minmax(48px,1fr))}
-      .pp-head{font-size:.85rem}
-      .pp-cell{font-size:.98rem}
+    /* Print (PDF generator) */
+    @media print {
+      body{background:#fff; color:#000}
+      a{color:#000}
+      .wrap{max-width:none}
+      .section{break-inside:avoid}
+      .scroller{overflow:visible}
+      .months{grid-auto-columns:minmax(180px, 1fr)}
+      .month{border-color:#ddd; background:#fff}
+      .pill{border-color:#999; color:#000}
+      .pill.sow{border-color:#3fa7ff}
+      .pill.plant{border-color:#ffc252}
+      .pill.harvest{border-color:#26a826}
+      #debug{display:none !important}
+      /* PDF footer rule: pot icon to the LEFT of centered text */
+      footer{text-align:center}
+      .pot-icon{display:none}
+      .pdf-footer{display:flex; justify-content:center; align-items:center; gap:10px}
+      .pdf-footer img{width:28px; height:auto; margin:0}
     }
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <h1>Seasonal Planner</h1>
+    <p class="lead">Choose your region and crop block(s). All text is white on the dark background; the calendar scrolls horizontally so December never gets cut off.</p>
 
-  <!-- HEADER PARTIAL -->
-  <div data-include="partials/header.html"></div>
+    <div class="section">
+      <div class="controls">
+        <label for="regionSel" class="muted">Region</label>
+        <select id="regionSel" aria-label="Region">
+          <option value="scotland">Scotland</option>
+          <option value="england">England</option>
+          <option value="wales">Wales</option>
+          <option value="ireland">Ireland</option>
+        </select>
 
-  <main class="wrap" id="maincontent">
-    <h1>Seasonal Planting Calendar (UK)</h1>
-    <p class="pp-sub">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
+        <label for="blockSel" class="muted">Block</label>
+        <select id="blockSel" aria-label="Block">
+          <option>alliums</option>
+          <option>brassicas</option>
+          <option>cucurbits</option>
+          <option>flowers</option>
+          <option>fruits</option>
+          <option>herbs</option>
+          <option>legumes</option>
+          <option>nightshades</option>
+          <option>roots</option>
+          <option>salads</option>
+        </select>
 
-    <section class="pp-card">
-      <div class="pp-toolbar" role="group" aria-label="Region and filters">
-        <div class="left">
-          <label for="pp-region">Region:</label>
-          <select id="pp-region" class="pp-select" aria-label="Choose your region">
-            <option value="scotland">Scotland</option>
-            <option value="ireland">Ireland</option>
-            <option value="england">England</option>
-            <option value="wales">Wales</option>
-          </select>
-
-          <input id="pp-search" class="pp-search" type="search" placeholder="Search crops (e.g., carrot, basil)…" aria-label="Search crops by name" />
-
-          <label for="pp-category" class="sr-only" style="position:absolute;left:-9999px">Category</label>
-          <select id="pp-category" class="pp-select" aria-label="Filter by category">
-            <option value="all">All categories</option>
-            <option value="leafy">Leafy</option>
-            <option value="roots">Roots</option>
-            <option value="legumes">Legumes</option>
-            <option value="fruit">Fruiting veg</option>
-            <option value="alliums">Alliums</option>
-            <option value="herbs">Herbs</option>
-            <option value="softfruit">Soft fruit</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="right">
-          <button id="pp-make-pdf" class="btn" type="button" disabled>📄 Download PDF</button>
-          <label style="display:inline-flex;align-items:center;gap:.4rem">
-            <input type="checkbox" id="pp-this-month" /> <span>Show activity this month only</span>
-          </label>
-        </div>
+        <button id="loadBtn" class="primary" type="button">Generate calendar</button>
+        <button id="pdfBtn" type="button" title="Generate PDF via print styles">Download PDF</button>
+        <span id="status" class="muted" aria-live="polite"></span>
       </div>
-      <p class="pp-help">Tip: pick a <strong>Region</strong>, type to <strong>search</strong>, choose a <strong>Category</strong>, or toggle <strong>This month only</strong> for a focused view.</p>
-    </section>
-
-    <section class="pp-pestwatch" id="pp-pestwatch" aria-labelledby="pestwatch-title">
-      <h3 id="pestwatch-title">Pest Watch – <span id="pp-month-name"></span> (<span id="pp-region-name"></span>)</h3>
-      <small>Small spaces edition</small>
-      <ul><li>Loading…</li></ul>
-    </section>
-
-    <section class="pp-card" aria-labelledby="today-title">
-      <h2 id="today-title">What Can I Plant Today?</h2>
-      <p class="pp-month-hint" id="pp-month-hint"></p>
-      <ul id="pp-today-list" class="pp-list" style="list-style:none;padding:0;margin:0"></ul>
-    </section>
-
-    <div class="pp-legend" aria-hidden="true">
-      <span>🌱 <em>Sow</em></span>
-      <span>🪴 <em>Plant</em></span>
-      <span>🥕 <em>Harvest</em></span>
     </div>
 
-    <p class="note-rotate">On a narrow phone, rotate to landscape (or swipe) to see all months.</p>
-
-    <section aria-labelledby="calendar-title">
-      <h2 id="calendar-title">Seasonal Planting Calendar</h2>
-      <div class="cal-scroller">
-        <div class="pp-calendar" id="pp-calendar" role="table" aria-label="Seasonal planting calendar"></div>
+    <div class="section">
+      <div class="legend">
+        <span class="pill sow">Sow</span>
+        <span class="pill plant">Plant</span>
+        <span class="pill harvest">Harvest</span>
+        <span class="muted">— labels appear under each month.</span>
       </div>
-      <div id="pp-error" class="pp-error"></div>
-    </section>
-  </main>
-
-  <footer role="contentinfo">
-    <div class="footer-inner">
-      <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-pot" onerror="this.style.display='none'">
-      <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
     </div>
-  </footer>
 
-  <!-- Load header partial (no style changes here) -->
-  <script>
-    (function(){
-      const holder=document.querySelector('[data-include="partials/header.html"]');
-      if(!holder) return;
-      fetch('partials/header.html',{cache:'no-store'})
-        .then(r=>r.text()).then(html=>{
-          holder.outerHTML=html;
-          const header=document.getElementById('siteHeader'); if(!header) return;
-          const toggle=header.querySelector('.menu-toggle');
-          const nav=header.querySelector('#primaryNav');
-          const fn=(location.pathname.split('/').pop()||'index.html').toLowerCase();
-          header.querySelectorAll('.nav a').forEach(a=>{
-            if((a.getAttribute('href')||'').toLowerCase()===fn){ a.setAttribute('aria-current','page'); }
-          });
-          function setOpen(on){
-            header.classList.toggle('menu-open',on);
-            if(toggle){ toggle.classList.toggle('menu-open',on); toggle.setAttribute('aria-expanded',on?'true':'false'); }
-          }
-          toggle && toggle.addEventListener('click', ()=>setOpen(!header.classList.contains('menu-open')));
-          nav && nav.addEventListener('click', e=>{ if(e.target.tagName==='A') setOpen(false); });
-        });
-    })();
-  </script>
+    <div class="section scroller">
+      <div id="months" class="months" role="list"></div>
+    </div>
 
-  <!-- Seasonal logic -->
-  <script src="assets/js/seasonal.js?v=final-lock-1"></script>
+    <div id="debug" aria-live="polite"></div>
 
-  <!-- PDF button guard: enable only if PP_PDF exists -->
-  <script>
-    (function(){
-      const btn = document.getElementById('pp-make-pdf');
-      function wire(){
-        if (window.PP_PDF && typeof window.PP_PDF.generate === 'function') {
-          btn.disabled = false;
-          btn.onclick = async ()=>{
-            try{
-              btn.disabled = true; btn.textContent = 'Building…';
-              await window.PP_PDF.generate(window.PP_VIEW.getSelection());
-            } catch(e){ alert('PDF build failed.'); }
-            finally { btn.disabled=false; btn.textContent='📄 Download PDF'; }
-          };
-        } else {
-          btn.disabled = true;
-          btn.onclick = () => alert('PDF generator not ready.');
-        }
-      }
-      window.addEventListener('load', wire);
-    })();
-  </script>
+    <footer>
+      <img src="/img/patchandpot-pot.png" alt="" class="pot-icon">
+      <div class="footer-line">© Patch &amp; Pot — Grow Anywhere</div>
+      <!-- PDF-only layout swaps to .pdf-footer -->
+      <div class="pdf-footer" aria-hidden="true">
+        <img src="/img/patchandpot-pot.png" alt="">
+        <span>© Patch &amp; Pot — Grow Anywhere</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- IMPORTANT: seasonal.html lives in /sites/, so this relative path is correct -->
+  <script src="assets/js/seasonal.js?v=final-lock-3" defer></script>
 </body>
 </html>

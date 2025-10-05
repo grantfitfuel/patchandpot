@@ -71,16 +71,20 @@
   table{border-collapse:collapse}
   thead th{position:sticky;top:0;background:#0f141b}
   th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
+  /* name + note cell */
+  .crop-cell{text-align:left}
+  .crop-name{font-weight:600;display:block}
+  .crop-note{display:block;margin-top:2px;font-size:.85rem;line-height:1.3;color:var(--ink-d);word-break:break-word}
   @media (orientation:portrait){
     table{min-width:920px}
-    th:first-child,td:first-child{text-align:left;min-width:180px;max-width:220px;word-break:break-word}
-    tbody tr{min-height:64px}
+    th:first-child,td:first-child{min-width:160px;max-width:200px}
+    tbody tr{min-height:72px}
   }
   @media (orientation:landscape){
     table{width:100%;table-layout:fixed}
-    th:first-child,td:first-child{text-align:left;width:32%;word-break:break-word}
+    th:first-child,td:first-child{width:32%}
     th:not(:first-child),td:not(:first-child){width:calc(68% / 12)}
-    tbody tr{min-height:60px}
+    tbody tr{min-height:64px}
   }
 
   /* FOOTER */
@@ -183,9 +187,9 @@
     <table aria-label="Seasonal calendar">
       <thead>
         <tr>
-          <th>Crop</th>
-          <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
-          <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+          <th scope="col">Crop</th>
+          <th scope="col">Jan</th><th scope="col">Feb</th><th scope="col">Mar</th><th scope="col">Apr</th><th scope="col">May</th><th scope="col">Jun</th>
+          <th scope="col">Jul</th><th scope="col">Aug</th><th scope="col">Sep</th><th scope="col">Oct</th><th scope="col">Nov</th><th scope="col">Dec</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
@@ -193,30 +197,31 @@
     <div id="emptyMsg" class="muted" style="display:none;margin-top:6px">No crops found.</div>
   </div>
 
-  <!-- Basics (collapsed by default) -->
-<span id="basics" class="anchor-offset"></span>
-<details id="basicsFold" class="fold">
-  <summary>
-    Basics
-    <span class="fold__hint">Tap to expand</span>
-  </summary>
-  <div class="fold__body">
-    <ul id="basicsList" class="basics-list"></ul>
-  </div>
-</details>
+  <!-- Basics (collapsed) -->
+  <span id="basics" class="anchor-offset"></span>
+  <details id="basicsFold" class="fold">
+    <summary>
+      Basics
+      <span class="fold__hint">Tap to expand</span>
+    </summary>
+    <div class="fold__body">
+      <ul id="basicsList" class="basics-list"></ul>
+    </div>
+  </details>
 
-<!-- Pest Watch (collapsed by default) -->
-<span id="pestwatch" class="anchor-offset"></span>
-<details id="pestFold" class="fold">
-  <summary>
-    Pest Watch
-    <span class="fold__hint">Tap to expand</span>
-  </summary>
-  <div class="fold__body">
-    <div id="pestTitle" style="font-weight:700;margin-bottom:.4rem"></div>
-    <ul id="pestList" class="pest-list"></ul>
-  </div>
-</details>
+  <!-- Pest Watch (collapsed) -->
+  <span id="pestwatch" class="anchor-offset"></span>
+  <details id="pestFold" class="fold">
+    <summary>
+      Pest Watch
+      <span class="fold__hint">Tap to expand</span>
+    </summary>
+    <div class="fold__body">
+      <div id="pestTitle" style="font-weight:700;margin-bottom:.4rem"></div>
+      <ul id="pestList" class="pest-list"></ul>
+    </div>
+  </details>
+</div>
 
 <footer class="site-footer">
   <img class="site-footer__logo" src="img/patchandpot-logo.png" alt="Patch & Pot">
@@ -241,7 +246,7 @@
   });
 })();
 
-/* Seasonal loader */
+/* Seasonal loader (robust paths + notes rendering) */
 (function(){
   const $=id=>document.getElementById(id);
   const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -337,6 +342,7 @@
         const j=await get(region,fname);
         const arr=Array.isArray(j)?j:(Array.isArray(j?.crops)?j.crops:null);
         if(arr){
+          // Normalise category
           arr.forEach(c=>{
             if(!c || !c.name) return;
             c._block=block;
@@ -350,6 +356,36 @@
     }
     log(`crops total: ${crops.length}`);
     return {basicsList,pestMap,crops};
+  }
+
+  function cellMarks(c,m){
+    const out=[];
+    if((c.months?.sow||[]).includes(m)) out.push(EMO.sow);
+    if((c.months?.plant||[]).includes(m)) out.push(EMO.plant);
+    if((c.months?.harvest||[]).includes(m)) out.push(EMO.harvest);
+    return out.join(' ');
+  }
+
+  function filterCrops(crops){
+    const q=(els.search.value||'').toLowerCase().trim();
+    const cat=(els.cat.value||'all').toLowerCase();
+    const mOnly=!!els.monthOnly.checked;
+    const m=(new Date()).getMonth();
+    return (crops||[]).filter(c=>{
+      if(q && !c.name?.toLowerCase().includes(q)) return false;
+      if(cat!=='all'){
+        const cc=(c.category||'').toLowerCase();
+        const bb=(c._block||'').toLowerCase();
+        if(cc!==cat && bb!==cat) return false;
+      }
+      if(mOnly){
+        const s=(c.months?.sow||[]).includes(m);
+        const p=(c.months?.plant||[]).includes(m);
+        const h=(c.months?.harvest||[]).includes(m);
+        if(!(s||p||h)) return false;
+      }
+      return true;
+    });
   }
 
   function renderBasics(list){
@@ -383,43 +419,34 @@
     els.pestFold.hidden=false;
   }
 
-  function filterCrops(crops){
-    const q=(els.search.value||'').toLowerCase().trim();
-    const cat=(els.cat.value||'all').toLowerCase();
-    const mOnly=!!els.monthOnly.checked;
-    const m=(new Date()).getMonth();
-    return (crops||[]).filter(c=>{
-      if(q && !c.name?.toLowerCase().includes(q)) return false;
-      if(cat!=='all'){
-        const cc=(c.category||'').toLowerCase();
-        const bb=(c._block||'').toLowerCase();
-        if(cc!==cat && bb!==cat) return false;
-      }
-      if(mOnly){
-        const s=(c.months?.sow||[]).includes(m);
-        const p=(c.months?.plant||[]).includes(m);
-        const h=(c.months?.harvest||[]).includes(m);
-        if(!(s||p||h)) return false;
-      }
-      return true;
-    });
-  }
-
-  function cellMarks(c,m){
-    const out=[];
-    if((c.months?.sow||[]).includes(m)) out.push(EMO.sow);
-    if((c.months?.plant||[]).includes(m)) out.push(EMO.plant);
-    if((c.months?.harvest||[]).includes(m)) out.push(EMO.harvest);
-    return out.join(' ');
-  }
-
   function renderTable(crops, region){
     const list=filterCrops(crops||[]);
     els.status.textContent=`${region[0].toUpperCase()+region.slice(1)} — ${list.length} crops shown`;
     const frag=document.createDocumentFragment();
+
     list.forEach(c=>{
       const tr=document.createElement('tr');
-      const name=document.createElement('td'); name.textContent=c.name||''; tr.appendChild(name);
+
+      // First cell: crop name + optional note
+      const nameTd=document.createElement('td');
+      nameTd.className='crop-cell';
+      const nameDiv=document.createElement('span');
+      nameDiv.className='crop-name';
+      nameDiv.textContent=c.name||'';
+      nameTd.appendChild(nameDiv);
+
+      const noteText = (typeof c.note==='string' && c.note.trim()) ? c.note.trim()
+                     : (typeof c.notes==='string' && c.notes.trim() ? c.notes.trim() : '');
+      if(noteText){
+        const noteDiv=document.createElement('span');
+        noteDiv.className='crop-note';
+        noteDiv.textContent=noteText;
+        nameTd.appendChild(noteDiv);
+        nameTd.title = noteText;
+      }
+
+      tr.appendChild(nameTd);
+
       for(let i=0;i<12;i++){
         const td=document.createElement('td'); const marks=cellMarks(c,i);
         if(marks) td.textContent=marks;
@@ -427,6 +454,7 @@
       }
       frag.appendChild(tr);
     });
+
     els.tbody.innerHTML=''; els.tbody.appendChild(frag);
     els.emptyMsg.style.display=list.length?'none':'block';
   }

@@ -5,78 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Seasonal Planting Calendar (UK) — Patch & Pot</title>
   <meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
+  <!-- Your site CSS + header partial loader -->
+  <link rel="stylesheet" href="style.css">
+  <script src="assets/js/header-loader.js" defer></script>
   <style>
-    :root{
-      --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8;
-      --glass:#0f131a; --stroke:#1f2630; --accent:#4caf50;
-      --maxw:1100px; --r:14px;
-    }
-    html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Arial,sans-serif}
-    a{color:var(--ink)}
-    /* page wrap sits under the global header/navbar */
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
-    h1{margin:.2rem 0 .6rem;font-size:2.2rem}
-    .lead{color:var(--inkdim)}
+    :root{ --bg:#0b0f14; --ink:#fff; --inkdim:#cfd3d8; --glass:#0f131a; --stroke:#1f2630; --maxw:1100px; --r:14px; }
+    html,body{ background:var(--bg); color:var(--ink); margin:0; font:16px/1.45 Inter,system-ui,Arial,sans-serif }
+    a{ color:var(--ink) }
 
-    /* top controls */
-    .bar{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0}
-    .control{display:flex;align-items:center;gap:8px}
-    select,input[type="text"]{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:10px;padding:8px 10px}
-    .btn{background:var(--glass);color:var(--ink);border:1px solid var(--stroke);border-radius:999px;padding:8px 12px;cursor:pointer}
-    .muted{color:var(--inkdim)}
+    /* Page content sits under global header */
+    .wrap{ max-width:var(--maxw); margin:0 auto; padding:18px 20px }
+    h1{ margin:.2rem 0 .6rem; font-size:2.2rem }
+    .lead{ color:var(--inkdim) }
 
-    /* sections */
-    .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:14px;margin:12px 0}
-    .pw-title{font-weight:700;margin:0 0 .4rem}
+    .bar{ background:var(--glass); border:1px solid var(--stroke); border-radius:var(--r); padding:12px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:12px 0 }
+    .control{ display:flex; align-items:center; gap:8px }
+    select,input[type="text"]{ background:var(--glass); color:var(--ink); border:1px solid var(--stroke); border-radius:10px; padding:8px 10px }
+    .btn{ background:var(--glass); color:var(--ink); border:1px solid var(--stroke); border-radius:999px; padding:8px 12px; cursor:pointer }
+    .muted{ color:var(--inkdim) }
 
-    /* emoji legend + table */
-    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 8px}
-    .pill .emoji{font-size:1rem}
-    .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-    table{border-collapse:collapse;width:100%;min-width:980px}
-    th,td{border:1px solid var(--stroke);padding:8px 10px;text-align:center}
-    thead th{position:sticky;top:0;background:#0f141b}
-    th:first-child, td:first-child{text-align:left;min-width:220px}
-    .emoji{font-size:1.05rem}
+    .section{ background:var(--glass); border:1px solid var(--stroke); border-radius:var(--r); padding:14px; margin:12px 0 }
+    .pw-title{ font-weight:700; margin:0 0 .4rem }
 
-    /* debug */
-    #debug{display:none;margin-top:10px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;background:#11161f;border:1px solid #253041;border-radius:12px;padding:10px;color:#ffe08a}
-    #debug.show{display:block}
+    .legend{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px }
+    .pill{ display:inline-flex; align-items:center; gap:6px; border:1px solid var(--stroke); border-radius:999px; padding:4px 8px }
+    .pill .emoji{ font-size:1rem }
 
-    /* footer — SPEC: pot icon centred above the text */
-    footer{margin:32px 0 16px;text-align:center;color:var(--inkdim)}
-    .pot-icon{display:block;width:46px;height:auto;margin:0 auto 8px}
-    .footer-line{opacity:.75}
+    /* Table: ensure Jan–Dec always reachable; first col wraps; taller rows */
+    .table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px }
+    table{ border-collapse:collapse; width:100%; min-width:1180px }
+    thead th{ position:sticky; top:0; background:#0f141b }
+    th,td{ border:1px solid var(--stroke); padding:12px 12px; text-align:center; vertical-align:top; line-height:1.35 }
+    th:first-child, td:first-child{ text-align:left; min-width:280px; white-space:normal; word-break:break-word }
+    tbody tr{ min-height:60px }
+    .emoji{ font-size:1.05rem }
+
+    /* Debug */
+    #debug{ display:none; margin-top:10px; white-space:pre-wrap; font-family:ui-monospace,Menlo,Consolas,monospace; background:#11161f; border:1px solid #253041; border-radius:12px; padding:10px; color:#ffe08a }
+    #debug.show{ display:block }
+
+    /* Footer — pot icon centred above text */
+    footer{ margin:32px 0 16px; text-align:center; color:var(--inkdim) }
+    .pot-icon{ display:block; width:46px; height:auto; margin:0 auto 8px }
+    .footer-line{ opacity:.75 }
   </style>
 </head>
 <body>
-
-  <!-- Header slot: leave your global site header/nav intact.
-       If you use an include, it can render above this .wrap as usual. -->
+  <!-- Header partial renders here -->
+  <div id="site-header"></div>
 
   <div class="wrap">
     <h1>Seasonal Planting Calendar (UK)</h1>
     <p class="lead">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
-    <!-- controls -->
     <div class="bar">
       <div class="control">
         <label for="regionSel" class="muted">Region:</label>
-        <select id="regionSel" aria-label="Region">
+        <select id="regionSel">
           <option value="scotland">Scotland</option>
           <option value="ireland">Ireland</option>
           <option value="england">England</option>
           <option value="wales">Wales</option>
         </select>
       </div>
-
       <div class="control" style="flex:1 1 220px">
-        <input id="searchBox" type="text" placeholder="Search crops (e.g., carrot, lettuce)" aria-label="Search crops" />
+        <input id="searchBox" type="text" placeholder="Search crops (e.g., carrot, lettuce)" />
       </div>
-
       <div class="control">
-        <select id="catSel" aria-label="Category">
+        <select id="catSel">
           <option value="all">All categories</option>
           <option value="alliums">Alliums</option>
           <option value="fruit">Fruit</option>
@@ -88,23 +84,19 @@
           <option value="softfruit">Soft fruit</option>
         </select>
       </div>
-
       <div class="control">
-        <input id="monthOnly" type="checkbox" aria-label="Show activity this month only">
+        <input id="monthOnly" type="checkbox" />
         <label for="monthOnly" class="muted">Show activity this month only</label>
       </div>
-
-      <button id="helpBtn" class="btn" type="button" aria-haspopup="dialog">How to use this calendar</button>
+      <button id="helpBtn" class="btn" type="button">How to use this calendar</button>
       <span id="status" class="muted" aria-live="polite"></span>
     </div>
 
-    <!-- pest watch -->
     <div class="section" id="pestwatchBox" hidden>
       <div class="pw-title" id="pwTitle"></div>
       <ul id="pwList" style="margin:.2rem 0 .2rem 1.2rem"></ul>
     </div>
 
-    <!-- legend -->
     <div class="section">
       <div class="legend">
         <span class="pill"><span class="emoji">🌱</span> Sow</span>
@@ -114,7 +106,6 @@
       </div>
     </div>
 
-    <!-- table -->
     <div class="section table-wrap">
       <table id="calTable" aria-label="Seasonal calendar">
         <thead>
@@ -128,16 +119,14 @@
       </table>
     </div>
 
-    <!-- debug -->
     <div id="debug" aria-live="polite"></div>
 
-    <!-- footer (icon centred above text) -->
     <footer>
-      <img src="/img/patchandpot-pot.png" alt="Patch & Pot pot icon" class="pot-icon" onerror="this.style.display='none'">
+      <img id="potIcon" class="pot-icon" alt="Patch & Pot pot icon">
       <div class="footer-line">© 2025 Patch &amp; Pot — Grow Anywhere</div>
     </footer>
   </div>
 
-  <script src="assets/js/seasonal.js?v=rb-emoji-table-final" defer></script>
+  <script src="assets/js/seasonal.js?v=final-emoji-table-r6" defer></script>
 </body>
 </html>

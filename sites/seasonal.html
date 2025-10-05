@@ -9,8 +9,8 @@
   :root{
     --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
     --maxw:1100px; --r:14px;
-    --header-logo-h: 46px;    /* header pot size */
-    --footer-logo-w: 72px;    /* footer pot size */
+    --header-logo-h: 50px;   /* header pot size */
+    --footer-logo-w: 65px;   /* footer pot size */
   }
   html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
 
@@ -134,7 +134,7 @@
     <span id="status" class="muted" aria-live="polite"></span>
   </div>
 
-  <!-- DEBUG (hidden unless ?debug=1 or key combo) -->
+  <!-- DEBUG (hidden unless ?debug=1 or 'd'+'b' keys) -->
   <details id="diag"><summary>Diagnostics</summary><pre id="diagPre"></pre></details>
 
   <!-- Basics -->
@@ -189,7 +189,7 @@ const btn=root.querySelector('#ppBurger');const nav=root.querySelector('#ppNav')
 btn.addEventListener('click',()=>{const open=root.classList.toggle('pp-header--open');btn.setAttribute('aria-expanded',open?'true':'false');});
 nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove('pp-header--open');btn.setAttribute('aria-expanded','false');}});})();
 
-/* Seasonal loader with multi-path + diagnostics */
+/* Seasonal loader with multi-path + diagnostics + pest/basics fixes */
 (function(){
   const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const EMO={sow:"🌱",plant:"🌿",harvest:"🧺"};
@@ -198,58 +198,43 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
     pestBox:pestBox,pestTitle:pestTitle,pestList:pestList,diag:diag,diagPre:diagPre};
 
   const BLOCKS=['alliums','fruit','herbs','leafy','legumes','other','roots','softfruit'];
-  const ALIAS={softfruit:['softfruit','soft-fruit']}; // try both if needed
+  const ALIAS={softfruit:['softfruit','soft-fruit']};
 
   const urlParams=new URLSearchParams(location.search);
   const debugOn=urlParams.get('debug')==='1';
   if(debugOn) els.diag.classList.add('active');
-  // keyboard quick toggle: press 'd' then 'b' within 800ms
   (function(){let seq='';window.addEventListener('keydown',e=>{seq+=e.key.toLowerCase();seq=seq.slice(-2);if(seq==='db'){els.diag.classList.toggle('active');}});})();
 
   function bust(u){return `${u}${u.includes('?')?'&':'?'}v=${Date.now()}`;}
+  async function fetchJSON(u){try{const r=await fetch(bust(u),{cache:'no-store'});if(!r.ok)throw 0;return await r.json();}catch(_){return null;}}
+  function logDiag(line){ if(!els.diagPre) return; els.diagPre.textContent += line + "\n"; }
+
+  function buildCandidates(region,file){
+    return [
+      `/data/regions/${region}/${file}`,
+      `data/regions/${region}/${file}`,
+      `./data/regions/${region}/${file}`,
+      `/sites/data/regions/${region}/${file}`
+    ];
+  }
 
   async function fetchFirstOk(paths, note){
     for(const url of paths){
       try{
         const r=await fetch(bust(url),{cache:'no-store'});
-        if(r.ok){
-          const j=await r.json();
-          logDiag(`OK   ${note}: ${url}`);
-          return {data:j,url};
-        }else{
-          logDiag(`FAIL ${note}: ${url} [${r.status}]`);
-        }
-      }catch(err){
-        logDiag(`ERR  ${note}: ${url} [${err}]`);
-      }
+        if(r.ok){ const j=await r.json(); logDiag(`OK   ${note}: ${url}`); return {data:j,url}; }
+        logDiag(`FAIL ${note}: ${url} [${r.status}]`);
+      }catch(err){ logDiag(`ERR  ${note}: ${url} [${err}]`); }
     }
     return {data:null,url:null};
   }
 
-  function buildCandidates(region, file){
-    // Try absolute, then relative, then ./relative
-    return [
-      `/data/regions/${region}/${file}`,
-      `data/regions/${region}/${file}`,
-      `./data/regions/${region}/${file}`,
-      `/sites/data/regions/${region}/${file}` // last-ditch if server maps differently
-    ];
-  }
-
-  function logDiag(line){
-    if(!els.diagPre) return;
-    els.diagPre.textContent += line + "\n";
-  }
-
   async function loadRegion(region){
-    els.diagPre.textContent=''; // reset
-    logDiag(`Region = ${region}`);
+    els.diagPre.textContent=''; logDiag(`Region = ${region}`);
 
-    // basics + pestwatch
     const basicsP = fetchFirstOk(buildCandidates(region,'basics.json'),'basics.json');
     const pestP   = fetchFirstOk(buildCandidates(region,'pestwatch.json'),'pestwatch.json');
 
-    // crop blocks (with alias support)
     const blockPromises = BLOCKS.map(async (block)=>{
       const names = (ALIAS[block]||[block]).map(n=>`${n}.json`);
       for(const fname of names){
@@ -261,13 +246,14 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
           if(arr) return arr.map(c=>({...(c||{}), _block:block, category:(c&&c.category)||block}));
         }
       }
-      return []; // nothing found for this block
+      return [];
     });
 
     const [basicsRes, pestRes, ...blocks] = await Promise.all([basicsP, pestP, ...blockPromises]);
 
+    // Pest can be {pestwatch:{...}} or just {...}
+    const pest = (pestRes.data && (pestRes.data.pestwatch || pestRes.data)) || {};
     const basics = basicsRes.data || {};
-    const pest   = pestRes.data   || {};
     const crops  = blocks.flat().filter(x=>x && x.name);
 
     logDiag(`Loaded crops: ${crops.length} total`);
@@ -275,22 +261,47 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
   }
 
   function renderBasics(b){
-    const has = !!(b.soil||b.tools||b.notes);
-    els.basicsBox.hidden=!has;
-    if(!has) return;
-    els.basicSoil.textContent  = b.soil  ? `Soil/Compost: ${b.soil}` : '';
-    els.basicTools.textContent = b.tools ? `Tools: ${b.tools}`       : '';
-    els.basicNotes.textContent = b.notes ? `Notes: ${b.notes}`       : '';
+    if (b.soil || b.tools || b.notes) {
+      els.basicSoil.textContent  = b.soil  ? `Soil/Compost: ${b.soil}` : '';
+      els.basicTools.textContent = b.tools ? `Tools: ${b.tools}`       : '';
+      els.basicNotes.textContent = b.notes ? `Notes: ${b.notes}`       : '';
+      els.basicsBox.hidden = false; return;
+    }
+    const lines = [];
+    if (b.containers_vs_ground?.pots)        lines.push(`Pots: ${b.containers_vs_ground.pots}`);
+    if (b.containers_vs_ground?.grow_bags)   lines.push(`Grow bags: ${b.containers_vs_ground.grow_bags}`);
+    if (b.containers_vs_ground?.raised_beds) lines.push(`Raised beds: ${b.containers_vs_ground.raised_beds}`);
+    if (b.watering_and_feeding?.watering_basics) lines.push(`Watering: ${b.watering_and_feeding.watering_basics}`);
+    if (b.watering_and_feeding?.feeds)           lines.push(`Feeding: ${b.watering_and_feeding.feeds}`);
+    if (b.protection_and_structures?.insect_mesh) lines.push(`Insect mesh: ${b.protection_and_structures.insect_mesh}`);
+    if (b.protection_and_structures?.netting_bird) lines.push(`Bird netting: ${b.protection_and_structures.netting_bird}`);
+    if (b.frost_and_wind?.last_frost_window)   lines.push(`Last frost window: ${b.frost_and_wind.last_frost_window}`);
+
+    if (lines.length){
+      els.basicSoil.textContent  = `Basics:`;
+      els.basicTools.textContent = '• ' + lines.slice(0, 3).join('\n• ');
+      els.basicNotes.textContent = lines.slice(3, 7).length ? ('• ' + lines.slice(3, 7).join('\n• ')) : '';
+      els.basicsBox.hidden = false;
+    } else {
+      els.basicsBox.hidden = true;
+    }
   }
 
-  function renderPest(region,p){
-    if(!p || typeof p!=='object'){els.pestBox.hidden=true;return;}
-    const m=String((new Date()).getMonth());
-    const items=(p[m]?.items)||p[m]||[];
-    els.pestTitle.textContent=`Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;
-    els.pestList.innerHTML='';
-    if(!items.length){const li=document.createElement('li');li.textContent='No major alerts this month.';els.pestList.appendChild(li);}
-    else{(Array.isArray(items)?items:[String(items)]).forEach(t=>{const li=document.createElement('li');li.textContent=t;els.pestList.appendChild(li);});}
+  function renderPest(region,pest){
+    if(!pest || typeof pest!=='object'){ els.pestBox.hidden=true; return; }
+    const m = String((new Date()).getMonth());
+    const entry = pest[m] || {};
+    const items = Array.isArray(entry.items) ? entry.items
+                : Array.isArray(entry) ? entry
+                : (typeof entry === 'string' ? [entry] : []);
+    const titleText = entry.title || `Pest Watch — ${MONTHS[+m]} (${region[0].toUpperCase()+region.slice(1)})`;
+    els.pestTitle.textContent = titleText;
+    els.pestList.innerHTML = '';
+    if(!items.length){
+      const li=document.createElement('li'); li.textContent='No major alerts this month.'; els.pestList.appendChild(li);
+    }else{
+      items.forEach(t=>{const li=document.createElement('li'); li.textContent=t; els.pestList.appendChild(li);});
+    }
     els.pestBox.hidden=false;
   }
 
@@ -317,9 +328,9 @@ nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove
   }
 
   function cellMarks(c,m){
-    const out=[]; if((c.months?.sow||[]).includes(m)) out.push("🌱");
-    if((c.months?.plant||[]).includes(m)) out.push("🌿");
-    if((c.months?.harvest||[]).includes(m)) out.push("🧺");
+    const out=[]; if((c.months?.sow||[]).includes(m)) out.push(EMO.sow);
+    if((c.months?.plant||[]).includes(m)) out.push(EMO.plant);
+    if((c.months?.harvest||[]).includes(m)) out.push(EMO.harvest);
     return out.join(' ');
   }
 

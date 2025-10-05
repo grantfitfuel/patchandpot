@@ -37,7 +37,7 @@
     "protection": "Fleece early/late; shade cloth in hot spells; slug barriers",
     "tips": "Succession sow every 2–3 weeks; keep evenly moist to prevent bitterness.",
     "containerMin": "≥20 cm deep trough",
-    "notes": "Choose bolt‑resistant for summer, hardy for autumn."
+    "note": "Choose bolt‑resistant for summer, hardy for autumn."
   },
   {
     "name": "Lettuce – Butterhead",
@@ -191,7 +191,7 @@
     "protection": "Use mesh vs leaf miner; shade cloth in heat",
     "tips": "Succession sow; keep moist; harvest outer leaves.",
     "containerMin": "≥20 cm box",
-    "notes": "Use bolt‑resistant for spring; hardy types for autumn."
+    "note": "Use bolt‑resistant for spring; hardy types for autumn."
   },
   {
     "name": "Perpetual Spinach (Leaf Beet)",
@@ -954,7 +954,7 @@
     "protection": "Indoors winter; ventilate to avoid mould",
     "tips": "Cut when 5–7 cm tall; very fast crop.",
     "containerMin": "Shallow tray",
-    "notes": "Micro/leaf crop; great filler"
+    "note": "Micro/leaf crop; great filler"
   },
   {
     "name": "Pea Shoots (from dried peas)",
@@ -997,6 +997,6 @@
     "protection": "Slugs if outdoors; protect early",
     "tips": "Cut at 10–15 cm; regrows once or twice.",
     "containerMin": "20 cm tray/box",
-    "notes": "Use dried marrowfat peas."
+    "note": "Use dried marrowfat peas."
   }
 ]

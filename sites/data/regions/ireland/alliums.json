@@ -20,7 +20,7 @@
     "protection": "Fleece in frosty spells",
     "tips": "Plant sets pointy end up, firm soil.",
     "containerMin": "Large tray or deep planter",
-    "notes": "Choose bolt-resistant varieties."
+    "note": "Choose bolt-resistant varieties."
   },
   {
     "name": "Onions (seed)",
@@ -45,7 +45,7 @@
     "protection": "Heat early sowings under cover",
     "tips": "Thin seedlings, avoid crowding.",
     "containerMin": "Deep module tray",
-    "notes": "Slower than sets but more variety."
+    "note": "Slower than sets but more variety."
   },
   {
     "name": "Garlic",
@@ -67,7 +67,7 @@
     "protection": "Net against birds pulling shoots",
     "tips": "Use firm soil, don’t overwater.",
     "containerMin": "25cm deep pot",
-    "notes": "Plant individual cloves, not whole bulbs."
+    "note": "Plant individual cloves, not whole bulbs."
   },
   {
     "name": "Leeks",
@@ -96,7 +96,7 @@
     "protection": "Collars help deter leek moth",
     "tips": "Trim roots before planting for stronger growth.",
     "containerMin": "30cm deep trough",
-    "notes": "Earth up stems for longer white shanks."
+    "note": "Earth up stems for longer white shanks."
   },
   {
     "name": "Shallots",
@@ -119,7 +119,7 @@
     "protection": "Fleece against birds in spring",
     "tips": "Plant on firm ground.",
     "containerMin": "Deep tray or 25cm pot",
-    "notes": "Split into clusters when harvested."
+    "note": "Split into clusters when harvested."
   },
   {
     "name": "Spring onions",
@@ -150,6 +150,6 @@
     "protection": "Fleece in early months",
     "tips": "Sow every 2-3 weeks for a steady crop.",
     "containerMin": "20cm deep box",
-    "notes": "Fast-growing and compact."
+    "note": "Fast-growing and compact."
   }
 ]

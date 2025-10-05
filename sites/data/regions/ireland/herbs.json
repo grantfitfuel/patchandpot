@@ -25,7 +25,7 @@
     "protection": "Fleece or bring indoors <10°C",
     "tips": "Pinch out tips to bush. Avoid wet leaves in cool weather.",
     "containerMin": "15–20cm pot per plant or 30cm trough for 3–4 plants",
-    "notes": "Tender annual."
+    "note": "Tender annual."
   },
   {
     "name": "Parsley (flat & curly)",
@@ -55,7 +55,7 @@
     "protection": "Cloche or fleece in winter",
     "tips": "Replace yearly for best leaf quality.",
     "containerMin": "20cm deep pot",
-    "notes": "Biennial grown as annual."
+    "note": "Biennial grown as annual."
   },
   {
     "name": "Coriander (leaf)",
@@ -84,7 +84,7 @@
     "protection": "Shade in hot spells to reduce bolting",
     "tips": "Succession sow every 3 weeks.",
     "containerMin": "20cm pot or window box",
-    "notes": "Fast to bolt if stressed."
+    "note": "Fast to bolt if stressed."
   },
   {
     "name": "Chives",
@@ -114,7 +114,7 @@
     "protection": "Mulch crowns over winter in cold areas",
     "tips": "Cut regularly; edible flowers attract pollinators.",
     "containerMin": "15cm pot",
-    "notes": "Hardy perennial."
+    "note": "Hardy perennial."
   },
   {
     "name": "Dill",
@@ -141,7 +141,7 @@
     "protection": "Stake if tall; shelter from wind",
     "tips": "Succession sow; allow some to flower.",
     "containerMin": "20cm pot",
-    "notes": "Annual; dislikes transplanting."
+    "note": "Annual; dislikes transplanting."
   },
   {
     "name": "Mint (pots)",
@@ -174,7 +174,7 @@
     "protection": "Cut back and mulch in winter",
     "tips": "Vigorous—keep confined to containers.",
     "containerMin": "20–30cm pot",
-    "notes": "Hardy perennial; many varieties."
+    "note": "Hardy perennial; many varieties."
   },
   {
     "name": "Thyme (pots)",
@@ -204,7 +204,7 @@
     "protection": "Free-draining compost to avoid winter rot",
     "tips": "Trim lightly after flowering to keep compact.",
     "containerMin": "20cm pot with gritty compost",
-    "notes": "Hardy evergreen."
+    "note": "Hardy evergreen."
   },
   {
     "name": "Sage (pots)",
@@ -234,7 +234,7 @@
     "protection": "Free-draining compost; avoid wet feet in winter",
     "tips": "Prune in late spring to prevent woodiness.",
     "containerMin": "25–30cm pot",
-    "notes": "Hardy evergreen."
+    "note": "Hardy evergreen."
   },
   {
     "name": "Oregano/Marjoram",
@@ -264,7 +264,7 @@
     "protection": "Gritty compost for winter drainage",
     "tips": "Dry sprigs for winter use.",
     "containerMin": "20–25cm pot",
-    "notes": "Perennial (marjoram less hardy)."
+    "note": "Perennial (marjoram less hardy)."
   },
   {
     "name": "Rosemary (container)",
@@ -290,7 +290,7 @@
     "protection": "Shelter from freezing wind; free-draining compost",
     "tips": "Avoid overwatering; prune after flowering.",
     "containerMin": "30–40cm pot",
-    "notes": "Evergreen perennial shrub."
+    "note": "Evergreen perennial shrub."
   },
   {
     "name": "Tarragon (French, container)",
@@ -315,7 +315,7 @@
     "protection": "Overwinter frost-free or mulch well",
     "tips": "Use French (not Russian) for flavour.",
     "containerMin": "25–30cm pot",
-    "notes": "Tender perennial."
+    "note": "Tender perennial."
   },
   {
     "name": "Chervil",
@@ -343,7 +343,7 @@
     "protection": "Shade net in hot spells",
     "tips": "Cool-season; great for shoulder seasons.",
     "containerMin": "18–20cm pot",
-    "notes": "Annual; mild anise flavour."
+    "note": "Annual; mild anise flavour."
   },
   {
     "name": "Lovage (container)",
@@ -368,7 +368,7 @@
     "protection": "Mulch crown in winter",
     "tips": "Very vigorous; treat like perennial celery.",
     "containerMin": "35–45cm deep pot",
-    "notes": "Hardy perennial."
+    "note": "Hardy perennial."
   },
   {
     "name": "Fennel (leaf/herb, not bulb)",
@@ -394,7 +394,7 @@
     "protection": "Shelter from wind; dislikes transplanting",
     "tips": "Do not grow right beside dill.",
     "containerMin": "25–30cm pot",
-    "notes": "For fronds & seeds. Bulb fennel belongs in roots file."
+    "note": "For fronds & seeds. Bulb fennel belongs in roots file."
   },
   {
     "name": "Lemon balm",
@@ -424,7 +424,7 @@
     "protection": "Contain rhizomes; prune after flowering",
     "tips": "Cut back to refresh growth.",
     "containerMin": "25–30cm pot",
-    "notes": "Hardy perennial; can spread."
+    "note": "Hardy perennial; can spread."
   },
   {
     "name": "Bay (container)",
@@ -450,7 +450,7 @@
     "protection": "Protect from severe frost; avoid waterlogging",
     "tips": "Repot with fresh compost every 2–3 years.",
     "containerMin": "35–45cm pot",
-    "notes": "Evergreen shrub; slow growing."
+    "note": "Evergreen shrub; slow growing."
   },
   {
     "name": "Sorrel (French/Garden)",
@@ -480,6 +480,6 @@
     "protection": "Mulch in winter",
     "tips": "Pick young leaves for best flavour.",
     "containerMin": "25cm pot",
-    "notes": "Hardy perennial."
+    "note": "Hardy perennial."
   }
 ]

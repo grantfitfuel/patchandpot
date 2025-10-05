@@ -24,7 +24,7 @@
     "protection": "Fleece on cold nights; greenhouse in N Scotland",
     "tips": "Start indoors, harden off; feed high potash from first truss; even watering to avoid split/BER.",
     "containerMin": "10–12L",
-    "notes": "Choose early outdoor types in Scotland (e.g., 'Stupice', 'Outdoor Girl'). Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Choose early outdoor types in Ireland (e.g., 'Stupice', 'Outdoor Girl'). Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Tomato (cordon/indeterminate)",
@@ -49,7 +49,7 @@
     "protection": "Greenhouse recommended; fleece when <8°C nights.",
     "tips": "Pot-on progressively; remove side shoots; tie in; consistent water; vent to reduce blight risk.",
     "containerMin": "12–15L",
-    "notes": "Later but heavier crop under cover. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Later but heavier crop under cover. Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Tomato (cherry)",
@@ -75,7 +75,7 @@
     "protection": "Fleece early; cover from prolonged rain.",
     "tips": "Great for baskets; keep fed and picked.",
     "containerMin": "8–10L",
-    "notes": "Early and reliable in cool summers. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Early and reliable in cool summers. Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Pepper (sweet/bell)",
@@ -100,7 +100,7 @@
     "protection": "Greenhouse or coldframe; fleece below 10°C.",
     "tips": "Start early and keep warm (20–25°C germination). Stake as fruit sets; feed high potash.",
     "containerMin": "10–12L",
-    "notes": "Compact early varieties do best (e.g., 'Gypsy', 'Ace'). Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Compact early varieties do best (e.g., 'Gypsy', 'Ace'). Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Chilli Pepper",
@@ -127,7 +127,7 @@
     "protection": "Greenhouse; fleece at night early/late season.",
     "tips": "Start very early for good ripening; bottom heat helps; don’t overwater; pick to encourage set.",
     "containerMin": "7–10L",
-    "notes": "Many chillies colour late—prioritise early cultivars in Scotland. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Many chillies colour late—prioritise early cultivars in Ireland. Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Aubergine (eggplant)",
@@ -152,7 +152,7 @@
     "protection": "Greenhouse essential; fleece when cold.",
     "tips": "Start early with heat; focus on small-fruited types; hand-pollinate flowers if needed.",
     "containerMin": "12–15L",
-    "notes": "Marginal outdoors—under cover strongly advised. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Marginal outdoors—under cover strongly advised. Best under cover (greenhouse/polytunnel) in Ireland; outdoors only in very warm, sheltered south-facing spots."
   },
   {
     "name": "Okra (lady’s finger) – experimental",
@@ -177,7 +177,7 @@
     "protection": "Requires consistent warmth >18°C.",
     "tips": "Choose compact early cultivars; grow only in reliably warm microclimates.",
     "containerMin": "15L",
-    "notes": "Challenging in Scotland; greenhouse only. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Challenging in Ireland; greenhouse only. Best under cover (greenhouse/polytunnel) in Ireland; outdoors only in very warm, sheltered south-facing spots."
   },
   {
     "name": "Cucumber (greenhouse)",
@@ -203,7 +203,7 @@
     "protection": "Cover from cold; avoid drafts.",
     "tips": "Train up twine; keep evenly moist; avoid wetting leaves; pick regularly.",
     "containerMin": "12–15L",
-    "notes": "Choose parthenocarpic greenhouse types (all-female). Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Choose parthenocarpic greenhouse types (all-female). Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Cucumber (ridge/outdoor)",
@@ -228,7 +228,7 @@
     "protection": "Cloche early; protect from wind/cold.",
     "tips": "Harden off well; grow on a wigwam or trellis; mulch to conserve moisture.",
     "containerMin": "15–20L",
-    "notes": "Short-season varieties best outdoors in Scotland. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Short-season varieties best outdoors in Ireland. Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Gherkin (pickling cucumber)",
@@ -253,7 +253,7 @@
     "protection": "Fleece early season.",
     "tips": "Harvest small and often for crisp pickles; train to support.",
     "containerMin": "12–15L",
-    "notes": "Prolific in pots with support. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Prolific in pots with support. Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Courgette",
@@ -280,7 +280,7 @@
     "protection": "Cloche early; wind shelter.",
     "tips": "Feed and water generously; harvest very young fruits to keep plant productive.",
     "containerMin": "35–50L",
-    "notes": "Compact/bush cultivars are ideal for pots."
+    "note": "Compact/bush cultivars are ideal for pots."
   },
   {
     "name": "Marrow",
@@ -306,7 +306,7 @@
     "protection": "Cloche early.",
     "tips": "Similar to courgette but allow fruits to mature; strong feeding required.",
     "containerMin": "60L",
-    "notes": "Space-hungry; consider vertical training if possible."
+    "note": "Space-hungry; consider vertical training if possible."
   },
   {
     "name": "Winter Squash (butternut)",
@@ -331,7 +331,7 @@
     "protection": "Cloche/fleece early; warm aspect.",
     "tips": "Mulch; train vines; cure fruits in sun post-harvest.",
     "containerMin": "75–90L",
-    "notes": "Needs the warmest microclimate; choose early cultivars. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Needs the warmest microclimate; choose early cultivars."
   },
   {
     "name": "Winter Squash (acorn/kabocha)",
@@ -356,7 +356,7 @@
     "protection": "Cloche early.",
     "tips": "Earlier than butternut; compact vines suit pots better.",
     "containerMin": "60–75L",
-    "notes": "Reliable set in shorter seasons compared to butternut. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Reliable set in shorter seasons compared to butternut."
   },
   {
     "name": "Summer Squash (patty pan)",
@@ -383,7 +383,7 @@
     "protection": "Cloche early.",
     "tips": "Harvest small and often for best texture.",
     "containerMin": "35–50L",
-    "notes": "Good patio crop with steady feeding. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Good patio crop with steady feeding."
   },
   {
     "name": "Pumpkin (small varieties)",
@@ -408,7 +408,7 @@
     "protection": "Cloche early; warmest site.",
     "tips": "Limit fruits per plant to ripen; feed heavily.",
     "containerMin": "90–120L",
-    "notes": "Choose small/mini types for Scotland (e.g., 'Jack Be Little')."
+    "note": "Choose small/mini types for Ireland (e.g., 'Jack Be Little')."
   },
   {
     "name": "Melon (greenhouse, small-fruited)",
@@ -433,7 +433,7 @@
     "protection": "Consistent warmth; pollinate if not parthenocarpic.",
     "tips": "Train on trellis; sling fruits; maintain humidity but ventilate.",
     "containerMin": "20–30L",
-    "notes": "Select fast, small-fruited types e.g., 'Minnesota Midget'. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Select fast, small-fruited types e.g., 'Minnesota Midget'. Best under cover (greenhouse/polytunnel) in Ireland; outdoors only in very warm, sheltered south-facing spots."
   },
   {
     "name": "Watermelon (mini, greenhouse)",
@@ -458,7 +458,7 @@
     "protection": "Requires sustained heat >20°C.",
     "tips": "Graft or choose ultra-early minis; use thermal mass; limit fruit set.",
     "containerMin": "25–40L",
-    "notes": "Experimental in Scotland; feasible under heat. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Experimental in Ireland; feasible under heat. Best under cover (greenhouse/polytunnel) in Ireland; outdoors only in very warm, sheltered south-facing spots."
   },
   {
     "name": "Cucamelon (Mexican sour gherkin)",
@@ -484,7 +484,7 @@
     "protection": "Fleece early season.",
     "tips": "Vigorous climber; pick small for best crunch.",
     "containerMin": "10–15L",
-    "notes": "Tolerant and productive in containers. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Tolerant and productive in containers. Best under cover (greenhouse/polytunnel) in Ireland; outdoors only in very warm, sheltered south-facing spots."
   },
   {
     "name": "Tomatillo",
@@ -510,7 +510,7 @@
     "protection": "Fleece early; needs two plants for pollination.",
     "tips": "Grow at least two plants; stake; harvest when husks split.",
     "containerMin": "12–15L",
-    "notes": "Great for salsas; tolerates cooler summers better than tomatoes."
+    "note": "Great for salsas; tolerates cooler summers better than tomatoes."
   },
   {
     "name": "Ground Cherry (Cape Gooseberry/Physalis)",
@@ -537,7 +537,7 @@
     "protection": "Fleece early; protect late season.",
     "tips": "Grows like a small tomato; fruit drops when ripe; store in husk.",
     "containerMin": "10–12L",
-    "notes": "Ripens late—start early under heat. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Ripens late—start early under heat."
   },
   {
     "name": "Pea (sugar snap)",
@@ -565,7 +565,7 @@
     "protection": "Net against birds; support mesh.",
     "tips": "Soak seed if cold; succession sow; keep cool roots.",
     "containerMin": "25cm deep trough",
-    "notes": "Compact varieties suit containers; harvest pods young."
+    "note": "Compact varieties suit containers; harvest pods young."
   },
   {
     "name": "Pea (mangetout)",
@@ -593,7 +593,7 @@
     "protection": "Net birds; provide mesh.",
     "tips": "Pick flat pods early; keep evenly moist.",
     "containerMin": "25cm trough",
-    "notes": "Good cool-weather crop for Scotland."
+    "note": "Good cool-weather crop for Ireland."
   },
   {
     "name": "French Bean (dwarf/bush)",
@@ -621,7 +621,7 @@
     "protection": "Fleece if cold snaps.",
     "tips": "Warm soil before sowing; pick often for continuous set.",
     "containerMin": "20–25cm deep box",
-    "notes": "Choose dwarf types for exposed sites."
+    "note": "Choose dwarf types for exposed sites."
   },
   {
     "name": "French Bean (climbing)",
@@ -648,7 +648,7 @@
     "protection": "Fleece early season.",
     "tips": "Train up canes; keep watered in flower.",
     "containerMin": "35–40cm pot",
-    "notes": "Longer season than dwarf but needs shelter."
+    "note": "Longer season than dwarf but needs shelter."
   },
   {
     "name": "Runner Bean",
@@ -674,7 +674,7 @@
     "protection": "Wind shelter; mulch to retain moisture.",
     "tips": "Excellent in cool summers; attract pollinators; mist flowers in heat.",
     "containerMin": "40–50cm tub",
-    "notes": "Good performer in Scotland vs French beans in cooler seasons."
+    "note": "Good performer in Ireland vs French beans in cooler seasons."
   },
   {
     "name": "Sweetcorn (mini/early)",
@@ -700,7 +700,7 @@
     "protection": "Cloche early; wind shelter.",
     "tips": "Grow in blocks for pollination (at least 9 plants); keep well watered.",
     "containerMin": "30–40L (3 per 40L)",
-    "notes": "Choose ultra-early types (e.g., 'Swift', 'Earlybird')."
+    "note": "Choose ultra-early types (e.g., 'Swift', 'Earlybird'). Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   },
   {
     "name": "Mini-corn (baby corn)",
@@ -726,7 +726,7 @@
     "protection": "Cloche early.",
     "tips": "Harvest immature cobs; fewer heat requirements; reliable.",
     "containerMin": "30–40L",
-    "notes": "Easier than sweetcorn to ripen in Scotland."
+    "note": "Easier than sweetcorn to ripen in Ireland."
   },
   {
     "name": "Rhubarb (forced/containers)",
@@ -750,7 +750,7 @@
     "protection": "Mulch; protect crown in severe frost.",
     "tips": "Do not harvest first year; feed well; can be forced for early stems.",
     "containerMin": "40–50L",
-    "notes": "Technically vegetable; used as fruit. Hardy and dependable."
+    "note": "Technically vegetable; used as fruit. Hardy and dependable."
   },
   {
     "name": "Spaghetti Squash",
@@ -775,7 +775,7 @@
     "protection": "Cloche early.",
     "tips": "Train vines; cure fruits after harvest.",
     "containerMin": "75L",
-    "notes": "Shorter season than some pumpkins; feasible under good summer. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Shorter season than some pumpkins; feasible under good summer."
   },
   {
     "name": "Bottle Gourd (calabash) – experimental",
@@ -800,6 +800,6 @@
     "protection": "Heat early season.",
     "tips": "Treat like squash; long season needed.",
     "containerMin": "75L",
-    "notes": "Grown for novelty; culinary use when young. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Grown for novelty; culinary use when young. Often fine outdoors in sheltered, sunny spots in Ireland; greenhouse/polytunnel improves reliability in cool summers."
   }
 ]

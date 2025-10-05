@@ -23,7 +23,7 @@
     "protection": "Fleece/cloches in early sowings",
     "tips": "Pinch out tips when first pods set to reduce blackfly.",
     "containerMin": "30L tub",
-    "notes": "Hardy; can overwinter in mild spots."
+    "note": "Hardy; can overwinter in mild spots."
   },
   {
     "name": "Runner Beans",
@@ -49,7 +49,7 @@
     "protection": "Use canes/trellis; protect seedlings from slugs.",
     "tips": "Water well in dry spells to avoid flower drop.",
     "containerMin": "40L+ deep pot with wigwam support",
-    "notes": "Heavy feeder; mulch base."
+    "note": "Heavy feeder; mulch base."
   },
   {
     "name": "French Beans (Climbing)",
@@ -76,7 +76,7 @@
     "protection": "Net young plants from birds.",
     "tips": "Pick regularly to prolong harvest.",
     "containerMin": "35L+",
-    "notes": "Less hardy than broad beans."
+    "note": "Less hardy than broad beans."
   },
   {
     "name": "French Beans (Dwarf)",
@@ -104,7 +104,7 @@
     "protection": "Protect from slugs at seedling stage.",
     "tips": "Sow successionally for steady supply.",
     "containerMin": "25L",
-    "notes": "Quick crop; ideal for containers."
+    "note": "Quick crop; ideal for containers."
   },
   {
     "name": "Peas",
@@ -134,7 +134,7 @@
     "protection": "Netting against pigeons; support with twigs or mesh.",
     "tips": "Harvest frequently to encourage more pods.",
     "containerMin": "Deep trough or box",
-    "notes": "Many types: mangetout, sugar snap, shelling."
+    "note": "Many types: mangetout, sugar snap, shelling."
   },
   {
     "name": "Mangetout",
@@ -161,7 +161,7 @@
     "protection": "Net from birds; slug defence early.",
     "tips": "Pick pods young for sweetness.",
     "containerMin": "Deep planter",
-    "notes": "Climbing support required."
+    "note": "Climbing support required."
   },
   {
     "name": "Sugar Snap Peas",
@@ -188,7 +188,7 @@
     "protection": "Netting for pigeons, supports for climbing.",
     "tips": "Harvest when pods swell but before toughening.",
     "containerMin": "Deep box",
-    "notes": "Sweet pods eaten whole."
+    "note": "Sweet pods eaten whole."
   },
   {
     "name": "Soybeans (Edamame)",
@@ -211,6 +211,6 @@
     "protection": "Needs warmth; fleece early on.",
     "tips": "Pick green pods before seeds harden.",
     "containerMin": "30L pot",
-    "notes": "Borderline in Scotland; grow in warm spots."
+    "note": "Borderline in Ireland; grow in warm spots."
   }
 ]

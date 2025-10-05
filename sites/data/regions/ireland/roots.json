@@ -42,7 +42,7 @@
       "min_pot_diameter_cm": 30,
       "min_depth_cm": 30
     },
-    "notes": "Short/round types (Paris Market) excel in pots"
+    "note": "Short/round types (Paris Market) excel in pots"
   },
   {
     "name": "Carrot – maincrop",
@@ -848,7 +848,7 @@
       "min_pot_diameter_cm": 45,
       "min_depth_cm": 40
     },
-    "notes": ""
+    "note": "Borderline outdoors in parts of Ireland; choose free-draining soil, full sun, and shelter from wind."
   },
   {
     "name": "Chinese artichoke (Crosne)",
@@ -883,7 +883,7 @@
       "min_pot_diameter_cm": 35,
       "min_depth_cm": 30
     },
-    "notes": ""
+    "note": "Borderline outdoors in parts of Ireland; choose free-draining soil, full sun, and shelter from wind."
   },
   {
     "name": "Oca (Oxalis tuberosa)",
@@ -953,7 +953,7 @@
       "min_pot_diameter_cm": 50,
       "min_depth_cm": 45
     },
-    "notes": "Shelter from wind and improve drainage; raised beds help in wet areas."
+    "note": "Borderline outdoors in parts of Ireland; choose free-draining soil, full sun, and shelter from wind."
   },
   {
     "name": "Horseradish (pot‑contained)",
@@ -1030,7 +1030,7 @@
       "min_pot_diameter_cm": 28,
       "min_depth_cm": 25
     },
-    "notes": "Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "notes": ""
   },
   {
     "name": "Turmeric (indoors/greenhouse)",
@@ -1071,7 +1071,7 @@
       "min_pot_diameter_cm": 30,
       "min_depth_cm": 28
     },
-    "notes": "Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "notes": ""
   },
   {
     "name": "Sweet potato (compact varieties)",
@@ -1109,7 +1109,7 @@
       "min_pot_diameter_cm": 40,
       "min_depth_cm": 35
     },
-    "notes": "Shelter from wind and improve drainage; raised beds help in wet areas."
+    "note": "Borderline outdoors in parts of Ireland; choose free-draining soil, full sun, and shelter from wind."
   },
   {
     "name": "Radish pods (rat’s tail radish)",

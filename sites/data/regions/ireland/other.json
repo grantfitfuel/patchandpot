@@ -24,7 +24,7 @@
     "protection": "Protect from early slugs; wind shelter",
     "tips": "Great aphid trap crop; flowers, leaves & seeds edible (capers).",
     "containerMin": "≥25–30 cm pot",
-    "notes": "Can sprawl; choose compact/bushy for pots."
+    "note": "Can sprawl; choose compact/bushy for pots."
   },
   {
     "name": "Calendula (pot marigold)",
@@ -178,7 +178,7 @@
     "protection": "Ventilate to avoid damping-off",
     "tips": "Ready in 7–21 days depending on species; keep evenly moist.",
     "containerMin": "Shallow tray",
-    "notes": "Use broccoli, radish, mustard, kohlrabi, beet, etc."
+    "note": "Use broccoli, radish, mustard, kohlrabi, beet, etc."
   },
   {
     "name": "Wheatgrass (juice)",
@@ -221,7 +221,7 @@
     "protection": "Ventilate; avoid waterlogging",
     "tips": "Harvest at 10–15 cm; regrow once.",
     "containerMin": "Shallow tray",
-    "notes": "Use hard red wheat berries."
+    "note": "Use hard red wheat berries."
   },
   {
     "name": "Jar Sprouts (alfalfa, mung, radish, fenugreek, etc.)",
@@ -251,7 +251,7 @@
     "protection": "Food-safe hygiene; rinse 2–3× daily",
     "tips": "Ready in 3–6 days; keep at room temp away from direct sun.",
     "containerMin": "1L jar",
-    "notes": "Not planted; purely kitchen sprouting."
+    "note": "Not planted; purely kitchen sprouting."
   },
   {
     "name": "Oyster Mushrooms (kit)",
@@ -281,7 +281,7 @@
     "protection": "Follow RH & temp guidance; misting as directed",
     "tips": "Fruiting in flushes; harvest when caps flatten slightly.",
     "containerMin": "Kit block",
-    "notes": "Excellent beginner mushroom."
+    "note": "Excellent beginner mushroom."
   },
   {
     "name": "Shiitake Mushrooms (kit/log)",
@@ -311,7 +311,7 @@
     "protection": "Maintain humidity; cold-shock logs per supplier",
     "tips": "Multiple flushes; cut at stalk base.",
     "containerMin": "Kit or inoculated log",
-    "notes": "Longer-term on logs outdoors."
+    "note": "Longer-term on logs outdoors."
   },
   {
     "name": "Asparagus (crowns in containers)",
@@ -334,7 +334,7 @@
     "protection": "Mulch; protect new spears from frost",
     "tips": "Do not harvest year 1; light in year 2; fuller from year 3.",
     "containerMin": "≥50–60 L deep tub",
-    "notes": "Choose compact varieties for pots. Shelter from wind and improve drainage; raised beds help in wet areas."
+    "note": "Choose compact varieties for pots. Borderline outdoors in parts of Ireland; choose free-draining soil, full sun, and shelter from wind."
   },
   {
     "name": "Globe Artichoke (perennial)",
@@ -359,7 +359,7 @@
     "protection": "Stake against wind; mulch crown in winter",
     "tips": "Remove first-year buds; harvest young tight buds.",
     "containerMin": "≥50–70 L tub",
-    "notes": "Shorter season in Scotland; shelter helps."
+    "note": "Shorter season in Ireland; shelter helps. Borderline outdoors in parts of Ireland; choose free-draining soil, full sun, and shelter from wind."
   },
   {
     "name": "Jerusalem Artichoke (tubers)",
@@ -383,7 +383,7 @@
     "protection": "Windbreak; can be invasive—contain in tubs",
     "tips": "Top growth tall; harvest after frost for best flavour.",
     "containerMin": "≥40–50 L tub",
-    "notes": "Screening plant; saves space if tubbed."
+    "note": "Screening plant; saves space if tubbed. Borderline outdoors in parts of Ireland; choose free-draining soil, full sun, and shelter from wind."
   },
   {
     "name": "Sea Kale (perennial, blanched shoots)",
@@ -408,7 +408,7 @@
     "protection": "Protect from slugs; mulch; blanch for pale shoots",
     "tips": "Slow to establish; superb perennial edible.",
     "containerMin": "≥40 L tub",
-    "notes": "Protected status in wild; grow from seed/crown."
+    "note": "Protected status in wild; grow from seed/crown."
   },
   {
     "name": "Good King Henry (perennial green)",
@@ -459,7 +459,7 @@
     "protection": "Mulch; force in late winter for earlies",
     "tips": "Don’t harvest first year; remove flower stalks.",
     "containerMin": "≥60–80 L tub",
-    "notes": "Leaves poisonous; stalks edible only."
+    "note": "Leaves poisonous; stalks edible only."
   },
   {
     "name": "Cape Gooseberry / Physalis (cool climate in greenhouse best)",
@@ -483,7 +483,7 @@
     "protection": "Fleece in cold nights; greenhouse for reliability",
     "tips": "Allow husks to dry paper-brown before picking.",
     "containerMin": "≥20–25 L pot",
-    "notes": "Treat as tender annual in Scotland. Mild but windy/wet—use shelter or greenhouse for warmth-demanding crops in Ireland."
+    "note": "Treat as tender annual in Ireland."
   },
   {
     "name": "Chamomile (German, tea)",
@@ -536,7 +536,7 @@
     "protection": "Contain in pots—can spread",
     "tips": "Cut back to encourage fresh growth; great iced tea herb.",
     "containerMin": "≥25–30 cm pot",
-    "notes": "Perennial; dies back in winter."
+    "note": "Perennial; dies back in winter."
   },
   {
     "name": "Edible Chrysanthemum ‘Shungiku’ (also in leafy but for flowers here)",
@@ -563,7 +563,7 @@
     "protection": "—",
     "tips": "Use both leaves (leafy) and petals (other) for garnish.",
     "containerMin": "≥20–25 cm pot",
-    "notes": "Dual-listed for completeness."
+    "note": "Dual-listed for completeness."
   },
   {
     "name": "Daylily (edible buds & flowers)",
@@ -590,6 +590,6 @@
     "protection": "—",
     "tips": "Use unopened buds stir-fried; confirm edible Hemerocallis types.",
     "containerMin": "≥35–40 cm pot",
-    "notes": "Check variety edibility before use."
+    "note": "Check variety edibility before use."
   }
 ]

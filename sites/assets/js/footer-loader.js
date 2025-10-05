@@ -1,21 +1,23 @@
-// Patch & Pot — Footer loader (LOCKED)
+// Patch & Pot — Footer loader (SINGLETON, absolute path)
 (function(){
-  const SLOT_IDS = ['site-footer','footer','pp-footer']; // accept multiple ids
-  const PARTIAL  = '/sites/partials/footer.html';
+  if (window.__PP_FOOTER_LOADED) return; // guard
+  const slot = document.getElementById('site-footer') || document.getElementById('footer');
+  if (!slot) return;
 
-  function ready(fn){document.readyState!=='loading'?fn():document.addEventListener('DOMContentLoaded',fn);}
+  const URL = '/sites/partials/footer.html';
 
-  ready(async () => {
-    const slot = document.querySelector(SLOT_IDS.map(id=>`#${id}`).join(','));
-    if (!slot) return;
+  (async () => {
     try{
-      const res = await fetch(PARTIAL+'?v=lock2',{cache:'no-store'});
-      if(!res.ok) throw 0;
-      slot.innerHTML = await res.text();
-    }catch{
-      slot.innerHTML = `
-        <footer class="pp-footer"><div class="pp-footer__text">© 2025 Patch &amp; Pot | Grant Cameron Anthony</div></footer>
-      `;
+      const r = await fetch(URL + '?v=ftr-final', {cache:'no-store'});
+      if (!r.ok) throw 0;
+      slot.innerHTML = await r.text();
+      window.__PP_FOOTER_LOADED = true;
+      slot.setAttribute('data-pp-footer','installed');
+    }catch(e){
+      slot.innerHTML = `<footer style="padding:20px 10px;border-top:1px solid #1f2630;background:#0b0f14;color:#e6e6ea;text-align:center">
+        © 2025 Patch &amp; Pot | Created by Grant Cameron Anthony
+      </footer>`;
+      console.warn('[footer-loader] fetch failed:', URL);
     }
-  });
+  })();
 })();

@@ -69,28 +69,22 @@
 </head>
 <body>
 
-<header class="site-header" id="siteHeader">
+<header class="site-header">
   <div class="brand">
-    <img src="img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <img src="img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo">
     <span class="site-title">Patch &amp; Pot</span>
+    <button class="hamburger" aria-label="Toggle navigation" onclick="document.querySelector('.nav').classList.toggle('open')">
+      ☰
+    </button>
   </div>
-
-  <!-- Hamburger -->
-  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico"><span></span><span></span><span></span></span>
-  </button>
-
-  <!-- Primary nav -->
-  <nav class="nav" id="primaryNav" aria-label="Primary">
+  <nav class="nav" aria-label="Primary">
     <a href="index.html" aria-current="page">Home</a>
-    <a href="growing.html">Growing</a>
-    <a href="seasonal.html">Seasonal</a>
+    <a href="growing/index.html">Growing</a>
     <a href="recipes.html">Recipes</a>
-    <a href="wellbeing.html">Wellbeing</a>
     <a href="exercise.html">Exercise</a>
-    <a href="guides.html">Guides</a>
+    <a href="wellbeing.html">Wellbeing</a>
+    <a href="guides/index.html">Guides</a>
     <a href="ideas.html">Ideas</a>
-    <a href="contact.html">Contact</a>
   </nav>
 </header>
 

@@ -2,88 +2,211 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cut Flowers in Pots — Patch & Pot</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
-
-<link rel="stylesheet" href="../style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cut Flower Growing (Small Spaces) | Patch & Pot</title>
+<meta name="description" content="Plan, sow and harvest cut flowers in small spaces. Hardy annuals, half-hardy, perennials and bulbs with UK-tuned timings and conditioning tips.">
+<style>
+  :root{
+    --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
+    --maxw:1100px; --r:14px;
+    --header-logo-h:50px;
+    --footer-logo-w:65px;
+    --accent:#8bd48b;
+  }
+  html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
+  /* Header */
+  .pp-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid var(--stroke)}
+  .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+  .pp-header__brand{display:flex;align-items:center;text-decoration:none;gap:10px}
+  .pp-header__logo{height:var(--header-logo-h);width:auto;display:block}
+  .pp-header__brand span{font-weight:600;font-size:1.2rem;color:#fff}
+  .pp-header__nav{display:none;gap:16px;margin-left:auto}
+  .pp-nav__link{color:#cfd3d8;text-decoration:none;padding:6px 4px}
+  .pp-nav__link:hover{color:#fff}
+  .pp-header__burger{margin-left:auto;background:transparent;border:0;width:40px;height:40px;
+    display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
+  .pp-burger-bar{width:22px;height:2px;background:#e6e6ea;display:block}
+  @media(min-width:900px){.pp-header__nav{display:flex}.pp-header__burger{display:none}}
+  .pp-header--open .pp-header__nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;
+    background:#0b0f14;border-bottom:1px solid var(--stroke);padding:10px 16px;gap:10px}
+  /* Page */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
+  h1{margin:.4rem 0 .7rem;font-size:2.2rem}
+  .lead{color:var(--ink-d)}
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:16px;margin:12px 0}
+  .muted{color:var(--ink-d)}
+  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;background:var(--glass)}
+  .grid{display:grid;gap:12px}
+  @media(min-width:900px){.grid.two{grid-template-columns:1fr 1fr}}
+  ul{margin:0 0 0 1.2rem}
+  /* mini in-page nav */
+  .inpage{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
+  .inpage a{text-decoration:none;color:#cfd3d8;border:1px solid var(--stroke);border-radius:999px;padding:6px 10px;background:var(--glass)}
+  .inpage a:hover{color:#fff}
+  /* collapsibles */
+  details.fold{border:1px solid var(--stroke);border-radius:var(--r);background:var(--glass);padding:0}
+  details.fold + details.fold{margin-top:10px}
+  details.fold summary{cursor:pointer;list-style:none;padding:12px 14px;font-weight:700;display:flex;align-items:center;gap:10px}
+  details.fold summary::-webkit-details-marker{display:none}
+  .fold__body{padding:0 14px 14px}
+  .tip{border-left:3px solid var(--accent);padding:8px 10px;background:#0e1511;border-radius:6px;color:#d9f2d9}
+  /* Footer */
+  .site-footer{background:#0b0f14;padding:24px 18px;text-align:center;border-top:1px solid var(--stroke)}
+  .site-footer__logo{width:var(--footer-logo-w);height:auto;display:block;margin:0 auto 10px}
+  .site-footer p{margin:0;font-size:.9rem;color:#ccc}
+  .site-footer p + p{margin-top:4px}
+</style>
 </head>
 <body>
-
-<header class="site-header">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<header id="ppHeader" class="pp-header" role="banner">
+  <div class="pp-header__inner">
+    <a class="pp-header__brand" href="/">
+      <img src="img/patchandpot-logo.png" alt="Patch & Pot" class="pp-header__logo">
+      <span>Patch &amp; Pot</span>
+    </a>
+    <button class="pp-header__burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span class="pp-burger-bar"></span><span class="pp-burger-bar"></span><span class="pp-burger-bar"></span>
+    </button>
+    <nav class="pp-header__nav" id="ppNav" aria-label="Primary">
+      <a href="/" class="pp-nav__link">Home</a>
+      <a href="/growing" class="pp-nav__link">Growing</a>
+      <a href="/seasonal" class="pp-nav__link">Seasonal</a>
+      <a href="/guides" class="pp-nav__link">Guides</a>
+      <a href="/ideas" class="pp-nav__link">Ideas</a>
+      <a href="/contact" class="pp-nav__link">Contact</a>
+    </nav>
   </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
+</header>
+
+<div class="wrap">
+  <h1>Cut Flower Growing (Small Spaces)</h1>
+  <p class="lead">Plan for buckets of blooms from containers, beds and borders — with UK-tuned sowing, succession and conditioning tips.</p>
+
+  <nav class="inpage" aria-label="On this page">
+    <a href="#plan">Planning</a>
+    <a href="#hardy">Hardy annuals</a>
+    <a href="#halfhardy">Half-hardy annuals</a>
+    <a href="#perennials">Perennials &amp; shrubs</a>
+    <a href="#bulbs">Bulbs, corms &amp; tubers</a>
+    <a href="#succession">Succession &amp; spacing</a>
+    <a href="#harvest">Harvest &amp; conditioning</a>
+    <a href="#uknotes">UK regional notes</a>
   </nav>
-</header>
 
-<header class="hero" role="banner" aria-label="Cut flowers hero">
-  <figure>
-    <img src="../img/herbs.jpg" alt="Colour in containers and jars">
-    <div class="overlay" aria-hidden="true"></div>
-  </figure>
-  <div class="content">
-    <div class="wrap">
-      <span class="eyebrow">Colour &amp; joy</span>
-      <h1>Cut Flowers in Pots</h1>
-      <p class="lead">Small containers, repeat cutting, big mood lift — even on a windowsill.</p>
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="grid" aria-label="Planting & choices">
-    <article class="card">
-      <h2>Good Pot Flowers</h2>
-      <ul>
-        <li>Sweet peas (dwarf), calendula, dwarf cosmos, violas.</li>
-        <li>Nasturtiums — edible and cheerful.</li>
-        <li>Chives and basil flowers for pollinators.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h2>Planting</h2>
-      <ul>
-        <li>Peat-free compost with added slow-release feed.</li>
-        <li>Support sweet peas; deadhead for repeat blooms.</li>
-        <li>Water deeply; don’t let them bake dry in summer.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h2>Cut & Enjoy</h2>
-      <ul>
-        <li>Cut early morning; condition in water 30 minutes.</li>
-        <li>Change vase water often; recut stems every 2–3 days.</li>
-        <li>Mix foliage (herbs) for scent and texture.</li>
-      </ul>
-    </article>
+  <section id="plan" class="section">
+    <h2>Planning</h2>
+    <ul>
+      <li><strong>Colour &amp; form:</strong> pick a palette and mix spikes (larkspur), discs (daisy types), umbels (dill), and floaters (cosmos).</li>
+      <li><strong>Staging:</strong> spring bulbs → early hardy annuals → half-hardy summer stars → autumn dahlias &amp; chrysanthemums.</li>
+      <li><strong>Containers:</strong> deep pots (30–40 cm) with peat-free compost + grit; stake early.</li>
+    </ul>
+    <p class="tip">Start small: 3–5 bankers plus 2 “wow” plants. Repeat sow for continuity.</p>
   </section>
 
-  <nav class="mini-nav" aria-label="More growing">
-    <a href="first-pot.html">Your First Pot</a>
-    <a href="space-saving.html">Space-Saving Ideas</a>
-    <a href="../growing.html">Growing Hub</a>
-  </nav>
-</main>
+  <section id="hardy" class="section">
+    <h2>Hardy annuals (cool-tolerant)</h2>
+    <details class="fold">
+      <summary>🌥️ Autumn or early spring sowing</summary>
+      <div class="fold__body">
+        <ul>
+          <li><strong>Autumn (Sep–Oct):</strong> sweet peas, cornflower, larkspur (cool frame), cerinthe, orlaya.</li>
+          <li><strong>Late winter–spring:</strong> calendula, nigella, ammi, dill, scabious, iceland poppies (module-sow).</li>
+          <li>Plant out after hardening; use mesh support to prevent wind damage.</li>
+        </ul>
+      </div>
+    </details>
+    <p class="tip">Bankers: calendula, cornflower, nigella, ammi, scabious — quick, reliable, cut-and-come-again.</p>
+  </section>
 
-<footer>
-  <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
-  </div>
+  <section id="halfhardy" class="section">
+    <h2>Half-hardy annuals (need frost-free)</h2>
+    <details class="fold">
+      <summary>☀️ Start under cover, plant out after frost</summary>
+      <div class="fold__body">
+        <ul>
+          <li>Cosmos, zinnia, snapdragon (antirrhinum), sunflower, rudbeckia, amaranthus.</li>
+          <li>Module-sow late March–April (north: April); plant out late May–June (north: June).</li>
+          <li>Pinch for branching; stake early.</li>
+        </ul>
+      </div>
+    </details>
+    <p class="tip">Cooler areas: favour cosmos ‘Sonata’, dwarf sunflowers, compact antirrhinums; zinnia prefer the warmest sites.</p>
+  </section>
+
+  <section id="perennials" class="section">
+    <h2>Perennials &amp; shrubs for cutting</h2>
+    <ul>
+      <li>Achillea, leucanthemum, echinacea, phlox, veronica, penstemon.</li>
+      <li>Roses (repeat-flowering), hydrangea (paniculata), viburnum, physocarpus foliage.</li>
+      <li>Herbs for filler: mint, rosemary, fennel, dill, bronze fennel, oregano (cut pre-flower for longevity).</li>
+    </ul>
+  </section>
+
+  <section id="bulbs" class="section">
+    <h2>Bulbs, corms &amp; tubers</h2>
+    <ul>
+      <li><strong>Spring:</strong> tulips (plant Nov for long stems), narcissus, alliums.</li>
+      <li><strong>Summer:</strong> gladioli (stagger plantings), lilies (pots; stake), dahlias (start in pots under cover).</li>
+      <li><strong>Autumn:</strong> colchicum for interest (not for vases).</li>
+    </ul>
+    <p class="tip">Dahlias love rich soil and consistent moisture; lift/store tubers in cold, wet northern gardens.</p>
+  </section>
+
+  <section id="succession" class="section">
+    <h2>Succession &amp; spacing</h2>
+    <ul>
+      <li>Sow little &amp; often (every 2–3 weeks Mar–Jun for annuals).</li>
+      <li>Close spacing for stems (e.g., 20–25 cm cosmos, 12–15 cm cornflower) with good feeding and support.</li>
+      <li>Netting or corral stakes prevent wind damage; water deeply, not often.</li>
+    </ul>
+  </section>
+
+  <section id="harvest" class="section">
+    <h2>Harvest &amp; conditioning</h2>
+    <ul>
+      <li>Cut early morning; clean buckets; strip lower foliage.</li>
+      <li>Stage of cut: <em>bud colour-showing</em> (snapdragon), <em>first petals open</em> (cosmos), <em>half open</em> (zinnia).</li>
+      <li>Immediate re-cut under water; use floral preservative (or sugar + citric + a drop of bleach).</li>
+      <li>Rest cool 2–4 hrs before arranging.</li>
+    </ul>
+  </section>
+
+  <section id="uknotes" class="section">
+    <h2>UK regional notes</h2>
+    <details class="fold">
+      <summary>🏴 Scotland &amp; cooler coasts</summary>
+      <div class="fold__body">
+        <ul>
+          <li>Start half-hardies later (Apr sown; out Jun). Choose short-season varieties.</li>
+          <li>Windbreak mesh saves stems; fleece/low tunnels help early growth.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="fold">
+      <summary>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Milder south &amp; urban heat islands</summary>
+      <div class="fold__body">
+        <ul>
+          <li>Autumn sow more hardy annuals for extra-early blooms.</li>
+          <li>Zinnias &amp; celosia perform better; watch for mildew in heat.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <img class="site-footer__logo" src="img/patchandpot-logo.png" alt="Patch & Pot">
+  <p>© 2025 Patch & Pot</p>
+  <p>Created by Grant Cameron Anthony</p>
 </footer>
+
+<script>
+(function(){
+  const root=document.getElementById('ppHeader'); if(!root) return;
+  const btn=root.querySelector('#ppBurger'); const nav=root.querySelector('#ppNav');
+  btn.addEventListener('click',()=>{const open=root.classList.toggle('pp-header--open');btn.setAttribute('aria-expanded',open?'true':'false');});
+  nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove('pp-header--open');btn.setAttribute('aria-expanded','false');}});
+})();
+</script>
 </body>
 </html>

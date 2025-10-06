@@ -14,25 +14,8 @@
   <!-- Main CSS -->
   <link rel="stylesheet" href="style.css?v=43">
 
-  <!-- Page-specific styles -->
+  <!-- Header styles -->
   <style>
-    /* --- Compact seasonal strip (homepage) --- */
-    .seasonal-strip{margin:0;background:#f1f8e9;border-top:1px solid #dfe5e8;border-bottom:1px solid #dfe5e8}
-    .seasonal-strip .wrap{display:grid;grid-template-columns:1fr auto;gap:.75rem 1rem;align-items:center;padding:.8rem 1rem}
-    .seasonal-mini{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-    .seasonal-mini strong{font-weight:700}
-    .seasonal-controls{display:flex;align-items:center;gap:.5rem}
-    .seasonal-controls label{font-weight:600}
-    .seasonal-controls select{padding:.35rem .55rem;border:1px solid #cfd8dc;border-radius:.4rem;background:#fff}
-    .seasonal-link{text-decoration:none;font-weight:600;color:#1b5e20;border:1px solid #c8e6c9;background:#e8f5e9;padding:.35rem .6rem;border-radius:.4rem;white-space:nowrap}
-    .seasonal-pills{display:flex;gap:.35rem;flex-wrap:wrap}
-    .pill{background:#fff;border:1px dashed #cfd8dc;padding:.25rem .5rem;border-radius:.4rem;font-size:.9rem}
-    @media (max-width:720px){
-      .seasonal-strip .wrap{grid-template-columns:1fr}
-      .seasonal-controls{justify-content:space-between}
-    }
-
-    /* ===== Header (scoped) ===== */
     .pp-site-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid #1f2630}
     .pp-header-bar{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
     .pp-brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
@@ -41,18 +24,20 @@
     .pp-nav{margin-left:auto;display:flex;gap:16px}
     .pp-nav a{color:#cfd3d8;text-decoration:none;padding:6px 4px}
     .pp-nav a:hover{color:#fff}
-    .pp-burger{margin-left:auto;display:none;width:40px;height:40px;border:0;background:transparent;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer}
+    .pp-burger{margin-left:auto;display:none;width:40px;height:40px;border:0;background:transparent;
+      align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer}
     .pp-burger span{display:block;width:22px;height:2px;background:#e6e6ea}
     @media (max-width:900px){
       .pp-burger{display:inline-flex}
-      .pp-nav{display:none;position:absolute;left:0;right:0;top:100%;background:#0b0f14;border-bottom:1px solid #1f2630;padding:10px 16px;flex-direction:column}
+      .pp-nav{display:none;position:absolute;left:0;right:0;top:100%;background:#0b0f14;
+        border-bottom:1px solid #1f2630;padding:10px 16px;flex-direction:column}
       .pp-site-header.pp-open .pp-nav{display:flex}
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER (PP header only) -->
+<!-- HEADER -->
 <header class="pp-site-header" role="banner">
   <div class="pp-header-bar">
     <a class="pp-brand" href="index.html">
@@ -65,7 +50,7 @@
     </button>
 
     <nav class="pp-nav" id="ppNav" aria-label="Primary">
-      <a href="index.html">Home</a>
+      <a href="index.html" aria-current="page">Home</a>
       <a href="growing.html">Growing</a>
       <a href="recipes.html">Recipes</a>
       <a href="exercise.html">Exercise</a>
@@ -96,26 +81,7 @@
   </div>
 </header>
 
-<!-- Seasonal strip -->
-<section class="seasonal-strip" aria-label="Seasonal updates">
-  <div class="wrap">
-    <div class="seasonal-mini">
-      <strong id="homePestTitle">Pest Watch</strong>
-      <div id="homePestPills" class="seasonal-pills" aria-live="polite"></div>
-    </div>
-    <div class="seasonal-controls">
-      <label for="homeRegion">Region:</label>
-      <select id="homeRegion" aria-label="Choose your region for seasonal tips">
-        <option value="scotland">Scotland</option>
-        <option value="ireland">Ireland</option>
-        <option value="england">England</option>
-        <option value="wales">Wales</option>
-      </select>
-      <a class="seasonal-link" href="seasonal.html" aria-label="Open full seasonal calendar and what to plant today">View full calendar</a>
-    </div>
-  </div>
-</section>
-
+<!-- MAIN CONTENT -->
 <main class="wrap">
   <section class="grid" aria-label="Featured guides">
     <article class="card">
@@ -136,6 +102,7 @@
   </section>
 </main>
 
+<!-- FOOTER -->
 <footer>
   <div class="wrap footer-inner">
     <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
@@ -143,7 +110,7 @@
   </div>
 </footer>
 
-<!-- PP header JS (only this menu script on the page) -->
+<!-- MENU SCRIPT -->
 <script>
 (function(){
   const root=document.querySelector('.pp-site-header');
@@ -169,62 +136,6 @@
       btn.setAttribute('aria-expanded','false');
     }
   });
-})();
-</script>
-
-<!-- Seasonal mini-logic (region + pest watch + optional hero swap) -->
-<script>
-(function(){
-  const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const now=new Date(); const M=now.getMonth();
-
-  const PEST={
-    scotland:{
-      8:{t:"Pest Watch – September (Scotland)",i:["Slugs/snails after rain","Cabbage white caterpillars","Late blight risk"]},
-      9:{t:"Pest Watch – October (Scotland)",i:["Slugs in damp weather","Grey mould on salads","Rodents after harvest"]}
-    },
-    ireland:{
-      8:{t:"Pest Watch – September (Ireland)",i:["Slugs/snails in wet spells","Aphids on greens","Tomato blight risk"]},
-      9:{t:"Pest Watch – October (Ireland)",i:["Snails under pot rims","Mildew on courgettes","Wireworm after potato lifts"]}
-    },
-    england:{
-      8:{t:"Pest Watch – September (England)",i:["Aphids on brassicas","Powdery mildew on courgettes","Carrot fly"]},
-      9:{t:"Pest Watch – October (England)",i:["Slugs in wet spells","Whitefly on sheltered patios","Pigeons on winter greens"]}
-    },
-    wales:{
-      8:{t:"Pest Watch – September (Wales)",i:["Mildew in damp air","Aphids on late brassicas","Slugs"]},
-      9:{t:"Pest Watch – October (Wales)",i:["Blight in wet spells","White rust on rocket","Vine weevils in pots"]}
-    }
-  };
-
-  const sel=document.getElementById('homeRegion');
-  const titleEl=document.getElementById('homePestTitle');
-  const pills=document.getElementById('homePestPills');
-  const hero=document.getElementById('ppHero');
-
-  function seasonByMonth(m){return [11,0,1].includes(m)?"winter":[2,3,4].includes(m)?"spring":[5,6,7].includes(m)?"summer":"autumn";}
-
-  function render(){
-    const region=sel.value;
-    localStorage.setItem('pp-region',region);
-
-    const entry=(PEST[region]&&PEST[region][M])||{t:"Pest Watch",i:["Keep an eye on slugs after rain."]};
-    titleEl.textContent=entry.t;
-    pills.innerHTML=entry.i.map(x=>`<span class="pill">${x}</span>`).join('');
-
-    if(hero){
-      const season=seasonByMonth(M);
-      const candidate=`img/hero-${region}-${season}.jpg`;
-      const testImg=new Image();
-      testImg.onload=()=>{ hero.src=candidate; hero.alt=`Container garden – ${region} • ${season}`; };
-      testImg.src=candidate;
-    }
-  }
-
-  const saved=localStorage.getItem('pp-region')||'scotland';
-  sel.value=saved;
-  sel.addEventListener('change',render);
-  render();
 })();
 </script>
 

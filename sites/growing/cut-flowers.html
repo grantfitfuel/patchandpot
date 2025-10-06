@@ -3,28 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cut Flowers (Small Spaces & Containers) — Patch & Pot</title>
-<meta name="description" content="Grow cut flowers in containers, crates, boxes and improvised pots. Tips on bulb lasagnes, succession sowing, colour planning and mindful growing.">
+<title>Cut Flowers in Containers — Patch & Pot</title>
+<meta name="description" content="Grow abundant cut flowers in crates, barrels, baskets, and upcycled containers. UK-tuned sowing, colour planning, bulb lasagnes, arranging, drying, and seed saving.">
 <link rel="stylesheet" href="../style.css">
 <style>
+  /* Header & footer sizing per site standard (header +10) */
   .logo{height:74px;width:auto}
   .nav a{color:#fff !important}
   .footer-icon,.footer-pot{height:74px;width:auto;opacity:.95}
 
-  .section{background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px; margin:14px 0}
-  .grid{display:grid; gap:14px}
+  /* Page styling */
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:12px 0}
+  .grid{display:grid;gap:14px}
   @media(min-width:900px){.grid.two{grid-template-columns:1fr 1fr}}
-  .table{width:100%; border-collapse:separate; border-spacing:0; border-radius:12px; border:1px solid var(--stroke); overflow:hidden}
-  .table th,.table td{border-bottom:1px solid var(--stroke); padding:.6rem .7rem; text-align:left}
+  @media(min-width:1100px){.grid.three{grid-template-columns:1fr 1fr 1fr}}
+  .tip{border-left:3px solid #7ed495;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
+  .warn{border-left:3px solid #f7b7a6;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
+  .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)}
+  .table th,.table td{border-bottom:1px solid var(--stroke);padding:.6rem .7rem;text-align:left;vertical-align:top}
   .table thead th{background:rgba(255,255,255,.06)}
-  .tip{border-left:3px solid #7ed495; padding:.6rem .7rem; background:rgba(255,255,255,.06); border-radius:10px}
+  .pill{display:inline-block;border:1px solid var(--stroke);border-radius:999px;padding:.18rem .55rem;margin:.1rem .25rem;background:rgba(255,255,255,.06);font-size:.85rem}
+  .mini-h{margin:.2rem 0 .4rem;font-size:1.08rem}
+  .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95em}
+  .check{color:#7ed495;font-weight:700}
 </style>
 </head>
 <body>
 
 <header class="site-header">
   <div class="brand">
-    <img src="/img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo">
+    <img src="/img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
   <nav class="nav" aria-label="Primary">
@@ -35,178 +43,384 @@
     <a href="../exercise.html">Exercise</a>
     <a href="../guides.html">Guides</a>
     <a href="../ideas.html">Ideas</a>
+    <a href="../seasonal.html">Seasonal</a>
   </nav>
 </header>
 
+<!-- Hero adds context & feel -->
 <header class="hero" role="banner" aria-label="Cut flowers hero">
   <figure>
-    <img src="/img/cut-flowers-hero.jpg" alt="Cosmos, calendula and snapdragons in balcony pots">
-    <div class="overlay"></div>
+    <img src="/img/cut-flowers-hero.jpg" alt="Balcony with crates of cosmos, calendula, snapdragons and sweet peas in bloom">
+    <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
     <div class="wrap">
-      <span class="eyebrow">Grow bouquets</span>
-      <h1>Cut Flowers in Small Spaces</h1>
-      <p class="lead">From window boxes to recycled crates — learn how to grow colour, scent and joy all season long.</p>
+      <span class="eyebrow">Grow colour, grow calm</span>
+      <h1>Cut Flowers in Containers</h1>
+      <p class="lead">Abundant bouquets from crates, barrels, baskets and upcycled treasures — even on a windy balcony.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="../seasonal.html">What to sow this month</a>
+      </div>
     </div>
   </div>
 </header>
 
 <main class="wrap">
+
+  <!-- Why & Mindfulness -->
   <section class="section">
-    <h2>Mindful Growing</h2>
-    <p>Flowers aren’t just decoration: they shift mood, give you mindful pauses, and mark the rhythm of the seasons. Whether you cut a single stem for the kitchen or fill a jug for the table, every bloom is a small act of care. Notice the textures, colours and scents as you grow — tending flowers is as restorative as enjoying them indoors.</p>
+    <h2>Why Grow Cut Flowers?</h2>
+    <div class="grid two">
+      <div>
+        <ul>
+          <li><span class="check">✓</span> <strong>Joy on a budget:</strong> homegrown stems beat shop prices, week after week.</li>
+          <li><span class="check">✓</span> <strong>Micro-rituals:</strong> sow, water, deadhead — short, calming bursts that fit real life.</li>
+          <li><span class="check">✓</span> <strong>Wildlife-friendly:</strong> pollinators adore herbs and annuals in containers.</li>
+          <li><span class="check">✓</span> <strong>Gifting:</strong> a jam-jar posy turns any day into a small celebration.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="tip"><strong>Mindful moment:</strong> when you water, count 4 in, 4 hold, 4 out, 4 hold. Match your breath to the pour.</p>
+        <p class="warn"><strong>Reality check:</strong> wind + drought are the main balcony issues. Choose deeper, wider-based containers and water deeply, less often.</p>
+      </div>
+    </div>
   </section>
 
+  <!-- Containers beyond pots -->
   <section class="section">
     <h2>Containers Beyond Pots</h2>
-    <ul>
-      <li><strong>Crates & fruit boxes:</strong> line with hessian or compost sacks, drill drainage holes, plant with a shallow-root mix like calendula + violas.</li>
-      <li><strong>Galvanised buckets:</strong> drill holes, fill with cosmos or snapdragons for a cottage look.</li>
-      <li><strong>Reclaimed drawers & trunks:</strong> line with polythene pierced for drainage; great for mixed colour schemes.</li>
-      <li><strong>Barrels & half barrels:</strong> large enough for dahlias, gladioli or a whole lasagne of bulbs.</li>
-      <li><strong>Window boxes:</strong> choose 20 cm depth minimum; water daily in summer.</li>
-      <li><strong>Tin cans & jars (short-lived):</strong> direct sow dwarf calendula or nasturtiums for a quick colour hit.</li>
-    </ul>
-    <p class="tip">If it holds compost and drains, it can hold flowers. Always drill drainage holes and raise containers on pot feet or bricks.</p>
-  </section>
-
-  <section class="section">
-    <h2>Pots &amp; Spacing (Reference)</h2>
-    <div class="grid two">
+    <div class="grid three">
       <div>
-        <table class="table">
-          <thead><tr><th>Container size</th><th>Suggested flowers</th><th>Count</th></tr></thead>
-          <tbody>
-            <tr><td>3–5 L box</td><td>Calendula, cornflower, dill, nigella</td><td>3–5</td></tr>
-            <tr><td>10 L tub</td><td>Cosmos dwarf, scabious, snapdragon dwarf</td><td>3</td></tr>
-            <tr><td>20 L tub</td><td>Cosmos tall, rudbeckia, dwarf sunflower</td><td>3</td></tr>
-            <tr><td>40 L tub</td><td>Dahlia, tall sunflower (stake)</td><td>1–2</td></tr>
-            <tr><td>60 L trough</td><td>Mixed annuals with mesh support</td><td>8–12</td></tr>
-          </tbody>
-        </table>
+        <h3 class="mini-h">Crates &amp; Fruit Boxes</h3>
+        <ul>
+          <li>Line with hessian/cardboard + holes; 20–30 cm depth works well.</li>
+          <li>Block planting: 9-cell grid of annuals (3 × 3) for easy arranging.</li>
+          <li>Great for calendula, cornflower, nigella, dwarf cosmos.</li>
+        </ul>
       </div>
       <div>
+        <h3 class="mini-h">Barrels &amp; Tubs</h3>
         <ul>
-          <li>Stake or add mesh early; stems snap in wind.</li>
-          <li>Water daily in hot spells; use saucers for a deep soak then remove.</li>
-          <li>Add bricks in bases for stability on balconies.</li>
+          <li>Half whisky/wine barrels = dahlia heaven (1 per barrel) or a bulb lasagne.</li>
+          <li>Metal tubs/buckets: drill 8–10 holes; add feet for drainage.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mini-h">Baskets &amp; Upcycles</h3>
+        <ul>
+          <li>Wicker baskets lined with pierced plastic — violas/sweet peas.</li>
+          <li>Tin baths, Belfast sinks, sturdy food tins for mini posies.</li>
+          <li>Stability first: strap on balconies; add bricks in base where windy.</li>
         </ul>
       </div>
     </div>
+    <p class="tip">If water can drain and it won’t blow over, it can be a flower patch.</p>
   </section>
 
+  <!-- Mix & feed -->
   <section class="section">
-    <h2>Soil Mix & Feeding</h2>
-    <div class="grid two">
+    <h2>Container Mix, Watering &amp; Feeding</h2>
+    <div class="grid three">
       <div>
-        <h3>Flower mix</h3>
+        <h3 class="mini-h">Mix</h3>
         <ul>
           <li>60% peat-free compost</li>
-          <li>25–30% wood fibre / fine bark</li>
-          <li>10–15% grit or perlite</li>
-          <li>Slow release fertiliser for 10–12 weeks</li>
+          <li>30% fine bark/wood fibre</li>
+          <li>10% perlite or grit</li>
+          <li>Slow-release fertiliser (10–12 weeks)</li>
         </ul>
       </div>
       <div>
-        <h3>Feeding plan</h3>
+        <h3 class="mini-h">Water</h3>
         <ul>
-          <li>0–4 weeks: water only.</li>
-          <li>5+ weeks: weekly liquid feed, half strength.</li>
-          <li>Heavy feeders: dahlias, sunflowers, zinnias need feeding twice a week in heat.</li>
-        </ul>
-        <p class="tip">Scratch in 1–2 cm fresh compost mid-season for tired pots.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Hardy & Half-Hardy Choices</h2>
-    <div class="grid two">
-      <div>
-        <h3>Hardy annuals</h3>
-        <ul>
-          <li>Calendula, cornflower, nigella, scabious, larkspur, ammi, dill.</li>
-          <li>Autumn sow in mild areas, spring in cooler regions. Protect with fleece in breezy spots.</li>
+          <li>Deep soak until a little drains; then let top 2–3 cm dry.</li>
+          <li>Use saucers for a 30–60 min soak, then empty.</li>
+          <li>Self-watering inserts help during heat waves.</li>
         </ul>
       </div>
       <div>
-        <h3>Half-hardy annuals</h3>
+        <h3 class="mini-h">Feed</h3>
         <ul>
-          <li>Cosmos, rudbeckia, sunflower, snapdragon, amaranthus, zinnia, celosia.</li>
-          <li>Sow late Mar–Apr; plant out late May–Jun (later in the north).</li>
+          <li>Weeks 0–4: water only.</li>
+          <li>Weeks 5+: liquid feed weekly (½ strength).</li>
+          <li>Dahlias/zinnias: 2× weekly in hot spells.</li>
         </ul>
       </div>
     </div>
   </section>
 
+  <!-- What to grow – comprehensive lists -->
   <section class="section">
-    <h2>Bulbs, Corms & Tubers</h2>
-    <ul>
-      <li><strong>Spring:</strong> tulips (plant in Nov for tall stems), narcissus, alliums.</li>
-      <li><strong>Summer:</strong> lilies (stake), gladioli (plant in succession), dahlias (1 per 40 L).</li>
-    </ul>
-  </section>
-
-  <section id="lasagne" class="section">
-    <h2>Bulb Lasagnes (Layered Pots)</h2>
-    <p>Layer bulbs by depth to give flowers in sequence — crocus in February, narcissus in March, tulips in April–May, and even annuals afterwards.</p>
+    <h2>What to Grow (UK-friendly)</h2>
     <div class="grid two">
       <div>
-        <h3>How to</h3>
+        <h3>Hardy Annuals (cool-tolerant)</h3>
+        <p><span class="pill">Autumn or Spring sow</span> <span class="pill">Good early colour</span></p>
+        <ul>
+          <li><strong>Calendula</strong> (‘Indian Prince’, ‘Snow Princess’) — long season, edible petals.</li>
+          <li><strong>Cornflower</strong> (blue, black ball, pinks) — bees love them.</li>
+          <li><strong>Nigella</strong> (love-in-a-mist) — flowers + sculptural seedpods.</li>
+          <li><strong>Scabiosa</strong> (‘Black Knight’, ‘Fata Morgana’) — elegant, great stems.</li>
+          <li><strong>Ammi</strong> (‘Majus’, ‘Visnaga’) — airy filler; stake early in wind.</li>
+          <li><strong>Larkspur</strong> (cool frame) — spikes; needs shelter in windy sites.</li>
+          <li><strong>Dill/Fennel</strong> — fragrant filler and pollinator draw.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Half-Hardy Annuals (needs frost-free)</h3>
+        <p><span class="pill">Sow Mar–Apr</span> <span class="pill">Plant out late May–Jun</span></p>
+        <ul>
+          <li><strong>Cosmos</strong> (‘Apricot Lemonade’, ‘Rubenza’, ‘Purity’) — cut often, grows more.</li>
+          <li><strong>Snapdragon</strong> (dwarf/‘Chantilly’ series) — great spikes in pots.</li>
+          <li><strong>Rudbeckia</strong> (‘Sahara’) — autumnal palette, long-lasting in the vase.</li>
+          <li><strong>Sunflower</strong> (dwarf ‘Little Leo’, ‘Music Box’) — stake early.</li>
+          <li><strong>Zinnia</strong> (‘Queeny Lime’, ‘Benary Giant’) — warmth lovers, top vase life.</li>
+          <li><strong>Amaranthus</strong> (‘Red Cascade’, ‘Viridis’) — dramatic trailing filler.</li>
+          <li><strong>Celosia</strong> — needs heat; choose dwarf crested types for pots.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div>
+        <h3>Bulbs, Corms &amp; Tubers</h3>
+        <ul>
+          <li><strong>Tulips</strong> (plant Nov for long stems) — choose single lates or doubles.</li>
+          <li><strong>Narcissus</strong> — reliable early stems, many scented.</li>
+          <li><strong>Alliums</strong> — architectural; underplant with violas.</li>
+          <li><strong>Lilies</strong> — pots with supports; superb scent.</li>
+          <li><strong>Gladioli</strong> — stagger plantings every 2 weeks.</li>
+          <li><strong>Dahlias</strong> — one per large barrel; continuous from mid-summer to frost.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Fragrance &amp; Herbs (fabulous filler)</h3>
+        <ul>
+          <li><strong>Sweet peas</strong> (see section below) — unbeatable scent.</li>
+          <li><strong>Mint, rosemary, thyme</strong> — stems and scent for arrangements.</li>
+          <li><strong>Lavender</strong> — short stems but magical aroma.</li>
+          <li><strong>Lemon balm</strong> — gentle, bright green filler; keep contained.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sweet Peas -->
+  <section class="section">
+    <h2>Sweet Peas (Small-Space Classic)</h2>
+    <div class="grid two">
+      <div>
+        <ul>
+          <li><strong>Sowing:</strong> autumn in mild spots or spring in modules (root trainers if possible).</li>
+          <li><strong>Support:</strong> obelisks, canes, netting; plant 3–5 per support in a deep container.</li>
+          <li><strong>Feeding:</strong> steady moisture, weekly light feed once flowering starts.</li>
+          <li><strong>Cut hard &amp; often:</strong> never let pods form or flowering slows.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="tip">A single 40–50 cm pot with a skinny obelisk can fill your home with scented stems for months.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pot sizes & spacing table -->
+  <section class="section">
+    <h2>Container Sizes &amp; Spacing (Quick Guide)</h2>
+    <table class="table">
+      <thead><tr><th>Container</th><th>Good choices</th><th>Count</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>3–5 L box/tin</td><td>Calendula, cornflower, violas</td><td>3–5</td><td>Deadhead weekly for repeats.</td></tr>
+        <tr><td>10 L tub</td><td>Cosmos (dwarf), scabious, snapdragon dwarf</td><td>3</td><td>Stake discreetly; pinch tips early.</td></tr>
+        <tr><td>20 L tub</td><td>Cosmos tall, rudbeckia</td><td>3</td><td>Mesh ring or 3 cane tripod helps.</td></tr>
+        <tr><td>40 L barrel</td><td>Dahlia (1), tall sunflower (1–2)</td><td>1–2</td><td>Weight/stability excellent for windy sites.</td></tr>
+        <tr><td>60–80 L trough</td><td>Mixed annual grid (+ net)</td><td>8–12</td><td>Succession plant every 2–3 weeks.</td></tr>
+      </tbody>
+    </table>
+    <p class="warn"><strong>Wind rules:</strong> deeper, heavier, wider-based containers; add hidden bricks; strap to railings; install supports at planting.</p>
+  </section>
+
+  <!-- Colour planning -->
+  <section class="section">
+    <h2>Colour Planning &amp; Year-Round Flow</h2>
+    <div class="grid two">
+      <div>
+        <h3>Complementary Pops</h3>
+        <ul>
+          <li>Blue cornflower + orange calendula = instant energy.</li>
+          <li>Magenta zinnia + lime foliage (dill, ammi) to cool the heat.</li>
+        </ul>
+        <h3>Soft Harmonies</h3>
+        <ul>
+          <li>Blush cosmos, pastel snapdragon, white nigella — calm, airy bouquets.</li>
+          <li>White accents (‘Cosmos Purity’) make any palette look intentional.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Seasonal Rhythm</h3>
+        <ul>
+          <li><strong>Spring:</strong> tulips + narcissus with trailing violas.</li>
+          <li><strong>Summer:</strong> sweet peas, cosmos, zinnias, snapdragons.</li>
+          <li><strong>Autumn:</strong> dahlias, rudbeckia, gladioli, grasses.</li>
+          <li><strong>Winter:</strong> twigs/berries, evergreen herbs, hellebores (shade).</li>
+        </ul>
+        <p class="tip">Keep 2 spare containers as “rolling colour” — refresh them every few weeks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bulb lasagnes -->
+  <section class="section">
+    <h2>Bulb Lasagnes (Layered Pots for Months of Bloom)</h2>
+    <div class="grid two">
+      <div>
         <ol>
-          <li>Choose a deep pot (30–40 cm). Add drainage.</li>
-          <li>Base: tulips/alliums (20–25 cm deep).</li>
-          <li>Middle: narcissus, hyacinth (12–15 cm).</li>
-          <li>Top: crocus, muscari, dwarf iris (5–8 cm).</li>
-          <li>Cover each layer with compost, water in, and leave outside to root.</li>
+          <li>Choose a 30–40 cm deep pot with feet.</li>
+          <li>Bottom layer (deepest): late tulips at ~20 cm depth.</li>
+          <li>Middle layer: narcissus/hyacinths at 10–15 cm.</li>
+          <li>Top layer: crocus/muscari at 5–8 cm.</li>
+          <li>Topdress with compost, water, label; keep evenly moist.</li>
         </ol>
       </div>
       <div>
-        <h3>Colour recipes</h3>
+        <p class="tip"><strong>Combo idea:</strong> Tulip ‘Queen of Night’ + Narcissus ‘Thalia’ + Muscari ‘Valerie Finnis’. Underplant with winter violas for the shoulders of the season.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sowing & succession calendars -->
+  <section class="section">
+    <h2>Sowing &amp; Succession (North to South)</h2>
+    <div class="grid two">
+      <div>
+        <h3>Scotland / Cooler Coasts</h3>
         <ul>
-          <li><strong>Calm Whites:</strong> crocus ‘Jeanne d’Arc’, narcissus ‘Thalia’, tulip ‘Purissima’.</li>
-          <li><strong>Blue & Gold:</strong> muscari, narcissus ‘Tête-à-Tête’, tulip ‘Ballerina’.</li>
-          <li><strong>Bold Jewels:</strong> crocus mixed, hyacinth ‘Woodstock’, tulip ‘Queen of Night’.</li>
+          <li>Hardy annuals: Feb–Apr indoors, plant out Apr–May with fleece on breezy days.</li>
+          <li>Half-hardy: sow Apr; plant out early–mid Jun. Choose early/dwarf series.</li>
+          <li>Gladioli: stagger late May–July for Aug–Oct stems.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>England &amp; Milder Cities</h3>
+        <ul>
+          <li>Hardy annuals: autumn sow (Sep–Oct) for very early blooms; or Feb–Mar.</li>
+          <li>Half-hardy: sow Mar–Apr; plant out late May.</li>
+          <li>Buckets of cosmos by July if pinched and fed lightly.</li>
         </ul>
       </div>
     </div>
-    <p class="tip">After tulips fade, tuck in fast annuals (calendula, nigella) in top 5 cm to extend colour into summer.</p>
+    <p class="warn"><strong>Rule of thumb:</strong> add 2–3 weeks later for windy/coastal/outdoor balconies; earlier under cover.</p>
   </section>
 
+  <!-- Arranging: mini to large -->
   <section class="section">
-    <h2>Year-Round Colour & Planning</h2>
-    <ul>
-      <li><strong>Spring:</strong> bulb lasagnes, primroses, violas.</li>
-      <li><strong>Summer:</strong> cosmos, zinnia, sunflowers, dahlias.</li>
-      <li><strong>Autumn:</strong> rudbeckia, amaranthus, chrysanthemums.</li>
-      <li><strong>Winter:</strong> cyclamen, evergreen foliage, berried shrubs.</li>
-    </ul>
-    <p class="tip">Plan a colour “story” — e.g. calming whites & blues, or fiery oranges & reds. Group containers in complementary palettes for impact.</p>
+    <h2>Arranging: From Jam-Jars to Statement Vases</h2>
+    <div class="grid three">
+      <div>
+        <h3>Mini Posies</h3>
+        <ul>
+          <li>Jam jars, recycled tins, tiny bottles.</li>
+          <li>3–7 stems: sweet pea + cornflower + calendula + herb sprig.</li>
+          <li>Strip leaves below water line; recut under water.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Medium Bouquets</h3>
+        <ul>
+          <li>Formula: <em>spike</em> (larkspur/snap), <em>round</em> (zinnia/dahlia), <em>filler</em> (ammi/dill).</li>
+          <li>Odd numbers look natural: 3/5/7 of main flower.</li>
+          <li>Wire or stake floppy heads (scabiosa) if needed.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Large Arrangements</h3>
+        <ul>
+          <li>Focal: dahlias/sunflowers; Supporting: rudbeckia; Filler: grasses/herbs.</li>
+          <li>Grid/flower frog helps in wide-mouth vases.</li>
+          <li>Condition overnight in cool water for longest life.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tip"><strong>Sweet pea special:</strong> pack a jar full — single-variety vases are chic and effortless.</p>
   </section>
 
+  <!-- Drying & seed saving -->
   <section class="section">
-    <h2>Harvest & Conditioning</h2>
+    <h2>Drying &amp; Seed Saving</h2>
+    <div class="grid two">
+      <div>
+        <h3>Drying</h3>
+        <ul>
+          <li>Best: strawflower (helichrysum), statice, amaranthus tails, grasses.</li>
+          <li>Hang small bunches upside-down in a dark, airy space 2–3 weeks.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Seed Saving</h3>
+        <ul>
+          <li>Calendula, cornflower, nigella save easily. Dry fully, label by name/date.</li>
+          <li>Store cool &amp; dark in paper envelopes; avoid humidity.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wildlife & sustainability -->
+  <section class="section">
+    <h2>Wildlife-Friendly &amp; Low-Waste</h2>
     <ul>
-      <li>Cut in early morning. Use clean buckets, strip lower leaves.</li>
-      <li>Stage to cut: cosmos with first petals, snapdragon at colour show, zinnia half open.</li>
-      <li>Re-cut stems under water; rest cool for 2–4 hours. Use preservative or sugar + acid + a drop of bleach.</li>
+      <li>Choose single (open-centre) varieties to help pollinators.</li>
+      <li>Skip pesticides; hand-squish, jet wash, or use barriers.</li>
+      <li>Mulch the pot surface to reduce watering; save rainwater if possible.</li>
+      <li>Reuse containers, line with reused packaging card or hessian.</li>
     </ul>
   </section>
 
-  <nav class="mini-nav">
+  <!-- Troubleshooting & FAQs -->
+  <section class="section">
+    <h2>Troubleshooting &amp; FAQs</h2>
+    <div class="grid two">
+      <div>
+        <h3>Floppy stems?</h3>
+        <ul>
+          <li>More light, less nitrogen; add discreet mesh/canes.</li>
+          <li>Pinch early to encourage branching (cosmos, zinnia, snapdragon).</li>
+        </ul>
+        <h3>Few flowers?</h3>
+        <ul>
+          <li>Feed weekly at ½ strength from week 5; don’t let pots dry to dust.</li>
+          <li>Deadhead; keep cutting to trigger more blooms.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Leaves spotty/mildewy?</h3>
+        <ul>
+          <li>Improve airflow; water soil not leaves; remove worst leaves.</li>
+          <li>Don’t crowd; thin to allow light in.</li>
+        </ul>
+        <h3>Wind damage?</h3>
+        <ul>
+          <li>Use deeper, wider containers; strap to railings; add bricks in base.</li>
+          <li>Windbreak mesh; install supports at planting, not after.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mini-nav" aria-label="Related guides">
     <a href="first-pot.html">Your First Pot</a>
     <a href="companion.html">Companion Planting</a>
-    <a href="pests.html">Pests & Problems</a>
+    <a href="pests.html">Pests &amp; Problems</a>
   </nav>
+
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© 2025 Patch &amp; Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
 </body>
 </html>

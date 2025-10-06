@@ -2,255 +2,142 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Propagation — Grafting, Cuttings & Growing On | Patch & Pot</title>
-<meta name="description" content="How to multiply plants with cuttings, grafting, layering, division and growing on — practical steps for small spaces and UK climates.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Propagation: Cuttings, Division & Grafting — Patch & Pot</title>
+<link rel="stylesheet" href="../style.css">
 <style>
-  :root{
-    --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
-    --maxw:1100px; --r:14px;
-    --header-logo-h:50px;
-    --footer-logo-w:65px;
-    --accent:#8bd48b;
-  }
-  html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
-  /* Header */
-  .pp-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid var(--stroke)}
-  .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
-  .pp-header__brand{display:flex;align-items:center;text-decoration:none;gap:10px}
-  .pp-header__logo{height:var(--header-logo-h);width:auto;display:block}
-  .pp-header__brand span{font-weight:600;font-size:1.2rem;color:#fff}
-  .pp-header__nav{display:none;gap:16px;margin-left:auto}
-  .pp-nav__link{color:#cfd3d8;text-decoration:none;padding:6px 4px}
-  .pp-nav__link:hover{color:#fff}
-  .pp-header__burger{margin-left:auto;background:transparent;border:0;width:40px;height:40px;
-    display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
-  .pp-burger-bar{width:22px;height:2px;background:#e6e6ea;display:block}
-  @media(min-width:900px){.pp-header__nav{display:flex}.pp-header__burger{display:none}}
-  .pp-header--open .pp-header__nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;
-    background:#0b0f14;border-bottom:1px solid var(--stroke);padding:10px 16px;gap:10px}
-  /* Page */
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
-  h1{margin:.4rem 0 .7rem;font-size:2.2rem}
-  .lead{color:var(--ink-d)}
-  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:16px;margin:12px 0}
-  .muted{color:var(--ink-d)}
-  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;background:var(--glass)}
-  .grid{display:grid;gap:12px}
-  @media(min-width:900px){.grid.two{grid-template-columns:1fr 1fr}}
-  ul{margin:0 0 0 1.2rem}
-  /* mini in-page nav */
-  .inpage{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
-  .inpage a{text-decoration:none;color:#cfd3d8;border:1px solid var(--stroke);border-radius:999px;padding:6px 10px;background:var(--glass)}
-  .inpage a:hover{color:#fff}
-  /* collapsibles */
-  details.fold{border:1px solid var(--stroke);border-radius:var(--r);background:var(--glass);padding:0}
-  details.fold + details.fold{margin-top:10px}
-  details.fold summary{cursor:pointer;list-style:none;padding:12px 14px;font-weight:700;display:flex;align-items:center;gap:10px}
-  details.fold summary::-webkit-details-marker{display:none}
-  .fold__body{padding:0 14px 14px}
-  .tip{border-left:3px solid var(--accent);padding:8px 10px;background:#0e1511;border-radius:6px;color:#d9f2d9}
-  /* Footer */
-  .site-footer{background:#0b0f14;padding:24px 18px;text-align:center;border-top:1px solid var(--stroke)}
-  .site-footer__logo{width:var(--footer-logo-w);height:auto;display:block;margin:0 auto 10px}
-  .site-footer p{margin:0;font-size:.9rem;color:#ccc}
-  .site-footer p + p{margin-top:4px}
+  .logo{height:64px;width:auto}
+  .nav a{color:#fff !important}
+  .footer-icon,.footer-pot{height:64px;width:auto;opacity:.95}
+
+  .grid{display:grid; gap:14px}
+  @media(min-width:980px){.grid.two{grid-template-columns:1fr 1fr}}
+
+  .section{background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px; margin:12px 0}
+  .method h3{margin:.2rem 0 .4rem}
+  .steps{list-style:decimal; margin:0 0 0 1.2rem}
+  .tip{border-left:3px solid #7ed495; padding:.6rem .7rem; background:rgba(255,255,255,.06); border-radius:10px; margin:.6rem 0}
+  .warn{border-left:3px solid #ffad99; padding:.6rem .7rem; background:rgba(255,255,255,.06); border-radius:10px; margin:.6rem 0}
+  .table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--stroke)}
+  .table th,.table td{border-bottom:1px solid var(--stroke); padding:.55rem .7rem; text-align:left}
+  .table thead th{background:rgba(255,255,255,.06)}
 </style>
 </head>
 <body>
-<header id="ppHeader" class="pp-header" role="banner">
-  <div class="pp-header__inner">
-    <a class="pp-header__brand" href="/">
-      <img src="img/patchandpot-logo.png" alt="Patch & Pot" class="pp-header__logo">
-      <span>Patch &amp; Pot</span>
-    </a>
-    <button class="pp-header__burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span class="pp-burger-bar"></span><span class="pp-burger-bar"></span><span class="pp-burger-bar"></span>
-    </button>
-    <nav class="pp-header__nav" id="ppNav" aria-label="Primary">
-      <a href="/" class="pp-nav__link">Home</a>
-      <a href="/growing" class="pp-nav__link">Growing</a>
-      <a href="/seasonal" class="pp-nav__link">Seasonal</a>
-      <a href="/guides" class="pp-nav__link">Guides</a>
-      <a href="/ideas" class="pp-nav__link">Ideas</a>
-      <a href="/contact" class="pp-nav__link">Contact</a>
-    </nav>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="/img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
   </div>
+  <nav class="nav" aria-label="Primary">
+    <a href="../index.html">Home</a>
+    <a href="../growing.html">Growing</a>
+    <a href="../recipes.html">Recipes</a>
+    <a href="../wellbeing.html">Wellbeing</a>
+    <a href="../exercise.html">Exercise</a>
+    <a href="../guides.html">Guides</a>
+    <a href="../ideas.html">Ideas</a>
+  </nav>
 </header>
 
-<div class="wrap">
-  <h1>Propagation: Grafting, Cuttings &amp; Growing On</h1>
-  <p class="lead">Multiply plants for pennies. The steps below favour small spaces and UK conditions — with clear notes for cooler regions.</p>
+<main class="wrap">
+  <h1>Propagation: Cuttings, Division &amp; Grafting</h1>
+  <p class="lead">Multiply plants for free — simple, clean methods that fit balconies, windowsills and tiny worktops.</p>
 
-  <nav class="inpage" aria-label="On this page">
-    <a href="#cuttings">Cuttings</a>
-    <a href="#grafting">Grafting</a>
-    <a href="#layering">Layering</a>
-    <a href="#division">Division</a>
-    <a href="#growing-on">Growing on</a>
-    <a href="#kit">Tools &amp; kit</a>
+  <section class="grid two">
+    <article class="section method">
+      <h2>Softwood Cuttings (spring–early summer)</h2>
+      <p>Best for herbs (mint, rosemary, thyme, sage, oregano), fuchsias, pelargoniums.</p>
+      <ol class="steps">
+        <li>Snip 8–10 cm non-flowering shoot below a node; strip lower leaves.</li>
+        <li>Dip base in water (optional rooting powder); insert into 50:50 compost:perlite.</li>
+        <li>Firm gently; water; cover with a clear dome/bag off the leaves.</li>
+        <li>Bright light, no direct midday sun; keep just moist. Root in 2–4 weeks.</li>
+      </ol>
+      <p class="tip">Use a pencil or chopstick to make a pilot hole — avoids bruising the stem.</p>
+    </article>
+
+    <article class="section method">
+      <h2>Semi-ripe &amp; Hardwood Cuttings</h2>
+      <p>For woody herbs and shrubs later in the season.</p>
+      <ol class="steps">
+        <li><strong>Semi-ripe (late summer):</strong> 8–12 cm tip cuttings, strip lower leaves, pot as above; bottom warmth helps.</li>
+        <li><strong>Hardwood (late autumn–winter):</strong> pencil-thick sticks 15–20 cm, leafless; insert two nodes deep in gritty compost.</li>
+        <li>Keep barely moist; shelter from severe frost; root over winter–spring.</li>
+      </ol>
+      <p class="warn"><strong>Don’t overwater:</strong> most failures are from soggy compost and low oxygen at the base.</p>
+    </article>
+
+    <article class="section method">
+      <h2>Division</h2>
+      <p>Fast way to multiply clump-forming plants: chives, mint, oregano, thyme, strawberries (runners).</p>
+      <ol class="steps">
+        <li>Water the plant well the day before.</li>
+        <li>Tip out; tease or slice into sections (each with roots + shoots).</li>
+        <li>Repot divisions into fresh mix; trim top growth lightly; water in.</li>
+      </ol>
+      <p class="tip">For strawberries, pot up runners while attached; cut the umbilical when rooted.</p>
+    </article>
+
+    <article class="section method">
+      <h2>Layering (zero-drama)</h2>
+      <p>Great for mint, thyme, rosemary, trailing strawberries.</p>
+      <ol class="steps">
+        <li>Pin a low stem to compost in a neighbour pot with a bent paperclip.</li>
+        <li>Keep the pin spot moist; roots form at the node in 2–4 weeks.</li>
+        <li>Cut free and pot on.</li>
+      </ol>
+    </article>
+
+    <article class="section method">
+      <h2>Water Propagation (windowsill quick wins)</h2>
+      <p>For basil, mint, oregano, coleus, pothos.</p>
+      <ol class="steps">
+        <li>Cut a 10 cm tip under a node; strip lower leaves.</li>
+        <li>Place in a jar; change water every 2–3 days.</li>
+        <li>Pot into compost once roots are 3–5 cm long.</li>
+      </ol>
+    </article>
+
+    <article class="section method">
+      <h2>Grafting (edibles, optional)</h2>
+      <p>Advanced but doable on a bench with a sharp blade. Common for tomatoes, cucurbits.</p>
+      <ol class="steps">
+        <li>Raise rootstock &amp; scion to match stem thickness (3–4 mm).</li>
+        <li>Cut both at 45°; align cambium; join with a silicone clip.</li>
+        <li>High humidity &amp; shade 5–7 days; then wean to normal light.</li>
+      </ol>
+      <p class="tip">Why graft tomatoes? Rootstock resists disease, boosts vigour in cool container summers.</p>
+    </article>
+  </section>
+
+  <section class="section">
+    <h2>Tools &amp; Media</h2>
+    <table class="table">
+      <thead><tr><th>Item</th><th>Why</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Sharp knife/secateurs</td><td>Clean cuts root better</td><td>Sterilise with alcohol between plants</td></tr>
+        <tr><td>Compost : perlite (50:50)</td><td>Air + moisture balance</td><td>Swap perlite for grit if preferred</td></tr>
+        <tr><td>Clear dome/bag</td><td>Humidity while rooting</td><td>Vent daily to prevent mould</td></tr>
+        <tr><td>Heat mat (optional)</td><td>Speeds rooting</td><td>Keep mix just warm, not hot</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <nav class="mini-nav">
+    <a href="../growing/first-pot.html">Your First Pot</a>
+    <a href="../growing/companion.html">Companion Planting</a>
+    <a href="../growing/pests.html">Pests &amp; Problems</a>
   </nav>
+</main>
 
-  <section id="cuttings" class="section">
-    <h2>Cuttings</h2>
-    <div class="grid two">
-      <div>
-        <details class="fold">
-          <summary>🌿 Softwood cuttings (spring–early summer)</summary>
-          <div class="fold__body">
-            <ul>
-              <li>Take 7–10 cm shoots from fresh, non-flowering growth (morning is best).</li>
-              <li>Strip lower leaves; cut below a node; optional rooting hormone.</li>
-              <li>Insert into a 50:50 mix (peat-free compost : perlite/sand). Firm and water.</li>
-              <li>Cover with a clear lid/bag for humidity; bright shade, 18–22 °C.</li>
-              <li>Rooting in 2–4 weeks. Vent daily to prevent mould.</li>
-            </ul>
-            <p class="tip">Great for mint, basil (warm), pelargoniums, fuchsias, tomatoes (side shoots), many shrubs.</p>
-          </div>
-        </details>
-
-        <details class="fold">
-          <summary>🌱 Semi-ripe cuttings (mid/late summer)</summary>
-          <div class="fold__body">
-            <ul>
-              <li>Use firmed new growth (base woodyish, tip still green).</li>
-              <li>Heel cuttings from lateral shoots root well (lavender, rosemary).</li>
-              <li>Bottom heat (18–20 °C) speeds rooting; keep humid but ventilated.</li>
-            </ul>
-            <p class="tip">Lavender, rosemary, sage, bay, escalonia, evergreen herbs &amp; shrubs.</p>
-          </div>
-        </details>
-
-        <details class="fold">
-          <summary>🌳 Hardwood cuttings (late autumn–winter)</summary>
-          <div class="fold__body">
-            <ul>
-              <li>Cut 20–30 cm pencil-thick, leafless shoots.</li>
-              <li>Insert two-thirds deep in a trench (gritty base) or pots outdoors.</li>
-              <li>Label and leave a year. Move to final spot once established.</li>
-            </ul>
-            <p class="tip">Currants, gooseberries, figs (shelter), willow, roses, many fruit bushes.</p>
-          </div>
-        </details>
-      </div>
-
-      <div>
-        <details class="fold">
-          <summary>🪴 Leaf &amp; stem cuttings (houseplants &amp; tender)</summary>
-          <div class="fold__body">
-            <ul>
-              <li>Use nodes: each node = potential roots. Keep at 20–24 °C.</li>
-              <li>Water-prop root, then pot into airy mix and acclimatise.</li>
-            </ul>
-            <p class="tip">Sweet potato slips, coleus, pothos, philodendron; basil needs warmth even in summer in the north.</p>
-          </div>
-        </details>
-
-        <details class="fold">
-          <summary>❄️ Cool-climate tweaks</summary>
-          <div class="fold__body">
-            <ul>
-              <li>Central Belt &amp; South: windowsill propagator is enough for most softwood cuttings.</li>
-              <li>Far North / Orkney / Shetland: bottom heat &amp; clear covers are worth it; avoid cold, wet compost.</li>
-              <li>Harden off slowly; wind protection matters more than temp.</li>
-            </ul>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section id="grafting" class="section">
-    <h2>Grafting</h2>
-    <details class="fold">
-      <summary>🍎 Why graft?</summary>
-      <div class="fold__body">
-        <ul>
-          <li>Match vigour &amp; size with **rootstocks** (e.g., apples on M26/M9 for small spaces).</li>
-          <li>Speed to fruit; preserve varieties; disease resistance.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="fold">
-      <summary>🔪 Whip &amp; tongue (late winter)</summary>
-      <div class="fold__body">
-        <ul>
-          <li>Use dormant scion &amp; rootstock of pencil thickness.</li>
-          <li>Make matching sloping cuts with a tongue; bind &amp; seal.</li>
-          <li>Heal in cool, frost-free place; plant when growth begins.</li>
-        </ul>
-      </div>
-    </details>
-    <details class="fold">
-      <summary>🌱 Chip &amp; T-budding (summer)</summary>
-      <div class="fold__body">
-        <ul>
-          <li>For roses/stone fruit; bark slips easily in warm weather.</li>
-          <li>Secure bud with budding tape; cut back stock above bud once it takes.</li>
-        </ul>
-      </div>
-    </details>
-    <p class="tip">Cold/windy zones: choose hardy rootstocks; site against a warm wall. Protect unions from wind rock.</p>
-  </section>
-
-  <section id="layering" class="section">
-    <h2>Layering</h2>
-    <ul>
-      <li><strong>Simple layering:</strong> Peg a low shoot; nick underside; cover with gritty compost; keep moist (berries, climbers).</li>
-      <li><strong>Air layering:</strong> For figs/camellias; girdle lightly, wrap in moist moss + film; pot once rooted.</li>
-      <li><strong>Strawberries:</strong> Peg runners into pots; cut from mother when rooted.</li>
-    </ul>
-  </section>
-
-  <section id="division" class="section">
-    <h2>Division</h2>
-    <ul>
-      <li>Best when dormant or right after flowering (avoid heat waves).</li>
-      <li>Sharp spade/knife; replant with compost &amp; water in.</li>
-      <li>Great for chives, rhubarb (crowns), mint (in pots), many perennials.</li>
-    </ul>
-  </section>
-
-  <section id="growing-on" class="section">
-    <h2>Growing on</h2>
-    <ul>
-      <li><strong>Prick out</strong> at first true leaves into modules; firm lightly.</li>
-      <li><strong>Pot on</strong> when roots reach pot edge; don’t jump pot sizes.</li>
-      <li><strong>Harden off</strong> 7–10 days; avoid windy days; use fleece.</li>
-      <li><strong>Label &amp; log</strong> dates/varieties; helps next season’s timing.</li>
-    </ul>
-  </section>
-
-  <section id="kit" class="section">
-    <h2>Tools &amp; kit</h2>
-    <div class="grid two">
-      <ul>
-        <li>Clean sharp knife/secateurs, labels, alcohol wipes.</li>
-        <li>Peat-free compost + perlite/sand; small pots/modules.</li>
-        <li>Clear lids/bags, elastic, pegs; rooting hormone (optional).</li>
-      </ul>
-      <ul>
-        <li>Heat mat/propagator (north &amp; islands benefit most).</li>
-        <li>Fleece/cloches; windbreak mesh.</li>
-        <li>Tape &amp; grafting compound (for grafts).</li>
-      </ul>
-    </div>
-  </section>
-</div>
-
-<footer class="site-footer">
-  <img class="site-footer__logo" src="img/patchandpot-logo.png" alt="Patch & Pot">
-  <p>© 2025 Patch & Pot</p>
-  <p>Created by Grant Cameron Anthony</p>
+<footer>
+  <div class="wrap footer-inner">
+    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
+  </div>
 </footer>
-
-<script>
-(function(){
-  const root=document.getElementById('ppHeader'); if(!root) return;
-  const btn=root.querySelector('#ppBurger'); const nav=root.querySelector('#ppNav');
-  btn.addEventListener('click',()=>{const open=root.classList.toggle('pp-header--open');btn.setAttribute('aria-expanded',open?'true':'false');});
-  nav.addEventListener('click',e=>{if(e.target.closest('a')){root.classList.remove('pp-header--open');btn.setAttribute('aria-expanded','false');}});
-})();
-</script>
 </body>
 </html>

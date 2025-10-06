@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Patch & Pot — Growing Hub</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    :root{--bg:#0b0f14;--ink:#fff;--ink-d:#cfd3d8;--glass:#0f131a;--stroke:#1f2630;--r:14px;--maxw:1100px}
+    html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 system-ui,Segoe UI,Inter,Arial,sans-serif}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
+    /* header */
+    .site-header{border-bottom:1px solid var(--stroke);background:#0b0f14}
+    .brand{display:flex;align-items:center;gap:10px;padding:10px 16px;max-width:var(--maxw);margin:0 auto}
+    .brand .logo{height:42px;width:auto}
+    .site-title{font-weight:700}
+    .nav{display:flex;gap:14px;flex-wrap:wrap;max-width:var(--maxw);margin:0 auto 10px;padding:0 16px}
+    .nav a{color:#cfd3d8;text-decoration:none;padding:6px 4px}
+    .nav a[aria-current="page"], .nav a:hover{color:#fff}
+    /* hero */
+    .hero figure{position:relative;margin:0;height:220px;overflow:hidden}
+    .hero img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55))}
+    .hero .content{position:absolute;inset:0;display:flex;align-items:end}
+    .eyebrow{letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;opacity:.9}
+    .lead{color:var(--ink-d);max-width:60ch}
+    /* grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .card{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px}
+    .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;border:1px solid var(--stroke)}
+    .btn{display:inline-block;margin-top:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--stroke);text-decoration:none;color:#fff;background:#17202a}
+    .btn.primary{background:#1d3b23;border-color:#2b4c31}
+    /* footer */
+    footer{border-top:1px solid var(--stroke);background:#0b0f14}
+    .footer-inner{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 0}
+    .footer-icon{width:64px;height:auto;display:block}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="../img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo">
+    <span class="site-title">Patch &amp; Pot</span>
+  </div>
+  <nav class="nav" aria-label="Primary">
+    <a href="../index.html">Home</a>
+    <a href="../growing/index.html" aria-current="page">Growing</a>
+    <a href="../recipes.html">Recipes</a>
+    <a href="../exercise.html">Exercise</a>
+    <a href="../wellbeing.html">Wellbeing</a>
+    <a href="../guides/index.html">Guides</a>
+    <a href="../ideas.html">Ideas</a>
+  </nav>
+</header>
+
+<header class="hero" role="banner" aria-label="Growing Hub">
+  <figure>
+    <img src="../img/growing-hero.jpg" alt="Planting seedlings in pots on a balcony">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content">
+    <div class="wrap">
+      <span class="eyebrow">Grow anywhere</span>
+      <h1>The Growing Hub</h1>
+      <p class="lead">Step-by-step guides to start, save space, regrow, and keep your plants thriving in any setting.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="grid" aria-label="Growing sections">
+    <article class="card">
+      <img src="../img/first-pot.jpg" alt="Terracotta pot with seedlings" class="thumb">
+      <h2>Your First Pot</h2>
+      <p>Pot, compost, seeds, light, water — start today.</p>
+      <a class="btn primary" href="first-pot.html">Open guide</a>
+    </article>
+
+    <article class="card">
+      <img src="../img/space-saving.jpg" alt="Vertical planting tower" class="thumb">
+      <h2>Space-Saving Setups</h2>
+      <p>Grow more in less space: vertical, hanging, crate hacks.</p>
+      <a class="btn primary" href="space-saving.html">See setups</a>
+    </article>
+
+    <article class="card">
+      <img src="../img/regrow.jpg" alt="Spring onions regrowing in water" class="thumb">
+      <h2>Regrow from Scraps</h2>
+      <p>Turn offcuts into a fresh harvest.</p>
+      <a class="btn primary" href="regrow.html">Start regrowing</a>
+    </article>
+
+    <article class="card">
+      <img src="../img/companion.jpg" alt="Tomatoes with basil" class="thumb">
+      <h2>Companion Planting</h2>
+      <p>Let plants protect and support each other.</p>
+      <a class="btn primary" href="companion.html">Explore companions</a>
+    </article>
+
+    <article class="card">
+      <img src="../img/pests.jpg" alt="Ladybird controlling aphids" class="thumb">
+      <h2>Pest Control</h2>
+      <p>Spot and fix problems early with safe methods.</p>
+      <a class="btn primary" href="pests.html">Check solutions</a>
+    </article>
+
+    <article class="card">
+      <img src="../img/cut-flowers.jpg" alt="Cut flowers in a vase" class="thumb">
+      <h2>Cut Flowers</h2>
+      <p>Colour for the home from balconies and courtyards.</p>
+      <a class="btn primary" href="cut-flowers.html">Flower guide</a>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <img src="../img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <p>© 2025 <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+  </div>
+</footer>
+
+</body>
+</html>

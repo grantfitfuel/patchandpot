@@ -4,51 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your First Pot — Patch & Pot</title>
-<link rel="stylesheet" href="../style.css?v=49">
+<link rel="stylesheet" href="../style.css?v=50">
 <style>
-  /* Local fixes */
+  /* Page-scoped tweaks */
+  .logo{height:42px;width:auto}
+  .nav a{color:#fff !important}
   .hero figure img{width:100%;height:auto;max-height:380px;object-fit:cover}
-  .pp-site-header{background:var(--glass);border-bottom:1px solid var(--stroke)}
-  .pp-header-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
-  .pp-brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
-  .pp-logo{height:32px;width:auto}
-  .pp-title{font-weight:600;font-size:1.2rem}
-  .pp-burger{display:flex;flex-direction:column;gap:4px;background:none;border:0;cursor:pointer}
-  .pp-burger span{display:block;width:22px;height:2px;background:var(--ink)}
-  .pp-nav{display:none;flex-direction:column;padding:12px}
-  .pp-site-header.pp-open .pp-nav{display:flex}
-  @media(min-width:900px){
-    .pp-burger{display:none}
-    .pp-nav{display:flex!important;flex-direction:row;gap:18px;padding:0}
-  }
-  footer{background:var(--glass);border-top:1px solid var(--stroke);margin-top:30px}
-  .footer-inner{display:flex;align-items:center;justify-content:center;padding:12px 16px;gap:10px;font-size:.9rem;color:var(--inkdim)}
-  .footer-icon{height:22px;width:auto}
+  footer{border-top:1px solid #142116;background:#0a0f0c;margin-top:28px}
+  .footer-inner{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0}
+  .footer-icon{height:44px;width:auto}
 </style>
 </head>
 <body>
 
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="../index.html">
-      <img class="pp-logo" src="../img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="pp-nav" id="ppNav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../growing.html" aria-current="page">Growing</a>
-      <a href="../recipes.html">Recipes</a>
-      <a href="../exercise.html">Exercise</a>
-      <a href="../wellbeing.html">Wellbeing</a>
-      <a href="../guides.html">Guides</a>
-      <a href="../ideas.html">Ideas</a>
-      <a href="../seasonal.html">Seasonal</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+<header id="siteHeader" class="site-header" role="banner">
+  <div class="brand">
+    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
   </div>
+
+  <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
+
+  <nav id="primaryNav" class="nav" aria-label="Primary">
+    <a href="../index.html">Home</a>
+    <a href="../growing.html" aria-current="page">Growing</a>
+    <a href="../recipes.html">Recipes</a>
+    <a href="../exercise.html">Exercise</a>
+    <a href="../wellbeing.html">Wellbeing</a>
+    <a href="../guides.html">Guides</a>
+    <a href="../ideas.html">Ideas</a>
+    <a href="../seasonal.html">Seasonal</a>
+    <a href="../contact.html">Contact</a>
+  </nav>
 </header>
 
 <header class="hero" role="banner" aria-label="Your First Pot hero">
@@ -60,28 +49,65 @@
     <div class="wrap">
       <span class="eyebrow">Start today</span>
       <h1>Your First Pot</h1>
-      <p class="lead">A simple, forgiving setup for salads, herbs, and easy veg — windowsill, doorstep, or balcony.</p>
+      <p class="lead">A simple, forgiving setup you can finish in 15–20 minutes. Works on a windowsill, doorstep, or balcony.</p>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <!-- existing content kept here (what you had before) -->
+  <section class="grid" style="gap:14px">
+    <article class="card">
+      <h2>What you need</h2>
+      <ul>
+        <li>25–30 cm pot with a drainage hole</li>
+        <li>Peat-free multi-purpose compost</li>
+        <li>Seeds or young plant (basil, parsley, salad leaves)</li>
+        <li>Small jug or bottle for watering</li>
+        <li>Label & pencil (optional but helpful)</li>
+      </ul>
+
+      <h3>Light picker</h3>
+      <table class="table" style="width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)">
+        <thead><tr><th style="text-align:left;color:var(--inkdim);padding:.6rem .8rem;border-bottom:1px solid var(--stroke)">Light</th><th style="text-align:left;color:var(--inkdim);padding:.6rem .8rem;border-bottom:1px solid var(--stroke)">Good first choices</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:.6rem .8rem;border-bottom:1px solid var(--stroke)">Bright window / 5–6h+</td><td style="padding:.6rem .8rem;border-bottom:1px solid var(--stroke)">Cherry tomatoes (bush), chillies, basil</td></tr>
+          <tr><td style="padding:.6rem .8rem;border-bottom:1px solid var(--stroke)">Part sun / 3–4h</td><td style="padding:.6rem .8rem;border-bottom:1px solid var(--stroke)">Parsley, mint, rocket, spring onions</td></tr>
+          <tr><td style="padding:.6rem .8rem">Shaded / indirect</td><td style="padding:.6rem .8rem">Mizuna, lettuce mixes, chives</td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <aside class="card">
+      <img src="../img/first-pot-steps.jpg" alt="Layering pot shards, compost, and planting a herb seedling" style="border-radius:12px">
+      <p class="meta">Diagram/photo: drainage, fill line, and firming the soil. <span class="badge" style="display:inline-block;border:1px solid var(--stroke);border-radius:999px;padding:.2rem .5rem;background:rgba(255,255,255,.06);font-size:.85rem">Placeholder</span> → <code>sites/img/first-pot-steps.jpg</code></p>
+    </aside>
+  </section>
+
   <section class="card">
     <h2>Step-by-step</h2>
     <ol>
-      <li>Prep the pot (drainage hole cover).</li>
-      <li>Fill with compost to 2&nbsp;cm below rim.</li>
-      <li>Plant seedling or sow thinly.</li>
-      <li>Water slowly until just draining.</li>
-      <li>Place in best light, rotate weekly.</li>
+      <li><strong>Prep the base:</strong> cover the hole with a crock/mesh.</li>
+      <li><strong>Fill:</strong> compost to 2 cm below rim.</li>
+      <li><strong>Plant:</strong> seedling at same depth OR sow thinly and cover 0.5–1 cm.</li>
+      <li><strong>Water:</strong> slowly until a little drains out.</li>
+      <li><strong>Position:</strong> brightest spot; rotate weekly.</li>
+      <li><strong>Label:</strong> date + variety helps later.</li>
     </ol>
   </section>
 
+  <section class="card">
+    <h2>Weekly rhythm</h2>
+    <ul>
+      <li>Water when top 2–3 cm is dry to the touch.</li>
+      <li>Feed lightly every 2 weeks once growth is steady.</li>
+      <li>Harvest little and often; don’t strip plants bare.</li>
+    </ul>
+  </section>
+
   <nav class="mini-nav">
-    <a class="mini-btn" href="space-saving.html">Space-Saving Setups</a>
-    <a class="mini-btn" href="companion.html">Companion Planting</a>
-    <a class="mini-btn" href="../guides.html">Guides Hub</a>
+    <a href="space-saving.html">Space-Saving Setups</a>
+    <a href="companion.html">Companion Planting</a>
+    <a href="../wellbeing/affirmations.html">Affirmations</a>
   </nav>
 </main>
 
@@ -94,23 +120,18 @@
 
 <script>
 (function(){
-  const root=document.querySelector('.pp-site-header');
-  const btn=document.getElementById('ppBurger');
-  const nav=document.getElementById('ppNav');
-  if(!root||!btn||!nav) return;
-  btn.addEventListener('click', ()=>{
-    const open=root.classList.toggle('pp-open');
-    btn.setAttribute('aria-expanded', open?'true':'false');
-  });
-  nav.addEventListener('click', e=>{
-    if(e.target.closest('a')){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
-  });
-  let lastWide=window.innerWidth>900;
-  window.addEventListener('resize', ()=>{
-    const wide=window.innerWidth>900;
-    if(wide && !lastWide){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
-    lastWide=wide;
-  });
+  const header=document.getElementById('siteHeader');
+  const toggle=header.querySelector('.menu-toggle');
+  const nav=document.getElementById('primaryNav');
+  function setOpen(on){
+    header.classList.toggle('menu-open', on);
+    toggle.classList.toggle('menu-open', on);
+    toggle.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', ()=> setOpen(!header.classList.contains('menu-open')));
+  nav.addEventListener('click', e=>{ if(e.target.closest('a')) setOpen(false) });
+  let lastWide=window.innerWidth>820;
+  window.addEventListener('resize', ()=>{ const wide=window.innerWidth>820; if(wide && !lastWide) setOpen(false); lastWide=wide; });
 })();
 </script>
 </body>

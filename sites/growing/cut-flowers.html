@@ -3,284 +3,337 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cut Flower Growing (Small Spaces, Containers) | Patch & Pot</title>
-<meta name="description" content="Grow cut flowers in pots, window boxes, balconies, steps and small beds. UK-tuned sowing, pot sizes, mixes, feeding and conditioning.">
+<title>Cut Flowers in Small Spaces — Patch & Pot</title>
+<meta name="description" content="Grow cut flowers in pots, window boxes, balconies, steps and small beds. UK-tuned sowing, pot sizes, mixes, feeding, conditioning and balcony-wind fixes.">
+<link rel="stylesheet" href="../style.css?v=45">
 <style>
-  :root{
-    --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
-    --maxw:1100px; --r:14px;
-    --header-logo-h:50px;
-    --footer-logo-w:65px;
-    --accent:#8bd48b;
-  }
-  html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
-  /* Header */
-  .pp-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid var(--stroke)}
-  .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
-  .pp-header__brand{display:flex;align-items:center;text-decoration:none;gap:10px}
-  .pp-header__logo{height:var(--header-logo-h);width:auto;display:block}
-  .pp-header__brand span{font-weight:600;font-size:1.2rem;color:#fff}
-  .pp-header__nav{display:none;gap:16px;margin-left:auto}
-  .pp-nav__link{color:#cfd3d8;text-decoration:none;padding:6px 4px}
-  .pp-nav__link:hover{color:#fff}
-  .pp-header__burger{margin-left:auto;background:transparent;border:0;width:40px;height:40px;
-    display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
-  .pp-burger-bar{width:22px;height:2px;background:#e6e6ea;display:block}
-  @media(min-width:900px){.pp-header__nav{display:flex}.pp-header__burger{display:none}}
-  .pp-header--open .pp-header__nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;
-    background:#0b0f14;border-bottom:1px solid var(--stroke);padding:10px 16px;gap:10px}
-  /* Page */
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
-  h1{margin:.4rem 0 .7rem;font-size:2.2rem}
-  .lead{color:var(--ink-d)}
-  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:16px;margin:12px 0}
-  .muted{color:var(--ink-d)}
-  .grid{display:grid;gap:12px}
+  /* Page-scoped helpers (lean; relies on your global style.css) */
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:16px;margin:12px 0}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:14px}
   @media(min-width:900px){.grid.two{grid-template-columns:1fr 1fr}}
-  ul{margin:0 0 0 1.2rem}
-  /* Mini in-page nav */
   .inpage{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
-  .inpage a{text-decoration:none;color:#cfd3d8;border:1px solid var(--stroke);border-radius:999px;padding:6px 10px;background:var(--glass)}
-  .inpage a:hover{color:#fff}
-  /* Collapsibles */
-  details.fold{border:1px solid var(--stroke);border-radius:var(--r);background:var(--glass);padding:0}
+  .inpage a{ text-decoration:none; border:1px solid var(--stroke); border-radius:999px; padding:.55rem .9rem; background:var(--glass) }
+  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;background:var(--glass)}
+  .tip{border-left:4px solid var(--green2);padding:10px 12px;background:#0e1511;border-radius:10px;color:#d9f2d9}
+  details.fold{border:1px solid var(--stroke);border-radius:var(--radius);background:var(--glass);padding:0}
   details.fold + details.fold{margin-top:10px}
   details.fold summary{cursor:pointer;list-style:none;padding:12px 14px;font-weight:700;display:flex;align-items:center;gap:10px}
   details.fold summary::-webkit-details-marker{display:none}
   .fold__body{padding:0 14px 14px}
-  .tip{border-left:3px solid var(--accent);padding:8px 10px;background:#0e1511;border-radius:6px;color:#d9f2d9}
-  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;background:var(--glass)}
-  /* Simple table look */
+  .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
   .table{width:100%;border-collapse:collapse}
   .table th,.table td{border:1px solid var(--stroke);padding:8px 10px;text-align:left}
   .table thead th{background:#0f141b}
-  .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
-  /* Footer */
-  .site-footer{background:#0b0f14;padding:24px 18px;text-align:center;border-top:1px solid var(--stroke)}
-  .site-footer__logo{width:var(--footer-logo-w);height:auto;display:block;margin:0 auto 10px}
-  .site-footer p{margin:0;font-size:.9rem;color:#ccc}
-  .site-footer p + p{margin-top:4px}
+  .do{color:#8bd48b;font-weight:700} .dont{color:#f7b2b2;font-weight:700}
 </style>
 </head>
 <body>
-<header id="ppHeader" class="pp-header" role="banner">
-  <div class="pp-header__inner">
-    <a class="pp-header__brand" href="/">
-      <img src="img/patchandpot-logo.png" alt="Patch & Pot" class="pp-header__logo">
-      <span>Patch &amp; Pot</span>
+
+<!-- HEADER (PP standard) -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="../index.html">
+      <img class="pp-logo" src="../img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
     </a>
-    <button class="pp-header__burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span class="pp-burger-bar"></span><span class="pp-burger-bar"></span><span class="pp-burger-bar"></span>
+
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
     </button>
-    <nav class="pp-header__nav" id="ppNav" aria-label="Primary">
-      <a href="/" class="pp-nav__link">Home</a>
-      <a href="/growing" class="pp-nav__link">Growing</a>
-      <a href="/growing/cut-flowers" class="pp-nav__link">Cut Flowers</a>
-      <a href="/seasonal" class="pp-nav__link">Seasonal</a>
-      <a href="/guides" class="pp-nav__link">Guides</a>
-      <a href="/guides/propagation" class="pp-nav__link">Propagation</a>
-      <a href="/ideas" class="pp-nav__link">Ideas</a>
-      <a href="/contact" class="pp-nav__link">Contact</a>
+
+    <nav class="pp-nav" id="ppNav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../growing.html" aria-current="page">Growing</a>
+      <a href="../recipes.html">Recipes</a>
+      <a href="../exercise.html">Exercise</a>
+      <a href="../wellbeing.html">Wellbeing</a>
+      <a href="../guides.html">Guides</a>
+      <a href="../ideas.html">Ideas</a>
+      <a href="../seasonal.html">Seasonal</a>
+      <a href="../contact.html">Contact</a>
     </nav>
   </div>
 </header>
 
-<div class="wrap">
-  <h1>Cut Flower Growing (Small Spaces and Containers)</h1>
-  <p class="lead">Buckets of blooms from pots, window boxes, balconies, steps, railings, rooftops (check safety), tiny beds and shared courtyards.</p>
+<main class="wrap">
+  <header class="page-hero">
+    <img src="../img/cut-flowers-hero.jpg" alt="Pots and window boxes overflowing with flowers ready for cutting">
+    <figcaption class="cap">Grow bouquets from steps, balconies, and tiny yards. <span class="pill">Container-friendly</span> <span class="pill">Budget-first</span></figcaption>
+  </header>
 
+  <h1>Cut Flowers in Small Spaces</h1>
+  <p class="lead">Buckets of blooms from pots, window boxes, steps and rails. UK-tuned timings for balconies, courtyards and windy coasts — no beds needed.</p>
+
+  <!-- Mini in-page nav -->
   <nav class="inpage" aria-label="On this page">
-    <a href="#pots">Pots and planters</a>
-    <a href="#mix">Soil mixes and feeding</a>
-    <a href="#spots">Where to grow</a>
-    <a href="#hardy">Hardy annuals in pots</a>
-    <a href="#halfhardy">Half-hardy annuals in pots</a>
-    <a href="#bulbs">Bulbs, corms, tubers</a>
-    <a href="#succession">Succession plan</a>
-    <a href="#harvest">Harvest and conditioning</a>
-    <a href="#uknotes">UK regional notes</a>
+    <a href="#pots">Pots & Planters</a>
+    <a href="#mix">Mixes & Feeding</a>
+    <a href="#spots">Where to Grow</a>
+    <a href="#lists">Container Varieties</a>
+    <a href="#succession">Succession Plan</a>
+    <a href="#harvest">Harvest & Conditioning</a>
+    <a href="#bouquets">Easy Bouquet Recipes</a>
+    <a href="#uknotes">UK Regional Notes</a>
+    <a href="#fixes">Wind & Balcony Fixes</a>
+    <a href="#trouble">Troubleshooting</a>
   </nav>
 
+  <!-- Pots -->
   <section id="pots" class="section">
-    <h2>Pots and planters: sizes and spacing</h2>
-    <p class="muted">Use the guide below to choose a pot size and plant count. Drainage holes are non-negotiable. Add bricks or straps to anchor on balconies and railings.</p>
+    <h2>Pots & planters: sizes that work</h2>
+    <p class="muted">Drainage holes are non-negotiable. Anchor anything exposed to wind; install supports <em>at planting</em>.</p>
     <div class="grid two">
       <div>
         <table class="table mono">
-          <thead><tr><th>Pot size (internal)</th><th>Typical plants</th><th>Count</th></tr></thead>
+          <thead><tr><th>Container</th><th>Great choices</th><th>Count</th></tr></thead>
           <tbody>
-            <tr><td>3 to 5 L bowl/window box</td><td>Calendula, cornflower, dill, nigella</td><td>3 to 5</td></tr>
-            <tr><td>10 L tub</td><td>Cosmos dwarf, scabious, snapdragon dwarf</td><td>3</td></tr>
-            <tr><td>20 L tub</td><td>Cosmos tall, sunflower dwarf, rudbeckia</td><td>3</td></tr>
-            <tr><td>40 L tub</td><td>Sunflower tall (stake), dahlia single plant</td><td>1 to 2</td></tr>
-            <tr><td>60 L trough (80 to 100 cm)</td><td>Mixed annuals on a grid support</td><td>8 to 12</td></tr>
+            <tr><td>3–5 L window box</td><td>Calendula, cornflower, dill, nigella</td><td>3–5</td></tr>
+            <tr><td>10 L tub</td><td>Cosmos (dwarf), scabious, snapdragon dwarf</td><td>3</td></tr>
+            <tr><td>20 L tub</td><td>Cosmos tall, rudbeckia, dwarf sunflower</td><td>3</td></tr>
+            <tr><td>40 L tub</td><td>Sunflower tall (stake), single dahlia</td><td>1–2</td></tr>
+            <tr><td>60 L trough</td><td>Mixed annuals on mesh grid</td><td>8–12</td></tr>
           </tbody>
         </table>
       </div>
       <div>
         <ul>
-          <li>Support: install mesh or canes at planting. Wind breaks stems, not just pots.</li>
-          <li>Watering: daily in heat; add saucers you can remove after a soak. Self watering inserts help.</li>
-          <li>Weight: add gravel or bricks in base for stability where wind is a risk.</li>
+          <li><strong>Support:</strong> mesh panels/canes go in first. Wind breaks stems, not just pots.</li>
+          <li><strong>Watering:</strong> daily in heat. Use saucers you remove after soaking; capillary matting helps.</li>
+          <li><strong>Stability:</strong> add bricks/gravel to the base; strap troughs to rails.</li>
         </ul>
-        <p class="tip">Deep pots (30 to 40 cm) with a wide base are far more wind safe on balconies and rooftops.</p>
+        <p class="tip">Tall + narrow = tippy. Prefer <em>deep and wide</em> for balconies and rooftops.</p>
       </div>
     </div>
   </section>
 
+  <!-- Mixes -->
   <section id="mix" class="section">
-    <h2>Soil mixes and feeding</h2>
+    <h2>Soil mixes & feeding</h2>
     <div class="grid two">
       <div>
-        <h3>Standard cut flower mix</h3>
+        <h3>Standard cut-flower mix</h3>
         <ul>
           <li>60% peat-free compost</li>
-          <li>30% fine bark or composted wood fibre</li>
-          <li>10% grit or perlite for drainage</li>
-          <li>Slow release fertiliser for 10 to 12 weeks</li>
+          <li>30% fine bark / composted wood fibre</li>
+          <li>10% grit or perlite (drainage)</li>
+          <li>Slow-release fertiliser for 10–12 weeks</li>
         </ul>
       </div>
       <div>
         <h3>Feeding plan</h3>
         <ul>
-          <li>Weeks 0 to 4: just water, keep evenly moist.</li>
-          <li>Weeks 5+: add liquid feed weekly at half strength.</li>
-          <li>Heavy feeders (dahlia, sunflower, zinnia): feed twice weekly in hot spells.</li>
+          <li>Weeks 0–4: water only; keep evenly moist.</li>
+          <li>Week 5+: liquid feed weekly at half strength.</li>
+          <li>Heavy feeders (dahlia, sunflower, zinnia): consider twice weekly in hot spells.</li>
         </ul>
-        <p class="tip">Top up mix mid season in big tubs: scratch in 1 to 2 cm fresh compost and water in.</p>
+        <p class="tip">Mid-season top-up: scratch 1–2 cm fresh compost into the top and water in.</p>
       </div>
     </div>
   </section>
 
+  <!-- Where -->
   <section id="spots" class="section">
-    <h2>Where to grow: beyond beds</h2>
+    <h2>Where to grow (beyond beds)</h2>
     <ul>
-      <li>Balconies and roof terraces: anchor pots, use windbreak mesh, and stake early.</li>
-      <li>Railings and fences: hang boxes with metal brackets; cable tie to stop movement.</li>
-      <li>Window boxes: drought is the killer. Use a trough 20 cm deep and water daily in summer.</li>
-      <li>Steps and stoops: cluster 10 L tubs; rotate in fresh sowings for constant colour.</li>
-      <li>Shared courtyards: agree a corner as a cutting station; use troughs against sunniest wall.</li>
-      <li>Alleyways and path edges: narrow troughs with grid supports give lots of stems for tiny space.</li>
+      <li><strong>Balconies/roofs:</strong> windbreak mesh + early staking.</li>
+      <li><strong>Railings/fences:</strong> metal brackets + cable ties to stop sway.</li>
+      <li><strong>Window boxes:</strong> at least 20 cm deep; drought is the killer.</li>
+      <li><strong>Steps/stoops:</strong> cluster 10 L tubs; rotate fresh sowings for constant colour.</li>
+      <li><strong>Courtyards:</strong> sunniest wall + troughs = stem factory.</li>
     </ul>
   </section>
 
-  <section id="hardy" class="section">
-    <h2>Hardy annuals in pots (cool tolerant)</h2>
-    <details class="fold">
-      <summary>What to grow</summary>
-      <div class="fold__body">
+  <!-- Container varieties -->
+  <section id="lists" class="section">
+    <h2>Container-friendly varieties (compact, prolific, long stems)</h2>
+    <div class="grid two">
+      <div>
+        <h3>Hardy annuals (cool-tolerant)</h3>
         <ul>
-          <li>Calendula, cornflower, nigella, ammi, scabious, dill, larkspur (cool frame).</li>
-          <li>Sow in modules Sep to Oct (mild areas) or Feb to Apr. Plant out with mesh support.</li>
+          <li><strong>Calendula</strong> (‘Indian Prince’, ‘Snow Princess’)</li>
+          <li><strong>Cornflower</strong> (‘Polka Dot’ mix, ‘Classic Romance’)</li>
+          <li><strong>Nigella</strong> (‘Miss Jekyll’, ‘African Bride’)</li>
+          <li><strong>Ammi</strong> (maj…/visnaga — stake early)</li>
+          <li><strong>Scabious</strong> (‘Tall Double’, dwarf mixes for small tubs)</li>
+          <li><strong>Dill</strong> (umbels for airy volume)</li>
         </ul>
+        <p class="muted">Sow Aug–Oct (mild/city) or Feb–Apr; harden off carefully in windy spots.</p>
       </div>
-    </details>
+      <div>
+        <h3>Half-hardy (need frost-free)</h3>
+        <ul>
+          <li><strong>Cosmos</strong> (dwarf/tall: ‘Sonata’, ‘Xanthos’, ‘Fizzy White’)</li>
+          <li><strong>Snapdragon</strong> (dwarf series for tubs; pinch early)</li>
+          <li><strong>Rudbeckia</strong> (‘Sahara’ for earthy tones)</li>
+          <li><strong>Sunflower</strong> (patio types; tall ones need a 40 L tub + stake)</li>
+          <li><strong>Zinnia</strong> (needs heat & shelter; ‘Queeny’ series)</li>
+          <li><strong>Celosia</strong> (very warm sites only)</li>
+        </ul>
+        <p class="muted">Sow Mar–Apr (north Apr); plant out ~late May–June.</p>
+      </div>
+    </div>
+
     <details class="fold">
-      <summary>Container timing tips</summary>
+      <summary>Bulbs, corms & tubers (containers)</summary>
       <div class="fold__body">
         <ul>
-          <li>Autumn sowing gives the earliest flowers where winters are milder and winds are managed.</li>
-          <li>In cooler or windy regions start in spring and harden off slowly with fleece on breezy days.</li>
+          <li><strong>Spring:</strong> tulips (plant Nov for long stems), narcissus, alliums.</li>
+          <li><strong>Summer:</strong> lilies (stake), gladioli (stagger plantings), dahlias (one per 40 L tub).</li>
+          <li>Raise pots on feet; water deeply, then drain freely.</li>
         </ul>
       </div>
     </details>
   </section>
 
-  <section id="halfhardy" class="section">
-    <h2>Half hardy annuals in pots (need frost free)</h2>
-    <details class="fold">
-      <summary>What to grow</summary>
-      <div class="fold__body">
-        <ul>
-          <li>Cosmos, snapdragon, rudbeckia, sunflower, amaranthus, zinnia (warmest sites), celosia (very warm).</li>
-          <li>Sow late March to April (north: April). Plant out late May to June (north: June).</li>
-          <li>Pinch for branching; stake early in the pot.</li>
-        </ul>
-      </div>
-    </details>
-    <p class="tip">Cooler zones: choose dwarf or early series. Zinnia need the warmest, sunniest, most sheltered pots.</p>
-  </section>
-
-  <section id="bulbs" class="section">
-    <h2>Bulbs, corms and tubers in containers</h2>
-    <ul>
-      <li>Spring: tulips (plant Nov for long stems), narcissus, alliums.</li>
-      <li>Summer: lilies (pots; stake), gladioli (stagger plantings), dahlias (one per 40 L tub).</li>
-      <li>Drainage is critical. Raise pots on feet; water deeply, then allow to drain.</li>
-    </ul>
-  </section>
-
+  <!-- Succession -->
   <section id="succession" class="section">
-    <h2>Simple succession plan for pots</h2>
+    <h2>Simple succession for pots (UK sketch)</h2>
     <div class="grid two">
       <div>
         <h3>Early season</h3>
         <ul>
-          <li>Feb to Apr sow: calendula, cornflower, nigella, dill in modules.</li>
-          <li>Plant out with mesh; start the first 10 L tubs.</li>
+          <li>Feb–Apr: module-sow calendula, cornflower, nigella, dill.</li>
+          <li>Plant with mesh; start your first 10 L tubs.</li>
         </ul>
       </div>
       <div>
         <h3>Main season</h3>
         <ul>
-          <li>Apr to Jun sow: cosmos, snapdragon, rudbeckia. Top up earlier tubs with a second wave.</li>
-          <li>Every 2 to 3 weeks add a fresh pot to keep stems coming.</li>
+          <li>Apr–Jun: sow cosmos, snapdragon, rudbeckia; top up earlier tubs with a second wave.</li>
+          <li>Every 2–3 weeks add a fresh container to keep stems coming.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tip">One new pot every other Sunday = steady stems without overwhelm.</p>
+  </section>
+
+  <!-- Harvest & conditioning -->
+  <section id="harvest" class="section">
+    <h2>Harvest & conditioning (vase life wins)</h2>
+    <div class="grid two">
+      <div>
+        <ul>
+          <li>Cut at <strong>dawn</strong>. Use clean buckets. Strip lower leaves.</li>
+          <li>Stage: <strong>snapdragon</strong> at colour showing; <strong>cosmos</strong> first petals open; <strong>zinnia</strong> half-open & “wiggle test” firm.</li>
+          <li>Re-cut stems under water. Rest cool 2–4 hours.</li>
+        </ul>
+      </div>
+      <div>
+        <table class="table mono">
+          <thead><tr><th>DIY conditioner</th><th>Per litre</th></tr></thead>
+          <tbody>
+            <tr><td>Sugar + acid + clean</td><td>10g sugar + 10ml lemon/lime + <em>one</em> drop unscented bleach</td></tr>
+            <tr><td>Woody stems (e.g., snapdragon)</td><td>Boiling dip 5–10 sec, then into cool water</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bouquet recipes -->
+  <section id="bouquets" class="section">
+    <h2>Easy bouquet recipes (container harvests)</h2>
+    <div class="grid two">
+      <div>
+        <h3>Soft & airy</h3>
+        <ul>
+          <li>2 × cosmos, 3 × nigella, 2 × dill umbels, trails of mint.</li>
+          <li><span class="do">Do:</span> vary stem lengths; <span class="dont">Don’t:</span> pack too tight.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Warm & earthy</h3>
+        <ul>
+          <li>3 × rudbeckia ‘Sahara’, 2 × calendula, 1 × dill umbel, a little bronze fennel.</li>
+          <li>Finish with a single spike (sunflower bud or snapdragon).</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section id="harvest" class="section">
-    <h2>Harvest and conditioning</h2>
-    <ul>
-      <li>Cut early morning. Clean buckets. Strip lower leaves.</li>
-      <li>Stage of cut: snapdragon at colour showing, cosmos with first petals open, zinnia half open.</li>
-      <li>Re cut under water. Use preservative or sugar + acid + tiny bleach. Rest cool for 2 to 4 hours.</li>
-    </ul>
-  </section>
-
+  <!-- UK notes -->
   <section id="uknotes" class="section">
     <h2>UK regional notes</h2>
     <details class="fold">
-      <summary>Scotland and windy coasts</summary>
+      <summary>Scotland & windy coasts</summary>
       <div class="fold__body">
         <ul>
-          <li>Start half hardy plants later. Use windbreak mesh. Stake and tie at planting.</li>
-          <li>Choose early or compact series. Use fleece on breezy days while hardening off.</li>
+          <li>Start half-hardy later; fleece in hardening-off week.</li>
+          <li>Use compact/early series; mesh windbreaks; tie in early.</li>
         </ul>
       </div>
     </details>
     <details class="fold">
-      <summary>Milder south and city heat islands</summary>
+      <summary>Milder south & city heat islands</summary>
       <div class="fold__body">
         <ul>
-          <li>Autumn sow hardy annuals for extra early flowers in pots.</li>
-          <li>Watch for mildew in heat. Water deeply and mulch the pot surface.</li>
+          <li>Autumn-sow hardy annuals for earlier spring pots.</li>
+          <li>Watch mildew; water deeply then allow to drain.</li>
         </ul>
       </div>
     </details>
   </section>
-</div>
 
-<footer class="site-footer">
-  <img class="site-footer__logo" src="img/patchandpot-logo.png" alt="Patch & Pot">
-  <p>© 2025 Patch & Pot</p>
-  <p>Created by Grant Cameron Anthony</p>
+  <!-- Wind/balcony fixes -->
+  <section id="fixes" class="section">
+    <h2>Wind & balcony fixes</h2>
+    <ul>
+      <li>Use <strong>deep, wide</strong> tubs; avoid tall, narrow cylinders.</li>
+      <li>Secure with straps/cable ties; add weight (bricks/gravel) to bases.</li>
+      <li>Mesh panels create a “soft wall” — fewer snapped stems than canes alone.</li>
+      <li>Cluster pots to share wind load; leave drip channels for drainage.</li>
+    </ul>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section id="trouble" class="section">
+    <h2>Troubleshooting</h2>
+    <table class="table">
+      <thead><tr><th>Symptom</th><th>Likely cause</th><th>Quick fix</th></tr></thead>
+      <tbody>
+        <tr><td>Floppy stems</td><td>Low light / no support</td><td>Move to sunniest spot; add mesh/canes; pinch once</td></tr>
+        <tr><td>Powdery mildew</td><td>Dry roots + humid leaves</td><td>Water deeply AM; improve airflow; remove worst leaves</td></tr>
+        <tr><td>Short vase life</td><td>Cut too late / dirty water</td><td>Cut early; clean buckets; use conditioner; re-cut under water</td></tr>
+        <tr><td>Plants topple</td><td>Wind leverage</td><td>Heavier tubs; weight base; cluster pots; windbreak mesh</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <nav class="mini-nav" aria-label="Continue">
+    <a class="btn" href="../growing.html">Back to Growing Hub</a>
+    <a class="btn" href="space-saving.html">Space-Saving Setups</a>
+    <a class="btn" href="../guides.html">Guides Hub</a>
+  </nav>
+</main>
+
+<!-- FOOTER (PP standard) -->
+<footer>
+  <div class="wrap footer-inner">
+    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
+  </div>
 </footer>
 
+<!-- BURGER SCRIPT (same as index) -->
 <script>
 (function(){
-  var root=document.getElementById('ppHeader'); if(!root) return;
-  var btn=root.querySelector('#ppBurger'); var nav=root.querySelector('#ppNav');
-  btn.addEventListener('click',function(){
-    var open=root.classList.toggle('pp-header--open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  const root=document.querySelector('.pp-site-header');
+  const btn=document.getElementById('ppBurger');
+  const nav=document.getElementById('ppNav');
+  if(!root||!btn||!nav) return;
+  btn.addEventListener('click', ()=>{
+    const open=root.classList.toggle('pp-open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
   });
-  nav.addEventListener('click',function(e){
-    if(e.target.closest('a')){
-      root.classList.remove('pp-header--open');
-      btn.setAttribute('aria-expanded','false');
-    }
+  nav.addEventListener('click', e=>{
+    if(e.target.closest('a')){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
+  });
+  let lastWide=window.innerWidth>900;
+  window.addEventListener('resize', ()=>{
+    const wide=window.innerWidth>900;
+    if(wide && !lastWide){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
+    lastWide=wide;
   });
 })();
 </script>

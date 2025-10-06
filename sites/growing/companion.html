@@ -4,86 +4,326 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Companion Planting — Patch & Pot</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
-
-<link rel="stylesheet" href="../style.css">
+<meta name="description" content="Container-friendly companion planting that actually works: small-space layouts, best pairings, flowers for pollinators, trap crops, and what to avoid.">
+<link rel="stylesheet" href="../style.css?v=46">
+<style>
+  /* Page-scoped helpers (light; relies on your global style.css) */
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:16px;margin:12px 0}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:14px}
+  @media(min-width:900px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:1fr 1fr 1fr}}
+  .inpage{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
+  .inpage a{ text-decoration:none; border:1px solid var(--stroke); border-radius:999px; padding:.55rem .9rem; background:var(--glass) }
+  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;background:var(--glass)}
+  .tip{border-left:4px solid var(--green2);padding:10px 12px;background:#0e1511;border-radius:10px;color:#d9f2d9}
+  .do{color:#8bd48b;font-weight:700}
+  .dont{color:#f7b2b2;font-weight:700}
+  .table{width:100%;border-collapse:collapse}
+  .table th,.table td{border:1px solid var(--stroke);padding:8px 10px;text-align:left}
+  .table thead th{background:#0f141b}
+  .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+  .pattern{background:rgba(255,255,255,.06);border:1px dashed var(--stroke);padding:10px;border-radius:12px}
+</style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<!-- HEADER (PP standard) -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="../index.html">
+      <img class="pp-logo" src="../img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="pp-nav" id="ppNav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../growing.html" aria-current="page">Growing</a>
+      <a href="../recipes.html">Recipes</a>
+      <a href="../exercise.html">Exercise</a>
+      <a href="../wellbeing.html">Wellbeing</a>
+      <a href="../guides.html">Guides</a>
+      <a href="../ideas.html">Ideas</a>
+      <a href="../seasonal.html">Seasonal</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
   </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-  </nav>
 </header>
 
+<!-- HERO -->
 <header class="hero" role="banner" aria-label="Companion planting hero">
   <figure>
-    <img src="../img/tomatoes.jpg" alt="Tomatoes and basil together in a pot">
+    <img src="../img/tomatoes.jpg" alt="Tomatoes and basil growing together in a large pot">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
     <div class="wrap">
       <span class="eyebrow">Plant friends</span>
-      <h1>Companion Planting</h1>
-      <p class="lead">Pair crops that support each other — flavour, pollinators, and pest control.</p>
+      <h1>Companion Planting (That Works in Pots)</h1>
+      <p class="lead">Pair crops that genuinely help in containers: better pollination, fewer pests, stronger flavour — without cramming or chaos.</p>
+      <div class="cta-row">
+        <a class="btn" href="../growing.html">Back to Growing Hub</a>
+      </div>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="grid" aria-label="Good pairings">
-    <article class="card">
-      <h2>Great Combos</h2>
-      <ul>
-        <li><strong>Tomato + Basil:</strong> flavour friends; similar water/light needs.</li>
-        <li><strong>Chilli + Marigold:</strong> flowers attract pollinators, distract pests.</li>
-        <li><strong>Kale + Chives:</strong> chives help deter aphids; both suit pots.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h2>Things to Avoid</h2>
-      <ul>
-        <li>Don’t overcrowd — roots and leaves need airflow.</li>
-        <li>Don’t mix very thirsty with drought-tolerant plants in one pot.</li>
-        <li>Watch heights — taller plants shouldn’t shade short sun-lovers.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h2>Pollinator Boost</h2>
-      <ul>
-        <li>Add edible flowers (nasturtiums, violas).</li>
-        <li>Let a few herbs flower (basil, chives) for bees.</li>
-        <li>Keep flowers pesticide-free.</li>
-      </ul>
-    </article>
+
+  <!-- In-page mini nav -->
+  <nav class="inpage" aria-label="On this page">
+    <a href="#principles">Core Principles</a>
+    <a href="#layouts">Small-Space Layouts</a>
+    <a href="#pairs">Best Pairings</a>
+    <a href="#flowers">Flowers & Beneficials</a>
+    <a href="#traps">Trap Crops & Living Mulch</a>
+    <a href="#avoid">What to Avoid</a>
+    <a href="#quickref">Quick Reference</a>
+    <a href="#trouble">Troubleshooting</a>
+  </nav>
+
+  <!-- Principles -->
+  <section id="principles" class="section">
+    <h2>Core principles for containers</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Match needs</h3>
+        <ul>
+          <li>Group by <strong>light</strong> (full sun vs part shade).</li>
+          <li>Group by <strong>thirst</strong> (don’t mix droughty rosemary with thirsty basil).</li>
+          <li>Group by <strong>feed</strong> (heavy feeders like tomatoes need richer mix).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Keep airflow</h3>
+        <ul>
+          <li>Pick a pot that fits the <em>adult</em> size.</li>
+          <li>Stake tall plants early so companions aren’t smothered.</li>
+          <li>Leaf contact = faster disease spread. Leave light between stems.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tip"><strong>Rule of thumb:</strong> one “main crop” + one “helper” + (optionally) one “edge” plant. More than three in a 20–30 L pot gets messy.</p>
   </section>
 
-  <nav class="mini-nav" aria-label="More growing">
-    <a href="pests.html">Pests &amp; Problems</a>
-    <a href="cut-flowers.html">Cut Flowers in Pots</a>
-    <a href="../growing.html">Growing Hub</a>
+  <!-- Layouts -->
+  <section id="layouts" class="section">
+    <h2>Small-space layouts that just work</h2>
+    <div class="grid three">
+      <div class="pattern">
+        <h3>Tomato + Basil (20–30 L+)</h3>
+        <ul>
+          <li>1 bush cherry tomato (centre, staked)</li>
+          <li>2–3 basil around the rim</li>
+          <li>Optional: trailing thyme at edge</li>
+        </ul>
+        <p class="muted">Shared sun & water needs; basil boosts pollinator traffic.</p>
+      </div>
+      <div class="pattern">
+        <h3>Chilli + Marigold (15–20 L)</h3>
+        <ul>
+          <li>1–2 compact chillies</li>
+          <li>2 French marigolds as underplanting</li>
+        </ul>
+        <p class="muted">Colour draws pollinators; scent helps distract pests.</p>
+      </div>
+      <div class="pattern">
+        <h3>Kale + Chives (20 L)</h3>
+        <ul>
+          <li>2 dwarf kales</li>
+          <li>1 clump chives at the edge</li>
+        </ul>
+        <p class="muted">Chives help deter aphids; both tolerate cooler, breezier spots.</p>
+      </div>
+    </div>
+    <div class="grid two" style="margin-top:10px">
+      <div class="pattern">
+        <h3>Courgette + Nasturtium (40 L)</h3>
+        <ul><li>1 courgette in centre (stake/space leaves)</li><li>2 nasturtiums spilling over rim</li></ul>
+        <p class="muted">Nasturtiums attract pollinators and may “hold” aphids.</p>
+      </div>
+      <div class="pattern">
+        <h3>Carrot + Spring Onion (deep trough)</h3>
+        <ul><li>Carrots on a loose grid</li><li>Spring onions dotted between rows</li></ul>
+        <p class="muted">Onion scent can confuse carrot fly; keep the mix evenly moist.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best pairings -->
+  <section id="pairs" class="section">
+    <h2>Best pairings by goal</h2>
+    <div class="grid three">
+      <article class="card">
+        <h3>Pollination & yield</h3>
+        <ul>
+          <li><strong>Tomato</strong> + basil, calendula</li>
+          <li><strong>Courgette</strong> + nasturtium, borage (if space permits)</li>
+          <li><strong>Strawberry</strong> + alyssum, thyme (edge)</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Pest distraction</h3>
+        <ul>
+          <li><strong>Brassicas</strong> + nasturtium (aphid magnet)</li>
+          <li><strong>Chilli/pepper</strong> + marigold</li>
+          <li><strong>Beans</strong> + dill (hoverflies love dill)</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Flavour & growth</h3>
+        <ul>
+          <li><strong>Tomato</strong> + basil (classic)</li>
+          <li><strong>Cucumber</strong> + dill</li>
+          <li><strong>Beetroot</strong> + coriander (edge, light shade)</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Flowers/beneficials -->
+  <section id="flowers" class="section">
+    <h2>Flowers & herbs for beneficial insects</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Top draws for balconies</h3>
+        <ul>
+          <li><strong>Calendula</strong> (long season, easy in pots)</li>
+          <li><strong>Alyssum</strong> (edges, drought-tolerant)</li>
+          <li><strong>Dill</strong> & <strong>fennel</strong> (umbels for hoverflies)</li>
+          <li><strong>Marigolds</strong> (French types for compact growth)</li>
+          <li><strong>Borage</strong> (only in big tubs; bee magnet)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>How to use them</h3>
+        <ul>
+          <li>Dot <em>small</em> flowers between big-leaf crops, not against stems.</li>
+          <li>Keep them unsprayed; even “organic” sprays can hit pollinators.</li>
+          <li>Deadhead often = constant nectar.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trap crops & living mulch -->
+  <section id="traps" class="section">
+    <h2>Trap crops & living mulch (container-safe)</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Trap crops</h3>
+        <ul>
+          <li><strong>Nasturtium</strong> for aphids — place on the <em>windward</em> side so pests meet it first.</li>
+          <li><strong>Radish</strong> as a fast sacrificial for flea beetle near brassicas.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Living mulch</h3>
+        <ul>
+          <li><strong>Thyme</strong> or <strong>oregano</strong> as a dry edge under tomatoes/peppers (large pots only).</li>
+          <li><strong>Alyssum</strong> to keep the surface cool in hot spells.</li>
+        </ul>
+        <p class="tip">Mulches reduce splash and water loss — just don’t swamp the main crop’s base.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avoid -->
+  <section id="avoid" class="section">
+    <h2>What to avoid (especially in pots)</h2>
+    <ul>
+      <li><span class="dont">Don’t</span> mix plants with opposite watering needs (rosemary + basil).</li>
+      <li><span class="dont">Don’t</span> underplant with thirsty mint (use mint only in its own pot).</li>
+      <li><span class="dont">Don’t</span> pack leaves tight — airflow beats most disease.</li>
+      <li><span class="dont">Don’t</span> let tall plants shade your sun-lovers all day.</li>
+    </ul>
+  </section>
+
+  <!-- Quick reference -->
+  <section id="quickref" class="section">
+    <h2>Quick reference (grab-and-go)</h2>
+    <div class="grid two">
+      <div>
+        <table class="table mono">
+          <thead><tr><th>Main crop</th><th>Good companions</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Tomato (bush)</td><td>Basil, calendula, thyme</td><td>20–30 L+, stake early</td></tr>
+            <tr><td>Chilli/pepper</td><td>Marigold, basil</td><td>Warmest spot; steady feeding</td></tr>
+            <tr><td>Courgette</td><td>Nasturtium, dill</td><td>40 L tub; pollination boost</td></tr>
+            <tr><td>Kale</td><td>Chives, dill</td><td>Part sun ok; fleece in hardening off</td></tr>
+            <tr><td>Carrot</td><td>Spring onion, dill</td><td>Deep trough; thin seedlings</td></tr>
+            <tr><td>Strawberry</td><td>Alyssum, thyme</td><td>Edge plants for airflow</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table class="table mono">
+          <thead><tr><th>Flower/herb</th><th>Helps with</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>Calendula</td><td>Pollinators, resilience</td><td>Edge of tubs; deadhead</td></tr>
+            <tr><td>Marigold</td><td>Distraction colour/scent</td><td>Underplant peppers/chillies</td></tr>
+            <tr><td>Dill</td><td>Hoverflies (aphid hunters)</td><td>Between beans/brassicas</td></tr>
+            <tr><td>Nasturtium</td><td>Aphid trap, pollinators</td><td>Trailing from rim; sacrificial</td></tr>
+            <tr><td>Alyssum</td><td>Cover, tiny pollinators</td><td>Living edge mulch</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section id="trouble" class="section">
+    <h2>Troubleshooting</h2>
+    <table class="table">
+      <thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>Leaves crowded & mildewy</td><td>Overpacked pot, poor airflow</td><td>Prune leaves, remove a companion, water AM</td></tr>
+        <tr><td>Main crop not fruiting</td><td>Low light / nutrient split</td><td>Move to full sun; feed main crop; reduce companions</td></tr>
+        <tr><td>Aphids everywhere</td><td>No shelter for predators</td><td>Add dill/alyssum; squish early; rinse undersides</td></tr>
+        <tr><td>Companion overruns pot</td><td>Mint/oregano too vigorous</td><td>Re-pot companion solo; keep edges tidy</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <nav class="mini-nav" aria-label="Continue">
+    <a class="btn" href="first-pot.html">Your First Pot</a>
+    <a class="btn" href="space-saving.html">Space-Saving Setups</a>
+    <a class="btn" href="../guides.html">Guides Hub</a>
   </nav>
 </main>
 
+<!-- FOOTER (PP standard) -->
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- BURGER SCRIPT (same as index) -->
+<script>
+(function(){
+  const root=document.querySelector('.pp-site-header');
+  const btn=document.getElementById('ppBurger');
+  const nav=document.getElementById('ppNav');
+  if(!root||!btn||!nav) return;
+  btn.addEventListener('click', ()=>{
+    const open=root.classList.toggle('pp-open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+  });
+  nav.addEventListener('click', e=>{
+    if(e.target.closest('a')){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
+  });
+  let lastWide=window.innerWidth>900;
+  window.addEventListener('resize', ()=>{
+    const wide=window.innerWidth>900;
+    if(wide && !lastWide){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
+    lastWide=wide;
+  });
+})();
+</script>
 </body>
 </html>

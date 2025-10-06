@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your First Pot — Patch & Pot</title>
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=44">
 <style>
   .steps{display:grid; gap:14px}
   @media(min-width:920px){.steps{grid-template-columns:1.1fr 1fr}}
@@ -20,25 +20,33 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<!-- HEADER -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="../index.html">
+      <img class="pp-logo" src="../img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="pp-nav" id="ppNav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../growing.html" aria-current="page">Growing</a>
+      <a href="../recipes.html">Recipes</a>
+      <a href="../exercise.html">Exercise</a>
+      <a href="../wellbeing.html">Wellbeing</a>
+      <a href="../guides.html">Guides</a>
+      <a href="../ideas.html">Ideas</a>
+      <a href="../seasonal.html">Seasonal</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
   </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-  </nav>
 </header>
 
 <main class="wrap">
   <h1>Your First Pot</h1>
-  <p class="lead">A simple, forgiving setup you can finish in 15–20 minutes. Works on a windowsill, doorstep, or balcony.</p>
+  <p class="lead">A simple, forgiving setup you can finish in 15–20 minutes. Works on a windowsill, doorstep, or balcony. The first pot you grow is the start of something much bigger.</p>
 
   <section class="steps">
     <article class="card">
@@ -63,7 +71,6 @@
     </article>
 
     <aside class="figure">
-      <!-- Put a friendly how-to photo here -->
       <img src="../img/first-pot-steps.jpg" alt="Layering pot shards, compost, and planting a herb seedling">
       <p class="meta">Diagram/photo: drainage, fill line, and firming the soil. <span class="badge">Placeholder</span> → <code>sites/img/first-pot-steps.jpg</code></p>
     </aside>
@@ -93,21 +100,62 @@
       <li>Water when the top 2–3 cm is dry to the touch.</li>
       <li>Feed lightly every 2 weeks once growth is steady (tomato feed for fruiting plants; general feed for leafy herbs).</li>
       <li>Harvest little and often (salads: snip outer leaves, herbs: pinch above a leaf pair).</li>
+      <li>Remove tired leaves — compost them, and let new shoots take over.</li>
+    </ul>
+    <p class="meta">Check in at the same time each week — make it a ritual with your tea or coffee. Growing is mindfulness in disguise.</p>
+  </section>
+
+  <section class="card">
+    <h2>Next steps</h2>
+    <p>Once you’ve grown one pot, you’ll want to try another. Here are simple progressions:</p>
+    <ul>
+      <li><strong>Second pot:</strong> add a companion, like basil + tomato, or parsley + spring onion.</li>
+      <li><strong>Windowsill rail:</strong> link two or three troughs together for salads and herbs.</li>
+      <li><strong>Vertical step:</strong> hang pots or use a crate tower to multiply space.</li>
+      <li><strong>Mindful moment:</strong> notice how tending your pots slows your breathing and lightens your day.</li>
     </ul>
   </section>
 
   <nav class="mini-nav">
     <a href="space-saving.html">Space-Saving Setups</a>
     <a href="companion.html">Companion Planting</a>
-    <a href="../wellbeing/affirmations.html">Affirmations</a>
+    <a href="../guides.html">Guides Hub</a>
   </nav>
 </main>
 
+<!-- FOOTER -->
 <footer>
   <div class="wrap footer-inner">
     <img src="../img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
-    <p>© Patch &amp; Pot | Grant Cameron Anthony</p>
+    <p>© 2025 Patch &amp; Pot</p>
+    <p class="credit" style="font-size:.8em;color:#777;">Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- BURGER SCRIPT -->
+<script>
+(function(){
+  const root=document.querySelector('.pp-site-header');
+  const btn=document.getElementById('ppBurger');
+  const nav=document.getElementById('ppNav');
+  if(!root||!btn||!nav) return;
+  btn.addEventListener('click', ()=>{
+    const open=root.classList.toggle('pp-open');
+    btn.setAttribute('aria-expanded', open?'true':'false');
+  });
+  nav.addEventListener('click', e=>{
+    if(e.target.closest('a')){
+      root.classList.remove('pp-open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+  let lastWide=window.innerWidth>900;
+  window.addEventListener('resize', ()=>{
+    const wide=window.innerWidth>900;
+    if(wide && !lastWide){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
+    lastWide=wide;
+  });
+})();
+</script>
 </body>
 </html>

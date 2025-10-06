@@ -94,12 +94,29 @@ a:hover{ text-decoration:underline }
 h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem) }
 .lead{ max-width:70ch; color:var(--muted); font-size:1.05rem }
 .cta-row{ margin:1.1rem 0 1.6rem; display:flex; gap:.75rem; flex-wrap:wrap }
-.btn{
-  display:inline-flex; align-items:center; gap:.55rem; padding:.85rem 1.15rem;
-  border-radius:12px; font-weight:700; border:0; cursor:pointer;
+
+/* ===============================
+   Buttons – All Green
+   =============================== */
+.btn {
+  display:inline-flex; align-items:center; gap:.55rem; padding:.75rem 1.15rem;
+  border-radius:12px; font-weight:700; cursor:pointer;
+  border:1px solid var(--green);
+  background:linear-gradient(180deg,var(--green2),var(--green));
+  color:#061007;
+  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
 }
-.btn.primary{ background:linear-gradient(180deg,var(--green2),var(--green)); color:#061007 }
-.btn.ghost{ background:rgba(255,255,255,.10); border:1px solid var(--stroke); color:#fff }
+.btn:hover {
+  transform:translateY(-2px);
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+  background:linear-gradient(180deg,var(--green2),#1b5e20);
+}
+.btn.primary,
+.btn.ghost {
+  background:linear-gradient(180deg,var(--green2),var(--green));
+  color:#061007;
+  border:1px solid var(--green);
+}
 
 /* ===============================
    PAGE HEROES (subpages)
@@ -153,7 +170,7 @@ figcaption.cap{ text-align:center; font-size:.95rem; color:var(--muted); margin-
 
 .help-links{ background:var(--glass); border:1px solid var(--stroke); border-radius:12px; padding:12px; margin-top:12px }
 .help-links h2{ margin:.2rem 0 .4rem } .help-links h3{ margin:.8rem 0 .2rem; font-size:1.05rem }
-.help-links ul{ margin:0 0 .6rem 1.2rem } .help-links .note{ color:var(--muted); font-size:.92rem }
+.help-links ul{ margin:0 0 .6rem 1.2rem } .help-links .note{ color:#var(--muted); font-size:.92rem }
 
 /* ===============================
    Ideas & Guides grids (square)
@@ -168,7 +185,7 @@ figcaption.cap{ text-align:center; font-size:.95rem; color:var(--muted); margin-
 .ideas-grid .tile .thumb, .guides-grid .tile .thumb{ width:100%; aspect-ratio:1/1; background:#0a0d0c; overflow:hidden }
 .ideas-grid .tile .thumb img, .guides-grid .tile .thumb img{ width:100%; height:100%; object-fit:cover; display:block }
 .ideas-grid .tile > img, .guides-grid .tile > img{ width:100%; height:100%; aspect-ratio:1/1; object-fit:cover; display:block }
-.ideas-grid .cap, .guides-grid .cap{ padding:.75rem .95rem; color:var(--muted); font-size:.95rem }
+.ideas-grid .cap, .guides-grid .cap{ padding:.75rem .95rem; color:#var(--muted); font-size:.95rem }
 
 /* ===============================
    Mini-Nav (GREEN BUTTONS)
@@ -217,7 +234,7 @@ footer p{ font-size:.9em; color:#9ab09f; margin:0 }
 
 /* Legend (icons) */
 .pp-legend{ display:flex; gap:18px; align-items:center; margin:.4rem 0 .8rem }
-.pp-legend .i{ display:inline-flex; align-items:center; gap:.45rem; color:var(--inkdim) }
+.pp-legend .i{ display:inline-flex; align-items:center; gap:.45rem; color:#var(--inkdim) }
 .pp-legend .i span{ font-size:1.05rem }
 
 /* Calendar GRID – names will WRAP; rows auto-fit tallest cell */

@@ -3,318 +3,185 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Common Pests (Quick ID & Fixes) — Patch & Pot</title>
-<meta name="description" content="Quick pest ID cards for small-space growers with non-spray fixes you can try today. Balcony and pot-friendly prevention that actually works.">
-<link rel="stylesheet" href="../style.css?v=47">
+<title>Common Pests — Patch & Pot</title>
+<link rel="stylesheet" href="../style.css">
 <style>
-  /* Page-scoped helpers (leans on your global style.css) */
-  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:16px;margin:12px 0}
-  .muted{color:var(--muted)}
-  .cards{display:grid;gap:14px;margin:18px 0}
+  .logo{height:64px;width:auto}
+  .nav a{color:#fff !important}
+  .footer-icon,.footer-pot{height:64px;width:auto;opacity:.95}
+
+  .cards{display:grid; gap:14px; margin:18px 0}
   @media(min-width:760px){.cards{grid-template-columns:repeat(2,1fr)}}
-  @media(min-width:1080px){.cards{grid-template-columns:repeat(3,1fr)}}
-  .pest{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
-  .pest .thumb{aspect-ratio:1/1;background:#0a0d0c}
-  .pest .thumb img{width:100%;height:100%;object-fit:cover}
-  .pest .body{padding:.85rem .95rem;display:flex;flex-direction:column;gap:.45rem}
-  .pest h2{margin:.1rem 0 .2rem;font-size:1.1rem}
-  .tags{display:flex;flex-wrap:wrap;gap:.35rem}
-  .tag{display:inline-block;padding:.18rem .5rem;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.06);font-size:.8rem}
-  .fix{margin-top:.2rem;padding:.6rem .7rem;border-radius:10px;border:1px dashed var(--stroke);background:rgba(255,255,255,.05)}
-  .fix ul{margin:.2rem 0 0 1.1rem}
-  .sev{font-size:.78rem;border-radius:6px;padding:.18rem .45rem;border:1px solid var(--stroke)}
-  .sev-low{background:#0f1711;color:#cfe6d6}
-  .sev-med{background:#17140f;color:#f5dfb8}
-  .sev-high{background:#1a1010;color:#f6c0c0}
-  .grid.two{display:grid;gap:14px}
-  @media(min-width:900px){.grid.two{grid-template-columns:1fr 1fr}}
-  .table{width:100%;border-collapse:collapse;font-size:.95rem}
-  .table th,.table td{border:1px solid var(--stroke);padding:.6rem .7rem;text-align:left}
-  .table thead th{background:#0f141b}
-  .tip{border-left:4px solid var(--green2);padding:10px 12px;background:#0e1511;border-radius:10px;color:#d9f2d9}
+  @media(min-width:1160px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .pest{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); overflow:hidden}
+  .pest .thumb{aspect-ratio:1/1; background:#0a0d0c}
+  .pest .thumb img{width:100%; height:100%; object-fit:cover}
+  .pest .body{padding:.8rem .9rem}
+  .tag{display:inline-block; padding:.18rem .5rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); font-size:.8rem; margin:.2rem .4rem .2rem 0}
+  .fix{margin-top:.5rem; padding:.6rem .7rem; border-radius:10px; border:1px dashed var(--stroke); background:rgba(255,255,255,.05)}
+  .note{color:var(--muted); font-size:.92rem}
 </style>
 </head>
 <body>
 
-<!-- HEADER (PP standard with burger) -->
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="../index.html">
-      <img class="pp-logo" src="../img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <nav class="pp-nav" id="ppNav" aria-label="Primary">
-      <a href="../index.html">Home</a>
-      <a href="../growing.html" aria-current="page">Growing</a>
-      <a href="../recipes.html">Recipes</a>
-      <a href="../exercise.html">Exercise</a>
-      <a href="../wellbeing.html">Wellbeing</a>
-      <a href="../guides.html">Guides</a>
-      <a href="../ideas.html">Ideas</a>
-      <a href="../seasonal.html">Seasonal</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
+<header class="site-header">
+  <div class="brand">
+    <img src="/img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
   </div>
-</header>
-
-<header class="page-hero">
-  <img src="../img/pests-hero.jpg" alt="Close-up of a ladybird on a leaf hunting aphids">
-  <figcaption class="cap">Prevent first. Identify fast. Fix gently. <span class="tag">Balcony-safe</span> <span class="tag">Pot-friendly</span></figcaption>
+  <nav class="nav" aria-label="Primary">
+    <a href="../index.html">Home</a>
+    <a href="../growing.html">Growing</a>
+    <a href="../recipes.html">Recipes</a>
+    <a href="../wellbeing.html">Wellbeing</a>
+    <a href="../exercise.html">Exercise</a>
+    <a href="../guides.html">Guides</a>
+    <a href="../ideas.html">Ideas</a>
+  </nav>
 </header>
 
 <main class="wrap">
-  <h1>Common Pests — Quick ID & Fixes</h1>
-  <p class="lead">Spot what’s wrong in seconds. Try a gentle fix today. Keep predators around so you rarely need sprays.</p>
+  <h1>Common Pests (Identify & Fix)</h1>
+  <p class="lead">Quick ID cards with simple fixes you can try the same day — safe for **edibles** and containers.</p>
 
-  <section class="section" aria-label="Prevention first">
-    <h2>Prevention that actually works in pots</h2>
-    <div class="grid two">
-      <div>
-        <ul>
-          <li><strong>Airflow:</strong> don’t cram; stake early so leaves don’t touch.</li>
-          <li><strong>Water roots, not leaves:</strong> morning so plants dry fast.</li>
-          <li><strong>Cleanliness:</strong> remove yellowing leaves; wipe pot rims (snails hide here).</li>
-        </ul>
+  <section class="cards">
+
+    <article class="pest">
+      <div class="thumb"><img src="/img/aphids.jpg" alt="Aphids cluster on a stem"></div>
+      <div class="body">
+        <h2>Aphids</h2>
+        <p><span class="tag">Sticky</span><span class="tag">Curled tips</span><span class="tag">Ants nearby</span></p>
+        <div class="fix">
+          <ul>
+            <li>Blast with water; repeat after 2–3 days (undersides).</li>
+            <li>Mild soapy water wipe (rinse next day on edibles).</li>
+            <li>Attract ladybirds with dill, fennel, calendula.</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <ul>
-          <li><strong>Companion flowers:</strong> dill, calendula, alyssum for hoverflies/ladybirds.</li>
-          <li><strong>Quarantine newbies:</strong> keep new plants separate for a week.</li>
-          <li><strong>Feed steady, not heavy:</strong> lush, sappy growth invites pests.</li>
-        </ul>
+    </article>
+
+    <article class="pest">
+      <div class="thumb"><img src="/img/spider-mites.jpg" alt="Fine webbing on leaf: spider mites"></div>
+      <div class="body">
+        <h2>Spider Mites</h2>
+        <p><span class="tag">Fine web</span><span class="tag">Speckled leaves</span><span class="tag">Dry air</span></p>
+        <div class="fix">
+          <ul>
+            <li>Mist daily to raise humidity; shower gently weekly.</li>
+            <li>Wipe leaf undersides; increase airflow.</li>
+            <li>Isolate heavily affected pots.</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <p class="tip">Most outbreaks start when plants are thirsty <em>and</em> cramped. Fix those, half the battle’s won.</p>
+    </article>
+
+    <article class="pest">
+      <div class="thumb"><img src="/img/slugs.jpg" alt="Slugs trail and leaf holes"></div>
+      <div class="body">
+        <h2>Slugs &amp; Snails</h2>
+        <p><span class="tag">Big holes</span><span class="tag">Silvery trails</span></p>
+        <div class="fix">
+          <ul>
+            <li>Evening hand-pick; copper tape around pots.</li>
+            <li>Beer traps; wool pellets; tidy damp hiding spots.</li>
+            <li>Raise pots on feet; don’t overwater at night.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="pest">
+      <div class="thumb"><img src="/img/whitefly.jpg" alt="Whitefly cloud when disturbed"></div>
+      <div class="body">
+        <h2>Whitefly</h2>
+        <p><span class="tag">Little white cloud</span><span class="tag">Sticky leaves</span></p>
+        <div class="fix">
+          <ul>
+            <li>Yellow sticky cards near plant canopy.</li>
+            <li>Wipe with soapy water; rinse next day.</li>
+            <li>Boost airflow; avoid crowding foliage.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="pest">
+      <div class="thumb"><img src="/img/leaf-miner.jpg" alt="Leaf miner trails"></div>
+      <div class="body">
+        <h2>Leaf Miner</h2>
+        <p><span class="tag">Snake trails</span><span class="tag">Thin tunnels</span></p>
+        <div class="fix">
+          <ul>
+            <li>Remove affected leaves promptly (bin, don’t compost).</li>
+            <li>Use fine mesh over susceptible crops.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="pest">
+      <div class="thumb"><img src="/img/blight.jpg" alt="Tomato blight on leaf"></div>
+      <div class="body">
+        <h2>Tomato/Potato Blight</h2>
+        <p><span class="tag">Brown patches</span><span class="tag">Blackened stems</span><span class="tag">Rapid collapse</span></p>
+        <div class="fix">
+          <ul>
+            <li>Remove affected growth; do not compost.</li>
+            <li>Water soil, not leaves; increase spacing/airflow.</li>
+            <li>Choose earlier/determinate tomatoes for pots.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- Add a couple more that are common in pots -->
+    <article class="pest">
+      <div class="thumb"><img src="/img/fungus-gnats.jpg" alt="Small gnats on compost surface"></div>
+      <div class="body">
+        <h2>Fungus Gnats</h2>
+        <p><span class="tag">Tiny flies</span><span class="tag">On wet compost</span></p>
+        <div class="fix">
+          <ul>
+            <li>Let top 2–3 cm dry between watering.</li>
+            <li>Top dress with coarse sand/grit.</li>
+            <li>Yellow sticky traps near soil surface.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="pest">
+      <div class="thumb"><img src="/img/powdery-mildew.jpg" alt="Powdery mildew on leaf"></div>
+      <div class="body">
+        <h2>Powdery Mildew</h2>
+        <p><span class="tag">White powder</span><span class="tag">Dry + still air</span></p>
+        <div class="fix">
+          <ul>
+            <li>Prune for airflow; avoid late overhead watering.</li>
+            <li>Remove worst leaves; keep new growth vigorous.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
   </section>
 
-  <!-- Quick ID table -->
-  <section class="section" aria-label="Quick ID">
-    <h2>Quick ID (symptom → likely pest)</h2>
-    <div class="grid two">
-      <table class="table">
-        <thead><tr><th>Symptom</th><th>Likely culprit</th><th>Severity</th></tr></thead>
-        <tbody>
-          <tr><td>Sticky leaves, curled tips, ants</td><td>Aphids</td><td><span class="sev sev-med">Medium</span></td></tr>
-          <tr><td>Fine webbing, speckled leaves (dry air)</td><td>Spider mites</td><td><span class="sev sev-med">Medium</span></td></tr>
-          <tr><td>Big ragged holes + slime trails</td><td>Slugs & snails</td><td><span class="sev sev-high">High</span></td></tr>
-          <tr><td>White cloud when you touch plant</td><td>Whitefly</td><td><span class="sev sev-med">Medium</span></td></tr>
-          <tr><td>Snaking silver tunnels in leaves</td><td>Leaf miner</td><td><span class="sev sev-low">Low</span></td></tr>
-          <tr><td>Tomato leaves blotchy, stems blacken in wet</td><td>Tomato blight</td><td><span class="sev sev-high">High</span></td></tr>
-        </tbody>
-      </table>
-      <div>
-        <p class="muted">Severity is about <em>speed & spread</em> in containers. Slugs/snails can erase a pot overnight; blight races in wet spells.</p>
-        <p><strong>Rule:</strong> If 20%+ of a small plant is hit, act today. For big plants, remove worst leaves and monitor for 48 hours.</p>
-      </div>
-    </div>
-  </section>
+  <p class="note">Use food-safe methods first for edibles. Re-apply gentle controls a few times rather than one harsh hit.</p>
 
-  <!-- Cards -->
-  <section class="cards" aria-label="Pest cards">
-    <!-- Aphids -->
-    <article class="pest">
-      <div class="thumb"><img src="../img/aphids.jpg" alt="Aphids clustered on a tender shoot"></div>
-      <div class="body">
-        <h2>Aphids <span class="sev sev-med" title="medium severity">Medium</span></h2>
-        <div class="tags">
-          <span class="tag">Sticky</span><span class="tag">Curled tips</span><span class="tag">Ants nearby</span>
-        </div>
-        <div class="fix">
-          <ul>
-            <li>Blast with water (undersides too). Repeat in 2–3 days.</li>
-            <li>Wipe with mild soapy water; rinse after 10–15 mins.</li>
-            <li>Plant dill/alyssum; don’t spray predators away.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <!-- Spider mites -->
-    <article class="pest">
-      <div class="thumb"><img src="../img/spider-mites.jpg" alt="Fine webbing indicating spider mites"></div>
-      <div class="body">
-        <h2>Spider mites <span class="sev sev-med">Medium</span></h2>
-        <div class="tags">
-          <span class="tag">Fine web</span><span class="tag">Speckled leaves</span><span class="tag">Dry air</span>
-        </div>
-        <div class="fix">
-          <ul>
-            <li>Mist daily to raise humidity; shower plant gently.</li>
-            <li>Wipe both sides of leaves; improve airflow.</li>
-            <li>Move away from radiators/sun-baked glass.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <!-- Slugs -->
-    <article class="pest">
-      <div class="thumb"><img src="../img/slugs.jpg" alt="Slugs damage on leaves with trails"></div>
-      <div class="body">
-        <h2>Slugs &amp; Snails <span class="sev sev-high">High</span></h2>
-        <div class="tags">
-          <span class="tag">Big holes</span><span class="tag">Silvery trails</span>
-        </div>
-        <div class="fix">
-          <ul>
-            <li>Evening hand-pick; check under rims/saucers.</li>
-            <li>Copper tape on pot sides; wool pellets as barrier.</li>
-            <li>Raise pots on feet; reduce damp hiding spots.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <!-- Whitefly -->
-    <article class="pest">
-      <div class="thumb"><img src="../img/whitefly.jpg" alt="Whitefly cloud lifting from plant"></div>
-      <div class="body">
-        <h2>Whitefly <span class="sev sev-med">Medium</span></h2>
-        <div class="tags">
-          <span class="tag">White cloud</span><span class="tag">Sticky leaves</span>
-        </div>
-        <div class="fix">
-          <ul>
-            <li>Yellow sticky cards just above foliage.</li>
-            <li>Wipe with soapy water; rinse. Improve airflow.</li>
-            <li>Avoid overfeeding soft growth.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <!-- Leaf miner -->
-    <article class="pest">
-      <div class="thumb"><img src="../img/leaf-miner.jpg" alt="Leaf miner tunnels on a leaf"></div>
-      <div class="body">
-        <h2>Leaf miner <span class="sev sev-low">Low</span></h2>
-        <div class="tags">
-          <span class="tag">Snake trails</span><span class="tag">Thin tunnels</span>
-        </div>
-        <div class="fix">
-          <ul>
-            <li>Remove affected leaves quickly (bin them).</li>
-            <li>Use fine mesh on susceptible crops.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <!-- Tomato blight -->
-    <article class="pest">
-      <div class="thumb"><img src="../img/blight.jpg" alt="Brown blotches and blackening stems from blight"></div>
-      <div class="body">
-        <h2>Tomato blight <span class="sev sev-high">High</span></h2>
-        <div class="tags">
-          <span class="tag">Brown patches</span><span class="tag">Blackened stems</span><span class="tag">Wet spells</span>
-        </div>
-        <div class="fix">
-          <ul>
-            <li>Remove affected leaves/fruit; don’t compost.</li>
-            <li>Keep foliage dry: water soil only; increase spacing.</li>
-            <li>Prioritise fast ripening; consider cover in wet weeks.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <!-- Bonus: Vine weevil (pots) -->
-    <article class="pest">
-      <div class="thumb"><img src="../img/vine-weevil.jpg" alt="Notched leaves from vine weevil adults"></div>
-      <div class="body">
-        <h2>Vine weevil (pots) <span class="sev sev-med">Medium</span></h2>
-        <div class="tags">
-          <span class="tag">Notched leaves</span><span class="tag">Sudden wilt</span>
-        </div>
-        <div class="fix">
-          <ul>
-            <li>Check roots for grubs when repotting; bin infested compost.</li>
-            <li>Use physical barriers on pot rims; tidy hiding spots.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <!-- When to worry + non-spray toolkit -->
-  <section class="section" aria-label="Action thresholds">
-    <h2>When to act (and with what)</h2>
-    <div class="grid two">
-      <div>
-        <table class="table">
-          <thead><tr><th>Situation</th><th>Action today</th></tr></thead>
-          <tbody>
-            <tr><td>Seedlings disappearing overnight</td><td>Slug patrol at dusk; copper on pots; raise trays</td></tr>
-            <tr><td>10–20% leaf area with aphids</td><td>Water blast + soapy wipe; add dill/alyssum</td></tr>
-            <tr><td>Mites on indoor windowsill</td><td>Mist daily + shower leaves; move off radiator</td></tr>
-            <tr><td>Blight in a wet week</td><td>Strip worst leaves; water at soil; increase spacing</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h3>Your non-spray toolkit</h3>
-        <ul>
-          <li>Hand sprayer + mild soap</li>
-          <li>Yellow sticky cards (whitefly)</li>
-          <li>Copper tape / pot feet / wool pellets</li>
-          <li>Fine mesh/fleece for short “danger windows”</li>
-        </ul>
-        <p class="tip">Most chemical “cures” also knock out the predators you need. Go gentle first.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Region/wind notes -->
-  <section class="section" aria-label="Regional notes">
-    <h2>Regional & wind notes (quick)</h2>
-    <ul>
-      <li><strong>Windy coasts / rooftops:</strong> stake early, use windbreak mesh, cluster pots to share load.</li>
-      <li><strong>Mild south & city heat islands:</strong> watch whitefly and mites; airflow + steady watering.</li>
-      <li><strong>Cooler, wetter regions:</strong> space tomatoes wider; keep foliage dry to dodge blight.</li>
-    </ul>
-  </section>
-
-  <nav class="mini-nav" aria-label="Continue">
-    <a class="btn" href="first-pot.html">Your First Pot</a>
-    <a class="btn" href="companion.html">Companion Planting</a>
-    <a class="btn" href="cut-flowers.html">Cut Flowers in Pots</a>
+  <nav class="mini-nav">
+    <a href="first-pot.html">Your First Pot</a>
+    <a href="companion.html">Companion Planting</a>
+    <a href="cut-flowers.html">Cut Flowers</a>
   </nav>
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
-    <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
+    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
-
-<!-- BURGER SCRIPT (same as other PP pages) -->
-<script>
-(function(){
-  const root=document.querySelector('.pp-site-header');
-  const btn=document.getElementById('ppBurger');
-  const nav=document.getElementById('ppNav');
-  if(!root||!btn||!nav) return;
-  btn.addEventListener('click', ()=>{
-    const open=root.classList.toggle('pp-open');
-    btn.setAttribute('aria-expanded', open?'true':'false');
-  });
-  nav.addEventListener('click', e=>{
-    if(e.target.closest('a')){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
-  });
-  let lastWide=window.innerWidth>900;
-  window.addEventListener('resize', ()=>{
-    const wide=window.innerWidth>900;
-    if(wide && !lastWide){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
-    lastWide=wide;
-  });
-})();
-</script>
 </body>
 </html>

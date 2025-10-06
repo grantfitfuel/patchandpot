@@ -4,23 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your First Pot — Patch & Pot</title>
-<link rel="stylesheet" href="../style.css?v=44">
+<link rel="stylesheet" href="../style.css?v=48">
 <style>
   .steps{display:grid; gap:14px}
   @media(min-width:920px){.steps{grid-template-columns:1.1fr 1fr}}
   .figure{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:12px}
   .figure img{width:100%; height:auto; border-radius:12px}
-  .check{color:#7ed495; font-weight:700}
-  .warn{color:#f7d7b8}
   .table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--stroke)}
   .table th,.table td{padding:.6rem .8rem; border-bottom:1px solid var(--stroke)}
   .table th{text-align:left; color:var(--inkdim)}
   .badge{display:inline-block; padding:.2rem .5rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); font-size:.85rem}
+  .dosdonts{display:grid; gap:12px}
+  @media(min-width:760px){.dosdonts{grid-template-columns:1fr 1fr}}
+  .callout{border:1px solid var(--stroke); border-radius:12px; padding:12px; background:rgba(255,255,255,.06)}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="pp-site-header" role="banner">
   <div class="pp-header-bar">
     <a class="pp-brand" href="../index.html">
@@ -44,95 +44,95 @@
   </div>
 </header>
 
-<main class="wrap">
-  <h1>Your First Pot</h1>
-  <p class="lead">A simple, forgiving setup you can finish in 15–20 minutes. Works on a windowsill, doorstep, or balcony. The first pot you grow is the start of something much bigger.</p>
+<header class="hero" role="banner" aria-label="Your First Pot hero">
+  <figure>
+    <img src="../img/first-pot-hero.jpg" alt="Setting up a first pot with compost and a herb seedling">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content">
+    <div class="wrap">
+      <span class="eyebrow">Start today</span>
+      <h1>Your First Pot</h1>
+      <p class="lead">A simple, forgiving setup for salads, herbs, and easy veg — windowsill, doorstep, or balcony.</p>
+    </div>
+  </div>
+</header>
 
+<main class="wrap">
   <section class="steps">
     <article class="card">
       <h2>What you need</h2>
       <ul>
-        <li><span class="check">✓</span> 25–30 cm pot with a drainage hole</li>
-        <li><span class="check">✓</span> Peat-free multi-purpose compost</li>
-        <li><span class="check">✓</span> Seeds or young plant (basil, parsley, salad leaves)</li>
-        <li><span class="check">✓</span> Small jug or bottle for watering</li>
-        <li><span class="check">✓</span> Label & pencil (optional but helpful)</li>
+        <li>25–30 cm pot with drainage</li>
+        <li>Peat-free compost</li>
+        <li>Seeds or a small plant (basil, parsley, salad)</li>
+        <li>Watering can / jug</li>
+        <li>Label + pencil</li>
       </ul>
 
       <h3>Light picker</h3>
       <table class="table">
         <thead><tr><th>Light</th><th>Good first choices</th></tr></thead>
         <tbody>
-          <tr><td>Bright window / 5–6h+</td><td>Cherry tomatoes (bush), chillies, basil</td></tr>
-          <tr><td>Part sun / 3–4h</td><td>Parsley, mint, rocket, spring onions</td></tr>
+          <tr><td>Bright / 5–6h+</td><td>Cherry tomatoes (bush), chillies, basil</td></tr>
+          <tr><td>Part sun / 3–4h</td><td>Parsley, mint (own pot), rocket, spring onions</td></tr>
           <tr><td>Shaded / indirect</td><td>Mizuna, lettuce mixes, chives</td></tr>
         </tbody>
       </table>
     </article>
 
     <aside class="figure">
-      <img src="../img/first-pot-steps.jpg" alt="Layering pot shards, compost, and planting a herb seedling">
-      <p class="meta">Diagram/photo: drainage, fill line, and firming the soil. <span class="badge">Placeholder</span> → <code>sites/img/first-pot-steps.jpg</code></p>
+      <img src="../img/first-pot-steps.jpg" alt="Layering drainage, filling compost, placing a seedling">
+      <p class="meta">Diagram: drainage, fill line, and firming the soil. <span class="badge">Placeholder</span> → <code>sites/img/first-pot-steps.jpg</code></p>
     </aside>
   </section>
 
   <section class="card">
     <h2>Step-by-step</h2>
     <ol>
-      <li><strong>Prep the base:</strong> Cover the hole with a crocks shard or mesh so compost doesn’t leak.</li>
-      <li><strong>Fill:</strong> Add compost to 2 cm below the rim (space for watering).</li>
-      <li><strong>Plant:</strong>
-        <ul>
-          <li><em>Seedlings:</em> Make a hole, place the plant at the same depth, gently firm around it.</li>
-          <li><em>Seeds:</em> Sow thinly, cover with 0.5–1 cm compost (check packet), mist.</li>
-        </ul>
-      </li>
-      <li><strong>Water:</strong> Slowly until a little drains from the bottom. Don’t flood.</li>
-      <li><strong>Position:</strong> Brightest spot you have. Rotate weekly for even growth.</li>
-      <li><strong>Label:</strong> Date + variety. It helps more than you think.</li>
+      <li><strong>Prep:</strong> Cover the hole with a shard/mesh so compost doesn’t leak.</li>
+      <li><strong>Fill:</strong> Compost to 2&nbsp;cm below the rim (space for watering).</li>
+      <li><strong>Plant:</strong> Seedlings at same depth; or sow thinly and cover 0.5–1&nbsp;cm.</li>
+      <li><strong>Water:</strong> Slowly until a little drains from the bottom.</li>
+      <li><strong>Place:</strong> Brightest spot; rotate weekly.</li>
+      <li><strong>Label:</strong> Variety + date.</li>
     </ol>
-    <p class="warn"><strong>Common issue:</strong> over-watering. If the top 2–3 cm feels damp, wait a day.</p>
+    <p class="warn"><strong>Common issue:</strong> over-watering. If the top 2–3&nbsp;cm is damp, wait a day.</p>
   </section>
 
-  <section class="card">
-    <h2>Weekly rhythm</h2>
-    <ul>
-      <li>Water when the top 2–3 cm is dry to the touch.</li>
-      <li>Feed lightly every 2 weeks once growth is steady (tomato feed for fruiting plants; general feed for leafy herbs).</li>
-      <li>Harvest little and often (salads: snip outer leaves, herbs: pinch above a leaf pair).</li>
-      <li>Remove tired leaves — compost them, and let new shoots take over.</li>
-    </ul>
-    <p class="meta">Check in at the same time each week — make it a ritual with your tea or coffee. Growing is mindfulness in disguise.</p>
-  </section>
-
-  <section class="card">
-    <h2>Next steps</h2>
-    <p>Once you’ve grown one pot, you’ll want to try another. Here are simple progressions:</p>
-    <ul>
-      <li><strong>Second pot:</strong> add a companion, like basil + tomato, or parsley + spring onion.</li>
-      <li><strong>Windowsill rail:</strong> link two or three troughs together for salads and herbs.</li>
-      <li><strong>Vertical step:</strong> hang pots or use a crate tower to multiply space.</li>
-      <li><strong>Mindful moment:</strong> notice how tending your pots slows your breathing and lightens your day.</li>
-    </ul>
+  <section class="dosdonts">
+    <div class="callout">
+      <h3>Do</h3>
+      <ul>
+        <li>Stake early if growing a bush tomato.</li>
+        <li>Water in the morning, at the soil line.</li>
+        <li>Harvest little and often (outer leaves first).</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <h3>Don’t</h3>
+      <ul>
+        <li>Pack plants until leaves touch (disease risk).</li>
+        <li>Mix very thirsty with drought lovers in one pot.</li>
+        <li>Forget labels — it helps more than you think.</li>
+      </ul>
+    </div>
   </section>
 
   <nav class="mini-nav">
-    <a href="space-saving.html">Space-Saving Setups</a>
-    <a href="companion.html">Companion Planting</a>
-    <a href="../guides.html">Guides Hub</a>
+    <a class="mini-btn" href="space-saving.html">Space-Saving Setups</a>
+    <a class="mini-btn" href="companion.html">Companion Planting</a>
+    <a class="mini-btn" href="../guides.html">Guides Hub</a>
   </nav>
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p class="credit" style="font-size:.8em;color:#777;">Grant Cameron Anthony</p>
+    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
   </div>
 </footer>
 
-<!-- BURGER SCRIPT -->
 <script>
 (function(){
   const root=document.querySelector('.pp-site-header');
@@ -144,10 +144,7 @@
     btn.setAttribute('aria-expanded', open?'true':'false');
   });
   nav.addEventListener('click', e=>{
-    if(e.target.closest('a')){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
-    }
+    if(e.target.closest('a')){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
   });
   let lastWide=window.innerWidth>900;
   window.addEventListener('resize', ()=>{

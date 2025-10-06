@@ -1,98 +1,86 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Patch & Pot — Guides</title>
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    :root{--bg:#0b0f14;--ink:#fff;--ink-d:#cfd3d8;--glass:#0f131a;--stroke:#1f2630;--r:14px;--maxw:1100px}
-    html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 system-ui,Segoe UI,Inter,Arial,sans-serif}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
-    .site-header{border-bottom:1px solid var(--stroke);background:#0b0f14}
-    .brand{display:flex;align-items:center;gap:10px;padding:10px 16px;max-width:var(--maxw);margin:0 auto}
-    .brand .logo{height:42px}
-    .site-title{font-weight:700}
-    .nav{display:flex;gap:14px;flex-wrap:wrap;max-width:var(--maxw);margin:0 auto 10px;padding:0 16px}
-    .nav a{color:#cfd3d8;text-decoration:none;padding:6px 4px}
-    .nav a[aria-current="page"], .nav a:hover{color:#fff}
-    .hero figure{position:relative;margin:0;height:220px;overflow:hidden}
-    .hero img{width:100%;height:100%;object-fit:cover;display:block}
-    .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55))}
-    .hero .content{position:absolute;inset:0;display:flex;align-items:end}
-    .eyebrow{letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;opacity:.9}
-    .lead{color:var(--ink-d);max-width:60ch}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-    .card{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--r);padding:12px}
-    .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;border:1px solid var(--stroke)}
-    .btn{display:inline-block;margin-top:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--stroke);text-decoration:none;color:#fff;background:#17202a}
-    .btn.primary{background:#1d3b23;border-color:#2b4c31}
-    footer{border-top:1px solid var(--stroke);background:#0b0f14}
-    .footer-inner{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 0}
-    .footer-icon{width:64px;height:auto}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Patch & Pot – Guides</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .logo{height:64px;width:auto}
+  .nav a{color:#fff !important}
+  .footer-icon{height:64px;width:auto;opacity:.95}
+</style>
 </head>
 <body>
 
 <header class="site-header">
   <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo">
+    <img src="/img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
     <span class="site-title">Patch &amp; Pot</span>
   </div>
   <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing/index.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../guides/index.html" aria-current="page">Guides</a>
-    <a href="../ideas.html">Ideas</a>
+    <a href="/index.html">Home</a>
+    <a href="/growing/">Growing</a>
+    <a href="/recipes.html">Recipes</a>
+    <a href="/exercise.html">Exercise</a>
+    <a href="/wellbeing.html">Wellbeing</a>
+    <a href="/guides/" aria-current="page">Guides</a>
+    <a href="/ideas.html">Ideas</a>
   </nav>
 </header>
 
+<!-- Hero is useful here for orientation -->
 <header class="hero" role="banner" aria-label="Guides hero">
   <figure>
-    <img src="../img/hero.jpg" alt="Hands potting up with soil and tools">
+    <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
     <div class="wrap">
       <span class="eyebrow">Step-by-step</span>
       <h1>Guides to Grow &amp; Calm</h1>
-      <p class="lead">Clear instructions that work on a balcony, patio, courtyard or sunny sill.</p>
+      <p class="lead">Clear instructions that work on a balcony, patio, or sunny sill.</p>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="grid" aria-label="Guides">
-    <article class="card">
-      <img src="../img/guide-propagation.jpg" alt="Taking cuttings and grafts" class="thumb">
-      <h2>Propagation (Cuttings, Grafting &amp; More)</h2>
-      <p>Root from prunings, divide, layer, and graft — indoors, greenhouse or sheltered corners.</p>
-      <a class="btn primary" href="propagation.html">Open propagation</a>
+
+  <!-- Card grid overview -->
+  <section class="guides-grid" aria-label="Guide covers">
+    <article class="tile">
+      <span class="thumb"><img src="/img/guide-first-pot.png" alt="Your First Pot"></span>
+      <div class="cap"><a class="btn primary" href="/growing/first-pot.html">Open: Your First Pot</a></div>
     </article>
 
-    <article class="card">
-      <img src="../img/guide-sow-when.png" alt="What to sow &amp; when" class="thumb">
-      <h2>What to Sow &amp; When</h2>
-      <p>Quick month-by-month pointers for small spaces. Adjust for micro-climates.</p>
-      <a class="btn" href="../seasonal/index.html">Seasonal calendar</a>
+    <article class="tile">
+      <span class="thumb"><img src="/img/guide-sow-when.png" alt="What to sow &amp; when"></span>
+      <div class="cap"><a class="btn primary" href="/seasonal.html">Open: What to Sow &amp; When</a></div>
     </article>
 
-    <article class="card">
-      <img src="../img/guide-2min-calm.png" alt="2-Minute Calm" class="thumb">
-      <h2>2-Minute Calm</h2>
-      <p>Short resets you can use while tending pots — breath, label, and micro-gratitude.</p>
-      <a class="btn" href="../wellbeing.html#two-minute-calm">Open calm</a>
+    <article class="tile">
+      <span class="thumb"><img src="/img/guide-2min-calm.png" alt="2-Minute Calm"></span>
+      <div class="cap"><a class="btn primary" href="/wellbeing/affirmations.html">Open: 2-Minute Calm</a></div>
+    </article>
+
+    <!-- NEW: Propagation guide tile -->
+    <article class="tile">
+      <span class="thumb"><img src="/img/propagation.jpg" alt="Propagation: cuttings and division"></span>
+      <div class="cap"><a class="btn primary" href="/guides/propagation.html">Open: Propagation &amp; Cuttings</a></div>
     </article>
   </section>
+
+  <nav class="mini-nav" aria-label="Back links">
+    <a href="/ideas.html">Inspiration Ideas</a>
+    <a href="/index.html">Home</a>
+  </nav>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
-    <p>© 2025 <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
 

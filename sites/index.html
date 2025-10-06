@@ -14,61 +14,45 @@
   <!-- Main CSS -->
   <link rel="stylesheet" href="style.css?v=43">
 
-  <!-- Page-specific safety tweaks to guarantee visible hamburger -->
+  <!-- Page-specific styles -->
   <style>
-    /* ensure the hamburger is bright and on top on this page */
-    .site-header { position: relative; z-index: 200; }
-    .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
-    .menu-ico span { background: #fff !important; height: 3px !important; }
-    /* remove any hero overlay on this page specifically */
-    .hero .overlay { display: none !important; }
-
     /* --- Compact seasonal strip (homepage) --- */
-    .seasonal-strip { 
-      margin: 0; 
-      background: #f1f8e9; 
-      border-top: 1px solid #dfe5e8; 
-      border-bottom: 1px solid #dfe5e8;
-    }
-    .seasonal-strip .wrap { 
-      display: grid; 
-      grid-template-columns: 1fr auto; 
-      gap: .75rem 1rem; 
-      align-items: center; 
-      padding: .8rem 1rem;
-    }
-    .seasonal-mini { display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
-    .seasonal-mini strong { font-weight:700; }
-    .seasonal-controls { display:flex; align-items:center; gap:.5rem; }
-    .seasonal-controls label { font-weight:600; }
-    .seasonal-controls select { 
-      padding:.35rem .55rem; border:1px solid #cfd8dc; border-radius:.4rem; 
-      background:#fff;
-    }
-    .seasonal-link { 
-      text-decoration:none; 
-      font-weight:600; 
-      color:#1b5e20; 
-      border:1px solid #c8e6c9; 
-      background:#e8f5e9; 
-      padding:.35rem .6rem; 
-      border-radius:.4rem;
-      white-space:nowrap;
-    }
-    .seasonal-pills { display:flex; gap:.35rem; flex-wrap:wrap; }
-    .pill { 
-      background:#fff; border:1px dashed #cfd8dc; 
-      padding:.25rem .5rem; border-radius:.4rem; 
-      font-size:.9rem;
-    }
+    .seasonal-strip{margin:0;background:#f1f8e9;border-top:1px solid #dfe5e8;border-bottom:1px solid #dfe5e8}
+    .seasonal-strip .wrap{display:grid;grid-template-columns:1fr auto;gap:.75rem 1rem;align-items:center;padding:.8rem 1rem}
+    .seasonal-mini{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+    .seasonal-mini strong{font-weight:700}
+    .seasonal-controls{display:flex;align-items:center;gap:.5rem}
+    .seasonal-controls label{font-weight:600}
+    .seasonal-controls select{padding:.35rem .55rem;border:1px solid #cfd8dc;border-radius:.4rem;background:#fff}
+    .seasonal-link{text-decoration:none;font-weight:600;color:#1b5e20;border:1px solid #c8e6c9;background:#e8f5e9;padding:.35rem .6rem;border-radius:.4rem;white-space:nowrap}
+    .seasonal-pills{display:flex;gap:.35rem;flex-wrap:wrap}
+    .pill{background:#fff;border:1px dashed #cfd8dc;padding:.25rem .5rem;border-radius:.4rem;font-size:.9rem}
     @media (max-width:720px){
-      .seasonal-strip .wrap { grid-template-columns: 1fr; }
-      .seasonal-controls { justify-content: space-between; }
+      .seasonal-strip .wrap{grid-template-columns:1fr}
+      .seasonal-controls{justify-content:space-between}
+    }
+
+    /* ===== Header (scoped) ===== */
+    .pp-site-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid #1f2630}
+    .pp-header-bar{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
+    .pp-brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+    .pp-logo{height:50px;width:auto;display:block}
+    .pp-title{color:#fff;font-weight:700;font-size:1.15rem}
+    .pp-nav{margin-left:auto;display:flex;gap:16px}
+    .pp-nav a{color:#cfd3d8;text-decoration:none;padding:6px 4px}
+    .pp-nav a:hover{color:#fff}
+    .pp-burger{margin-left:auto;display:none;width:40px;height:40px;border:0;background:transparent;align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer}
+    .pp-burger span{display:block;width:22px;height:2px;background:#e6e6ea}
+    @media (max-width:900px){
+      .pp-burger{display:inline-flex}
+      .pp-nav{display:none;position:absolute;left:0;right:0;top:100%;background:#0b0f14;border-bottom:1px solid #1f2630;padding:10px 16px;flex-direction:column}
+      .pp-site-header.pp-open .pp-nav{display:flex}
     }
   </style>
 </head>
 <body>
 
+<!-- HEADER (PP header only) -->
 <header class="pp-site-header" role="banner">
   <div class="pp-header-bar">
     <a class="pp-brand" href="index.html">
@@ -86,7 +70,7 @@
       <a href="recipes.html">Recipes</a>
       <a href="exercise.html">Exercise</a>
       <a href="wellbeing.html">Wellbeing</a>
-      <a href="guides.html">Guides</a>
+      <a href="guides/index.html">Guides</a>
       <a href="ideas.html">Ideas</a>
       <a href="seasonal.html">Seasonal</a>
       <a href="contact.html">Contact</a>
@@ -94,63 +78,7 @@
   </div>
 </header>
 
-<style>
-/* ===== Header (scoped) ===== */
-.pp-site-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid #1f2630}
-.pp-header-bar{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
-.pp-brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
-.pp-logo{height:50px;width:auto;display:block}
-.pp-title{color:#fff;font-weight:700;font-size:1.15rem}
-
-/* desktop nav */
-.pp-nav{margin-left:auto;display:flex;gap:16px}
-.pp-nav a{color:#cfd3d8;text-decoration:none;padding:6px 4px}
-.pp-nav a:hover{color:#fff}
-
-/* burger */
-.pp-burger{margin-left:auto;display:none;width:40px;height:40px;border:0;background:transparent;
-  align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer}
-.pp-burger span{display:block;width:22px;height:2px;background:#e6e6ea}
-
-/* mobile state */
-@media (max-width: 900px){
-  .pp-burger{display:inline-flex}
-  .pp-nav{display:none;position:absolute;left:0;right:0;top:100%;background:#0b0f14;
-    border-bottom:1px solid #1f2630;padding:10px 16px;flex-direction:column}
-  .pp-site-header.pp-open .pp-nav{display:flex}
-}
-</style>
-
-<script>
-// Hamburger toggle + close on link + close on resize
-(function(){
-  const root=document.querySelector('.pp-site-header');
-  const btn=document.getElementById('ppBurger');
-  const nav=document.getElementById('ppNav');
-  if(!root||!btn||!nav) return;
-
-  btn.addEventListener('click', ()=>{
-    const open = root.classList.toggle('pp-open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  nav.addEventListener('click', e=>{
-    if(e.target.closest('a')){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
-    }
-  });
-
-  let lastWide = window.innerWidth>900;
-  window.addEventListener('resize', ()=>{
-    const wide = window.innerWidth>900;
-    if(wide && !lastWide){ root.classList.remove('pp-open'); btn.setAttribute('aria-expanded','false'); }
-    lastWide = wide;
-  });
-})();
-</script>
-  
-<!-- HERO (uses global .hero styles) -->
+<!-- HERO -->
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
     <img id="ppHero" src="img/hero.jpg?v=ideasA1" alt="Person tending plants on a balcony, planting into a terracotta pot">
@@ -168,14 +96,12 @@
   </div>
 </header>
 
-<!-- NEW: compact seasonal strip -->
+<!-- Seasonal strip -->
 <section class="seasonal-strip" aria-label="Seasonal updates">
   <div class="wrap">
     <div class="seasonal-mini">
       <strong id="homePestTitle">Pest Watch</strong>
-      <div id="homePestPills" class="seasonal-pills" aria-live="polite">
-        <!-- filled by JS: short pest bullets for current month/region -->
-      </div>
+      <div id="homePestPills" class="seasonal-pills" aria-live="polite"></div>
     </div>
     <div class="seasonal-controls">
       <label for="homeRegion">Region:</label>
@@ -212,139 +138,94 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p class="credit" style="font-size:.8em;color:#777;">Grant Cameron Anthony</p>
+    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
   </div>
 </footer>
 
-<!-- Mobile menu script (standard sitewide) -->
+<!-- PP header JS (only this menu script on the page) -->
 <script>
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
+(function(){
+  const root=document.querySelector('.pp-site-header');
+  const btn=document.getElementById('ppBurger');
+  const nav=document.getElementById('ppNav');
+  if(!root||!btn||!nav) return;
 
-    function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    }
+  btn.addEventListener('click', ()=>{
+    const open = root.classList.toggle('pp-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
 
-    if(toggle){
-      toggle.addEventListener('click', () =>
-        setExpanded(!header.classList.contains('menu-open'))
-      );
+  nav.addEventListener('click', e=>{
+    if(e.target.closest('a')){
+      root.classList.remove('pp-open');
+      btn.setAttribute('aria-expanded','false');
     }
-    if(nav){
-      nav.addEventListener('click', e => {
-        if(e.target.tagName === 'A') setExpanded(false);
-      });
+  });
+
+  window.addEventListener('resize', ()=>{
+    if(window.innerWidth > 900){
+      root.classList.remove('pp-open');
+      btn.setAttribute('aria-expanded','false');
     }
-  })();
+  });
+})();
 </script>
 
 <!-- Seasonal mini-logic (region + pest watch + optional hero swap) -->
 <script>
-  (function(){
-    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const now = new Date();
-    const M = now.getMonth(); // 0..11
+(function(){
+  const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const now=new Date(); const M=now.getMonth();
 
-    // Minimal pest data (extend same structure as seasonal.html)
-    const PEST = {
-      scotland: {
-        8: {t:"Pest Watch – September (Scotland)", i:[
-          "Slugs/snails after rain",
-          "Cabbage white caterpillars",
-          "Late blight risk"
-        ]},
-        9: {t:"Pest Watch – October (Scotland)", i:[
-          "Slugs in damp weather",
-          "Grey mould on salads",
-          "Rodents after harvest"
-        ]}
-      },
-      ireland: {
-        8: {t:"Pest Watch – September (Ireland)", i:[
-          "Slugs/snails in wet spells",
-          "Aphids on greens",
-          "Tomato blight risk"
-        ]},
-        9: {t:"Pest Watch – October (Ireland)", i:[
-          "Snails under pot rims",
-          "Mildew on courgettes",
-          "Wireworm after potato lifts"
-        ]}
-      },
-      england: {
-        8: {t:"Pest Watch – September (England)", i:[
-          "Aphids on brassicas",
-          "Powdery mildew on courgettes",
-          "Carrot fly"
-        ]},
-        9: {t:"Pest Watch – October (England)", i:[
-          "Slugs in wet spells",
-          "Whitefly on sheltered patios",
-          "Pigeons on winter greens"
-        ]}
-      },
-      wales: {
-        8: {t:"Pest Watch – September (Wales)", i:[
-          "Mildew in damp air",
-          "Aphids on late brassicas",
-          "Slugs"
-        ]},
-        9: {t:"Pest Watch – October (Wales)", i:[
-          "Blight in wet spells",
-          "White rust on rocket",
-          "Vine weevils in pots"
-        ]}
-      }
-    };
-
-    const sel = document.getElementById('homeRegion');
-    const titleEl = document.getElementById('homePestTitle');
-    const pills = document.getElementById('homePestPills');
-    const hero = document.getElementById('ppHero');
-
-    function seasonByMonth(m){
-      return [11,0,1].includes(m) ? "winter" : [2,3,4].includes(m) ? "spring" : [5,6,7].includes(m) ? "summer" : "autumn";
+  const PEST={
+    scotland:{
+      8:{t:"Pest Watch – September (Scotland)",i:["Slugs/snails after rain","Cabbage white caterpillars","Late blight risk"]},
+      9:{t:"Pest Watch – October (Scotland)",i:["Slugs in damp weather","Grey mould on salads","Rodents after harvest"]}
+    },
+    ireland:{
+      8:{t:"Pest Watch – September (Ireland)",i:["Slugs/snails in wet spells","Aphids on greens","Tomato blight risk"]},
+      9:{t:"Pest Watch – October (Ireland)",i:["Snails under pot rims","Mildew on courgettes","Wireworm after potato lifts"]}
+    },
+    england:{
+      8:{t:"Pest Watch – September (England)",i:["Aphids on brassicas","Powdery mildew on courgettes","Carrot fly"]},
+      9:{t:"Pest Watch – October (England)",i:["Slugs in wet spells","Whitefly on sheltered patios","Pigeons on winter greens"]}
+    },
+    wales:{
+      8:{t:"Pest Watch – September (Wales)",i:["Mildew in damp air","Aphids on late brassicas","Slugs"]},
+      9:{t:"Pest Watch – October (Wales)",i:["Blight in wet spells","White rust on rocket","Vine weevils in pots"]}
     }
+  };
 
-    function render(){
-      const region = sel.value;
-      localStorage.setItem('pp-region', region);
+  const sel=document.getElementById('homeRegion');
+  const titleEl=document.getElementById('homePestTitle');
+  const pills=document.getElementById('homePestPills');
+  const hero=document.getElementById('ppHero');
 
-      // Pest banner
-      const entry = (PEST[region] && PEST[region][M]) || {t:"Pest Watch", i:["Keep an eye on slugs after rain."]};
-      titleEl.textContent = entry.t;
-      pills.innerHTML = entry.i.map(x=>`<span class="pill">${x}</span>`).join('');
+  function seasonByMonth(m){return [11,0,1].includes(m)?"winter":[2,3,4].includes(m)?"spring":[5,6,7].includes(m)?"summer":"autumn";}
 
-      // Optional hero swap (only if you add these files; otherwise the default stays)
-      if(hero){
-        const season = seasonByMonth(M);
-        // Try swapping to /img/hero-<region>-<season>.jpg if present in your repo
-        const candidate = `img/hero-${region}-${season}.jpg`;
-        // Preload check – if it fails, keep the existing src silently
-        const testImg = new Image();
-        testImg.onload = () => { hero.src = candidate; hero.alt = \`Container garden – \${region} • \${season}\`; };
-        testImg.src = candidate;
-      }
+  function render(){
+    const region=sel.value;
+    localStorage.setItem('pp-region',region);
+
+    const entry=(PEST[region]&&PEST[region][M])||{t:"Pest Watch",i:["Keep an eye on slugs after rain."]};
+    titleEl.textContent=entry.t;
+    pills.innerHTML=entry.i.map(x=>`<span class="pill">${x}</span>`).join('');
+
+    if(hero){
+      const season=seasonByMonth(M);
+      const candidate=`img/hero-${region}-${season}.jpg`;
+      const testImg=new Image();
+      testImg.onload=()=>{ hero.src=candidate; hero.alt=`Container garden – ${region} • ${season}`; };
+      testImg.src=candidate;
     }
+  }
 
-    // Init
-    const saved = localStorage.getItem('pp-region') || 'scotland';
-    sel.value = saved;
-    sel.addEventListener('change', render);
-    render();
-  })();
+  const saved=localStorage.getItem('pp-region')||'scotland';
+  sel.value=saved;
+  sel.addEventListener('change',render);
+  render();
+})();
 </script>
 
 </body>

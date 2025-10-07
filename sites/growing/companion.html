@@ -5,23 +5,36 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Companion Planting — Patch & Pot</title>
 <link rel="stylesheet" href="../style.css">
-<style>
-  /* Page-scoped polish */
-  .logo{height:64px;width:auto}                  /* header pot bump */
-  .nav a{color:#fff !important}
-  .footer-icon,.footer-pot{height:64px;width:auto;opacity:.95}
 
-  .cards{display:grid; gap:14px; margin:18px 0}
+<style>
+  /* Page-scoped polish (matches your global look) */
+  .logo{height:74px;width:auto} /* header pot +10 from your 64 */
+  .nav a{color:#fff !important}
+  .footer-icon,.footer-pot{height:74px;width:auto;opacity:.95}
+
+  .cards{display:grid;gap:14px;margin:18px 0}
   @media(min-width:900px){.cards{grid-template-columns:repeat(3,1fr)}}
   .card h3{margin:.2rem 0 .4rem}
-
-  .matrix{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--stroke); margin-top:10px}
-  .matrix th,.matrix td{padding:.6rem .7rem; border-bottom:1px solid var(--stroke); border-right:1px solid var(--stroke); vertical-align:top}
-  .matrix thead th{background:rgba(255,255,255,.06); text-align:left}
-  .good{color:#7ed495;font-weight:700}
+  .tip{border-left:3px solid #7ed495;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
+  .warn{border-left:3px solid #ffb490;background:rgba(255,255,255,.06)}
+  .ok{color:#7ed495;font-weight:700}
   .caution{color:#ffdba6;font-weight:700}
-  .bad{color:#ff9b9b;font-weight:700}
-  .tip{border-left:3px solid #7ed495; padding:.6rem .7rem; background:rgba(255,255,255,.06); border-radius:10px; margin:.5rem 0}
+  .avoid{color:#ff9b9b;font-weight:700}
+
+  /* Matrix table: robust wrapping on mobiles */
+  .matrix{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke);margin-top:10px}
+  .matrix th,.matrix td{
+    padding:.65rem .7rem;border-bottom:1px solid var(--stroke);border-right:1px solid var(--stroke);
+    vertical-align:top;word-break:break-word;white-space:normal;line-height:1.45
+  }
+  .matrix thead th{background:rgba(255,255,255,.06);text-align:left}
+  .matrix tr:last-child td{border-bottom:0}
+  .matrix td:last-child,.matrix th:last-child{border-right:0}
+
+  /* Section separators for long read */
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:14px 0}
+  .grid2{display:grid;gap:14px}
+  @media(min-width:900px){.grid2{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -52,78 +65,155 @@
     <div class="wrap">
       <span class="eyebrow">Plant friends</span>
       <h1>Companion Planting</h1>
-      <p class="lead">Pair crops that support each other — better flavour, more pollinators, fewer pests. Tuned for **containers** and small spaces.</p>
+      <p class="lead">Make plants help each other in containers. Match water and light needs, invite pollinators, and steer pests away with clever pairings.</p>
     </div>
   </div>
 </header>
 
 <main class="wrap">
+
+  <!-- Quick wins -->
   <section class="cards" aria-label="Quick wins and cautions">
     <article class="card">
       <h2>Great Combos</h2>
       <ul>
-        <li><strong>Tomato + Basil</strong> — flavour boost, similar water/light.</li>
-        <li><strong>Chilli + Marigold (tagetes)</strong> — flowers pull pollinators, deter some pests.</li>
-        <li><strong>Kale + Chives</strong> — chives help deter aphids; compact roots.</li>
-        <li><strong>Carrot + Spring onion</strong> — scent confuses carrot fly; both shallow-rooted.</li>
-        <li><strong>Strawberry + Thyme</strong> — thyme’s flowers bring bees; thyme likes same drainage.</li>
+        <li><strong>Tomato + Basil</strong> for flavour and shared care.</li>
+        <li><strong>Chilli + Marigold (tagetes)</strong> to pull pollinators and confuse pests.</li>
+        <li><strong>Kale + Chives</strong> where aphids lurk.</li>
+        <li><strong>Carrot + Spring onion</strong> to muddle carrot fly with onion scent.</li>
+        <li><strong>Strawberry + Thyme</strong> for bee traffic and dry-loving partners.</li>
+        <li><strong>French beans + Nasturtiums</strong> to lure aphids away and give edible flowers.</li>
       </ul>
     </article>
 
     <article class="card">
       <h2>Things to Avoid</h2>
       <ul>
-        <li><strong>Overcrowding</strong> — poor airflow = mildew & pests.</li>
-        <li><strong>Mismatched thirst</strong> — don’t pot rosemary with basil.</li>
-        <li><strong>Deep + shallow roots</strong> in tiny pots — they’ll compete badly.</li>
-        <li><strong>Note:</strong> avoid <em>dill + carrots</em> in small containers (carrot fly risk on brushing foliage).</li>
+        <li><strong>Overcrowding</strong> which blocks airflow and invites mildew.</li>
+        <li><strong>Mismatched thirst</strong> like rosemary with basil.</li>
+        <li><strong>Deep roots with shallow</strong> in tiny pots. They compete hard.</li>
+        <li><strong>Tomatoes with potatoes</strong> in containers. Disease crossover and space clash.</li>
       </ul>
+      <p class="tip warn"><strong>Size beats theory:</strong> if a pairing looks cramped in your pot, split it. Healthy space is better than the “right” combo squashed in.</p>
     </article>
 
     <article class="card">
       <h2>Pollinator Boost</h2>
       <ul>
-        <li>Edible flowers: <em>nasturtiums, calendula, violas</em>.</li>
-        <li>Let a few herbs flower: <em>basil, chives, oregano</em>.</li>
-        <li>Keep pesticide-free; use sticky cards / hand-control first.</li>
+        <li>Add edible flowers: nasturtiums, calendula, violas.</li>
+        <li>Let a few herbs bloom: basil, chives, oregano, thyme.</li>
+        <li>Keep sprays away. Use hand removal, water blasts, sticky cards first.</li>
       </ul>
     </article>
   </section>
 
+  <!-- Container matrix -->
   <section class="card" aria-label="Container-friendly pairings matrix">
-    <h2>Container Pairings (by pot size)</h2>
+    <h2>Container Pairings by Pot Size</h2>
     <table class="matrix">
       <thead>
-        <tr><th>Pot</th><th>Plant Together</th><th>Why it works</th><th>Skip this</th></tr>
+        <tr><th>Pot</th><th>Plant Together</th><th>Why it Works</th><th>Skip This</th></tr>
       </thead>
       <tbody>
         <tr>
           <td>Window box (5–7 L)</td>
-          <td><span class="good">Parsley + Chives + Viola</span></td>
-          <td>Shallow roots, frequent snips, bee-friendly flowers.</td>
-          <td><span class="bad">Tomato</span> (too thirsty, top heavy)</td>
+          <td><span class="ok">Parsley + Chives + Viola</span></td>
+          <td>Shallow, frequent snips, bee-friendly faces for better fruit set around the garden.</td>
+          <td><span class="avoid">Tomato</span> which is thirsty and top heavy for a box.</td>
         </tr>
         <tr>
           <td>10–12 L</td>
-          <td><span class="good">Chilli + Basil</span></td>
-          <td>Warmth lovers; basil shades soil, reduces evaporation.</td>
-          <td><span class="caution">Mint</span> (invasive; pot it alone)</td>
+          <td><span class="ok">Chilli + Basil</span> or <span class="ok">Salad mix + Radish</span></td>
+          <td>Warmth lovers that share watering rhythm, or quick radishes under a cut-and-come-again canopy.</td>
+          <td><span class="caution">Mint</span> unless isolated. It spreads.</td>
         </tr>
         <tr>
           <td>20 L</td>
-          <td><span class="good">Tomato (bush) + Basil + Marigold</span></td>
-          <td>Classic trio: pollinators + flavour + pest distraction.</td>
-          <td><span class="bad">Potato</span> (disease crossover, too big)</td>
+          <td><span class="ok">Tomato (bush) + Basil + Marigold</span></td>
+          <td>Classic trio. Flowers bring pollinators; basil shades soil and bumps flavour.</td>
+          <td><span class="avoid">Potato</span> due to blight risk and sheer bulk.</td>
         </tr>
         <tr>
           <td>40 L tub</td>
-          <td><span class="good">Courgette + Nasturtiums (edge)</span></td>
-          <td>Nasturtiums trail & draw aphids away; big leaves shade soil.</td>
-          <td><span class="bad">Another courgette</span> (overcrowds fast)</td>
+          <td><span class="ok">Courgette + Nasturtiums (edge)</span></td>
+          <td>Nasturtiums trail, draw aphids, and you can eat the flowers. Big leaves cool the compost.</td>
+          <td><span class="avoid">Another courgette</span> which overwhelms the tub.</td>
         </tr>
       </tbody>
     </table>
-    <p class="tip"><strong>Rule of thumb:</strong> if both plants like the same light and watering rhythm, they’re likely companions in a pot.</p>
+    <p class="tip"><strong>Rule of thumb:</strong> If two plants enjoy the same sun and watering routine, they’re good candidates to share a pot.</p>
+  </section>
+
+  <!-- Goal-based “guilds” for small spaces -->
+  <section class="section" aria-label="Guilds by goal">
+    <h2>Build Mini “Guilds” by Goal</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Pest Deterrence</h3>
+        <ul>
+          <li><strong>Brassicas + Chives/Garlic chives</strong> to discourage aphids.</li>
+          <li><strong>Beans + Nasturtiums</strong> as a tasty decoy for aphids.</li>
+          <li><strong>Lettuce + Dill</strong> for hoverflies which eat aphids.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Flavour & Yield</h3>
+        <ul>
+          <li><strong>Tomato + Basil</strong> for richer fruit and shaded roots.</li>
+          <li><strong>Strawberry + Thyme</strong> for better pollination and drier crowns.</li>
+          <li><strong>Cucumber + Dill</strong> for pollinators and easy kitchen pairing.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Shade & Living Mulch</h3>
+        <ul>
+          <li><strong>Chilli + Oregano</strong> where oregano drapes and cools the compost.</li>
+          <li><strong>Courgette + Low nasturtiums</strong> to cover bare soil and reduce watering.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Nutrient Helpers</h3>
+        <ul>
+          <li><strong>Peas/Beans + Leafy greens</strong> after the legume crop. Use the same tub, top up compost, and follow with salads.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tip">Think in threes: a main crop, a helper herb or flower, and a small filler. If it feels crowded, omit the filler first.</p>
+  </section>
+
+  <!-- Climate & microclimate caveats -->
+  <section class="section" aria-label="Climate caveats">
+    <h2>Climate Notes (UK containers)</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Cool or Windy Coasts / Far North</h3>
+        <ul>
+          <li>Pick compact, early varieties. Use fleece while hardening off.</li>
+          <li>Lean on hardy herbs and flowers: chives, parsley, calendula, violas.</li>
+          <li>Keep pots out of prevailing wind. Weight large tubs and stake early.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Milder South & City Heat Islands</h3>
+        <ul>
+          <li>Autumn-sow hardy annual flowers for very early spring colour near veg.</li>
+          <li>Watch for mildew in tight plantings. Give more spacing and water deeply less often.</li>
+          <li>Hot balconies suit chilli + basil, dwarf aubergine with thyme, and cucumbers with dill.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tip">Microclimates matter more than the map. A sunny, sheltered wall can behave like it’s two zones warmer.</p>
+  </section>
+
+  <!-- Rotation & hygiene -->
+  <section class="section" aria-label="Rotation and hygiene for pots">
+    <h2>Rotation & Hygiene in Pots</h2>
+    <ul>
+      <li>Don’t grow tomatoes in the same tub two years running. Follow with salads or flowers and refresh a third of the mix.</li>
+      <li>Lift tired roots after harvest. Top up with fresh compost and a small handful of slow-release feed.</li>
+      <li>Wipe stakes and clips before re-using, especially after blight or mildew.</li>
+    </ul>
+    <p class="tip ok">Healthy, well-spaced plants attract fewer problems than any single “magic” companion.</p>
   </section>
 
   <nav class="mini-nav" aria-label="More growing">

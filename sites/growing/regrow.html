@@ -4,13 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Regrow from Scraps — Patch & Pot</title>
-
-<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
-
 <link rel="stylesheet" href="../style.css">
+<style>
+  /* Keep header menu text white */
+  .nav a{ color:#fff !important }
+
+  /* Page-level helpers */
+  .section{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px; margin:12px 0 }
+  .grid{ display:grid; gap:14px }
+  @media(min-width:900px){ .grid.two{ grid-template-columns:1fr 1fr } .grid.three{ grid-template-columns:repeat(3,1fr) } }
+
+  .cardish{ background:rgba(255,255,255,.05); border:1px solid var(--stroke); border-radius:12px; padding:12px }
+  .build{ background:rgba(255,255,255,.06); border:1px dashed var(--stroke); border-radius:12px; padding:.85rem .95rem; }
+  .build h3{ margin:.2rem 0 .55rem; font-size:1.06rem }
+  .step{ margin:.4rem 0 }
+  .tick::before{ content:"✓ "; color:#7ed495; font-weight:700 }
+
+  .callout{ border-left:4px solid #7ed495; background:rgba(255,255,255,.06); padding:.75rem .9rem; border-radius:12px }
+  .warn{ border-left:4px solid #e2a66a; background:rgba(255,255,255,.06); padding:.75rem .9rem; border-radius:12px }
+  .micro{ color:var(--muted); font-size:.92rem }
+
+  /* Slightly larger footer pot (about 1.5×) and 2-line credit */
+  .footer-icon,.footer-pot{ height:54px; width:auto; opacity:.95 }
+</style>
 </head>
 <body>
 
@@ -21,67 +37,214 @@
   </div>
   <nav class="nav" aria-label="Primary">
     <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
+    <a href="../growing.html" aria-current="page">Growing</a>
     <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
     <a href="../exercise.html">Exercise</a>
+    <a href="../wellbeing.html">Wellbeing</a>
     <a href="../guides.html">Guides</a>
     <a href="../ideas.html">Ideas</a>
+    <a href="../seasonal.html">Seasonal</a>
   </nav>
 </header>
 
-<header class="hero" role="banner" aria-label="Regrow hero">
-  <figure>
-    <img src="../img/lettuce.jpg" alt="Regrowing lettuce and herbs from cut bases">
-    <div class="overlay" aria-hidden="true"></div>
-  </figure>
-  <div class="content">
-    <div class="wrap">
-      <span class="eyebrow">Low waste</span>
-      <h1>Regrow from Scraps</h1>
-      <p class="lead">Turn kitchen off-cuts into fresh herbs and leaves on your windowsill.</p>
-    </div>
-  </div>
-</header>
-
 <main class="wrap">
-  <section class="grid" aria-label="How to regrow">
-    <article class="card">
-      <h2>Leafy Bases</h2>
-      <ul>
-        <li><strong>Little gem / romaine:</strong> keep 3–4 cm base; sit in shallow water; pot up after roots appear.</li>
-        <li><strong>Spring onions:</strong> place white ends in water; change water every 2–3 days; harvest greens.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h2>Herb Cuttings</h2>
-      <ul>
-        <li><strong>Basil/mint:</strong> take 10 cm cutting; strip lower leaves; root in water; pot when roots are 3–4 cm.</li>
-        <li><strong>Rosemary/thyme:</strong> semi-ripe cuttings; use gritty compost; keep lightly moist.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h2>Care &amp; Hygiene</h2>
-      <ul>
-        <li>Use clean scissors/jars; rinse roots before potting.</li>
-        <li>Bright light but not harsh midday sun indoors.</li>
-        <li>Snip regularly to keep plants compact and productive.</li>
-      </ul>
-    </article>
+  <h1>Regrow from Scraps</h1>
+  <p class="lead">Turn kitchen off-cuts into fresh herbs, leaves and shoots on a sill, step, or balcony — fast, cheap, and satisfying.</p>
+
+  <!-- Quick wins -->
+  <section class="section">
+    <h2>Quick Wins (fastest results)</h2>
+    <div class="grid three">
+      <div class="cardish">
+        <h3>Spring onions</h3>
+        <p>Save the white ends with roots. Sit in 2–3 cm water; change every 2–3 days. Greens re-grow in 5–10 days. Pot up after 2 weeks for stronger growth.</p>
+      </div>
+      <div class="cardish">
+        <h3>Little gem / romaine bases</h3>
+        <p>Keep 3–4 cm of the core. Sit just in water, not submerged. New leaves in 4–7 days. Pot into moist compost once roots show.</p>
+      </div>
+      <div class="cardish">
+        <h3>Mint & basil cuttings</h3>
+        <p>Take 10–12 cm shoots, strip lower leaves, place in water. Roots form in ~7–10 days; pot when roots are 3–4 cm long.</p>
+      </div>
+    </div>
+    <div class="callout"><strong>Light:</strong> bright, indirect light is perfect indoors. Direct hot sun in a window can wilt water-grown cuttings quickly.</div>
   </section>
 
+  <!-- Leafy bases & bulbs -->
+  <section class="section">
+    <h2>Leafy Bases & Bulbs</h2>
+    <div class="grid two">
+      <div class="build">
+        <h3>Leafy bases in water → compost</h3>
+        <p class="step tick"><strong>Prep:</strong> square off the base (fresh cut). Place in shallow water (just touching the base).</p>
+        <p class="step tick"><strong>Daily care:</strong> top up water, rinse the base every 2–3 days to avoid slime.</p>
+        <p class="step tick"><strong>Potting:</strong> when roots appear, move to a 12–15 cm pot with peat-free compost. Keep evenly moist.</p>
+        <p class="micro">Works with lettuce, pak choi, celery hearts, fennel bases (leaves regrow; full heads rarely reform).</p>
+      </div>
+      <div class="build">
+        <h3>Bulbs & cloves</h3>
+        <p class="step tick"><strong>Garlic greens:</strong> plant spare cloves 3–4 cm deep, 8–10 cm apart in a tray. Snip greens after ~3 weeks.</p>
+        <p class="step tick"><strong>Onion bottoms:</strong> base with basal plate intact can sprout chives-like shoots; harvest greens.</p>
+        <p class="step tick"><strong>Leek stumps:</strong> sit in shallow water to root, then pot to regrow leaves.</p>
+        <p class="warn"><strong>Note:</strong> supermarket potatoes can harbour disease; seed potatoes are safer for full tuber crops. If you do chit a sprouting spud, grow only for greens, not for saving seed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Herb cuttings -->
+  <section class="section">
+    <h2>Herb Cuttings (water & soil methods)</h2>
+    <div class="grid two">
+      <div class="build">
+        <h3>Soft herbs in water (basil, mint, lemon balm)</h3>
+        <ol>
+          <li>Snip a 10–12 cm shoot above a node. Remove lower leaves.</li>
+          <li>Jar of water to just cover the nodes; change water every 2–3 days.</li>
+          <li>Roots in ~7–10 days. Pot into a 9–12 cm pot; shade lightly for 2–3 days, then bright light.</li>
+        </ol>
+        <p class="micro">Keep water cool and clean to avoid dark, mushy stems.</p>
+      </div>
+      <div class="build">
+        <h3>Woody herbs in compost (rosemary, thyme, sage)</h3>
+        <ol>
+          <li>Take 7–10 cm semi-ripe cuttings (non-flowering tip). Strip lower leaves.</li>
+          <li>Dip in cinnamon or rooting powder (optional). Insert into a 50:50 mix compost:perlite.</li>
+          <li>Mist, cover with a vented bag or dome. Bright light, no direct midday sun. Rooting 3–6 weeks.</li>
+        </ol>
+        <p class="micro">Tug test after 3–4 weeks; resistance = roots. Pot on individually.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roots, tubers & tropicals -->
+  <section class="section">
+    <h2>Roots, Tubers & Tropicals</h2>
+    <div class="grid two">
+      <div class="build">
+        <h3>Ginger & turmeric</h3>
+        <p class="step tick">Choose firm “hands” with visible buds. Soak 2 hours.</p>
+        <p class="step tick">Pot 3–5 cm deep in wide tubs; warm, bright spot (not scorching sun). Keep just moist.</p>
+        <p class="step tick">Shoots in 3–6 weeks with warmth. Harvest young rhizomes at 6–9 months.</p>
+      </div>
+      <div class="build">
+        <h3>Sweet potato slips</h3>
+        <p class="step tick">Suspend half a sweet potato over water with cocktail sticks, or lay a chunk on moist compost.</p>
+        <p class="step tick">When 10–15 cm shoots form, twist off, root in water, then pot on. Needs warmth and a long season.</p>
+        <p class="micro">Best results under cover in the UK; grow for greens if season is short.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Care: light, water, feed, hygiene -->
+  <section class="section">
+    <h2>Care: Light, Water, Feed & Hygiene</h2>
+    <div class="grid two">
+      <div class="cardish">
+        <h3>Light & placement</h3>
+        <ul>
+          <li>Bright, indirect window is ideal. East or west-facing works well.</li>
+          <li>Rotate jars/pots weekly for even growth.</li>
+          <li>Shade midday sun behind glass to avoid heat stress.</li>
+        </ul>
+      </div>
+      <div class="cardish">
+        <h3>Water & feed</h3>
+        <ul>
+          <li>Water-prop only: change water often; rinse jar and stems.</li>
+          <li>Once potted: water deeply, then let the top 2–3 cm dry before next soak.</li>
+          <li>Feed lightly after 2–3 weeks in compost (half-strength liquid feed).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><strong>Hygiene:</strong> clean scissors and jars, remove decaying bits immediately, and don’t crowd stems in one jar.</div>
+  </section>
+
+  <!-- Timelines & what to expect -->
+  <section class="section">
+    <h2>How Fast? What to Expect</h2>
+    <div class="grid two">
+      <div class="cardish">
+        <h3>Fast (3–10 days)</h3>
+        <ul>
+          <li>Spring onion greens</li>
+          <li>Lettuce/pak choi bases showing new leaves</li>
+          <li>Mint/basil roots appearing in water</li>
+        </ul>
+      </div>
+      <div class="cardish">
+        <h3>Steady (2–6 weeks)</h3>
+        <ul>
+          <li>Rosemary/thyme cuttings rooting</li>
+          <li>Leek/onion bases re-leafing strongly in compost</li>
+          <li>Ginger buds breaking in warmth</li>
+        </ul>
+      </div>
+    </div>
+    <p class="micro">Cool rooms slow everything; warm, bright rooms speed it up. Aim for 18–22°C if possible.</p>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section class="section">
+    <h2>Troubleshooting</h2>
+    <div class="grid two">
+      <div class="cardish">
+        <h3>Slime or smell in jars</h3>
+        <p>Change water, rinse stems, trim to clean tissue, reduce jar crowding, move out of full sun.</p>
+      </div>
+      <div class="cardish">
+        <h3>Cuttings wilt after potting</h3>
+        <p>Too bright or too dry. Shade for 2–3 days, keep compost lightly moist, and reduce foliage by a third.</p>
+      </div>
+      <div class="cardish">
+        <h3>No roots forming</h3>
+        <p>It’s too cold or too dark. Warmer room, brighter spot, or switch to the soil method with a clear cover.</p>
+      </div>
+      <div class="cardish">
+        <h3>Floppy, pale growth</h3>
+        <p>Not enough light. Move closer to a bright window; consider a small LED grow bar in winter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to grow list (small-space focus) -->
+  <section class="section">
+    <h2>What to Regrow (Best Bets)</h2>
+    <div class="grid two">
+      <div>
+        <ul>
+          <li>Leafy bases: lettuce, pak choi, celery, fennel (for fronds).</li>
+          <li>Alliums: spring onions, leek stumps, onion bases (greens), garlic cloves (greens).</li>
+          <li>Herbs: basil, mint, lemon balm, oregano, thyme, rosemary, sage.</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li>Tropical store-cupboard: ginger, turmeric, sweet potato (slips).</li>
+          <li>Bonus: coriander and parsley regrow leaves better from fresh sowings than cut bases — use cuttings sparingly.</li>
+          <li>Strawberry runners (from a friend’s plant) root easily for a new pot.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn"><strong>Edibility note:</strong> regrown greens are for quick harvest; flavours may be milder than the original plant. Always wash well.</div>
+  </section>
+
+  <!-- Cross-links -->
   <nav class="mini-nav" aria-label="More growing">
-    <a href="space-saving.html">Space-Saving Ideas</a>
+    <a href="first-pot.html">Your First Pot</a>
+    <a href="space-saving.html">Space-Saving Setups</a>
     <a href="pests.html">Pests &amp; Problems</a>
-    <a href="../growing.html">Growing Hub</a>
+    <a href="../seasonal.html">Seasonal Calendar</a>
   </nav>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
+    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
 </body>
 </html>

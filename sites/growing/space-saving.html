@@ -6,12 +6,37 @@
 <title>Space-Saving Setups — Patch & Pot</title>
 <link rel="stylesheet" href="../style.css">
 <style>
-  .grid2{display:grid; gap:14px}
-  @media(min-width:920px){.grid2{grid-template-columns:1fr 1fr}}
-  .figure{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:12px}
-  .figure img{width:100%; height:auto; border-radius:12px}
-  .list{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:14px}
-  .badge{display:inline-block; padding:.2rem .5rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); font-size:.85rem}
+  /* Keep header nav links white on dark */
+  .nav a{ color:#fff !important }
+
+  /* Page scaffolding */
+  .section{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px; margin:12px 0 }
+  .grid{ display:grid; gap:14px }
+  @media(min-width:860px){ .grid.two{ grid-template-columns:1fr 1fr } }
+  @media(min-width:1080px){ .grid.three{ grid-template-columns:1fr 1fr 1fr } }
+
+  .figure{ background:rgba(255,255,255,.05); border:1px solid var(--stroke); border-radius:12px; padding:12px }
+  .figure img{ width:100%; height:auto; border-radius:10px }
+
+  .callout{ border-left:4px solid var(--green2); background:rgba(255,255,255,.06); padding:.8rem .95rem; border-radius:12px }
+  .warn{ border-left:4px solid #e2a66a; background:rgba(255,255,255,.06); padding:.8rem .95rem; border-radius:12px }
+  .tip{ border-left:3px solid #7ed495; background:rgba(255,255,255,.06); padding:.6rem .75rem; border-radius:10px }
+
+  .build{ background:rgba(255,255,255,.05); border:1px dashed var(--stroke); border-radius:12px; padding:.85rem .95rem }
+  .build h3{ margin:.2rem 0 .55rem; font-size:1.06rem }
+  .step{ margin:.35rem 0 }
+  .tick::before{ content:"✓ "; color:#7ed495; font-weight:700 }
+
+  .table{ width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--stroke) }
+  .table th,.table td{ padding:.6rem .75rem; border-bottom:1px solid var(--stroke); vertical-align:top; text-align:left }
+  .table thead th{ background:rgba(255,255,255,.06) }
+  .mono{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace }
+
+  .micro{ color:var(--muted); font-size:.92rem }
+  .badge{ display:inline-block; padding:.2rem .5rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); font-size:.85rem }
+
+  /* Footer pot a touch bigger (~1.5x default) */
+  .footer-icon, .footer-pot{ height:54px; width:auto; opacity:.95 }
 </style>
 </head>
 <body>
@@ -23,78 +48,303 @@
   </div>
   <nav class="nav" aria-label="Primary">
     <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
+    <a href="../growing.html" aria-current="page">Growing</a>
     <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
     <a href="../exercise.html">Exercise</a>
+    <a href="../wellbeing.html">Wellbeing</a>
     <a href="../guides.html">Guides</a>
     <a href="../ideas.html">Ideas</a>
+    <a href="../seasonal.html">Seasonal</a>
   </nav>
 </header>
 
 <main class="wrap">
   <h1>Space-Saving Setups</h1>
-  <p class="lead">Three compact builds that turn tiny spots into productive mini-gardens.</p>
+  <p class="lead">Grow more in less space with sturdy vertical rigs, “found” containers, smart watering and micro-climate tweaks. All tuned for real UK weather.</p>
 
-  <section class="grid2">
-    <article class="figure">
-      <img src="../img/vertical-bottle-tower.png" alt="Diagram of a vertical bottle tower planter">
-      <h2>Bottle Tower</h2>
-      <p>Stacked 2 L bottles with side cut-outs for plants; a central wick keeps moisture more even.</p>
-      <ul>
-        <li>Best for: lettuce mixes, parsley, mint (top), strawberries (sunny).</li>
-        <li>Water: top bottle slowly; catch tray at base.</li>
-      </ul>
-      <p class="meta"><span class="badge">Placeholder</span> → <code>sites/img/vertical-bottle-tower.png</code></p>
-    </article>
-
-    <article class="figure">
-      <img src="../img/hanging-rail-pockets.png" alt="Diagram of a hanging rail herb pocket system">
-      <h2>Hanging Rail Pockets</h2>
-      <p>Clip a short rail on a wall or window frame; hang fabric pockets or small pots.</p>
-      <ul>
-        <li>Best for: basil (bright), coriander (cooler), chives.</li>
-        <li>Tip: put a tray under the lowest pocket for drips.</li>
-      </ul>
-      <p class="meta"><span class="badge">Placeholder</span> → <code>sites/img/hanging-rail-pockets.png</code></p>
-    </article>
+  <!-- Principles -->
+  <section class="section">
+    <h2>Principles for Tiny Spaces</h2>
+    <div class="grid three">
+      <div class="callout">
+        <h3>Go vertical</h3>
+        <p>Use height with rails, ladders, shelves and trellis. Keep heavy pots low, leafy/herbs higher. Narrow depth, more tiers.</p>
+      </div>
+      <div class="callout">
+        <h3>Stagger production</h3>
+        <p>Start seedlings indoors; move outside only when sturdy. Each outdoor slot stays productive and tidy.</p>
+      </div>
+      <div class="callout">
+        <h3>Water once, reach many</h3>
+        <p>Link troughs to one reservoir or sit pots on capillary mats so a single fill supports a whole stack.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="grid2">
-    <article class="figure">
-      <img src="../img/depth-saver-crates.png" alt="Diagram of stacked crates as a deep planter">
-      <h2>Stacked Crates (Deep Root)</h2>
-      <p>Two shallow crates stacked with liner make a deep, free-draining planter for roots.</p>
-      <ul>
-        <li>Best for: compact carrots, radishes, dwarf beans.</li>
-        <li>Line with hessian or landscape fabric; add a few bricks below to weight.</li>
-      </ul>
-      <p class="meta"><span class="badge">Placeholder</span> → <code>sites/img/depth-saver-crates.png</code></p>
-    </article>
-
-    <aside class="list">
-      <h2>Small-space extras</h2>
-      <ul>
-        <li>Use mirrors/foil boards to bounce light to shaded side.</li>
-        <li>Rotate containers weekly for even growth.</li>
-        <li>Group pots to reduce watering frequency (shared humidity).</li>
-      </ul>
-      <p class="meta">Link: see <a href="first-pot.html">Your First Pot</a> for watering & feeding basics.</p>
-    </aside>
+  <!-- Safety & Loads -->
+  <section class="section">
+    <h2>Safety & Loads (Balconies, Steps, Rails)</h2>
+    <p class="micro">Wet compost is heavy, wind multiplies load. Anchor everything. Don’t rely on flimsy fixings.</p>
+    <table class="table mono">
+      <thead><tr><th>Container</th><th>Approx. wet weight</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Window box 60 cm (10–12 L)</td><td>10–14 kg</td><td>Metal brackets screwed into brick/joist, plus safety strap/cable tie.</td></tr>
+        <tr><td>Tub 20 L</td><td>18–24 kg</td><td>Keep on floor level; use pot feet/spacers for drainage and airflow.</td></tr>
+        <tr><td>Trough 80–100 cm (25–35 L)</td><td>25–40 kg</td><td>Support at multiple points; never cantilever off weak rails.</td></tr>
+        <tr><td>Crate stack (3 tiers)</td><td>15–40 kg</td><td>Strap to wall ring; heaviest tier at base; anti-tip bracket.</td></tr>
+      </tbody>
+    </table>
+    <div class="warn"><strong>Wind:</strong> use mesh windbreak (30–40% shade) to slow gusts without acting like a sail. Stake early, tie softly, check weekly.</div>
   </section>
 
-  <nav class="mini-nav">
-    <a href="regrow.html">Regrow from Kitchen Scraps</a>
+  <!-- Improvised containers (more detail) -->
+  <section class="section">
+    <h2>Improvised Containers That Work</h2>
+    <div class="grid two">
+      <div class="build">
+        <h3>Food-grade buckets (10–20 L)</h3>
+        <p class="step tick">Drill 6–8 base holes (8–10 mm); add 1–2 cm gravel for stability.</p>
+        <p class="step tick">Line sides with corrugated card for insulation on exposed sites.</p>
+        <p class="step tick">Best for: tomatoes (dwarf/bush), peppers, bush beans, potatoes (20 L+).</p>
+      </div>
+      <div class="build">
+        <h3>Recycled timber crates</h3>
+        <p class="step tick">Staple landscape fabric inside; fill 60/30/10 compost/bark/perlite mix.</p>
+        <p class="step tick">Add corner posts to stack 2–3 high; strap to wall ring.</p>
+        <p class="step tick">Best for: salad mixes, spring onions, parsley, chives, mint (in a sunken pot).</p>
+      </div>
+      <div class="build">
+        <h3>Gutter troughs (wall or rail)</h3>
+        <p class="step tick">Use deep 112 mm gutter + end caps; drill small base holes every 10–12 cm.</p>
+        <p class="step tick">Mount with sturdy brackets; link 2–3 gutters to a single drip line.</p>
+        <p class="step tick">Best for: lettuce, coriander, chives, alpine strawberries.</p>
+      </div>
+      <div class="build">
+        <h3>Bottle towers (2-litre PET)</h3>
+        <p class="step tick">Cut side windows; keep necks as drip points; stack on a cane or threaded rod.</p>
+        <p class="step tick">Fill progressively; top bottle is the reservoir; add felt wicks.</p>
+        <p class="step tick">Best for: basil, mint, small salads, nasturtiums.</p>
+      </div>
+    </div>
+    <div class="figure" style="margin-top:10px">
+      <img src="../img/vertical-bottle-tower.png" alt="Vertical bottle tower diagram">
+      <p class="micro"><span class="badge">Placeholder</span> → <code>sites/img/vertical-bottle-tower.png</code></p>
+    </div>
+  </section>
+
+  <!-- Vertical rigs -->
+  <section class="section">
+    <h2>Vertical Rigs & Slimline Frames</h2>
+    <div class="grid two">
+      <div>
+        <div class="build">
+          <h3>Lean-to ladder shelf</h3>
+          <p class="step tick">Fix a 4–5 tier ladder to the wall with two brackets to prevent tipping.</p>
+          <p class="step tick">Top tiers: herbs; middle: salads; bottom: heavier tubs.</p>
+          <p class="step tick">Lay capillary matting on shelves for easy watering.</p>
+        </div>
+        <div class="build">
+          <h3>Wire panel + pot clips</h3>
+          <p class="step tick">Attach welded mesh to wall; clip on round pots with hook hangers.</p>
+          <p class="step tick">Train peas/beans with soft ties; leave 10–15 cm standoff for airflow.</p>
+        </div>
+      </div>
+      <div>
+        <div class="build">
+          <h3>Hanging rail line</h3>
+          <p class="step tick">Two steel rails horizontally; S-hooks for baskets and tools.</p>
+          <p class="step tick">Alternate weight along the run; keep heaviest near brackets.</p>
+        </div>
+        <div class="build">
+          <h3>Trough + trellis combo</h3>
+          <p class="step tick">Trough (80–100 cm) with rear trellis; tie climbers from day one.</p>
+          <p class="step tick">Great for: dwarf peas, French beans, cucamelon, edible flowers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="figure" style="margin-top:10px">
+      <img src="../img/hanging-rail-pockets.png" alt="Hanging rail pockets diagram">
+      <p class="micro"><span class="badge">Placeholder</span> → <code>sites/img/hanging-rail-pockets.png</code></p>
+    </div>
+  </section>
+
+  <!-- Watering -->
+  <section class="section">
+    <h2>Watering Without the Hassle</h2>
+    <div class="grid two">
+      <div>
+        <h3>Capillary trays & mats</h3>
+        <p>Line a shallow tray with matting; pots sit on it and wick water. Refill two or three times a week in summer. Keep trays shaded to slow evaporation.</p>
+      </div>
+      <div>
+        <h3>Drip from one reservoir</h3>
+        <p>Use a 25–40 L lidded box. Gravity or a timer feeds 4–8 drippers. Add a simple inline filter, especially when using rainwater.</p>
+      </div>
+    </div>
+    <div class="callout"><strong>Soak-then-rest:</strong> water deeply until a little runs through, then let the top 2–3 cm dry. Roots go deeper and plants get tougher.</div>
+  </section>
+
+  <!-- Light, wind, frost -->
+  <section class="section">
+    <h2>Micro-climate Tweaks: Light, Wind, Frost</h2>
+    <div class="grid three">
+      <div>
+        <h3>Light</h3>
+        <p>South: tomatoes/peppers; east: salads/herbs; west: mixed; north: leafy greens and mint. Bounce light with pale walls or a thin aluminium sheet.</p>
+      </div>
+      <div>
+        <h3>Wind</h3>
+        <p>Mesh windbreaks slow gusts without creating a sail. Stake early. Tie with soft ties to avoid stem damage.</p>
+      </div>
+      <div>
+        <h3>Frost</h3>
+        <p>Keep fleece handy. Wrap stacks at dusk, uncover in the morning. Darker pots warm faster but dry out quicker.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to grow -->
+  <section class="section">
+    <h2>High-Yield Crops in Tiny Footprints</h2>
+    <div class="grid two">
+      <div>
+        <h3>For shelves, rails, gutters</h3>
+        <ul>
+          <li>Salad leaves, rocket, mustards (sow little-and-often)</li>
+          <li>Herbs: basil, chives, coriander, parsley, thyme</li>
+          <li>Strawberries (everbearers), alpine strawberries</li>
+          <li>Peas (dwarf), mangetout on low lines</li>
+          <li>Edible flowers: nasturtium, viola, calendula</li>
+        </ul>
+      </div>
+      <div>
+        <h3>For floor-level tubs</h3>
+        <ul>
+          <li>Tomatoes (bush/dwarf), chillies, aubergine (sheltered south)</li>
+          <li>Courgette (one plant in 30–40 L), dwarf beans</li>
+          <li>Chard, compact kale, spring onions</li>
+          <li>Potatoes in sacks (20–40 L), carrots in deep tubs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip"><strong>Stagger sowing:</strong> every 2–3 weeks add a new salad trough and a herb pot. Small but steady beats “too much then nothing”.</div>
+  </section>
+
+  <!-- Quick builds -->
+  <section class="section">
+    <h2>Quick Builds (Step-by-Step)</h2>
+    <div class="grid two">
+      <div class="build">
+        <h3>Rail Trough with Drip Chain (30 mins)</h3>
+        <ol>
+          <li>Fit metal rail brackets; add a safety strap to a wall eye.</li>
+          <li>Drill 6–8 base holes; use pot feet/spacers for airflow.</li>
+          <li>Lay 4 mm drip line with 3–4 emitters spaced evenly.</li>
+          <li>Fill with 60/30/10 compost/bark/perlite; plant salads + strawberries.</li>
+          <li>Connect to a 25 L reservoir; test flow; mulch the surface.</li>
+        </ol>
+      </div>
+      <div class="build">
+        <h3>Crate Stack Herb Tower (45 mins)</h3>
+        <ol>
+          <li>Stack three crates using four 25 mm batons as uprights; screw through corners.</li>
+          <li>Line with fabric; fill each tier two-thirds full; water in.</li>
+          <li>Top tier: thyme/oregano; middle: parsley/chives; bottom: mint in a sunken pot.</li>
+          <li>Anchor to a wall ring with a strap; add capillary wicks between tiers.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional notes -->
+  <section class="section">
+    <h2>Regional Notes (Quick)</h2>
+    <div class="grid two">
+      <div>
+        <h3>Scotland / North & exposed coasts</h3>
+        <ul>
+          <li>Delay tender crops; prioritise windbreak mesh and fleece.</li>
+          <li>Choose compact, early varieties; use warm walls and darker pots.</li>
+          <li>Lean into greens, peas and herbs; protect heat-lovers under cover.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>South & urban heat islands</h3>
+        <ul>
+          <li>Shade salads in midday heat; water deeply and mulch.</li>
+          <li>Excellent for peppers, aubergine, basil; watch spider mites.</li>
+          <li>Autumn–winter: keep salads going with troughs + fleece.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Original three builds preserved (with placeholders) -->
+  <section class="section">
+    <h2>Visuals: Three Compact Builds</h2>
+    <div class="grid two">
+      <article class="figure">
+        <img src="../img/vertical-bottle-tower.png" alt="Diagram of a vertical bottle tower planter">
+        <h3>Bottle Tower</h3>
+        <p>Stacked 2 L bottles with side cut-outs; a central wick keeps moisture more even.</p>
+        <ul>
+          <li>Best for: lettuce mixes, parsley, mint (top), strawberries (sunny).</li>
+          <li>Water: top bottle slowly; use a catch tray at base.</li>
+        </ul>
+        <p class="micro"><span class="badge">Placeholder</span> → <code>sites/img/vertical-bottle-tower.png</code></p>
+      </article>
+
+      <article class="figure">
+        <img src="../img/hanging-rail-pockets.png" alt="Diagram of a hanging rail herb pocket system">
+        <h3>Hanging Rail Pockets</h3>
+        <p>Clip a short rail on a wall or window frame; hang fabric pockets or small pots.</p>
+        <ul>
+          <li>Best for: basil (bright), coriander (cooler), chives.</li>
+          <li>Tip: place a tray under the lowest pocket for drips.</li>
+        </ul>
+        <p class="micro"><span class="badge">Placeholder</span> → <code>sites/img/hanging-rail-pockets.png</code></p>
+      </article>
+    </div>
+
+    <div class="grid two" style="margin-top:12px">
+      <article class="figure">
+        <img src="../img/depth-saver-crates.png" alt="Diagram of stacked crates used as a deep planter">
+        <h3>Stacked Crates (Deep Root)</h3>
+        <p>Two shallow crates stacked with liner make a deep, free-draining planter for roots.</p>
+        <ul>
+          <li>Best for: compact carrots, radishes, dwarf beans.</li>
+          <li>Lining: hessian or landscape fabric; add a few bricks below to weight.</li>
+        </ul>
+        <p class="micro"><span class="badge">Placeholder</span> → <code>sites/img/depth-saver-crates.png</code></p>
+      </article>
+
+      <aside class="figure">
+        <h3>Small-space extras</h3>
+        <ul>
+          <li>Use mirrors/foil boards to bounce light to shaded sides.</li>
+          <li>Rotate containers weekly for even growth.</li>
+          <li>Group pots to share humidity and reduce watering.</li>
+        </ul>
+        <p class="micro">See <a href="first-pot.html">Your First Pot</a> for watering & feeding basics.</p>
+      </aside>
+    </div>
+  </section>
+
+  <nav class="mini-nav" aria-label="Related guides">
+    <a href="first-pot.html">Your First Pot</a>
     <a href="companion.html">Companion Planting</a>
-    <a href="../wellbeing/neuroscience.html">Neuroscience</a>
+    <a href="regrow.html">Regrow from Scraps</a>
+    <a href="../seasonal.html">Seasonal</a>
   </nav>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
-    <p>© Patch &amp; Pot | Grant Cameron Anthony</p>
+    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <p>© 2025 Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
 </body>
 </html>

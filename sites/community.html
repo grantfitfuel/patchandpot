@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Community Chat & Seed Swap — Patch & Pot</title>
+<meta name="description" content="Open community chat and seed & plant swap for gardeners. Share tips, ask questions, and swap seeds locally.">
+<link rel="icon" type="image/svg+xml" href="/img/patchandpot-logo.svg">
+<style>
+  :root{
+    --bg:#f7f7f3;        /* light, warm off-white */
+    --ink:#1d2a22;       /* deep green-brown text */
+    --muted:#516356;     /* muted green for secondary text */
+    --card:#ffffff;      /* cards on the light background */
+    --line:#e2e6df;      /* soft divider */
+    --accent:#2c7a4b;    /* leaf green */
+    --accent-2:#a3d3b6;  /* pale mint */
+    --warn:#9e2a2b;      /* safety/disclaimer accent */
+    --ok:#2f855a;        /* success green */
+    --focus:#0b6bcb;     /* focus ring blue */
+    --shadow:0 6px 18px rgba(0,0,0,.06);
+    --maxw:1100px;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;line-height:1.4}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
+  header{display:flex;align-items:center;gap:12px;padding:16px 0}
+  header .brand{font-weight:700;font-size:1.4rem}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+  .tab{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer;box-shadow:var(--shadow)}
+  .tab[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin:12px 0}
+  .grid{display:grid;gap:12px}
+  @media(min-width:900px){.grid.cols2{grid-template-columns:1fr 1fr}}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  input[type="text"], input[type="email"], input[type="number"], select, textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)
+  }
+  textarea{min-height:96px;resize:vertical}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer}
+  .btn.secondary{background:#fff;color:var(--accent);border-color:var(--accent)}
+  .btn.ghost{background:transparent;color:var(--muted);border-color:var(--line)}
+  .btn.warn{background:var(--warn);border-color:var(--warn);color:#fff}
+  .inline-help{font-size:.92rem;color:var(--muted)}
+  .badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid var(--line);background:var(--accent-2);color:#0d3b2e;font-size:.8rem}
+  .list{display:grid;gap:10px;margin-top:8px}
+  .item{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;display:grid;gap:8px}
+  .item-head{display:flex;gap:8px;align-items:center;justify-content:space-between}
+  .meta{font-size:.9rem;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+  .item img.thumb{max-height:140px;border-radius:10px;border:1px solid var(--line);object-fit:cover}
+  .pill{border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:#f3faf6}
+  .tools{display:flex;gap:8px;flex-wrap:wrap}
+  .notice{background:#fff8f8;border:1px solid #ffd9d9;color:#5a1f1f;padding:10px;border-radius:10px}
+  .success{background:#f2fcf6;border:1px solid #d7f2e0;color:#214732;padding:10px;border-radius:10px}
+  .sr-only{position:absolute !important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  /* Print slips layout */
+  @media print{
+    body{background:#fff}
+    .no-print{display:none !important}
+    .slips{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .slip{border:1px dashed #bbb;padding:10px;border-radius:10px}
+    .slip h3{margin:.2rem 0 .4rem}
+    .slip .tiny{font-size:.85rem;color:#333}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="no-print">
+      <div class="brand">🌿 Patch & Pot — Community</div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs no-print" role="tablist" aria-label="Community areas">
+      <button class="tab" role="tab" aria-selected="true" data-tab="chat">Chat</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="swap">Seed & Plant Swap</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="guides">Guidelines & Safety</button>
+    </nav>
+
+    <!-- Chat -->
+    <section class="section" id="panel-chat" role="tabpanel" aria-labelledby="Chat">
+      <h2>Open Garden Chat</h2>
+      <p class="inline-help">Share ideas, ask questions, or show today’s progress. Be kind; everyone starts somewhere.</p>
+
+      <div class="grid cols2">
+        <form id="chat-form" class="section">
+          <h3>New message</h3>
+          <div class="grid">
+            <div class="controls">
+              <label class="sr-only" for="chat-name">Display name</label>
+              <input id="chat-name" type="text" placeholder="Display name (optional)">
+              <label class="sr-only" for="chat-region">Region</label>
+              <select id="chat-region" aria-label="Region">
+                <option value="">Region (optional)</option>
+                <option>Central Belt</option><option>East Coast</option><option>West Coast</option>
+                <option>Far North</option><option>Orkney</option><option>Outer Hebrides</option>
+                <option>Ross</option><option>Shetland</option><option>Sutherland</option>
+                <option>England – North</option><option>England – Midlands</option><option>England – South</option>
+                <option>Wales – North</option><option>Wales – South</option>
+                <option>Ireland – North</option><option>Ireland – South</option>
+              </select>
+            </div>
+            <label class="sr-only" for="chat-topic">Topic</label>
+            <select id="chat-topic" aria-label="Topic">
+              <option>Ideas & Tips</option>
+              <option>Seed Starting</option>
+              <option>Containers & Small Spaces</option>
+              <option>Pests & Pollinators</option>
+              <option>Harvest & Preserving</option>
+              <option>Off-topic Chat</option>
+            </select>
+            <label class="sr-only" for="chat-text">Message</label>
+            <textarea id="chat-text" placeholder="Type your message… (be specific and helpful)"></textarea>
+
+            <div class="controls">
+              <input id="chat-image" type="file" accept="image/*">
+              <button class="btn" type="submit">Post</button>
+              <button class="btn secondary" type="button" id="chat-preview-btn">Preview image</button>
+              <span id="chat-status" class="inline-help" aria-live="polite"></span>
+            </div>
+            <div id="chat-image-preview" class="inline-help"></div>
+            <p class="inline-help">Anti-spam: short delay between posts; basic language filter.</p>
+          </div>
+        </form>
+
+        <div>
+          <div class="tools no-print">
+            <button class="btn ghost" id="chat-refresh">Refresh</button>
+            <button class="btn ghost" id="chat-export">Export JSON</button>
+            <button class="btn ghost" id="chat-import">Import JSON</button>
+          </div>
+          <div id="chat-list" class="list" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Swap -->
+    <section class="section" id="panel-swap" role="tabpanel" aria-labelledby="Seed & Plant Swap" hidden>
+      <h2>Seed & Plant Swap</h2>
+      <p class="inline-help">Offer or request seeds/plants locally. Meet in public places and follow safety tips below.</p>
+
+      <div class="grid cols2">
+        <form id="swap-form" class="section">
+          <h3>New listing</h3>
+          <div class="grid">
+            <div class="grid">
+              <input id="swap-title" type="text" placeholder="What is it? (e.g., ‘Tomato — ‘Gardener’s Delight’ seeds’)">
+              <select id="swap-type" aria-label="Type">
+                <option>Offer</option><option>Wanted</option>
+              </select>
+              <select id="swap-region" aria-label="Region">
+                <option>Central Belt</option><option>East Coast</option><option>West Coast</option>
+                <option>Far North</option><option>Orkney</option><option>Outer Hebrides</option>
+                <option>Ross</option><option>Shetland</option><option>Sutherland</option>
+                <option>England – North</option><option>England – Midlands</option><option>England – South</option>
+                <option>Wales – North</option><option>Wales – South</option>
+                <option>Ireland – North</option><option>Ireland – South</option>
+              </select>
+              <input id="swap-qty" type="text" placeholder="Quantity / notes (e.g., ‘~30 seeds, 2 cuttings’)">
+              <textarea id="swap-notes" placeholder="Any conditions? e.g., open-pollinated, saved 2024, no chemicals used."></textarea>
+              <input id="swap-contact" type="email" placeholder="Contact email (optional; shown partially)">
+              <input id="swap-image" type="file" accept="image/*">
+            </div>
+            <div class="controls">
+              <button class="btn" type="submit">Post listing</button>
+              <button class="btn secondary" type="button" id="swap-preview-btn">Preview image</button>
+              <span id="swap-status" class="inline-help" aria-live="polite"></span>
+            </div>
+            <div id="swap-image-preview" class="inline-help"></div>
+          </div>
+        </form>
+
+        <div>
+          <div class="tools no-print">
+            <label class="sr-only" for="swap-filter-region">Filter region</label>
+            <select id="swap-filter-region">
+              <option value="">All regions</option>
+              <option>Central Belt</option><option>East Coast</option><option>West Coast</option>
+              <option>Far North</option><option>Orkney</option><option>Outer Hebrides</option>
+              <option>Ross</option><option>Shetland</option><option>Sutherland</option>
+              <option>England – North</option><option>England – Midlands</option><option>England – South</option>
+              <option>Wales – North</option><option>Wales – South</option>
+              <option>Ireland – North</option><option>Ireland – South</option>
+            </select>
+            <button class="btn ghost" id="swap-refresh">Refresh</button>
+            <button class="btn ghost" id="swap-export">Export JSON</button>
+            <button class="btn ghost" id="swap-import">Import JSON</button>
+            <button class="btn ghost" id="swap-slips">Print swap slips</button>
+          </div>
+          <div id="swap-list" class="list" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guidelines -->
+    <section class="section" id="panel-guides" role="tabpanel" aria-labelledby="Guidelines & Safety" hidden>
+      <h2>Guidelines & Safety</h2>
+      <div class="grid">
+        <div class="success"><strong>Be kind, be clear, be safe.</strong> Share experience, not judgement. Assume good intent.</div>
+        <div class="notice"><strong>Disclaimer:</strong> Patch & Pot provides a community space only. We do not vet items or users, and we do not handle payments or delivery. Swaps and meet-ups are at your own risk.</div>
+        <ul>
+          <li><strong>Privacy:</strong> Don’t post full addresses or phone numbers. Use public meeting spots.</li>
+          <li><strong>Safety:</strong> Bring a friend for swaps. Meet in daylight in a public place (e.g., a café or library foyer).</li>
+          <li><strong>Seeds & plants:</strong> Label variety and year. Avoid sharing diseased material. Respect local biosecurity rules.</li>
+          <li><strong>Images:</strong> Only upload your own photos.</li>
+          <li><strong>Reporting:</strong> Use “Report” under any post to flag concerns.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ========= Lightweight client store (local demo) =========
+    const store = {
+      chat: JSON.parse(localStorage.getItem('pp_chat')||'[]'),
+      swaps: JSON.parse(localStorage.getItem('pp_swaps')||'[]'),
+      save(){ localStorage.setItem('pp_chat', JSON.stringify(this.chat));
+              localStorage.setItem('pp_swaps', JSON.stringify(this.swaps)); }
+    };
+
+    // ========= Tabs =========
+    const tabs = document.querySelectorAll('.tab');
+    const panels = {
+      chat: document.getElementById('panel-chat'),
+      swap: document.getElementById('panel-swap'),
+      guides: document.getElementById('panel-guides')
+    };
+    tabs.forEach(t=>{
+      t.addEventListener('click', ()=>{
+        tabs.forEach(x=>x.setAttribute('aria-selected','false'));
+        t.setAttribute('aria-selected','true');
+        Object.values(panels).forEach(p=>p.hidden=true);
+        panels[t.dataset.tab].hidden=false;
+      });
+    });
+
+    // ========= Helpers =========
+    const badWords = ['damn','bloody','idiot','stupid']; // extend as needed
+    function clean(text){
+      let out = text.trim();
+      badWords.forEach(w=>{
+        const re = new RegExp('\\b'+w+'\\b','ig');
+        out = out.replace(re, w[0] + '***');
+      });
+      return out;
+    }
+    function nowIso(){ return new Date().toISOString(); }
+    function maskEmail(e){
+      if(!e) return '';
+      const [u,d]=e.split('@'); if(!d) return e;
+      return u.slice(0,2) + '…@' + d;
+    }
+    function fileToDataURL(file){
+      return new Promise((res,rej)=>{
+        const r=new FileReader();
+        r.onload=()=>res(r.result);
+        r.onerror=rej;
+        r.readAsDataURL(file);
+      });
+    }
+    function el(tag, attrs={}, children=[]){
+      const n=document.createElement(tag);
+      Object.entries(attrs).forEach(([k,v])=>{
+        if(k==='class') n.className=v;
+        else if(k==='html') n.innerHTML=v;
+        else n.setAttribute(k,v);
+      });
+      (Array.isArray(children)?children:[children]).filter(Boolean).forEach(c=>{
+        if(typeof c==='string') n.appendChild(document.createTextNode(c));
+        else n.appendChild(c);
+      });
+      return n;
+    }
+
+    // ========= Rate limit =========
+    let lastPostAt = 0;
+    function allowPost(){
+      const now=Date.now();
+      if(now - lastPostAt < 8000) return false; // 8s between posts
+      lastPostAt = now; return true;
+    }
+
+    // ========= CHAT =========
+    const chatForm = document.getElementById('chat-form');
+    const chatList = document.getElementById('chat-list');
+    const chatImageInput = document.getElementById('chat-image');
+    const chatPreviewDiv = document.getElementById('chat-image-preview');
+    document.getElementById('chat-preview-btn').addEventListener('click', async ()=>{
+      const f=chatImageInput.files && chatImageInput.files[0];
+      if(!f){ chatPreviewDiv.textContent='No image selected.'; return; }
+      if(f.size> 2_500_000){ chatPreviewDiv.textContent='Image too large (>2.5MB).'; return; }
+      const url = await fileToDataURL(f);
+      chatPreviewDiv.innerHTML = '<img src="'+url+'" alt="Preview" style="max-width:100%;border:1px solid #ddd;border-radius:10px">';
+    });
+
+    chatForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!allowPost()){ document.getElementById('chat-status').textContent='Please wait a few seconds between posts.'; return; }
+      const name = document.getElementById('chat-name').value.trim() || 'Guest Gardener';
+      const region = document.getElementById('chat-region').value.trim();
+      const topic = document.getElementById('chat-topic').value;
+      const text = document.getElementById('chat-text').value;
+      if(text.trim().length<3){ document.getElementById('chat-status').textContent='Please write a bit more detail.'; return; }
+      let imageData = '';
+      const f = chatImageInput.files && chatImageInput.files[0];
+      if(f){
+        if(f.size> 2_500_000){ document.getElementById('chat-status').textContent='Image too large (>2.5MB).'; return; }
+        imageData = await fileToDataURL(f);
+      }
+      const msg = {
+        id:'c_'+crypto.randomUUID(),
+        name: clean(name).slice(0,48),
+        region, topic,
+        text: clean(text).slice(0,2000),
+        image: imageData,
+        at: nowIso(),
+        reports: 0
+      };
+      // TODO: connect API (POST /api/messages) then refresh from server
+      store.chat.unshift(msg);
+      store.save();
+      chatForm.reset();
+      chatPreviewDiv.innerHTML='';
+      document.getElementById('chat-status').textContent='Posted!';
+      renderChat();
+    });
+
+    function renderChat(){
+      chatList.innerHTML='';
+      // TODO: connect API (GET /api/messages)
+      store.chat.forEach(m=>{
+        const head = el('div',{class:'item-head'},[
+          el('div',{},[
+            el('strong',{},m.name+' '),
+            m.region?el('span',{class:'pill'},m.region):null,
+            el('span',{class:'pill'},m.topic)
+          ]),
+          el('span',{class:'meta'}, new Date(m.at).toLocaleString())
+        ]);
+        const body = el('div',{},[
+          el('p',{},m.text),
+          m.image?el('img',{class:'thumb',src:m.image,alt:'User submitted image'}):null
+        ]);
+        const tools = el('div',{class:'tools'},[
+          el('button',{class:'btn ghost', type:'button'},'Reply'),
+          el('button',{class:'btn ghost', type:'button'},'Report')
+        ]);
+        tools.children[1].addEventListener('click', ()=>{
+          m.reports = (m.reports||0)+1;
+          store.save();
+          alert('Thanks for the report. We’ll review this.');
+        });
+        const item = el('div',{class:'item'},[head, body, tools]);
+        chatList.appendChild(item);
+      });
+    }
+    document.getElementById('chat-refresh').addEventListener('click', renderChat);
+    document.getElementById('chat-export').addEventListener('click', ()=>{
+      const blob = new Blob([JSON.stringify(store.chat,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = el('a',{href:url, download:'patchandpot-chat.json'}); document.body.appendChild(a); a.click(); a.remove();
+    });
+    document.getElementById('chat-import').addEventListener('click', ()=>{
+      const i = el('input',{type:'file',accept:'application/json'});
+      i.addEventListener('change', async ()=>{
+        const f=i.files[0]; if(!f) return;
+        const txt = await f.text();
+        try{ store.chat = JSON.parse(txt); store.save(); renderChat(); }
+        catch{ alert('Invalid JSON'); }
+      });
+      i.click();
+    });
+    renderChat();
+
+    // ========= SWAPS =========
+    const swapForm = document.getElementById('swap-form');
+    const swapList = document.getElementById('swap-list');
+    const swapPreviewDiv = document.getElementById('swap-image-preview');
+    document.getElementById('swap-preview-btn').addEventListener('click', async ()=>{
+      const f=document.getElementById('swap-image').files?.[0];
+      if(!f){ swapPreviewDiv.textContent='No image selected.'; return; }
+      if(f.size> 2_500_000){ swapPreviewDiv.textContent='Image too large (>2.5MB).'; return; }
+      const url = await fileToDataURL(f);
+      swapPreviewDiv.innerHTML = '<img src="'+url+'" alt="Preview" style="max-width:100%;border:1px solid #ddd;border-radius:10px">';
+    });
+
+    swapForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!allowPost()){ document.getElementById('swap-status').textContent='Please wait a few seconds between posts.'; return; }
+      const title = document.getElementById('swap-title').value.trim();
+      const type = document.getElementById('swap-type').value;
+      const region = document.getElementById('swap-region').value;
+      const qty = document.getElementById('swap-qty').value.trim();
+      const notes = document.getElementById('swap-notes').value.trim();
+      const contact = document.getElementById('swap-contact').value.trim();
+      if(title.length<3){ document.getElementById('swap-status').textContent='Please add a descriptive title.'; return; }
+      let imageData = '';
+      const f = document.getElementById('swap-image').files?.[0];
+      if(f){
+        if(f.size> 2_500_000){ document.getElementById('swap-status').textContent='Image too large (>2.5MB).'; return; }
+        imageData = await fileToDataURL(f);
+      }
+      const item = {
+        id:'s_'+crypto.randomUUID(),
+        title: clean(title).slice(0,140),
+        type, region,
+        qty: clean(qty).slice(0,140),
+        notes: clean(notes).slice(0,2000),
+        contact: contact, // shown masked
+        image: imageData,
+        at: nowIso(),
+        reports: 0
+      };
+      // TODO: connect API (POST /api/swaps)
+      store.swaps.unshift(item);
+      store.save();
+      swapForm.reset();
+      swapPreviewDiv.innerHTML='';
+      document.getElementById('swap-status').textContent='Listing posted!';
+      renderSwaps();
+    });
+
+    function renderSwaps(){
+      const filter = document.getElementById('swap-filter-region').value;
+      swapList.innerHTML='';
+      // TODO: connect API (GET /api/swaps)
+      const items = store.swaps.filter(s=>!filter || s.region===filter);
+      items.forEach(s=>{
+        const head = el('div',{class:'item-head'},[
+          el('div',{},[
+            el('strong',{},s.title+' '),
+            el('span',{class:'badge'}, s.type),
+            el('span',{class:'pill'}, s.region)
+          ]),
+          el('span',{class:'meta'}, new Date(s.at).toLocaleString())
+        ]);
+        const body = el('div',{},[
+          s.qty?el('div',{},['Quantity: ', el('strong',{},s.qty)]):null,
+          s.notes?el('p',{},s.notes):null,
+          s.image?el('img',{class:'thumb',src:s.image,alt:'Listing image'}):null,
+          s.contact?el('div',{class:'inline-help'},'Contact: '+maskEmail(s.contact)):null
+        ]);
+        const tools = el('div',{class:'tools'},[
+          el('button',{class:'btn ghost', type:'button'},'Message'),
+          el('button',{class:'btn ghost', type:'button'},'Report')
+        ]);
+        tools.children[1].addEventListener('click', ()=>{
+          s.reports = (s.reports||0)+1; store.save();
+          alert('Thanks for the report. We’ll review this.');
+        });
+        const item = el('div',{class:'item'},[head, body, tools]);
+        swapList.appendChild(item);
+      });
+    }
+    document.getElementById('swap-filter-region').addEventListener('change', renderSwaps);
+    document.getElementById('swap-refresh').addEventListener('click', renderSwaps);
+    document.getElementById('swap-export').addEventListener('click', ()=>{
+      const blob = new Blob([JSON.stringify(store.swaps,null,2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = el('a',{href:url, download:'patchandpot-swaps.json'}); document.body.appendChild(a); a.click(); a.remove();
+    });
+    document.getElementById('swap-import').addEventListener('click', ()=>{
+      const i = el('input',{type:'file',accept:'application/json'});
+      i.addEventListener('change', async ()=>{
+        const f=i.files[0]; if(!f) return;
+        const txt = await f.text();
+        try{ store.swaps = JSON.parse(txt); store.save(); renderSwaps(); }
+        catch{ alert('Invalid JSON'); }
+      });
+      i.click();
+    });
+
+    // Print slips => opens print view with formatted cards for current filtered items
+    document.getElementById('swap-slips').addEventListener('click', ()=>{
+      const filter = document.getElementById('swap-filter-region').value;
+      const items = store.swaps.filter(s=>!filter || s.region===filter);
+      const win = window.open('', '_blank');
+      win.document.write('<!DOCTYPE html><title>Swap Slips — Patch & Pot</title><style>body{font-family:Inter,Arial,sans-serif;margin:16px}.slips{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.slip{border:1px dashed #bbb;padding:10px;border-radius:10px}.slip h3{margin:.2rem 0 .4rem}.tiny{font-size:.85rem;color:#333}</style><div class="slips">');
+      items.forEach(s=>{
+        win.document.write('<div class="slip"><h3>'+escapeHtml(s.title)+'</h3>'+
+          '<div class="tiny">'+escapeHtml(s.type)+' — '+escapeHtml(s.region)+'</div>'+
+          (s.qty?'<div class="tiny"><strong>Qty:</strong> '+escapeHtml(s.qty)+'</div>':'')+
+          (s.notes?'<div class="tiny">'+escapeHtml(s.notes.slice(0,200))+'</div>':'')+
+          (s.contact?'<div class="tiny"><strong>Contact:</strong> '+escapeHtml(maskEmail(s.contact))+'</div>':'')+
+          '<div class="tiny">Posted: '+new Date(s.at).toLocaleDateString()+'</div></div>');
+      });
+      win.document.write('</div><script>window.print();<\/script>');
+      win.document.close();
+    });
+
+    function escapeHtml(str){
+      return (str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    renderSwaps();
+
+    // ========= Accessibility: focus rings on keyboard =========
+    (function(){
+      function showFocus(){ document.body.classList.add('show-focus'); }
+      function hideFocus(){ document.body.classList.remove('show-focus'); }
+      window.addEventListener('keydown', e=>{ if(e.key==='Tab') showFocus(); });
+      window.addEventListener('mousedown', hideFocus);
+    })();
+  </script>
+</body>
+</html>

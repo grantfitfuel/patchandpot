@@ -15,20 +15,19 @@
     --line:#e2e6df;      /* soft divider */
     --accent:#2c7a4b;    /* leaf green */
     --accent-2:#a3d3b6;  /* pale mint */
-    --warn:#9e2a2b;      /* safety/disclaimer accent */
-    --ok:#2f855a;        /* success green */
-    --focus:#0b6bcb;     /* focus ring blue */
+    --warn:#9e2a2b;      /* danger */
+    --ok:#2f855a;        /* success */
     --shadow:0 6px 18px rgba(0,0,0,.06);
     --maxw:1100px;
     --radius:14px;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;line-height:1.4}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;line-height:1.45}
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
   header{display:flex;align-items:center;gap:12px;padding:16px 0}
-  header .brand{font-weight:700;font-size:1.4rem}
+  header .brand{font-weight:700;font-size:1.35rem}
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
   .tab{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer;box-shadow:var(--shadow)}
   .tab[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -56,7 +55,7 @@
   .notice{background:#fff8f8;border:1px solid #ffd9d9;color:#5a1f1f;padding:10px;border-radius:10px}
   .success{background:#f2fcf6;border:1px solid #d7f2e0;color:#214732;padding:10px;border-radius:10px}
   .sr-only{position:absolute !important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-  /* Print slips layout */
+  /* Print slips */
   @media print{
     body{background:#fff}
     .no-print{display:none !important}
@@ -122,15 +121,13 @@
               <span id="chat-status" class="inline-help" aria-live="polite"></span>
             </div>
             <div id="chat-image-preview" class="inline-help"></div>
-            <p class="inline-help">Anti-spam: short delay between posts; basic language filter.</p>
+            <p class="inline-help">Anti-spam: short delay between posts; basic language filter. Images &lt; 2.5&nbsp;MB.</p>
           </div>
         </form>
 
         <div>
           <div class="tools no-print">
             <button class="btn ghost" id="chat-refresh">Refresh</button>
-            <button class="btn ghost" id="chat-export">Export JSON</button>
-            <button class="btn ghost" id="chat-import">Import JSON</button>
           </div>
           <div id="chat-list" class="list" aria-live="polite"></div>
         </div>
@@ -147,7 +144,7 @@
           <h3>New listing</h3>
           <div class="grid">
             <div class="grid">
-              <input id="swap-title" type="text" placeholder="What is it? (e.g., ‘Tomato — ‘Gardener’s Delight’ seeds’)">
+              <input id="swap-title" type="text" placeholder="What is it? (e.g., ‘Tomato — Gardener’s Delight seeds’)">
               <select id="swap-type" aria-label="Type">
                 <option>Offer</option><option>Wanted</option>
               </select>
@@ -186,8 +183,6 @@
               <option>Ireland – North</option><option>Ireland – South</option>
             </select>
             <button class="btn ghost" id="swap-refresh">Refresh</button>
-            <button class="btn ghost" id="swap-export">Export JSON</button>
-            <button class="btn ghost" id="swap-import">Import JSON</button>
             <button class="btn ghost" id="swap-slips">Print swap slips</button>
           </div>
           <div id="swap-list" class="list" aria-live="polite"></div>
@@ -213,16 +208,28 @@
   </div>
 
   <script>
+    // ======= CONFIG: API base (your Netlify Functions behind custom domain) =======
     const API = "https://api.patchandpot.com/.netlify/functions";
-    // ========= Lightweight client store (local demo) =========
-    const store = {
-      chat: JSON.parse(localStorage.getItem('pp_chat')||'[]'),
-      swaps: JSON.parse(localStorage.getItem('pp_swaps')||'[]'),
-      save(){ localStorage.setItem('pp_chat', JSON.stringify(this.chat));
-              localStorage.setItem('pp_swaps', JSON.stringify(this.swaps)); }
-    };
 
-    // ========= Tabs =========
+    async function apiGet(path) {
+      const r = await fetch(`${API}/${path}`, { method: "GET" });
+      if (!r.ok) throw new Error(`GET ${path} failed`);
+      return r.json();
+    }
+    async function apiPost(path, data) {
+      const r = await fetch(`${API}/${path}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(()=>({}));
+        throw new Error(e.error || `POST ${path} failed`);
+      }
+      return r.json();
+    }
+
+    // ======= Tabs =======
     const tabs = document.querySelectorAll('.tab');
     const panels = {
       chat: document.getElementById('panel-chat'),
@@ -238,10 +245,10 @@
       });
     });
 
-    // ========= Helpers =========
+    // ======= Helpers =======
     const badWords = ['damn','bloody','idiot','stupid']; // extend as needed
     function clean(text){
-      let out = text.trim();
+      let out = String(text||'').trim();
       badWords.forEach(w=>{
         const re = new RegExp('\\b'+w+'\\b','ig');
         out = out.replace(re, w[0] + '***');
@@ -262,6 +269,11 @@
         r.readAsDataURL(file);
       });
     }
+    async function maybeDataURL(file){
+      if(!file) return '';
+      if(file.size> 2_500_000) throw new Error("Image too large (>2.5MB)");
+      return fileToDataURL(file);
+    }
     function el(tag, attrs={}, children=[]){
       const n=document.createElement(tag);
       Object.entries(attrs).forEach(([k,v])=>{
@@ -276,7 +288,7 @@
       return n;
     }
 
-    // ========= Rate limit =========
+    // ======= Rate limit =======
     let lastPostAt = 0;
     function allowPost(){
       const now=Date.now();
@@ -284,11 +296,13 @@
       lastPostAt = now; return true;
     }
 
-    // ========= CHAT =========
+    // ======= CHAT =======
     const chatForm = document.getElementById('chat-form');
     const chatList = document.getElementById('chat-list');
     const chatImageInput = document.getElementById('chat-image');
     const chatPreviewDiv = document.getElementById('chat-image-preview');
+    const chatStatus = document.getElementById('chat-status');
+
     document.getElementById('chat-preview-btn').addEventListener('click', async ()=>{
       const f=chatImageInput.files && chatImageInput.files[0];
       if(!f){ chatPreviewDiv.textContent='No image selected.'; return; }
@@ -299,87 +313,63 @@
 
     chatForm.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      if(!allowPost()){ document.getElementById('chat-status').textContent='Please wait a few seconds between posts.'; return; }
-      const name = document.getElementById('chat-name').value.trim() || 'Guest Gardener';
-      const region = document.getElementById('chat-region').value.trim();
-      const topic = document.getElementById('chat-topic').value;
-      const text = document.getElementById('chat-text').value;
-      if(text.trim().length<3){ document.getElementById('chat-status').textContent='Please write a bit more detail.'; return; }
-      let imageData = '';
-      const f = chatImageInput.files && chatImageInput.files[0];
-      if(f){
-        if(f.size> 2_500_000){ document.getElementById('chat-status').textContent='Image too large (>2.5MB).'; return; }
-        imageData = await fileToDataURL(f);
+      if(!allowPost()){ chatStatus.textContent='Please wait a few seconds between posts.'; return; }
+      try{
+        const payload = {
+          name: document.getElementById('chat-name').value.trim() || 'Guest Gardener',
+          region: document.getElementById('chat-region').value.trim(),
+          topic: document.getElementById('chat-topic').value,
+          text: clean(document.getElementById('chat-text').value).slice(0,2000),
+          image: await maybeDataURL(chatImageInput.files?.[0] || null)
+        };
+        await apiPost("messages", payload);
+        chatForm.reset(); chatPreviewDiv.innerHTML=''; chatStatus.textContent='Posted!';
+        renderChat();
+      }catch(err){
+        chatStatus.textContent = err.message || 'Error posting';
       }
-      const msg = {
-        id:'c_'+crypto.randomUUID(),
-        name: clean(name).slice(0,48),
-        region, topic,
-        text: clean(text).slice(0,2000),
-        image: imageData,
-        at: nowIso(),
-        reports: 0
-      };
-      // TODO: connect API (POST /api/messages) then refresh from server
-      store.chat.unshift(msg);
-      store.save();
-      chatForm.reset();
-      chatPreviewDiv.innerHTML='';
-      document.getElementById('chat-status').textContent='Posted!';
-      renderChat();
     });
 
-    function renderChat(){
-      chatList.innerHTML='';
-      // TODO: connect API (GET /api/messages)
-      store.chat.forEach(m=>{
-        const head = el('div',{class:'item-head'},[
-          el('div',{},[
-            el('strong',{},m.name+' '),
-            m.region?el('span',{class:'pill'},m.region):null,
-            el('span',{class:'pill'},m.topic)
-          ]),
-          el('span',{class:'meta'}, new Date(m.at).toLocaleString())
-        ]);
-        const body = el('div',{},[
-          el('p',{},m.text),
-          m.image?el('img',{class:'thumb',src:m.image,alt:'User submitted image'}):null
-        ]);
-        const tools = el('div',{class:'tools'},[
-          el('button',{class:'btn ghost', type:'button'},'Reply'),
-          el('button',{class:'btn ghost', type:'button'},'Report')
-        ]);
-        tools.children[1].addEventListener('click', ()=>{
-          m.reports = (m.reports||0)+1;
-          store.save();
-          alert('Thanks for the report. We’ll review this.');
-        });
-        const item = el('div',{class:'item'},[head, body, tools]);
-        chatList.appendChild(item);
-      });
+    function renderChatItem(m){
+      const head = el('div',{class:'item-head'},[
+        el('div',{},[
+          el('strong',{},m.name+' '),
+          m.region?el('span',{class:'pill'},m.region):null,
+          el('span',{class:'pill'},m.topic)
+        ]),
+        el('span',{class:'meta'}, new Date(m.at).toLocaleString())
+      ]);
+      const body = el('div',{},[
+        el('p',{},m.text),
+        m.image?el('img',{class:'thumb',src:m.image,alt:'User submitted image'}):null
+      ]);
+      const tools = el('div',{class:'tools'},[
+        el('button',{class:'btn ghost', type:'button'},'Reply'),
+        el('button',{class:'btn ghost', type:'button'},'Report')
+      ]);
+      tools.children[1].addEventListener('click', ()=>alert('Thanks for the report. We’ll review this.'));
+      const item = el('div',{class:'item'},[head, body, tools]);
+      chatList.appendChild(item);
+    }
+
+    async function renderChat(){
+      chatList.innerHTML = '<div class="inline-help">Loading…</div>';
+      try{
+        const items = await apiGet("messages");
+        chatList.innerHTML = '';
+        items.forEach(renderChatItem);
+      }catch{
+        chatList.innerHTML = '<div class="notice">Could not load messages.</div>';
+      }
     }
     document.getElementById('chat-refresh').addEventListener('click', renderChat);
-    document.getElementById('chat-export').addEventListener('click', ()=>{
-      const blob = new Blob([JSON.stringify(store.chat,null,2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = el('a',{href:url, download:'patchandpot-chat.json'}); document.body.appendChild(a); a.click(); a.remove();
-    });
-    document.getElementById('chat-import').addEventListener('click', ()=>{
-      const i = el('input',{type:'file',accept:'application/json'});
-      i.addEventListener('change', async ()=>{
-        const f=i.files[0]; if(!f) return;
-        const txt = await f.text();
-        try{ store.chat = JSON.parse(txt); store.save(); renderChat(); }
-        catch{ alert('Invalid JSON'); }
-      });
-      i.click();
-    });
-    renderChat();
 
-    // ========= SWAPS =========
+    // ======= SWAPS =======
     const swapForm = document.getElementById('swap-form');
     const swapList = document.getElementById('swap-list');
     const swapPreviewDiv = document.getElementById('swap-image-preview');
+    const swapStatus = document.getElementById('swap-status');
+
     document.getElementById('swap-preview-btn').addEventListener('click', async ()=>{
       const f=document.getElementById('swap-image').files?.[0];
       if(!f){ swapPreviewDiv.textContent='No image selected.'; return; }
@@ -390,94 +380,67 @@
 
     swapForm.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      if(!allowPost()){ document.getElementById('swap-status').textContent='Please wait a few seconds between posts.'; return; }
-      const title = document.getElementById('swap-title').value.trim();
-      const type = document.getElementById('swap-type').value;
-      const region = document.getElementById('swap-region').value;
-      const qty = document.getElementById('swap-qty').value.trim();
-      const notes = document.getElementById('swap-notes').value.trim();
-      const contact = document.getElementById('swap-contact').value.trim();
-      if(title.length<3){ document.getElementById('swap-status').textContent='Please add a descriptive title.'; return; }
-      let imageData = '';
-      const f = document.getElementById('swap-image').files?.[0];
-      if(f){
-        if(f.size> 2_500_000){ document.getElementById('swap-status').textContent='Image too large (>2.5MB).'; return; }
-        imageData = await fileToDataURL(f);
+      if(!allowPost()){ swapStatus.textContent='Please wait a few seconds between posts.'; return; }
+      try{
+        const payload = {
+          title: clean(document.getElementById('swap-title').value).slice(0,140),
+          type: document.getElementById('swap-type').value,
+          region: document.getElementById('swap-region').value,
+          qty: clean(document.getElementById('swap-qty').value).slice(0,140),
+          notes: clean(document.getElementById('swap-notes').value).slice(0,2000),
+          contact: document.getElementById('swap-contact').value.trim(),
+          image: await maybeDataURL(document.getElementById('swap-image').files?.[0] || null)
+        };
+        await apiPost("swaps", payload);
+        swapForm.reset(); swapPreviewDiv.innerHTML=''; swapStatus.textContent='Listing posted!';
+        renderSwaps();
+      }catch(err){
+        swapStatus.textContent = err.message || 'Error posting';
       }
-      const item = {
-        id:'s_'+crypto.randomUUID(),
-        title: clean(title).slice(0,140),
-        type, region,
-        qty: clean(qty).slice(0,140),
-        notes: clean(notes).slice(0,2000),
-        contact: contact, // shown masked
-        image: imageData,
-        at: nowIso(),
-        reports: 0
-      };
-      // TODO: connect API (POST /api/swaps)
-      store.swaps.unshift(item);
-      store.save();
-      swapForm.reset();
-      swapPreviewDiv.innerHTML='';
-      document.getElementById('swap-status').textContent='Listing posted!';
-      renderSwaps();
     });
 
-    function renderSwaps(){
+    function renderSwapItem(s){
+      const head = el('div',{class:'item-head'},[
+        el('div',{},[
+          el('strong',{},s.title+' '),
+          el('span',{class:'badge'}, s.type),
+          el('span',{class:'pill'}, s.region)
+        ]),
+        el('span',{class:'meta'}, new Date(s.at).toLocaleString())
+      ]);
+      const body = el('div',{},[
+        s.qty?el('div',{},['Quantity: ', el('strong',{},s.qty)]):null,
+        s.notes?el('p',{},s.notes):null,
+        s.image?el('img',{class:'thumb',src:s.image,alt:'Listing image'}):null,
+        s.contact?el('div',{class:'inline-help'},'Contact: '+maskEmail(s.contact)):null
+      ]);
+      const tools = el('div',{class:'tools'},[
+        el('button',{class:'btn ghost', type:'button'},'Message'),
+        el('button',{class:'btn ghost', type:'button'},'Report')
+      ]);
+      tools.children[1].addEventListener('click', ()=>alert('Thanks for the report. We’ll review this.'));
+      const item = el('div',{class:'item'},[head, body, tools]);
+      swapList.appendChild(item);
+    }
+
+    async function renderSwaps(){
       const filter = document.getElementById('swap-filter-region').value;
-      swapList.innerHTML='';
-      // TODO: connect API (GET /api/swaps)
-      const items = store.swaps.filter(s=>!filter || s.region===filter);
-      items.forEach(s=>{
-        const head = el('div',{class:'item-head'},[
-          el('div',{},[
-            el('strong',{},s.title+' '),
-            el('span',{class:'badge'}, s.type),
-            el('span',{class:'pill'}, s.region)
-          ]),
-          el('span',{class:'meta'}, new Date(s.at).toLocaleString())
-        ]);
-        const body = el('div',{},[
-          s.qty?el('div',{},['Quantity: ', el('strong',{},s.qty)]):null,
-          s.notes?el('p',{},s.notes):null,
-          s.image?el('img',{class:'thumb',src:s.image,alt:'Listing image'}):null,
-          s.contact?el('div',{class:'inline-help'},'Contact: '+maskEmail(s.contact)):null
-        ]);
-        const tools = el('div',{class:'tools'},[
-          el('button',{class:'btn ghost', type:'button'},'Message'),
-          el('button',{class:'btn ghost', type:'button'},'Report')
-        ]);
-        tools.children[1].addEventListener('click', ()=>{
-          s.reports = (s.reports||0)+1; store.save();
-          alert('Thanks for the report. We’ll review this.');
-        });
-        const item = el('div',{class:'item'},[head, body, tools]);
-        swapList.appendChild(item);
-      });
+      swapList.innerHTML = '<div class="inline-help">Loading…</div>';
+      try{
+        const items = await apiGet(filter ? `swaps?region=${encodeURIComponent(filter)}` : "swaps");
+        swapList.innerHTML = '';
+        items.forEach(renderSwapItem);
+      }catch{
+        swapList.innerHTML = '<div class="notice">Could not load listings.</div>';
+      }
     }
     document.getElementById('swap-filter-region').addEventListener('change', renderSwaps);
     document.getElementById('swap-refresh').addEventListener('click', renderSwaps);
-    document.getElementById('swap-export').addEventListener('click', ()=>{
-      const blob = new Blob([JSON.stringify(store.swaps,null,2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = el('a',{href:url, download:'patchandpot-swaps.json'}); document.body.appendChild(a); a.click(); a.remove();
-    });
-    document.getElementById('swap-import').addEventListener('click', ()=>{
-      const i = el('input',{type:'file',accept:'application/json'});
-      i.addEventListener('change', async ()=>{
-        const f=i.files[0]; if(!f) return;
-        const txt = await f.text();
-        try{ store.swaps = JSON.parse(txt); store.save(); renderSwaps(); }
-        catch{ alert('Invalid JSON'); }
-      });
-      i.click();
-    });
 
-    // Print slips => opens print view with formatted cards for current filtered items
-    document.getElementById('swap-slips').addEventListener('click', ()=>{
+    // Print slips for currently filtered items
+    document.getElementById('swap-slips').addEventListener('click', async ()=>{
       const filter = document.getElementById('swap-filter-region').value;
-      const items = store.swaps.filter(s=>!filter || s.region===filter);
+      const items = await apiGet(filter ? `swaps?region=${encodeURIComponent(filter)}` : "swaps");
       const win = window.open('', '_blank');
       win.document.write('<!DOCTYPE html><title>Swap Slips — Patch & Pot</title><style>body{font-family:Inter,Arial,sans-serif;margin:16px}.slips{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.slip{border:1px dashed #bbb;padding:10px;border-radius:10px}.slip h3{margin:.2rem 0 .4rem}.tiny{font-size:.85rem;color:#333}</style><div class="slips">');
       items.forEach(s=>{
@@ -496,15 +459,9 @@
       return (str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
+    // ======= Init =======
+    renderChat();
     renderSwaps();
-
-    // ========= Accessibility: focus rings on keyboard =========
-    (function(){
-      function showFocus(){ document.body.classList.add('show-focus'); }
-      function hideFocus(){ document.body.classList.remove('show-focus'); }
-      window.addEventListener('keydown', e=>{ if(e.key==='Tab') showFocus(); });
-      window.addEventListener('mousedown', hideFocus);
-    })();
   </script>
 </body>
 </html>

@@ -23,7 +23,7 @@ a:hover{ text-decoration:underline }
 .wrap{ max-width:var(--maxw); margin:0 auto; padding:16px 20px }
 
 /* ===============================
-   Header / Nav (desktop baseline)
+   Header / Nav
    =============================== */
 .site-header{
   position:relative; z-index:50;
@@ -76,7 +76,7 @@ a:hover{ text-decoration:underline }
 }
 
 /* ===============================
-   HERO – Homepage banner
+   HERO – Homepage / subpages
    =============================== */
 .hero{ position:relative; border-bottom:1px solid #142116 }
 .hero figure{ position:relative; margin:0 }
@@ -96,7 +96,7 @@ h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(
 .cta-row{ margin:1.1rem 0 1.6rem; display:flex; gap:.75rem; flex-wrap:wrap }
 
 /* ===============================
-   Buttons – All Green
+   Buttons – Green
    =============================== */
 .btn {
   display:inline-flex; align-items:center; gap:.55rem; padding:.75rem 1.15rem;
@@ -144,11 +144,22 @@ main figure:not(.page-hero) img{
 figcaption.cap{ text-align:center; font-size:.95rem; color:var(--muted); margin-top:6px }
 
 /* ===============================
-   Generic Cards & Grids
+   Cards & Grids
    =============================== */
 .grid{ display:grid; gap:14px; margin:22px 0 }
 @media(min-width:780px){ .grid{ grid-template-columns:repeat(3,1fr) } }
-.card{ background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:14px }
+
+.grid.recipes{
+  /* Auto-fit cards nicely: phone=1col, tablet=2, desktop=3+ */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:16px;
+}
+@media(min-width:700px){ .grid.recipes{ grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); } }
+
+.card{
+  background:var(--glass); border:1px solid var(--stroke);
+  border-radius:var(--radius); padding:14px;
+}
 .card h2{ font-size:1.12rem; margin:.1rem 0 .4rem }
 .meta{ font-size:.92rem; color:#b7c7bb }
 
@@ -170,10 +181,10 @@ figcaption.cap{ text-align:center; font-size:.95rem; color:var(--muted); margin-
 
 .help-links{ background:var(--glass); border:1px solid var(--stroke); border-radius:12px; padding:12px; margin-top:12px }
 .help-links h2{ margin:.2rem 0 .4rem } .help-links h3{ margin:.8rem 0 .2rem; font-size:1.05rem }
-.help-links ul{ margin:0 0 .6rem 1.2rem } .help-links .note{ color:#var(--muted); font-size:.92rem }
+.help-links ul{ margin:0 0 .6rem 1.2rem } .help-links .note{ color:var(--muted); font-size:.92rem }
 
 /* ===============================
-   Ideas & Guides grids (square)
+   Ideas & Guides grids
    =============================== */
 .ideas-grid, .guides-grid{ display:grid; gap:16px; margin:24px 0 }
 @media(min-width:600px){ .ideas-grid, .guides-grid{ grid-template-columns:repeat(2,1fr) } }
@@ -185,7 +196,7 @@ figcaption.cap{ text-align:center; font-size:.95rem; color:var(--muted); margin-
 .ideas-grid .tile .thumb, .guides-grid .tile .thumb{ width:100%; aspect-ratio:1/1; background:#0a0d0c; overflow:hidden }
 .ideas-grid .tile .thumb img, .guides-grid .tile .thumb img{ width:100%; height:100%; object-fit:cover; display:block }
 .ideas-grid .tile > img, .guides-grid .tile > img{ width:100%; height:100%; aspect-ratio:1/1; object-fit:cover; display:block }
-.ideas-grid .cap, .guides-grid .cap{ padding:.75rem .95rem; color:#var(--muted); font-size:.95rem }
+.ideas-grid .cap, .guides-grid .cap{ padding:.75rem .95rem; color:var(--muted); font-size:.95rem }
 
 /* ===============================
    Mini-Nav (GREEN BUTTONS)
@@ -201,7 +212,7 @@ figcaption.cap{ text-align:center; font-size:.95rem; color:var(--muted); margin-
 .mini-nav a:hover{ transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.25) }
 
 /* ===============================
-   Footer (standard)
+   Footer
    =============================== */
 footer{
   border-top:1px solid #142116; margin-top:28px; background:#0a0f0c;
@@ -212,7 +223,8 @@ footer{
 footer p{ font-size:.9em; color:#9ab09f; margin:0 }
 
 /* ======================================================
-   SEASONAL PAGE – Filters, Legend, Calendar (LOCKED IN)
+   SEASONAL PAGE – Filters, Legend, Calendar
+   (unchanged from your working version)
    ====================================================== */
 .pp-sub{ color:var(--muted) }
 .pp-card{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:1rem; margin:1rem 0 }
@@ -234,36 +246,28 @@ footer p{ font-size:.9em; color:#9ab09f; margin:0 }
 
 /* Legend (icons) */
 .pp-legend{ display:flex; gap:18px; align-items:center; margin:.4rem 0 .8rem }
-.pp-legend .i{ display:inline-flex; align-items:center; gap:.45rem; color:#var(--inkdim) }
+.pp-legend .i{ display:inline-flex; align-items:center; gap:.45rem; color:var(--inkdim) }
 .pp-legend .i span{ font-size:1.05rem }
 
-/* Calendar GRID – names will WRAP; rows auto-fit tallest cell */
+/* Calendar GRID */
 .pp-calendar{
   display:grid;
   grid-template-columns: 220px repeat(12, minmax(52px,1fr));
   gap:2px; border:1px solid var(--stroke); border-radius:16px; overflow:hidden; background:#0f1512;
 }
 .pp-row{ display:contents }
-
-.pp-cell,
-.pp-head{
-  padding:.55rem .6rem;
-  border:1px solid var(--stroke);
-  font-size:.95rem;
-  line-height:1.3;
-  white-space:normal;       /* allow wrapping */
-  word-break:break-word;    /* prevent overflow */
+.pp-cell,.pp-head{
+  padding:.55rem .6rem; border:1px solid var(--stroke);
+  font-size:.95rem; line-height:1.3; white-space:normal; word-break:break-word;
 }
-
 .pp-head{ font-weight:700; background:#121815 }
 .pp-crop{
   font-weight:700; background:#121815;
-  display:flex; flex-direction:column; gap:2px; /* stacks name + tags */
+  display:flex; flex-direction:column; gap:2px;
   white-space:normal; word-break:break-word;
 }
 .pp-tags{ display:inline-block; font-size:.82rem; color:var(--muted); margin:0 }
 
-/* Mobile / Tablet sizing */
 @media (max-width: 1024px){
   .pp-calendar{ grid-template-columns: 190px repeat(12, minmax(44px,1fr)) }
 }

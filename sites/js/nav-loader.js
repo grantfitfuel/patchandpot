@@ -1,31 +1,33 @@
-(async () => {
-  try {
-    const depth = window.location.pathname.split("/").filter(Boolean).length;
-    const prefix = depth > 1 ? "../" : "";
-    const res = await fetch(prefix + "includes/nav.html");
-    const html = await res.text();
-    const mount = document.getElementById("site-nav");
-    if (!mount) return;
-    mount.innerHTML = html;
+document.addEventListener('DOMContentLoaded', () => {
+  const slot = document.getElementById('site-nav');
+  if (!slot) return;
 
-    // Fix relative links when inside subfolders
-    if (depth > 1) {
-      mount.querySelectorAll("a[href]").forEach(a => {
-        const href = a.getAttribute("href");
-        if (!/^https?:\/\//.test(href) && !href.startsWith("../")) {
-          a.setAttribute("href", "../" + href);
-        }
-      });
-    }
+  fetch('/includes/nav.html', { cache: 'no-store' })
+    .then(r => r.text())
+    .then(html => {
+      slot.innerHTML = html;
 
-    // Optional: highlight current page
-    const here = location.pathname.replace(/\/index\.html$/, "/");
-    mount.querySelectorAll("a").forEach(a => {
-      const url = new URL(a.href);
-      const path = url.pathname.replace(/\/index\.html$/, "/");
-      if (path === here) a.setAttribute("aria-current", "page");
+      const root = document.querySelector('.pp-site-header');
+      const btn  = document.getElementById('ppBurger');
+      const nav  = document.getElementById('ppNav');
+
+      if (root && btn && nav) {
+        btn.addEventListener('click', () => {
+          const open = root.classList.toggle('pp-open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', e => {
+          if (e.target.closest('a')) {
+            root.classList.remove('pp-open');
+            btn.setAttribute('aria-expanded','false');
+          }
+        });
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 900) {
+            root.classList.remove('pp-open');
+            btn.setAttribute('aria-expanded','false');
+          }
+        });
+      }
     });
-  } catch (e) {
-    console.error("Nav load failed", e);
-  }
-})();
+});

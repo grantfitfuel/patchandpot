@@ -1,202 +1,106 @@
 /* ===============================
-   Patch & Pot – Global Styles (FULL, SAFE)
-   NOTE: No header/nav rules here. Keep those in /css/nav.css
+   Patch & Pot — Global Styles
    =============================== */
-
 :root{
-  --bg:#0c110d; --ink:#f0fff3; --muted:#c0d0c4; --inkdim:#9ab09f;
+  --bg:#0c110d; --ink:#f0fff3; --ink-dim:#b7c7bb;
+  --muted:#c0d0c4; --line:#18221a;
+  --card:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
   --green:#2E7D32; --green2:#7ed495;
-  --glass:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
   --maxw:1140px; --radius:16px;
 }
-
-*{ box-sizing:border-box }
-html,body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  line-height:1.6; -webkit-text-size-adjust:100%;
-}
-img{ max-width:100%; height:auto; display:block }
-a{ color:#b3d7ff; text-decoration:none }
-a:hover{ text-decoration:underline }
-.wrap{ max-width:var(--maxw); margin:0 auto; padding:16px 20px }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+img{max-width:100%;height:auto;display:block}
+a{color:#b3d7ff;text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
 
 /* ===============================
-   HERO (generic banner)
+   Header / Nav
    =============================== */
+.site-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid #1f2630}
+.site-header .bar{max-width:var(--maxw);margin:0 auto;padding:10px 16px;
+  display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{height:36px;width:auto}               /* <- keeps the pot logo small */
+.site-title{font-weight:800;letter-spacing:.2px}
 
-.hero{ position:relative; border-bottom:1px solid #142116 }
-.hero figure{ position:relative; margin:0 }
-.hero figure img{
-  width:100%;
-  height: clamp(320px, 55vh, 560px);
-  object-fit:cover; object-position:center;
-  filter:brightness(1.0) saturate(1.05);
+.nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#cfe6d6;opacity:.9;padding:.35rem .6rem;border-radius:8px;transition:.2s}
+.nav a:hover{opacity:1;background:rgba(255,255,255,.08)}
+.nav a[aria-current="page"]{text-decoration:underline}
+
+/* mobile menu button (optional) */
+.menu-toggle{display:none;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);
+  border:1px solid var(--stroke);align-items:center;justify-content:center;cursor:pointer;margin-left:auto}
+.menu-ico{position:relative;width:22px;height:16px}
+.menu-ico span{position:absolute;left:0;right:0;height:2px;background:#f0fff3;border-radius:2px;
+  transform-origin:center;transition:transform .22s ease,opacity .18s ease,top .22s ease}
+.menu-ico span:nth-child(1){top:0}.menu-ico span:nth-child(2){top:7px}.menu-ico span:nth-child(3){top:14px}
+.menu-open .menu-ico span:nth-child(1){top:7px;transform:rotate(45deg)}
+.menu-open .menu-ico span:nth-child(2){opacity:0}
+.menu-open .menu-ico span:nth-child(3){top:7px;transform:rotate(-45deg)}
+
+@media (max-width:900px){
+  .menu-toggle{display:inline-flex}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;background:#0b0f14;
+       border-bottom:1px solid #1f2630;padding:10px 16px;flex-direction:column}
+  .site-header.menu-open .nav{display:flex}
+  .nav a{display:block;padding:.7rem 14px;margin:2px 0;border-radius:10px}
 }
-.hero .overlay{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45)) }
-.hero .content{ position:absolute; left:0; right:0; bottom:0 }
-.eyebrow{
-  display:inline-block; background:rgba(255,255,255,.10);
-  border:1px solid var(--stroke); padding:.35rem .7rem; border-radius:999px; color:#dceadf
-}
-h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2rem,1.2rem + 3vw,3.3rem) }
-.lead{ max-width:70ch; color:var(--muted); font-size:1.05rem }
-.cta-row{ margin:1.1rem 0 1.6rem; display:flex; gap:.75rem; flex-wrap:wrap }
+
+/* Footer logo size */
+.footer-icon{height:32px;width:auto}
 
 /* ===============================
-   BUTTONS (green)
+   Hero
    =============================== */
-
-.btn{
-  display:inline-flex; align-items:center; gap:.55rem; padding:.75rem 1.15rem;
-  border-radius:12px; font-weight:700; cursor:pointer;
-  border:1px solid var(--green);
-  background:linear-gradient(180deg,var(--green2),var(--green));
-  color:#061007;
-  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
-}
-.btn:hover{ transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.25) }
-.btn.primary, .btn.ghost{ background:linear-gradient(180deg,var(--green2),var(--green)); color:#061007; border:1px solid var(--green) }
+.hero{position:relative;border-bottom:1px solid var(--line)}
+.hero figure{position:relative;margin:0}
+.hero figure img{width:100%;height:64vh;min-height:420px;object-fit:cover;object-position:center;
+  filter:brightness(1.0) saturate(1.05)}
+.hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45))}
+.hero .content{position:absolute;left:0;right:0;bottom:0}
+.eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);
+  padding:.35rem .7rem;border-radius:999px;color:#dceadf}
+h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;
+  font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
+.lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
+.cta-row{margin:1.1rem 0 1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
 
 /* ===============================
-   CARDS & GRIDS (site-wide)
+   Buttons (green)
    =============================== */
-
-.grid{
-  display:grid; gap:14px; margin:22px 0;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-.card{
-  background:var(--glass); border:1px solid var(--stroke);
-  border-radius:var(--radius); padding:14px;
-}
-.card h2{ font-size:1.12rem; margin:.1rem 0 .4rem }
-.meta{ font-size:.92rem; color:#b7c7bb }
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.15rem;border-radius:12px;
+  font-weight:700;cursor:pointer;border:1px solid var(--green);
+  background:linear-gradient(180deg,var(--green2),var(--green));color:#061007;
+  transition:transform .15s ease,box-shadow .15s ease,background .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.25);
+  background:linear-gradient(180deg,var(--green2),#1b5e20)}
+.btn.ghost{background:linear-gradient(180deg,var(--green2),var(--green))}
 
 /* ===============================
-   Ideas & Guides tiles (square)
+   Cards & Grids
    =============================== */
+.grid{display:grid;gap:14px;margin:22px 0}
+@media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);padding:14px}
+.card h2{font-size:1.12rem;margin:.1rem 0 .4rem}
+.meta{font-size:.92rem;color:var(--ink-dim)}
 
-.ideas-grid, .guides-grid{
-  display:grid; gap:16px; margin:24px 0;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-.ideas-grid .tile, .guides-grid .tile{
-  background:var(--glass); border:1px solid var(--stroke);
-  border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column;
-}
-.ideas-grid .tile .thumb, .guides-grid .tile .thumb{
-  width:100%; aspect-ratio:1/1; background:#0a0d0c; overflow:hidden;
-}
-.ideas-grid .tile .thumb img, .guides-grid .tile .thumb img{
-  width:100%; height:100%; object-fit:cover; display:block;
-}
-.ideas-grid .cap, .guides-grid .cap{ padding:.75rem .95rem; color:var(--muted); font-size:.95rem }
-
-/* ===============================
-   Mini-Nav (green buttons)
-   =============================== */
-
-.mini-nav{ display:flex; flex-wrap:wrap; gap:10px; margin-top:6px }
-.mini-nav a{
-  background:linear-gradient(180deg,var(--green2),var(--green));
-  color:#061007 !important; border:none; border-radius:var(--radius);
-  font-weight:600; padding:.65rem 1rem; text-align:center;
-  flex:1 1 160px; text-decoration:none;
-  transition:transform .15s ease, box-shadow .15s ease;
-}
-.mini-nav a:hover{ transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.25) }
-
-/* ===============================
-   Recipes page helpers
-   =============================== */
-
-.badge{
-  display:inline-block; margin:.15rem .35rem .15rem 0; padding:.15rem .5rem;
-  border-radius:999px; font-size:.8rem; background:#e8f5ee; color:#194b37; border:1px solid #cfe9dc;
-}
-.recipe{ display:grid; gap:.5rem }
-.recipe .meta{ color:#c8d6cd }
-.recipe ul{ margin:.25rem 0 .6rem 1.2rem }
-.recipe ol{ margin:.25rem 0 .6rem 1.2rem }
-.recipe hr{ border:0; border-top:1px solid var(--stroke); margin:.6rem 0 }
-
-/* Printables (recipes/cards etc.) */
-@media print{
-  body{ background:#fff; color:#111 }
-  a{ color:#000; text-decoration:none }
-  .hero, .mini-nav, footer{ display:none !important }
-  .card{ background:#fff; border-color:#ddd }
-}
-
-/* ===============================
-   Generic content images
-   =============================== */
-
-main figure:not(.page-hero) img{
-  width:100%; height:auto; max-height:520px; object-fit:contain; object-position:center;
-  border-radius:12px; background:#0a0f0c;
-}
-figcaption.cap{ text-align:center; font-size:.95rem; color:var(--muted); margin-top:6px }
+/* mini nav buttons */
+.mini-nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.mini-nav a{background:linear-gradient(180deg,var(--green2),var(--green));color:#061007!important;border:none;
+  border-radius:var(--radius);font-weight:600;padding:.65rem 1rem;text-align:center;flex:1 1 160px;text-decoration:none;
+  transition:transform .15s ease,box-shadow .15s ease}
+.mini-nav a:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.25)}
 
 /* ===============================
    Footer
    =============================== */
+footer{border-top:1px solid var(--line);margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:8px}
+footer p{font-size:.9em;color:#9ab09f;margin:0}
 
-footer{
-  border-top:1px solid #142116; margin-top:28px;
-  background:#0a0f0c; text-align:center; padding:20px 0;
-}
-.footer-inner{ display:flex; flex-direction:column; align-items:center; gap:8px }
-footer p{ font-size:.9em; color:#9ab09f; margin:0 }
-
-/* ======================================================
-   Seasonal page – Filters, Legend, Calendar
-   (names & rows wrap safely on mobile)
-   ====================================================== */
-
-.pp-sub{ color:var(--muted) }
-.pp-card{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:1rem; margin:1rem 0 }
-.pp-toolbar{ display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; padding:.6rem .8rem; background:rgba(255,255,255,.04); border:1px solid var(--stroke); border-radius:12px }
-.pp-select,.pp-search{ background:#0c100e; color:var(--ink); border:1px solid var(--stroke); border-radius:10px; padding:.5rem .65rem }
-.pp-help{ color:var(--muted); margin:.5rem 0 0 }
-.pp-filters{ display:grid; gap:.6rem 1rem; grid-template-columns:1fr auto; align-items:center }
-.pp-filters .left{ display:flex; gap:.6rem; flex-wrap:wrap; align-items:center }
-.pp-filters .right{ display:flex; gap:.6rem; align-items:center }
-
-.pp-pestwatch{ background:#1b221f; border-left:4px solid var(--green2); border-radius:14px; padding:1rem; margin:1rem 0; border:1px solid var(--stroke) }
-.pp-pestwatch small,.pp-month-hint{ color:var(--muted) }
-.pp-pestwatch ul{ margin:.4rem 0 0; padding-left:1.1rem }
-
-.pp-list{ list-style:none; padding:0; margin:0 }
-.pp-list li{ padding:.55rem .65rem; border:1px dashed var(--stroke); border-radius:10px; margin:.4rem 0; background:#0f1512 }
-
-.pp-legend{ display:flex; gap:18px; align-items:center; margin:.4rem 0 .8rem }
-.pp-legend .i{ display:inline-flex; align-items:center; gap:.45rem; color:var(--inkdim) }
-.pp-legend .i span{ font-size:1.05rem }
-
-.pp-calendar{
-  display:grid;
-  grid-template-columns: 220px repeat(12, minmax(52px,1fr));
-  gap:2px; border:1px solid var(--stroke); border-radius:16px; overflow:hidden; background:#0f1512;
-}
-.pp-row{ display:contents }
-.pp-cell, .pp-head{
-  padding:.55rem .6rem; border:1px solid var(--stroke);
-  font-size:.95rem; line-height:1.3; white-space:normal; word-break:break-word;
-}
-.pp-head{ font-weight:700; background:#121815 }
-.pp-crop{ font-weight:700; background:#121815; display:flex; flex-direction:column; gap:2px; white-space:normal; word-break:break-word }
-.pp-tags{ display:inline-block; font-size:.82rem; color:var(--muted); margin:0 }
-
-@media (max-width:1024px){
-  .pp-calendar{ grid-template-columns: 190px repeat(12, minmax(44px,1fr)) }
-}
-@media (max-width:740px){
-  .pp-calendar{ grid-template-columns: 170px repeat(12, minmax(40px,1fr)) }
-  .pp-cell,.pp-head{ padding:.45rem; font-size:.9rem }
-}
-@media (max-width:480px){
-  .pp-calendar{ grid-template-columns: 160px repeat(12, minmax(38px,1fr)) }
-  .pp-cell,.pp-head{ padding:.42rem; font-size:.9rem; line-height:1.35 }
-}
+/* Utility: hide accidental duplicate bare navs */
+.pp-fallback-nav{display:none !important}

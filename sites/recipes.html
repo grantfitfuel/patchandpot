@@ -9,6 +9,17 @@
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* tiny helpers for badges inside this page only */
+  .badge{display:inline-block;margin:.15rem .35rem .15rem 0;padding:.15rem .5rem;border-radius:999px;font-size:.8rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
+  .card h3{margin:.2rem 0 .4rem}
+  .recipe{display:grid;gap:.4rem}
+  .recipe .meta{color:#586a5f}
+  .recipe ul{margin:.25rem 0 .5rem 1.1rem}
+  .recipe ol{margin:.25rem 0 .5rem 1.1rem}
+  .mini-nav a.button{display:inline-block;margin:.25rem 0;padding:.55rem .9rem;border-radius:10px;border:1px solid #2c7a4b;color:#fff;background:#2c7a4b;text-decoration:none}
+  .mini-nav a.button:hover{opacity:.92}
+</style>
 </head>
 <body>
 
@@ -20,7 +31,7 @@
   <nav class="nav" aria-label="Primary">
     <a href="index.html">Home</a>
     <a href="growing.html">Growing</a>
-    <a href="recipes.html">Recipes</a>
+    <a href="recipes.html" aria-current="page">Recipes</a>
     <a href="wellbeing.html">Wellbeing</a>
     <a href="exercise.html">Exercise</a>
     <a href="guides.html">Guides</a>
@@ -37,62 +48,209 @@
     <div class="wrap">
       <span class="eyebrow">Pot to plate</span>
       <h1>Recipes</h1>
-      <p class="lead">Budget-friendly dishes that use balcony or windowsill harvests. All allergens labelled.</p>
+      <p class="lead">Budget-friendly dishes using balcony &amp; windowsill harvests. Clear allergen labels. Simple swaps.</p>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <!-- Sections you can fill later -->
-  <section class="grid" aria-label="Recipe sections">
-    <article class="card" id="salads">
-      <h2>Fast Salads (Coming Soon)</h2>
-      <p class="meta">Cut-and-come-again lettuce, kale ribbons, herb dressings. 10 minutes max.</p>
+  <!-- QUICK SALADS -->
+  <section class="grid" aria-label="Quick salads">
+    <article class="card recipe" id="golden-beet-salad">
+      <h2>Quick Salads</h2>
+
+      <h3>Golden Beet, Orange &amp; Basil Salad</h3>
+      <p class="meta">10 mins · serves 2</p>
+      <div>
+        <span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span>
+      </div>
       <ul>
-        <li>Lemon-herb vinaigrette (DF, GF, V)</li>
-        <li>Tomato &amp; basil bowl (V)</li>
-        <li>Crunchy kale &amp; chilli oil (V)</li>
+        <li>2 small golden beetroots, very thinly sliced (raw or steamed &amp; cooled)</li>
+        <li>1 orange, juiced (plus a few segments, optional)</li>
+        <li>2 tbsp olive oil</li>
+        <li>8–10 basil leaves, torn</li>
+        <li>Pinch ground cinnamon</li>
+        <li>Sea salt &amp; black pepper</li>
       </ul>
+      <ol>
+        <li>Toss beet slices with orange juice, olive oil, cinnamon, salt &amp; pepper.</li>
+        <li>Fold in basil and any orange segments. Taste, adjust acid/salt. Serve cold.</li>
+      </ol>
+      <p class="meta"><strong>Swap:</strong> use lemon if no orange; mint instead of basil. Add toasted seeds for crunch.</p>
+
+      <hr>
+
+      <h3>Tomato, Basil &amp; Bread “Pantry Panzanella”</h3>
+      <p class="meta">12 mins · serves 2</p>
+      <div><span class="badge">V</span><span class="badge">DF (if no cheese)</span></div>
+      <ul>
+        <li>2 cups ripe tomatoes, chunked</li>
+        <li>2 cups stale bread cubes</li>
+        <li>2 tbsp red wine vinegar · 3 tbsp olive oil</li>
+        <li>1 garlic clove, grated · basil handful</li>
+        <li>Salt/pepper · optional: torn mozzarella</li>
+      </ul>
+      <ol>
+        <li>Toast bread cubes in a dry pan 2–3 mins.</li>
+        <li>Toss tomatoes with vinegar, oil, garlic, salt, pepper; add bread &amp; basil. Rest 5 mins and serve.</li>
+      </ol>
     </article>
-    <article class="card" id="mains">
-      <h2>Simple Mains (Coming Soon)</h2>
-      <p class="meta">One-pan and traybakes that stretch staples with your pots.</p>
+
+    <article class="card recipe" id="kale-chilli">
+      <h3>Kale Ribbon Salad with Chilli Oil</h3>
+      <p class="meta">8 mins · serves 2</p>
+      <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
       <ul>
-        <li>Cherry tomato pasta with garlic oil (V)</li>
-        <li>Herby eggs on toast (V)</li>
-        <li>Chilli &amp; basil fried rice (V, can be GF)</li>
+        <li>3 cups young kale, finely sliced</li>
+        <li>1 tbsp lemon juice · 2 tsp olive oil</li>
+        <li>1 tsp chilli oil (or flakes + extra oil)</li>
+        <li>Pinch salt · 1 tsp sesame seeds</li>
       </ul>
-    </article>
-    <article class="card" id="soups">
-      <h2>Soups &amp; Sides (Coming Soon)</h2>
-      <p class="meta">Comfort bowls, courgette ribbons, herby yoghurts.</p>
-      <ul>
-        <li>Tomato &amp; basil soup (V)</li>
-        <li>Minted peas (V)</li>
-        <li>Chive yoghurt (V)</li>
-      </ul>
+      <ol>
+        <li>Massage kale with lemon, oil &amp; salt for 30–60s.</li>
+        <li>Toss through chilli oil and sesame. Serve with eggs or toast.</li>
+      </ol>
     </article>
   </section>
 
-  <section class="grid" aria-label="Allergen key">
+  <!-- SIMPLE MAINS -->
+  <section class="grid" aria-label="Simple mains">
+    <article class="card recipe" id="cherry-tomato-pasta">
+      <h2>Simple Mains</h2>
+
+      <h3>Cherry Tomato &amp; Garlic Oil Pasta</h3>
+      <p class="meta">20 mins · serves 2</p>
+      <div><span class="badge">V</span><span class="badge">DF</span><span class="badge">can be GF</span></div>
+      <ul>
+        <li>180–200 g pasta (GF if needed)</li>
+        <li>2–3 tbsp olive oil · 3 garlic cloves, sliced</li>
+        <li>2 cups cherry tomatoes, halved</li>
+        <li>Pinch chilli flakes · basil or parsley</li>
+        <li>Salt/pepper · optional: grated cheese</li>
+      </ul>
+      <ol>
+        <li>Cook pasta in salted water.</li>
+        <li>Meanwhile gently sizzle garlic in oil, add tomatoes &amp; chilli, cook 5–6 mins until saucy.</li>
+        <li>Toss with pasta &amp; herbs. Season and serve.</li>
+      </ol>
+    </article>
+
+    <article class="card recipe" id="herby-eggs-toast">
+      <h3>Herby Eggs on Toast</h3>
+      <p class="meta">10 mins · serves 1–2</p>
+      <div><span class="badge">V</span></div>
+      <ul>
+        <li>2–3 eggs</li>
+        <li>1 tbsp butter or oil</li>
+        <li>Chives/parsley/basil, finely chopped</li>
+        <li>2 slices toast (GF if needed)</li>
+        <li>Salt/pepper</li>
+      </ul>
+      <ol>
+        <li>Scramble or fry eggs in butter/oil; fold in herbs.</li>
+        <li>Season and pile onto toast. Add tomato slices if you’ve got them.</li>
+      </ol>
+    </article>
+
+    <article class="card recipe" id="chilli-basil-rice">
+      <h3>Chilli &amp; Basil Fried Rice</h3>
+      <p class="meta">15 mins · serves 2</p>
+      <div><span class="badge">V</span><span class="badge">DF</span><span class="badge">can be GF</span></div>
+      <ul>
+        <li>2 cups cooked cold rice</li>
+        <li>1 onion, sliced · 2 garlic cloves</li>
+        <li>1 chilli (or flakes) · handful basil</li>
+        <li>2 tbsp oil · 1–2 tbsp soy/tamari</li>
+        <li>Optional: peas or chopped greens</li>
+      </ul>
+      <ol>
+        <li>Stir-fry onion/garlic in oil, add chilli &amp; rice; fry until hot &amp; a little crispy.</li>
+        <li>Stir through soy/tamari and basil. Fold in peas/greens at the end.</li>
+      </ol>
+    </article>
+  </section>
+
+  <!-- SOUPS & SIDES -->
+  <section class="grid" aria-label="Soups and sides">
+    <article class="card recipe" id="tomato-soup">
+      <h2>Soups &amp; Sides</h2>
+
+      <h3>Tomato &amp; Basil Soup</h3>
+      <p class="meta">25 mins · serves 3–4</p>
+      <div><span class="badge">V</span><span class="badge">GF</span></div>
+      <ul>
+        <li>1 onion &amp; 2 garlic cloves, chopped</li>
+        <li>2 tbsp olive oil</li>
+        <li>1 large tin tomatoes (or 4 cups fresh)</li>
+        <li>1 cup water/stock · basil</li>
+        <li>Salt/pepper · optional swirl of yoghurt/cream</li>
+      </ul>
+      <ol>
+        <li>Soften onion/garlic in oil, add tomatoes &amp; water; simmer 12–15 mins.</li>
+        <li>Blend smooth, add basil, season and serve.</li>
+      </ol>
+    </article>
+
+    <article class="card recipe" id="minted-peas">
+      <h3>Minted Peas</h3>
+      <p class="meta">7 mins · serves 2–3</p>
+      <div><span class="badge">V</span><span class="badge">GF</span></div>
+      <ul>
+        <li>2 cups peas (frozen fine)</li>
+        <li>1 tbsp butter or olive oil</li>
+        <li>Mint leaves, chopped · squeeze of lemon</li>
+        <li>Salt/pepper</li>
+      </ul>
+      <ol>
+        <li>Warm peas in a pan with butter/oil until hot.</li>
+        <li>Stir in mint &amp; lemon; season and serve.</li>
+      </ol>
+    </article>
+
+    <article class="card recipe" id="chive-yoghurt">
+      <h3>Chive Yoghurt</h3>
+      <p class="meta">2 mins · makes ~1 cup</p>
+      <div><span class="badge">V</span><span class="badge">GF</span></div>
+      <ul>
+        <li>200 g plain yoghurt</li>
+        <li>Small handful chives, finely snipped</li>
+        <li>Pinch salt, pepper &amp; lemon zest</li>
+      </ul>
+      <ol>
+        <li>Mix all ingredients. Use as dip, dollop for soups, or spread for wraps.</li>
+      </ol>
+    </article>
+  </section>
+
+  <!-- HYDRATION HELPERS -->
+  <section class="grid" aria-label="Hydration helpers">
+    <article class="card">
+      <h2>Hydration Helpers</h2>
+      <p class="meta">Simple sips that use your herbs.</p>
+      <ul>
+        <li><strong>Cucumber–Mint Water:</strong> slices + mint sprigs in cold water.</li>
+        <li><strong>Lemon–Basil Cooler:</strong> lemon slices + torn basil + ice.</li>
+        <li><strong>Strawberry–Thyme:</strong> bruised berries + thyme in sparkling water.</li>
+      </ul>
+      <p class="meta">Tip: add a pinch of salt after hot days or workouts.</p>
+    </article>
+
     <article class="card">
       <h2>Allergen Key</h2>
-      <p class="meta">V: vegetarian · GF: gluten-free · DF: dairy-free · “can be” indicates easy swaps.</p>
+      <p class="meta">V: vegetarian · GF: gluten-free · DF: dairy-free · “can be” = easy swaps.</p>
     </article>
+
     <article class="card">
-      <h2>Shopping List Helper</h2>
-      <p class="meta">We keep recipes to pantry staples + a few fresh items you can grow. Expect tinned tomatoes, pasta/rice, eggs, oil, onions/garlic.</p>
-    </article>
-    <article class="card">
-      <h2>Food Waste Tips</h2>
-      <p class="meta">Chop herb stems, freeze leftovers in cubes, and re-use tomato skins in stock.</p>
+      <h2>Waste-Less Ideas</h2>
+      <p class="meta">Freeze herb stems in oil cubes; bake stale bread for crumbs; simmer tomato skins in stock.</p>
     </article>
   </section>
 
   <nav class="mini-nav" aria-label="Explore">
     <a href="ideas.html">See growing ideas</a>
     <a href="guides.html">Read the guides</a>
+    <a class="button" href="index.html">← Back to Index</a>
   </nav>
 </main>
 

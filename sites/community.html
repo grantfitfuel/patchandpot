@@ -45,6 +45,8 @@
   .notice{background:#fff8f8;border:1px solid #ffd9d9;color:#5a1f1f;padding:10px;border-radius:10px}
   .success{background:#f2fcf6;border:1px solid #d7f2e0;color:#214732;padding:10px;border-radius:10px}
   .sr-only{position:absolute !important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  /* Pinned welcome styling */
+  .item[data-pinned="true"]{border-color:#cfe9da;background:#f7fbf9}
   @media print{
     body{background:#fff}.no-print{display:none !important}
     .slips{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
@@ -193,6 +195,18 @@
     // ======= CONFIG =======
     const API = "https://api.patchandpot.com/.netlify/functions";
 
+    // Busy-state helper to prevent double submits and show "Posting…"
+    function withBusy(btn, fn){
+      return async (e)=>{
+        e.preventDefault();
+        const prev = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = prev.replace(/…?$/,'')+'…';
+        try { return await fn(e); }
+        finally { btn.disabled = false; btn.textContent = prev; }
+      };
+    }
+
     // Better helpers: cache-busting + clearer errors so you don't just see "Load failed"
     async function apiGet(path) {
       const url = `${API}/${path}${path.includes('?') ? '&' : '?'}_=${Date.now()}`;
@@ -293,6 +307,23 @@
     const chatPreviewDiv = document.getElementById('chat-image-preview');
     const chatStatus = document.getElementById('chat-status');
 
+    // Pinned welcome
+    function renderPinnedWelcome() {
+      const pinned = el('div', { class: 'item', 'data-pinned':'true' }, [
+        el('div', { class: 'item-head' }, [
+          el('div', {}, [
+            el('strong', {}, 'Welcome'),
+            el('span', { class: 'badge' }, 'Pinned')
+          ]),
+          el('span', { class: 'meta' }, 'Community notice')
+        ]),
+        el('div', {}, [
+          el('p', {}, '🌱 Welcome to the Patch & Pot community! Say hello, share what you’re growing, and swap tips with other gardeners. Be kind, keep it simple, and enjoy your time here 🌿')
+        ])
+      ]);
+      chatList.appendChild(pinned);
+    }
+
     document.getElementById('chat-preview-btn').addEventListener('click', async ()=>{
       const f=chatImageInput.files && chatImageInput.files[0];
       if(!f){ chatPreviewDiv.textContent='No image selected.'; return; }
@@ -301,8 +332,7 @@
       chatPreviewDiv.innerHTML = '<img src="'+url+'" alt="Preview" style="max-width:100%;border:1px solid #ddd;border-radius:10px">';
     });
 
-    chatForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
+    chatForm.addEventListener('submit', withBusy(chatForm.querySelector('button[type="submit"]'), async ()=>{
       if(!allowPost()){ chatStatus.textContent='Please wait a few seconds between posts.'; return; }
       try{
         const payload = {
@@ -318,7 +348,7 @@
       }catch(err){
         chatStatus.textContent = err.message || 'Error posting';
       }
-    });
+    }));
 
     function renderChatItem(m){
       const head = el('div',{class:'item-head'},[
@@ -347,6 +377,7 @@
       try{
         const items = await apiGet("messages");
         chatList.innerHTML = '';
+        renderPinnedWelcome();              // keep welcome at top
         items.forEach(renderChatItem);
       }catch(err){
         chatList.innerHTML = `<div class="notice">${err.message}</div>`;
@@ -368,8 +399,7 @@
       swapPreviewDiv.innerHTML = '<img src="'+url+'" alt="Preview" style="max-width:100%;border:1px solid #ddd;border-radius:10px">';
     });
 
-    swapForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
+    swapForm.addEventListener('submit', withBusy(swapForm.querySelector('button[type="submit"]'), async ()=>{
       if(!allowPost()){ swapStatus.textContent='Please wait a few seconds between posts.'; return; }
       try{
         const payload = {
@@ -387,7 +417,7 @@
       }catch(err){
         swapStatus.textContent = err.message || 'Error posting';
       }
-    });
+    }));
 
     function renderSwapItem(s){
       const head = el('div',{class:'item-head'},[
@@ -451,7 +481,6 @@
     // ======= Init =======
     renderChat();
     renderSwaps();
-    
   </script>
 </body>
 </html>

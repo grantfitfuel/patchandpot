@@ -231,6 +231,106 @@
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>
+<script>
+(function(){
+  const btn = document.getElementById('print-recipe-cards');
+  if(!btn) return;
 
+  btn.addEventListener('click', () => {
+    // --- collect recipes from all .recipe articles (your Salads, Mains, Soups cards) ---
+    const recipes = [];
+    document.querySelectorAll('.recipe').forEach(section => {
+      const kids = Array.from(section.children);
+      let current = null;
+
+      function pushIfReady(){
+        if(current && (current.ingredients.length || current.steps.length)) {
+          recipes.push(current);
+        }
+      }
+
+      kids.forEach(el => {
+        const tag = (el.tagName || '').toUpperCase();
+        if(tag === 'H3'){
+          pushIfReady();
+          current = {
+            title: el.textContent.trim(),
+            meta: '',
+            badges: [],
+            ingredients: [],
+            steps: []
+          };
+        } else if (current && el.classList && el.classList.contains('meta')) {
+          current.meta = el.textContent.trim();
+        } else if (current && el.classList && el.classList.contains('badge')) {
+          // single stray badge (unlikely)
+          current.badges.push(el.textContent.trim());
+        } else if (current && el.tagName && el.tagName.toUpperCase() === 'DIV' && el.querySelector('.badge')) {
+          // a container that holds multiple .badge chips
+          current.badges = Array.from(el.querySelectorAll('.badge')).map(b=>b.textContent.trim());
+        } else if (current && tag === 'UL') {
+          current.ingredients = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
+        } else if (current && tag === 'OL') {
+          current.steps = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
+        }
+      });
+      pushIfReady();
+    });
+
+    if(!recipes.length){
+      alert('No recipes found to print.');
+      return;
+    }
+
+    // --- build print window ---
+    const w = window.open('', '_blank');
+    const css = `
+      @page { size: A4; margin: 12mm; }
+      * { box-sizing: border-box; }
+      body { font-family: Inter, system-ui, Segoe UI, Arial, sans-serif; margin:0; color:#1d2a22; }
+      .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+      .card { border:1px solid #e2e6df; border-radius:12px; padding:10px 12px; }
+      h2 { margin:.2rem 0 .45rem; font-size:1.05rem; line-height:1.2; }
+      .meta { color:#586a5f; font-size:.85rem; margin:.1rem 0 .35rem; }
+      .badges { margin:.1rem 0 .35rem; }
+      .badge { display:inline-block; margin:.1rem .25rem .1rem 0; padding:.1rem .45rem; border-radius:999px;
+               font-size:.72rem; background:#e8f5ee; color:#194b37; border:1px solid #cfe9dc; }
+      ul, ol { margin:.25rem 0 .35rem 1.05rem; padding:0; }
+      li { margin:.08rem 0; font-size:.9rem; }
+      .footer { font-size:.7rem; color:#6b7a71; text-align:right; margin-top:2mm; }
+      @media screen {
+        body { padding:14px; }
+      }
+    `;
+
+    w.document.write(`<!DOCTYPE html>
+      <html><head>
+        <meta charset="utf-8">
+        <title>Recipe Cards — Patch & Pot</title>
+        <style>${css}</style>
+      </head>
+      <body>
+        <div class="grid">
+          ${recipes.map(r => `
+            <section class="card">
+              <h2>${escapeHtml(r.title)}</h2>
+              ${r.meta ? `<div class="meta">${escapeHtml(r.meta)}</div>` : ``}
+              ${r.badges.length ? `<div class="badges">${r.badges.map(b=>`<span class="badge">${escapeHtml(b)}</span>`).join('')}</div>` : ``}
+              ${r.ingredients.length ? `<strong>Ingredients</strong><ul>${r.ingredients.map(i=>`<li>${escapeHtml(i)}</li>`).join('')}</ul>` : ``}
+              ${r.steps.length ? `<strong>Method</strong><ol>${r.steps.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}</ol>` : ``}
+              <div class="footer">patchandpot.com</div>
+            </section>
+          `).join('')}
+        </div>
+        <script>window.onload = () => window.print();<\/script>
+      </body></html>`);
+    w.document.close();
+
+    function escapeHtml(str){
+      return String(str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    }
+  });
+})();
+</script>
 </body>
 </html>

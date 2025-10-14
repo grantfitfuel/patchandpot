@@ -13,48 +13,13 @@
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="style.css?v=43">
-
-  <!-- Header styles -->
-  <style>
-    .pp-site-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid #1f2630}
-    .pp-header-bar{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
-    .pp-brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
-    .pp-logo{height:50px;width:auto;display:block}
-    .pp-title{color:#fff;font-weight:700;font-size:1.15rem}
-    .pp-nav{margin-left:auto;display:flex;gap:16px}
-    .pp-nav a{color:#cfd3d8;text-decoration:none;padding:6px 4px}
-    .pp-nav a:hover{color:#fff}
-    .pp-burger{margin-left:auto;display:none;width:40px;height:40px;border:0;background:transparent;
-      align-items:center;justify-content:center;flex-direction:column;gap:5px;cursor:pointer}
-    .pp-burger span{display:block;width:22px;height:2px;background:#e6e6ea}
-    @media (max-width:900px){
-      .pp-burger{display:inline-flex}
-      .pp-nav{display:none;position:absolute;left:0;right:0;top:100%;background:#0b0f14;
-        border-bottom:1px solid #1f2630;padding:10px 16px;flex-direction:column}
-      .pp-site-header.pp-open .pp-nav{display:flex}
-    }
-  </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here -->
-    <div id="site-nav"></div>
-  </div>
-</header>
+<!-- UNIVERSAL HEADER (single source of truth) -->
+<header id="site-header"></header>
 <script src="/js/nav-loader.js?v=2" defer></script>
-  
+
 <!-- HERO -->
 <header class="hero" role="banner" aria-label="Patch & Pot hero">
   <figure>
@@ -92,8 +57,8 @@
       <a class="btn ghost" href="growing/regrow.html">Learn more</a>
     </article>
     <article class="card">
-     <h2>Community Chat</h2>
-     <p class="meta">Exchange tips, seeds or plants</p>
+      <h2>Community Chat</h2>
+      <p class="meta">Exchange tips, seeds or plants</p>
       <a class="btn ghost" href="/community.html">🌿Community🌿</a>
     </article>
   </section>
@@ -106,43 +71,6 @@
     <p>© 2025 Patch &amp; Pot | Created by Grant Cameron Anthony</p>
   </div>
 </footer>
-
-<!-- MENU SCRIPT (WAIT UNTIL #ppNav EXISTS) -->
-<script>
-(function(){
-  function init(){
-    const root = document.querySelector('.pp-site-header');
-    const btn  = document.getElementById('ppBurger');
-    const nav  = document.getElementById('ppNav'); // injected by /js/nav-loader.js
-
-    if(!root || !btn || !nav){
-      // nav not injected yet — try again shortly
-      setTimeout(init, 60);
-      return;
-    }
-
-    btn.addEventListener('click', ()=>{
-      const open = root.classList.toggle('pp-open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-
-    nav.addEventListener('click', (e)=>{
-      if(e.target.closest('a')){
-        root.classList.remove('pp-open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-
-    window.addEventListener('resize', ()=>{
-      if(window.innerWidth > 900){
-        root.classList.remove('pp-open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-  }
-  init();
-})();
-</script>
 
 </body>
 </html>

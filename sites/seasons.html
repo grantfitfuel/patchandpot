@@ -6,6 +6,10 @@
   <title>Seasonal Planner — Patch & Pot</title>
   <meta name="description" content="What to sow, plant, and harvest by month, with regional data for Scotland, England, Wales, and Ireland.">
 
+  <!-- Site styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Page-specific styles -->
   <style>
     :root{
       --bg:#0b0f14; --ink:#ffffff; --ink-dim:#cfd3d8;
@@ -46,6 +50,25 @@
   </style>
 </head>
 <body>
+
+  <!-- UNIVERSAL HEADER -->
+  <header class="pp-site-header" role="banner">
+    <div class="pp-header-bar">
+      <a class="pp-brand" href="/index.html">
+        <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
+        <span class="pp-title">Patch &amp; Pot</span>
+      </a>
+
+      <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Nav injects here -->
+      <div id="site-nav"></div>
+    </div>
+  </header>
+  <script src="/js/nav-loader.js?v=2" defer></script>
+
   <div class="wrap">
     <h1>Seasonal Planner</h1>
     <p class="lead">Choose your region and crop block(s). All text is white on the dark background; the calendar scrolls horizontally so December never gets cut off.</p>
@@ -62,7 +85,6 @@
 
         <label for="blockSel" class="muted">Block</label>
         <select id="blockSel" aria-label="Block">
-          <!-- ONLY the files that exist in each region -->
           <option>alliums</option>
           <option>fruit</option>
           <option>herbs</option>
@@ -99,7 +121,34 @@
     </footer>
   </div>
 
-  <!-- seasonal.html lives in /sites/, so this relative path is correct -->
+  <!-- Wait for injected #ppNav, then wire burger -->
+  <script>
+    (function wireMenu(){
+      const root = document.querySelector('.pp-site-header');
+      const btn  = document.getElementById('ppBurger');
+      const nav  = document.getElementById('ppNav'); // created by /js/nav-loader.js
+      if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
+
+      btn.addEventListener('click', ()=>{
+        const open = root.classList.toggle('pp-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      nav.addEventListener('click', e=>{
+        if(e.target.closest('a')){
+          root.classList.remove('pp-open');
+          btn.setAttribute('aria-expanded','false');
+        }
+      });
+      window.addEventListener('resize', ()=>{
+        if(window.innerWidth > 900){
+          root.classList.remove('pp-open');
+          btn.setAttribute('aria-expanded','false');
+        }
+      });
+    })();
+  </script>
+
+  <!-- Seasonal JS (kept as you referenced it) -->
   <script src="assets/js/seasonal.js?v=lock-clean" defer></script>
 </body>
 </html>

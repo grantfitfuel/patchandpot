@@ -1,106 +1,147 @@
-/* ===============================
-   Patch & Pot — Global Styles
-   =============================== */
+/* =========================================================
+   Patch & Pot – Global CSS (RESET + LAYOUT + COMPONENTS)
+   Version: stable-2025-10-14
+   ========================================================= */
+
+/* ---------- Root & tokens ---------- */
 :root{
-  --bg:#0c110d; --ink:#f0fff3; --ink-dim:#b7c7bb;
-  --muted:#c0d0c4; --line:#18221a;
-  --card:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
-  --green:#2E7D32; --green2:#7ed495;
-  --maxw:1140px; --radius:16px;
+  --bg: #0c110d;
+  --surface: #0a0f0c;
+  --ink: #f0fff3;
+  --ink-dim: #b9c8bd;
+  --muted: #9ab09f;
+
+  --green: #2E7D32;
+  --green-2: #7ed495;
+  --line: rgba(255,255,255,.12);
+  --glass: rgba(255,255,255,.06);
+
+  --radius: 16px;
+  --maxw: 1140px;
 }
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
-img{max-width:100%;height:auto;display:block}
-a{color:#b3d7ff;text-decoration:none} a:hover{text-decoration:underline}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:16px 20px}
 
-/* ===============================
-   Header / Nav
-   =============================== */
-.site-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid #1f2630}
-.site-header .bar{max-width:var(--maxw);margin:0 auto;padding:10px 16px;
-  display:flex;align-items:center;gap:14px}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{height:36px;width:auto}               /* <- keeps the pot logo small */
-.site-title{font-weight:800;letter-spacing:.2px}
+/* ---------- Reset / base ---------- */
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.6; -webkit-text-size-adjust:100%;
+}
+img{ max-width:100%; height:auto; display:block; }
+a{ color:#b3d7ff; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:16px 20px; }
 
-.nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
-.nav a{color:#cfe6d6;opacity:.9;padding:.35rem .6rem;border-radius:8px;transition:.2s}
-.nav a:hover{opacity:1;background:rgba(255,255,255,.08)}
-.nav a[aria-current="page"]{text-decoration:underline}
+/* ---------- Hard safety: never-giant logos ---------- */
+.logo, .site-logo, .pp-logo, header img.logo, header .pp-logo {
+  width:auto; height:44px; max-height:44px; object-fit:contain;
+}
+.footer-icon { height:36px; width:auto; }
 
-/* mobile menu button (optional) */
-.menu-toggle{display:none;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);
-  border:1px solid var(--stroke);align-items:center;justify-content:center;cursor:pointer;margin-left:auto}
-.menu-ico{position:relative;width:22px;height:16px}
-.menu-ico span{position:absolute;left:0;right:0;height:2px;background:#f0fff3;border-radius:2px;
-  transform-origin:center;transition:transform .22s ease,opacity .18s ease,top .22s ease}
-.menu-ico span:nth-child(1){top:0}.menu-ico span:nth-child(2){top:7px}.menu-ico span:nth-child(3){top:14px}
-.menu-open .menu-ico span:nth-child(1){top:7px;transform:rotate(45deg)}
-.menu-open .menu-ico span:nth-child(2){opacity:0}
-.menu-open .menu-ico span:nth-child(3){top:7px;transform:rotate(-45deg)}
+/* =========================================================
+   Header (injected by nav-loader.js)
+   ========================================================= */
+.site-header{
+  position:sticky; top:0; z-index:1000;
+  background:#0b0f14; border-bottom:1px solid #1f2630;
+}
+.site-header .bar{
+  display:flex; align-items:center; gap:14px;
+  max-width:var(--maxw); margin:0 auto; padding:10px 16px;
+}
+.brand{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; }
+.brand .title{ font-weight:800; letter-spacing:.2px; color:#fff; }
+
+.site-nav{ margin-left:auto; display:flex; gap:18px; flex-wrap:wrap; }
+.site-nav a{
+  color:#cfe6d6; padding:.35rem .5rem; border-radius:10px; opacity:.92;
+}
+.site-nav a:hover{ opacity:1; background:rgba(255,255,255,.08); }
+.site-nav a[aria-current="page"]{ text-decoration:underline; }
+
+/* Burger (mobile) */
+.burger{ display:none; width:42px; height:42px; border-radius:10px;
+  background:rgba(255,255,255,.06); border:1px solid var(--line);
+  align-items:center; justify-content:center; cursor:pointer; margin-left:auto;
+}
+.burger .bars{ position:relative; width:22px; height:16px; }
+.burger .bars span{ position:absolute; left:0; right:0; height:2px; background:#e6e6ea; border-radius:2px; }
+.burger .bars span:nth-child(1){ top:0 } .burger .bars span:nth-child(2){ top:7px } .burger .bars span:nth-child(3){ top:14px }
 
 @media (max-width:900px){
-  .menu-toggle{display:inline-flex}
-  .nav{display:none;position:absolute;left:0;right:0;top:100%;background:#0b0f14;
-       border-bottom:1px solid #1f2630;padding:10px 16px;flex-direction:column}
-  .site-header.menu-open .nav{display:flex}
-  .nav a{display:block;padding:.7rem 14px;margin:2px 0;border-radius:10px}
+  .burger{ display:inline-flex; }
+  .site-nav{
+    display:none; position:absolute; left:0; right:0; top:100%;
+    background:#0b0f14; border-bottom:1px solid #1f2630;
+    padding:10px 12px; flex-direction:column; gap:0;
+  }
+  .site-header.open .site-nav{ display:flex; }
+  .site-nav a{ padding:.7rem 14px; border-radius:12px; }
 }
 
-/* Footer logo size */
-.footer-icon{height:32px;width:auto}
+/* ---------- KILL stray/legacy headers that leaked into content ---------- */
+.legacy-header, .inline-nav, .pp-fallback-nav,
+body>nav:not(.site-nav), body>.nav:not(.site-nav),
+body>header .nav-inline, header .inline-nav {
+  display:none !important;
+}
 
-/* ===============================
-   Hero
-   =============================== */
-.hero{position:relative;border-bottom:1px solid var(--line)}
-.hero figure{position:relative;margin:0}
-.hero figure img{width:100%;height:64vh;min-height:420px;object-fit:cover;object-position:center;
-  filter:brightness(1.0) saturate(1.05)}
-.hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45))}
-.hero .content{position:absolute;left:0;right:0;bottom:0}
-.eyebrow{display:inline-block;background:rgba(255,255,255,.10);border:1px solid var(--stroke);
-  padding:.35rem .7rem;border-radius:999px;color:#dceadf}
-h1{margin:.6rem 0 .5rem;font-weight:800;letter-spacing:.2px;
-  font-size:clamp(2.2rem,1.4rem + 3vw,3.3rem)}
-.lead{max-width:70ch;color:var(--muted);font-size:1.05rem}
-.cta-row{margin:1.1rem 0 1.6rem;display:flex;gap:.75rem;flex-wrap:wrap}
+/* =========================================================
+   Hero (shared)
+   ========================================================= */
+.hero{ position:relative; border-bottom:1px solid #142116; }
+.hero figure{ margin:0; position:relative; }
+.hero figure img{ width:100%; height:64vh; min-height:420px; object-fit:cover; object-position:center; }
+.hero .overlay{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.45)); }
+.hero .content{ position:absolute; left:0; right:0; bottom:0; }
+.eyebrow{ display:inline-block; background:rgba(255,255,255,.10); border:1px solid var(--line);
+  padding:.35rem .7rem; border-radius:999px; color:#dceadf; }
+h1{ margin:.6rem 0 .5rem; font-weight:800; letter-spacing:.2px; font-size:clamp(2rem,1.2rem + 3vw,3.2rem); }
+.lead{ max-width:70ch; color:var(--ink-dim); }
 
-/* ===============================
-   Buttons (green)
-   =============================== */
-.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.15rem;border-radius:12px;
-  font-weight:700;cursor:pointer;border:1px solid var(--green);
-  background:linear-gradient(180deg,var(--green2),var(--green));color:#061007;
-  transition:transform .15s ease,box-shadow .15s ease,background .2s ease}
-.btn:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.25);
-  background:linear-gradient(180deg,var(--green2),#1b5e20)}
-.btn.ghost{background:linear-gradient(180deg,var(--green2),var(--green))}
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn{
+  display:inline-flex; align-items:center; gap:.55rem; padding:.75rem 1.15rem;
+  border-radius:12px; font-weight:700; cursor:pointer;
+  border:1px solid var(--green);
+  background:linear-gradient(180deg,var(--green-2),var(--green));
+  color:#061007; text-decoration:none;
+  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+}
+.btn:hover{ transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.25); }
 
-/* ===============================
-   Cards & Grids
-   =============================== */
-.grid{display:grid;gap:14px;margin:22px 0}
-@media(min-width:780px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);padding:14px}
-.card h2{font-size:1.12rem;margin:.1rem 0 .4rem}
-.meta{font-size:.92rem;color:var(--ink-dim)}
+/* =========================================================
+   Cards & grids
+   ========================================================= */
+.grid{ display:grid; gap:14px; margin:22px 0; }
+@media(min-width:780px){ .grid{ grid-template-columns:repeat(3,1fr); } }
 
-/* mini nav buttons */
-.mini-nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-.mini-nav a{background:linear-gradient(180deg,var(--green2),var(--green));color:#061007!important;border:none;
-  border-radius:var(--radius);font-weight:600;padding:.65rem 1rem;text-align:center;flex:1 1 160px;text-decoration:none;
-  transition:transform .15s ease,box-shadow .15s ease}
-.mini-nav a:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.card{
+  background:var(--glass); border:1px solid var(--line);
+  border-radius:var(--radius); padding:14px;
+}
+.card h2{ margin:.1rem 0 .4rem; font-size:1.15rem; }
+.meta{ color:var(--ink-dim); font-size:.95rem; }
 
-/* ===============================
+/* Recipe badges (kept from previous) */
+.badge{
+  display:inline-block; margin:.15rem .35rem .15rem 0; padding:.15rem .5rem;
+  border-radius:999px; font-size:.8rem; background:#e8f5ee; color:#194b37; border:1px solid #cfe9dc;
+}
+
+/* =========================================================
    Footer
-   =============================== */
-footer{border-top:1px solid var(--line);margin-top:28px;background:#0a0f0c;text-align:center;padding:20px 0}
-.footer-inner{display:flex;flex-direction:column;align-items:center;gap:8px}
-footer p{font-size:.9em;color:#9ab09f;margin:0}
+   ========================================================= */
+footer{ border-top:1px solid #142116; background:var(--surface); text-align:center; margin-top:28px; }
+.footer-inner{ display:flex; flex-direction:column; gap:8px; align-items:center; padding:20px 0; }
+footer p{ margin:0; color:var(--ink-dim); font-size:.95rem; }
 
-/* Utility: hide accidental duplicate bare navs */
-.pp-fallback-nav{display:none !important}
+/* =========================================================
+   Misc content safety
+   ========================================================= */
+main figure:not(.page-hero) img{ width:100%; height:auto; max-height:420px; object-fit:contain; background:#0a0f0c; border-radius:12px; }
+@media (max-width:680px){ main figure:not(.page-hero) img{ max-height:340px; } }
+
+/* Prevent any generic IMG from behaving like a massive logo */
+header img{ max-width:100%; height:auto; }

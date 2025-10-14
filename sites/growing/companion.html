@@ -4,14 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Companion Planting — Patch & Pot</title>
+
 <link rel="stylesheet" href="../style.css">
 
 <style>
-  /* Page-scoped polish (matches your global look) */
-  .logo{height:74px;width:auto} /* header pot +10 from your 64 */
-  .nav a{color:#fff !important}
-  .footer-icon,.footer-pot{height:74px;width:auto;opacity:.95}
-
+  /* Page-scoped polish (keeps to your global look) */
   .cards{display:grid;gap:14px;margin:18px 0}
   @media(min-width:900px){.cards{grid-template-columns:repeat(3,1fr)}}
   .card h3{margin:.2rem 0 .4rem}
@@ -39,23 +36,25 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand">
-    <img src="/img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
-  </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-  </nav>
-</header>
+<!-- UNIVERSAL HEADER -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="/index.html">
+      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
 
-<!-- Hero helps orientation here -->
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav injects here by /js/nav-loader.js -->
+    <div id="site-nav"></div>
+  </div>
+</header>
+<script src="/js/nav-loader.js?v=2" defer></script>
+
+<!-- Hero -->
 <header class="hero" role="banner" aria-label="Companion planting hero">
   <figure>
     <img src="/img/tomatoes.jpg" alt="Tomatoes and basil together in a pot">
@@ -225,10 +224,39 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© 2025 Patch &amp; Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Wire burger after nav-loader injects #ppNav -->
+<script>
+  (function wireMenu(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav'); // created by /js/nav-loader.js
+    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
+
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  })();
+</script>
 </body>
 </html>

@@ -6,8 +6,6 @@
 <title>Propagation: Cuttings, Division & Grafting — Patch & Pot</title>
 <link rel="stylesheet" href="../style.css">
 <style>
-  .logo{height:64px;width:auto}
-  .nav a{color:#fff !important}
   .footer-icon,.footer-pot{height:64px;width:auto;opacity:.95}
 
   .grid{display:grid; gap:14px}
@@ -25,21 +23,23 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand">
-    <img src="/img/patchandpot-logo.png" alt="Patch & Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<!-- UNIVERSAL HEADER -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="/index.html">
+      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav injects here -->
+    <div id="site-nav"></div>
   </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-  </nav>
 </header>
+<script src="/js/nav-loader.js?v=2" defer></script>
 
 <main class="wrap">
   <h1>Propagation: Cuttings, Division &amp; Grafting</h1>
@@ -124,19 +124,12 @@
       </tbody>
     </table>
   </section>
-  
+
   <section class="card">
-  <h2>Propagation Handbook (PDF)</h2>
-  <p>
-    Take propagation further with our full handbook. It covers cuttings, layering, grafting, 
-    seed saving, and climate-specific notes, all in one printable guide.
-  </p>
-  <p>
-    <a class="btn primary" href="/pdf/propagation.pdf" target="_blank" rel="noopener">
-      Download Propagation Handbook
-    </a>
-  </p>
-</section>
+    <h2>Propagation Handbook (PDF)</h2>
+    <p>Take propagation further with our full handbook. It covers cuttings, layering, grafting, seed saving, and climate-specific notes, all in one printable guide.</p>
+    <p><a class="btn primary" href="/pdf/propagation.pdf" target="_blank" rel="noopener">Download Propagation Handbook</a></p>
+  </section>
 
   <nav class="mini-nav">
     <a href="../growing/first-pot.html">Your First Pot</a>
@@ -147,10 +140,11 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© 2025 Patch &amp; Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
 </body>
 </html>

@@ -14,57 +14,67 @@
   <!-- Global CSS -->
   <link rel="stylesheet" href="/style.css">
 
-  <!-- Page-only tweaks -->
+  <!-- Page-only layout fixes -->
   <style>
-    /* Tiled, not massive */
-    .guides-grid{
-      display:grid;
-      gap:14px;
-      grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
-      align-items:stretch;
+    .guides-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      align-items: stretch;
+      margin-bottom: 2rem;
     }
-    .tile{
-      background:var(--glass,rgba(255,255,255,.04));
-      border:1px solid var(--stroke,#223127);
-      border-radius:14px;
-      overflow:hidden;
-      display:grid;
-      grid-template-rows:auto auto;
+    .tile {
+      background: var(--glass, rgba(255,255,255,0.05));
+      border: 1px solid var(--stroke, #223127);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
-    .tile .thumb{
-      display:block; width:100%;
-      aspect-ratio:4/3;            /* smaller than 16:9 to avoid huge cards */
-      overflow:hidden; background:#0b0f14;
+    .tile .thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #0b0f14;
+      overflow: hidden;
     }
-    .tile .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .tile .cap{padding:10px 12px;display:flex;justify-content:center}
+    .tile .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .tile .cap {
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .tile .cap a.btn.primary {
+      display: inline-block;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
 
-<!-- UNIVERSAL HEADER (same pattern as Home/Recipes/Contact). DO NOT add any other header placeholder. -->
+<!-- UNIVERSAL HEADER -->
 <header class="pp-site-header" role="banner">
   <div class="pp-header-bar">
     <a class="pp-brand" href="/index.html">
       <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
       <span class="pp-title">Patch &amp; Pot</span>
     </a>
-
     <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
       <span></span><span></span><span></span>
     </button>
-
-    <!-- nav-loader.js injects <nav id="ppNav" class="pp-nav"> here -->
     <div id="site-nav"></div>
   </div>
 </header>
-<script src="/js/nav-loader.js?v=2" defer></script>
+<script src="/js/nav-loader.js" defer></script>
 
-<!-- PAGE HERO -->
-<header class="hero" role="banner" aria-label="Guides hero">
+<!-- HERO -->
+<section class="hero" role="banner" aria-label="Guides hero">
   <figure>
-    <img src="/img/hero.jpg" alt="Hands potting up with soil and tools"
-         width="1600" height="900" loading="eager" fetchpriority="high" decoding="async">
+    <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -74,39 +84,28 @@
       <p class="lead">Clear instructions that work on a balcony, patio, or sunny sill.</p>
     </div>
   </div>
-</header>
+</section>
 
 <main class="wrap">
 
   <!-- Card grid overview -->
   <section class="guides-grid" aria-label="Guide covers">
     <article class="tile">
-      <span class="thumb">
-        <img src="/img/guide-first-pot.png" alt="Your First Pot cover"
-             width="1200" height="900" loading="lazy" decoding="async">
-      </span>
+      <span class="thumb"><img src="/img/guide-first-pot.png" alt="Your First Pot"></span>
       <div class="cap"><a href="#firstpot" class="btn primary">Open: Your First Pot</a></div>
     </article>
-
     <article class="tile">
-      <span class="thumb">
-        <img src="/img/guide-sow-when.png" alt="What to Sow &amp; When cover"
-             width="1200" height="900" loading="lazy" decoding="async">
-      </span>
+      <span class="thumb"><img src="/img/guide-sow-when.png" alt="What to sow &amp; when"></span>
       <div class="cap"><a href="#sow" class="btn primary">Open: What to Sow &amp; When</a></div>
     </article>
-
     <article class="tile">
-      <span class="thumb">
-        <img src="/img/guide-2min-calm.png" alt="2-Minute Calm cover"
-             width="1200" height="900" loading="lazy" decoding="async">
-      </span>
+      <span class="thumb"><img src="/img/guide-2min-calm.png" alt="2-Minute Calm"></span>
       <div class="cap"><a href="#calm" class="btn primary">Open: 2-Minute Calm</a></div>
     </article>
   </section>
 
   <!-- Full guide: Your First Pot -->
-  <section id="firstpot" class="grid" aria-label="Your First Pot guide" style="margin-top:18px">
+  <section id="firstpot" class="grid" aria-label="Your First Pot guide">
     <article class="card">
       <h2>Your First Pot</h2>
       <p class="meta">A 10–15 minute setup for salads, herbs, and easy veg.</p>
@@ -182,31 +181,34 @@
   </div>
 </footer>
 
-<!-- Wire burger AFTER nav injects -->
+<!-- Menu script -->
 <script>
-(function init(){
-  const root = document.querySelector('.pp-site-header');
-  const btn  = document.getElementById('ppBurger');
-  const nav  = document.getElementById('ppNav'); // injected by nav-loader.js
-  if(!root || !btn || !nav){ setTimeout(init, 60); return; }
-
-  btn.addEventListener('click', ()=>{
-    const open = root.classList.toggle('pp-open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  nav.addEventListener('click', e=>{
-    if(e.target.closest('a')){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
-    }
-  });
-  addEventListener('resize', ()=>{
-    if(innerWidth > 900){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
-    }
-  });
+(function(){
+  function init(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav');
+    if(!root || !btn || !nav){ setTimeout(init, 60); return; }
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  init();
 })();
 </script>
+
 </body>
 </html>

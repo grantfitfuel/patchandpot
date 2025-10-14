@@ -62,22 +62,22 @@
       <h2>Quick Salads</h2>
 
       <h3>Golden Beet, Orange &amp; Basil Salad</h3>
-<p class="meta">20 mins + cooling · serves 2 · ~220 kcal | P 4 g · C 14 g · F 16 g</p>
-<div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
-<ul>
-  <li>2 small golden beetroots</li>
-  <li>1 orange (juice + optional zest)</li>
-  <li>2 tbsp olive oil</li>
-  <li>8–10 basil leaves, torn</li>
-  <li>Sea salt &amp; black pepper</li>
-  <li>Pinch ground cinnamon (for sprinkling)</li>
-</ul>
-<ol>
-  <li>Cook the beets: wrap in foil and roast at 190&nbsp;°C for 35–50&nbsp;mins or steam 25–35&nbsp;mins until tender.</li>
-  <li>Cool slightly, peel and slice thinly.</li>
-  <li>Whisk orange juice (and zest) with olive oil, salt &amp; pepper. Toss gently with the sliced beets. Chill if preferred.</li>
-  <li>Plate up, add basil, then sprinkle cinnamon lightly over the top before serving.</li>
-</ol>
+      <p class="meta">20 mins + cooling · serves 2 · ~220 kcal | P 4 g · C 14 g · F 16 g</p>
+      <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
+      <ul>
+        <li>2 small golden beetroots</li>
+        <li>1 orange (juice + optional zest)</li>
+        <li>2 tbsp olive oil</li>
+        <li>8–10 basil leaves, torn</li>
+        <li>Sea salt &amp; black pepper</li>
+        <li>Pinch ground cinnamon (for sprinkling)</li>
+      </ul>
+      <ol>
+        <li>Cook the beets: wrap in foil and roast at 190&nbsp;°C for 35–50&nbsp;mins or steam 25–35&nbsp;mins until tender.</li>
+        <li>Cool slightly, peel and slice thinly.</li>
+        <li>Whisk orange juice (and zest) with olive oil, salt &amp; pepper. Toss gently with the sliced beets. Chill if preferred.</li>
+        <li>Plate up, add basil, then sprinkle cinnamon lightly over the top before serving.</li>
+      </ol>
 
       <hr>
 
@@ -237,87 +237,110 @@
   </div>
 </footer>
 
+<!-- MENU SCRIPT: wait for injected #ppNav -->
 <script>
-  // Mobile menu toggle
-  (function(){
-    const t = document.getElementById('menuToggle');
-    if(!t) return;
-    t.addEventListener('click', ()=>{
-      const open = document.body.classList.toggle('menu-open');
-      t.setAttribute('aria-expanded', open ? 'true':'false');
+(function(){
+  function wireMenu(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav'); // injected by /js/nav-loader.js
+    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
+
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-  })();
 
-  // Print recipe cards
-  (function(){
-    const btn = document.getElementById('print-recipe-cards');
-    if(!btn) return;
-    btn.addEventListener('click', (e)=>{
-      e.preventDefault();
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
 
-      const recipes = [];
-      document.querySelectorAll('.recipe').forEach(section => {
-        const kids = Array.from(section.children);
-        let current = null;
-        const push = ()=>{ if(current && (current.ingredients.length||current.steps.length)) recipes.push(current); };
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  wireMenu();
+})();
+</script>
 
-        kids.forEach(el=>{
-          const tag = (el.tagName||'').toUpperCase();
-          if(tag==='H3'){
-            push();
-            current = { title: el.textContent.trim(), meta:'', badges:[], ingredients:[], steps:[] };
-          } else if(current && el.classList?.contains('meta')){
-            current.meta = el.textContent.trim();
-          } else if(current && tag==='DIV' && el.querySelector('.badge')){
-            current.badges = Array.from(el.querySelectorAll('.badge')).map(b=>b.textContent.trim());
-          } else if(current && tag==='UL'){
-            current.ingredients = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
-          } else if(current && tag==='OL'){
-            current.steps = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
-          }
-        });
-        push();
+<!-- PRINT RECIPE CARDS -->
+<script>
+(function(){
+  const btn = document.getElementById('print-recipe-cards');
+  if(!btn) return;
+
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+
+    const recipes = [];
+    document.querySelectorAll('.recipe').forEach(section => {
+      const kids = Array.from(section.children);
+      let current = null;
+      const push = ()=>{ if(current && (current.ingredients.length||current.steps.length)) recipes.push(current); };
+
+      kids.forEach(el=>{
+        const tag = (el.tagName||'').toUpperCase();
+        if(tag==='H3'){
+          push();
+          current = { title: el.textContent.trim(), meta:'', badges:[], ingredients:[], steps:[] };
+        } else if(current && el.classList?.contains('meta')){
+          current.meta = el.textContent.trim();
+        } else if(current && tag==='DIV' && el.querySelector('.badge')){
+          current.badges = Array.from(el.querySelectorAll('.badge')).map(b=>b.textContent.trim());
+        } else if(current && tag==='UL'){
+          current.ingredients = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
+        } else if(current && tag==='OL'){
+          current.steps = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
+        }
       });
-
-      if(!recipes.length){ alert('No recipes found to print.'); return; }
-
-      const css = `
-        @page { size: A4; margin: 12mm; }
-        *{box-sizing:border-box}
-        body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;margin:0;color:#1d2a22}
-        .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-        .card{border:1px solid #e2e6df;border-radius:12px;padding:10px 12px}
-        h2{margin:.2rem 0 .45rem;font-size:1.05rem;line-height:1.2}
-        .meta{color:#586a5f;font-size:.85rem;margin:.1rem 0 .35rem}
-        .badges{margin:.1rem 0 .35rem}
-        .badge{display:inline-block;margin:.1rem .25rem .1rem 0;padding:.1rem .45rem;border-radius:999px;
-               font-size:.72rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
-        ul,ol{margin:.25rem 0 .35rem 1.05rem;padding:0}
-        li{margin:.08rem 0;font-size:.9rem}
-        .footer{font-size:.7rem;color:#6b7a71;text-align:right;margin-top:2mm}
-        @media screen { body{padding:14px} }
-      `;
-      const w = window.open('', '_blank');
-      w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Recipe Cards — Patch & Pot</title><style>${css}</style></head><body>
-        <div class="grid">
-          ${recipes.map(r=>`
-            <section class="card">
-              <h2>${esc(r.title)}</h2>
-              ${r.meta?`<div class="meta">${esc(r.meta)}</div>`:''}
-              ${r.badges.length?`<div class="badges">${r.badges.map(b=>`<span class="badge">${esc(b)}</span>`).join('')}</div>`:''}
-              ${r.ingredients.length?`<strong>Ingredients</strong><ul>${r.ingredients.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:''}
-              ${r.steps.length?`<strong>Method</strong><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}
-              <div class="footer">patchandpot.com</div>
-            </section>
-          `).join('')}
-        </div>
-        <script>window.onload=()=>window.print();<\/script>
-      </body></html>`);
-      w.document.close();
-
-      function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+      push();
     });
-  })();
+
+    if(!recipes.length){ alert('No recipes found to print.'); return; }
+
+    const css = `
+      @page { size: A4; margin: 12mm; }
+      *{box-sizing:border-box}
+      body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;margin:0;color:#1d2a22}
+      .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .card{border:1px solid #e2e6df;border-radius:12px;padding:10px 12px}
+      h2{margin:.2rem 0 .45rem;font-size:1.05rem;line-height:1.2}
+      .meta{color:#586a5f;font-size:.85rem;margin:.1rem 0 .35rem}
+      .badges{margin:.1rem 0 .35rem}
+      .badge{display:inline-block;margin:.1rem .25rem .1rem 0;padding:.1rem .45rem;border-radius:999px;
+             font-size:.72rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
+      ul,ol{margin:.25rem 0 .35rem 1.05rem;padding:0}
+      li{margin:.08rem 0;font-size:.9rem}
+      .footer{font-size:.7rem;color:#6b7a71;text-align:right;margin-top:2mm}
+      @media screen { body{padding:14px} }
+    `;
+    const w = window.open('', '_blank');
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Recipe Cards — Patch & Pot</title><style>${css}</style></head><body>
+      <div class="grid">
+        ${recipes.map(r=>`
+          <section class="card">
+            <h2>${esc(r.title)}</h2>
+            ${r.meta?`<div class="meta">${esc(r.meta)}</div>`:''}
+            ${r.badges.length?`<div class="badges">${r.badges.map(b=>`<span class="badge">${esc(b)}</span>`).join('')}</div>`:''}
+            ${r.ingredients.length?`<strong>Ingredients</strong><ul>${r.ingredients.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:''}
+            ${r.steps.length?`<strong>Method</strong><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}
+            <div class="footer">patchandpot.com</div>
+          </section>
+        `).join('')}
+      </div>
+      <script>window.onload=()=>window.print();<\/script>
+    </body></html>`);
+    w.document.close();
+
+    function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+  });
+})();
 </script>
 </body>
 </html>

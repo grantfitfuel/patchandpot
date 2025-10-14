@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Patch & Pot – Guides</title>
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Patch & Pot – Guides</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/img/favicon-512.png">
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
+<!-- UNIVERSAL HEADER -->
+<header id="site-header"></header>
+<script src="/js/nav-loader.js" defer></script>
 
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here -->
-    <div id="site-nav"></div>
-  </div>
-</header>
-<script src="/js/nav-loader.js?v=2" defer></script>
-
+<!-- HERO -->
 <header class="hero" role="banner" aria-label="Guides hero">
   <figure>
-    <img src="img/hero.jpg" alt="Hands potting up with soil and tools">
+    <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -48,15 +40,15 @@
   <!-- Card grid overview -->
   <section class="guides-grid" aria-label="Guide covers">
     <article class="tile">
-      <span class="thumb"><img src="img/guide-first-pot.png" alt="Your First Pot"></span>
+      <span class="thumb"><img src="/img/guide-first-pot.png" alt="Your First Pot"></span>
       <div class="cap"><a href="#firstpot" class="btn primary">Open: Your First Pot</a></div>
     </article>
     <article class="tile">
-      <span class="thumb"><img src="img/guide-sow-when.png" alt="What to sow &amp; when"></span>
+      <span class="thumb"><img src="/img/guide-sow-when.png" alt="What to sow &amp; when"></span>
       <div class="cap"><a href="#sow" class="btn primary">Open: What to Sow &amp; When</a></div>
     </article>
     <article class="tile">
-      <span class="thumb"><img src="img/guide-2min-calm.png" alt="2-Minute Calm"></span>
+      <span class="thumb"><img src="/img/guide-2min-calm.png" alt="2-Minute Calm"></span>
       <div class="cap"><a href="#calm" class="btn primary">Open: 2-Minute Calm</a></div>
     </article>
   </section>
@@ -125,14 +117,15 @@
   </section>
 
   <nav class="mini-nav" aria-label="Back links">
-    <a href="ideas.html">Inspiration Ideas</a>
-    <a href="index.html">Home</a>
+    <a href="/ideas.html">Inspiration Ideas</a>
+    <a href="/index.html">Home</a>
   </nav>
 </main>
 
+<!-- FOOTER -->
 <footer>
   <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>

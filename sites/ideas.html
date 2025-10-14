@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Patch & Pot – Ideas</title>
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Patch & Pot – Ideas</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/img/favicon-512.png">
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
+<!-- UNIVERSAL HEADER -->
+<header id="site-header"></header>
+<script src="/js/nav-loader.js" defer></script>
 
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here -->
-    <div id="site-nav"></div>
-  </div>
-</header>
-<script src="/js/nav-loader.js?v=2" defer></script>
-
+<!-- HERO -->
 <header class="hero" role="banner" aria-label="Ideas hero">
   <figure>
-    <img src="img/hero.jpg" alt="Balcony pots and planting">
+    <img src="/img/hero.jpg" alt="Balcony pots and planting">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -48,27 +40,27 @@
   <!-- Core ideas tiles -->
   <section class="ideas-grid" aria-label="Square idea tiles">
     <article class="tile" id="carrots">
-      <span class="thumb"><img src="img/carrots.jpg" alt="Carrots in a deep pot"></span>
+      <span class="thumb"><img src="/img/carrots.jpg" alt="Carrots in a deep pot"></span>
       <div class="cap"><strong>Carrots</strong> — compact varieties thrive in deep pots</div>
     </article>
     <article class="tile" id="lettuce">
-      <span class="thumb"><img src="img/lettuce.jpg" alt="Lettuce in a planter"></span>
+      <span class="thumb"><img src="/img/lettuce.jpg" alt="Lettuce in a planter"></span>
       <div class="cap"><strong>Lettuce</strong> — cut-and-come-again for constant salads</div>
     </article>
     <article class="tile" id="tomatoes">
-      <span class="thumb"><img src="img/tomatoes.jpg" alt="Tomatoes ripening in a pot"></span>
+      <span class="thumb"><img src="/img/tomatoes.jpg" alt="Tomatoes ripening in a pot"></span>
       <div class="cap"><strong>Tomatoes</strong> — bush types suit balconies &amp; patios</div>
     </article>
     <article class="tile" id="kale">
-      <span class="thumb"><img src="img/kale.jpg" alt="Kale leaves in a pot"></span>
+      <span class="thumb"><img src="/img/kale.jpg" alt="Kale leaves in a pot"></span>
       <div class="cap"><strong>Kale</strong> — hardy, nutrient-dense, and cold-tolerant</div>
     </article>
     <article class="tile" id="chillies">
-      <span class="thumb"><img src="img/chillies.jpg" alt="Chillies in a container"></span>
+      <span class="thumb"><img src="/img/chillies.jpg" alt="Chillies in a container"></span>
       <div class="cap"><strong>Chillies</strong> — small plant, big flavour payoff</div>
     </article>
     <article class="tile" id="herbs">
-      <span class="thumb"><img src="img/herbs.jpg" alt="Mixed herbs: basil, parsley, mint"></span>
+      <span class="thumb"><img src="/img/herbs.jpg" alt="Mixed herbs: basil, parsley, mint"></span>
       <div class="cap"><strong>Mixed herbs</strong> — basil, parsley, mint for instant wins</div>
     </article>
   </section>
@@ -105,16 +97,17 @@
   </section>
 
   <nav class="mini-nav" aria-label="Quick links">
-    <a href="guides.html#firstpot">Your First Pot</a>
-    <a href="guides.html#sow">What to Sow &amp; When</a>
-    <a href="guides.html#calm">2-Minute Calm</a>
-    <a href="index.html">Home</a>
+    <a href="/guides.html#firstpot">Your First Pot</a>
+    <a href="/guides.html#sow">What to Sow &amp; When</a>
+    <a href="/guides.html#calm">2-Minute Calm</a>
+    <a href="/index.html">Home</a>
   </nav>
 </main>
 
+<!-- FOOTER -->
 <footer>
   <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>

@@ -5,30 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Seasonal Planting Calendar (UK) — Patch & Pot</title>
 <meta name="description" content="Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.">
+<link rel="stylesheet" href="style.css">
 <style>
   :root{
     --bg:#0b0f14; --ink:#fff; --ink-d:#cfd3d8; --glass:#0f131a; --stroke:#1f2630;
     --maxw:1100px; --r:14px;
-    --header-logo-h:50px;   /* header pot size */
-    --footer-logo-w:65px;   /* footer pot size */
+    --footer-logo-w:65px;
   }
   html,body{background:var(--bg);color:var(--ink);margin:0;font:16px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif}
-
-  /* HEADER */
-  .pp-header{position:sticky;top:0;z-index:2000;background:#0b0f14;border-bottom:1px solid var(--stroke)}
-  .pp-header__inner{max-width:var(--maxw);margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
-  .pp-header__brand{display:flex;align-items:center;text-decoration:none;gap:10px}
-  .pp-header__logo{height:var(--header-logo-h);width:auto;display:block}
-  .pp-header__brand span{font-weight:600;font-size:1.2rem;color:#fff}
-  .pp-header__nav{display:none;gap:16px;margin-left:auto}
-  .pp-nav__link{color:#cfd3d8;text-decoration:none;padding:6px 4px}
-  .pp-nav__link:hover{color:#fff}
-  .pp-header__burger{margin-left:auto;background:transparent;border:0;width:40px;height:40px;
-    display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer}
-  .pp-burger-bar{width:22px;height:2px;background:#e6e6ea;display:block}
-  @media(min-width:900px){.pp-header__nav{display:flex}.pp-header__burger{display:none}}
-  .pp-header--open .pp-header__nav{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;
-    background:#0b0f14;border-bottom:1px solid var(--stroke);padding:10px 16px;gap:10px}
 
   /* PAGE */
   .wrap{max-width:var(--maxw);margin:0 auto;padding:18px 20px}
@@ -59,7 +43,7 @@
   .fold .pest-list{margin:.2rem 0 .2rem 1.2rem}
   .anchor-offset{position:relative;top:-70px;visibility:hidden}
 
-  /* BASICS list bullets */
+  /* BASICS bullets */
   .basics-list{list-style:none;margin:0;padding:0;column-gap:28px}
   .basics-list li{position:relative;margin:0 0 10px 0;padding-left:20px;line-height:1.5;color:#e6e9ed}
   .basics-list li::before{content:"•";position:absolute;left:0;top:0;color:#8bd48b;font-weight:700;line-height:1}
@@ -71,7 +55,6 @@
   table{border-collapse:collapse}
   thead th{position:sticky;top:0;background:#0f141b}
   th,td{border:1px solid var(--stroke);padding:10px;text-align:center;vertical-align:top;line-height:1.35}
-  /* name + note cell */
   .crop-cell{text-align:left}
   .crop-name{font-weight:600;display:block}
   .crop-note{display:block;margin-top:2px;font-size:.85rem;line-height:1.3;color:var(--ink-d);word-break:break-word}
@@ -101,6 +84,7 @@
 </head>
 <body>
 
+<!-- UNIVERSAL HEADER -->
 <header class="pp-site-header" role="banner">
   <div class="pp-header-bar">
     <a class="pp-brand" href="/index.html">
@@ -191,7 +175,7 @@
     <div id="emptyMsg" class="muted" style="display:none;margin-top:6px">No crops found.</div>
   </div>
 
-  <!-- Basics (collapsed) -->
+  <!-- Basics -->
   <span id="basics" class="anchor-offset"></span>
   <details id="basicsFold" class="fold">
     <summary>
@@ -203,7 +187,7 @@
     </div>
   </details>
 
-  <!-- Pest Watch (collapsed) -->
+  <!-- Pest Watch -->
   <span id="pestwatch" class="anchor-offset"></span>
   <details id="pestFold" class="fold">
     <summary>
@@ -215,20 +199,21 @@
       <ul id="pestList" class="pest-list"></ul>
     </div>
   </details>
-</div>
 
+  <!-- Download card -->
   <section class="card">
-  <h2>Seasonal Growing Journal (PDF)</h2>
-  <p>
-    Want to dive deeper, month by month? Download the full Seasonal Growing Journal 
-    with detailed notes, caveats for different climates, and space to make your own observations. 
-  </p>
-  <p>
-    <a class="btn primary" href="pdf/seasonal.pdf" target="_blank" rel="noopener">
-      Download Seasonal Journal
-    </a>
-  </p>
-</section>
+    <h2>Seasonal Growing Journal (PDF)</h2>
+    <p>
+      Want to dive deeper, month by month? Download the full Seasonal Growing Journal 
+      with detailed notes, caveats for different climates, and space to make your own observations. 
+    </p>
+    <p>
+      <a class="btn primary" href="pdf/seasonal.pdf" target="_blank" rel="noopener">
+        Download Seasonal Journal
+      </a>
+    </p>
+  </section>
+</div>
 
 <footer class="site-footer">
   <img class="site-footer__logo" src="img/patchandpot-logo.png" alt="Patch & Pot">
@@ -236,24 +221,40 @@
   <p>Created by Grant Cameron Anthony</p>
 </footer>
 
+<!-- UNIVERSAL HEADER MENU WIRING (waits for #ppNav) -->
 <script>
-/* Header burger */
 (function(){
-  const root=document.getElementById('ppHeader'); if(!root) return;
-  const btn=root.querySelector('#ppBurger'); const nav=root.querySelector('#ppNav');
-  btn.addEventListener('click',()=>{
-    const open=root.classList.toggle('pp-header--open');
-    btn.setAttribute('aria-expanded',open?'true':'false');
-  });
-  nav.addEventListener('click',e=>{
-    if(e.target.closest('a')){
-      root.classList.remove('pp-header--open');
-      btn.setAttribute('aria-expanded','false');
-    }
-  });
-})();
+  function wireMenu(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav'); // injected by /js/nav-loader.js
+    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
 
-/* Seasonal loader (robust paths + notes rendering) */
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  wireMenu();
+})();
+</script>
+
+<!-- SEASONAL LOADER -->
+<script>
 (function(){
   const $=id=>document.getElementById(id);
   const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -349,7 +350,6 @@
         const j=await get(region,fname);
         const arr=Array.isArray(j)?j:(Array.isArray(j?.crops)?j.crops:null);
         if(arr){
-          // Normalise category
           arr.forEach(c=>{
             if(!c || !c.name) return;
             c._block=block;
@@ -434,7 +434,6 @@
     list.forEach(c=>{
       const tr=document.createElement('tr');
 
-      // First cell: crop name + optional note
       const nameTd=document.createElement('td');
       nameTd.className='crop-cell';
       const nameDiv=document.createElement('span');

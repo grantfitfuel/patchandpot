@@ -4,11 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Space-Saving Setups — Patch & Pot</title>
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="/style.css">
 <style>
-  /* Keep header nav links white on dark */
-  .nav a{ color:#fff !important }
-
   /* Page scaffolding */
   .section{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px; margin:12px 0 }
   .grid{ display:grid; gap:14px }
@@ -41,22 +38,23 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<!-- UNIVERSAL HEADER -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="/index.html">
+      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav injects here -->
+    <div id="site-nav"></div>
   </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html" aria-current="page">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-    <a href="../seasonal.html">Seasonal</a>
-  </nav>
 </header>
+<script src="/js/nav-loader.js?v=2" defer></script>
 
 <main class="wrap">
   <h1>Space-Saving Setups</h1>
@@ -127,7 +125,7 @@
       </div>
     </div>
     <div class="figure" style="margin-top:10px">
-      <img src="../img/vertical-bottle-tower.png" alt="Vertical bottle tower diagram">
+      <img src="/img/vertical-bottle-tower.png" alt="Vertical bottle tower diagram">
     </div>
   </section>
 
@@ -162,7 +160,7 @@
       </div>
     </div>
     <div class="figure" style="margin-top:10px">
-      <img src="../img/hanging-rail-pockets.png" alt="Hanging rail pockets diagram">
+      <img src="/img/hanging-rail-pockets.png" alt="Hanging rail pockets diagram">
     </div>
   </section>
 
@@ -277,12 +275,12 @@
     </div>
   </section>
 
-  <!-- Original three builds preserved (with placeholders) -->
+  <!-- Visuals -->
   <section class="section">
     <h2>Visuals: Three Compact Builds</h2>
     <div class="grid two">
       <article class="figure">
-        <img src="../img/vertical-bottle-tower.png" alt="Diagram of a vertical bottle tower planter">
+        <img src="/img/vertical-bottle-tower.png" alt="Diagram of a vertical bottle tower planter">
         <h3>Bottle Tower</h3>
         <p>Stacked 2 L bottles with side cut-outs; a central wick keeps moisture more even.</p>
         <ul>
@@ -292,7 +290,7 @@
       </article>
 
       <article class="figure">
-        <img src="../img/hanging-rail-pockets.png" alt="Diagram of a hanging rail herb pocket system">
+        <img src="/img/hanging-rail-pockets.png" alt="Diagram of a hanging rail herb pocket system">
         <h3>Hanging Rail Pockets</h3>
         <p>Clip a short rail on a wall or window frame; hang fabric pockets or small pots.</p>
         <ul>
@@ -304,7 +302,7 @@
 
     <div class="grid two" style="margin-top:12px">
       <article class="figure">
-        <img src="../img/depth-saver-crates.png" alt="Diagram of stacked crates used as a deep planter">
+        <img src="/img/depth-saver-crates.png" alt="Diagram of stacked crates used as a deep planter">
         <h3>Stacked Crates (Deep Root)</h3>
         <p>Two shallow crates stacked with liner make a deep, free-draining planter for roots.</p>
         <ul>
@@ -320,22 +318,22 @@
           <li>Rotate containers weekly for even growth.</li>
           <li>Group pots to share humidity and reduce watering.</li>
         </ul>
-        <p class="micro">See <a href="first-pot.html">Your First Pot</a> for watering & feeding basics.</p>
+        <p class="micro">See <a href="/growing/first-pot.html">Your First Pot</a> for watering &amp; feeding basics.</p>
       </aside>
     </div>
   </section>
 
   <nav class="mini-nav" aria-label="Related guides">
-    <a href="first-pot.html">Your First Pot</a>
-    <a href="companion.html">Companion Planting</a>
-    <a href="regrow.html">Regrow from Scraps</a>
-    <a href="../seasonal.html">Seasonal</a>
+    <a href="/growing/first-pot.html">Your First Pot</a>
+    <a href="/growing/companion.html">Companion Planting</a>
+    <a href="/growing/regrow.html">Regrow from Scraps</a>
+    <a href="/seasonal.html">Seasonal</a>
   </nav>
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon">
+    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© 2025 Patch &amp; Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </div>

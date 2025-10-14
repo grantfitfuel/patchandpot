@@ -16,9 +16,25 @@
 </head>
 <body>
 
-<!-- UNIVERSAL HEADER (nav-loader injects full header here) -->
+<!-- UNIVERSAL HEADER (nav-loader injects the full header here) -->
 <header id="site-header"></header>
 <script src="/js/nav-loader.js" defer></script>
+
+<!-- One-time de-duplication guard -->
+<script>
+  // After nav-loader runs, ensure only ONE .pp-site-header exists
+  (function dedupeHeader(){
+    function run(){
+      const headers = document.querySelectorAll('.pp-site-header');
+      if(headers.length <= 1) return;
+      // Keep the first, remove the rest
+      headers.forEach((h,i)=>{ if(i>0) h.remove(); });
+    }
+    // Try immediately and again after a tick in case loader is deferred
+    document.addEventListener('DOMContentLoaded', run);
+    window.addEventListener('load', ()=> setTimeout(run, 0));
+  })();
+</script>
 
 <!-- HERO -->
 <header class="hero" role="banner" aria-label="Guides hero">

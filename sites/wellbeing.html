@@ -27,6 +27,8 @@
   </style>
 </head>
 <body>
+
+<!-- UNIVERSAL HEADER -->
 <header class="pp-site-header" role="banner">
   <div class="pp-header-bar">
     <a class="pp-brand" href="/index.html">
@@ -38,7 +40,7 @@
       <span></span><span></span><span></span>
     </button>
 
-    <!-- Nav injects here -->
+    <!-- Nav injects here by /js/nav-loader.js -->
     <div id="site-nav"></div>
   </div>
 </header>
@@ -84,17 +86,16 @@
   </section>
 
   <section class="card" aria-labelledby="yt-breathing-title">
-  <h2 id="yt-breathing-title">Breathing for calm</h2>
-  <div class="yt-wrap"><div class="yt" data-id="GqfrbGtorBE"></div></div>
-  <p class="note">Gentle belly breathing practice to calm the nervous system, narrated in English.</p>
-</section>
+    <h2 id="yt-breathing-title">Breathing for calm</h2>
+    <div class="yt-wrap"><div class="yt" data-id="GqfrbGtorBE"></div></div>
+    <p class="note">Gentle belly breathing practice to calm the nervous system, narrated in English.</p>
+  </section>
 
   <section class="card" aria-labelledby="bsl-breathing-title">
     <h2 id="bsl-breathing-title">Breathing for calm — British Sign Language</h2>
     <div class="yt-wrap"><div class="yt" data-id="C13Gw4XFfs0"></div></div>
     <p class="note">A clear BSL demonstration of calming belly breathing.</p>
   </section>
-
 
   <section class="disclaimer" role="note">
     <h2>Important Note</h2>
@@ -111,18 +112,32 @@
   </div>
 </footer>
 
-<!-- Mobile menu -->
+<!-- Wire burger after nav-loader injects #ppNav -->
 <script>
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
-    function setExpanded(on){
-      if(on){ header.classList.add('menu-open'); toggle.classList.add('menu-open'); toggle.setAttribute('aria-expanded','true'); }
-      else { header.classList.remove('menu-open'); toggle.classList.remove('menu-open'); toggle.setAttribute('aria-expanded','false'); }
-    }
-    if(toggle){ toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open'))); }
-    if(nav){ nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); }); }
+  (function wireMenu(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav'); // created by /js/nav-loader.js
+    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
+
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
   })();
 </script>
 

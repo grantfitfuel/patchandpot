@@ -6,7 +6,7 @@
   <title>Your First Pot — Patch & Pot</title>
   <link rel="stylesheet" href="../style.css">
   <style>
-    /* Scoped page tweaks */
+    /* Scoped page tweaks only (no header/footer overrides) */
     .steps{display:grid; gap:14px}
     @media(min-width:920px){.steps{grid-template-columns:1.1fr 1fr}}
     .figure{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:12px}
@@ -17,29 +17,27 @@
     .table th,.table td{padding:.6rem .8rem; border-bottom:1px solid var(--stroke)}
     .table th{text-align:left; color:var(--inkdim)}
     .badge{display:inline-block; padding:.2rem .5rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); font-size:.85rem}
-    /* Header + footer overrides */
-    .logo{height:64px;width:auto} /* bumped up again */
-    .nav a{color:#fff !important} /* force menu text white */
-    .footer-icon,.footer-pot{height:64px;width:auto;opacity:.95} /* bumped up again */
   </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="brand">
-    <img src="/img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<!-- UNIVERSAL HEADER -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="/index.html">
+      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav injects here by /js/nav-loader.js -->
+    <div id="site-nav"></div>
   </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-  </nav>
 </header>
+<script src="/js/nav-loader.js?v=2" defer></script>
 
 <main class="wrap">
   <h1>Your First Pot</h1>
@@ -53,7 +51,7 @@
         <li><span class="check">✓</span> Peat-free multi-purpose compost</li>
         <li><span class="check">✓</span> Seeds or young plant (basil, parsley, salad leaves)</li>
         <li><span class="check">✓</span> Small jug or bottle for watering</li>
-        <li><span class="check">✓</span> Label & pencil (optional but helpful)</li>
+        <li><span class="check">✓</span> Label &amp; pencil (optional but helpful)</li>
       </ul>
 
       <h3>Light picker</h3>
@@ -109,10 +107,11 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon">
+    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© 2025 Patch &amp; Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
 </body>
 </html>

@@ -1,39 +1,29 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>About — Patch & Pot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — Patch & Pot</title>
 
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/img/favicon-512.png">
 
-<link rel="stylesheet" href="style.css?v=42">
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/style.css?v=finalfix1">
 </head>
 <body>
 
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
+<!-- UNIVERSAL HEADER (injected by nav-loader.js) -->
+<header id="site-header"></header>
+<script src="/js/nav-loader.js?v=stable" defer></script>
 
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here -->
-    <div id="site-nav"></div>
-  </div>
-</header>
-<script src="/js/nav-loader.js?v=2" defer></script>
-
+<!-- HERO -->
 <header class="hero" role="banner" aria-label="About hero">
   <figure>
-    <img src="img/hero.jpg" alt="Hands tending a plant on a balcony">
+    <img src="/img/hero.jpg" alt="Hands tending a plant on a balcony">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -71,29 +61,29 @@
     <article class="card">
       <h2>How to use this site</h2>
       <ul>
-        <li>Start on <a href="ideas.html">Ideas</a> for inspiration tiles.</li>
-        <li>Open <a href="guides.html">Guides</a> for step-by-steps.</li>
-        <li>Visit <a href="wellbeing.html">Wellbeing</a> for short resets.</li>
+        <li>Start on <a href="/ideas.html">Ideas</a> for inspiration tiles.</li>
+        <li>Open <a href="/guides/index.html">Guides</a> for step-by-steps.</li>
+        <li>Visit <a href="/wellbeing.html">Wellbeing</a> for short resets.</li>
       </ul>
     </article>
     <article class="card">
       <h2>Contribute</h2>
       <p class="meta">Spot a typo, want to add a tip, or share a small-space win? We love that.</p>
-      <p><a class="btn primary" href="contact.html">Send a message</a></p>
+      <p><a class="btn primary" href="/contact.html">Send a message</a></p>
     </article>
   </section>
 
   <nav class="mini-nav" aria-label="Quick links">
-    <a href="growing.html">Growing</a>
-    <a href="guides.html">Guides</a>
-    <a href="index.html">Home</a>
+    <a href="/growing/index.html">Growing</a>
+    <a href="/guides/index.html">Guides</a>
+    <a href="/index.html">Home</a>
   </nav>
 
 </main>
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
     <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
   </div>
 </footer>

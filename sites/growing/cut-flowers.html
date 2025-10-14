@@ -9,9 +9,6 @@
 
 <style>
   /* Page-level tweaks that sit safely on top of style.css */
-  .logo{height:64px;width:auto}                 /* header pot/logo bump */
-  .nav a{color:#fff !important}                 /* keep header menu white */
-  .footer-icon{height:56px;width:auto;opacity:.95} /* footer pot slightly larger */
   .footer-inner p{margin:0}
   .footer-inner p + p{margin-top:4px}
 
@@ -41,23 +38,23 @@
 </head>
 <body>
 
-<!-- Header -->
-<header class="site-header">
-  <div class="brand">
-    <img src="/img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<!-- UNIVERSAL HEADER -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="/index.html">
+      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav injects here by /js/nav-loader.js -->
+    <div id="site-nav"></div>
   </div>
-  <nav class="nav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-    <a href="../seasonal.html">Seasonal</a>
-  </nav>
 </header>
+<script src="/js/nav-loader.js?v=2" defer></script>
 
 <!-- Hero (keep; flowers benefits from scene) -->
 <header class="hero" role="banner" aria-label="Cut flowers hero">
@@ -143,7 +140,7 @@
     </div>
   </section>
 
-  <!-- What to grow: hardy/half-hardy & pollinator stars -->
+  <!-- What to grow -->
   <section class="section">
     <h2>What to Grow (Compact, Pot-Friendly)</h2>
     <div class="mini-grid">
@@ -253,7 +250,7 @@
     <p><a class="btn primary" href="../pdf/arranging-and-colour-guide.pdf">Download: Arranging &amp; Colour Guide (PDF)</a></p>
   </section>
 
-  <!-- Sowing & Planting Calendar (expansive table) -->
+  <!-- Sowing & Planting Calendar -->
   <section class="section">
     <h2>Sowing &amp; Planting Calendar (UK Containers)</h2>
     <p class="lead">Shift timings 2–3 weeks later in Scotland/windy coasts/shade, or 2–3 weeks earlier in mild south or under cover.</p>
@@ -299,17 +296,17 @@
   </section>
 
   <section class="card">
-  <h2>Cut Flower Journal (PDF)</h2>
-  <p>
-    Go beyond the basics and download the full Cut Flower Journal. It includes sowing and 
-    succession guides, bulb lasagnes, arranging ideas, colour planning, and notes space.
-  </p>
-  <p>
-    <a class="btn primary" href="../pdf/cut-flowers.pdf" target="_blank" rel="noopener">
-      Download Cut Flower Journal
-    </a>
-  </p>
-</section>
+    <h2>Cut Flower Journal (PDF)</h2>
+    <p>
+      Go beyond the basics and download the full Cut Flower Journal. It includes sowing and 
+      succession guides, bulb lasagnes, arranging ideas, colour planning, and notes space.
+    </p>
+    <p>
+      <a class="btn primary" href="../pdf/cut-flowers.pdf" target="_blank" rel="noopener">
+        Download Cut Flower Journal
+      </a>
+    </p>
+  </section>
 
   <!-- Navigation -->
   <nav class="mini-nav" aria-label="More growing">
@@ -327,5 +324,34 @@
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
+
+<!-- Wire burger after nav-loader injects #ppNav -->
+<script>
+  (function wireMenu(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav'); // created by /js/nav-loader.js
+    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
+
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  })();
+</script>
 </body>
 </html>

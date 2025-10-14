@@ -1,50 +1,38 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Contact — Patch & Pot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Patch & Pot</title>
 
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
 
-<link rel="stylesheet" href="style.css?v=42">
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="style.css?v=42">
 
-<style>
-/* small form styling that matches your cards */
-.form-wrap{max-width:720px;margin:20px auto}
-.form{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:16px}
-.form label{display:block;font-weight:600;margin:.5rem 0 .25rem;color:var(--ink)}
-.form input,.form textarea{
-  width:100%;padding:.75rem .85rem;border-radius:12px;border:1px solid var(--stroke);
-  background:#0a0f0c;color:var(--ink)
-}
-.form textarea{min-height:160px;resize:vertical}
-.form .row{display:grid;gap:12px}
-@media(min-width:700px){.form .row{grid-template-columns:1fr 1fr}}
-.form .actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
-</style>
+  <!-- Page-scoped styles (form only) -->
+  <style>
+    .form-wrap{max-width:720px;margin:20px auto}
+    .form{background:var(--glass);border:1px solid var(--stroke);border-radius:var(--radius);padding:16px}
+    .form label{display:block;font-weight:600;margin:.5rem 0 .25rem;color:var(--ink)}
+    .form input,.form textarea{
+      width:100%;padding:.75rem .85rem;border-radius:12px;border:1px solid var(--stroke);
+      background:#0a0f0c;color:var(--ink)
+    }
+    .form textarea{min-height:160px;resize:vertical}
+    .form .row{display:grid;gap:12px}
+    @media(min-width:700px){.form .row{grid-template-columns:1fr 1fr}}
+    .form .actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+  </style>
 </head>
 <body>
 
-<!-- UNIVERSAL HEADER -->
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here -->
-    <div id="site-nav"></div>
-  </div>
-</header>
+<!-- UNIVERSAL HEADER (single source of truth) -->
+<header id="site-header"></header>
 <script src="/js/nav-loader.js?v=2" defer></script>
 
 <!-- HERO -->
@@ -65,7 +53,7 @@
 <main class="wrap">
 
   <section class="form-wrap" aria-label="Contact form">
-    <!-- Note: this is a static form — you can wire it to Brevo/MailerLite or use mailto: for now -->
+    <!-- Static mailto form (wire to your backend when ready) -->
     <form class="form" action="mailto:info@patchandpot.example" method="post" enctype="text/plain">
       <div class="row">
         <div>

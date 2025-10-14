@@ -14,29 +14,23 @@
 </head>
 <body>
 
-<header class="site-header" id="siteHeader">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<!-- UNIVERSAL HEADER -->
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="/index.html">
+      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav injects here -->
+    <div id="site-nav"></div>
   </div>
-
-  <!-- Hamburger -->
-  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico"><span></span><span></span><span></span></span>
-  </button>
-
-  <!-- Nav -->
-  <nav class="nav" id="primaryNav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-    <a href="../contact.html">Contact</a>
-  </nav>
 </header>
+<script src="/js/nav-loader.js?v=2" defer></script>
 
 <main class="wrap">
   <h1>Support for People Experiencing Abuse</h1>
@@ -119,18 +113,18 @@
 
   <!-- Standardised Disclaimer -->
   <section class="disclaimer" id="disclaimer">
-  <h2>Important Note</h2>
-  <p>
-    The information on this page is for <strong>general understanding and support</strong>. It is
-    <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel
-    unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
-    If you’re outside the UK, contact your local emergency number.
-  </p>
-  <p>
-    For non-emergency concerns, consider speaking with a qualified health professional or one of the
-    support services listed on our site.
-  </p>
-</section>
+    <h2>Important Note</h2>
+    <p>
+      The information on this page is for <strong>general understanding and support</strong>. It is
+      <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel
+      unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
+      If you’re outside the UK, contact your local emergency number.
+    </p>
+    <p>
+      For non-emergency concerns, consider speaking with a qualified health professional or one of the
+      support services listed on our site.
+    </p>
+  </section>
 </main>
 
 <footer>
@@ -140,34 +134,6 @@
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
-
-<!-- Mobile menu script (matches your CSS: .menu-open toggles) -->
-<script>
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
-
-    function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      }else{
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    }
-
-    if(toggle){
-      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    }
-    if(nav){
-      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-    }
-  })();
-</script>
 
 </body>
 </html>

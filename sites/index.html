@@ -96,7 +96,6 @@
      <p class="meta">Exchange tips, seeds or plants</p>
       <a class="btn ghost" href="/community.html">🌿Community🌿</a>
     </article>
-    
   </section>
 </main>
 
@@ -108,32 +107,40 @@
   </div>
 </footer>
 
-<!-- MENU SCRIPT -->
+<!-- MENU SCRIPT (WAIT UNTIL #ppNav EXISTS) -->
 <script>
 (function(){
-  const root=document.querySelector('.pp-site-header');
-  const btn=document.getElementById('ppBurger');
-  const nav=document.getElementById('ppNav');
-  if(!root||!btn||!nav) return;
+  function init(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav'); // injected by /js/nav-loader.js
 
-  btn.addEventListener('click', ()=>{
-    const open = root.classList.toggle('pp-open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  nav.addEventListener('click', e=>{
-    if(e.target.closest('a')){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
+    if(!root || !btn || !nav){
+      // nav not injected yet — try again shortly
+      setTimeout(init, 60);
+      return;
     }
-  });
 
-  window.addEventListener('resize', ()=>{
-    if(window.innerWidth > 900){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
-    }
-  });
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    nav.addEventListener('click', (e)=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+  init();
 })();
 </script>
 

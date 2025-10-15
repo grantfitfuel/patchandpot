@@ -1,36 +1,25 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wellbeing – Patch & Pot</title>
-  <link rel="stylesheet" href="style.css?v=35">
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-  <style>
-    .mini-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .75rem}
-    .mini-nav a{background:#4CAF50;color:#fff;text-decoration:none;padding:.45rem .8rem;border-radius:6px;font-size:.9rem}
-    .mini-nav a:hover{background:#45a049}
-    .card{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:1rem 0;color:#eaeaea}
-    .card h2,.card h3{color:#fff;margin-top:0}
-    .meta{color:#d6d6d6}
-    .practice-pdfs ul{list-style:none;padding:0;margin:.25rem 0 1rem}
-    .practice-pdfs li{margin:.3rem 0}
-    .practice-pdfs a{color:#4CAF50;text-decoration:none}
-    .practice-pdfs a:hover{text-decoration:underline}
-    .practice-pdfs h3{margin:.8rem 0 .4rem}
-    .yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
-    .yt-wrap .yt,.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    .disclaimer{background:#161616;border-left:4px solid #555;padding:.8rem;margin:2rem 0 1rem;font-size:.95rem;color:#e8e8e8}
-  </style>
-</head>
-<body>
+---
+layout: default
+title: Wellbeing
+description: Explore resources for mental and emotional health — practical tools, kind explanations, and links to support.
+---
 
-<!-- UNIVERSAL HEADER (Injected only once) -->
-<header id="site-header"></header>
-<script src="/js/nav-loader.js?v=2" defer></script>
+<style>
+  .mini-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .75rem}
+  .mini-nav a{background:#4CAF50;color:#fff;text-decoration:none;padding:.45rem .8rem;border-radius:6px;font-size:.9rem}
+  .mini-nav a:hover{background:#45a049}
+  .card{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:1rem;margin:1rem 0;color:#eaeaea}
+  .card h2,.card h3{color:#fff;margin-top:0}
+  .meta{color:#d6d6d6}
+  .practice-pdfs ul{list-style:none;padding:0;margin:.25rem 0 1rem}
+  .practice-pdfs li{margin:.3rem 0}
+  .practice-pdfs a{color:#4CAF50;text-decoration:none}
+  .practice-pdfs a:hover{text-decoration:underline}
+  .practice-pdfs h3{margin:.8rem 0 .4rem}
+  .yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
+  .yt-wrap .yt,.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .disclaimer{background:#161616;border-left:4px solid #555;padding:.8rem;margin:2rem 0 1rem;font-size:.95rem;color:#e8e8e8}
+</style>
 
 <main class="wrap">
   <h1>Wellbeing</h1>
@@ -98,35 +87,6 @@
   </div>
 </footer>
 
-<!-- Wire burger after nav-loader injects #ppNav -->
-<script>
-  (function wireMenu(){
-    const root = document.querySelector('.pp-site-header');
-    const btn  = document.getElementById('ppBurger');
-    const nav  = document.getElementById('ppNav'); // created by /js/nav-loader.js
-    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
-
-    btn.addEventListener('click', ()=>{
-      const open = root.classList.toggle('pp-open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-
-    nav.addEventListener('click', e=>{
-      if(e.target.closest('a')){
-        root.classList.remove('pp-open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-
-    window.addEventListener('resize', ()=>{
-      if(window.innerWidth > 900){
-        root.classList.remove('pp-open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-  })();
-</script>
-
 <!-- Build YouTube iframes -->
 <script>
 (function () {
@@ -145,5 +105,3 @@
   });
 })();
 </script>
-</body>
-</html>

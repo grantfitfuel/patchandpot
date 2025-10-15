@@ -1,9 +1,9 @@
-name: Deploy Pages (from /sites)
+name: Build & Deploy (Jekyll from /sites)
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ "main" ]     # change if your default branch is different
+  workflow_dispatch:          # allow manual runs
 
 permissions:
   contents: read
@@ -21,11 +21,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Upload ONLY the /sites folder as the site artifact
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      # If you don't have a Gemfile, Jekyll will still work with this install.
+      - name: Install Jekyll (no Gemfile)
+        run: |
+          if [ ! -f sites/Gemfile ]; then
+            gem install jekyll
+          fi
+
+      # Build the site from /sites into /_site
+      - name: Build with Jekyll (source=/sites)
+        run: |
+          jekyll build --source sites --destination _site --trace
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: sites
+          path: _site
 
   deploy:
     needs: build

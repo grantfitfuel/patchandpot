@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Patch & Pot – Recipes</title>
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
-<link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png">
-<link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
-<link rel="stylesheet" href="style.css">
+---
+layout: default
+title: Recipes — Patch & Pot
+---
+
 <style>
   .badge{display:inline-block;margin:.15rem .35rem .15rem 0;padding:.15rem .5rem;border-radius:999px;font-size:.8rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
   .card h3{margin:.2rem 0 .4rem}
@@ -23,16 +17,11 @@
   @media (min-width:1100px){.recipes-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
   .card{height:100%}
 </style>
-</head>
-<body>
 
-<!-- UNIVERSAL HEADER -->
-<header id="site-header"></header>
-<script src="/js/nav-loader.js?v=2" defer></script>
-
+<!-- HERO -->
 <header class="hero" role="banner" aria-label="Recipes hero">
   <figure>
-    <img src="img/recipes-hero.png" alt="Home-grown produce on a table">
+    <img src="/img/recipes-hero.png" alt="Home-grown produce on a table">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -192,18 +181,11 @@
   </section>
 
   <nav class="mini-nav" aria-label="Explore">
-    <a href="ideas.html">See growing ideas</a>
-    <a href="guides.html">Read the guides</a>
-    <a class="btn" href="index.html">← Back to Index</a>
+    <a href="/ideas.html">See growing ideas</a>
+    <a href="/guides.html">Read the guides</a>
+    <a class="btn" href="/index.html">← Back to Index</a>
   </nav>
 </main>
-
-<footer>
-  <div class="wrap footer-inner">
-    <img src="img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© <span>Patch &amp; Pot</span> | Grant Cameron Anthony</p>
-  </div>
-</footer>
 
 <!-- PRINT RECIPE CARDS -->
 <script>
@@ -277,5 +259,3 @@
   });
 })();
 </script>
-</body>
-</html>

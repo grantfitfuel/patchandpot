@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Common Pests — Patch & Pot</title>
-<link rel="stylesheet" href="../style.css">
+---
+layout: default
+title: Common Pests
+---
+
 <style>
   .cards{display:grid; gap:14px; margin:18px 0}
   @media(min-width:760px){.cards{grid-template-columns:repeat(2,1fr)}}
@@ -19,28 +17,8 @@
   .fix{margin-top:.5rem; padding:.6rem .7rem; border-radius:10px; border:1px dashed var(--stroke); background:rgba(255,255,255,.05)}
   .note{color:var(--muted); font-size:.92rem}
 </style>
-</head>
-<body>
 
-<!-- UNIVERSAL HEADER -->
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here by /js/nav-loader.js -->
-    <div id="site-nav"></div>
-  </div>
-</header>
-<script src="/js/nav-loader.js?v=2" defer></script>
-
-<main class="wrap">
+<div class="wrap">
   <h1>Common Pests (Identify &amp; Fix)</h1>
   <p class="lead">Quick ID cards with simple fixes you can try the same day — safe for <strong>edibles</strong> and containers.</p>
 
@@ -255,19 +233,8 @@
   <p class="note">Use food-safe methods first for edibles. Repeat gentle controls rather than one harsh hit.</p>
 
   <nav class="mini-nav">
-    <a href="first-pot.html">Your First Pot</a>
-    <a href="companion.html">Companion Planting</a>
-    <a href="cut-flowers.html">Cut Flowers</a>
+    <a href="/growing/first-pot.html">Your First Pot</a>
+    <a href="/growing/companion.html">Companion Planting</a>
+    <a href="/growing/cut-flowers.html">Cut Flowers</a>
   </nav>
-</main>
-
-<footer>
-  <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
-  </div>
-</footer>
-
-</body>
-</html>
+</div>

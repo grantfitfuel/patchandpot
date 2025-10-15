@@ -1,0 +1,14 @@
+<header class="site-header" role="banner">
+  <a href="{{ '/' | relative_url }}" class="site-logo">🌿 Patch &amp; Pot</a>
+  <button class="menu-toggle" aria-controls="site-nav" aria-expanded="false">Menu</button>
+  <nav id="site-nav" class="site-nav" aria-label="Primary" aria-expanded="false">
+    {% assign current = page.url | replace:'index.html','' | replace:'//','/' %}
+    {% for item in site.data.nav %}
+      {% assign link = item.url | replace:'index.html','' | replace:'//','/' %}
+      <a href="{{ item.url | relative_url }}"
+         class="nav-link{% if current == link %} active{% endif %}">
+        {{ item.title }}
+      </a>
+    {% endfor %}
+  </nav>
+</header>

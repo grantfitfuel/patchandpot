@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cut Flowers (Small Spaces & Pots) — Patch & Pot</title>
-<meta name="description" content="Grow cut flowers in containers, window boxes, steps and tiny beds. UK-tuned sowing, mixes, feeding, bulb lasagnes, colour planning and arranging.">
-<link rel="stylesheet" href="../style.css">
+---
+layout: default
+title: Cut Flowers (Small Spaces & Pots)
+---
 
 <style>
-  /* Page-level tweaks that sit safely on top of style.css */
+  /* Page-level tweaks that sit safely on top of global CSS */
   .footer-inner p{margin:0}
   .footer-inner p + p{margin-top:4px}
 
@@ -35,26 +31,6 @@
   .btn.primary{background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007}
   .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:#fff}
 </style>
-</head>
-<body>
-
-<!-- UNIVERSAL HEADER -->
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here by /js/nav-loader.js -->
-    <div id="site-nav"></div>
-  </div>
-</header>
-<script src="/js/nav-loader.js?v=2" defer></script>
 
 <!-- Hero (keep; flowers benefits from scene) -->
 <header class="hero" role="banner" aria-label="Cut flowers hero">
@@ -71,7 +47,7 @@
   </div>
 </header>
 
-<main class="wrap">
+<div class="wrap">
 
   <!-- Why -->
   <section class="section">
@@ -247,7 +223,7 @@
         </ul>
       </div>
     </div>
-    <p><a class="btn primary" href="../pdf/arranging-and-colour-guide.pdf">Download: Arranging &amp; Colour Guide (PDF)</a></p>
+    <p><a class="btn primary" href="/pdf/arranging-and-colour-guide.pdf" target="_blank" rel="noopener">Download: Arranging &amp; Colour Guide (PDF)</a></p>
   </section>
 
   <!-- Sowing & Planting Calendar -->
@@ -302,7 +278,7 @@
       succession guides, bulb lasagnes, arranging ideas, colour planning, and notes space.
     </p>
     <p>
-      <a class="btn primary" href="../pdf/cut-flowers.pdf" target="_blank" rel="noopener">
+      <a class="btn primary" href="/pdf/cut-flowers.pdf" target="_blank" rel="noopener">
         Download Cut Flower Journal
       </a>
     </p>
@@ -310,48 +286,9 @@
 
   <!-- Navigation -->
   <nav class="mini-nav" aria-label="More growing">
-    <a href="first-pot.html">Your First Pot</a>
-    <a href="companion.html">Companion Planting</a>
-    <a href="pests.html">Pests &amp; Problems</a>
+    <a href="/growing/first-pot.html">Your First Pot</a>
+    <a href="/growing/companion.html">Companion Planting</a>
+    <a href="/growing/pests.html">Pests &amp; Problems</a>
   </nav>
-</main>
 
-<!-- Footer -->
-<footer>
-  <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
-  </div>
-</footer>
-
-<!-- Wire burger after nav-loader injects #ppNav -->
-<script>
-  (function wireMenu(){
-    const root = document.querySelector('.pp-site-header');
-    const btn  = document.getElementById('ppBurger');
-    const nav  = document.getElementById('ppNav'); // created by /js/nav-loader.js
-    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
-
-    btn.addEventListener('click', ()=>{
-      const open = root.classList.toggle('pp-open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-
-    nav.addEventListener('click', e=>{
-      if(e.target.closest('a')){
-        root.classList.remove('pp-open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-
-    window.addEventListener('resize', ()=>{
-      if(window.innerWidth > 900){
-        root.classList.remove('pp-open');
-        btn.setAttribute('aria-expanded','false');
-      }
-    });
-  })();
-</script>
-</body>
-</html>
+</div>

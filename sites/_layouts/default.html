@@ -1,19 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }} — Patch & Pot</title>
-  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/img/favicon-32.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ '/img/favicon-48.png' | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/img/favicon-180.png' | relative_url }}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ '/img/favicon-512.png' | relative_url }}">
 </head>
 <body>
 
-{% include header.html %}
+<header class="pp-site-header" role="banner">
+  <div class="pp-header-bar">
+    <a class="pp-brand" href="{{ '/' | relative_url }}">
+      <img class="pp-logo" src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch &amp; Pot">
+      <span class="pp-title">Patch &amp; Pot</span>
+    </a>
+    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
+      <span></span><span></span><span></span>
+    </button>
+    <div id="site-nav"></div>
+  </div>
+</header>
 
-<main class="container">
+<script src="{{ '/js/nav-loader.js' | relative_url }}" defer></script>
+
+<main class="wrap">
   {{ content }}
 </main>
 
-{{ '/assets/js/main.js' | relative_url | script_tag }}
+<footer>
+  <div class="wrap footer-inner">
+    <img src="{{ '/img/patchandpot-icon.png' | relative_url }}" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <p>© {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
+    <p>Created by Grant Cameron Anthony</p>
+  </div>
+</footer>
+
+<script>
+(function wireMenu(){
+  const root = document.querySelector('.pp-site-header');
+  const btn  = document.getElementById('ppBurger');
+  const nav  = document.getElementById('ppNav');
+  if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
+  btn.addEventListener('click', ()=>{
+    const open = root.classList.toggle('pp-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.addEventListener('click', e=>{
+    if(e.target.closest('a')){
+      root.classList.remove('pp-open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+  window.addEventListener('resize', ()=>{
+    if(window.innerWidth > 900){
+      root.classList.remove('pp-open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

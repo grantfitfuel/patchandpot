@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Space-Saving Setups — Patch & Pot</title>
-<link rel="stylesheet" href="/style.css">
+---
+layout: default
+title: Space-Saving Setups
+---
+
 <style>
   /* Page scaffolding */
   .section{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; padding:16px; margin:12px 0 }
@@ -35,28 +33,8 @@
   /* Footer pot a touch bigger (~1.5x default) */
   .footer-icon, .footer-pot{ height:54px; width:auto; opacity:.95 }
 </style>
-</head>
-<body>
 
-<!-- UNIVERSAL HEADER -->
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-
-    <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Nav injects here -->
-    <div id="site-nav"></div>
-  </div>
-</header>
-<script src="/js/nav-loader.js?v=2" defer></script>
-
-<main class="wrap">
+<div class="wrap">
   <h1>Space-Saving Setups</h1>
   <p class="lead">Grow more in less space with sturdy vertical rigs, “found” containers, smart watering and micro-climate tweaks. All tuned for real UK weather.</p>
 
@@ -95,7 +73,7 @@
     <div class="warn"><strong>Wind:</strong> use mesh windbreak (30–40% shade) to slow gusts without acting like a sail. Stake early, tie softly, check weekly.</div>
   </section>
 
-  <!-- Improvised containers (more detail) -->
+  <!-- Improvised containers -->
   <section class="section">
     <h2>Improvised Containers That Work</h2>
     <div class="grid two">
@@ -180,7 +158,7 @@
     <div class="callout"><strong>Soak-then-rest:</strong> water deeply until a little runs through, then let the top 2–3 cm dry. Roots go deeper and plants get tougher.</div>
   </section>
 
-  <!-- Light, wind, frost -->
+  <!-- Micro-climate -->
   <section class="section">
     <h2>Micro-climate Tweaks: Light, Wind, Frost</h2>
     <div class="grid three">
@@ -329,15 +307,4 @@
     <a href="/growing/regrow.html">Regrow from Scraps</a>
     <a href="/seasonal.html">Seasonal</a>
   </nav>
-</main>
-
-<footer>
-  <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
-  </div>
-</footer>
-
-</body>
-</html>
+</div>

@@ -1,2 +1,5 @@
 title: Patch & Pot
+url: "https://patchandpot.com"
+baseurl: "/sites"                         # empty when site is at domain root
 permalink: pretty
+markdown: kramdown

@@ -1,5 +1,13 @@
-title: Patch & Pot
+# Base config for root deployment (domain points to /sites)
+title: "Patch & Pot"
 url: "https://patchandpot.com"
-baseurl: "/sites"                         # empty when site is at domain root
+baseurl: ""          # VERY IMPORTANT: domain points to /sites, so base = root
 permalink: pretty
 markdown: kramdown
+kramdown:
+  input: GFM
+
+# Make sure Jekyll processes plain .html pages with front matter
+include:
+  - .htaccess
+  - _pages

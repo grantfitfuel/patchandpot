@@ -1,46 +1,13 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Grief – Patch & Pot</title>
-  <link rel="stylesheet" href="../style.css?v=21">
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
-</head>
-<body>
-
-<header class="site-header" id="siteHeader">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
-  </div>
-
-  <!-- Hamburger -->
-  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico"><span></span><span></span><span></span></span>
-  </button>
-
-  <nav class="nav" id="primaryNav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-    <a href="../contact.html">Contact</a>
-  </nav>
-</header>
+---
+layout: default
+title: Grief
+description: "Grief is not a problem to be solved. Clear explanations, lived examples, and practical support — with no judgement and plenty of kindness."
+---
 
 <!-- HERO (no-crop, sized to fit; keeps aspect ratio) -->
 <figure class="page-hero page-hero--contain page-hero--tall" style="margin:0 0 14px">
   <img
-    src="../img/grief-journey.png"
+    src="/img/grief-journey.png"
     alt="A solitary deciduous tree in soft light — a quiet metaphor for grief and growth"
     loading="eager" decoding="async"
     style="width:100%; height:auto; max-height:520px; object-fit:contain; border-radius:12px;">
@@ -301,54 +268,16 @@
 
   <!-- Standardised Disclaimer -->
   <section class="disclaimer" id="disclaimer">
-  <h2>Important Note</h2>
-  <p>
-    The information on this page is for <strong>general understanding and support</strong>. It is
-    <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel
-    unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
-    If you’re outside the UK, contact your local emergency number.
-  </p>
-  <p>
-    For non-emergency concerns, consider speaking with a qualified health professional or one of the
-    support services listed on our site.
-  </p>
-</section>
+    <h2>Important Note</h2>
+    <p>
+      The information on this page is for <strong>general understanding and support</strong>. It is
+      <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel
+      unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately.
+      If you’re outside the UK, contact your local emergency number.
+    </p>
+    <p>
+      For non-emergency concerns, consider speaking with a qualified health professional or one of the
+      support services listed on our site.
+    </p>
+  </section>
 </main>
-
-<footer>
-  <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
-  </div>
-</footer>
-
-<!-- Mobile menu script -->
-<script>
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
-
-    function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    }
-    if(toggle){
-      toggle.addEventListener('click', () => setExpanded(!header.classList.contains('menu-open')));
-    }
-    if(nav){
-      nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-    }
-  })();
-</script>
-
-</body>
-</html>

@@ -1,54 +1,17 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Anxiety – Patch & Pot</title>
-  <meta name="description" content="Understand anxiety as the brain’s alarm system and learn practical tools: grounding, breathing, exposure ladders, reframing, and printable self-talk cards.">
-  <link rel="stylesheet" href="../style.css?v=34">
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="../img/favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="../img/favicon-512.png">
-</head>
-<body>
+---
+layout: default
+title: Anxiety – Patch & Pot
+description: "Understand anxiety as the brain’s alarm system and learn practical tools: grounding, breathing, exposure ladders, reframing, and printable self-talk cards."
+---
 
 <a href="#main" class="skip-link">Skip to content</a>
-
-<header class="site-header" id="siteHeader">
-  <div class="brand">
-    <img src="../img/patchandpot-logo.png" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
-  </div>
-
-  <!-- Hamburger -->
-  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico"><span></span><span></span><span></span></span>
-  </button>
-
-  <nav class="nav" id="primaryNav" aria-label="Primary">
-    <a href="../index.html">Home</a>
-    <a href="../growing.html">Growing</a>
-    <a href="../recipes.html">Recipes</a>
-    <a href="../exercise.html">Exercise</a>
-    <a href="../wellbeing.html" aria-current="page">Wellbeing</a>
-    <a href="../guides.html">Guides</a>
-    <a href="../ideas.html">Ideas</a>
-    <a href="../contact.html">Contact</a>
-  </nav>
-</header>
 
 <main id="main" class="wrap">
   <!-- HERO -->
   <figure class="page-hero page-hero--contain page-hero--tall">
     <img
-      src="../img/anxiety-hero-1600.png"
-      srcset="
-        ../img/anxiety-hero-800.png 800w,
-        ../img/anxiety-hero-1200.png 1200w,
-        ../img/anxiety-hero-1600.png 1600w"
+      src="/img/anxiety-hero-1600.png"
+      srcset="/img/anxiety-hero-800.png 800w, /img/anxiety-hero-1200.png 1200w, /img/anxiety-hero-1600.png 1600w"
       sizes="100vw"
       width="1600" height="900"
       alt="Quiet morning light through a window, a mug on the table: a calm moment in everyday life"
@@ -84,7 +47,7 @@
     </p>
     <figure>
       <img
-        src="../img/anxiety-steps.png"
+        src="/img/anxiety-steps.png"
         alt="Notebook with a short list of steadying steps"
         width="1600" height="900"
         decoding="async" loading="lazy">
@@ -106,7 +69,7 @@
     </ul>
     <figure>
       <img
-        src="../img/ans-three-states.png"
+        src="/img/ans-three-states.png"
         alt="Diagram of autonomic states: fight/flight, rest/digest, and shutdown"
         width="1600" height="900"
         decoding="async" loading="lazy">
@@ -125,7 +88,7 @@
     </ul>
     <figure>
       <img
-        src="../img/anxiety-cards.png"
+        src="/img/anxiety-cards.png"
         alt="Notebook listing grounding, breathing, and warmth as calming tools"
         width="1600" height="900"
         decoding="async" loading="lazy">
@@ -146,7 +109,7 @@
     </ol>
     <figure>
       <img
-        src="../img/anxiety-steps.png"
+        src="/img/anxiety-steps.png"
         alt="Notebook sketching out an exposure ladder with small steps"
         width="1600" height="900"
         decoding="async" loading="lazy">
@@ -162,7 +125,7 @@
     <p>Swap harsh inner words for kinder, believable lines.</p>
     <figure>
       <img
-        src="../img/anxiety-self-talk-cards.png"
+        src="/img/anxiety-self-talk-cards.png"
         alt="Cards with examples of supportive, believable self-talk lines"
         width="1600" height="900"
         decoding="async" loading="lazy">
@@ -173,7 +136,7 @@
     <p>Reframing keeps the facts but adds choice and agency.</p>
     <figure>
       <img
-        src="../img/anxiety-reframing-cards.png"
+        src="/img/anxiety-reframing-cards.png"
         alt="Cards showing balanced reframes for common anxious thoughts"
         width="1600" height="900"
         decoding="async" loading="lazy">
@@ -185,8 +148,8 @@
   <section id="printables">
     <h2>6. Printables</h2>
     <ul>
-      <li><a href="../img/anxiety-self-talk-cards.pdf" download>Self-talk cards (A4, printable)</a></li>
-      <li><a href="../img/anxiety-reframing-cards.pdf" download>Reframing cards (A4, printable)</a></li>
+      <li><a href="/img/anxiety-self-talk-cards.pdf" download>Self-talk cards (A4, printable)</a></li>
+      <li><a href="/img/anxiety-reframing-cards.pdf" download>Reframing cards (A4, printable)</a></li>
     </ul>
     <p class="meta">Tip: print on plain A4, cut into cards, and keep a few where you’ll actually use them (desk, wallet, fridge).</p>
   </section>
@@ -210,51 +173,12 @@
   </section>
 </main>
 
-<footer>
-  <div class="wrap footer-inner">
-    <img src="../img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
-  </div>
-</footer>
-
-<!-- Mobile menu script -->
-<script>
-  (function(){
-    const header = document.getElementById('siteHeader');
-    const toggle = header.querySelector('.menu-toggle');
-    const nav = document.getElementById('primaryNav');
-
-    function setExpanded(on){
-      if(on){
-        header.classList.add('menu-open');
-        toggle.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded','true');
-      } else {
-        header.classList.remove('menu-open');
-        toggle.classList.remove('menu-open');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    }
-
-    if(toggle){
-      toggle.addEventListener('click', () =>
-        setExpanded(!header.classList.contains('menu-open'))
-      );
-    }
-    if(nav){
-      nav.addEventListener('click', e => {
-        if(e.target.tagName === 'A') setExpanded(false);
-      });
-    }
-  })();
-</script>
-
 <!-- Help links loader (robust relative paths) -->
 <script>
 (function(){
   const candidates = [
     '/sites/snippets/help-links.html',
+    '/snippets/help-links.html',
     '../snippets/help-links.html',
     '../../snippets/help-links.html',
     'snippets/help-links.html'
@@ -275,5 +199,3 @@
   document.querySelectorAll('[data-include="help-links"]').forEach(loadInto);
 })();
 </script>
-</body>
-</html>

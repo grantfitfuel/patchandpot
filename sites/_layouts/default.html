@@ -1,32 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <title>{% if page.title %}{{ page.title }} – Patch & Pot{% else %}Patch & Pot{% endif %}</title>
 
-  <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/img/favicon-32.png' | relative_url }}">
-  <link rel="icon" type="image/png" sizes="48x48" href="{{ '/img/favicon-48.png' | relative_url }}">
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/img/favicon-180.png' | relative_url }}">
-  <link rel="icon" type="image/png" sizes="512x512" href="{{ '/img/favicon-512.png' | relative_url }}">
+  <!-- Favicons (optional) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/img/favicon-512.png">
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
+<!-- UNIVERSAL HEADER -->
 <header class="pp-site-header" role="banner">
   <div class="pp-header-bar">
-    <a class="pp-brand" href="{{ '/' | relative_url }}">
-      <img class="pp-logo" src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch &amp; Pot">
+    <a class="pp-brand" href="/index.html">
+      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
       <span class="pp-title">Patch &amp; Pot</span>
     </a>
+
     <button class="pp-burger" id="ppBurger" aria-label="Menu" aria-expanded="false" aria-controls="ppNav">
       <span></span><span></span><span></span>
     </button>
-    <div id="site-nav"></div>
+
+    <!-- Nav injects here -->
+    <div id="ppNav"></div>
   </div>
 </header>
-
-<script src="{{ '/js/nav-loader.js' | relative_url }}" defer></script>
+<script src="/js/nav-loader.js" defer></script>
 
 <main class="wrap">
   {{ content }}
@@ -34,36 +40,39 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <img src="{{ '/img/patchandpot-icon.png' | relative_url }}" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
+    <img src="/img/patchandpot-icon.png" alt="Patch & Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <p>© 2025 Patch &amp; Pot</p>
     <p>Created by Grant Cameron Anthony</p>
   </div>
 </footer>
 
+<!-- Wire burger after nav-loader injects #ppNav -->
 <script>
-(function wireMenu(){
-  const root = document.querySelector('.pp-site-header');
-  const btn  = document.getElementById('ppBurger');
-  const nav  = document.getElementById('ppNav');
-  if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
-  btn.addEventListener('click', ()=>{
-    const open = root.classList.toggle('pp-open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  nav.addEventListener('click', e=>{
-    if(e.target.closest('a')){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
-    }
-  });
-  window.addEventListener('resize', ()=>{
-    if(window.innerWidth > 900){
-      root.classList.remove('pp-open');
-      btn.setAttribute('aria-expanded','false');
-    }
-  });
-})();
-</script>
+  (function wireMenu(){
+    const root = document.querySelector('.pp-site-header');
+    const btn  = document.getElementById('ppBurger');
+    const nav  = document.getElementById('ppNav'); // created by /js/nav-loader.js
+    if(!root || !btn || !nav){ setTimeout(wireMenu, 60); return; }
 
+    btn.addEventListener('click', ()=>{
+      const open = root.classList.toggle('pp-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('a')){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 900){
+        root.classList.remove('pp-open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  })();
+</script>
 </body>
 </html>

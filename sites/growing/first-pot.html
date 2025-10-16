@@ -6,18 +6,18 @@ title: Your First Pot
 <style>
   /* Scoped page tweaks only (no header/footer overrides) */
   .steps{display:grid; gap:14px}
-  @media(min-width:920px){.steps{grid-template-columns:1.1fr 1fr}}
+  @media (min-width:920px){.steps{grid-template-columns:1.1fr 1fr}}
   .figure{background:var(--glass); border:1px solid var(--stroke); border-radius:var(--radius); padding:12px}
   .figure img{width:100%; height:auto; border-radius:12px}
   .check{color:#7ed495; font-weight:700}
   .warn{color:#f7d7b8}
   .table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid var(--stroke)}
   .table th,.table td{padding:.6rem .8rem; border-bottom:1px solid var(--stroke)}
-  .table th{text-align:left; color:var(--inkdim)}
+  .table th{text-align:left; color:var(--muted,#a6b6af)}
   .badge{display:inline-block; padding:.2rem .5rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); font-size:.85rem}
 </style>
 
-<div class="wrap">
+<main class="wrap">
   <h1>Your First Pot</h1>
   <p class="lead">A simple, forgiving setup you can finish in 15–20 minutes. Works on a windowsill, doorstep, or balcony.</p>
 
@@ -44,7 +44,7 @@ title: Your First Pot
     </article>
 
     <aside class="figure">
-      <img src="/img/first-pot-steps.png" alt="Layering pot shards, compost, and planting a herb seedling">
+      <img src="/img/first-pot-steps.png" alt="Layering pot shards, compost, and planting a herb seedling" loading="lazy">
       <p class="meta">Diagram/photo: drainage, fill line, and firming the soil.</p>
     </aside>
   </section>
@@ -76,9 +76,9 @@ title: Your First Pot
     </ul>
   </section>
 
-  <nav class="mini-nav">
+  <nav class="mini-nav" aria-label="More growing">
     <a href="/growing/space-saving.html">Space-Saving Setups</a>
     <a href="/growing/companion.html">Companion Planting</a>
     <a href="/wellbeing/affirmations.html">Affirmations</a>
   </nav>
-</div>
+</main>

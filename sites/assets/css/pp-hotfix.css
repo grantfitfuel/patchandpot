@@ -1,40 +1,52 @@
 /* ============================================================
-   Patch & Pot — HOTFIX Stylesheet
-   Purpose: Late-load overrides to fix layout / accessibility
+   Patch & Pot — HOTFIX Stylesheet (v2)
+   Purpose: Fix hero banner sizing/cropping + tile layout,
+            keep accessibility, and force all-green buttons.
+   Load AFTER site.css
    ============================================================ */
 
-/* --- Layout Fixes --- */
+/* ---------------- Hero / Banner ---------------- */
+.hero,
+.hero-mini {
+  position: relative;
+}
 
-/* Ensure hero section images scale correctly on mobile */
+.hero figure,
+.hero-mini figure {
+  position: relative;
+  width: 100%;
+  /* Banner height that behaves on iPad landscape/portrait */
+  height: clamp(320px, 48vh, 520px);
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Correct image behaviour: fully fill the banner without distortion */
 .hero figure img,
 .hero-mini figure img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;          /* fill */
+  object-position: 50% 40%;   /* show head + some waist by default */
   display: block;
-  object-fit: cover;
 }
 
-/* Prevent nav overlay from pushing content */
-header nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
+/* Fine-tune this specific page hero if needed */
+#ppHero { object-position: 55% 38%; }
+
+/* Overlay for readability */
+.hero .overlay,
+.hero-mini .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25));
+  pointer-events: none;
+  z-index: 1;
 }
 
-header nav a {
-  padding: 0.5rem 0.8rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--ink, #ffffff);
-}
-
-header nav a:hover,
-header nav a:focus {
-  text-decoration: underline;
-}
-
-/* Make hero text readable on overlay */
+/* Content on top of overlay */
 .hero .content,
 .hero-mini .content {
   position: relative;
@@ -42,136 +54,111 @@ header nav a:focus {
   text-align: center;
 }
 
-.hero .overlay,
-.hero-mini .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 1;
-}
+/* ---------------- Global Layout Tweaks ---------------- */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* --- Card Grid Fixes --- */
+/* ---------------- Tile Grid / Cards ---------------- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem;
   margin-top: 2rem;
 }
 
+/* Equal-height, no weird stretching */
 .card {
-  background: var(--glass, rgba(255, 255, 255, 0.05));
-  border: 1px solid var(--stroke, rgba(255, 255, 255, 0.15));
+  background: var(--glass, rgba(255,255,255,0.05));
+  border: 1px solid var(--stroke, rgba(255,255,255,0.15));
+  border-radius: 10px;
   padding: 1.25rem;
-  border-radius: 8px;
-  text-align: center;
-  transition: background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 180px; /* stop collapsing cards */
+  transition: background .25s ease, transform .12s ease;
+}
+.card:hover { background: var(--glass-hover, rgba(255,255,255,0.08)); transform: translateY(-1px); }
+
+.card h2 { margin: 0 0 .35rem; }
+.card .meta { margin: 0 0 1rem; color: var(--inkdim, #cfd2d6); }
+
+/* Keep CTA aligned consistently at the bottom of each card */
+.card .btn { margin-top: auto; }
+
+/* Make any image inside a card behave */
+.card img { width: 100%; height: auto; display: block; border-radius: 8px; }
+
+/* ---------------- Header Nav (non-breaking) ---------------- */
+header nav ul {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem;
+  padding: 0; margin: 0; list-style: none;
+}
+header nav a {
+  padding: .5rem .8rem; font-weight: 600; text-decoration: none; color: var(--ink, #fff);
+}
+header nav a:hover, header nav a:focus { text-decoration: underline; }
+
+/* ---------------- Forms ---------------- */
+form label { display: block; margin-bottom: .35rem; }
+form input, form textarea, form select {
+  width: 100%; padding: .55rem .65rem; border: 1px solid var(--stroke, #334);
+  border-radius: 6px; background: var(--glass, #0f131a); color: var(--ink, #fff);
+  margin-bottom: .8rem;
 }
 
-.card:hover {
-  background: var(--glass-hover, rgba(255, 255, 255, 0.1));
-}
+/* ---------------- Footer ---------------- */
+footer { text-align: center; padding: 2rem 0; }
+footer img.footer-logo { display: block; margin: 0 auto 1rem; max-width: 120px; height: auto; }
 
-/* Meta text spacing fix */
-.card .meta {
-  margin: 0.75rem 0 1.25rem;
-  color: var(--inkdim, #cccccc);
-}
+/* ---------------- Accessibility ---------------- */
+:focus { outline: 2px solid var(--accent, #84c684); outline-offset: 3px; }
+img { max-width: 100%; height: auto; }
 
-/* Eyebrow text (small heading above H1) */
-.eyebrow {
-  display: block;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  color: var(--accent, #84c684);
-}
-
-/* --- Footer alignment fix --- */
-footer {
-  text-align: center;
-  padding: 2rem 0;
-}
-
-footer img.footer-logo {
-  display: block;
-  margin: 0 auto 1rem;
-  max-width: 120px;
-  height: auto;
-}
-
-/* --- Accessibility tweaks --- */
-:focus {
-  outline: 2px solid var(--accent, #84c684);
-  outline-offset: 3px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* --- Form spacing fix --- */
-form label {
-  display: block;
-  margin-bottom: 0.35rem;
-}
-
-form input,
-form textarea,
-form select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid var(--stroke, #ccc);
-  border-radius: 4px;
-  margin-bottom: 0.75rem;
-}
-
-form button {
-  margin-top: 0.5rem;
-}
-
-/* ============================================================
-   Global Button Override: ALL BUTTONS GREEN
-   ============================================================ */
-.btn {
+/* ---------------- Buttons: All Green ---------------- */
+/* High-specificity + wide targets so legacy rules can’t leak in */
+.btn,
+.btn.primary,
+.btn.ghost,
+button,
+input[type="button"],
+input[type="submit"],
+a.btn,
+.cta-row a,
+.card a.btn {
+  background-color: #2e7d32 !important;
+  color: #ffffff !important;
+  border: 2px solid #2e7d32 !important;
   display: inline-block;
-  padding: 0.65rem 1.2rem;
-  border-radius: 4px;
-  font-weight: 600;
+  padding: .65rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 700;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
 }
 
-.btn.primary,
-.btn.ghost {
-  background-color: #2e7d32;
-  color: #ffffff;
-  border: 2px solid #2e7d32;
+.btn:hover,
+.btn:focus,
+button:hover, button:focus,
+input[type="button"]:hover, input[type="button"]:focus,
+input[type="submit"]:hover, input[type="submit"]:focus,
+a.btn:hover, a.btn:focus,
+.cta-row a:hover, .cta-row a:focus {
+  background-color: #1b5e20 !important;
+  border-color: #1b5e20 !important;
+  color: #ffffff !important;
 }
 
-.btn.primary:hover,
-.btn.ghost:hover,
-.btn.primary:focus,
-.btn.ghost:focus {
-  background-color: #1b5e20;
-  border-color: #1b5e20;
-  color: #ffffff;
+.btn:active,
+button:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+a.btn:active,
+.cta-row a:active {
+  background-color: #145a19 !important;
+  border-color: #145a19 !important;
 }
 
-.btn.primary:active,
-.btn.ghost:active {
-  background-color: #145a19;
-  border-color: #145a19;
-}
-
-/* --- Optional small variant for compact layouts --- */
-.btn.small {
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-}
+/* Compact variant if needed */
+.btn.small { padding: .4rem .8rem; font-size: .9rem; }

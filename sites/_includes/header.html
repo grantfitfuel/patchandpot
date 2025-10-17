@@ -1,22 +1,38 @@
-<header class="site-header" id="siteHeader">
-  <div class="brand">
-    <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
-    <span class="site-title">Patch &amp; Pot</span>
+<header class="site-header" id="siteHeader" role="banner" aria-label="Primary site header">
+  <div class="wrap">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch &amp; Pot" class="logo" onerror="this.style.display='none'">
+      <span class="site-title">Patch &amp; Pot</span>
+    </a>
+
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+      <span class="menu-ico"><span></span><span></span><span></span></span>
+    </button>
+
+    <nav class="nav" id="primaryNav" aria-label="Primary">
+      <a href="{{ '/index.html'        | relative_url }}">Home</a>
+      <a href="{{ '/growing/index.html'| relative_url }}">Growing</a>
+      <a href="{{ '/recipes.html'      | relative_url }}">Recipes</a>
+      <a href="{{ '/exercise.html'     | relative_url }}">Exercise</a>
+      <a href="{{ '/wellbeing.html'    | relative_url }}">Wellbeing</a>
+      <a href="{{ '/calm.html'         | relative_url }}">2-Minute Calm</a>
+      <a href="{{ '/guides/index.html' | relative_url }}">Guides</a>
+      <a href="{{ '/ideas.html'        | relative_url }}">Ideas</a>
+      <a href="{{ '/contact.html'      | relative_url }}">Contact</a>
+    </nav>
   </div>
-
-  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
-    <span class="menu-ico"><span></span><span></span><span></span></span>
-  </button>
-
-  <nav class="nav" id="primaryNav" aria-label="Primary">
-    <a href="{{ '/index.html'         | relative_url }}">Home</a>
-    <a href="{{ '/growing/index.html' | relative_url }}">Growing</a>
-    <a href="{{ '/recipes.html'       | relative_url }}">Recipes</a>
-    <a href="{{ '/exercise.html'      | relative_url }}">Exercise</a>
-    <a href="{{ '/wellbeing.html'     | relative_url }}">Wellbeing</a>
-    <a href="{{ '/calm.html'          | relative_url }}">2-Minute Calm</a>
-    <a href="{{ '/guides/index.html'  | relative_url }}">Guides</a>
-    <a href="{{ '/ideas.html'         | relative_url }}">Ideas</a>
-    <a href="{{ '/contact.html'       | relative_url }}">Contact</a>
-  </nav>
 </header>
+
+<script>
+  // tiny, inline, no external loader needed
+  (function(){
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.getElementById('primaryNav');
+    if(!btn || !nav) return;
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      nav.classList.toggle('open', !open);
+    });
+  })();
+</script>

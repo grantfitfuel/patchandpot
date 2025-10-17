@@ -2,53 +2,18 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{% if page.title %}{{ page.title }}{% else %}Patch & Pot{% endif %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | default: "Patch & Pot" }}</title>
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/img/favicon-512.png">
-
-  <!-- Global CSS -->
+  <!-- Core CSS and icon -->
   <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/svg+xml" href="/img/pot-icon.svg">
+
+  <!-- Prevent Liquid errors if a page sets unknown vars -->
+  {% assign _ = page | jsonify %}
 </head>
 <body>
-
-<header class="pp-site-header" role="banner">
-  <div class="pp-header-bar">
-    <a class="pp-brand" href="/index.html">
-      <img class="pp-logo" src="/img/patchandpot-logo.png" alt="Patch &amp; Pot">
-      <span class="pp-title">Patch &amp; Pot</span>
-    </a>
-
-    <!-- Static nav (no JS) -->
-    <nav class="pp-nav" aria-label="Primary">
-      <a href="/index.html">Home</a>
-      <a href="/ideas.html">Ideas</a>
-      <a href="/guides.html">Guides</a>
-      <!-- Growing: point at a page you definitely have -->
-      <a href="/growing/first-pot.html">Growing</a>
-      <a href="/recipes.html">Recipes</a>
-      <a href="/exercise.html">Exercise</a>
-      <a href="/wellbeing.html">Wellbeing</a>
-      <a href="/community.html">Community</a>
-      <a href="/about.html">About</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-
-{{ content }}
-
-<footer>
-  <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
-  </div>
-</footer>
-
+  <!-- Header/Footer are injected by JS so pages only need the mounts -->
+  {{ content }}
 </body>
 </html>

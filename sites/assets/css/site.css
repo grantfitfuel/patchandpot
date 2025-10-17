@@ -53,3 +53,21 @@ html::before{
 .site-footer .footer-nav { display:flex; flex-wrap:wrap; gap:.75rem 1rem; }
 .site-footer .footer-nav a { color:#1d2a22; text-decoration:none; }
 .site-footer .footer-nav a:hover{ text-decoration:underline; }
+
+html, body {
+  background-color: #0b0f14;
+  color: #e6f0ea;
+}
+
+.site-header {
+  background: #070b0a;
+  border-bottom: 1px solid #1f2a22;
+}
+
+.site-header .nav a {
+  color: #cfe9dc;
+}
+
+a {
+  color: #7ed495;
+}

@@ -1,0 +1,35 @@
+name: repo-tree
+
+on:
+  workflow_dispatch:
+
+jobs:
+  tree:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show root and /sites listing
+        run: |
+          echo "=== ROOT ==="
+          ls -la
+          echo
+          echo "=== SITES ==="
+          ls -la sites || true
+
+      - name: Full tree (first 3 levels)
+        run: |
+          { \
+            echo "=== TREE (depth 3) ==="; \
+            find . -maxdepth 3 -type d -print | sort; \
+            echo; \
+            echo "=== FILES (depth 3) ==="; \
+            find . -maxdepth 3 -type f -print | sort; \
+          } | tee tree.txt
+
+      - name: Upload tree.txt
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-tree
+          path: tree.txt

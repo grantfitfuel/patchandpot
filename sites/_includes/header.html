@@ -1,13 +1,12 @@
-<!-- Patch & Pot — header include (CSS-only hamburger, NO JS) -->
 <header class="site-header" role="navigation" aria-label="Main">
   <div class="nav-wrap">
     <a class="brand" href="/" aria-label="Patch & Pot — Home">
-      {% assign brand_logo = site.logo | default: '/img/patch-and-pot-logo.svg' %}
-      <img class="brand-logo" src="{{ brand_logo }}" alt="Patch & Pot logo" width="28" height="28">
+      {% assign brand_logo = site.logo | default: '/img/patchandpot-logo.png' %}
+      <img class="brand-logo" src="{{ brand_logo | relative_url }}" alt="Patch & Pot logo" width="28" height="28">
       <span class="brand-text">Patch <span aria-hidden="true">&amp;</span> Pot</span>
     </a>
 
-    <!-- CSS-only hamburger (checkbox toggles nav visibility) -->
+    <!-- CSS-only hamburger (checkbox toggle) -->
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
     <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
       <span class="bar"></span><span class="bar"></span><span class="bar"></span>

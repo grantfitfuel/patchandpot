@@ -1,43 +1,41 @@
 /* ============================================================
-   Patch & Pot — HOTFIX Stylesheet (v3)
-   Purpose: Fix hero banner sizing/cropping + tile layout,
-            keep accessibility, and force all-green buttons
-            WITHOUT affecting header nav or logo.
+   Patch & Pot — HOTFIX Stylesheet (v5)
    Load AFTER site.css
+   Goals:
+   • Hero banner correct crop/position (desktop + mobile)
+   • Card grid stable/equal-ish
+   • All CTAs green
+   • Header (logo + nav) never receives button styles
    ============================================================ */
 
-/* ---------------- Hero / Banner ---------------- */
-.hero,
-.hero-mini {
-  position: relative;
-}
+/* ---------------- Base layout helpers ---------------- */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+img { max-width: 100%; height: auto; display: block; }
+:focus { outline: 2px solid var(--accent, #84c684); outline-offset: 3px; }
 
-.hero figure,
-.hero-mini figure {
+/* ---------------- HERO / BANNERS ---------------- */
+.hero, .hero-mini { position: relative; }
+
+.hero figure, .hero-mini figure {
   position: relative;
   width: 100%;
-  height: clamp(320px, 48vh, 520px); /* responsive hero height */
+  height: clamp(320px, 48vh, 520px);
   margin: 0;
   overflow: hidden;
 }
 
-.hero figure img,
-.hero-mini figure img {
+.hero figure img, .hero-mini figure img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 50% 40%; /* balanced head/waist view */
-  display: block;
+  object-fit: cover;           /* fill the box without distortion */
+  object-position: 50% 40%;    /* show head + a bit of torso */
 }
 
-#ppHero {
-  object-position: 55% 38%; /* fine-tune hero image positioning */
-}
+#ppHero { object-position: 55% 38%; } /* fine-tune this page’s hero */
 
-.hero .overlay,
-.hero-mini .overlay {
+.hero .overlay, .hero-mini .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25));
@@ -45,21 +43,15 @@
   z-index: 1;
 }
 
-.hero .content,
-.hero-mini .content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
+.hero .content, .hero-mini .content { position: relative; z-index: 2; text-align: center; }
+
+/* Mobile hero tuning */
+@media (max-width: 768px) {
+  .hero figure, .hero-mini figure { height: 280px; }
+  .hero figure img, .hero-mini figure img { object-position: 50% 35%; }
 }
 
-/* ---------------- Layout ---------------- */
-.wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* ---------------- Tile Grid / Cards ---------------- */
+/* ---------------- GRID / CARDS ---------------- */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -74,70 +66,63 @@
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   min-height: 180px;
   transition: background .25s ease, transform .12s ease;
 }
 
-.card:hover {
-  background: var(--glass-hover, rgba(255,255,255,0.08));
-  transform: translateY(-1px);
+.card:hover { background: var(--glass-hover, rgba(255,255,255,0.08)); transform: translateY(-1px); }
+.card h2 { margin: 0 0 .35rem; }
+.card .meta { margin: 0 0 1rem; color: var(--inkdim, #cfd2d6); }
+.card .btn { margin-top: auto; }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 
-.card h2 {
-  margin: 0 0 .35rem;
-}
+/* ---------------- HEADER (nav stays clean) ---------------- */
+/* Your header is injected via #site-header; target any <header> inside it */
+#site-header header, header { position: relative; }
 
-.card .meta {
-  margin: 0 0 1rem;
-  color: var(--inkdim, #cfd2d6);
-}
-
-.card .btn {
-  margin-top: auto;
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
-}
-
-/* ---------------- Header Nav ---------------- */
+/* Normal nav layout */
 header nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: .75rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem;
+  padding: 0; margin: 0; list-style: none;
 }
-
 header nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
   padding: .5rem .8rem;
   font-weight: 600;
   text-decoration: none;
   color: var(--ink, #fff);
 }
+header nav a:hover, header nav a:focus { text-decoration: underline; }
 
-header nav a:hover,
-header nav a:focus {
-  text-decoration: underline;
+/* HARD EXCLUDE: kill any button/anchor background that leaks into header */
+#site-header a,
+#site-header a *,
+#site-header .logo,
+#site-header .logo a,
+#site-header nav a,
+#site-header .btn,
+header a,
+header a *,
+header .logo,
+header .logo a,
+header nav a,
+header .btn {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--ink, #fff) !important;
 }
 
-/* ---------------- Forms ---------------- */
-form label {
-  display: block;
-  margin-bottom: .35rem;
-}
-
-form input,
-form textarea,
-form select {
-  width: 100%;
-  padding: .55rem .65rem;
+/* ---------------- FORMS ---------------- */
+form label { display: block; margin-bottom: .35rem; }
+form input, form textarea, form select {
+  width: 100%; padding: .55rem .65rem;
   border: 1px solid var(--stroke, #334);
   border-radius: 6px;
   background: var(--glass, #0f131a);
@@ -145,32 +130,12 @@ form select {
   margin-bottom: .8rem;
 }
 
-/* ---------------- Footer ---------------- */
-footer {
-  text-align: center;
-  padding: 2rem 0;
-}
+/* ---------------- FOOTER ---------------- */
+footer { text-align: center; padding: 2rem 0; }
+footer img.footer-logo { margin: 0 auto 1rem; max-width: 120px; height: auto; }
 
-footer img.footer-logo {
-  display: block;
-  margin: 0 auto 1rem;
-  max-width: 120px;
-  height: auto;
-}
-
-/* ---------------- Accessibility ---------------- */
-:focus {
-  outline: 2px solid var(--accent, #84c684);
-  outline-offset: 3px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* ---------------- Buttons: All Green (header-safe) ---------------- */
-/* CTA buttons only — not header nav or logo links */
+/* ---------------- BUTTONS: ALL CTAs GREEN (header-safe) ---------------- */
+/* Only real CTAs get green; header is explicitly neutralised above */
 .btn,
 .btn.primary,
 .btn.ghost,
@@ -189,26 +154,19 @@ input[type="submit"],
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+  transition: background-color .25s, border-color .25s, color .25s;
 }
-
 .btn:hover,
 .btn:focus,
-button:hover,
-button:focus,
-input[type="button"]:hover,
-input[type="button"]:focus,
-input[type="submit"]:hover,
-input[type="submit"]:focus,
-.card a.btn:hover,
-.cta-row a.btn:hover,
-.card a.btn:focus,
-.cta-row a.btn:focus {
+button:hover, button:focus,
+input[type="button"]:hover, input[type="button"]:focus,
+input[type="submit"]:hover, input[type="submit"]:focus,
+.card a.btn:hover, .card a.btn:focus,
+.cta-row a.btn:hover, .cta-row a.btn:focus {
   background-color: #1b5e20 !important;
   border-color: #1b5e20 !important;
   color: #ffffff !important;
 }
-
 .btn:active,
 button:active,
 input[type="button"]:active,
@@ -219,12 +177,5 @@ input[type="submit"]:active,
   border-color: #145a19 !important;
 }
 
-/* ✅ Header logo and nav links stay clean */
-header a,
-header a:visited {
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-  color: inherit !important;
-  text-decoration: none;
-}
+/* Optional compact variant */
+.btn.small { padding: .4rem .8rem; font-size: .9rem; }

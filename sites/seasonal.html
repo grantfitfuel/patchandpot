@@ -2,7 +2,12 @@
 layout: default
 title: Seasonal Planting Calendar (UK) — Patch & Pot
 description: Small-space sowing, planting & harvesting with regional variants for Scotland, Ireland, England and Wales.
+keywords: seasonal calendar, sowing, planting, harvesting, container gardening, small space gardening, Patch and Pot, Scotland, Ireland, England, Wales
 ---
+
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
 
 <style>
   :root{
@@ -74,11 +79,11 @@ description: Small-space sowing, planting & harvesting with regional variants fo
   #diag.active{display:block}
 </style>
 
-<div class="wrap">
+<main class="wrap" role="main">
   <h1>Seasonal Planting Calendar (UK)</h1>
   <p class="lead">Small-space sowing, planting &amp; harvesting with regional variants for <strong>Scotland</strong>, <strong>Ireland</strong>, <strong>England</strong> and <strong>Wales</strong>.</p>
 
-  <div class="bar">
+  <div class="bar" role="group" aria-label="Calendar controls">
     <div class="control">
       <label for="regionSel" class="muted">Region:</label>
       <select id="regionSel">
@@ -89,10 +94,12 @@ description: Small-space sowing, planting & harvesting with regional variants fo
       </select>
     </div>
     <div class="control" style="flex:1 1 220px">
-      <input id="searchBox" type="text" placeholder="Search crops (e.g., carrot, lettuce)">
+      <label for="searchBox" class="sr-only" style="position:absolute;left:-9999px;">Search crops</label>
+      <input id="searchBox" type="text" placeholder="Search crops (e.g., carrot, lettuce)" aria-label="Search crops">
     </div>
     <div class="control">
-      <select id="catSel">
+      <label for="catSel" class="sr-only" style="position:absolute;left:-9999px;">Category</label>
+      <select id="catSel" aria-label="Category">
         <option value="all">All categories</option>
         <option value="alliums">Alliums</option>
         <option value="fruit">Fruit</option>
@@ -105,7 +112,7 @@ description: Small-space sowing, planting & harvesting with regional variants fo
       </select>
     </div>
     <div class="control">
-      <input id="monthOnly" type="checkbox"><label for="monthOnly" class="muted">Show activity this month only</label>
+      <input id="monthOnly" type="checkbox" aria-controls="tbody"><label for="monthOnly" class="muted">Show activity this month only</label>
     </div>
     <span id="status" class="muted" aria-live="polite"></span>
   </div>
@@ -124,10 +131,10 @@ description: Small-space sowing, planting & harvesting with regional variants fo
   <!-- Legend -->
   <span id="legend" class="anchor-offset"></span>
   <div class="section" id="legend-section">
-    <div class="legend">
-      <span class="pill"><span class="emoji">🌱</span> Sow</span>
-      <span class="pill"><span class="emoji">🌿</span> Plant</span>
-      <span class="pill"><span class="emoji">🧺</span> Harvest</span>
+    <div class="legend" role="list">
+      <span class="pill" role="listitem"><span class="emoji">🌱</span> Sow</span>
+      <span class="pill" role="listitem"><span class="emoji">🌿</span> Plant</span>
+      <span class="pill" role="listitem"><span class="emoji">🧺</span> Harvest</span>
     </div>
   </div>
 
@@ -173,7 +180,7 @@ description: Small-space sowing, planting & harvesting with regional variants fo
   </details>
 
   <!-- Download card -->
-  <section class="card">
+  <section class="card" aria-label="Download Seasonal Journal">
     <h2>Seasonal Growing Journal (PDF)</h2>
     <p>
       Want to dive deeper, month by month? Download the full Seasonal Growing Journal 
@@ -185,7 +192,7 @@ description: Small-space sowing, planting & harvesting with regional variants fo
       </a>
     </p>
   </section>
-</div>
+</main>
 
 <!-- SEASONAL LOADER -->
 <script>
@@ -420,3 +427,6 @@ description: Small-space sowing, planting & harvesting with regional variants fo
   refresh();
 })();
 </script>
+
+<!-- Universal footer mount -->
+<div id="site-footer"></div>

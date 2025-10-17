@@ -1,7 +1,13 @@
 ---
 layout: default
 title: Recipes — Patch & Pot
+description: Budget-friendly dishes using balcony & windowsill harvests. Allergen labelled, simple swaps, and printable recipe cards.
+keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy recipes, vegetarian recipes, seasonal food, herbs, courgette, beetroot, flatbreads, scones
 ---
+
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
 
 <style>
   .badge{display:inline-block;margin:.15rem .35rem .15rem 0;padding:.15rem .5rem;border-radius:999px;font-size:.8rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
@@ -11,7 +17,6 @@ title: Recipes — Patch & Pot
   .recipe ul{margin:.25rem 0 .5rem 1.1rem}
   .recipe ol{margin:.25rem 0 .5rem 1.1rem}
 
-  /* NEW responsive grid */
   .recipes-grid{display:grid;gap:14px;align-items:start}
   @media (min-width:720px){.recipes-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (min-width:1100px){.recipes-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -36,9 +41,7 @@ title: Recipes — Patch & Pot
   </div>
 </header>
 
-<main class="wrap">
-
-  <!-- SINGLE GRID FOR ALL CARDS -->
+<main class="wrap" role="main">
   <section class="recipes-grid" aria-label="All recipes and info">
 
     <!-- SALADS -->
@@ -53,127 +56,118 @@ title: Recipes — Patch & Pot
         <li>2 tbsp olive oil</li>
         <li>8–10 basil leaves, torn</li>
         <li>Sea salt &amp; black pepper</li>
-        <li>Pinch ground cinnamon (for sprinkling)</li>
+        <li>Pinch ground cinnamon</li>
       </ul>
       <ol>
-        <li>Cook the beets: wrap in foil and roast at 190&nbsp;°C for 35–50&nbsp;mins or steam 25–35&nbsp;mins until tender.</li>
-        <li>Cool slightly, peel and slice thinly.</li>
-        <li>Whisk orange juice (and zest) with olive oil, salt &amp; pepper. Toss gently with the sliced beets. Chill if preferred.</li>
-        <li>Plate up, add basil, then sprinkle cinnamon lightly over the top before serving.</li>
-      </ol>
-      <hr>
-      <h3>Tomato, Basil &amp; Bread “Pantry Panzanella”</h3>
-      <p class="meta">12 mins · serves 2 · ~280 kcal | P 7 g · C 34 g · F 12 g</p>
-      <div><span class="badge">V</span><span class="badge">DF (no cheese)</span></div>
-      <ul>
-        <li>2 cups tomatoes · 2 cups stale bread</li>
-        <li>2 tbsp vinegar · 3 tbsp oil</li>
-        <li>1 garlic clove · basil · salt/pepper</li>
-      </ul>
-      <ol>
-        <li>Toast bread, mix with tomatoes &amp; dressing.</li>
-        <li>Rest 5 mins to soak up flavour.</li>
+        <li>Cook the beets until tender, cool and peel.</li>
+        <li>Slice and toss with dressing.</li>
+        <li>Add basil and cinnamon to serve.</li>
       </ol>
       <hr>
       <h3>Kale Ribbon Salad with Chilli Oil</h3>
       <p class="meta">8 mins · serves 2 · ~180 kcal | P 6 g · C 10 g · F 12 g</p>
       <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
-      <ul>
-        <li>3 cups kale · lemon juice · chilli oil</li>
-        <li>Olive oil · sesame seeds</li>
-      </ul>
-      <ol>
-        <li>Massage kale with oil &amp; lemon.</li>
-        <li>Add chilli oil &amp; sesame.</li>
-      </ol>
+      <ul><li>3 cups kale</li><li>Chilli oil, lemon, sesame seeds</li></ul>
+      <ol><li>Massage kale with oil and lemon.</li><li>Top with chilli oil and sesame.</li></ol>
     </article>
 
     <!-- MAINS -->
     <article class="card recipe">
       <h2>Simple Mains</h2>
-      <h3>Cherry Tomato &amp; Garlic Oil Pasta</h3>
-      <p class="meta">20 mins · serves 2 · ~440 kcal | P 13 g · C 56 g · F 18 g</p>
+      <h3>Courgette &amp; Herb Fritters</h3>
+      <p class="meta">20 mins · serves 2 · ~320 kcal | P 11 g · C 18 g · F 22 g</p>
       <div><span class="badge">V</span><span class="badge">DF</span><span class="badge">can be GF</span></div>
       <ul>
-        <li>200 g pasta · 2 tbsp olive oil</li>
-        <li>3 garlic cloves · 2 cups cherry tomatoes</li>
-        <li>Chilli flakes · herbs</li>
+        <li>2 small courgettes, grated</li>
+        <li>1 egg · 3 tbsp flour</li>
+        <li>Herbs, salt, pepper</li>
+        <li>Oil for frying</li>
       </ul>
       <ol>
-        <li>Cook pasta, sauté garlic &amp; tomatoes.</li>
-        <li>Toss together with herbs &amp; season.</li>
+        <li>Salt and squeeze courgettes dry.</li>
+        <li>Mix with other ingredients.</li>
+        <li>Pan-fry spoonfuls until golden on both sides.</li>
       </ol>
       <hr>
-      <h3>Herby Eggs on Toast</h3>
-      <p class="meta">10 mins · serves 1–2 · ~310 kcal | P 15 g · C 20 g · F 18 g</p>
-      <div><span class="badge">V</span></div>
+      <h3>Beetroot &amp; Lentil Bake</h3>
+      <p class="meta">35 mins · serves 3–4 · ~280 kcal | P 12 g · C 32 g · F 8 g</p>
+      <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
       <ul>
-        <li>2–3 eggs · toast</li>
-        <li>Butter/oil · fresh herbs</li>
+        <li>2–3 beetroots, diced</li>
+        <li>1 cup cooked lentils</li>
+        <li>1 onion, garlic, herbs</li>
+        <li>Stock or tomato base</li>
       </ul>
       <ol>
-        <li>Scramble or fry eggs, fold in herbs.</li>
-        <li>Season &amp; serve on toast.</li>
+        <li>Sauté onion and garlic.</li>
+        <li>Add beetroot, lentils and stock.</li>
+        <li>Bake covered 25–30 mins.</li>
       </ol>
       <hr>
-      <h3>Chilli &amp; Basil Fried Rice</h3>
-      <p class="meta">15 mins · serves 2 · ~370 kcal | P 9 g · C 60 g · F 10 g</p>
-      <div><span class="badge">V</span><span class="badge">DF</span><span class="badge">can be GF</span></div>
+      <h3>Stuffed Peppers with Rice &amp; Herbs</h3>
+      <p class="meta">25 mins · serves 2 · ~300 kcal | P 9 g · C 50 g · F 8 g</p>
+      <div><span class="badge">V</span><span class="badge">DF</span><span class="badge">GF</span></div>
       <ul>
-        <li>2 cups cooked rice · onion · garlic</li>
-        <li>Chilli · basil · soy or tamari</li>
+        <li>2 peppers</li>
+        <li>1 cup cooked rice</li>
+        <li>Herbs, garlic, olive oil</li>
       </ul>
       <ol>
-        <li>Stir-fry aromatics, then rice &amp; seasonings.</li>
-        <li>Finish with basil.</li>
+        <li>Halve and deseed peppers.</li>
+        <li>Stuff with rice mixture.</li>
+        <li>Bake 20–25 mins until soft.</li>
       </ol>
     </article>
 
-    <!-- SOUPS -->
+    <!-- SOUPS & SIDES -->
     <article class="card recipe">
       <h2>Soups &amp; Sides</h2>
+      <h3>Roasted Root Tray</h3>
+      <p class="meta">35 mins · serves 4 · ~180 kcal | P 3 g · C 28 g · F 6 g</p>
+      <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
+      <ul><li>Beetroot, carrots, parsnips</li><li>Oil, herbs, salt</li></ul>
+      <ol><li>Toss and roast at 200 °C until tender.</li></ol>
+      <hr>
       <h3>Tomato &amp; Basil Soup</h3>
-      <p class="meta">25 mins · serves 3–4 · ~150 kcal | P 4 g · C 14 g · F 8 g</p>
+      <p class="meta">25 mins · serves 3–4 · ~150 kcal</p>
       <div><span class="badge">V</span><span class="badge">GF</span></div>
-      <ul>
-        <li>Onion, garlic, tomatoes</li>
-        <li>Stock, basil, oil</li>
-      </ul>
+      <ul><li>Onion, garlic, tomatoes</li><li>Stock, basil, oil</li></ul>
       <ol><li>Sauté, simmer, blend, season.</li></ol>
       <hr>
-      <h3>Minted Peas</h3>
-      <p class="meta">7 mins · serves 2–3 · ~120 kcal | P 5 g · C 12 g · F 6 g</p>
-      <div><span class="badge">V</span><span class="badge">GF</span></div>
-      <ul>
-        <li>Peas · butter or oil · mint · lemon</li>
-      </ul>
-      <ol><li>Warm peas, fold in flavourings.</li></ol>
+      <h3>Herbed Flatbreads</h3>
+      <p class="meta">15 mins · serves 4 · ~220 kcal | P 6 g · C 30 g · F 8 g</p>
+      <div><span class="badge">V</span></div>
+      <ul><li>1 cup flour</li><li>½ cup water</li><li>Herbs, salt, oil</li></ul>
+      <ol><li>Mix, roll out, pan-cook 1–2 mins each side.</li></ol>
+    </article>
+
+    <!-- SWEETS & DRINKS -->
+    <article class="card recipe">
+      <h2>Sweet &amp; Snacks</h2>
+      <h3>Herb Scones</h3>
+      <p class="meta">25 mins · makes 8 · ~180 kcal each</p>
+      <div><span class="badge">V</span></div>
+      <ul><li>Flour, butter, herbs, baking powder, milk</li></ul>
+      <ol><li>Rub fat into flour, add herbs and milk.</li><li>Bake 200 °C 12–15 mins.</li></ol>
       <hr>
-      <h3>Chive Yoghurt</h3>
-      <p class="meta">2 mins · makes ~1 cup · ~90 kcal | P 5 g · C 6 g · F 5 g</p>
-      <div><span class="badge">V</span><span class="badge">GF</span></div>
-      <ul>
-        <li>Plain yoghurt · chives · salt · zest</li>
-      </ul>
-      <ol><li>Mix everything and chill.</li></ol>
+      <h3>Roasted Strawberries</h3>
+      <p class="meta">15 mins · serves 2 · ~110 kcal</p>
+      <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
+      <ul><li>1 cup strawberries</li><li>1 tsp sugar (optional)</li></ul>
+      <ol><li>Roast at 180 °C for 10–15 mins until syrupy.</li></ol>
+      <hr>
+      <h3>Mint Iced Tea</h3>
+      <p class="meta">5 mins + cooling · serves 4</p>
+      <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
+      <ul><li>Mint, tea bags, lemon</li></ul>
+      <ol><li>Steep, chill, serve over ice.</li></ol>
     </article>
 
-    <!-- INFO CARDS -->
-    <article class="card">
-      <h2>Hydration Helpers</h2>
-      <p class="meta">Infused waters &amp; herb coolers for warm days.</p>
-      <ul>
-        <li>Cucumber–Mint Water</li>
-        <li>Lemon–Basil Cooler</li>
-        <li>Strawberry–Thyme Sparkle</li>
-      </ul>
-    </article>
-
+    <!-- INFO -->
     <article class="card">
       <h2>Allergen Key</h2>
       <p class="meta">V: vegetarian · GF: gluten-free · DF: dairy-free · “can be” = easy swaps.</p>
     </article>
-
     <article class="card">
       <h2>Waste-Less Tips</h2>
       <p class="meta">Freeze herb stems in oil cubes · bake stale bread for crumbs · simmer tomato skins in stock.</p>
@@ -182,12 +176,12 @@ title: Recipes — Patch & Pot
 
   <nav class="mini-nav" aria-label="Explore">
     <a href="/ideas.html">See growing ideas</a>
-    <a href="/guides.html">Read the guides</a>
+    <a href="/guides/index.html">Read the guides</a>
     <a class="btn" href="/index.html">← Back to Index</a>
   </nav>
 </main>
 
-<!-- PRINT RECIPE CARDS -->
+<!-- PRINT RECIPE CARDS SCRIPT -->
 <script>
 (function(){
   const btn = document.getElementById('print-recipe-cards');
@@ -223,7 +217,6 @@ title: Recipes — Patch & Pot
 
     const css = `
       @page { size: A4; margin: 12mm; }
-      *{box-sizing:border-box}
       body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;margin:0;color:#1d2a22}
       .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
       .card{border:1px solid #e2e6df;border-radius:12px;padding:10px 12px}
@@ -235,7 +228,6 @@ title: Recipes — Patch & Pot
       ul,ol{margin:.25rem 0 .35rem 1.05rem;padding:0}
       li{margin:.08rem 0;font-size:.9rem}
       .footer{font-size:.7rem;color:#6b7a71;text-align:right;margin-top:2mm}
-      @media screen { body{padding:14px} }
     `;
     const w = window.open('', '_blank');
     w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Recipe Cards — Patch & Pot</title><style>${css}</style></head><body>
@@ -259,3 +251,6 @@ title: Recipes — Patch & Pot
   });
 })();
 </script>
+
+<!-- Universal footer mount -->
+<div id="site-footer"></div>

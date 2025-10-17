@@ -1,21 +1,28 @@
-<!-- sites/partials/header.html -->
+<!-- /sites/partials/header.html -->
 <header class="site-header" role="navigation" aria-label="Primary">
   <div class="wrap">
-    <a class="brand" href="/index.html" aria-label="Patch & Pot home">
-      <img src="/img/patchandpot-logo.png" alt="Patch & Pot" width="132" height="32" />
+    <a class="brand" href="/index.html" aria-label="Patch & Pot Home">
+      <img src="/img/pot-icon.svg" alt="" width="28" height="28" />
+      <span class="brand-text">Patch &amp; Pot</span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="site-menu">
-      <span class="sr-only">Toggle navigation</span>
-      ☰
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+      <span class="sr-only">Menu</span>
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
     </button>
-    <nav id="site-menu" class="nav">
+
+    <nav id="primary-nav" class="nav">
       <ul>
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/growing/index.html">Growing</a></li>
-        <li><a href="/guides/index.html">Guides</a></li>
+        <!-- FOLDERED SECTIONS use trailing slash -->
+        <li><a href="/growing/">Growing</a></li>
+        <li><a href="/guides/">Guides</a></li>
+
+        <!-- SINGLE PAGES live at root as .html -->
+        <li><a href="/seasonal.html">Seasonal</a></li>
+        <li><a href="/firstpot.html">First Pot</a></li>
+        <li><a href="/ideas.html">Ideas</a></li>
         <li><a href="/recipes.html">Recipes</a></li>
         <li><a href="/wellbeing.html">Wellbeing</a></li>
-        <li><a href="/ideas.html">Ideas</a></li>
         <li><a href="/contact.html">Contact</a></li>
       </ul>
     </nav>

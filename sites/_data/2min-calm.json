@@ -1,0 +1,26 @@
+{
+  "spring": [
+    {"title": "First Shoots", "file": "spring-01.mp3"},
+    {"title": "Rain on Soil", "file": "spring-02.mp3"},
+    {"title": "Unfurling", "file": "spring-03.mp3"},
+    {"title": "Gentle Mornings", "file": "spring-04.mp3"}
+  ],
+  "summer": [
+    {"title": "Sun on Leaves", "file": "summer-01.mp3"},
+    {"title": "Breathe with the Bees", "file": "summer-02.mp3"},
+    {"title": "Abundant Days", "file": "summer-03.mp3"},
+    {"title": "Warm Evenings", "file": "summer-04.mp3"}
+  ],
+  "autumn": [
+    {"title": "Cool Air", "file": "autumn-01.mp3"},
+    {"title": "Fallen Leaves", "file": "autumn-02.mp3"},
+    {"title": "Harvest Gratitude", "file": "autumn-03.mp3"},
+    {"title": "Turning Season", "file": "autumn-04.mp3"}
+  ],
+  "winter": [
+    {"title": "Frost Stillness", "file": "winter-01.mp3"},
+    {"title": "Roots Beneath", "file": "winter-02.mp3"},
+    {"title": "Soft Light", "file": "winter-03.mp3"},
+    {"title": "A Warm Cup", "file": "winter-04.mp3"}
+  ]
+}

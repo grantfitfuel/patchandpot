@@ -2,7 +2,12 @@
 layout: default
 title: Create Seasonal PDF • Patch & Pot
 description: Create a nicely formatted A4 PDF from the Seasonal calendar, using your chosen region and category.
+keywords: gardening calendar pdf, seasonal sowing guide, container gardening pdf, patch and pot, regional growing guide
 ---
+
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
 
 <!-- PAGE-SCOPED STYLES -->
 <style>
@@ -15,12 +20,13 @@ description: Create a nicely formatted A4 PDF from the Seasonal calendar, using 
   .btn.primary{background:#28a745;border-color:#24963e;color:#fff}
   .btn.primary:hover{background:#23923d}
   .muted{color:var(--muted,#a6b6af)}
+  #pp-status{margin-top:.5rem;font-size:.95rem;color:var(--muted,#a6b6af)}
 </style>
 
 <!-- OPTIONAL PDF-ONLY CSS (kept external like site.css) -->
 <link rel="stylesheet" href="/assets/pdf/pdf.css?v=51">
 
-<main class="wrap" id="maincontent">
+<main class="wrap" id="maincontent" role="main">
   <h1>Create Seasonal PDF</h1>
   <p class="muted">Export a formatted A4 PDF for a region &amp; category. You can optionally include <em>Basics</em> and <em>Pest Watch</em> pages. Orientation supports <strong>Portrait</strong> or <strong>Landscape</strong>.</p>
 
@@ -59,6 +65,8 @@ description: Create a nicely formatted A4 PDF from the Seasonal calendar, using 
       <button id="pp-generate" class="btn primary" type="button">Generate PDF</button>
     </div>
     <p class="muted">Tip: uses JSON at <code>/data/regions/&lt;region&gt;/{basics,pestwatch,roots,leafy,legumes,fruit,alliums,herbs,softfruit,other}.json</code>.</p>
+    <div id="pp-status" aria-live="polite"></div>
+    <noscript><p class="muted">JavaScript is required to generate the PDF.</p></noscript>
   </section>
 </main>
 
@@ -69,24 +77,35 @@ description: Create a nicely formatted A4 PDF from the Seasonal calendar, using 
 <!-- GENERATOR LOGIC -->
 <script src="/assets/pdf/pdf-generator.js?v=51"></script>
 <script>
-  // Wire the button after everything is loaded
   (function(){
     function ready(fn){ /in/.test(document.readyState) ? setTimeout(()=>ready(fn), 30) : fn(); }
     ready(function(){
       var btn = document.getElementById('pp-generate');
+      var status = document.getElementById('pp-status');
+
+      function setStatus(msg){ if(status) status.textContent = msg || ''; }
+
       if(btn && window.PP_PDF && typeof PP_PDF.generate === 'function'){
         btn.addEventListener('click', function(){
+          setStatus('Generating… this can take a few seconds.');
           PP_PDF.generate({
             region: document.getElementById('pp-region').value,
             category: document.getElementById('pp-category').value,
             orientation: document.getElementById('pp-orient').value,
             includeBasics: document.getElementById('pp-inc-basics').checked,
-            includePest: document.getElementById('pp-inc-pest').checked
+            includePest: document.getElementById('pp-inc-pest').checked,
+            onProgress: setStatus,
+            onDone: function(){ setStatus('PDF ready. Check your downloads.'); },
+            onError: function(err){ setStatus('Error: ' + (err && err.message ? err.message : 'Could not create PDF.')); }
           });
         });
       } else {
         console.error('PDF generator not initialised');
+        setStatus('PDF generator not initialised. Make sure /assets/pdf/pdf-generator.js is loading.');
       }
     });
   })();
 </script>
+
+<!-- Universal footer mount -->
+<div id="site-footer"></div>

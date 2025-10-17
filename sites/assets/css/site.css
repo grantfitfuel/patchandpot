@@ -29,3 +29,4 @@ html::before{
   background:#2e7d32; color:#fff; border-radius:6px; z-index:99999;
   opacity:.85;
 }
+:root{ --pp-proof: 1; }

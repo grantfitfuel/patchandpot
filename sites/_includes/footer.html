@@ -23,13 +23,39 @@
 </footer>
 
 <style>
-  /* Footer styling kept local to avoid global clashes */
-  .site-footer{border-top:1px solid var(--stroke);background:var(--glass)}
-  .footer-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap}
-  .footer-brand{display:flex;align-items:center;gap:10px}
-  .footer-icon{height:40px;width:auto;opacity:.95}
-  .footer-copy{margin:0;color:var(--muted)}
-  .footer-nav{display:flex;flex-wrap:wrap;gap:.5rem}
-  .footer-nav a{color:var(--ink);text-decoration:none;border:1px solid var(--stroke);border-radius:999px;padding:.35rem .7rem;background:rgba(255,255,255,.05)}
-  .footer-nav a:hover{text-decoration:underline}
+.site-footer {
+  border-top:1px solid var(--stroke);
+  background:var(--glass);
+  margin-top:2rem;
+  padding:1rem 0;
+}
+.footer-inner {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:1rem;
+}
+.footer-brand {
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+.footer-icon { height:40px; width:auto; opacity:.95 }
+.footer-copy { margin:0; color:var(--muted); }
+
+.footer-nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+.footer-nav a {
+  text-decoration:none;
+  color:var(--ink);
+  padding:.35rem .7rem;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--stroke);
+}
+.footer-nav a:hover { text-decoration:underline; }
 </style>

@@ -1,29 +1,26 @@
 # ------------------------------------------
-# Patch & Pot — Jekyll configuration
+# Patch & Pot — Jekyll configuration (root)
 # ------------------------------------------
 
 title: "Patch & Pot"
+description: "Grow food and calm in small spaces."
 url: "https://patchandpot.com"
-baseurl: ""
+baseurl: ""                 # custom domain at root
 
-# Tell Jekyll to use /sites as the source directory# Patch & Pot — Jekyll config (ROOT)
-title: "Patch & Pot"
-url: "https://patchandpot.com"
-baseurl: ""          # custom domain mapped to site root
-
-# Tell Jekyll to read content from /sites
+# Build from /sites (you’re using Actions, so this is fine)
 source: sites
 
+# Permalinks & Markdown
 permalink: pretty
-
 markdown: kramdown
 kramdown:
   input: GFM
 
-# No plugins needed; keep empty to avoid GH runner plugin errors
+# Keep GH Pages happy (no custom plugins)
 plugins: []
 
-# Make sure these folders under /sites are available at build time
+# Include (relative to /sites). Normal folders don’t need listing,
+# but we’ll keep any non-standard/dotfiles explicit.
 include:
   - .htaccess
   - partials
@@ -32,7 +29,7 @@ include:
   - data
   - _layouts
 
-# Keep CI/artifacts out of the build
+# Exclude from processing
 exclude:
   - node_modules
   - .github
@@ -41,30 +38,3 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
-source: sites
-
-# Permalink structure
-permalink: pretty
-
-# Markdown engine
-markdown: kramdown
-kramdown:
-  input: GFM
-
-# Include directories required for site build
-include:
-  - .htaccess
-  - partials
-  - js
-  - img
-  - data
-  - _layouts
-
-# Exclude things that shouldn't be processed
-exclude:
-  - node_modules
-  - README.md
-  - .gitignore
-  - .github
-  - Gemfile
-  - Gemfile.lock

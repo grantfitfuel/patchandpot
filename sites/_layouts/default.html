@@ -7,30 +7,23 @@
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta name="keywords" content="{{ page.keywords }}">
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" href="{{ site.logo }}">
-  <link rel="apple-touch-icon" href="{{ site.logo }}">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Favicons use your configured PNG -->
+  <link rel="icon" type="image/png" href="{{ site.logo | relative_url }}">
+  <link rel="apple-touch-icon" href="{{ site.logo | relative_url }}">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/css/site.css?v=1">
-  <link rel="stylesheet" href="/css/pp-hotfix.css?v=21">
+  <link rel="stylesheet" href="/css/pp-hotfix.css?v=22"><!-- load last -->
 </head>
-
 <body>
-  <!-- Universal header -->
+
+  <!-- The ONLY header include (remove from pages) -->
   {% include header.html %}
 
-  <!-- Page content -->
   <main id="main-content" role="main">
     {{ content }}
   </main>
 
-  <!-- Universal footer -->
   {% include footer.html %}
-
 </body>
 </html>

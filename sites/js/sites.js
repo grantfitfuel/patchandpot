@@ -1,51 +1,26 @@
-<script>
-/* -------- Include partials by data-include="partials/header.html" -------- */
 (function(){
-  function include(el){
-    const url = el.getAttribute('data-include');
-    if(!url) return;
-    fetch(url, {cache:'no-store'})
-      .then(r => r.ok ? r.text() : Promise.reject(r.status))
-      .then(html => { el.outerHTML = html; wireHeader(); })
-      .catch(e => { el.outerHTML = '<!-- include failed: '+url+' ('+e+') -->'; });
+  // Mobile menu
+  var btn = document.querySelector('.menu-toggle');
+  var nav = document.getElementById('primaryNav');
+  if(btn && nav){
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      nav.classList.toggle('open', !open);
+    });
   }
-  document.addEventListener('DOMContentLoaded', ()=>{
-    document.querySelectorAll('[data-include]').forEach(include);
-  });
+
+  // If theme CSS loaded, it should set --pp-proof:1 on :root
+  // (We also flip the class from default.html but this is a backup.)
+  function cssApplied(){
+    var val = getComputedStyle(document.documentElement).getPropertyValue('--pp-proof').trim();
+    return val === '1';
+  }
+  if(cssApplied()){
+    document.body.classList.remove('no-theme');
+  }else{
+    setTimeout(function(){
+      if(cssApplied()) document.body.classList.remove('no-theme');
+    }, 800);
+  }
 })();
-
-/* -------- Header behaviour: active link + hamburger (phones) -------- */
-function wireHeader(){
-  const header = document.getElementById('siteHeader');
-  if(!header) return;
-
-  // Active link highlight
-  const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  header.querySelectorAll('.nav a').forEach(a=>{
-    if(a.getAttribute('href').toLowerCase() === path){ a.setAttribute('aria-current','page'); }
-  });
-
-  // Hamburger
-  const toggle = header.querySelector('.menu-toggle');
-  const nav = header.querySelector('#primaryNav');
-
-  function setExpanded(on){
-    if(on){
-      header.classList.add('menu-open');
-      toggle.classList.add('menu-open');
-      toggle.setAttribute('aria-expanded','true');
-    } else {
-      header.classList.remove('menu-open');
-      toggle.classList.remove('menu-open');
-      toggle.setAttribute('aria-expanded','false');
-    }
-  }
-
-  if(toggle){
-    toggle.addEventListener('click', ()=> setExpanded(!header.classList.contains('menu-open')));
-  }
-  if(nav){
-    nav.addEventListener('click', e => { if(e.target.tagName === 'A') setExpanded(false); });
-  }
-}
-</script>

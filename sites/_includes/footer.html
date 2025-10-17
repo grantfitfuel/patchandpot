@@ -1,14 +1,17 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <img src="{{ '/img/patchandpot-icon.png' | relative_url }}" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© {{ 'now' | date: '%Y' }} Patch &amp; Pot</p>
     <nav class="footer-nav" aria-label="Footer">
       <a href="{{ '/growing/index.html' | relative_url }}">Growing</a>
-      <a href="{{ '/guides/index.html' | relative_url }}">Guides</a>
-      <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
-      <a href="{{ '/recipes.html' | relative_url }}">Recipes</a>
-      <a href="{{ '/contact.html' | relative_url }}">Contact</a>
-      <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
+      <a href="{{ '/guides/index.html'  | relative_url }}">Guides</a>
+      <a href="{{ '/seasonal.html'      | relative_url }}">Seasonal</a>
+      <a href="{{ '/ideas.html'         | relative_url }}">Ideas</a>
+      <a href="{{ '/recipes.html'       | relative_url }}">Recipes</a>
+      <a href="{{ '/wellbeing.html'     | relative_url }}">Wellbeing</a>
+      <a href="{{ '/contact.html'       | relative_url }}">Contact</a>
     </nav>
+    <div class="credit">
+      <img class="footer-pot" src="{{ '/img/patchandpot-icon.png' | relative_url }}" alt="" onerror="this.style.display='none'">
+      <p>© {{ "now" | date: "%Y" }} Patch &amp; Pot</p>
+    </div>
   </div>
 </footer>

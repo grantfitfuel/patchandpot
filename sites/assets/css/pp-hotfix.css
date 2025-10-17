@@ -1,91 +1,200 @@
 /* ============================================================
-   Patch & Pot — HOTFIX (v14)
-   • Header clean + hamburger (CSS-only, no JS)
-   • Hero text BELOW image (overlay hidden)
-   • Tiles tidy
-   • Only CTAs green (header never green)
+   Patch & Pot — HOTFIX v17
+   • Header clean (no green), WHITE hamburger, menu over hero
+   • Hero text sits BELOW image (overlay hidden)
+   • Grid/cards tidy
+   • All CTAs green (header excluded)
+   Load AFTER site.css
    ============================================================ */
 
-/* Base */
-.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-img{max-width:100%;height:auto;display:block}
-:focus{outline:2px solid var(--accent,#84c684);outline-offset:3px}
+/* ----- Global / spacing fixes ----- */
+html, body { height: 100%; }
+body { margin: 0; }   /* kills top gap */
+img { max-width: 100%; height: auto; display: block; }
+:focus { outline: 2px solid #84c684; outline-offset: 3px; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* ===================== HEADER ===================== */
-.site-header{background:#0b1210;border-bottom:1px solid rgba(255,255,255,.08)}
-.site-header .nav-wrap{max-width:1100px;margin:0 auto;padding:.65rem 20px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-
-.brand{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:#fff}
-.brand-icon{width:22px;height:22px;display:inline-block}
-.brand-text{font-weight:700;letter-spacing:.2px}
-
-/* Hamburger (checkbox hack) */
-.nav-toggle{position:absolute;opacity:0;pointer-events:none}
-.hamburger{display:none;position:relative;width:42px;height:38px;border:0;background:transparent;cursor:pointer}
-.hamburger .bar{position:absolute;left:8px;right:8px;height:2px;background:#fff;transition:transform .2s,opacity .2s}
-.hamburger .bar:nth-child(1){top:11px}
-.hamburger .bar:nth-child(2){top:18px}
-.hamburger .bar:nth-child(3){top:25px}
-
-/* Primary nav */
-.main-nav ul{display:flex;flex-wrap:wrap;gap:.75rem;list-style:none;margin:0;padding:0}
-.main-nav a{display:inline-flex;align-items:center;padding:.45rem .8rem;border-radius:6px;text-decoration:none;font-weight:600;color:#fff}
-.main-nav a:hover,.main-nav a:focus{text-decoration:underline}
-
-/* Kill ANY button/background leak in header */
-.site-header a,.site-header .btn,.site-header a.btn,.site-header *{
-  background:transparent!important;border:0!important;box-shadow:none!important
+/* ============================================================
+   HEADER (dark theme) — hamburger visible, menu above hero
+   ============================================================ */
+.site-header {
+  background: #0b1210;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  position: relative;
+  z-index: 3000;              /* sits above hero + dropdown */
 }
 
-/* Mobile menu */
-@media (max-width:900px){
-  .hamburger{display:inline-block}
-  .main-nav{position:absolute;left:0;right:0;top:100%;background:#0b1210;border-bottom:1px solid rgba(255,255,255,.08);transform:scaleY(0);transform-origin:top;transition:transform .18s ease}
-  .main-nav ul{flex-direction:column;gap:0}
-  .main-nav li{border-top:1px solid rgba(255,255,255,.06)}
-  .main-nav a{padding:.9rem 20px}
-  .site-header .nav-wrap{position:relative}
-  .nav-toggle:checked ~ .main-nav{transform:scaleY(1)}
-  .nav-toggle:checked + .hamburger .bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .nav-toggle:checked + .hamburger .bar:nth-child(2){opacity:0}
-  .nav-toggle:checked + .hamburger .bar:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.site-header .nav-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: .65rem 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-/* ===================== HERO ===================== */
-/* Hide any legacy overlay content inside .hero */
-.hero .content{display:none!important}
+/* Brand */
+.brand { display: inline-flex; align-items: center; gap: .5rem; text-decoration: none; color: #fff; }
+.brand-logo { width: 28px; height: 28px; }
+.brand-text { font-weight: 700; letter-spacing: .2px; }
 
-.hero{margin:0}
-.hero figure{position:relative;width:100%;height:clamp(280px,48vh,520px);margin:0;overflow:hidden}
-.hero figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 38%}
-
-/* Text section that sits BELOW the image */
-.hero-text{padding:1.5rem 20px 0;text-align:center}
-.eyebrow{display:block;font-size:.9rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:.35rem;color:#84c684}
-.hero-text .lead{color:#cfd2d6;margin:.4rem 0 1rem}
-
-@media (max-width:768px){
-  .hero figure{height:260px}
-  .hero-text{padding-top:1rem}
+/* Kill any legacy .btn styling in header */
+.site-header a, .site-header .btn, .site-header a.btn, .site-header * {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
-/* ===================== GRID / CARDS ===================== */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:2rem}
-.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:1.25rem;display:flex;flex-direction:column;min-height:180px;transition:background .25s,transform .12s}
-.card:hover{background:rgba(255,255,255,.08);transform:translateY(-1px)}
-.card h2{margin:0 0 .35rem}
-.card .meta{margin:0 0 1rem;color:#cfd2d6}
-.card .btn{margin-top:auto}
-@media (max-width:768px){.grid{grid-template-columns:1fr;gap:1rem}}
+/* Nav links */
+.main-nav ul {
+  display: flex; flex-wrap: wrap; gap: .75rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.main-nav a {
+  display: inline-flex; align-items: center;
+  padding: .45rem .8rem; border-radius: 6px;
+  text-decoration: none; font-weight: 600; color: #fff;
+}
+.main-nav a:hover, .main-nav a:focus { text-decoration: underline; }
 
-/* ===================== BUTTONS (CTAs only) ===================== */
-:root{--pp-green:#2e7d32;--pp-green-dark:#1b5e20;--pp-green-press:#145a19}
-.btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"],.card a.btn,.cta-row a.btn{
-  background-color:var(--pp-green)!important;color:#fff!important;border:2px solid var(--pp-green)!important;display:inline-block;padding:.65rem 1.2rem;border-radius:6px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;transition:background-color .25s,border-color .25s,color .25s
+/* Hamburger (CSS-only; checkbox hack) */
+.nav-toggle { position: absolute; opacity: 0; pointer-events: none; }
+.hamburger {
+  display: none;
+  position: relative; width: 42px; height: 38px;
+  border: 0; background: transparent; cursor: pointer;
 }
-.btn:hover,.btn:focus,button:hover,button:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus,.card a.btn:hover,.card a.btn:focus,.cta-row a.btn:hover,.cta-row a.btn:focus{
-  background-color:var(--pp-green-dark)!important;border-color:var(--pp-green-dark)!important
+.hamburger .bar {
+  position: absolute; left: 8px; right: 8px; height: 2px;
+  background: #ffffff !important;          /* WHITE bars for dark header */
+  box-shadow: 0 0 3px rgba(0,0,0,0.8);     /* visible on photos too */
+  transition: transform .2s ease, opacity .2s ease, background .2s ease;
 }
-.btn:active,button:active,input[type="button"]:active,input[type="submit"]:active,.card a.btn:active,.cta-row a.btn:active{
-  background-color:var(--pp-green-press)!important;border-color:var(--pp-green-press)!important
+.hamburger .bar:nth-child(1){ top: 11px; }
+.hamburger .bar:nth-child(2){ top: 18px; }
+.hamburger .bar:nth-child(3){ top: 25px; }
+.hamburger:hover .bar, .hamburger:focus .bar { background: #84c684 !important; }
+
+/* Mobile dropdown sits ABOVE hero */
+@media (max-width: 900px) {
+  .hamburger { display: inline-block; z-index: 3002; } /* above menu panel */
+  .site-header .nav-wrap { position: relative; }
+
+  .main-nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: #0b1210;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform .18s ease;
+    z-index: 3001;     /* above hero */
+  }
+  .main-nav ul { flex-direction: column; gap: 0; }
+  .main-nav li { border-top: 1px solid rgba(255,255,255,.06); }
+  .main-nav a { padding: .9rem 20px; }
+
+  /* Toggle open state */
+  .nav-toggle:checked ~ .main-nav { transform: scaleY(1); }
+
+  /* Animate hamburger into X */
+  .nav-toggle:checked + .hamburger .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle:checked + .hamburger .bar:nth-child(2){ opacity: 0; }
+  .nav-toggle:checked + .hamburger .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+}
+
+/* ============================================================
+   HERO — image first; text UNDER image (overlay hidden)
+   ============================================================ */
+.hero { margin: 0; }
+.hero figure {
+  position: relative; width: 100%;
+  height: clamp(280px, 48vh, 520px);
+  margin: 0; overflow: hidden;
+}
+.hero figure img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 55% 38%;
+}
+/* Hide legacy overlaid hero copy */
+.hero .content { display: none !important; }
+
+/* New text block BELOW the image */
+.hero-text { padding: 1.5rem 20px 0; text-align: center; }
+.eyebrow { display: block; font-size: .9rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: .35rem; color: #84c684; }
+.hero-text .lead { color: #cfd2d6; margin: .4rem 0 1rem; }
+
+@media (max-width: 768px) {
+  .hero figure { height: 260px; }
+  .hero-text { padding-top: 1rem; }
+}
+
+/* Ensure hero never overlays header dropdown */
+.hero, .hero * { z-index: auto; }
+
+/* ============================================================
+   GRID / CARDS
+   ============================================================ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex; flex-direction: column;
+  min-height: 180px;
+  transition: background .25s, transform .12s;
+}
+.card:hover { background: rgba(255,255,255,.08); transform: translateY(-1px); }
+.card h2 { margin: 0 0 .35rem; }
+.card .meta { margin: 0 0 1rem; color: #cfd2d6; }
+.card .btn { margin-top: auto; }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* ============================================================
+   BUTTONS — all CTAs green (header-safe)
+   ============================================================ */
+:root {
+  --pp-green:#2e7d32;
+  --pp-green-dark:#1b5e20;
+  --pp-green-press:#145a19;
+}
+
+.btn, .btn.primary, .btn.ghost,
+button, input[type="button"], input[type="submit"],
+.card a.btn, .cta-row a.btn {
+  background-color: var(--pp-green) !important;
+  color: #fff !important;
+  border: 2px solid var(--pp-green) !important;
+  display: inline-block;
+  padding: .65rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .25s, border-color .25s, color .25s;
+}
+.btn:hover, .btn:focus,
+button:hover, button:focus,
+input[type="button"]:hover, input[type="button"]:focus,
+input[type="submit"]:hover, input[type="submit"]:focus,
+.card a.btn:hover, .card a.btn:focus,
+.cta-row a.btn:hover, .cta-row a.btn:focus {
+  background-color: var(--pp-green-dark) !important;
+  border-color: var(--pp-green-dark) !important;
+}
+.btn:active, button:active,
+input[type="button"]:active, input[type="submit"]:active,
+.card a.btn:active, .cta-row a.btn:active {
+  background-color: var(--pp-green-press) !important;
+  border-color: var(--pp-green-press) !important;
 }

@@ -1,234 +1,110 @@
 /* ============================================================
-   Patch & Pot — HOTFIX Stylesheet (v8)
+   Patch & Pot — HOTFIX (v12)
+   • Clean header (never green), CSS-only hamburger
+   • Hero + tiles stable
+   • All CTAs green (NOT header)
    Load AFTER site.css
    ============================================================ */
 
 /* ---------- Base helpers ---------- */
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-img { max-width: 100%; height: auto; display: block; }
-:focus { outline: 2px solid var(--accent, #84c684); outline-offset: 3px; }
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+img{max-width:100%;height:auto;display:block}
+:focus{outline:2px solid var(--accent,#84c684);outline-offset:3px}
 
 /* ============================================================
-   HEADER — remove green box from logo / nav
+   HEADER (scoped styles; no .btns here)
    ============================================================ */
+.site-header{background:var(--glass,#0b1210);border-bottom:1px solid var(--stroke,rgba(255,255,255,.08))}
+.site-header .nav-wrap{max-width:1100px;margin:0 auto;padding:.65rem 20px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 
-/* Any header element */
-header,
-#site-header {
-  background: var(--glass, #0b1210);
-  border-bottom: 1px solid var(--stroke, rgba(255,255,255,0.08));
+/* Brand */
+.site-header .brand{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--ink,#fff)}
+.site-header .brand-icon{width:22px;height:22px}
+.site-header .brand-text{font-weight:700;letter-spacing:.2px}
+
+/* Hamburger (checkbox hack) */
+.nav-toggle{position:absolute;opacity:0;pointer-events:none}
+.hamburger{display:none;position:relative;width:42px;height:38px;border:0;background:transparent;cursor:pointer}
+.hamburger .bar{position:absolute;left:8px;right:8px;height:2px;background:var(--ink,#fff);transition:transform .2s ease,opacity .2s ease}
+.hamburger .bar:nth-child(1){top:11px}
+.hamburger .bar:nth-child(2){top:18px}
+.hamburger .bar:nth-child(3){top:25px}
+
+/* Nav */
+.main-nav ul{display:flex;flex-wrap:wrap;gap:.75rem;list-style:none;margin:0;padding:0}
+.main-nav a{display:inline-flex;align-items:center;padding:.45rem .8rem;border-radius:6px;text-decoration:none;font-weight:600;color:var(--ink,#fff)}
+.main-nav a:hover,.main-nav a:focus{text-decoration:underline}
+
+/* Nuke ANY button/background leaks inside header (logo or links) */
+.site-header *, .site-header a, .site-header .btn, .site-header a.btn{
+  background:transparent!important;border:0!important;box-shadow:none!important
 }
 
-/* Nav layout */
-header nav ul,
-#site-header nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: .75rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-header nav a,
-#site-header nav a {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .45rem .8rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--ink, #fff);
-}
-
-header nav a:hover,
-#site-header nav a:hover,
-header nav a:focus,
-#site-header nav a:focus {
-  text-decoration: underline;
-}
-
-/* ⛔️ Nuke any green background leaking into the header */
-header a,
-header .logo,
-header .logo a,
-header .btn,
-header a.btn,
-#site-header a,
-#site-header .logo,
-#site-header .logo a,
-#site-header .btn,
-#site-header a.btn {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  color: var(--ink, #fff) !important;
-  display: inline-flex !important;
-  align-items: center !important;
-}
-
-/* Mobile header stacking */
-@media (max-width: 768px) {
-  header nav ul,
-  #site-header nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: .5rem;
-  }
+/* Mobile menu */
+@media (max-width:900px){
+  .hamburger{display:inline-block}
+  .main-nav{position:absolute;left:0;right:0;top:100%;background:var(--glass,#0b1210);border-bottom:1px solid var(--stroke,rgba(255,255,255,.08));transform:scaleY(0);transform-origin:top;transition:transform .18s ease}
+  .main-nav ul{flex-direction:column;gap:0}
+  .main-nav li{border-top:1px solid rgba(255,255,255,.06)}
+  .main-nav a{padding:.9rem 20px}
+  .site-header .nav-wrap{position:relative}
+  .nav-toggle:checked ~ .main-nav{transform:scaleY(1)}
+  /* animate icon to X */
+  .nav-toggle:checked + .hamburger .bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle:checked + .hamburger .bar:nth-child(2){opacity:0}
+  .nav-toggle:checked + .hamburger .bar:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 }
 
 /* ============================================================
-   HERO / BANNERS
+   HERO (image on top; text below)
    ============================================================ */
-.hero, .hero-mini { position: relative; }
+.hero{margin:0}
+.hero figure{position:relative;width:100%;height:clamp(280px,48vh,520px);margin:0;overflow:hidden}
+.hero figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 38%}
 
-.hero figure, .hero-mini figure {
-  position: relative;
-  width: 100%;
-  height: clamp(320px, 48vh, 520px);
-  margin: 0;
-  overflow: hidden;
-}
+/* Text block below image (optional section .hero-text) */
+.hero-text{padding:1.5rem 20px 0;text-align:center}
+.eyebrow{display:block;font-size:.9rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:.35rem;color:var(--accent,#84c684)}
+.hero-text .lead{color:var(--inkdim,#cfd2d6);margin:.4rem 0 1rem}
 
-.hero figure img, .hero-mini figure img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 40%;
-}
-
-#ppHero { object-position: 55% 38%; }
-
-.hero .overlay, .hero-mini .overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25));
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero .content, .hero-mini .content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
-
-/* Mobile hero tuning */
-@media (max-width: 768px) {
-  .hero figure, .hero-mini figure { height: 280px; }
-  .hero figure img, .hero-mini figure img { object-position: 50% 35%; }
+@media (max-width:768px){
+  .hero figure{height:260px}
+  .hero-text{padding-top:1rem}
 }
 
 /* ============================================================
    GRID / CARDS
    ============================================================ */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
-  margin-top: 2rem;
-}
-
-.card {
-  background: var(--glass, rgba(255,255,255,0.05));
-  border: 1px solid var(--stroke, rgba(255,255,255,0.15));
-  border-radius: 10px;
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  min-height: 180px;
-  transition: background .25s ease, transform .12s ease;
-}
-
-.card:hover {
-  background: var(--glass-hover, rgba(255,255,255,0.08));
-  transform: translateY(-1px);
-}
-
-.card h2 { margin: 0 0 .35rem; }
-.card .meta { margin: 0 0 1rem; color: var(--inkdim, #cfd2d6); }
-.card .btn { margin-top: auto; }
-
-@media (max-width: 768px) {
-  .grid { grid-template-columns: 1fr; gap: 1rem; }
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:2rem}
+.card{background:var(--glass,rgba(255,255,255,.05));border:1px solid var(--stroke,rgba(255,255,255,.15));border-radius:10px;padding:1.25rem;display:flex;flex-direction:column;min-height:180px;transition:background .25s ease,transform .12s ease}
+.card:hover{background:var(--glass-hover,rgba(255,255,255,.08));transform:translateY(-1px)}
+.card h2{margin:0 0 .35rem}
+.card .meta{margin:0 0 1rem;color:var(--inkdim,#cfd2d6)}
+.card .btn{margin-top:auto}
+@media (max-width:768px){.grid{grid-template-columns:1fr;gap:1rem}}
 
 /* ============================================================
    FORMS
    ============================================================ */
-form label { display: block; margin-bottom: .35rem; }
-form input, form textarea, form select {
-  width: 100%;
-  padding: .55rem .65rem;
-  border: 1px solid var(--stroke, #334);
-  border-radius: 6px;
-  background: var(--glass, #0f131a);
-  color: var(--ink, #fff);
-  margin-bottom: .8rem;
-}
+form label{display:block;margin-bottom:.35rem}
+form input,form textarea,form select{width:100%;padding:.55rem .65rem;border:1px solid var(--stroke,#334);border-radius:6px;background:var(--glass,#0f131a);color:var(--ink,#fff);margin-bottom:.8rem}
 
 /* ============================================================
    FOOTER
    ============================================================ */
-footer { text-align: center; padding: 2rem 0; }
-footer img.footer-logo { margin: 0 auto 1rem; max-width: 120px; height: auto; }
+footer{text-align:center;padding:2rem 0}
+footer img.footer-logo{margin:0 auto 1rem;max-width:120px;height:auto}
 
 /* ============================================================
    BUTTONS — ALL CTAs GREEN (header-safe)
    ============================================================ */
-.btn,
-.btn.primary,
-.btn.ghost,
-button,
-input[type="button"],
-input[type="submit"],
-.card a.btn,
-.cta-row a.btn {
-  background-color: #2e7d32 !important;
-  color: #ffffff !important;
-  border: 2px solid #2e7d32 !important;
-  display: inline-block;
-  padding: 0.65rem 1.2rem;
-  border-radius: 6px;
-  font-weight: 700;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color .25s, border-color .25s, color .25s;
+:root{--pp-green:#2e7d32;--pp-green-dark:#1b5e20;--pp-green-press:#145a19}
+.btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"],.card a.btn,.cta-row a.btn{
+  background-color:var(--pp-green)!important;color:#fff!important;border:2px solid var(--pp-green)!important;display:inline-block;padding:.65rem 1.2rem;border-radius:6px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;transition:background-color .25s,border-color .25s,color .25s
 }
-
-.btn:hover,
-.btn:focus,
-button:hover,
-button:focus,
-input[type="button"]:hover,
-input[type="button"]:focus,
-input[type="submit"]:hover,
-input[type="submit"]:focus,
-.card a.btn:hover,
-.card a.btn:focus,
-.cta-row a.btn:hover,
-.cta-row a.btn:focus {
-  background-color: #1b5e20 !important;
-  border-color: #1b5e20 !important;
-  color: #ffffff !important;
+.btn:hover,.btn:focus,button:hover,button:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus,.card a.btn:hover,.card a.btn:focus,.cta-row a.btn:hover,.cta-row a.btn:focus{
+  background-color:var(--pp-green-dark)!important;border-color:var(--pp-green-dark)!important
 }
-
-.btn:active,
-button:active,
-input[type="button"]:active,
-input[type="submit"]:active,
-.card a.btn:active,
-.cta-row a.btn:active {
-  background-color: #145a19 !important;
-  border-color: #145a19 !important;
+.btn:active,button:active,input[type="button"]:active,input[type="submit"]:active,.card a.btn:active,.cta-row a.btn:active{
+  background-color:var(--pp-green-press)!important;border-color:var(--pp-green-press)!important
 }
-
-/* Optional compact variant */
-.btn.small { padding: .4rem .8rem; font-size: .9rem; }

@@ -1,0 +1,43 @@
+name: build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Jekyll Doctor (sanity)
+        run: bundle exec jekyll doctor --config _config.yml || true
+
+      - name: Build with Jekyll (source=/sites)
+        env:
+          JEKYLL_ENV: production
+        run: |
+          bundle exec jekyll build \
+            --config _config.yml \
+            --source sites \
+            --destination _site \
+            --trace --verbose
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site

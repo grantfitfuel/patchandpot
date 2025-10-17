@@ -1,7 +1,35 @@
-{% raw %}<footer>
+<footer class="site-footer" role="contentinfo">
   <div class="wrap footer-inner">
-    <img src="{{ '/img/patchandpot-icon.png' | relative_url }}" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
+    <div class="footer-brand">
+      <img src="{{ '/img/patchandpot-icon.png' | relative_url }}"
+           alt="Patch &amp; Pot icon"
+           class="footer-icon"
+           onerror="this.style.display='none'">
+      <p class="footer-copy">© {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="{{ '/index.html' | relative_url }}">Home</a>
+      <a href="{{ '/growing/index.html' | relative_url }}">Growing</a>
+      <a href="{{ '/recipes.html' | relative_url }}">Recipes</a>
+      <a href="{{ '/exercise.html' | relative_url }}">Exercise</a>
+      <a href="{{ '/wellbeing.html' | relative_url }}">Wellbeing</a>
+      <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
+      <a href="{{ '/guides/index.html' | relative_url }}">Guides</a>
+      <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
+      <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+    </nav>
   </div>
-</footer>{% endraw %}
+</footer>
+
+<style>
+  /* Footer styling kept local to avoid global clashes */
+  .site-footer{border-top:1px solid var(--stroke);background:var(--glass)}
+  .footer-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap}
+  .footer-brand{display:flex;align-items:center;gap:10px}
+  .footer-icon{height:40px;width:auto;opacity:.95}
+  .footer-copy{margin:0;color:var(--muted)}
+  .footer-nav{display:flex;flex-wrap:wrap;gap:.5rem}
+  .footer-nav a{color:var(--ink);text-decoration:none;border:1px solid var(--stroke);border-radius:999px;padding:.35rem .7rem;background:rgba(255,255,255,.05)}
+  .footer-nav a:hover{text-decoration:underline}
+</style>

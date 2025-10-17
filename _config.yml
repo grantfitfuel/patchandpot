@@ -6,7 +6,41 @@ title: "Patch & Pot"
 url: "https://patchandpot.com"
 baseurl: ""
 
-# Tell Jekyll to use /sites as the source directory
+# Tell Jekyll to use /sites as the source directory# Patch & Pot — Jekyll config (ROOT)
+title: "Patch & Pot"
+url: "https://patchandpot.com"
+baseurl: ""          # custom domain mapped to site root
+
+# Tell Jekyll to read content from /sites
+source: sites
+
+permalink: pretty
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# No plugins needed; keep empty to avoid GH runner plugin errors
+plugins: []
+
+# Make sure these folders under /sites are available at build time
+include:
+  - .htaccess
+  - partials
+  - js
+  - img
+  - data
+  - _layouts
+
+# Keep CI/artifacts out of the build
+exclude:
+  - node_modules
+  - .github
+  - README.md
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - vendor
 source: sites
 
 # Permalink structure

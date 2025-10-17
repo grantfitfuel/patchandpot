@@ -1,7 +1,13 @@
 ---
 layout: default
-title: Companion Planting
+title: Companion Planting — Patch & Pot
+description: Make plants help each other in containers. Match water and light needs, invite pollinators, and steer pests away with clever pairings.
+keywords: companion planting, container gardening, plant pairs, tomatoes basil, marigolds, nasturtiums, pollinators, balcony garden, small space gardening
 ---
+
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
 
 <style>
   /* Page-scoped polish (sits on top of your global CSS) */
@@ -45,7 +51,7 @@ title: Companion Planting
   </div>
 </header>
 
-<div class="wrap">
+<main class="wrap" role="main">
 
   <!-- Quick wins -->
   <section class="cards" aria-label="Quick wins and cautions">
@@ -85,9 +91,10 @@ title: Companion Planting
   <!-- Container matrix -->
   <section class="card" aria-label="Container-friendly pairings matrix">
     <h2>Container Pairings by Pot Size</h2>
-    <table class="matrix">
+    <table class="matrix" aria-describedby="matrix-desc">
+      <caption id="matrix-desc" class="sr-only">Suggested plant pairings for common container sizes, with reasons and cautions.</caption>
       <thead>
-        <tr><th>Pot</th><th>Plant Together</th><th>Why it Works</th><th>Skip This</th></tr>
+        <tr><th scope="col">Pot</th><th scope="col">Plant Together</th><th scope="col">Why it Works</th><th scope="col">Skip This</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -198,4 +205,7 @@ title: Companion Planting
     <a href="/growing/first-pot.html">Your First Pot</a>
   </nav>
 
-</div>
+</main>
+
+<!-- Universal footer mount -->
+<div id="site-footer"></div>

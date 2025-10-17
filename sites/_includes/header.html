@@ -1,11 +1,20 @@
-<header class="site-header">
+<header class="site-header" id="siteHeader" role="banner">
   <div class="wrap">
-    <a href="{{ '/' | relative_url }}" class="brand">
-      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo" class="logo">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="Patch &amp; Pot home">
+      <img
+        src="{{ '/img/patchandpot-logo.png' | relative_url }}"
+        alt="Patch &amp; Pot logo"
+        class="logo"
+        onerror="this.src='{{ '/img/pot.png' | relative_url }}'">
       <span class="site-title">Patch &amp; Pot</span>
     </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="{{ '/' | relative_url }}">Home</a>
+
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+      <span class="menu-ico"><span></span><span></span><span></span></span>
+    </button>
+
+    <nav class="nav" id="primaryNav" aria-label="Primary">
+      <a href="{{ '/index.html' | relative_url }}">Home</a>
       <a href="{{ '/growing/index.html' | relative_url }}">Growing</a>
       <a href="{{ '/recipes.html' | relative_url }}">Recipes</a>
       <a href="{{ '/exercise.html' | relative_url }}">Exercise</a>

@@ -1,8 +1,13 @@
 ---
 layout: default
-title: Wellbeing
+title: Wellbeing — Patch & Pot
 description: Explore resources for mental and emotional health — practical tools, kind explanations, and links to support.
+keywords: wellbeing, mental health, anxiety, depression, grief, crisis, abuse, carers, bullying, addictions, neurodiversity, PTSD, therapies, Patch and Pot
 ---
+
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
 
 <style>
   .mini-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 .75rem}
@@ -19,9 +24,10 @@ description: Explore resources for mental and emotional health — practical too
   .yt-wrap{position:relative;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden;margin:.6rem 0 1rem}
   .yt-wrap .yt,.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .disclaimer{background:#161616;border-left:4px solid #555;padding:.8rem;margin:2rem 0 1rem;font-size:.95rem;color:#e8e8e8}
+  .sr-only{position:absolute !important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 </style>
 
-<main class="wrap">
+<main class="wrap" role="main">
   <h1>Wellbeing</h1>
   <p class="lead">Explore resources for mental and emotional health — practical tools, kind explanations, and links to support.</p>
 
@@ -72,20 +78,15 @@ description: Explore resources for mental and emotional health — practical too
     <p class="note">A clear BSL demonstration of calming belly breathing.</p>
   </section>
 
-  <section class="disclaimer" role="note">
-    <h2>Important Note</h2>
+  <section class="disclaimer" role="note" aria-labelledby="important-note">
+    <h2 id="important-note">Important Note</h2>
     <p>The information across these pages is for <strong>general understanding and support</strong>. It is <strong>not</strong> a substitute for professional medical, psychological, or legal advice. If you feel unable to keep yourself safe or someone else is at risk, call <strong>999</strong> (UK) immediately. If you are outside the UK, contact your local emergency number.</p>
     <p>For non-emergency concerns, consider speaking with a qualified health professional or one of the support services linked on the relevant pages.</p>
   </section>
 </main>
 
-<footer>
-  <div class="wrap footer-inner">
-    <img src="/img/patchandpot-icon.png" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
-    <p>© 2025 Patch &amp; Pot</p>
-    <p>Created by Grant Cameron Anthony</p>
-  </div>
-</footer>
+<!-- Universal footer mount -->
+<div id="site-footer"></div>
 
 <!-- Build YouTube iframes -->
 <script>

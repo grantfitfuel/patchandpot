@@ -1,9 +1,9 @@
-name: Build & Deploy (Jekyll from /sites)
+name: GitHub Pages (build from /sites)
 
 on:
   push:
-    branches: [ "main" ]     # change if your default branch is different
-  workflow_dispatch:          # allow manual runs
+    branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -21,38 +21,58 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Show tree + config (for sanity)
+        run: |
+          echo "=== ROOT ==="; ls -la
+          echo; echo "=== SITES ==="; ls -la sites || true
+          echo; echo "=== _config.yml (root) ==="; sed -n '1,200p' _config.yml || true
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: '3.1'
           bundler-cache: true
 
-      # If you don't have a Gemfile, Jekyll will still work with this install.
-      - name: Install Jekyll (no Gemfile)
+      - name: Install gems (explicit)
         run: |
-          if [ ! -f sites/Gemfile ]; then
-            gem install jekyll
-          fi
+          cat > Gemfile <<'RUBY'
+          source "https://rubygems.org"
+          gem "jekyll", "~> 4.3"
+          gem "kramdown-parser-gfm", "~> 1.1"
+          gem "webrick", "~> 1.8"
+          RUBY
+          bundle install --jobs 4 --retry 3
 
-      # Build the site from /sites into /_site
-      - name: Build with Jekyll (source=/sites)
+      - name: Build site with Jekyll (from /sites)
+        env:
+          JEKYLL_ENV: production
         run: |
-          jekyll build --source sites --destination _site --trace
+          bundle exec jekyll --version
+          set -o pipefail
+          bundle exec jekyll build \
+            --config _config.yml \
+            --source sites \
+            --destination _site \
+            --trace --verbose | tee buildlog.txt
 
-      - name: Upload artifact
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: buildlog
+          path: buildlog.txt
+
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

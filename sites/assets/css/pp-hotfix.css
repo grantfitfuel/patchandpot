@@ -1,37 +1,28 @@
 /* ============================================================
-   Patch & Pot — HOTFIX v17
-   • Header clean (no green), WHITE hamburger, menu over hero
-   • Hero text sits BELOW image (overlay hidden)
-   • Grid/cards tidy
+   Patch & Pot — HOTFIX v21 (Jekyll include)
+   • Header clean (no green), WHITE hamburger, menu overlays hero
+   • Hero text UNDER image (overlay hidden)
    • All CTAs green (header excluded)
-   Load AFTER site.css
+   • Remove top gap
    ============================================================ */
 
-/* ----- Global / spacing fixes ----- */
+/* Global/reset */
 html, body { height: 100%; }
-body { margin: 0; }   /* kills top gap */
+body { margin: 0; } /* kill top gap */
 img { max-width: 100%; height: auto; display: block; }
 :focus { outline: 2px solid #84c684; outline-offset: 3px; }
 .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* ============================================================
-   HEADER (dark theme) — hamburger visible, menu above hero
-   ============================================================ */
+/* ================= HEADER ================= */
 .site-header {
   background: #0b1210;
   border-bottom: 1px solid rgba(255,255,255,.08);
   position: relative;
-  z-index: 3000;              /* sits above hero + dropdown */
+  z-index: 3000; /* above hero */
 }
-
 .site-header .nav-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: .65rem 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  max-width: 1100px; margin: 0 auto; padding: .65rem 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
 
 /* Brand */
@@ -39,7 +30,7 @@ img { max-width: 100%; height: auto; display: block; }
 .brand-logo { width: 28px; height: 28px; }
 .brand-text { font-weight: 700; letter-spacing: .2px; }
 
-/* Kill any legacy .btn styling in header */
+/* Remove any leaked button styles in header */
 .site-header a, .site-header .btn, .site-header a.btn, .site-header * {
   background: transparent !important;
   border: 0 !important;
@@ -67,8 +58,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .hamburger .bar {
   position: absolute; left: 8px; right: 8px; height: 2px;
-  background: #ffffff !important;          /* WHITE bars for dark header */
-  box-shadow: 0 0 3px rgba(0,0,0,0.8);     /* visible on photos too */
+  background: #ffffff !important;           /* WHITE bars on dark header */
+  box-shadow: 0 0 3px rgba(0,0,0,0.8);      /* visible over images too */
   transition: transform .2s ease, opacity .2s ease, background .2s ease;
 }
 .hamburger .bar:nth-child(1){ top: 11px; }
@@ -76,9 +67,9 @@ img { max-width: 100%; height: auto; display: block; }
 .hamburger .bar:nth-child(3){ top: 25px; }
 .hamburger:hover .bar, .hamburger:focus .bar { background: #84c684 !important; }
 
-/* Mobile dropdown sits ABOVE hero */
+/* Mobile menu overlays hero (checkbox toggles .main-nav) */
 @media (max-width: 900px) {
-  .hamburger { display: inline-block; z-index: 3002; } /* above menu panel */
+  .hamburger { display: inline-block; z-index: 3002; } /* above panel */
   .site-header .nav-wrap { position: relative; }
 
   .main-nav {
@@ -87,24 +78,25 @@ img { max-width: 100%; height: auto; display: block; }
     border-bottom: 1px solid rgba(255,255,255,.08);
     transform: scaleY(0); transform-origin: top;
     transition: transform .18s ease;
-    z-index: 3001;     /* above hero */
+    z-index: 3001; /* on top of hero */
   }
   .main-nav ul { flex-direction: column; gap: 0; }
   .main-nav li { border-top: 1px solid rgba(255,255,255,.06); }
   .main-nav a { padding: .9rem 20px; }
 
-  /* Toggle open state */
+  /* Toggle open */
   .nav-toggle:checked ~ .main-nav { transform: scaleY(1); }
 
-  /* Animate hamburger into X */
+  /* Icon to X */
   .nav-toggle:checked + .hamburger .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
   .nav-toggle:checked + .hamburger .bar:nth-child(2){ opacity: 0; }
   .nav-toggle:checked + .hamburger .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 }
 
-/* ============================================================
-   HERO — image first; text UNDER image (overlay hidden)
-   ============================================================ */
+/* ================= HERO — text UNDER image ================= */
+/* Hide legacy overlay hero copy */
+.hero .content { display: none !important; }
+
 .hero { margin: 0; }
 .hero figure {
   position: relative; width: 100%;
@@ -116,10 +108,12 @@ img { max-width: 100%; height: auto; display: block; }
   width: 100%; height: 100%;
   object-fit: cover; object-position: 55% 38%;
 }
-/* Hide legacy overlaid hero copy */
-.hero .content { display: none !important; }
+.hero .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25));
+}
 
-/* New text block BELOW the image */
+/* New hero text block below the image */
 .hero-text { padding: 1.5rem 20px 0; text-align: center; }
 .eyebrow { display: block; font-size: .9rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: .35rem; color: #84c684; }
 .hero-text .lead { color: #cfd2d6; margin: .4rem 0 1rem; }
@@ -129,12 +123,10 @@ img { max-width: 100%; height: auto; display: block; }
   .hero-text { padding-top: 1rem; }
 }
 
-/* Ensure hero never overlays header dropdown */
+/* Ensure hero never overlays the dropdown */
 .hero, .hero * { z-index: auto; }
 
-/* ============================================================
-   GRID / CARDS
-   ============================================================ */
+/* ================= GRID / CARDS ================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -159,14 +151,8 @@ img { max-width: 100%; height: auto; display: block; }
   .grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 
-/* ============================================================
-   BUTTONS — all CTAs green (header-safe)
-   ============================================================ */
-:root {
-  --pp-green:#2e7d32;
-  --pp-green-dark:#1b5e20;
-  --pp-green-press:#145a19;
-}
+/* ================= BUTTONS — all CTAs green (header-safe) ================= */
+:root { --pp-green:#2e7d32; --pp-green-dark:#1b5e20; --pp-green-press:#145a19; }
 
 .btn, .btn.primary, .btn.ghost,
 button, input[type="button"], input[type="submit"],
@@ -174,14 +160,9 @@ button, input[type="button"], input[type="submit"],
   background-color: var(--pp-green) !important;
   color: #fff !important;
   border: 2px solid var(--pp-green) !important;
-  display: inline-block;
-  padding: .65rem 1.2rem;
-  border-radius: 6px;
-  font-weight: 700;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color .25s, border-color .25s, color .25s;
+  display: inline-block; padding: .65rem 1.2rem;
+  border-radius: 6px; font-weight: 700; text-align: center; text-decoration: none;
+  cursor: pointer; transition: background-color .25s, border-color .25s, color .25s;
 }
 .btn:hover, .btn:focus,
 button:hover, button:focus,

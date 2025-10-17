@@ -1,61 +1,14 @@
-<footer class="site-footer" role="contentinfo">
+<footer class="site-footer">
   <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <img src="{{ '/img/patchandpot-icon.png' | relative_url }}"
-           alt="Patch &amp; Pot icon"
-           class="footer-icon"
-           onerror="this.style.display='none'">
-      <p class="footer-copy">© {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
-    </div>
-
-    <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="{{ '/index.html' | relative_url }}">Home</a>
+    <img src="{{ '/img/patchandpot-icon.png' | relative_url }}" alt="Patch &amp; Pot icon" class="footer-icon" onerror="this.style.display='none'">
+    <p>© {{ 'now' | date: '%Y' }} Patch &amp; Pot</p>
+    <nav class="footer-nav" aria-label="Footer">
       <a href="{{ '/growing/index.html' | relative_url }}">Growing</a>
-      <a href="{{ '/recipes.html' | relative_url }}">Recipes</a>
-      <a href="{{ '/exercise.html' | relative_url }}">Exercise</a>
-      <a href="{{ '/wellbeing.html' | relative_url }}">Wellbeing</a>
-      <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
       <a href="{{ '/guides/index.html' | relative_url }}">Guides</a>
       <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
+      <a href="{{ '/recipes.html' | relative_url }}">Recipes</a>
       <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+      <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
     </nav>
   </div>
 </footer>
-
-<style>
-.site-footer {
-  border-top:1px solid var(--stroke);
-  background:var(--glass);
-  margin-top:2rem;
-  padding:1rem 0;
-}
-.footer-inner {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:1rem;
-}
-.footer-brand {
-  display:flex;
-  align-items:center;
-  gap:.6rem;
-}
-.footer-icon { height:40px; width:auto; opacity:.95 }
-.footer-copy { margin:0; color:var(--muted); }
-
-.footer-nav {
-  display:flex;
-  flex-wrap:wrap;
-  gap:.5rem;
-}
-.footer-nav a {
-  text-decoration:none;
-  color:var(--ink);
-  padding:.35rem .7rem;
-  border-radius:999px;
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--stroke);
-}
-.footer-nav a:hover { text-decoration:underline; }
-</style>

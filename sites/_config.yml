@@ -1,17 +1,23 @@
-# Root Jekyll config (repo builds the site from /sites)
+# ------------------------------------------
+# Patch & Pot — Jekyll configuration
+# ------------------------------------------
+
 title: "Patch & Pot"
 url: "https://patchandpot.com"
-baseurl: ""         # domain points to /sites, so keep empty
+baseurl: ""
 
-# IMPORTANT: tell Jekyll where the site lives
+# Tell Jekyll to use /sites as the source directory
 source: sites
 
+# Permalink structure
 permalink: pretty
+
+# Markdown engine
 markdown: kramdown
 kramdown:
   input: GFM
 
-# Make sure Jekyll processes plain .html with front matter under /sites
+# Include directories required for site build
 include:
   - .htaccess
   - partials
@@ -19,3 +25,12 @@ include:
   - img
   - data
   - _layouts
+
+# Exclude things that shouldn't be processed
+exclude:
+  - node_modules
+  - README.md
+  - .gitignore
+  - .github
+  - Gemfile
+  - Gemfile.lock

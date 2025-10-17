@@ -1,22 +1,36 @@
 ---
 layout: default
 title: 2-Minute Calm — Patch & Pot
-description: A short, gentle space to slow your breathing and settle your mind while tending plants. Mindful growing moments for calm, clarity, and reset.
-keywords: mindfulness, 2 minute calm, gardening calm, mindful gardening, breathing exercise, short reset, Patch and Pot, mental wellbeing
+description: A gentle, seasonal mindfulness pause. Two minutes to breathe, notice and grow alongside nature.
+keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and Pot, mental wellbeing
 ---
 
 <!-- Universal header mount -->
 <div id="site-header"></div>
 <script src="/js/header-loader.js"></script>
 
+<!-- HERO -->
+<section class="hero-mini" role="banner" aria-label="2-Minute Calm hero">
+  <figure>
+    <img src="/img/hero.jpg" alt="Dew drops on leaves at sunrise">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content wrap">
+    <h1><span class="accent">2-Minute Calm</span></h1>
+    <p>Weekly guided breathing and grounding inspired by the season.</p>
+  </div>
+</section>
+
 <!-- MAIN CONTENT -->
 <main class="wrap" role="main">
-  <h1>2-Minute Calm</h1>
-  <p>
-    Quick prompts to slow your breathing and settle your mind while tending plants. 
-    Guided audio and scripts will be added here soon.
-  </p>
+  <h2 id="calm-title">Loading...</h2>
+  <audio id="calm-audio" controls preload="auto" style="width:100%;">
+    <p>Your browser does not support audio playback.</p>
+  </audio>
+  <p class="meta">Come back each week for a new seasonal mindful moment.</p>
 </main>
 
 <!-- Universal footer mount -->
 <div id="site-footer"></div>
+
+<script src="/js/calm-rotation.js"></script>

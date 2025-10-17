@@ -1,7 +1,12 @@
 ---
 layout: default
 title: Contact — Patch & Pot
+description: Get in touch with Patch & Pot. Share tips, ask questions, or collaborate on accessible growing projects.
 ---
+
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
 
 <!-- HERO -->
 <header class="hero" role="banner" aria-label="Contact hero">
@@ -24,19 +29,19 @@ title: Contact — Patch & Pot
     <div class="row">
       <div>
         <label for="name">Name</label>
-        <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+        <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required aria-required="true">
       </div>
       <div>
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-required="true">
       </div>
     </div>
 
     <label for="subject">Subject</label>
-    <input id="subject" name="subject" type="text" placeholder="What’s this about?" required>
+    <input id="subject" name="subject" type="text" placeholder="What’s this about?" required aria-required="true">
 
     <label for="message">Message</label>
-    <textarea id="message" name="message" placeholder="Write your message…" required></textarea>
+    <textarea id="message" name="message" placeholder="Write your message…" required aria-required="true"></textarea>
 
     <div class="actions">
       <button class="btn primary" type="submit">Send</button>
@@ -71,6 +76,9 @@ title: Contact — Patch & Pot
   <a href="/guides/index.html">Guides</a>
   <a href="/index.html">Home</a>
 </nav>
+
+<!-- Universal footer mount -->
+<div id="site-footer"></div>
 
 <!-- PAGE SCOPED FORM STYLES -->
 <style>

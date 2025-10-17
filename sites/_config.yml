@@ -1,133 +1,21 @@
-# =========================================
-# Patch & Pot — Jekyll config (root)
-# Domain points to /sites (served as the web root)
-# =========================================
-
+# Root Jekyll config (repo builds the site from /sites)
 title: "Patch & Pot"
-description: "Calm, practical guides for growing, cooking, exercise, and wellbeing."
-url: "https://patchandpot.com"   # Deployed domain
-baseurl: ""                      # IMPORTANT: domain serves /sites as the root
+url: "https://patchandpot.com"
+baseurl: ""         # domain points to /sites, so keep empty
 
-timezone: Europe/London
-permalink: pretty                # /path/ not /path.html
+# IMPORTANT: tell Jekyll where the site lives
+source: sites
 
+permalink: pretty
 markdown: kramdown
 kramdown:
   input: GFM
-  hard_wrap: false
-  toc_levels: 2..4
 
-# Process plain .html if it has front matter (Jekyll default).
-# Force-include dotfiles or special paths if you need them:
+# Make sure Jekyll processes plain .html with front matter under /sites
 include:
   - .htaccess
-  - .well-known                   # (optional) ACME challenges, etc.
-
-# Exclude build junk and local tooling
-exclude:
-  - node_modules
-  - package.json
-  - package-lock.json
-  - yarn.lock
-  - pnpm-lock.yaml
-  - vendor
-  - Gemfile
-  - Gemfile.lock
-  - README.md
-  - README.txt
-  - scripts
-  - tmp
-  - .DS_Store
-  - .git
-  - .github
-  - .vscode
-
-# GitHub Pages–whitelisted plugins (safe mode)
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-feed         # harmless even if you don't use posts
-  - jekyll-redirect-from
-
-# SEO tag config (optional but helpful)
-seo:
-  name: "Patch & Pot"
-  type: "WebSite"
-  twitter:
-    username: patchandpot
-    card: summary_large_image
-
-# Feed (only matters if you add posts later)
-feed:
-  path: atom.xml
-
-# Defaults: set layouts/vars by folder
-defaults:
-  # Site-wide default for any HTML/MD page without an explicit layout
-  - scope:
-      path: ""                      # everything
-    values:
-      layout: default               # falls back to _layouts/default.html
-      section: generic
-
-  # Wellbeing section: auto-apply the wellbeing layout + section variable
-  - scope:
-      path: "sites/wellbeing"
-    values:
-      layout: wellbeing             # uses _layouts/wellbeing.html
-      section: wellbeing
-
-  # (Optional) If you want to tag other sections for nav highlighting later:
-  # - scope:
-  #     path: "sites/growing"
-  #   values:
-  #     layout: default
-  #     section: growing
-  # - scope:
-  #     path: "sites/recipes"
-  #   values:
-  #     layout: default
-  #     section: recipes
-  # - scope:
-  #     path: "sites/exercise"
-  #   values:
-  #     layout: default
-  #     section: exercise
-  # - scope:
-  #     path: "sites/guides"
-  #   values:
-  #     layout: default
-  #     section: guides
-  # - scope:
-  #     path: "sites/ideas"
-  #   values:
-  #     layout: default
-  #     section: ideas
-
-# Sass/SCSS (if you ever switch to SCSS)
-sass:
-  sass_dir: assets/scss
-  style: compressed
-
-# Build flags
-future: true          # publish future-dated content if any
-lsi: false
-safe: true            # keep plugin set to GitHub Pages–approved ones
-
-# Collections (off by default; enable if you need structured content later)
-# collections:
-#   posts:
-#     output: true
-#     permalink: /blog/:title/
-
-# Sitemap (jekyll-sitemap)
-# Nothing required; plugin will auto-generate /sitemap.xml
-
-# -----------------------------------------
-# Notes for your setup:
-# - Your pages live under /sites/**. Since the server roots to /sites,
-#   keep baseurl empty and use root-relative links (/img/..., /css/...) or
-#   short relatives (../) as you already do.
-# - The Wellbeing pages now automatically use the `wellbeing` layout and
-#   set `section: wellbeing` (for nav highlighting) without per-page front matter.
-# -----------------------------------------
+  - partials
+  - js
+  - img
+  - data
+  - _layouts

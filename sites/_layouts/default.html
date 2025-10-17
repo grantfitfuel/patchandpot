@@ -4,14 +4,34 @@
   <meta charset="utf-8">
   <title>{{ page.title | escape }}{% if page.title and site.title %} — {{ site.title }}{% endif %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if page.description %}<meta name="description" content="{{ page.description | escape }}">{% endif %}
   <link rel="icon" href="{{ '/img/favicon.ico' | relative_url }}">
+  <!-- Your core stylesheet -->
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  <!-- Patch & Pot hotfix (safe to keep; overrides only) -->
+  <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
+
 <body class="theme-dark">
   {% include header.html %}
-  <main>
+
+  <main id="content">
     {{ content }}
   </main>
+
   {% include footer.html %}
+
+  <!-- Tiny, self-contained mobile nav toggle (no external loaders) -->
+  <script>
+  (function () {
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.getElementById('primaryNav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+  </script>
 </body>
 </html>

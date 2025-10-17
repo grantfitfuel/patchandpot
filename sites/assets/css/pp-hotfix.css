@@ -1,7 +1,8 @@
 /* ============================================================
-   Patch & Pot — HOTFIX Stylesheet (v2)
+   Patch & Pot — HOTFIX Stylesheet (v3)
    Purpose: Fix hero banner sizing/cropping + tile layout,
-            keep accessibility, and force all-green buttons.
+            keep accessibility, and force all-green buttons
+            WITHOUT affecting header nav or logo.
    Load AFTER site.css
    ============================================================ */
 
@@ -15,28 +16,26 @@
 .hero-mini figure {
   position: relative;
   width: 100%;
-  /* Banner height that behaves on iPad landscape/portrait */
-  height: clamp(320px, 48vh, 520px);
+  height: clamp(320px, 48vh, 520px); /* responsive hero height */
   margin: 0;
   overflow: hidden;
 }
 
-/* Correct image behaviour: fully fill the banner without distortion */
 .hero figure img,
 .hero-mini figure img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;          /* fill */
-  object-position: 50% 40%;   /* show head + some waist by default */
+  object-fit: cover;
+  object-position: 50% 40%; /* balanced head/waist view */
   display: block;
 }
 
-/* Fine-tune this specific page hero if needed */
-#ppHero { object-position: 55% 38%; }
+#ppHero {
+  object-position: 55% 38%; /* fine-tune hero image positioning */
+}
 
-/* Overlay for readability */
 .hero .overlay,
 .hero-mini .overlay {
   position: absolute;
@@ -46,7 +45,6 @@
   z-index: 1;
 }
 
-/* Content on top of overlay */
 .hero .content,
 .hero-mini .content {
   position: relative;
@@ -54,8 +52,12 @@
   text-align: center;
 }
 
-/* ---------------- Global Layout Tweaks ---------------- */
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+/* ---------------- Layout ---------------- */
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
 /* ---------------- Tile Grid / Cards ---------------- */
 .grid {
@@ -65,7 +67,6 @@
   margin-top: 2rem;
 }
 
-/* Equal-height, no weird stretching */
 .card {
   background: var(--glass, rgba(255,255,255,0.05));
   border: 1px solid var(--stroke, rgba(255,255,255,0.15));
@@ -74,62 +75,115 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 180px; /* stop collapsing cards */
+  min-height: 180px;
   transition: background .25s ease, transform .12s ease;
 }
-.card:hover { background: var(--glass-hover, rgba(255,255,255,0.08)); transform: translateY(-1px); }
 
-.card h2 { margin: 0 0 .35rem; }
-.card .meta { margin: 0 0 1rem; color: var(--inkdim, #cfd2d6); }
+.card:hover {
+  background: var(--glass-hover, rgba(255,255,255,0.08));
+  transform: translateY(-1px);
+}
 
-/* Keep CTA aligned consistently at the bottom of each card */
-.card .btn { margin-top: auto; }
+.card h2 {
+  margin: 0 0 .35rem;
+}
 
-/* Make any image inside a card behave */
-.card img { width: 100%; height: auto; display: block; border-radius: 8px; }
+.card .meta {
+  margin: 0 0 1rem;
+  color: var(--inkdim, #cfd2d6);
+}
 
-/* ---------------- Header Nav (non-breaking) ---------------- */
+.card .btn {
+  margin-top: auto;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+/* ---------------- Header Nav ---------------- */
 header nav ul {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem;
-  padding: 0; margin: 0; list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .75rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
+
 header nav a {
-  padding: .5rem .8rem; font-weight: 600; text-decoration: none; color: var(--ink, #fff);
+  padding: .5rem .8rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink, #fff);
 }
-header nav a:hover, header nav a:focus { text-decoration: underline; }
+
+header nav a:hover,
+header nav a:focus {
+  text-decoration: underline;
+}
 
 /* ---------------- Forms ---------------- */
-form label { display: block; margin-bottom: .35rem; }
-form input, form textarea, form select {
-  width: 100%; padding: .55rem .65rem; border: 1px solid var(--stroke, #334);
-  border-radius: 6px; background: var(--glass, #0f131a); color: var(--ink, #fff);
+form label {
+  display: block;
+  margin-bottom: .35rem;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: .55rem .65rem;
+  border: 1px solid var(--stroke, #334);
+  border-radius: 6px;
+  background: var(--glass, #0f131a);
+  color: var(--ink, #fff);
   margin-bottom: .8rem;
 }
 
 /* ---------------- Footer ---------------- */
-footer { text-align: center; padding: 2rem 0; }
-footer img.footer-logo { display: block; margin: 0 auto 1rem; max-width: 120px; height: auto; }
+footer {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+footer img.footer-logo {
+  display: block;
+  margin: 0 auto 1rem;
+  max-width: 120px;
+  height: auto;
+}
 
 /* ---------------- Accessibility ---------------- */
-:focus { outline: 2px solid var(--accent, #84c684); outline-offset: 3px; }
-img { max-width: 100%; height: auto; }
+:focus {
+  outline: 2px solid var(--accent, #84c684);
+  outline-offset: 3px;
+}
 
-/* ---------------- Buttons: All Green ---------------- */
-/* High-specificity + wide targets so legacy rules can’t leak in */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------------- Buttons: All Green (header-safe) ---------------- */
+/* CTA buttons only — not header nav or logo links */
 .btn,
 .btn.primary,
 .btn.ghost,
 button,
 input[type="button"],
 input[type="submit"],
-a.btn,
-.cta-row a,
-.card a.btn {
+.card a.btn,
+.cta-row a.btn {
   background-color: #2e7d32 !important;
   color: #ffffff !important;
   border: 2px solid #2e7d32 !important;
   display: inline-block;
-  padding: .65rem 1.2rem;
+  padding: 0.65rem 1.2rem;
   border-radius: 6px;
   font-weight: 700;
   text-align: center;
@@ -140,11 +194,16 @@ a.btn,
 
 .btn:hover,
 .btn:focus,
-button:hover, button:focus,
-input[type="button"]:hover, input[type="button"]:focus,
-input[type="submit"]:hover, input[type="submit"]:focus,
-a.btn:hover, a.btn:focus,
-.cta-row a:hover, .cta-row a:focus {
+button:hover,
+button:focus,
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+.card a.btn:hover,
+.cta-row a.btn:hover,
+.card a.btn:focus,
+.cta-row a.btn:focus {
   background-color: #1b5e20 !important;
   border-color: #1b5e20 !important;
   color: #ffffff !important;
@@ -154,11 +213,18 @@ a.btn:hover, a.btn:focus,
 button:active,
 input[type="button"]:active,
 input[type="submit"]:active,
-a.btn:active,
-.cta-row a:active {
+.card a.btn:active,
+.cta-row a.btn:active {
   background-color: #145a19 !important;
   border-color: #145a19 !important;
 }
 
-/* Compact variant if needed */
-.btn.small { padding: .4rem .8rem; font-size: .9rem; }
+/* ✅ Header logo and nav links stay clean */
+header a,
+header a:visited {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  color: inherit !important;
+  text-decoration: none;
+}

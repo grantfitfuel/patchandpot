@@ -6,63 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% if page.description %}<meta name="description" content="{{ page.description | escape }}">{% endif %}
   <link rel="icon" href="{{ '/img/favicon.ico' | relative_url }}">
-
-  <!-- THEME: robust load with preload->onload swap + noscript fallback -->
-  <link rel="preload"
-        href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}"
-        as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-  </noscript>
-
-  <!-- Minimal critical styles so header doesn’t collapse while CSS warms up -->
-  <style>
-    .css-alert{display:none}
-    .no-theme .css-alert{display:block;position:fixed;left:8px;bottom:8px;background:#b00020;color:#fff;
-      padding:.45rem .6rem;border-radius:8px;font:600 12px/1.2 system-ui;z-index:99999}
-    header.site-header{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem}
-    header .brand{display:flex;align-items:center;gap:.6rem}
-    header .brand .logo{height:28px;width:auto}
-    header nav a{margin-right:.8rem;text-decoration:none}
-    main{min-height:40vh}
-  </style>
+  <!-- Your real theme files (exact locations you stated) -->
+  <link rel="stylesheet" href="{{ '/assets/css/site.css?v=9' | relative_url }}">
 </head>
-<body class="no-theme">
-  <div class="css-alert">Theme CSS not loaded yet…</div>
-
+<body>
   {% include header.html %}
-
-  <main id="maincontent" role="main">
+  <main role="main">
     {{ content }}
   </main>
-
   {% include footer.html %}
-
-  <script>
-    // Detect whether site.css applied: site.css sets --pp-proof:1 on :root (defined below in header).
-    (function(){
-      function cssApplied(){
-        var val = getComputedStyle(document.documentElement).getPropertyValue('--pp-proof').trim();
-        return val === '1';
-      }
-      function mark(){
-        if(cssApplied()){
-          document.body.classList.remove('no-theme');
-        }else{
-          // Try again shortly (iOS/Safari can be slow on first load)
-          setTimeout(function(){
-            if(cssApplied()) document.body.classList.remove('no-theme');
-          }, 600);
-        }
-      }
-      // Run after a tick to allow the preloaded CSS to attach
-      window.addEventListener('load', mark);
-      document.addEventListener('DOMContentLoaded', function(){ setTimeout(mark, 120); });
-    })();
-  </script>
-
-  <!-- Site JS (menu toggle etc.) -->
-  <script defer src="{{ '/js/sites.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  <script defer src="{{ '/js/sites.js?v=9' | relative_url }}"></script>
 </body>
 </html>

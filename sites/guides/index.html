@@ -1,6 +1,8 @@
 ---
 layout: default
-title: Guides
+title: Guides — Patch & Pot
+description: Step-by-step guides for growing in small spaces and finding calm — from your first pot to space-saving rigs, seasonal sowing, and 2-Minute Calm.
+keywords: gardening guides, small space gardening, how to grow, balcony gardening, containers, seasonal calendar, calm, mindfulness
 ---
 
 <header class="hero" role="banner" aria-label="Guides hero">
@@ -17,26 +19,101 @@ title: Guides
   </div>
 </header>
 
-<main class="wrap">
+<style>
+  /* Page-scoped grid so this renders even without global tile CSS */
+  .guides-grid{display:grid;gap:14px;margin:18px 0}
+  @media(min-width:720px){.guides-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1100px){.guides-grid{grid-template-columns:repeat(3,1fr)}}
+  .tile{background:var(--glass);border:1px solid var(--stroke);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .tile .thumb{aspect-ratio:16/9;background:#0b0f0c;display:block}
+  .tile .thumb img{width:100%;height:100%;object-fit:cover}
+  .tile .cap{padding:.8rem .9rem;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .tile .cap p{margin:0;color:var(--muted)}
+  .tile .btn{white-space:nowrap}
+  .mini-nav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+</style>
+
+<main class="wrap" role="main">
   <section class="guides-grid" aria-label="Guide covers">
+    <!-- First Pot -->
     <article class="tile">
-      <span class="thumb"><img src="/img/guide-first-pot.png" alt="Your First Pot"></span>
-      <div class="cap"><a class="btn primary" href="/growing/first-pot.html">Open: Your First Pot</a></div>
+      <span class="thumb"><img src="/img/guide-first-pot.png" alt="Your First Pot cover image"></span>
+      <div class="cap">
+        <p><strong>Your First Pot</strong><br><span class="meta">Finish in 20 minutes</span></p>
+        <a class="btn primary" href="/growing/first-pot.html">Open</a>
+      </div>
     </article>
 
+    <!-- Seasonal / What to sow & when -->
     <article class="tile">
-      <span class="thumb"><img src="/img/guide-sow-when.png" alt="What to sow &amp; when"></span>
-      <div class="cap"><a class="btn primary" href="/seasonal.html">Open: What to Sow &amp; When</a></div>
+      <span class="thumb"><img src="/img/guide-sow-when.png" alt="What to sow and when calendar"></span>
+      <div class="cap">
+        <p><strong>What to Sow &amp; When</strong><br><span class="meta">Regional UK calendar</span></p>
+        <a class="btn primary" href="/seasonal.html">Open</a>
+      </div>
     </article>
 
+    <!-- 2-Minute Calm (correct absolute path) -->
     <article class="tile">
-      <span class="thumb"><img src="/img/guide-2min-calm.png" alt="2-Minute Calm"></span>
-      <div class="cap"><a class="btn primary" href="/wellbeing/affirmations.html">Open: 2-Minute Calm</a></div>
+      <span class="thumb"><img src="/img/guide-2min-calm.png" alt="2-Minute Calm breathing and grounding"></span>
+      <div class="cap">
+        <p><strong>2-Minute Calm</strong><br><span class="meta">Short guided resets</span></p>
+        <a class="btn primary" href="/calm.html">Open</a>
+      </div>
     </article>
 
+    <!-- Space-Saving Setups -->
     <article class="tile">
-      <span class="thumb"><img src="/img/propagation.jpg" alt="Propagation: cuttings and division"></span>
-      <div class="cap"><a class="btn primary" href="/guides/propagation.html">Open: Propagation &amp; Cuttings</a></div>
+      <span class="thumb"><img src="/img/space-saving-hero.png" alt="Vertical growing on a small balcony"></span>
+      <div class="cap">
+        <p><strong>Space-Saving Setups</strong><br><span class="meta">Grow up, not out</span></p>
+        <a class="btn primary" href="/growing/space-saving.html">Open</a>
+      </div>
+    </article>
+
+    <!-- Companion Planting -->
+    <article class="tile">
+      <span class="thumb"><img src="/img/tomatoes.jpg" alt="Tomatoes with basil companion"></span>
+      <div class="cap">
+        <p><strong>Companion Planting</strong><br><span class="meta">Plant friends in pots</span></p>
+        <a class="btn primary" href="/growing/companion.html">Open</a>
+      </div>
+    </article>
+
+    <!-- Regrow from Scraps -->
+    <article class="tile">
+      <span class="thumb"><img src="/img/regrow-basil-mint.png" alt="Basil and mint cuttings rooting in jars"></span>
+      <div class="cap">
+        <p><strong>Regrow from Scraps</strong><br><span class="meta">Fast wins from off-cuts</span></p>
+        <a class="btn primary" href="/growing/regrow.html">Open</a>
+      </div>
+    </article>
+
+    <!-- Common Pests -->
+    <article class="tile">
+      <span class="thumb"><img src="/img/aphids.jpg" alt="Aphids on a tender stem"></span>
+      <div class="cap">
+        <p><strong>Common Pests</strong><br><span class="meta">ID &amp; gentle fixes</span></p>
+        <a class="btn primary" href="/growing/pests.html">Open</a>
+      </div>
+    </article>
+
+    <!-- Cut Flowers -->
+    <article class="tile">
+      <span class="thumb"><img src="/img/cut-flowers-hero.jpg" alt="Cosmos and calendula in containers"></span>
+      <div class="cap">
+        <p><strong>Cut Flowers in Pots</strong><br><span class="meta">Compact bouquets</span></p>
+        <a class="btn primary" href="/growing/cut-flowers.html">Open</a>
+      </div>
+    </article>
+
+    <!-- Propagation (kept for future; path absolute) -->
+    <article class="tile">
+      <span class="thumb"><img src="/img/propagation.jpg" alt="Taking plant cuttings"></span>
+      <div class="cap">
+        <p><strong>Propagation &amp; Cuttings</strong><br><span class="meta">Root new plants cheaply</span></p>
+        <a class="btn primary" href="/guides/propagation.html">Open</a>
+      </div>
     </article>
   </section>
 

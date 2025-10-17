@@ -1,5 +1,5 @@
 ---
-# Required so Jekyll treats this as a layout
+# Default layout for Patch & Pot
 ---
 
 <!DOCTYPE html>
@@ -7,11 +7,34 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title | default: "Patch & Pot" | escape }}</title>
 
-  <link rel="stylesheet" href="/style.css">
+  <!-- Primary Meta -->
+  <title>{{ page.title | default: "Patch & Pot" | escape }}</title>
+  <meta name="description" content="{{ page.description | default: 'Accessible, mindful food growing for everyone. Practical guides, growing calendars, and wellbeing resources — from pot to plate.' }}">
+  <meta name="keywords" content="{{ page.keywords | default: 'gardening, container gardening, growing food, mindful gardening, Patch and Pot, home growing, balcony garden, wellbeing' }}">
+  <meta name="author" content="Patch & Pot">
+
+  <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+  <meta property="og:title" content="{{ page.title | default: 'Patch & Pot' }}">
+  <meta property="og:description" content="{{ page.description | default: 'Accessible, mindful food growing for everyone.' }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://patchandpot.com{{ page.url }}">
+  <meta property="og:image" content="https://patchandpot.com/img/social-share.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title | default: 'Patch & Pot' }}">
+  <meta name="twitter:description" content="{{ page.description | default: 'Accessible, mindful food growing for everyone.' }}">
+  <meta name="twitter:image" content="https://patchandpot.com/img/social-share.png">
+
+  <!-- Favicon & Styles -->
   <link rel="icon" type="image/svg+xml" href="/img/pot-icon.svg">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Prevent Liquid build errors if page has extra vars -->
+  {% assign _ = page | jsonify %}
 </head>
+
 <body>
   {{ content }}
 </body>

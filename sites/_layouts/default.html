@@ -1,19 +1,20 @@
+---
+# Minimal required front matter — this tells Jekyll it's a layout file
+---
+
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title | default: "Patch & Pot" }}</title>
+  <title>{{ page.title | default: "Patch & Pot" | escape }}</title>
 
-  <!-- Core CSS and icon -->
+  <!-- Core CSS and Favicon -->
   <link rel="stylesheet" href="/style.css">
   <link rel="icon" type="image/svg+xml" href="/img/pot-icon.svg">
-
-  <!-- Prevent Liquid errors if a page sets unknown vars -->
-  {% assign _ = page | jsonify %}
 </head>
 <body>
-  <!-- Header/Footer are injected by JS so pages only need the mounts -->
+  <!-- Page content will be injected here -->
   {{ content }}
 </body>
 </html>

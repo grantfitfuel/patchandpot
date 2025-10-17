@@ -1,7 +1,13 @@
 ---
 layout: default
-title: Your First Pot
+title: Your First Pot — Patch & Pot
+description: A simple, forgiving setup you can finish in 15–20 minutes. Works on a windowsill, doorstep, or balcony.
+keywords: first pot, beginner gardening, container gardening, balcony, windowsill, basil, parsley, salad leaves, peat-free compost
 ---
+
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
 
 <style>
   /* Scoped page tweaks only (no header/footer overrides) */
@@ -15,13 +21,14 @@ title: Your First Pot
   .table th,.table td{padding:.6rem .8rem; border-bottom:1px solid var(--stroke)}
   .table th{text-align:left; color:var(--muted,#a6b6af)}
   .badge{display:inline-block; padding:.2rem .5rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.06); font-size:.85rem}
+  .sr-only{position:absolute !important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 </style>
 
-<main class="wrap">
+<main class="wrap" role="main">
   <h1>Your First Pot</h1>
   <p class="lead">A simple, forgiving setup you can finish in 15–20 minutes. Works on a windowsill, doorstep, or balcony.</p>
 
-  <section class="steps">
+  <section class="steps" aria-label="Checklist and diagram">
     <article class="card">
       <h2>What you need</h2>
       <ul>
@@ -32,8 +39,8 @@ title: Your First Pot
         <li><span class="check">✓</span> Label &amp; pencil (optional but helpful)</li>
       </ul>
 
-      <h3>Light picker</h3>
-      <table class="table">
+      <h3 id="light-picker">Light picker</h3>
+      <table class="table" aria-labelledby="light-picker">
         <thead><tr><th>Light</th><th>Good first choices</th></tr></thead>
         <tbody>
           <tr><td>Bright window / 5–6h+</td><td>Cherry tomatoes (bush), chillies, basil</td></tr>
@@ -49,8 +56,8 @@ title: Your First Pot
     </aside>
   </section>
 
-  <section class="card">
-    <h2>Step-by-step</h2>
+  <section class="card" aria-labelledby="step-by-step">
+    <h2 id="step-by-step">Step-by-step</h2>
     <ol>
       <li><strong>Prep the base:</strong> Cover the hole with a crocks shard or mesh so compost doesn’t leak.</li>
       <li><strong>Fill:</strong> Add compost to 2 cm below the rim (space for watering).</li>
@@ -67,8 +74,8 @@ title: Your First Pot
     <p class="warn"><strong>Common issue:</strong> over-watering. If the top 2–3 cm feels damp, wait a day.</p>
   </section>
 
-  <section class="card">
-    <h2>Weekly rhythm</h2>
+  <section class="card" aria-labelledby="weekly-rhythm">
+    <h2 id="weekly-rhythm">Weekly rhythm</h2>
     <ul>
       <li>Water when the top 2–3 cm is dry to the touch.</li>
       <li>Feed lightly every 2 weeks once growth is steady (tomato feed for fruiting plants; general feed for leafy herbs).</li>
@@ -82,3 +89,6 @@ title: Your First Pot
     <a href="/wellbeing/affirmations.html">Affirmations</a>
   </nav>
 </main>
+
+<!-- Universal footer mount -->
+<div id="site-footer"></div>

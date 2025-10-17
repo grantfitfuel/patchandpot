@@ -1,36 +1,37 @@
-# Patch & Pot — Jekyll config (CLEAN, SINGLE SOURCE OF TRUTH)
-title: "Patch & Pot"
-url: "https://patchandpot.com"
-baseurl: ""              # custom domain at site root
-source: sites            # build from /sites
+# Patch & Pot — Jekyll Config
 
-# Keep .html links EXACTLY as written in your pages
-permalink: "/:path/:basename:output_ext"
+title: "Patch & Pot"
+description: "Beginner-friendly, mindful growing for small spaces."
+url: "https://patchandpot.com"
+baseurl: ""
+
+# Logo path (PNG)
+logo: /img/patchandpot-logo.png
+
+permalink: pretty
 
 markdown: kramdown
 kramdown:
   input: GFM
 
-plugins: []              # keep empty for GH Pages runner
-
-# Make sure Jekyll sees these folders under /sites
 include:
   - .htaccess
-  - js
-  - img
-  - data
-  - _layouts
-  - _includes
-  - css
-  - assets
-  - pdf
+  - _pages
 
-# Keep these out of the build
 exclude:
-  - node_modules
-  - vendor
-  - .github
   - README.md
-  - .gitignore
+  - node_modules
+  - package.json
+  - package-lock.json
   - Gemfile
   - Gemfile.lock
+  - vendor
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+sass:
+  style: compressed
+
+timezone: Europe/London

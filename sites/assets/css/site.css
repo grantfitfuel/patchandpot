@@ -30,3 +30,26 @@ html::before{
   opacity:.85;
 }
 :root{ --pp-proof: 1; }
+/* --- Header reset & nav guard --- */
+.site-header { position: sticky; top: 0; z-index: 100; background: #f7faf7; border-bottom: 1px solid #e4efe6; }
+.site-header .brand { display:flex; align-items:center; gap:.5rem; padding:.6rem 1rem; }
+.site-header .brand .logo { width:24px; height:auto; }
+.site-header .nav { display:flex; gap:1.25rem; align-items:center; list-style:none; margin:0; padding:.6rem 1rem; }
+.site-header .nav a { color:#1d2a22; text-decoration:none; font-weight:500; }
+.site-header .nav a:hover { text-decoration:underline; }
+.site-header .menu-toggle { display:none; background:none; border:0; margin-left:auto; padding:.6rem 1rem; }
+
+/* Mobile */
+@media (max-width: 760px){
+  .site-header { padding:.25rem 0; }
+  .site-header .menu-toggle { display:block; }
+  .site-header .nav { display:none; flex-direction:column; align-items:flex-start; padding:.5rem 1rem; }
+  .site-header .nav.is-open { display:flex; }
+}
+
+/* Footer basics */
+.site-footer { border-top:1px solid #e4efe6; background:#f7faf7; margin-top:2rem; }
+.site-footer .footer-inner { display:flex; gap:1rem; align-items:center; justify-content:space-between; padding:1rem; }
+.site-footer .footer-nav { display:flex; flex-wrap:wrap; gap:.75rem 1rem; }
+.site-footer .footer-nav a { color:#1d2a22; text-decoration:none; }
+.site-footer .footer-nav a:hover{ text-decoration:underline; }

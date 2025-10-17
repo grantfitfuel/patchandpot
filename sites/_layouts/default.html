@@ -1,5 +1,5 @@
 ---
-# Minimal required front matter — this tells Jekyll it's a layout file
+# Required so Jekyll treats this as a layout
 ---
 
 <!DOCTYPE html>
@@ -9,12 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title | default: "Patch & Pot" | escape }}</title>
 
-  <!-- Core CSS and Favicon -->
   <link rel="stylesheet" href="/style.css">
   <link rel="icon" type="image/svg+xml" href="/img/pot-icon.svg">
 </head>
 <body>
-  <!-- Page content will be injected here -->
   {{ content }}
 </body>
 </html>

@@ -1,11 +1,10 @@
-(function () {
-  var btn = document.querySelector('.site-header .menu-toggle');
+// Mobile nav toggle
+(function(){
+  var btn = document.getElementById('menuToggle');
   var nav = document.getElementById('primaryNav');
-  if (!btn || !nav) return;
-
-  btn.addEventListener('click', function () {
-    var open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    nav.classList.toggle('is-open', !open);
+  if(!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 })();

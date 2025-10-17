@@ -7,15 +7,29 @@
 html,body{background:var(--bg);color:var(--ink)}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 
-/* Header */
+/* ================= Header & Nav ================= */
 .site-header{background:#0a0f0c;border-bottom:1px solid var(--stroke)}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 20px}
 .site-header .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .site-header .logo{height:28px;width:auto}
 .site-header .site-title{font-weight:700}
-.site-header .nav{display:flex;gap:14px}
-.site-header .nav a{color:#cfe9dc;text-decoration:none;padding:6px 8px;border-radius:8px;white-space:nowrap}
+
+/* Keep nav on one line on tablets/desktops */
+.site-header .nav{display:flex;gap:12px;flex-wrap:nowrap}
+.site-header .nav a{
+  color:#cfe9dc;text-decoration:none;padding:6px 8px;border-radius:8px;white-space:nowrap;
+  font-size:clamp(13px,1.45vw,15px); line-height:1;
+}
 .site-header .nav a:hover{background:#101612}
+
+/* At medium widths, hide the site title to free space so Contact stays visible */
+@media (max-width:980px){
+  .site-header .site-title{display:none}
+  .site-header .nav{gap:10px}
+  .site-header .nav a{font-size:clamp(12.5px,1.6vw,14px);padding:6px 7px}
+}
+
+/* Mobile menu engages only below ~880px */
 .menu-toggle{display:none;background:transparent;border:0;color:var(--ink)}
 .menu-ico{display:inline-block;width:22px;height:16px}
 .menu-ico span{display:block;height:2px;background:var(--ink);margin:3px 0}
@@ -26,7 +40,7 @@ html,body{background:var(--bg);color:var(--ink)}
   .site-header .nav.open{display:flex}
 }
 
-/* Footer */
+/* ================= Footer ================= */
 .site-footer{background:#0a0f0c;border-top:1px solid var(--stroke);margin-top:24px}
 .site-footer .footer-inner{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 20px}
 .site-footer .brand{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none}
@@ -35,36 +49,33 @@ html,body{background:var(--bg);color:var(--ink)}
 .foot-nav a{color:#cfe9dc;text-decoration:none;white-space:nowrap;padding:4px 8px;border-radius:8px}
 .foot-nav a:hover{background:#101612}
 
-/* Buttons (Patch & Pot green) */
+/* ================= Buttons ================= */
 .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.75rem 1.05rem;border-radius:999px;font-weight:700;border:0;cursor:pointer;background:linear-gradient(180deg,var(--green1),var(--green2));color:#061007}
 .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:var(--ink)}
 
-/* Hero (fix height, crop & overlay; keep text left) */
+/* ================= Hero =================
+   Taller default: head + waist visible on common crops */
 .hero{position:relative}
-.hero figure{position:relative;margin:0;height:46vh;min-height:300px;max-height:520px;overflow:hidden;background:#000}
-.hero figure img{width:100%;height:100%;object-fit:cover;object-position:center}
-.hero figure .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55))}
+.hero figure{position:relative;margin:0;height:58vh;min-height:360px;max-height:660px;overflow:hidden;background:#000}
+.hero figure img{width:100%;height:100%;object-fit:cover;object-position:center 40%} /* nudge up slightly */
+.hero figure .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.32),rgba(0,0,0,.58))}
 .hero .content{position:absolute;inset:0;display:flex;align-items:flex-end}
-.hero .content .wrap{padding-bottom:28px}
+.hero .content .wrap{padding-bottom:32px}
 .hero .eyebrow{display:block;color:#cfe9dc;opacity:.9;margin-bottom:.25rem}
-.hero h1{margin:.15rem 0 .35rem;font-size:clamp(28px,5.2vw,44px);line-height:1.1}
+.hero h1{margin:.15rem 0 .35rem;font-size:clamp(30px,5.1vw,48px);line-height:1.1}
 .hero .lead{max-width:70ch;color:var(--muted)}
 @media (max-width:740px){
-  .hero figure{height:38vh;min-height:240px}
+  .hero figure{height:44vh;min-height:280px}
 }
 
-/* Cards, tables, common elements */
+/* ================= Content polish ================= */
 .card{background:var(--glass);border:1px solid var(--stroke);border-radius:12px;padding:12px}
 .table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--stroke);border-radius:12px;overflow:hidden}
 .table th,.table td{border-bottom:1px solid var(--stroke);padding:.6rem .7rem;text-align:left}
 .table thead th{background:rgba(255,255,255,.06)}
 .mini-nav{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
 .mini-nav a{color:#7ed495;text-decoration:none;padding:.35rem .6rem;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.06)}
-
-/* Images inside content keep sane sizing */
 main img{max-width:100%;height:auto;border-radius:8px}
-
-/* General text polish */
 h1,h2,h3{letter-spacing:.2px}
 p{color:var(--ink)}
 .meta,.note{color:var(--muted)}

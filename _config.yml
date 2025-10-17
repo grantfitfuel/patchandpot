@@ -1,40 +1,10 @@
-# ------------------------------------------
-# Patch & Pot — Jekyll configuration (root)
-# ------------------------------------------
-
 title: "Patch & Pot"
-description: "Grow food and calm in small spaces."
 url: "https://patchandpot.com"
-baseurl: ""                 # custom domain at root
-
-# Build from /sites (you’re using Actions, so this is fine)
+baseurl: ""
 source: sites
-
-# Permalinks & Markdown
-permalink: pretty
+permalink: "/:path/:basename:output_ext"
 markdown: kramdown
-kramdown:
-  input: GFM
-
-# Keep GH Pages happy (no custom plugins)
+kramdown: { input: GFM }
 plugins: []
-
-# Include (relative to /sites). Normal folders don’t need listing,
-# but we’ll keep any non-standard/dotfiles explicit.
-include:
-  - .htaccess
-  - partials
-  - js
-  - img
-  - data
-  - _layouts
-
-# Exclude from processing
-exclude:
-  - node_modules
-  - .github
-  - README.md
-  - .gitignore
-  - Gemfile
-  - Gemfile.lock
-  - vendor
+include: [".htaccess","js","img","data","_layouts","_includes"]
+exclude: ["node_modules","README.md",".gitignore",".github","Gemfile","Gemfile.lock"]

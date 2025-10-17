@@ -6,9 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% if page.description %}<meta name="description" content="{{ page.description | escape }}">{% endif %}
   <link rel="icon" href="{{ '/img/favicon.ico' | relative_url }}">
-  <!-- Your core stylesheet -->
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-  <!-- Patch & Pot hotfix (safe to keep; overrides only) -->
   <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
 
@@ -21,7 +19,6 @@
 
   {% include footer.html %}
 
-  <!-- Tiny, self-contained mobile nav toggle (no external loaders) -->
   <script>
   (function () {
     var btn = document.querySelector('.menu-toggle');

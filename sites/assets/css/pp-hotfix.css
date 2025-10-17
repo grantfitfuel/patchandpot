@@ -1,5 +1,9 @@
 /* ============================================================
-   Patch & Pot — HOTFIX v13
+   Patch & Pot — HOTFIX (v14)
+   • Header clean + hamburger (CSS-only, no JS)
+   • Hero text BELOW image (overlay hidden)
+   • Tiles tidy
+   • Only CTAs green (header never green)
    ============================================================ */
 
 /* Base */
@@ -7,69 +11,74 @@
 img{max-width:100%;height:auto;display:block}
 :focus{outline:2px solid var(--accent,#84c684);outline-offset:3px}
 
-/* HEADER */
-.site-header{background:var(--glass,#0b1210);border-bottom:1px solid var(--stroke,rgba(255,255,255,.08))}
-.nav-wrap{max-width:1100px;margin:0 auto;padding:.65rem 20px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+/* ===================== HEADER ===================== */
+.site-header{background:#0b1210;border-bottom:1px solid rgba(255,255,255,.08)}
+.site-header .nav-wrap{max-width:1100px;margin:0 auto;padding:.65rem 20px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 
-.brand{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--ink,#fff)}
-.brand-icon{width:22px;height:22px}
+.brand{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;color:#fff}
+.brand-icon{width:22px;height:22px;display:inline-block}
 .brand-text{font-weight:700;letter-spacing:.2px}
 
+/* Hamburger (checkbox hack) */
 .nav-toggle{position:absolute;opacity:0;pointer-events:none}
-.hamburger{display:none;position:relative;width:42px;height:38px;cursor:pointer}
-.hamburger .bar{position:absolute;left:8px;right:8px;height:2px;background:var(--ink,#fff);transition:transform .2s ease,opacity .2s ease}
+.hamburger{display:none;position:relative;width:42px;height:38px;border:0;background:transparent;cursor:pointer}
+.hamburger .bar{position:absolute;left:8px;right:8px;height:2px;background:#fff;transition:transform .2s,opacity .2s}
 .hamburger .bar:nth-child(1){top:11px}
 .hamburger .bar:nth-child(2){top:18px}
 .hamburger .bar:nth-child(3){top:25px}
 
+/* Primary nav */
 .main-nav ul{display:flex;flex-wrap:wrap;gap:.75rem;list-style:none;margin:0;padding:0}
-.main-nav a{display:inline-flex;align-items:center;padding:.45rem .8rem;border-radius:6px;text-decoration:none;font-weight:600;color:var(--ink,#fff)}
+.main-nav a{display:inline-flex;align-items:center;padding:.45rem .8rem;border-radius:6px;text-decoration:none;font-weight:600;color:#fff}
 .main-nav a:hover,.main-nav a:focus{text-decoration:underline}
 
-/* Kill green in header */
-.site-header *, .site-header a, .site-header .btn, .site-header a.btn{
+/* Kill ANY button/background leak in header */
+.site-header a,.site-header .btn,.site-header a.btn,.site-header *{
   background:transparent!important;border:0!important;box-shadow:none!important
 }
 
 /* Mobile menu */
 @media (max-width:900px){
   .hamburger{display:inline-block}
-  .main-nav{position:absolute;left:0;right:0;top:100%;background:var(--glass,#0b1210);border-bottom:1px solid var(--stroke,rgba(255,255,255,.08));transform:scaleY(0);transform-origin:top;transition:transform .18s ease}
+  .main-nav{position:absolute;left:0;right:0;top:100%;background:#0b1210;border-bottom:1px solid rgba(255,255,255,.08);transform:scaleY(0);transform-origin:top;transition:transform .18s ease}
   .main-nav ul{flex-direction:column;gap:0}
   .main-nav li{border-top:1px solid rgba(255,255,255,.06)}
   .main-nav a{padding:.9rem 20px}
-  .nav-wrap{position:relative}
+  .site-header .nav-wrap{position:relative}
   .nav-toggle:checked ~ .main-nav{transform:scaleY(1)}
   .nav-toggle:checked + .hamburger .bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .nav-toggle:checked + .hamburger .bar:nth-child(2){opacity:0}
   .nav-toggle:checked + .hamburger .bar:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 }
 
-/* HERO */
+/* ===================== HERO ===================== */
+/* Hide any legacy overlay content inside .hero */
+.hero .content{display:none!important}
+
+.hero{margin:0}
 .hero figure{position:relative;width:100%;height:clamp(280px,48vh,520px);margin:0;overflow:hidden}
 .hero figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 38%}
-.hero .content{display:none!important} /* hide overlay text */
 
-/* Text below hero */
+/* Text section that sits BELOW the image */
 .hero-text{padding:1.5rem 20px 0;text-align:center}
-.eyebrow{display:block;font-size:.9rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:.35rem;color:var(--accent,#84c684)}
-.hero-text .lead{color:var(--inkdim,#cfd2d6);margin:.4rem 0 1rem}
+.eyebrow{display:block;font-size:.9rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:.35rem;color:#84c684}
+.hero-text .lead{color:#cfd2d6;margin:.4rem 0 1rem}
 
 @media (max-width:768px){
   .hero figure{height:260px}
   .hero-text{padding-top:1rem}
 }
 
-/* CARDS */
+/* ===================== GRID / CARDS ===================== */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:2rem}
-.card{background:var(--glass,rgba(255,255,255,.05));border:1px solid var(--stroke,rgba(255,255,255,.15));border-radius:10px;padding:1.25rem;display:flex;flex-direction:column;min-height:180px;transition:background .25s ease,transform .12s ease}
-.card:hover{background:var(--glass-hover,rgba(255,255,255,.08));transform:translateY(-1px)}
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:1.25rem;display:flex;flex-direction:column;min-height:180px;transition:background .25s,transform .12s}
+.card:hover{background:rgba(255,255,255,.08);transform:translateY(-1px)}
 .card h2{margin:0 0 .35rem}
-.card .meta{margin:0 0 1rem;color:var(--inkdim,#cfd2d6)}
+.card .meta{margin:0 0 1rem;color:#cfd2d6}
 .card .btn{margin-top:auto}
 @media (max-width:768px){.grid{grid-template-columns:1fr;gap:1rem}}
 
-/* BUTTONS */
+/* ===================== BUTTONS (CTAs only) ===================== */
 :root{--pp-green:#2e7d32;--pp-green-dark:#1b5e20;--pp-green-press:#145a19}
 .btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"],.card a.btn,.cta-row a.btn{
   background-color:var(--pp-green)!important;color:#fff!important;border:2px solid var(--pp-green)!important;display:inline-block;padding:.65rem 1.2rem;border-radius:6px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer;transition:background-color .25s,border-color .25s,color .25s

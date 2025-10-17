@@ -1,14 +1,19 @@
-<header class="site-header" role="banner">
-  <a href="{{ '/' | relative_url }}" class="site-logo">🌿 Patch &amp; Pot</a>
-  <button class="menu-toggle" aria-controls="site-nav" aria-expanded="false">Menu</button>
-  <nav id="site-nav" class="site-nav" aria-label="Primary" aria-expanded="false">
-    {% assign current = page.url | replace:'index.html','' | replace:'//','/' %}
-    {% for item in site.data.nav %}
-      {% assign link = item.url | replace:'index.html','' | replace:'//','/' %}
-      <a href="{{ item.url | relative_url }}"
-         class="nav-link{% if current == link %} active{% endif %}">
-        {{ item.title }}
-      </a>
-    {% endfor %}
+{% raw %}<header class="site-header" id="siteHeader">
+  <div class="brand">
+    <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch &amp; Pot logo" class="logo" onerror="this.style.display='none'">
+    <span class="site-title">Patch &amp; Pot</span>
+  </div>
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primaryNav">
+    <span class="menu-ico"><span></span><span></span><span></span></span>
+  </button>
+  <nav class="nav" id="primaryNav" aria-label="Primary">
+    <a href="{{ '/index.html' | relative_url }}">Home</a>
+    <a href="{{ '/growing.html' | relative_url }}">Growing</a>
+    <a href="{{ '/recipes.html' | relative_url }}">Recipes</a>
+    <a href="{{ '/exercise.html' | relative_url }}">Exercise</a>
+    <a href="{{ '/wellbeing.html' | relative_url }}" {% raw %}{% if page.section == 'wellbeing' %}aria-current="page"{% endif %}{% endraw %}>Wellbeing</a>
+    <a href="{{ '/guides.html' | relative_url }}">Guides</a>
+    <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
+    <a href="{{ '/contact.html' | relative_url }}">Contact</a>
   </nav>
-</header>
+</header>{% endraw %}

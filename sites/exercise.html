@@ -5,6 +5,87 @@ description: Short, realistic exercise sessions that fit around life and growing
 keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool down, accessible fitness, gentle movement, Patch and Pot, joint-friendly, mobility, home workout, flexibility, stretching
 ---
 
+<style>
+  :root {
+    --pp-teal: #2BBBAD;       /* accent teal */
+    --pp-teal-dark: #1F887E;
+  }
+
+  /* Grid layout */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* Card styling with teal accent on left */
+  .card {
+    background: var(--glass);
+    border: 1px solid var(--stroke);
+    border-left: 5px solid var(--pp-teal);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    border-left-color: var(--pp-teal-dark);
+  }
+
+  .card h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+    color: #fff;
+  }
+
+  .card .meta {
+    color: var(--ink);
+    opacity: 0.9;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .card ul,
+  .card ol {
+    margin: 0.4rem 0 0.8rem 1.2rem;
+  }
+
+  .card li {
+    margin-bottom: 0.3rem;
+  }
+
+  .mini-nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .mini-nav a {
+    color: var(--pp-teal);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--pp-teal);
+    transition: background .2s ease;
+  }
+
+  .mini-nav a:hover {
+    background: var(--pp-teal);
+    color: #fff;
+  }
+</style>
+
 <!-- HERO -->
 <header class="hero" role="banner" aria-label="Exercise hero">
   <figure>
@@ -33,7 +114,7 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
     </p>
   </section>
 
-  <!-- WARM UP / MAIN BLOCK -->
+  <!-- EXERCISE SETS -->
   <section class="grid" aria-label="Exercise templates">
     <article class="card" id="warmup">
       <h2>5-Minute Warm-up</h2>
@@ -41,7 +122,7 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
       <ol>
         <li><strong>Neck rolls</strong> × 3 each way — slow and gentle, no strain.</li>
         <li><strong>Shoulder circles</strong> × 10 — open the chest and upper back.</li>
-        <li><strong>Hip hinges</strong> × 10 — wake up your posterior chain (hips, hamstrings, lower back).</li>
+        <li><strong>Hip hinges</strong> × 10 — wake up your posterior chain.</li>
         <li><strong>Air squats</strong> × 10 — keep heels down, back tall.</li>
         <li><strong>Calf raises</strong> × 12 — lift slowly, pause at the top.</li>
       </ol>
@@ -51,10 +132,10 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
       <h2>Bodyweight Basics</h2>
       <p class="meta">2–3 rounds · rest 45–60 s between moves.</p>
       <ul>
-        <li><strong>Squat × 12</strong> — push through your heels, keep knees tracking over toes.</li>
-        <li><strong>Incline press-up × 10</strong> — hands on a worktop or table, chest lowers between hands.</li>
-        <li><strong>Split squat × 10 each side</strong> — steady hold on a wall or chair if needed.</li>
-        <li><strong>Dead bug or plank × 20–30 s</strong> — focus on controlled breathing and bracing.</li>
+        <li><strong>Squat × 12</strong> — push through heels, keep knees tracking over toes.</li>
+        <li><strong>Incline press-up × 10</strong> — hands on worktop or table.</li>
+        <li><strong>Split squat × 10 each side</strong> — hold a wall or chair if needed.</li>
+        <li><strong>Dead bug or plank × 20–30 s</strong> — breathe and brace.</li>
       </ul>
     </article>
 
@@ -62,25 +143,23 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
       <h2>Dumbbell Pair</h2>
       <p class="meta">A light pair is plenty. 2–3 rounds with steady breathing.</p>
       <ul>
-        <li><strong>Goblet squat × 12</strong> — hold one dumbbell at your chest, drive up from heels.</li>
-        <li><strong>Floor press × 10</strong> — lie on your back, elbows close, press weights upwards.</li>
-        <li><strong>Bent row × 10</strong> — hinge at the hips, squeeze shoulder blades as you pull.</li>
-        <li><strong>Seated curl × 10</strong> — elbows tucked, control the descent.</li>
+        <li><strong>Goblet squat × 12</strong></li>
+        <li><strong>Floor press × 10</strong></li>
+        <li><strong>Bent row × 10</strong></li>
+        <li><strong>Seated curl × 10</strong></li>
       </ul>
     </article>
 
-    <!-- FLEXIBILITY -->
     <article class="card" id="flexibility">
       <h2>Flexibility Flow</h2>
       <p class="meta">Gentle mobility & stretches · 5–8 minutes.</p>
       <ul>
-        <li><strong>Cat–Cow stretch × 5</strong> — loosen spine and shoulders.</li>
-        <li><strong>Standing side reach × 8</strong> — lengthen through the waist.</li>
-        <li><strong>Seated twist × 5 each side</strong> — gentle spinal rotation.</li>
-        <li><strong>Forward fold hold × 20 s</strong> — release hamstrings and back.</li>
-        <li><strong>Ankle rolls × 10</strong> — ease lower legs and feet.</li>
+        <li><strong>Cat–Cow stretch × 5</strong></li>
+        <li><strong>Standing side reach × 8</strong></li>
+        <li><strong>Seated twist × 5 each side</strong></li>
+        <li><strong>Forward fold hold × 20 s</strong></li>
+        <li><strong>Ankle rolls × 10</strong></li>
       </ul>
-      <p class="meta">Perfect on recovery days or after gardening to keep joints supple.</p>
     </article>
   </section>
 
@@ -88,10 +167,9 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
   <section class="grid" aria-label="Cool down and progression notes">
     <article class="card">
       <h2>Cool Down (2–3 mins)</h2>
-      <p class="meta">Slow nasal breathing · calf/quad/hamstring stretch 20–30 s each side.</p>
       <ul>
         <li>Gentle standing hamstring stretch</li>
-        <li>Quad stretch with support (hold wall or chair)</li>
+        <li>Quad stretch with support</li>
         <li>Seated or standing calf stretch</li>
         <li>Shoulder and chest opening</li>
       </ul>
@@ -112,12 +190,10 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
       <p class="meta">
         Movement can be a reset. Some days you’ll have energy, some days you won’t — that’s okay. Even 3 minutes of light stretching, a slow walk, or deep breathing still counts.
       </p>
-      <p class="meta">
-        Coming soon: printable cards, timers, joint-friendly swaps, and short videos for each move.
-      </p>
     </article>
   </section>
 
+  <!-- MINI NAV -->
   <nav class="mini-nav" aria-label="Explore exercise">
     <a href="/ideas.html">Ideas</a>
     <a href="/guides/index.html">Guides</a>

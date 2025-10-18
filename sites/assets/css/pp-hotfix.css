@@ -1,100 +1,77 @@
-/* Patch & Pot — HOTFIX v26 (build from /sites) */
+/* Patch & Pot — HOTFIX v28 */
+/* Works with your site.css from earlier. */
 
-/* ===== Reset ===== */
-html, body { height: 100%; }
+/* --- Safety reset --- */
 body { margin: 0; }
-img { max-width: 100%; display: block; }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+img { max-width: 100%; height: auto; display: block; }
 
-/* ===== Header ===== */
-.site-header{
-  background:#0b1210; border-bottom:1px solid rgba(255,255,255,.08);
-  position:sticky; top:0; z-index:2000;
-}
-.nav-wrap{
-  max-width:1100px; margin:0 auto; padding:.65rem 20px;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:.75rem; min-height:56px; flex-wrap:nowrap;
-}
-.brand{display:flex; align-items:center; gap:.5rem; color:#fff; text-decoration:none;}
-.brand-logo{width:32px; height:32px;}
-.brand-text{font-weight:700; letter-spacing:.2px;}
-.site-header a,.site-header *{background:transparent!important; border:0!important; box-shadow:none!important}
-
-/* Nav */
-.main-nav ul{
-  display:flex; gap:.9rem; list-style:none; margin:0; padding:0;
-  flex-wrap:nowrap; white-space:nowrap;
-}
-.main-nav a{color:#fff; font-weight:600; text-decoration:none; padding:.45rem .7rem; border-radius:6px;}
-.main-nav a:hover,.main-nav a:focus{text-decoration:underline}
-
-/* Hamburger */
-.nav-toggle{position:absolute;opacity:0;pointer-events:none}
-.hamburger{display:none;width:44px;height:38px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:6px}
-.hamburger span{width:26px;height:2px;background:#fff;box-shadow:0 0 3px rgba(0,0,0,.8)}
-.hamburger:focus span,.hamburger:hover span{background:#84c684}
-
-/* Collapse to hamburger early (prevents wrapping on iPad landscape) */
-@media (max-width:1600px){
-  .hamburger{display:flex;z-index:2002}
-  .site-header .nav-wrap{position:relative}
-  .main-nav{
-    position:absolute;left:0;right:0;top:100%;
-    background:#0b1210;border-bottom:1px solid rgba(255,255,255,.08);
-    transform:scaleY(0);transform-origin:top;transition:transform .18s ease;z-index:2001
-  }
-  .main-nav ul{flex-direction:column;gap:0}
-  .main-nav li{border-top:1px solid rgba(255,255,255,.06)}
-  .main-nav a{display:block;padding:1rem 20px}
-  .nav-toggle:checked ~ .main-nav{transform:scaleY(1)}
-}
-
-/* Remove header gap */
+/* --- Header: sticky, no gap --- */
+.site-header { position: sticky; top: 0; z-index: 3000; }
 .site-header + * { margin-top: 0 !important; }
 
-/* ===== Hero ===== */
+/* --- Hamburger control (checkbox) --- */
+.nav-toggle { position: absolute; opacity: 0; pointer-events: none; }
+.hamburger { display: none; width: 44px; height: 38px; cursor: pointer;
+  align-items: center; justify-content: center; flex-direction: column; gap: 6px; }
+.hamburger span { width: 26px; height: 2px; background: #fff; box-shadow: 0 0 3px rgba(0,0,0,.8); }
+
+/* ===== NAV BREAKPOINTS =====
+   We SHOW the full nav on iPad landscape (1366px) and larger.
+   Collapse to hamburger only at <= 1280px.
+*/
+.nav { flex-wrap: nowrap; white-space: nowrap; }
+@media (min-width: 1024px) and (max-width: 1440px){
+  /* tighten spacing so it fits in one row */
+  :root { --nav-gap: 0.8rem; }
+  .nav a { font-size: .95rem; padding: 4px 6px; }
+}
+
+@media (max-width: 1280px){
+  .site-header .wrap { position: relative; }
+  .hamburger { display: flex; z-index: 3002; }
+  .nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: #0a0f0c; border-top: 1px solid var(--stroke);
+    transform: scaleY(0); transform-origin: top; transition: transform .18s ease;
+    padding: 6px 0;
+  }
+  .nav a { display: block; padding: 12px 20px; }
+  .nav-toggle:checked ~ .hamburger + .nav,
+  .nav-toggle:checked ~ .nav { transform: scaleY(1); }
+}
+
+/* --- HERO: show head + waist --- */
+.hero .content { display: none !important; }          /* keep text below image */
 .hero { margin: 0; }
 .hero figure { margin: 0; position: relative; overflow: hidden; }
-.hero img {
+.hero figure img{
   width: 100%;
-  height: clamp(300px, 45vh, 420px);
+  height: clamp(340px, 46vh, 480px);                  /* a bit taller to include waist */
   object-fit: cover;
-  object-position: center 15%; /* lift framing */
+  object-position: center 40% !important;             /* lift focus to show head+waist */
 }
-@media (max-width: 768px) {
-  .hero img { height: 320px; object-position: center 12%; }
+/* phone/tablet portrait – slightly higher crop to keep face in view */
+@media (max-width: 900px){
+  .hero figure img{ height: 320px; object-position: center 32% !important; }
 }
 
-/* ===== Hero text BELOW image (force visible) ===== */
-.hero-text {
-  display: block !important;
-  padding: 1.25rem 0 0;
-  text-align: center;
-}
+/* --- HERO TEXT BELOW IMAGE --- */
+.hero-text{ display:block; padding:1.25rem 20px 0; text-align:center; }
 .hero-text .eyebrow{
-  display:block; font-size:.9rem; letter-spacing:1px; text-transform:uppercase; color:#84c684; margin-bottom:.35rem;
+  display:block; font-weight:600; text-transform:uppercase;
+  font-size:.9rem; letter-spacing:.05em; color:var(--accent); opacity:.95; margin-bottom:.35rem;
 }
-.hero-text .lead{ color:#cfd2d6; margin:.4rem 0 1rem; }
+.hero-text .lead{ color:#cfe9dc; margin:.4rem 0 1rem; }
 
-/* ===== Grid/cards (optional but nice) ===== */
-.grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:1.25rem; margin:2rem 0; }
-.card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.15); border-radius:10px; padding:1.25rem; display:flex; flex-direction:column; }
-.card .meta { color:#cfd2d6; }
-
-/* ===== Footer ===== */
-.site-footer{background:#0b1210;color:#fff;padding:2rem 20px;text-align:center;border-top:1px solid rgba(255,255,255,.1)}
-.footer-flex{display:flex;flex-direction:column;align-items:center;gap:.5rem}
-
-/* ===== Buttons (all green, header links unaffected) ===== */
-:root{--pp-green:#2e7d32;--pp-green-dark:#1b5e20;--pp-green-press:#145a19}
-.btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"],.card a.btn,.cta-row a.btn{
-  background-color:var(--pp-green)!important;color:#fff!important;border:2px solid var(--pp-green)!important;
-  display:inline-block;padding:.65rem 1.2rem;border-radius:6px;font-weight:700;text-decoration:none;transition:.25s
+/* --- Buttons: all green --- */
+:root{ --pp-green:#2e7d32; --pp-green-dark:#1b5e20; --pp-green-press:#145a19; }
+.btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"]{
+  background-color:var(--pp-green)!important; color:#fff!important; border:2px solid var(--pp-green)!important;
+  display:inline-block; padding:.65rem 1.2rem; border-radius:8px; font-weight:700; text-decoration:none; transition:.25s;
 }
-.btn:hover,.btn:focus,button:hover,button:focus,input[type="button"]:hover,input[type="button"]:focus,.card a.btn:hover,.card a.btn:focus,.cta-row a.btn:hover,.cta-row a.btn:focus{
-  background-color:var(--pp-green-dark)!important;border-color:var(--pp-green-dark)!important
+.btn:hover,.btn:focus,button:hover,button:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus{
+  background-color:var(--pp-green-dark)!important; border-color:var(--pp-green-dark)!important;
 }
-.btn:active,button:active,input[type="button"]:active,input[type="submit"]:active,.card a.btn:active,.cta-row a.btn:active{
-  background-color:var(--pp-green-press)!important;border-color:var(--pp-green-press)!important
+.btn:active,button:active,input[type="button"]:active,input[type="submit"]:active{
+  background-color:var(--pp-green-press)!important; border-color:var(--pp-green-press)!important;
 }

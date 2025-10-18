@@ -1,12 +1,10 @@
 <footer class="site-footer" role="contentinfo">
   <div class="wrap footer-flex">
     {% assign brand_logo = site.logo | default: '/img/patchandpot-logo.png' %}
-    <img src="{{ brand_logo | relative_url }}" alt="Patch & Pot logo" class="footer-logo" width="50" height="50" loading="lazy">
-    
-    <p>
-      &copy; {{ site.time | date: '%Y' }} Patch &amp; Pot. All rights reserved.<br>
-      Created by Grant Cameron Anthony
-    </p>
+    <img src="{{ brand_logo | relative_url }}" alt="Patch & Pot logo" class="footer-logo" width="70" height="70" loading="lazy">
+
+    <p class="footer-copy">&copy; {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
+    <p class="footer-credit">Created by Grant Cameron Anthony</p>
 
     <nav class="footer-nav" aria-label="Footer navigation">
       <a href="/index.html">Home</a>
@@ -28,19 +26,35 @@
     background: #0a0f0c;
     border-top: 1px solid var(--stroke);
     text-align: center;
-    padding: 24px 0;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    width: 100%;
   }
 
   .footer-logo {
     display: block;
-    margin: 0 auto 12px;
+    margin-bottom: 16px;
   }
 
-  .site-footer p {
+  .footer-copy {
+    color: var(--ink);
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .footer-credit {
     color: var(--ink);
     font-size: 0.9rem;
-    margin: 0 0 14px;
-    line-height: 1.5;
+    margin: 6px 0 18px;
+    opacity: 0.9;
   }
 
   .footer-nav {
@@ -48,8 +62,7 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 16px;
-    max-width: 700px;
-    margin: 0 auto;
+    max-width: 720px;
   }
 
   .footer-nav a {
@@ -63,5 +76,14 @@
   .footer-nav a:hover {
     opacity: 1;
     color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    .footer-nav {
+      gap: 12px;
+    }
+    .footer-nav a {
+      font-size: 0.85rem;
+    }
   }
 </style>

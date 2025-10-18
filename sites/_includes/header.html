@@ -1,19 +1,19 @@
 <header class="site-header" role="navigation" aria-label="Main">
   <div class="nav-wrap">
     <a class="brand" href="{{ '/' | relative_url }}" aria-label="Patch & Pot — Home">
-      <img class="brand-logo" src="{{ site.logo | relative_url }}" alt="Patch & Pot logo" width="28" height="28">
-      <span class="brand-text">Patch <span aria-hidden="true">&amp;</span> Pot</span>
+      {% assign brand_logo = site.logo | default: '/img/patchandpot-logo.png' %}
+      <img class="brand-logo" src="{{ brand_logo | relative_url }}" alt="Patch & Pot logo" width="32" height="32" loading="lazy">
+      <span class="brand-text">Patch &amp; Pot</span>
     </a>
 
-    <!-- CSS-only hamburger (checkbox toggle) -->
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
     <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
-      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      <span></span><span></span><span></span>
     </label>
 
     <nav class="main-nav" aria-label="Primary">
       <ul>
-        <li><a href="{{ '/index.html' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
         <li><a href="{{ '/growing/index.html' | relative_url }}">Growing</a></li>
         <li><a href="{{ '/recipes.html' | relative_url }}">Recipes</a></li>
         <li><a href="{{ '/exercise.html' | relative_url }}">Exercise</a></li>

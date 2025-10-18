@@ -7,21 +7,17 @@
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta name="keywords" content="{{ page.keywords }}">
 
-  <!-- Icons from config -->
   <link rel="icon" type="image/png" href="{{ site.logo | relative_url }}">
   <link rel="apple-touch-icon" href="{{ site.logo | relative_url }}">
 
-  <!-- CSS: assets/css -->
   <link rel="stylesheet" href="{{ '/assets/css/site.css?v=1' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css?v=23' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css?v=24' | relative_url }}">
 </head>
 <body>
   {% include header.html %}
-
   <main id="main-content" role="main">
     {{ content }}
   </main>
-
   {% include footer.html %}
 </body>
 </html>

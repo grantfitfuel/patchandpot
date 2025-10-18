@@ -20,11 +20,11 @@ description: Beginner-friendly, mindful growing for small spaces.
   }
 
   :root {
-    --pp-green: #43A047;       /* brighter primary */
-    --pp-green-dark: #2E7D32;  /* hover contrast */
+    --pp-green: #43A047;       /* accent */
+    --pp-green-dark: #2E7D32;
   }
 
-  /* Wrapper tile (glass behind grid) */
+  /* Wrapper tile behind grid */
   .tile {
     background: var(--glass);
     border: 1px solid var(--stroke);
@@ -42,24 +42,27 @@ description: Beginner-friendly, mindful growing for small spaces.
     gap: 1.5rem;
   }
 
-  /* Bright green accent cards */
+  /* Dark tile with green accent strip on top */
   .card {
-    background: var(--pp-green);
-    color: #fff;
-    border: 1px solid var(--pp-green-dark);
+    background: var(--glass);
+    border: 1px solid var(--stroke);
+    border-top: 4px solid var(--pp-green);
     border-radius: 10px;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease;
   }
+
+  /* Optional: subtle left accent as well */
+  /* .card { border-left: 4px solid var(--pp-green); } */
 
   .card:hover {
     transform: translateY(-4px);
-    background: var(--pp-green-dark);
     box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    border-top-color: var(--pp-green-dark);
   }
 
   .card h2 {
@@ -71,23 +74,24 @@ description: Beginner-friendly, mindful growing for small spaces.
 
   .card .meta {
     flex: 1;
-    color: rgba(255,255,255,0.95);
+    color: var(--ink);
+    opacity: 0.9;
     font-size: 0.95rem;
     margin-bottom: 0.8rem;
   }
 
+  /* Bright green buttons on dark tiles */
   .card .btn {
     align-self: flex-start;
-    background: #fff !important;
-    color: var(--pp-green) !important;
+    background: var(--pp-green) !important;
+    color: #fff !important;
     border: none !important;
     font-weight: 700;
-    transition: background .2s ease, color .2s ease;
+    transition: background .2s ease;
   }
 
   .card .btn:hover {
     background: var(--pp-green-dark) !important;
-    color: #fff !important;
   }
 </style>
 
@@ -109,7 +113,7 @@ description: Beginner-friendly, mindful growing for small spaces.
   </div>
 </section>
 
-<!-- GRID SECTION WITH BRIGHT GREEN CARDS -->
+<!-- GRID SECTION WITH GREEN ACCENT STRIP -->
 <section class="tile">
   <main class="wrap" role="main">
     <section class="grid" aria-label="Featured guides">

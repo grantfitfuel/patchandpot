@@ -1,27 +1,35 @@
-/* Patch & Pot — HOTFIX v28 */
-/* Works with your site.css from earlier. */
+/* Patch & Pot — HOTFIX v30 */
 
-/* --- Safety reset --- */
+/* Reset */
 body { margin: 0; }
-img { max-width: 100%; height: auto; display: block; }
+img { max-width: 100%; display: block; height: auto; }
 
-/* --- Header: sticky, no gap --- */
+/* Sticky header */
 .site-header { position: sticky; top: 0; z-index: 3000; }
 .site-header + * { margin-top: 0 !important; }
 
-/* --- Hamburger control (checkbox) --- */
+/* Hamburger */
 .nav-toggle { position: absolute; opacity: 0; pointer-events: none; }
-.hamburger { display: none; width: 44px; height: 38px; cursor: pointer;
-  align-items: center; justify-content: center; flex-direction: column; gap: 6px; }
-.hamburger span { width: 26px; height: 2px; background: #fff; box-shadow: 0 0 3px rgba(0,0,0,.8); }
+.hamburger {
+  display: none;
+  width: 44px;
+  height: 38px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+}
+.hamburger span {
+  width: 26px;
+  height: 2px;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,.8);
+}
 
-/* ===== NAV BREAKPOINTS =====
-   We SHOW the full nav on iPad landscape (1366px) and larger.
-   Collapse to hamburger only at <= 1280px.
-*/
+/* NAV behaviour */
 .nav { flex-wrap: nowrap; white-space: nowrap; }
 @media (min-width: 1024px) and (max-width: 1440px){
-  /* tighten spacing so it fits in one row */
   :root { --nav-gap: 0.8rem; }
   .nav a { font-size: .95rem; padding: 4px 6px; }
 }
@@ -29,49 +37,89 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 1280px){
   .site-header .wrap { position: relative; }
   .hamburger { display: flex; z-index: 3002; }
+
   .nav {
-    position: absolute; left: 0; right: 0; top: 100%;
-    background: #0a0f0c; border-top: 1px solid var(--stroke);
-    transform: scaleY(0); transform-origin: top; transition: transform .18s ease;
-    padding: 6px 0;
+    position: absolute;
+    left: 0; right: 0; top: 100%;
+    background: #0a0f0c;
+    border-top: 1px solid var(--stroke);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform .18s ease;
+    padding: 10px 0;
+    z-index: 3001;
   }
-  .nav a { display: block; padding: 12px 20px; }
+  .nav a {
+    display: block;
+    padding: 14px 20px;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  /* NEW: dark overlay behind open menu */
+  .site-header::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
   .nav-toggle:checked ~ .hamburger + .nav,
   .nav-toggle:checked ~ .nav { transform: scaleY(1); }
+  .nav-toggle:checked ~ .hamburger + .nav,
+  .nav-toggle:checked ~ .nav,
+  .nav-toggle:checked ~ .site-header::after {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
-/* --- HERO: show head + waist --- */
-.hero .content { display: none !important; }          /* keep text below image */
-.hero { margin: 0; }
-.hero figure { margin: 0; position: relative; overflow: hidden; }
-.hero figure img{
+/* HERO adjustments */
+.hero figure { position: relative; margin: 0; overflow: hidden; }
+.hero figure img {
   width: 100%;
-  height: clamp(340px, 46vh, 480px);                  /* a bit taller to include waist */
+  height: clamp(340px, 46vh, 480px);
   object-fit: cover;
-  object-position: center 40% !important;             /* lift focus to show head+waist */
+  object-position: center 40%;
 }
-/* phone/tablet portrait – slightly higher crop to keep face in view */
-@media (max-width: 900px){
-  .hero figure img{ height: 320px; object-position: center 32% !important; }
-}
+.hero .overlay { display: none !important; }
 
-/* --- HERO TEXT BELOW IMAGE --- */
-.hero-text{ display:block; padding:1.25rem 20px 0; text-align:center; }
-.hero-text .eyebrow{
-  display:block; font-weight:600; text-transform:uppercase;
-  font-size:.9rem; letter-spacing:.05em; color:var(--accent); opacity:.95; margin-bottom:.35rem;
+/* hero text below */
+.hero .content { display: none !important; }
+.hero-text { display: block; padding: 1.25rem 20px 0; text-align: center; }
+.hero-text .eyebrow {
+  display: block;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: .05em;
+  color: var(--accent);
+  opacity: .95;
+  margin-bottom: .35rem;
 }
-.hero-text .lead{ color:#cfe9dc; margin:.4rem 0 1rem; }
+.hero-text .lead { color: #cfe9dc; margin: .4rem 0 1rem; }
 
-/* --- Buttons: all green --- */
-:root{ --pp-green:#2e7d32; --pp-green-dark:#1b5e20; --pp-green-press:#145a19; }
+/* Buttons */
+:root { --pp-green:#2e7d32; --pp-green-dark:#1b5e20; --pp-green-press:#145a19; }
 .btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"]{
-  background-color:var(--pp-green)!important; color:#fff!important; border:2px solid var(--pp-green)!important;
-  display:inline-block; padding:.65rem 1.2rem; border-radius:8px; font-weight:700; text-decoration:none; transition:.25s;
+  background-color:var(--pp-green)!important;
+  color:#fff!important;
+  border:2px solid var(--pp-green)!important;
+  display:inline-block;
+  padding:.65rem 1.2rem;
+  border-radius:8px;
+  font-weight:700;
+  text-decoration:none;
+  transition:.25s;
 }
 .btn:hover,.btn:focus,button:hover,button:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus{
-  background-color:var(--pp-green-dark)!important; border-color:var(--pp-green-dark)!important;
+  background-color:var(--pp-green-dark)!important;
+  border-color:var(--pp-green-dark)!important;
 }
 .btn:active,button:active,input[type="button"]:active,input[type="submit"]:active{
-  background-color:var(--pp-green-press)!important; border-color:var(--pp-green-press)!important;
+  background-color:var(--pp-green-press)!important;
+  border-color:var(--pp-green-press)!important;
 }

@@ -7,7 +7,7 @@ baseurl: ""
 source: sites
 destination: _site
 
-# Image path for logo
+# Images live in /sites/img
 logo: /img/patchandpot-logo.png
 
 permalink: pretty

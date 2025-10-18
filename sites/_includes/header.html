@@ -1,12 +1,10 @@
 <header class="site-header" role="navigation" aria-label="Main">
   <div class="nav-wrap">
-    <a class="brand" href="/" aria-label="Patch & Pot — Home">
-      {% assign brand_logo = site.logo | default: '/img/patchandpot-logo.png' %}
-      <img class="brand-logo" src="{{ brand_logo | relative_url }}" alt="Patch & Pot logo" width="28" height="28">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="Patch & Pot — Home">
+      <img class="brand-logo" src="{{ site.logo | relative_url }}" alt="Patch & Pot logo" width="28" height="28">
       <span class="brand-text">Patch <span aria-hidden="true">&amp;</span> Pot</span>
     </a>
 
-    <!-- CSS-only hamburger (checkbox toggle) -->
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
     <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
       <span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -14,16 +12,16 @@
 
     <nav class="main-nav" aria-label="Primary">
       <ul>
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/growing/index.html">Growing</a></li>
-        <li><a href="/recipes.html">Recipes</a></li>
-        <li><a href="/exercise.html">Exercise</a></li>
-        <li><a href="/wellbeing.html">Wellbeing</a></li>
-        <li><a href="/2-minute-calm.html">2-Minute Calm</a></li>
-        <li><a href="/guides.html">Guides</a></li>
-        <li><a href="/ideas.html">Ideas</a></li>
-        <li><a href="/community.html">Community</a></li>
-        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="{{ '/index.html' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/growing/index.html' | relative_url }}">Growing</a></li>
+        <li><a href="{{ '/recipes.html' | relative_url }}">Recipes</a></li>
+        <li><a href="{{ '/exercise.html' | relative_url }}">Exercise</a></li>
+        <li><a href="{{ '/wellbeing.html' | relative_url }}">Wellbeing</a></li>
+        <li><a href="{{ '/2-minute-calm.html' | relative_url }}">2-Minute Calm</a></li>
+        <li><a href="{{ '/guides.html' | relative_url }}">Guides</a></li>
+        <li><a href="{{ '/ideas.html' | relative_url }}">Ideas</a></li>
+        <li><a href="{{ '/community.html' | relative_url }}">Community</a></li>
+        <li><a href="{{ '/contact.html' | relative_url }}">Contact</a></li>
       </ul>
     </nav>
   </div>

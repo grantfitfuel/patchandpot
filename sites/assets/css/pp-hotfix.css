@@ -1,55 +1,90 @@
-/* Patch & Pot — HOTFIX v33 (iPad landscape fix) */
+/* Patch & Pot — HOTFIX v34
+   Goal: Horizontal nav on iPad/desktop, hamburger on phones only.
+   Also: no bullets, readable mobile panel, no hero gradient, better framing. */
 
-/* basics */
+/* Basics */
 body{margin:0}
 img{max-width:100%;height:auto;display:block}
 
-/* sticky header + no gap */
+/* Sticky header + no gap */
 .site-header{position:sticky;top:0;z-index:3000}
 .site-header+*{margin-top:0!important}
 
-/* shared nav defaults (horizontal by default) */
-.nav{display:flex;align-items:center;gap:var(--nav-gap,1rem);flex-wrap:nowrap;white-space:nowrap}
-.nav,.nav ul{list-style:none;margin:0;padding:0}
-.nav ul{display:flex;gap:var(--nav-gap,1rem)}
-.nav li{list-style:none;margin:0;padding:0}
-.nav a{display:inline-block;text-decoration:none;padding:6px 8px}
+/* ===== NAV: HARD OVERRIDES (win against any older CSS) ===== */
+.nav,
+.nav ul{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  align-items:center !important;
+  gap:var(--nav-gap,1rem) !important;
+  margin:0 !important;
+  padding:0 !important;
+  list-style:none !important;
+  white-space:nowrap !important;
+}
+.nav li{list-style:none !important; margin:0 !important; padding:0 !important;}
+.nav a{
+  display:inline-block !important;
+  padding:6px 8px !important;
+  text-decoration:none !important;
+}
 
-/* hamburger toggle (hidden by default) */
+/* Hamburger toggle elements */
 .nav-toggle{position:absolute;opacity:0;pointer-events:none}
-.hamburger{display:none;width:44px;height:38px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+.hamburger{width:44px;height:38px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:6px}
 .hamburger span{width:26px;height:2px;background:#fff;box-shadow:0 0 3px rgba(0,0,0,.8)}
 
-/* ===== MOBILE ONLY (≤900px) ===== */
+/* =========================
+   DESKTOP & iPAD (≥901px)
+   ========================= */
+@media (min-width:901px){
+  .hamburger{display:none !important;}         /* never show hamburger here */
+  .nav{
+    position:static !important;
+    transform:none !important;
+    background:transparent !important;
+  }
+}
+
+/* =========================
+   MOBILE & SMALL TABLET (≤900px)
+   ========================= */
 @media (max-width:900px){
   .site-header .wrap{position:relative}
   .hamburger{display:flex;z-index:3002}
+
   .nav{
-    position:absolute;left:0;right:0;top:100%;
-    background:#0a0f0c;border-top:1px solid var(--stroke,#1f2630);
-    transform:scaleY(0);transform-origin:top;transition:transform .18s ease;
-    padding:6px 0;z-index:3001;flex-direction:column;gap:0
+    position:absolute; left:0; right:0; top:100%;
+    background:#0a0f0c; border-top:1px solid var(--stroke,#1f2630);
+    transform:scaleY(0); transform-origin:top; transition:transform .18s ease;
+    padding:6px 0; z-index:3001; flex-direction:column !important; gap:0 !important;
   }
-  .nav ul{display:block}      /* vertical list inside panel */
+  .nav ul{display:block !important;}          /* vertical list inside panel if UL present */
+
   .nav a{
-    display:block;padding:14px 20px;font-size:1rem;color:#e6f0ea;background:transparent;
-    border-top:1px solid rgba(255,255,255,.06)
+    display:block !important;
+    padding:14px 20px !important;
+    font-size:1rem !important;
+    color:#e6f0ea !important;                 /* readable on dark panel */
+    background:transparent !important;
+    border-top:1px solid rgba(255,255,255,.06) !important;
   }
-  .nav a:hover,.nav a:focus{background:#101612}
-  .nav-toggle:checked~.hamburger+.nav,
-  .nav-toggle:checked~.nav{transform:scaleY(1)}
+  .nav a:hover,.nav a:focus{background:#101612 !important}
+
+  .nav-toggle:checked ~ .hamburger + .nav,
+  .nav-toggle:checked ~ .nav{transform:scaleY(1) !important}
 }
 
 /* ===== HERO (no gradient; head+waist visible; text below) ===== */
 .hero{margin:0}
-.hero .overlay{display:none!important}
-.hero .content{display:none!important}
+.hero .overlay{display:none !important}
+.hero .content{display:none !important}
 .hero figure{position:relative;margin:0;overflow:hidden}
 .hero figure img{
   width:100%;
   height:clamp(340px,46vh,480px);
   object-fit:cover;
-  object-position:center 40%;
+  object-position:center 40%;   /* head + waist */
 }
 @media (max-width:900px){
   .hero figure img{height:320px;object-position:center 32%}

@@ -1,28 +1,5 @@
-<footer class="site-footer" role="contentinfo" aria-label="Site footer">
-  <div class="wrap footer-inner">
-    <a class="brand" href="{{ '/' | relative_url }}">
-      <img
-        src="{{ '/img/patchandpot-logo.png' | relative_url }}"
-        alt="Patch &amp; Pot"
-        class="footer-icon"
-        onerror="this.src='{{ '/img/pot.png' | relative_url }}'">
-      <span>Patch &amp; Pot</span>
-    </a>
-
-    <nav class="foot-nav" aria-label="Footer">
-      <a href="{{ '/index.html' | relative_url }}">Home</a>
-      <a href="{{ '/growing/index.html' | relative_url }}">Growing</a>
-      <a href="{{ '/recipes.html' | relative_url }}">Recipes</a>
-      <a href="{{ '/exercise.html' | relative_url }}">Exercise</a>
-      <a href="{{ '/wellbeing.html' | relative_url }}">Wellbeing</a>
-      <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
-      <a href="{{ '/guides/index.html' | relative_url }}">Guides</a>
-      <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
-      <a href="{{ '/community.html' | relative_url }}">Community</a>
-      <a href="{{ '/contact.html' | relative_url }}">Contact</a>
-    </nav>
-  </div>
-  <div class="wrap" style="justify-content:flex-start;padding-top:6px;">
-    <small>© {{ 'now' | date: '%Y' }} Patch &amp; Pot</small>
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <p>&copy; {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
   </div>
 </footer>

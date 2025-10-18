@@ -3,17 +3,18 @@ description: "Beginner-friendly, mindful growing for small spaces."
 url: "https://patchandpot.com"
 baseurl: ""
 
-logo: /img/patchandpot-logo.png
+# Build from /sites
+source: sites
+destination: _site
+
+# Logo now under assets/img
+logo: /assets/img/patchandpot-logo.png
 
 permalink: pretty
 
 markdown: kramdown
 kramdown:
   input: GFM
-
-# Build from /sites folder
-source: sites
-destination: _site
 
 plugins:
   - jekyll-sitemap

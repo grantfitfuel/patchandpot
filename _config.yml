@@ -2,8 +2,8 @@
 
 title: "Patch & Pot"
 description: "Beginner-friendly, mindful growing for small spaces."
-url: "https://patchandpot.com"
-baseurl: ""
+url: "https://patchandpot.com"   # your custom domain
+baseurl: ""                      # stays empty because the site is served at domain root
 
 # Logo path (PNG)
 logo: /img/patchandpot-logo.png
@@ -13,6 +13,10 @@ permalink: pretty
 markdown: kramdown
 kramdown:
   input: GFM
+
+# Let Jekyll process files inside /sites
+source: sites
+destination: _site
 
 include:
   - .htaccess

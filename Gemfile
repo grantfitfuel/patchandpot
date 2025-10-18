@@ -3,9 +3,10 @@ source "https://rubygems.org"
 
 gem "jekyll", "~> 4.3"
 gem "kramdown-parser-gfm", "~> 1.1"
-
-# Required for sitemap generation
-gem "jekyll-sitemap"
-
-# Speed up on GH Actions if RubyGems is slow
 gem "webrick", "~> 1.8"
+
+# Plugins must be grouped properly so Jekyll loads them
+group :jekyll_plugins do
+  gem "jekyll-sitemap"
+  gem "jekyll-feed"
+end

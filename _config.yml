@@ -1,11 +1,8 @@
-# Patch & Pot — Jekyll Config
-
 title: "Patch & Pot"
 description: "Beginner-friendly, mindful growing for small spaces."
-url: "https://patchandpot.com"   # your custom domain
-baseurl: ""                      # stays empty because the site is served at domain root
+url: "https://patchandpot.com"
+baseurl: ""
 
-# Logo path (PNG)
 logo: /img/patchandpot-logo.png
 
 permalink: pretty
@@ -14,22 +11,9 @@ markdown: kramdown
 kramdown:
   input: GFM
 
-# Let Jekyll process files inside /sites
+# Build from /sites folder
 source: sites
 destination: _site
-
-include:
-  - .htaccess
-  - _pages
-
-exclude:
-  - README.md
-  - node_modules
-  - package.json
-  - package-lock.json
-  - Gemfile
-  - Gemfile.lock
-  - vendor
 
 plugins:
   - jekyll-sitemap

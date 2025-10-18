@@ -2,7 +2,7 @@ name: Build and Deploy Jekyll
 
 on:
   push:
-    branches: [ main ]   # change if your default branch is different
+    branches: [ main ]   # change if your default branch differs
 
 permissions:
   contents: read
@@ -19,6 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Configure GitHub Pages (sets up the correct environment/permissions)
+      - uses: actions/configure-pages@v5
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
@@ -27,8 +30,9 @@ jobs:
       - name: Install gems
         run: bundle install --jobs 4 --retry 3
 
+      # Explicitly build from /sites to _site (also reads _config.yml)
       - name: Build site
-        run: bundle exec jekyll build --trace
+        run: bundle exec jekyll build --source sites --destination _site --trace
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

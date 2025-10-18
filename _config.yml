@@ -7,8 +7,8 @@ baseurl: ""
 source: sites
 destination: _site
 
-# Logo now under assets/img
-logo: /assets/img/patchandpot-logo.png
+# Images live in /sites/img
+logo: /img/patchandpot-logo.png
 
 permalink: pretty
 

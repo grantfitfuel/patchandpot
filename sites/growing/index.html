@@ -3,8 +3,87 @@ layout: default
 title: Growing — Patch & Pot
 ---
 
+<!-- PAGE-ONLY STYLES (scoped to this page) -->
+<style>
+  :root{
+    --pp-green: #43A047;     /* bright accent */
+    --pp-green-dark:#2E7D32; /* hover accent */
+  }
+
+  /* Optional: light tweak to this hero image framing */
+  .hero--growing figure img{
+    object-position:center 28%;
+    height:clamp(360px,50vh,520px);
+    object-fit:cover;
+  }
+
+  /* Grid wrapper: responsive columns
+     phones: 1 | iPad (700–1100px): 2 | desktop ≥1101px: 3
+  */
+  .growing-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1.25rem;
+    margin:1.5rem 0 2rem;
+  }
+  @media (min-width:700px) and (max-width:1100px){
+    .growing-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (min-width:1101px){
+    .growing-grid{grid-template-columns:repeat(3,1fr);}
+  }
+
+  /* Dark tiles with green accent edge (no images inside) */
+  .growing-card{
+    background:var(--glass);
+    border:1px solid var(--stroke);
+    border-top:4px solid var(--pp-green);   /* accent strip (switch to left if you prefer) */
+    border-radius:10px;
+    padding:1.25rem;
+    display:flex;
+    flex-direction:column;
+    min-height:170px;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  /* Left-edge accent alternative:
+     .growing-card{ border-top-width:1px; border-left:4px solid var(--pp-green); }
+  */
+
+  .growing-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 16px rgba(0,0,0,.3);
+    border-top-color:var(--pp-green-dark);
+  }
+
+  .growing-card h2{
+    margin:0 0 .5rem;
+    font-size:1.2rem;
+    color:#fff;
+  }
+
+  .growing-card .meta{
+    flex:1;
+    color:rgba(230,240,234,.92);
+    font-size:.95rem;
+    margin-bottom:.9rem;
+  }
+
+  .growing-card .btn{
+    align-self:flex-start;
+    background:var(--pp-green)!important;
+    color:#fff!important;
+    border:none!important;
+    font-weight:700;
+    padding:.6rem 1rem;
+    border-radius:8px;
+    transition:background .2s ease;
+  }
+  .growing-card .btn:hover{ background:var(--pp-green-dark)!important; }
+</style>
+
 <!-- PAGE HERO -->
-<header class="hero" role="banner" aria-label="Growing Hub">
+<header class="hero hero--growing" role="banner" aria-label="Growing Hub">
   <figure>
     <img src="/img/growing-hero.png" alt="Hands planting seedlings in pots on a balcony">
     <div class="overlay" aria-hidden="true"></div>
@@ -19,44 +98,38 @@ title: Growing — Patch & Pot
 </header>
 
 <main class="wrap">
-  <section class="grid" aria-label="Growing sections">
-    <article class="card">
-      <img src="/img/first-pot.jpg" alt="Terracotta pot with seedlings" class="thumb">
+  <section class="growing-grid" aria-label="Growing sections">
+    <article class="growing-card">
       <h2>Your First Pot</h2>
       <p class="meta">Start simple: pot, compost, seeds, light, and water — everything you need today.</p>
       <a class="btn primary" href="/growing/first-pot.html">Open guide</a>
     </article>
 
-    <article class="card">
-      <img src="/img/space-saving.jpg" alt="Vertical planting tower made from bottles" class="thumb">
+    <article class="growing-card">
       <h2>Space-Saving Setups</h2>
       <p class="meta">Grow more in less space with vertical towers, hanging rails, and crate depth-savers.</p>
       <a class="btn primary" href="/growing/space-saving.html">See setups</a>
     </article>
 
-    <article class="card">
-      <img src="/img/regrow.jpg" alt="Spring onions regrowing in a glass of water" class="thumb">
+    <article class="growing-card">
       <h2>Regrow from Scraps</h2>
       <p class="meta">Turn offcuts like lettuce bases, herbs, or onions into a fresh harvest with little effort.</p>
       <a class="btn primary" href="/growing/regrow.html">Start regrowing</a>
     </article>
 
-    <article class="card">
-      <img src="/img/companion.jpg" alt="Tomatoes and basil companion planting" class="thumb">
+    <article class="growing-card">
       <h2>Companion Planting</h2>
       <p class="meta">Let plants protect and support each other — basil for tomatoes, carrots with onions, and more.</p>
       <a class="btn primary" href="/growing/companion.html">Explore companions</a>
     </article>
 
-    <article class="card">
-      <img src="/img/pests.jpg" alt="Ladybird on a leaf controlling aphids" class="thumb">
+    <article class="growing-card">
       <h2>Pests &amp; Problems</h2>
       <p class="meta">Spot problems early and use gentle, food-safe methods to keep plants strong.</p>
       <a class="btn primary" href="/growing/pests.html">Check solutions</a>
     </article>
 
-    <article class="card">
-      <img src="/img/cut-flowers.jpg" alt="Cut flowers arranged in a vase" class="thumb">
+    <article class="growing-card">
       <h2>Cut Flowers</h2>
       <p class="meta">Plan and grow flowers that bring colour to your home and structure to arrangements.</p>
       <a class="btn primary" href="/growing/cut-flowers.html">View flower guide</a>

@@ -6,16 +6,67 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
 ---
 
 <style>
-  .badge{display:inline-block;margin:.15rem .35rem .15rem 0;padding:.15rem .5rem;border-radius:999px;font-size:.8rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
-  .card h3{margin:.2rem 0 .4rem}
-  .recipe{display:grid;gap:.4rem}
-  .recipe .meta{color:#c0d0c4;line-height:1.4}
-  .recipe ul{margin:.25rem 0 .5rem 1.1rem}
-  .recipe ol{margin:.25rem 0 .5rem 1.1rem}
-  .recipes-grid{display:grid;gap:14px;align-items:start}
-  @media (min-width:720px){.recipes-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media (min-width:1100px){.recipes-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  .card{height:100%}
+  :root{
+    --pp-green:#43A047;         /* bright accent */
+    --pp-green-dark:#2E7D32;    /* hover/darker */
+  }
+
+  /* Pills/badges */
+  .badge{
+    display:inline-block; margin:.15rem .35rem .15rem 0;
+    padding:.15rem .5rem; border-radius:999px; font-size:.8rem;
+    background:#e8f5ee; color:#194b37; border:1px solid #cfe9dc
+  }
+
+  /* Grid layout: 1 / 2 / 3 cols */
+  .recipes-grid{ display:grid; gap:16px; align-items:start; margin:1.5rem 0 2rem; }
+  @media (min-width:700px){ .recipes-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }   /* iPad */
+  @media (min-width:1100px){ .recipes-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } } /* desktop */
+
+  /* Recipe card with LEFT green accent */
+  .recipe-card{
+    background:var(--glass);
+    border:1px solid var(--stroke);
+    border-left:4px solid var(--pp-green);
+    border-radius:10px;
+    padding:1.1rem 1.2rem 1.2rem 1.05rem;
+    display:flex; flex-direction:column; height:100%;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .recipe-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 16px rgba(0,0,0,.3);
+    border-left-color:var(--pp-green-dark);
+  }
+
+  /* Section/category heading inside card */
+  .recipe-card h2{
+    margin:.1rem 0 .5rem; font-size:1.15rem; color:#fff;
+    letter-spacing:.2px;
+  }
+  .recipe-card h3{
+    margin:.2rem 0 .35rem; font-size:1.05rem; color:#fff;
+  }
+
+  .recipe-card .meta{ color:#c0d0c4; line-height:1.4; margin:.1rem 0 .4rem; }
+  .recipe-card ul{ margin:.25rem 0 .5rem 1.1rem; }
+  .recipe-card ol{ margin:.25rem 0 .5rem 1.1rem; }
+  .recipe-card li{ margin:.12rem 0; }
+
+  /* Keep vertical rhythm tidy between recipes in a card */
+  .recipe-split{ border:0; border-top:1px solid rgba(255,255,255,.08); margin:.7rem 0 .8rem; }
+
+  /* Mini nav at bottom */
+  .mini-nav{ display:flex; gap:.75rem; flex-wrap:wrap; margin:1.25rem 0 2rem; }
+  .mini-nav a{
+    background:var(--pp-green); color:#fff; border-radius:8px; padding:.55rem .9rem; text-decoration:none;
+  }
+  .mini-nav a:hover{ background:var(--pp-green-dark); }
+
+  /* Print trigger button in hero */
+  #print-recipe-cards{ background:#fff !important; color:var(--pp-green) !important; border:none !important; font-weight:700; }
+  #print-recipe-cards:hover{ background:var(--pp-green-dark) !important; color:#fff !important; }
 </style>
 
 <!-- HERO -->
@@ -40,8 +91,9 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
   <section class="recipes-grid" aria-label="All recipes and info">
 
     <!-- SALADS -->
-    <article class="card recipe">
+    <article class="recipe-card">
       <h2>Quick Salads</h2>
+
       <h3>Golden Beet, Orange &amp; Basil Salad</h3>
       <p class="meta">20 mins + cooling · serves 2 · ~220 kcal | P 4 g · C 14 g · F 16 g</p>
       <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
@@ -58,7 +110,9 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
         <li>Slice and toss with dressing.</li>
         <li>Add basil and cinnamon to serve.</li>
       </ol>
-      <hr>
+
+      <hr class="recipe-split">
+
       <h3>Kale Ribbon Salad with Chilli Oil</h3>
       <p class="meta">8 mins · serves 2 · ~180 kcal | P 6 g · C 10 g · F 12 g</p>
       <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
@@ -67,8 +121,9 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- MAINS -->
-    <article class="card recipe">
+    <article class="recipe-card">
       <h2>Simple Mains</h2>
+
       <h3>Courgette &amp; Herb Fritters</h3>
       <p class="meta">20 mins · serves 2 · ~320 kcal | P 11 g · C 18 g · F 22 g</p>
       <div><span class="badge">V</span><span class="badge">DF</span><span class="badge">can be GF</span></div>
@@ -83,7 +138,9 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
         <li>Mix with other ingredients.</li>
         <li>Pan-fry spoonfuls until golden on both sides.</li>
       </ol>
-      <hr>
+
+      <hr class="recipe-split">
+
       <h3>Beetroot &amp; Lentil Bake</h3>
       <p class="meta">35 mins · serves 3–4 · ~280 kcal | P 12 g · C 32 g · F 8 g</p>
       <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
@@ -98,7 +155,9 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
         <li>Add beetroot, lentils and stock.</li>
         <li>Bake covered 25–30 mins.</li>
       </ol>
-      <hr>
+
+      <hr class="recipe-split">
+
       <h3>Stuffed Peppers with Rice &amp; Herbs</h3>
       <p class="meta">25 mins · serves 2 · ~300 kcal | P 9 g · C 50 g · F 8 g</p>
       <div><span class="badge">V</span><span class="badge">DF</span><span class="badge">GF</span></div>
@@ -115,20 +174,25 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- SOUPS & SIDES -->
-    <article class="card recipe">
+    <article class="recipe-card">
       <h2>Soups &amp; Sides</h2>
+
       <h3>Roasted Root Tray</h3>
       <p class="meta">35 mins · serves 4 · ~180 kcal | P 3 g · C 28 g · F 6 g</p>
       <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
       <ul><li>Beetroot, carrots, parsnips</li><li>Oil, herbs, salt</li></ul>
       <ol><li>Toss and roast at 200 °C until tender.</li></ol>
-      <hr>
+
+      <hr class="recipe-split">
+
       <h3>Tomato &amp; Basil Soup</h3>
       <p class="meta">25 mins · serves 3–4 · ~150 kcal</p>
       <div><span class="badge">V</span><span class="badge">GF</span></div>
       <ul><li>Onion, garlic, tomatoes</li><li>Stock, basil, oil</li></ul>
       <ol><li>Sauté, simmer, blend, season.</li></ol>
-      <hr>
+
+      <hr class="recipe-split">
+
       <h3>Herbed Flatbreads</h3>
       <p class="meta">15 mins · serves 4 · ~220 kcal | P 6 g · C 30 g · F 8 g</p>
       <div><span class="badge">V</span></div>
@@ -137,20 +201,25 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- SWEETS & DRINKS -->
-    <article class="card recipe">
+    <article class="recipe-card">
       <h2>Sweet &amp; Snacks</h2>
+
       <h3>Herb Scones</h3>
       <p class="meta">25 mins · makes 8 · ~180 kcal each</p>
       <div><span class="badge">V</span></div>
       <ul><li>Flour, butter, herbs, baking powder, milk</li></ul>
       <ol><li>Rub fat into flour, add herbs and milk.</li><li>Bake 200 °C 12–15 mins.</li></ol>
-      <hr>
+
+      <hr class="recipe-split">
+
       <h3>Roasted Strawberries</h3>
       <p class="meta">15 mins · serves 2 · ~110 kcal</p>
       <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
       <ul><li>1 cup strawberries</li><li>1 tsp sugar (optional)</li></ul>
       <ol><li>Roast at 180 °C for 10–15 mins until syrupy.</li></ol>
-      <hr>
+
+      <hr class="recipe-split">
+
       <h3>Mint Iced Tea</h3>
       <p class="meta">5 mins + cooling · serves 4</p>
       <div><span class="badge">V</span><span class="badge">GF</span><span class="badge">DF</span></div>
@@ -159,11 +228,12 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- INFO -->
-    <article class="card">
+    <article class="recipe-card">
       <h2>Allergen Key</h2>
       <p class="meta">V: vegetarian · GF: gluten-free · DF: dairy-free · “can be” = easy swaps.</p>
     </article>
-    <article class="card">
+
+    <article class="recipe-card">
       <h2>Waste-Less Tips</h2>
       <p class="meta">Freeze herb stems in oil cubes · bake stale bread for crumbs · simmer tomato skins in stock.</p>
     </article>
@@ -184,10 +254,10 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
   btn.addEventListener('click', (e)=>{
     e.preventDefault();
     const recipes = [];
-    document.querySelectorAll('.recipe').forEach(section => {
+    document.querySelectorAll('.recipe-card').forEach(section => {
       const kids = Array.from(section.children);
       let current = null;
-      const push = ()=>{ if(current && (current.ingredients.length||current.steps.length)) recipes.push(current); };
+      const push = ()=>{ if(current && (current.ingredients?.length || current.steps?.length)) recipes.push(current); };
 
       kids.forEach(el=>{
         const tag = (el.tagName||'').toUpperCase();
@@ -230,9 +300,9 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
           <section class="card">
             <h2>${esc(r.title)}</h2>
             ${r.meta?`<div class="meta">${esc(r.meta)}</div>`:''}
-            ${r.badges.length?`<div class="badges">${r.badges.map(b=>`<span class="badge">${esc(b)}</span>`).join('')}</div>`:''}
-            ${r.ingredients.length?`<strong>Ingredients</strong><ul>${r.ingredients.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:''}
-            ${r.steps.length?`<strong>Method</strong><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}
+            ${r.badges?.length?`<div class="badges">${r.badges.map(b=>`<span class="badge">${esc(b)}</span>`).join('')}</div>`:''}
+            ${r.ingredients?.length?`<strong>Ingredients</strong><ul>${r.ingredients.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:''}
+            ${r.steps?.length?`<strong>Method</strong><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}
             <div class="footer">patchandpot.com</div>
           </section>
         `).join('')}

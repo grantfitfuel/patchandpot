@@ -20,18 +20,82 @@ description: A tidy hub of step-by-step growing and calm guides — from Your Fi
 </header>
 
 <style>
-  /* Page-scoped grid */
-  .guides-grid{display:grid;gap:14px;align-items:start;margin:16px 0}
-  @media(min-width:720px){.guides-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(min-width:1100px){.guides-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  .tile{background:var(--glass);border:1px solid var(--stroke);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-  .tile .thumb{aspect-ratio:16/9;background:#0a0d0c}
-  .tile .thumb img{width:100%;height:100%;object-fit:cover}
-  .tile .cap{padding:.8rem .9rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem}
-  .tile h3{margin:.2rem 0 .1rem;font-size:1.05rem}
-  .tile p{margin:.1rem 0 0;color:var(--muted,#a6b6af);font-size:.92rem}
-  .btn.primary{display:inline-flex;align-items:center;gap:.5rem;border-radius:999px;padding:.55rem .9rem;font-weight:700;background:#28a745;border:1px solid #24963e;color:#fff;text-decoration:none;white-space:nowrap}
-  .btn.primary:hover{background:#23923d}
+  /* Guides grid layout */
+  .guides-grid {
+    display: grid;
+    gap: 14px;
+    align-items: start;
+    margin: 16px 0;
+  }
+  @media (min-width: 720px) {
+    .guides-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1100px) {
+    .guides-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  /* Tile styling */
+  .tile {
+    background: var(--glass);
+    border: 1px solid var(--stroke);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Thumbnail — now keeps image ratio */
+  .tile .thumb {
+    background: #0a0d0c;
+    display: block;
+    overflow: hidden;
+  }
+  .tile .thumb img {
+    width: 100%;
+    height: auto;         /* keeps original aspect ratio */
+    display: block;
+    max-height: 280px;    /* prevents tall images from dominating */
+    object-fit: contain;  /* or 'cover' if you want them to fill */
+  }
+
+  /* Caption area */
+  .tile .cap {
+    padding: .8rem .9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .6rem;
+  }
+  .tile h3 {
+    margin: .2rem 0 .1rem;
+    font-size: 1.05rem;
+  }
+  .tile p {
+    margin: .1rem 0 0;
+    color: var(--muted, #a6b6af);
+    font-size: .92rem;
+  }
+
+  /* Button */
+  .btn.primary {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 999px;
+    padding: .55rem .9rem;
+    font-weight: 700;
+    background: #28a745;
+    border: 1px solid #24963e;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn.primary:hover { background: #23923d; }
 </style>
 
 <main class="wrap">

@@ -3,83 +3,87 @@ layout: default
 title: Growing — Patch & Pot
 ---
 
-<!-- PAGE-ONLY STYLES (scoped to this page) -->
+<!-- PAGE-ONLY STYLES -->
 <style>
-  :root{
-    --pp-green: #43A047;     /* bright accent */
-    --pp-green-dark:#2E7D32; /* hover accent */
+  :root {
+    --pp-green: #43A047;      /* bright accent */
+    --pp-green-dark: #2E7D32; /* hover accent */
   }
 
-  /* Optional: light tweak to this hero image framing */
-  .hero--growing figure img{
-    object-position:center 28%;
-    height:clamp(360px,50vh,520px);
-    object-fit:cover;
+  /* Hero image tweak for Growing page */
+  .hero--growing figure img {
+    object-position: center 28%;
+    height: clamp(360px, 50vh, 520px);
+    object-fit: cover;
   }
 
-  /* Grid wrapper: responsive columns
-     phones: 1 | iPad (700–1100px): 2 | desktop ≥1101px: 3
-  */
-  .growing-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:1.25rem;
-    margin:1.5rem 0 2rem;
-  }
-  @media (min-width:700px) and (max-width:1100px){
-    .growing-grid{grid-template-columns:repeat(2,1fr);}
-  }
-  @media (min-width:1101px){
-    .growing-grid{grid-template-columns:repeat(3,1fr);}
+  /* Grid layout */
+  .growing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0 2rem;
   }
 
-  /* Dark tiles with green accent edge (no images inside) */
-  .growing-card{
-    background:var(--glass);
-    border:1px solid var(--stroke);
-    border-top:4px solid var(--pp-green);   /* accent strip (switch to left if you prefer) */
-    border-radius:10px;
-    padding:1.25rem;
-    display:flex;
-    flex-direction:column;
-    min-height:170px;
-    box-shadow:0 3px 10px rgba(0,0,0,.25);
-    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  }
-  /* Left-edge accent alternative:
-     .growing-card{ border-top-width:1px; border-left:4px solid var(--pp-green); }
-  */
-
-  .growing-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 6px 16px rgba(0,0,0,.3);
-    border-top-color:var(--pp-green-dark);
+  @media (min-width: 700px) and (max-width: 1100px) {
+    .growing-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
-  .growing-card h2{
-    margin:0 0 .5rem;
-    font-size:1.2rem;
-    color:#fff;
+  @media (min-width: 1101px) {
+    .growing-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
-  .growing-card .meta{
-    flex:1;
-    color:rgba(230,240,234,.92);
-    font-size:.95rem;
-    margin-bottom:.9rem;
+  /* Tile cards with LEFT accent edge */
+  .growing-card {
+    background: var(--glass);
+    border: 1px solid var(--stroke);
+    border-left: 4px solid var(--pp-green); /* accent strip left */
+    border-radius: 10px;
+    padding: 1.25rem 1.25rem 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 170px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
 
-  .growing-card .btn{
-    align-self:flex-start;
-    background:var(--pp-green)!important;
-    color:#fff!important;
-    border:none!important;
-    font-weight:700;
-    padding:.6rem 1rem;
-    border-radius:8px;
-    transition:background .2s ease;
+  .growing-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    border-left-color: var(--pp-green-dark);
   }
-  .growing-card .btn:hover{ background:var(--pp-green-dark)!important; }
+
+  .growing-card h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+  }
+
+  .growing-card .meta {
+    flex: 1;
+    color: rgba(230, 240, 234, 0.92);
+    font-size: 0.95rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .growing-card .btn {
+    align-self: flex-start;
+    background: var(--pp-green) !important;
+    color: #fff !important;
+    border: none !important;
+    font-weight: 700;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+
+  .growing-card .btn:hover {
+    background: var(--pp-green-dark) !important;
+  }
 </style>
 
 <!-- PAGE HERO -->

@@ -19,63 +19,75 @@ description: Beginner-friendly, mindful growing for small spaces.
     }
   }
 
-  /* Accent band behind tile */
-  .accent-band {
-    background: linear-gradient(
-      180deg,
-      rgba(46, 125, 50, 0.35) 0%,
-      rgba(46, 125, 50, 0.25) 100%
-    );
-    padding: 2.5rem 0;
-    margin-top: 2rem;
+  :root {
+    --pp-green: #43A047;       /* brighter primary */
+    --pp-green-dark: #2E7D32;  /* hover contrast */
   }
 
-  /* Tile styling for the grid section */
+  /* Wrapper tile (glass behind grid) */
   .tile {
     background: var(--glass);
     border: 1px solid var(--stroke);
     border-radius: 12px;
     padding: 2rem 1.5rem;
-    margin: 0 auto;
+    margin: 1.5rem auto;
     max-width: var(--maxw);
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   }
 
-  /* Grid of feature cards */
+  /* Grid layout */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
   }
 
+  /* Bright green accent cards */
   .card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--stroke);
+    background: var(--pp-green);
+    color: #fff;
+    border: 1px solid var(--pp-green-dark);
     border-radius: 10px;
-    padding: 1.25rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    text-align: left;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    background: var(--pp-green-dark);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
   }
 
   .card h2 {
     margin-top: 0;
     font-size: 1.25rem;
     margin-bottom: 0.6rem;
+    color: #fff;
   }
 
   .card .meta {
     flex: 1;
-    color: var(--ink);
-    opacity: 0.9;
+    color: rgba(255,255,255,0.95);
     font-size: 0.95rem;
     margin-bottom: 0.8rem;
   }
 
   .card .btn {
     align-self: flex-start;
+    background: #fff !important;
+    color: var(--pp-green) !important;
+    border: none !important;
+    font-weight: 700;
+    transition: background .2s ease, color .2s ease;
+  }
+
+  .card .btn:hover {
+    background: var(--pp-green-dark) !important;
+    color: #fff !important;
   }
 </style>
 
@@ -97,35 +109,33 @@ description: Beginner-friendly, mindful growing for small spaces.
   </div>
 </section>
 
-<!-- GRID SECTION ON GREEN ACCENT BAND -->
-<section class="accent-band">
-  <div class="tile">
-    <main class="wrap" role="main">
-      <section class="grid" aria-label="Featured guides">
-        <article class="card">
-          <h2>Your First Pot</h2>
-          <p class="meta">Everything you need to begin today — pot, compost, seeds, light &amp; water.</p>
-          <a class="btn primary" href="{{ '/growing/first-pot.html' | relative_url }}">Open guide</a>
-        </article>
+<!-- GRID SECTION WITH BRIGHT GREEN CARDS -->
+<section class="tile">
+  <main class="wrap" role="main">
+    <section class="grid" aria-label="Featured guides">
+      <article class="card">
+        <h2>Your First Pot</h2>
+        <p class="meta">Everything you need to begin today — pot, compost, seeds, light &amp; water.</p>
+        <a class="btn primary" href="{{ '/growing/first-pot.html' | relative_url }}">Open guide</a>
+      </article>
 
-        <article class="card">
-          <h2>Space-Saving Ideas</h2>
-          <p class="meta">Vertical towers, hanging rails, and crate setups for small-space growing.</p>
-          <a class="btn primary" href="{{ '/growing/space-saving.html' | relative_url }}">See ideas</a>
-        </article>
+      <article class="card">
+        <h2>Space-Saving Ideas</h2>
+        <p class="meta">Vertical towers, hanging rails, and crate setups for small-space growing.</p>
+        <a class="btn primary" href="{{ '/growing/space-saving.html' | relative_url }}">See ideas</a>
+      </article>
 
-        <article class="card">
-          <h2>Regrow from Scraps</h2>
-          <p class="meta">Save money and reduce waste by regrowing from kitchen scraps.</p>
-          <a class="btn primary" href="{{ '/growing/regrow.html' | relative_url }}">Learn more</a>
-        </article>
+      <article class="card">
+        <h2>Regrow from Scraps</h2>
+        <p class="meta">Save money and reduce waste by regrowing from kitchen scraps.</p>
+        <a class="btn primary" href="{{ '/growing/regrow.html' | relative_url }}">Learn more</a>
+      </article>
 
-        <article class="card">
-          <h2>Community Chat</h2>
-          <p class="meta">Exchange tips, seeds or plants</p>
-          <a class="btn primary" href="{{ '/community.html' | relative_url }}">🌿Community🌿</a>
-        </article>
-      </section>
-    </main>
-  </div>
+      <article class="card">
+        <h2>Community Chat</h2>
+        <p class="meta">Exchange tips, seeds or plants</p>
+        <a class="btn primary" href="{{ '/community.html' | relative_url }}">🌿Community🌿</a>
+      </article>
+    </section>
+  </main>
 </section>

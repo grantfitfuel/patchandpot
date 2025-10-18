@@ -42,27 +42,24 @@ description: Beginner-friendly, mindful growing for small spaces.
     gap: 1.5rem;
   }
 
-  /* Dark tile with green accent strip on top */
+  /* Dark tile with LEFT accent strip */
   .card {
     background: var(--glass);
     border: 1px solid var(--stroke);
-    border-top: 4px solid var(--pp-green);
+    border-left: 4px solid var(--pp-green);
     border-radius: 10px;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
-
-  /* Optional: subtle left accent as well */
-  /* .card { border-left: 4px solid var(--pp-green); } */
 
   .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-    border-top-color: var(--pp-green-dark);
+    border-left-color: var(--pp-green-dark);
   }
 
   .card h2 {
@@ -113,7 +110,7 @@ description: Beginner-friendly, mindful growing for small spaces.
   </div>
 </section>
 
-<!-- GRID SECTION WITH GREEN ACCENT STRIP -->
+<!-- GRID SECTION WITH GREEN ACCENT STRIP ON LEFT -->
 <section class="tile">
   <main class="wrap" role="main">
     <section class="grid" aria-label="Featured guides">

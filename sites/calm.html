@@ -5,13 +5,13 @@ description: A gentle, seasonal mindfulness pause. Two minutes to breathe, notic
 keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and Pot, mental wellbeing
 ---
 
-<!-- HERO (wide, not dominant) -->
+<!-- HERO (keeps native aspect ratio) -->
 <section class="hero-mini hero--calm" role="banner" aria-label="2-Minute Calm hero">
-  <figure>
+  <figure class="calm-media">
     <img src="{{ '/img/calm-hero.png' | relative_url }}" alt="Person sitting among flowers and pots with wireless earphones">
-    <div class="overlay" aria-hidden="true"></div>
+    <!-- No overlay when preserving aspect ratio -->
   </figure>
-  <div class="content wrap">
+  <div class="wrap calm-copy">
     <h1><span class="accent">2-Minute Calm</span></h1>
     <p>Weekly guided breathing and grounding inspired by the season.</p>
   </div>
@@ -29,56 +29,52 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 
 <!-- Page-specific styles (only for this page) -->
 <style>
-  /* Make hero-mini behave like a short banner */
-  .hero--calm{
-    position: relative;
-    width: 100%;
-    min-height: clamp(300px, 42vh, 480px); /* bigger than before */
-    display: flex;
-    align-items: flex-end;
+  /* HERO — preserve image aspect ratio, scale fluidly */
+  .hero--calm { padding-top: .6rem; }
+  .calm-media { /* regular flow, no absolute positioning */
+    margin: 0 auto;
+    max-width: var(--maxw);
+    padding: 0 20px;
   }
-  .hero--calm figure{
-    position:absolute; inset:0; margin:0;
-  }
-  .hero--calm figure img{
-    width:100%; height:100%;
-    object-fit:cover;
-    object-position: center 42%; /* shows face + flowers */
+  .calm-media img{
     display:block;
-  }
-  .hero--calm .overlay{
-    position:absolute; inset:0;
-    background: rgba(0,0,0,.32); /* soft so colours pop */
-  }
-  .hero--calm .content{
-    position:relative; z-index:1;
-    padding: 1.2rem 0 1.6rem;
-  }
-  .hero--calm h1{
-    margin:0 0 .25rem 0;
-    font-size: clamp(2rem, 3.4vw, 2.8rem);
-  }
-  .hero--calm p{
-    margin:.2rem 0 0 0;
-    max-width: 640px;
-    opacity:.9;
+    width:100%;
+    height:auto;                 /* keeps original aspect ratio */
+    border-radius: 12px;
+    box-shadow: 0 10px 26px rgba(0,0,0,.25);
   }
 
-  /* Audio spacing + look */
+  .calm-copy{
+    margin-top: .9rem;
+  }
+  .calm-copy h1{
+    margin: 0 0 .25rem 0;
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+  }
+  .calm-copy p{
+    margin: .2rem 0 0 0;
+    max-width: 640px;
+    opacity: .9;
+  }
+
+  /* Audio spacing & look */
   #calm-audio{
     width:100%;
-    margin: .75rem 0 1rem;
+    margin: .9rem 0 1rem;
     background: var(--glass);
     border-radius: 8px;
   }
-
   .meta{ color:var(--ink); opacity:.85; }
 
+  /* iPad & mobile niceties */
+  @media (min-width: 1024px){
+    .calm-media { padding: 0 24px; }
+  }
   @media (max-width: 640px){
-    .hero--calm{ min-height: 280px; }
-    .hero--calm figure img{ object-position:center 38%; }
+    .hero--calm { padding-top: .4rem; }
+    .calm-copy h1{ font-size: 1.9rem; }
   }
 </style>
 
-<!-- Keep your weekly rotation script -->
+<!-- Weekly rotation script -->
 <script src="{{ '/js/calm-rotation.js' | relative_url }}"></script>

@@ -10,9 +10,9 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 <script src="/js/header-loader.js"></script>
 
 <!-- HERO -->
-<section class="hero-mini" role="banner" aria-label="2-Minute Calm hero">
+<section class="hero-mini hero--calm" role="banner" aria-label="2-Minute Calm hero">
   <figure>
-    <img src="/img/calm-hero.png" alt="Dew drops on leaves at sunrise">
+    <img src="/img/calm-hero.png" alt="Person sitting among plants and flowers with wireless earphones">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content wrap">
@@ -34,3 +34,60 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 <div id="site-footer"></div>
 
 <script src="/js/calm-rotation.js"></script>
+
+<!-- Page-specific styling -->
+<style>
+  /* HERO IMAGE RESIZING */
+  .hero--calm figure img {
+    height: clamp(220px, 35vh, 360px);
+    object-fit: cover;
+    object-position: center 40%;
+  }
+
+  .hero--calm .overlay {
+    background: rgba(0, 0, 0, 0.35); /* softened overlay */
+  }
+
+  .hero--calm .content {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .hero--calm h1 {
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    margin-bottom: 0.3rem;
+  }
+
+  .hero--calm p {
+    max-width: 600px;
+    margin-top: 0.4rem;
+    opacity: 0.9;
+  }
+
+  /* AUDIO PLAYER STYLING */
+  audio {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    background: var(--glass);
+    border-radius: 8px;
+  }
+
+  /* META TEXT */
+  .meta {
+    color: var(--ink);
+    opacity: 0.8;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 600px) {
+    .hero--calm figure img {
+      height: 240px;
+      object-position: center 35%;
+    }
+    .hero--calm h1 {
+      font-size: 1.8rem;
+    }
+  }
+</style>

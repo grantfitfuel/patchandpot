@@ -19,14 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
           bundler-cache: true
+
       - name: Install gems
         run: bundle install --jobs 4 --retry 3
-      - name: Build site (from /sites)
+
+      - name: Build site (from /sites to _site)
         run: bundle exec jekyll build --source sites --destination _site --trace
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

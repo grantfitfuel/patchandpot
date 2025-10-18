@@ -1,88 +1,14 @@
 ---
 layout: default
 title: Exercise — Patch & Pot
-description: Short, realistic exercise sessions that fit around life and growing. Gentle warm-ups, bodyweight basics, simple strength with dumbbells, and mindful movement to build energy without overwhelm.
-keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool down, accessible fitness, gentle movement, Patch and Pot, joint-friendly, mobility, home workout
+description: Short, realistic exercise sessions that fit around life and growing. Gentle warm-ups, bodyweight basics, simple strength with dumbbells, flexibility flows, and mindful movement to build energy without overwhelm.
+keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool down, accessible fitness, gentle movement, Patch and Pot, joint-friendly, mobility, home workout, flexibility, stretching
 ---
 
-<!-- Page-only styles (Exercise page only) -->
-<style>
-  :root{
-    --ex-accent: #26A69A;      /* teal accent for Exercise */
-    --ex-accent-dark:#1f8f86;
-  }
-
-  /* HERO: distinct image & crop (top of head + waist visible) */
-  .hero--exercise figure img{
-    height: clamp(380px, 52vh, 540px);
-    object-fit: cover;
-    object-position: center 34%;
-  }
-  @media (max-width: 900px){
-    .hero--exercise figure img{ height: 340px; object-position:center 30%; }
-  }
-
-  /* Intro copy block under hero */
-  .exercise-intro{
-    background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-    border: 1px solid var(--stroke);
-    border-radius: 14px;
-    padding: 1.1rem 1.25rem;
-    margin: 1.25rem 0 1.25rem;
-  }
-  .exercise-intro p{ margin:.6rem 0; color:#d7e3db; }
-
-  /* Grid of workout cards */
-  .exercise-grid{
-    display:grid; gap: 18px; align-items:start; margin: 1.25rem 0 2rem;
-  }
-  @media (min-width:700px){  .exercise-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }   /* iPad */
-  @media (min-width:1100px){ .exercise-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }  /* desktop */
-
-  /* Card with LEFT teal accent */
-  .work-card{
-    background: var(--glass);
-    border: 1px solid var(--stroke);
-    border-left: 6px solid var(--ex-accent);
-    border-radius: 14px;
-    padding: 1.1rem 1.25rem 1.25rem 1.05rem;
-    display:flex; flex-direction:column; height:100%;
-    box-shadow: 0 6px 18px rgba(0,0,0,.20);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  }
-  .work-card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 10px 26px rgba(31,143,134,.33);
-    border-left-color: var(--ex-accent-dark);
-  }
-
-  .work-card h2{ margin:.1rem 0 .5rem; font-size:1.18rem; color:#fff; }
-  .work-card .meta{ color:#c0d0c4; margin:.1rem 0 .55rem; line-height:1.45; }
-  .work-card ul, .work-card ol{ margin:.35rem 0 .6rem 1.15rem; }
-  .work-card li{ margin:.14rem 0; }
-  .work-card strong{ color:#eaf3ee; }
-
-  /* Two-up panel for “Cool Down / Progression / Mindful” on larger screens */
-  .notes-grid{
-    display:grid; gap:18px; margin: 4px 0 2rem;
-  }
-  @media (min-width:900px){ .notes-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
-  .note-card{ composes: work-card; } /* just for readability; will reuse .work-card class */
-
-  /* Mini nav buttons */
-  .mini-nav{ display:flex; gap:.8rem; flex-wrap:wrap; margin: .5rem 0 2rem; }
-  .mini-nav a{
-    background: var(--ex-accent); color:#fff; border-radius:10px;
-    padding:.6rem 1rem; text-decoration:none;
-  }
-  .mini-nav a:hover{ background: var(--ex-accent-dark); }
-</style>
-
 <!-- HERO -->
-<header class="hero hero--exercise" role="banner" aria-label="Exercise hero">
+<header class="hero" role="banner" aria-label="Exercise hero">
   <figure>
-    <!-- Provide this PNG at /img/exercise-hero.png -->
-    <img src="{{ '/img/exercise-hero.png' | relative_url }}" alt="Rolling out a mat and getting moving at home">
+    <img src="/img/exercise-hero.png" alt="Stretching gently in a small garden space">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
@@ -96,21 +22,20 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
 
 <main class="wrap" role="main">
   <!-- INTRO -->
-  <section class="exercise-intro">
+  <section>
     <p>
       Movement is one of the simplest ways to support both body and mind. Regular, manageable sessions help build strength, ease stiffness, boost circulation, and settle the nervous system. 
       These plans are intentionally short and flexible — perfect between gardening tasks, in the kitchen, or in the living room.
     </p>
     <p>
-      If you’re brand new to exercise, start with the warm-up or one bodyweight round, and build gradually. If you’re further along, add intensity by increasing reps, using light weights, or combining sessions. 
+      If you’re brand new to exercise, start with the warm-up or one bodyweight round, and build gradually. If you’re further along, you can add intensity by increasing reps, adding light weights, or combining sessions. 
       Always move at your own pace and respect how your body feels on the day.
     </p>
   </section>
 
-  <!-- WORKOUTS GRID -->
-  <section class="exercise-grid" aria-label="Workouts">
-    <!-- WARM UP -->
-    <article class="work-card" id="warmup">
+  <!-- WARM UP / MAIN BLOCK -->
+  <section class="grid" aria-label="Exercise templates">
+    <article class="card" id="warmup">
       <h2>5-Minute Warm-up</h2>
       <p class="meta">Repeat once or twice to ease into movement.</p>
       <ol>
@@ -120,11 +45,9 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
         <li><strong>Air squats</strong> × 10 — keep heels down, back tall.</li>
         <li><strong>Calf raises</strong> × 12 — lift slowly, pause at the top.</li>
       </ol>
-      <p class="meta">Warm-ups help your muscles, joints, and lungs prepare for movement — and lower the risk of injury.</p>
     </article>
 
-    <!-- BODYWEIGHT -->
-    <article class="work-card" id="bodyweight">
+    <article class="card" id="bodyweight">
       <h2>Bodyweight Basics</h2>
       <p class="meta">2–3 rounds · rest 45–60 s between moves.</p>
       <ul>
@@ -133,11 +56,9 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
         <li><strong>Split squat × 10 each side</strong> — steady hold on a wall or chair if needed.</li>
         <li><strong>Dead bug or plank × 20–30 s</strong> — focus on controlled breathing and bracing.</li>
       </ul>
-      <p class="meta">A solid foundation for mobility, balance, and strength — no equipment required. Adjust the reps or pace to match your comfort level.</p>
     </article>
 
-    <!-- DUMBBELLS -->
-    <article class="work-card" id="dumbbells">
+    <article class="card" id="dumbbells">
       <h2>Dumbbell Pair</h2>
       <p class="meta">A light pair is plenty. 2–3 rounds with steady breathing.</p>
       <ul>
@@ -146,13 +67,26 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
         <li><strong>Bent row × 10</strong> — hinge at the hips, squeeze shoulder blades as you pull.</li>
         <li><strong>Seated curl × 10</strong> — elbows tucked, control the descent.</li>
       </ul>
-      <p class="meta">Great for gently building strength, supporting bone density, and improving daily movement capacity.</p>
+    </article>
+
+    <!-- FLEXIBILITY -->
+    <article class="card" id="flexibility">
+      <h2>Flexibility Flow</h2>
+      <p class="meta">Gentle mobility & stretches · 5–8 minutes.</p>
+      <ul>
+        <li><strong>Cat–Cow stretch × 5</strong> — loosen spine and shoulders.</li>
+        <li><strong>Standing side reach × 8</strong> — lengthen through the waist.</li>
+        <li><strong>Seated twist × 5 each side</strong> — gentle spinal rotation.</li>
+        <li><strong>Forward fold hold × 20 s</strong> — release hamstrings and back.</li>
+        <li><strong>Ankle rolls × 10</strong> — ease lower legs and feet.</li>
+      </ul>
+      <p class="meta">Perfect on recovery days or after gardening to keep joints supple.</p>
     </article>
   </section>
 
-  <!-- NOTES (cool down / progression / mindful) -->
-  <section class="notes-grid" aria-label="Notes and guidance">
-    <article class="work-card">
+  <!-- COOL DOWN + PROGRESSION -->
+  <section class="grid" aria-label="Cool down and progression notes">
+    <article class="card">
       <h2>Cool Down (2–3 mins)</h2>
       <p class="meta">Slow nasal breathing · calf/quad/hamstring stretch 20–30 s each side.</p>
       <ul>
@@ -161,32 +95,32 @@ keywords: exercise, short workouts, bodyweight, dumbbell workout, warm up, cool 
         <li>Seated or standing calf stretch</li>
         <li>Shoulder and chest opening</li>
       </ul>
-      <p class="meta">Cool-down helps your heart rate settle and reduces post-exercise soreness.</p>
     </article>
 
-    <article class="work-card">
+    <article class="card">
       <h2>Progression</h2>
-      <p class="meta">Start small and build. Try adding:</p>
       <ul>
         <li>+1 rep per week on each exercise</li>
         <li>One extra round of the same set</li>
         <li>Heavier dumbbells when ready</li>
         <li>A longer plank or slower tempo</li>
       </ul>
-      <p class="meta">Progress doesn’t need to be huge. Tiny, regular steps add up over months.</p>
     </article>
 
-    <article class="work-card">
+    <article class="card">
       <h2>Mindful Movement</h2>
-      <p class="meta">Movement can be a reset. Some days you’ll have energy, some days you won’t — that’s okay. Even 3 minutes of light stretching, a slow walk, or deep breathing still counts.</p>
-      <p class="meta">Coming soon: printable cards, timers, joint-friendly swaps, and short videos for each move.</p>
+      <p class="meta">
+        Movement can be a reset. Some days you’ll have energy, some days you won’t — that’s okay. Even 3 minutes of light stretching, a slow walk, or deep breathing still counts.
+      </p>
+      <p class="meta">
+        Coming soon: printable cards, timers, joint-friendly swaps, and short videos for each move.
+      </p>
     </article>
   </section>
 
-  <!-- EXPLORATION NAV -->
   <nav class="mini-nav" aria-label="Explore exercise">
-    <a href="{{ '/ideas.html'   | relative_url }}">Ideas</a>
-    <a href="{{ '/guides/index.html' | relative_url }}">Guides</a>
-    <a href="{{ '/index.html'   | relative_url }}">Home</a>
+    <a href="/ideas.html">Ideas</a>
+    <a href="/guides/index.html">Guides</a>
+    <a href="/index.html">Home</a>
   </nav>
 </main>

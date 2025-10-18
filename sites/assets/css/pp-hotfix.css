@@ -1,20 +1,20 @@
-/* Patch & Pot — HOTFIX v22 */
+/* Patch & Pot — HOTFIX v23 (sites/assets/css) */
 
 /* ===== Global / spacing ===== */
 html, body { height: 100%; }
-body { margin: 0; } /* kills mysterious top gap */
+body { margin: 0; } /* kill top gap */
 img { max-width: 100%; height: auto; display: block; }
 :focus { outline: 2px solid #84c684; outline-offset: 3px; }
 .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* ===== HEADER (from _includes/header.html) ===== */
+/* ===== HEADER ===== */
 .site-header {
   background: #0b1210;
   border-bottom: 1px solid rgba(255,255,255,.08);
   position: relative;
-  z-index: 3000;              /* above hero */
-  margin: 0;                  /* ensure no extra space */
-  line-height: 1;             /* consistent height */
+  z-index: 3000; /* above hero */
+  margin: 0;
+  line-height: 1;
 }
 .site-header .nav-wrap {
   max-width: 1100px; margin: 0 auto; padding: .65rem 20px;
@@ -27,7 +27,7 @@ img { max-width: 100%; height: auto; display: block; }
 .brand-logo { width: 28px; height: 28px; display: inline-block; }
 .brand-text { font-weight: 700; letter-spacing: .2px; }
 
-/* Nuke any leaked button styles in header */
+/* Remove any leaked button/background in header */
 .site-header a, .site-header .btn, .site-header a.btn, .site-header * {
   background: transparent !important;
   border: 0 !important;
@@ -42,7 +42,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .main-nav a:hover, .main-nav a:focus { text-decoration: underline; }
 
-/* Hamburger (CSS-only; checkbox hack) */
+/* Hamburger (checkbox hack) */
 .nav-toggle { position: absolute; opacity: 0; pointer-events: none; }
 .hamburger {
   display: none;
@@ -85,18 +85,12 @@ img { max-width: 100%; height: auto; display: block; }
   .nav-toggle:checked + .hamburger .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 }
 
-/* ===== KILL EXTRA SPACE BEFORE HERO ===== */
-/* If any theme CSS adds top margins, flatten them here */
-.site-header + section.hero,
-.site-header + main,
-.site-header + * {
-  margin-top: 0 !important;
-}
+/* ===== Flatten space before hero ===== */
+.site-header + * { margin-top: 0 !important; }
 main { margin-top: 0 !important; padding-top: 0 !important; }
 
-/* ===== HERO — text BELOW image (overlay text hidden) ===== */
+/* ===== HERO — image first; text BELOW ===== */
 .hero .content { display: none !important; }  /* hide overlaid copy */
-
 .hero { margin: 0; }
 .hero figure {
   position: relative; width: 100%;
@@ -108,9 +102,12 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   width: 100%; height: 100%;
   object-fit: cover; object-position: 55% 38%;
 }
-.hero .overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25)); }
+.hero .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.25));
+}
 
-/* Text block below image (place this section after .hero in your page) */
+/* Text block below image */
 .hero-text { padding: 1.5rem 20px 0; text-align: center; }
 .eyebrow { display: block; font-size: .9rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: .35rem; color: #84c684; }
 .hero-text .lead { color: #cfd2d6; margin: .4rem 0 1rem; }
@@ -120,11 +117,14 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   .hero-text { padding-top: 1rem; }
 }
 
-/* Ensure hero never overlays the dropdown */
+/* Ensure hero never sits above the dropdown */
 .hero, .hero * { z-index: auto; }
 
-/* ===== GRID / CARDS ===== */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+/* ===== Cards / grid ===== */
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem; margin-top: 2rem;
+}
 .card {
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.15);
@@ -141,25 +141,22 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
 
 @media (max-width: 768px) { .grid { grid-template-columns: 1fr; gap: 1rem; } }
 
-/* ===== BUTTONS — all CTAs green (never the header) ===== */
+/* ===== Buttons — all CTAs green ===== */
 :root { --pp-green:#2e7d32; --pp-green-dark:#1b5e20; --pp-green-press:#145a19; }
-.btn, .btn.primary, .btn.ghost,
-button, input[type="button"], input[type="submit"],
-.card a.btn, .cta-row a.btn {
-  background-color: var(--pp-green) !important; color: #fff !important;
-  border: 2px solid var(--pp-green) !important;
-  display: inline-block; padding: .65rem 1.2rem; border-radius: 6px; font-weight: 700;
-  text-align: center; text-decoration: none; cursor: pointer;
-  transition: background-color .25s, border-color .25s, color .25s;
+.btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"],.card a.btn,.cta-row a.btn{
+  background-color: var(--pp-green) !important; color:#fff !important;
+  border:2px solid var(--pp-green) !important;
+  display:inline-block; padding:.65rem 1.2rem; border-radius:6px; font-weight:700;
+  text-align:center; text-decoration:none; cursor:pointer;
+  transition:background-color .25s,border-color .25s,color .25s;
 }
-.btn:hover, .btn:focus,
-button:hover, button:focus,
-input[type="button"]:hover, input[type="button"]:focus,
-input[type="submit"]:hover, input[type="submit"]:focus,
-.card a.btn:hover, .card a.btn:focus, .cta-row a.btn:hover, .cta-row a.btn:focus {
+.btn:hover,.btn:focus,button:hover,button:focus,
+input[type="button"]:hover,input[type="button"]:focus,
+input[type="submit"]:hover,input[type="submit"]:focus,
+.card a.btn:hover,.card a.btn:focus,.cta-row a.btn:hover,.cta-row a.btn:focus{
   background-color: var(--pp-green-dark) !important; border-color: var(--pp-green-dark) !important;
 }
-.btn:active, button:active, input[type="button"]:active, input[type="submit"]:active,
-.card a.btn:active, .cta-row a.btn:active {
+.btn:active,button:active,input[type="button"]:active,input[type="submit"]:active,
+.card a.btn:active,.cta-row a.btn:active{
   background-color: var(--pp-green-press) !important; border-color: var(--pp-green-press) !important;
 }

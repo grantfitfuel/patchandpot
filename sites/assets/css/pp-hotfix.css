@@ -1,5 +1,4 @@
-/* Patch & Pot — HOTFIX v35 */
-/* iPad = horizontal nav, iPhone = working hamburger, hero kept clean */
+/* Patch & Pot — HOTFIX v36 */
 
 /* basics */
 body{margin:0}
@@ -9,14 +8,19 @@ img{max-width:100%;height:auto;display:block}
 .site-header{position:sticky;top:0;z-index:3000}
 .site-header+*{margin-top:0!important}
 
-/* shared nav defaults */
-.nav{display:flex;align-items:center;gap:var(--nav-gap,1rem);flex-wrap:nowrap;white-space:nowrap}
+/* structure to keep logo + nav from colliding */
+.site-header .wrap{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+}
+.brand{flex:0 0 auto}
+.nav{flex:1 1 auto;display:flex;align-items:center;justify-content:flex-end;
+  gap:var(--nav-gap,1rem);flex-wrap:nowrap;white-space:nowrap;min-width:0}
 .nav,.nav ul{list-style:none;margin:0;padding:0}
 .nav ul{display:flex;gap:var(--nav-gap,1rem)}
 .nav li{list-style:none;margin:0;padding:0}
 .nav a{display:inline-block;text-decoration:none;padding:6px 8px}
 
-/* hamburger toggle (hidden by default) */
+/* hamburger toggle */
 .nav-toggle{position:absolute;opacity:0;pointer-events:none}
 .hamburger{display:none;width:44px;height:38px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:6px}
 .hamburger span{width:26px;height:2px;background:#fff;box-shadow:0 0 3px rgba(0,0,0,.8)}
@@ -25,7 +29,6 @@ img{max-width:100%;height:auto;display:block}
 @media (max-width:900px){
   .site-header .wrap{position:relative}
   .hamburger{display:flex;z-index:3002}
-
   .nav{
     position:absolute;left:0;right:0;top:100%;
     background:#0a0f0c;border-top:1px solid var(--stroke,#1f2630);
@@ -40,32 +43,48 @@ img{max-width:100%;height:auto;display:block}
   .nav-toggle:checked ~ .nav{transform:scaleY(1)}
 }
 
-/* ===== iPad & desktop (≥901px) ===== */
+/* ===== iPad & desktop (≥901px): tighter nav to fit nicely ===== */
 @media (min-width:901px){
   .hamburger{display:none}
   .nav{position:static;transform:none;background:transparent}
-  .nav ul{display:flex}
+  /* base size on large screens */
+  .nav a{font-size:.98rem;padding:4px 6px}
+  :root{--nav-gap:1rem}
+}
+@media (min-width:901px) and (max-width:1280px){
+  /* iPad / small laptop – reduce spacing & font size */
+  :root{--nav-gap:.8rem}
+  .nav a{font-size:.95rem;padding:4px 6px}
+}
+@media (min-width:901px) and (max-width:1100px){
+  /* tightest fit without wrapping or touching logo */
+  :root{--nav-gap:.6rem}
+  .nav a{font-size:.90rem;padding:3px 5px}
 }
 
-/* ===== hero (no gradient; head+waist in frame; text below) ===== */
+/* ===== HERO: show head + waist; remove gradient; text below image ===== */
 .hero{margin:0}
 .hero .overlay{display:none!important}
 .hero .content{display:none!important}
 .hero figure{position:relative;margin:0;overflow:hidden}
 .hero figure img{
   width:100%;
-  height:clamp(340px,46vh,480px);
+  /* taller frame = more top & bottom visible */
+  height:clamp(380px,52vh,520px);
   object-fit:cover;
-  object-position:center 40%;
+  /* 34% lifts the focus slightly so you see head AND waist */
+  object-position:center 34%;
 }
 @media (max-width:900px){
-  .hero figure img{height:320px;object-position:center 32%}
+  .hero figure img{height:340px;object-position:center 28%}
 }
+
+/* hero text block */
 .hero-text{display:block;padding:1.25rem 20px 0;text-align:center}
 .hero-text .eyebrow{display:block;font-weight:600;text-transform:uppercase;font-size:.9rem;letter-spacing:.05em;color:var(--accent,#7ed495);opacity:.95;margin-bottom:.35rem}
 .hero-text .lead{color:#cfe9dc;margin:.4rem 0 1rem}
 
-/* buttons (all green) */
+/* Buttons (all green) */
 :root{--pp-green:#2e7d32;--pp-green-dark:#1b5e20;--pp-green-press:#145a19}
 .btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"]{
   background-color:var(--pp-green)!important;color:#fff!important;border:2px solid var(--pp-green)!important;

@@ -7,66 +7,77 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
 
 <style>
   :root{
-    --pp-green:#43A047;         /* bright accent */
-    --pp-green-dark:#2E7D32;    /* hover/darker */
+    --pp-green:#43A047;
+    --pp-green-dark:#2E7D32;
+
+    /* Category accent palette */
+    --acc-salad:#43A047;   /* bright leaf */
+    --acc-main:#26A69A;    /* teal */
+    --acc-soup:#FB8C00;    /* orange */
+    --acc-sweet:#8E24AA;   /* purple */
+    --acc-info:#42A5F5;    /* blue */
   }
 
   /* Pills/badges */
   .badge{
-    display:inline-block; margin:.15rem .35rem .15rem 0;
-    padding:.15rem .5rem; border-radius:999px; font-size:.8rem;
-    background:#e8f5ee; color:#194b37; border:1px solid #cfe9dc
+    display:inline-block;margin:.15rem .35rem .15rem 0;
+    padding:.15rem .5rem;border-radius:999px;font-size:.8rem;
+    background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc
   }
 
-  /* Grid layout: 1 / 2 / 3 cols */
-  .recipes-grid{ display:grid; gap:16px; align-items:start; margin:1.5rem 0 2rem; }
-  @media (min-width:700px){ .recipes-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }   /* iPad */
-  @media (min-width:1100px){ .recipes-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } } /* desktop */
+  /* Grid: more separation */
+  .recipes-grid{display:grid;gap:20px;align-items:start;margin:1.75rem 0 2.25rem;}
+  @media (min-width:700px){ .recipes-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }   /* iPad */
+  @media (min-width:1100px){ .recipes-grid{grid-template-columns:repeat(3,minmax(0,1fr));} } /* desktop */
 
-  /* Recipe card with LEFT green accent */
+  /* Base card */
   .recipe-card{
-    background:var(--glass);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
     border:1px solid var(--stroke);
-    border-left:4px solid var(--pp-green);
-    border-radius:10px;
-    padding:1.1rem 1.2rem 1.2rem 1.05rem;
-    display:flex; flex-direction:column; height:100%;
-    box-shadow:0 3px 10px rgba(0,0,0,.25);
+    border-left-width:6px;          /* thicker accent edge */
+    border-radius:14px;
+    padding:1.15rem 1.25rem 1.25rem 1.05rem;
+    display:flex;flex-direction:column;height:100%;
+    box-shadow:0 6px 18px rgba(0,0,0,.20);
     transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
-  .recipe-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 6px 16px rgba(0,0,0,.3);
-    border-left-color:var(--pp-green-dark);
+  .recipe-card:hover{ transform:translateY(-4px); box-shadow:0 10px 26px rgba(0,0,0,.28); }
+
+  /* Category accents + hover glow */
+  .salads    { border-left-color:var(--acc-salad); }
+  .salads:hover    { box-shadow:0 10px 26px rgba(67,160,71,.35); }
+  .mains     { border-left-color:var(--acc-main); }
+  .mains:hover     { box-shadow:0 10px 26px rgba(38,166,154,.35); }
+  .soups     { border-left-color:var(--acc-soup); }
+  .soups:hover     { box-shadow:0 10px 26px rgba(251,140,0,.30); }
+  .sweets    { border-left-color:var(--acc-sweet); }
+  .sweets:hover    { box-shadow:0 10px 26px rgba(142,36,170,.30); }
+  .info      { border-left-color:var(--acc-info); }
+  .info:hover      { box-shadow:0 10px 26px rgba(66,165,245,.30); }
+
+  /* Typography + lists */
+  .recipe-card h2{margin:.1rem 0 .55rem;font-size:1.18rem;color:#fff;letter-spacing:.2px;}
+  .recipe-card h3{margin:.2rem 0 .35rem;font-size:1.06rem;color:#fff;}
+  .recipe-card .meta{color:#c0d0c4;line-height:1.45;margin:.1rem 0 .45rem;}
+  .recipe-card ul{margin:.25rem 0 .55rem 1.1rem;}
+  .recipe-card ol{margin:.25rem 0 .55rem 1.1rem;}
+  .recipe-card li{margin:.12rem 0;}
+
+  /* Divider between recipes within a card */
+  .recipe-split{
+    border:0;border-top:1px solid rgba(255,255,255,.08);
+    margin:.8rem 0 .9rem;
   }
 
-  /* Section/category heading inside card */
-  .recipe-card h2{
-    margin:.1rem 0 .5rem; font-size:1.15rem; color:#fff;
-    letter-spacing:.2px;
-  }
-  .recipe-card h3{
-    margin:.2rem 0 .35rem; font-size:1.05rem; color:#fff;
-  }
-
-  .recipe-card .meta{ color:#c0d0c4; line-height:1.4; margin:.1rem 0 .4rem; }
-  .recipe-card ul{ margin:.25rem 0 .5rem 1.1rem; }
-  .recipe-card ol{ margin:.25rem 0 .5rem 1.1rem; }
-  .recipe-card li{ margin:.12rem 0; }
-
-  /* Keep vertical rhythm tidy between recipes in a card */
-  .recipe-split{ border:0; border-top:1px solid rgba(255,255,255,.08); margin:.7rem 0 .8rem; }
-
-  /* Mini nav at bottom */
-  .mini-nav{ display:flex; gap:.75rem; flex-wrap:wrap; margin:1.25rem 0 2rem; }
-  .mini-nav a{
-    background:var(--pp-green); color:#fff; border-radius:8px; padding:.55rem .9rem; text-decoration:none;
-  }
-  .mini-nav a:hover{ background:var(--pp-green-dark); }
+  /* Bottom mini-nav */
+  .mini-nav{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.25rem 0 2rem;}
+  .mini-nav a{background:var(--pp-green);color:#fff;border-radius:10px;padding:.6rem 1rem;text-decoration:none;}
+  .mini-nav a:hover{background:var(--pp-green-dark);}
 
   /* Print trigger button in hero */
-  #print-recipe-cards{ background:#fff !important; color:var(--pp-green) !important; border:none !important; font-weight:700; }
-  #print-recipe-cards:hover{ background:var(--pp-green-dark) !important; color:#fff !important; }
+  #print-recipe-cards{background:#fff !important;color:var(--pp-green) !important;border:none !important;font-weight:700;}
+  #print-recipe-cards:hover{background:var(--pp-green-dark) !important;color:#fff !important;}
 </style>
 
 <!-- HERO -->
@@ -91,7 +102,7 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
   <section class="recipes-grid" aria-label="All recipes and info">
 
     <!-- SALADS -->
-    <article class="recipe-card">
+    <article class="recipe-card salads">
       <h2>Quick Salads</h2>
 
       <h3>Golden Beet, Orange &amp; Basil Salad</h3>
@@ -121,7 +132,7 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- MAINS -->
-    <article class="recipe-card">
+    <article class="recipe-card mains">
       <h2>Simple Mains</h2>
 
       <h3>Courgette &amp; Herb Fritters</h3>
@@ -174,7 +185,7 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- SOUPS & SIDES -->
-    <article class="recipe-card">
+    <article class="recipe-card soups">
       <h2>Soups &amp; Sides</h2>
 
       <h3>Roasted Root Tray</h3>
@@ -201,7 +212,7 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- SWEETS & DRINKS -->
-    <article class="recipe-card">
+    <article class="recipe-card sweets">
       <h2>Sweet &amp; Snacks</h2>
 
       <h3>Herb Scones</h3>
@@ -228,12 +239,12 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
     </article>
 
     <!-- INFO -->
-    <article class="recipe-card">
+    <article class="recipe-card info">
       <h2>Allergen Key</h2>
       <p class="meta">V: vegetarian · GF: gluten-free · DF: dairy-free · “can be” = easy swaps.</p>
     </article>
 
-    <article class="recipe-card">
+    <article class="recipe-card info">
       <h2>Waste-Less Tips</h2>
       <p class="meta">Freeze herb stems in oil cubes · bake stale bread for crumbs · simmer tomato skins in stock.</p>
     </article>
@@ -245,73 +256,55 @@ keywords: recipes, gardening recipes, balcony cooking, Patch and Pot, healthy re
   </nav>
 </main>
 
-<!-- PRINT RECIPE CARDS SCRIPT -->
+<!-- PRINT RECIPE CARDS SCRIPT (unchanged) -->
 <script>
 (function(){
-  const btn = document.getElementById('print-recipe-cards');
-  if(!btn) return;
-
+  const btn=document.getElementById('print-recipe-cards'); if(!btn) return;
   btn.addEventListener('click', (e)=>{
     e.preventDefault();
-    const recipes = [];
-    document.querySelectorAll('.recipe-card').forEach(section => {
-      const kids = Array.from(section.children);
-      let current = null;
-      const push = ()=>{ if(current && (current.ingredients?.length || current.steps?.length)) recipes.push(current); };
-
+    const recipes=[], cards=document.querySelectorAll('.recipe-card');
+    cards.forEach(section=>{
+      const kids=[...section.children]; let current=null;
+      const push=()=>{ if(current&&(current.ingredients?.length||current.steps?.length)) recipes.push(current); };
       kids.forEach(el=>{
-        const tag = (el.tagName||'').toUpperCase();
-        if(tag==='H3'){
-          push();
-          current = { title: el.textContent.trim(), meta:'', badges:[], ingredients:[], steps:[] };
-        } else if(current && el.classList?.contains('meta')){
-          current.meta = el.textContent.trim();
-        } else if(current && tag==='DIV' && el.querySelector('.badge')){
-          current.badges = Array.from(el.querySelectorAll('.badge')).map(b=>b.textContent.trim());
-        } else if(current && tag==='UL'){
-          current.ingredients = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
-        } else if(current && tag==='OL'){
-          current.steps = Array.from(el.querySelectorAll('li')).map(li=>li.textContent.trim());
-        }
+        const tag=(el.tagName||'').toUpperCase();
+        if(tag==='H3'){ push(); current={title:el.textContent.trim(), meta:'', badges:[], ingredients:[], steps:[]}; }
+        else if(current && el.classList?.contains('meta')){ current.meta=el.textContent.trim(); }
+        else if(current && tag==='DIV' && el.querySelector('.badge')){
+          current.badges=[...el.querySelectorAll('.badge')].map(b=>b.textContent.trim());
+        } else if(current && tag==='UL'){ current.ingredients=[...el.querySelectorAll('li')].map(li=>li.textContent.trim()); }
+        else if(current && tag==='OL'){ current.steps=[...el.querySelectorAll('li')].map(li=>li.textContent.trim()); }
       });
       push();
     });
-
     if(!recipes.length){ alert('No recipes found to print.'); return; }
-
-    const css = `
-      @page { size: A4; margin: 12mm; }
-      body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;margin:0;color:#1d2a22}
-      .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-      .card{border:1px solid #e2e6df;border-radius:12px;padding:10px 12px}
-      h2{margin:.2rem 0 .45rem;font-size:1.05rem;line-height:1.2}
-      .meta{color:#586a5f;font-size:.85rem;margin:.1rem 0 .35rem}
-      .badges{margin:.1rem 0 .35rem}
-      .badge{display:inline-block;margin:.1rem .25rem .1rem 0;padding:.1rem .45rem;border-radius:999px;
-             font-size:.72rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
-      ul,ol{margin:.25rem 0 .35rem 1.05rem;padding:0}
-      li{margin:.08rem 0;font-size:.9rem}
-      .footer{font-size:.7rem;color:#6b7a71;text-align:right;margin-top:2mm}
-    `;
-    const w = window.open('', '_blank');
+    const css=`@page{size:A4;margin:12mm}
+body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;margin:0;color:#1d2a22}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{border:1px solid #e2e6df;border-radius:12px;padding:10px 12px}
+h2{margin:.2rem 0 .45rem;font-size:1.05rem;line-height:1.2}
+.meta{color:#586a5f;font-size:.85rem;margin:.1rem 0 .35rem}
+.badges{margin:.1rem 0 .35rem}
+.badge{display:inline-block;margin:.1rem .25rem .1rem 0;padding:.1rem .45rem;border-radius:999px;font-size:.72rem;background:#e8f5ee;color:#194b37;border:1px solid #cfe9dc}
+ul,ol{margin:.25rem 0 .35rem 1.05rem;padding:0}
+li{margin:.08rem 0;font-size:.9rem}
+.footer{font-size:.7rem;color:#6b7a71;text-align:right;margin-top:2mm}`;
+    const w=window.open('', '_blank');
     w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Recipe Cards — Patch & Pot</title><style>${css}</style></head><body>
       <div class="grid">
-        ${recipes.map(r=>`
-          <section class="card">
+        ${recipes.map(r=>`<section class="card">
             <h2>${esc(r.title)}</h2>
             ${r.meta?`<div class="meta">${esc(r.meta)}</div>`:''}
             ${r.badges?.length?`<div class="badges">${r.badges.map(b=>`<span class="badge">${esc(b)}</span>`).join('')}</div>`:''}
             ${r.ingredients?.length?`<strong>Ingredients</strong><ul>${r.ingredients.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`:''}
             ${r.steps?.length?`<strong>Method</strong><ol>${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`:''}
             <div class="footer">patchandpot.com</div>
-          </section>
-        `).join('')}
+          </section>`).join('')}
       </div>
       <script>window.onload=()=>window.print();<\/script>
     </body></html>`);
     w.document.close();
-
-    function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+    function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
   });
 })();
 </script>

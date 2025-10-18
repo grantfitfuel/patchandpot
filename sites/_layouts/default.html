@@ -4,20 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }} | {{ site.title }}</title>
+
   <meta name="description" content="{{ page.description | default: site.description }}">
   <meta name="keywords" content="{{ page.keywords }}">
 
+  <!-- Social (OG/Twitter) -->
+  <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+  <meta property="og:description" content="{{ page.description | default: site.description | escape }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}{{ site.logo }}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Icons -->
   <link rel="icon" type="image/png" href="{{ site.logo | relative_url }}">
   <link rel="apple-touch-icon" href="{{ site.logo | relative_url }}">
 
-  <link rel="stylesheet" href="{{ '/assets/css/site.css?v=1' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css?v=25' | relative_url }}">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/site.css?v=1'   | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css?v=26' | relative_url }}">
 </head>
 <body>
   {% include header.html %}
+
   <main id="main-content" role="main">
     {{ content }}
   </main>
+
   {% include footer.html %}
 </body>
 </html>

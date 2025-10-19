@@ -12,7 +12,7 @@
   const audioEl = document.getElementById('calm-audio');
   const titleEl = document.getElementById('calm-title');
   const dlEl    = document.getElementById('calm-download');
-  const txtDlEl = document.getElementById('calm-transcript'); // download link
+  const txtDlEl = document.getElementById('calm-transcript');
   const toggle  = document.getElementById('calm-txt-toggle');
   const panel   = document.getElementById('calm-txt-panel');
   const content = document.getElementById('calm-txt-content');
@@ -65,7 +65,6 @@
     audioEl.src = src;
     audioEl.setAttribute('aria-label', track.title || '2-Minute Calm');
     setDownloadLinks(src, track.file, track.transcript);
-    // Also load inline transcript (non-blocking)
     loadTranscript(track.transcript, track.title);
   }
 
@@ -89,8 +88,6 @@
       const res = await fetch(TXT_BASE + filename, { cache: 'no-store' });
       if (!res.ok) throw new Error('Transcript fetch failed');
       const text = await res.text();
-
-      // Prefer preformatted block so timestamps line up nicely
       const safeTitle = title ? String(title) : 'Transcript';
       content.innerHTML =
         `<h3 class="sr-only">Transcript — ${safeTitle}</h3>` +
@@ -107,7 +104,7 @@
       .replace(/>/g, '&gt;');
   }
 
-  // Toggle behaviour (accessible)
+  // Toggle behaviour
   if (toggle && panel) {
     toggle.addEventListener('click', () => {
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -116,7 +113,6 @@
       toggle.textContent = next ? 'Hide transcript' : 'Show transcript';
       if (next) {
         panel.hidden = false;
-        // Move focus into the panel for keyboard users
         panel.setAttribute('tabindex', '-1');
         panel.focus({ preventScroll: false });
       } else {
@@ -126,7 +122,6 @@
     });
   }
 
-  // Initialise
   (async function init() {
     try {
       const res = await fetch(MANIFEST_URL, { cache: 'no-store' });

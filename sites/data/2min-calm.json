@@ -1,27 +1,123 @@
 {
   "intro": "intro.mp3",
   "spring": [
-    {"title": "First Shoots", "file": "spring-01.mp3", "transcript": "spring-01.txt"},
-    {"title": "Rain on Soil", "file": "spring-02.mp3", "transcript": "spring-02.txt"},
-    {"title": "Unfurling", "file": "spring-03.mp3", "transcript": "spring-03.txt"},
-    {"title": "Gentle Mornings", "file": "spring-04.mp3", "transcript": "spring-04.txt"}
+    {
+      "week": 1,
+      "variants": [
+        { "title": "First Shoots", "file": "spring-01-a.mp3", "transcript": "spring-01-a.txt" },
+        { "title": "First Shoots — Alternate", "file": "spring-01-b.mp3", "transcript": "spring-01-b.txt" }
+      ]
+    },
+    {
+      "week": 2,
+      "variants": [
+        { "title": "Rain on Soil", "file": "spring-02-a.mp3", "transcript": "spring-02-a.txt" },
+        { "title": "Rain on Soil — Alternate", "file": "spring-02-b.mp3", "transcript": "spring-02-b.txt" }
+      ]
+    },
+    {
+      "week": 3,
+      "variants": [
+        { "title": "Unfurling", "file": "spring-03-a.mp3", "transcript": "spring-03-a.txt" },
+        { "title": "Unfurling — Alternate", "file": "spring-03-b.mp3", "transcript": "spring-03-b.txt" }
+      ]
+    },
+    {
+      "week": 4,
+      "variants": [
+        { "title": "Gentle Mornings", "file": "spring-04-a.mp3", "transcript": "spring-04-a.txt" },
+        { "title": "Gentle Mornings — Alternate", "file": "spring-04-b.mp3", "transcript": "spring-04-b.txt" }
+      ]
+    }
   ],
   "summer": [
-    {"title": "Sun on Leaves", "file": "summer-01.mp3", "transcript": "summer-01.txt"},
-    {"title": "Breathe with the Bees", "file": "summer-02.mp3", "transcript": "summer-02.txt"},
-    {"title": "Abundant Days", "file": "summer-03.mp3", "transcript": "summer-03.txt"},
-    {"title": "Warm Evenings", "file": "summer-04.mp3", "transcript": "summer-04.txt"}
+    {
+      "week": 1,
+      "variants": [
+        { "title": "Sun on Leaves", "file": "summer-01-a.mp3", "transcript": "summer-01-a.txt" },
+        { "title": "Sun on Leaves — Alternate", "file": "summer-01-b.mp3", "transcript": "summer-01-b.txt" }
+      ]
+    },
+    {
+      "week": 2,
+      "variants": [
+        { "title": "Breathe with the Bees", "file": "summer-02-a.mp3", "transcript": "summer-02-a.txt" },
+        { "title": "Breathe with the Bees — Alternate", "file": "summer-02-b.mp3", "transcript": "summer-02-b.txt" }
+      ]
+    },
+    {
+      "week": 3,
+      "variants": [
+        { "title": "Abundant Days", "file": "summer-03-a.mp3", "transcript": "summer-03-a.txt" },
+        { "title": "Abundant Days — Alternate", "file": "summer-03-b.mp3", "transcript": "summer-03-b.txt" }
+      ]
+    },
+    {
+      "week": 4,
+      "variants": [
+        { "title": "Warm Evenings", "file": "summer-04-a.mp3", "transcript": "summer-04-a.txt" },
+        { "title": "Warm Evenings — Alternate", "file": "summer-04-b.mp3", "transcript": "summer-04-b.txt" }
+      ]
+    }
   ],
   "autumn": [
-    {"title": "Cool Air", "file": "autumn-01.mp3", "transcript": "autumn-01.txt"},
-    {"title": "Fallen Leaves", "file": "autumn-02.mp3", "transcript": "autumn-02.txt"},
-    {"title": "Harvest Gratitude", "file": "autumn-03.mp3", "transcript": "autumn-03.txt"},
-    {"title": "Turning Season", "file": "autumn-04.mp3", "transcript": "autumn-04.txt"}
+    {
+      "week": 1,
+      "variants": [
+        { "title": "Cool Air", "file": "autumn-01-a.mp3", "transcript": "autumn-01-a.txt" },
+        { "title": "Cool Air — Alternate", "file": "autumn-01-b.mp3", "transcript": "autumn-01-b.txt" }
+      ]
+    },
+    {
+      "week": 2,
+      "variants": [
+        { "title": "Fallen Leaves", "file": "autumn-02-a.mp3", "transcript": "autumn-02-a.txt" },
+        { "title": "Fallen Leaves — Alternate", "file": "autumn-02-b.mp3", "transcript": "autumn-02-b.txt" }
+      ]
+    },
+    {
+      "week": 3,
+      "variants": [
+        { "title": "Harvest Gratitude", "file": "autumn-03-a.mp3", "transcript": "autumn-03-a.txt" },
+        { "title": "Harvest Gratitude — Alternate", "file": "autumn-03-b.mp3", "transcript": "autumn-03-b.txt" }
+      ]
+    },
+    {
+      "week": 4,
+      "variants": [
+        { "title": "Turning Season", "file": "autumn-04-a.mp3", "transcript": "autumn-04-a.txt" },
+        { "title": "Turning Season — Alternate", "file": "autumn-04-b.mp3", "transcript": "autumn-04-b.txt" }
+      ]
+    }
   ],
   "winter": [
-    {"title": "Frost Stillness", "file": "winter-01.mp3", "transcript": "winter-01.txt"},
-    {"title": "Roots Beneath", "file": "winter-02.mp3", "transcript": "winter-02.txt"},
-    {"title": "Soft Light", "file": "winter-03.mp3", "transcript": "winter-03.txt"},
-    {"title": "A Warm Cup", "file": "winter-04.mp3", "transcript": "winter-04.txt"}
+    {
+      "week": 1,
+      "variants": [
+        { "title": "Frost Stillness", "file": "winter-01-a.mp3", "transcript": "winter-01-a.txt" },
+        { "title": "Frost Stillness — Alternate", "file": "winter-01-b.mp3", "transcript": "winter-01-b.txt" }
+      ]
+    },
+    {
+      "week": 2,
+      "variants": [
+        { "title": "Roots Beneath", "file": "winter-02-a.mp3", "transcript": "winter-02-a.txt" },
+        { "title": "Roots Beneath — Alternate", "file": "winter-02-b.mp3", "transcript": "winter-02-b.txt" }
+      ]
+    },
+    {
+      "week": 3,
+      "variants": [
+        { "title": "Soft Light", "file": "winter-03-a.mp3", "transcript": "winter-03-a.txt" },
+        { "title": "Soft Light — Alternate", "file": "winter-03-b.mp3", "transcript": "winter-03-b.txt" }
+      ]
+    },
+    {
+      "week": 4,
+      "variants": [
+        { "title": "A Warm Cup", "file": "winter-04-a.mp3", "transcript": "winter-04-a.txt" },
+        { "title": "A Warm Cup — Alternate", "file": "winter-04-b.mp3", "transcript": "winter-04-b.txt" }
+      ]
+    }
   ]
 }

@@ -9,7 +9,6 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 <section class="hero-mini hero--calm" role="banner" aria-label="2-Minute Calm hero">
   <figure class="calm-media">
     <img src="{{ '/img/calm-hero.png' | relative_url }}" alt="Person sitting among flowers and pots with wireless earphones">
-    <!-- No overlay when preserving aspect ratio -->
   </figure>
   <div class="wrap calm-copy">
     <h1><span class="accent">2-Minute Calm</span></h1>
@@ -18,63 +17,89 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 </section>
 
 <main class="wrap" role="main">
-  <h2 id="calm-title">Loading...</h2>
+  <h2 id="calm-title" aria-live="polite">Loading…</h2>
 
-  <audio id="calm-audio" controls preload="auto">
+  <audio id="calm-audio" controls preload="auto" aria-describedby="calm-note">
     <p>Your browser does not support audio playback.</p>
   </audio>
 
-  <p class="meta">Come back each week for a new seasonal mindful moment.</p>
+  <p class="meta" id="calm-note">
+    Come back each week for a new seasonal mindful moment.
+    <span class="calm-sep" aria-hidden="true">·</span>
+    <a id="calm-download" href="#" download>Download MP3</a>
+    <span class="calm-sep" aria-hidden="true">·</span>
+    <a id="calm-transcript" href="#" target="_blank" rel="noopener">Transcript (download)</a>
+  </p>
+
+  <!-- Inline transcript toggle (accessible) -->
+  <div class="calm-tx">
+    <button
+      id="calm-txt-toggle"
+      class="calm-txt-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="calm-txt-panel">
+      Show transcript
+    </button>
+
+    <section id="calm-txt-panel" class="calm-txt-panel" hidden aria-label="Transcript text">
+      <div class="calm-txt-inner" id="calm-txt-content">
+        <!-- Filled by JS with the active track's transcript -->
+        <p class="meta">Transcript will appear here when available.</p>
+      </div>
+    </section>
+  </div>
+
+  <noscript>
+    <p class="meta" style="opacity:.85;">
+      Enable JavaScript to see the inline transcript. You can still
+      <a href="{{ '/audio/2min/intro.txt' | relative_url }}" download>download the welcome transcript</a>.
+    </p>
+  </noscript>
 </main>
 
-<!-- Page-specific styles (only for this page) -->
+<!-- Page-specific styles (scoped) -->
 <style>
   /* HERO — preserve image aspect ratio, scale fluidly */
   .hero--calm { padding-top: .6rem; }
-  .calm-media { /* regular flow, no absolute positioning */
-    margin: 0 auto;
-    max-width: var(--maxw);
-    padding: 0 20px;
-  }
-  .calm-media img{
-    display:block;
-    width:100%;
-    height:auto;                 /* keeps original aspect ratio */
-    border-radius: 12px;
-    box-shadow: 0 10px 26px rgba(0,0,0,.25);
-  }
+  .calm-media { margin: 0 auto; max-width: var(--maxw); padding: 0 20px; }
+  .calm-media img{ display:block; width:100%; height:auto; border-radius: 12px; box-shadow: 0 10px 26px rgba(0,0,0,.25); }
 
-  .calm-copy{
-    margin-top: .9rem;
-  }
-  .calm-copy h1{
-    margin: 0 0 .25rem 0;
-    font-size: clamp(2rem, 3.4vw, 2.8rem);
-  }
-  .calm-copy p{
-    margin: .2rem 0 0 0;
-    max-width: 640px;
-    opacity: .9;
-  }
+  .calm-copy{ margin-top: .9rem; }
+  .calm-copy h1{ margin: 0 0 .25rem 0; font-size: clamp(2rem, 3.4vw, 2.8rem); }
+  .calm-copy p{ margin: .2rem 0 0 0; max-width: 640px; opacity: .9; }
 
-  /* Audio spacing & look */
-  #calm-audio{
-    width:100%;
-    margin: .9rem 0 1rem;
-    background: var(--glass);
-    border-radius: 8px;
-  }
-  .meta{ color:var(--ink); opacity:.85; }
+  /* Player */
+  #calm-audio{ width:100%; margin: .9rem 0 1rem; background: var(--glass); border-radius: 8px; }
+  .meta{ color:var(--ink); opacity:.9; }
+  .calm-sep{ margin: 0 .45rem; }
 
-  /* iPad & mobile niceties */
-  @media (min-width: 1024px){
-    .calm-media { padding: 0 24px; }
+  /* Transcript toggle + panel */
+  .calm-tx{ margin: 1rem 0 2rem; }
+  .calm-txt-toggle{
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.55rem .8rem; border:1px solid var(--stroke); border-radius:8px;
+    background:var(--glass); color:var(--ink); cursor:pointer;
   }
+  .calm-txt-toggle:focus{ outline:2px solid var(--accent); outline-offset:2px; }
+  .calm-txt-panel{
+    margin-top:.8rem; border:1px solid var(--stroke); border-radius:10px;
+    background:rgba(255,255,255,.02);
+  }
+  .calm-txt-inner{ padding: .9rem 1rem; }
+  .calm-txt-inner pre{
+    margin:0; white-space:pre-wrap; word-wrap:break-word;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    line-height:1.45;
+  }
+  .calm-txt-inner p{ margin:.3rem 0; }
+
+  @media (min-width: 1024px){ .calm-media { padding: 0 24px; } }
   @media (max-width: 640px){
     .hero--calm { padding-top: .4rem; }
     .calm-copy h1{ font-size: 1.9rem; }
   }
 </style>
 
-<!-- Weekly rotation script -->
-<script src="{{ '/js/calm-rotation.js' | relative_url }}"></script>
+<!-- Rotation + transcript logic -->
+<script src="{{ '/js/calm-rotation.js' | relative_url }}?v=calm2"></script>

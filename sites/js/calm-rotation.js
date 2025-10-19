@@ -1,6 +1,6 @@
 /**
  * 2-Minute Calm — Weekly seasonal rotation with A/B variants, no-repeat cycle,
- * and inline transcript rendering.
+ * inline transcript rendering, and ALWAYS play intro before the main track.
  */
 (function () {
   const MANIFEST_URL = '/data/2min-calm.json';
@@ -29,7 +29,7 @@
     return 'winter';
   }
 
-  function weekOfMonth(d = new Date(), weekStartsOn = WEEK_STARTS_ON) {
+  function weekOfMonth(d = new Date(), weekStartsOn = 1) {
     const first = new Date(d.getFullYear(), d.getMonth(), 1);
     const offset = (first.getDay() - weekStartsOn + 7) % 7;
     return Math.floor((d.getDate() + offset - 1) / 7);
@@ -59,23 +59,8 @@
     }
   }
 
-  function setTrack(track) {
-    const src = AUDIO_BASE + track.file;
-    titleEl.textContent = track.title || '2-Minute Calm';
-    audioEl.src = src;
-    audioEl.setAttribute('aria-label', track.title || '2-Minute Calm');
-    setDownloadLinks(src, track.file, track.transcript);
-    loadTranscript(track.transcript, track.title);
-  }
-
-  function chooseVariant(variants, season, weekIdx) {
-    const state = getState();
-    const key = `${season}:w${weekIdx}`;
-    const last = state[key] ?? -1;
-    const next = (last + 1) % variants.length;
-    state[key] = next;
-    setState(state);
-    return variants[next];
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   async function loadTranscript(filename, title) {
@@ -97,14 +82,58 @@
     }
   }
 
-  function escapeHtml(s) {
-    return s
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+  function setTrack(track) {
+    const src = AUDIO_BASE + track.file;
+    titleEl.textContent = track.title || '2-Minute Calm';
+    audioEl.src = src;
+    audioEl.setAttribute('aria-label', track.title || '2-Minute Calm');
+    setDownloadLinks(src, track.file, track.transcript);
+    loadTranscript(track.transcript, track.title);
   }
 
-  // Toggle behaviour
+  function chooseVariant(variants, season, weekIdx) {
+    const state = getState();
+    const key = `${season}:w${weekIdx}`;
+    const last = state[key] ?? -1;
+    const next = (last + 1) % variants.length;
+    state[key] = next;
+    setState(state);
+    return variants[next];
+  }
+
+  function playWithIntro(introFile, mainTrack) {
+    const introSrc = AUDIO_BASE + introFile;
+    const mainSrc  = AUDIO_BASE + mainTrack.file;
+
+    let hasPlayedIntro = false;
+
+    // Load intro first
+    audioEl.src = introSrc;
+    audioEl.setAttribute('aria-label', '2-Minute Calm Intro');
+    titleEl.textContent = '2-Minute Calm — Intro';
+    setDownloadLinks(introSrc, introFile, 'intro.txt');
+    loadTranscript('intro.txt', 'Intro');
+
+    function handleIntroEnd() {
+      if (hasPlayedIntro) return;
+      hasPlayedIntro = true;
+      audioEl.removeEventListener('ended', handleIntroEnd);
+
+      // Switch to the weekly track
+      audioEl.src = mainSrc;
+      audioEl.setAttribute('aria-label', mainTrack.title);
+      titleEl.textContent = mainTrack.title;
+      setDownloadLinks(mainSrc, mainTrack.file, mainTrack.transcript);
+      loadTranscript(mainTrack.transcript, mainTrack.title);
+
+      audioEl.play().catch(() => {});
+    }
+
+    audioEl.addEventListener('ended', handleIntroEnd);
+    audioEl.play().catch(() => {}); // user gesture may be required
+  }
+
+  // Toggle behaviour for inline transcript
   if (toggle && panel) {
     toggle.addEventListener('click', () => {
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -128,12 +157,6 @@
       if (!res.ok) throw new Error('Manifest fetch failed');
       const manifest = await res.json();
 
-      // Intro override
-      if (qs.get('intro') === '1' && manifest.intro) {
-        setTrack({ title: 'Welcome — 2-Minute Calm', file: manifest.intro, transcript: 'intro.txt' });
-        return;
-      }
-
       const season = (qs.get('season') || getSeason()).toLowerCase();
       const weeks = manifest[season];
       if (!Array.isArray(weeks) || weeks.length === 0) throw new Error('No season data');
@@ -156,9 +179,16 @@
         pick = chooseVariant(week.variants, season, weekIdx + 1);
       }
 
-      setTrack(pick);
+      const introFile = manifest.intro || 'intro.mp3';
+      playWithIntro(introFile, pick);
+
     } catch (e) {
-      setTrack({ title: '2-Minute Calm — Welcome', file: 'intro.mp3', transcript: 'intro.txt' });
+      // Fallback: intro only
+      const introFile = 'intro.mp3';
+      audioEl.src = AUDIO_BASE + introFile;
+      titleEl.textContent = '2-Minute Calm — Intro';
+      setDownloadLinks(AUDIO_BASE + introFile, introFile, 'intro.txt');
+      loadTranscript('intro.txt', 'Intro');
     }
   })();
 })();

@@ -5,7 +5,7 @@ description: A gentle, seasonal mindfulness pause. Two minutes to breathe, notic
 keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and Pot, mental wellbeing
 ---
 
-<!-- HERO (keeps native aspect ratio) -->
+<!-- HERO -->
 <section class="hero-mini hero--calm" role="banner" aria-label="2-Minute Calm hero">
   <figure class="calm-media">
     <img src="{{ '/img/calm-hero.png' | relative_url }}" alt="Person sitting among flowers and pots with wireless earphones">
@@ -31,7 +31,7 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
     <a id="calm-transcript" href="#" target="_blank" rel="noopener">Transcript (download)</a>
   </p>
 
-  <!-- Inline transcript toggle (accessible) -->
+  <!-- Inline transcript toggle -->
   <div class="calm-tx">
     <button
       id="calm-txt-toggle"
@@ -44,7 +44,6 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 
     <section id="calm-txt-panel" class="calm-txt-panel" hidden aria-label="Transcript text">
       <div class="calm-txt-inner" id="calm-txt-content">
-        <!-- Filled by JS with the active track's transcript -->
         <p class="meta">Transcript will appear here when available.</p>
       </div>
     </section>
@@ -58,9 +57,8 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
   </noscript>
 </main>
 
-<!-- Page-specific styles (scoped) -->
+<!-- Page-specific styles -->
 <style>
-  /* HERO — preserve image aspect ratio, scale fluidly */
   .hero--calm { padding-top: .6rem; }
   .calm-media { margin: 0 auto; max-width: var(--maxw); padding: 0 20px; }
   .calm-media img{ display:block; width:100%; height:auto; border-radius: 12px; box-shadow: 0 10px 26px rgba(0,0,0,.25); }
@@ -69,12 +67,11 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
   .calm-copy h1{ margin: 0 0 .25rem 0; font-size: clamp(2rem, 3.4vw, 2.8rem); }
   .calm-copy p{ margin: .2rem 0 0 0; max-width: 640px; opacity: .9; }
 
-  /* Player */
   #calm-audio{ width:100%; margin: .9rem 0 1rem; background: var(--glass); border-radius: 8px; }
   .meta{ color:var(--ink); opacity:.9; }
   .calm-sep{ margin: 0 .45rem; }
 
-  /* Transcript toggle + panel */
+  /* Transcript */
   .calm-tx{ margin: 1rem 0 2rem; }
   .calm-txt-toggle{
     display:inline-flex; align-items:center; gap:.5rem;
@@ -101,5 +98,5 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
   }
 </style>
 
-<!-- Rotation + transcript logic -->
+<!-- Weekly rotation script -->
 <script src="{{ '/js/calm-rotation.js' | relative_url }}?v=calm2"></script>

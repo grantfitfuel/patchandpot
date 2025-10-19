@@ -1,5 +1,6 @@
 /**
- * 2-Minute Calm — Seasonal weekly rotation with A/B variants and no-repeat cycle.
+ * 2-Minute Calm — Weekly seasonal rotation with A/B variants, no-repeat cycle,
+ * and inline transcript rendering.
  */
 (function () {
   const MANIFEST_URL = '/data/2min-calm.json';
@@ -11,7 +12,11 @@
   const audioEl = document.getElementById('calm-audio');
   const titleEl = document.getElementById('calm-title');
   const dlEl    = document.getElementById('calm-download');
-  const txtEl   = document.getElementById('calm-transcript');
+  const txtDlEl = document.getElementById('calm-transcript'); // download link
+  const toggle  = document.getElementById('calm-txt-toggle');
+  const panel   = document.getElementById('calm-txt-panel');
+  const content = document.getElementById('calm-txt-content');
+
   if (!audioEl || !titleEl) return;
 
   const qs = new URLSearchParams(location.search);
@@ -38,18 +43,18 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch {}
   }
 
-  function setLinks(src, name, transcript) {
+  function setDownloadLinks(src, name, transcript) {
     if (dlEl) {
       dlEl.href = src;
       try { dlEl.setAttribute('download', name || src.split('/').pop()); } catch {}
     }
-    if (txtEl) {
+    if (txtDlEl) {
       if (transcript) {
-        txtEl.href = TXT_BASE + transcript;
-        txtEl.style.display = '';
+        txtDlEl.href = TXT_BASE + transcript;
+        txtDlEl.style.display = '';
       } else {
-        txtEl.removeAttribute('href');
-        txtEl.style.display = 'none';
+        txtDlEl.removeAttribute('href');
+        txtDlEl.style.display = 'none';
       }
     }
   }
@@ -59,7 +64,9 @@
     titleEl.textContent = track.title || '2-Minute Calm';
     audioEl.src = src;
     audioEl.setAttribute('aria-label', track.title || '2-Minute Calm');
-    setLinks(src, track.file, track.transcript);
+    setDownloadLinks(src, track.file, track.transcript);
+    // Also load inline transcript (non-blocking)
+    loadTranscript(track.transcript, track.title);
   }
 
   function chooseVariant(variants, season, weekIdx) {
@@ -72,7 +79,55 @@
     return variants[next];
   }
 
-  async function init() {
+  async function loadTranscript(filename, title) {
+    if (!content) return;
+    if (!filename) {
+      content.innerHTML = `<p class="meta">No transcript available.</p>`;
+      return;
+    }
+    try {
+      const res = await fetch(TXT_BASE + filename, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Transcript fetch failed');
+      const text = await res.text();
+
+      // Prefer preformatted block so timestamps line up nicely
+      const safeTitle = title ? String(title) : 'Transcript';
+      content.innerHTML =
+        `<h3 class="sr-only">Transcript — ${safeTitle}</h3>` +
+        `<pre>${escapeHtml(text)}</pre>`;
+    } catch {
+      content.innerHTML = `<p class="meta">Transcript couldn’t load. You can still use the “Transcript (download)” link above.</p>`;
+    }
+  }
+
+  function escapeHtml(s) {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // Toggle behaviour (accessible)
+  if (toggle && panel) {
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      const next = !expanded;
+      toggle.setAttribute('aria-expanded', String(next));
+      toggle.textContent = next ? 'Hide transcript' : 'Show transcript';
+      if (next) {
+        panel.hidden = false;
+        // Move focus into the panel for keyboard users
+        panel.setAttribute('tabindex', '-1');
+        panel.focus({ preventScroll: false });
+      } else {
+        panel.hidden = true;
+        panel.removeAttribute('tabindex');
+      }
+    });
+  }
+
+  // Initialise
+  (async function init() {
     try {
       const res = await fetch(MANIFEST_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error('Manifest fetch failed');
@@ -110,7 +165,5 @@
     } catch (e) {
       setTrack({ title: '2-Minute Calm — Welcome', file: 'intro.mp3', transcript: 'intro.txt' });
     }
-  }
-
-  init();
+  })();
 })();

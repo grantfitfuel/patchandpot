@@ -1,6 +1,7 @@
 /**
- * 2-Minute Calm — Weekly seasonal rotation with A/B variants, no-repeat cycle,
- * inline transcript rendering, and ALWAYS play intro before the main track.
+ * 2-Minute Calm — Single visible player.
+ * Intro plays invisibly first, then hands off to the weekly track (A/B rotation).
+ * The user only ever sees the weekly track’s player/title/links.
  */
 (function () {
   const MANIFEST_URL = '/data/2min-calm.json';
@@ -9,15 +10,18 @@
   const WEEK_STARTS_ON = 1; // Monday
   const STORAGE_KEY = 'calm:rotation:v2';
 
-  const audioEl = document.getElementById('calm-audio');
-  const titleEl = document.getElementById('calm-title');
-  const dlEl    = document.getElementById('calm-download');
-  const txtDlEl = document.getElementById('calm-transcript');
-  const toggle  = document.getElementById('calm-txt-toggle');
-  const panel   = document.getElementById('calm-txt-panel');
-  const content = document.getElementById('calm-txt-content');
+  const audioEl  = document.getElementById('calm-audio');   // visible (weekly)
+  const introEl  = document.getElementById('calm-intro');   // hidden
+  const playBtn  = document.getElementById('calm-play');
 
-  if (!audioEl || !titleEl) return;
+  const titleEl  = document.getElementById('calm-title');
+  const dlEl     = document.getElementById('calm-download');
+  const txtDlEl  = document.getElementById('calm-transcript');
+  const toggle   = document.getElementById('calm-txt-toggle');
+  const panel    = document.getElementById('calm-txt-panel');
+  const content  = document.getElementById('calm-txt-content');
+
+  if (!audioEl || !introEl || !playBtn || !titleEl) return;
 
   const qs = new URLSearchParams(location.search);
 
@@ -29,7 +33,7 @@
     return 'winter';
   }
 
-  function weekOfMonth(d = new Date(), weekStartsOn = 1) {
+  function weekOfMonth(d = new Date(), weekStartsOn = WEEK_STARTS_ON) {
     const first = new Date(d.getFullYear(), d.getMonth(), 1);
     const offset = (first.getDay() - weekStartsOn + 7) % 7;
     return Math.floor((d.getDate() + offset - 1) / 7);
@@ -41,6 +45,16 @@
   }
   function setState(next) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch {}
+  }
+
+  function chooseVariant(variants, season, weekIdx) {
+    const state = getState();
+    const key = `${season}:w${weekIdx}`;
+    const last = state[key] ?? -1;
+    const next = (last + 1) % variants.length;
+    state[key] = next;
+    setState(state);
+    return variants[next];
   }
 
   function setDownloadLinks(src, name, transcript) {
@@ -82,72 +96,27 @@
     }
   }
 
-  function setTrack(track) {
-    const src = AUDIO_BASE + track.file;
+  function primeWeeklyUI(track) {
+    // From the user's perspective, everything references the WEEKLY track
+    const mainSrc = AUDIO_BASE + track.file;
     titleEl.textContent = track.title || '2-Minute Calm';
-    audioEl.src = src;
+    audioEl.src = mainSrc;                 // visible player is the weekly audio
     audioEl.setAttribute('aria-label', track.title || '2-Minute Calm');
-    setDownloadLinks(src, track.file, track.transcript);
+    setDownloadLinks(mainSrc, track.file, track.transcript);
     loadTranscript(track.transcript, track.title);
+    // Controls remain visible; a big Play overlay sits on top until clicked
   }
 
-  function chooseVariant(variants, season, weekIdx) {
-    const state = getState();
-    const key = `${season}:w${weekIdx}`;
-    const last = state[key] ?? -1;
-    const next = (last + 1) % variants.length;
-    state[key] = next;
-    setState(state);
-    return variants[next];
-  }
-
-  function playWithIntro(introFile, mainTrack) {
-    const introSrc = AUDIO_BASE + introFile;
-    const mainSrc  = AUDIO_BASE + mainTrack.file;
-
-    let hasPlayedIntro = false;
-
-    // Load intro first
-    audioEl.src = introSrc;
-    audioEl.setAttribute('aria-label', '2-Minute Calm Intro');
-    titleEl.textContent = '2-Minute Calm — Intro';
-    setDownloadLinks(introSrc, introFile, 'intro.txt');
-    loadTranscript('intro.txt', 'Intro');
-
-    function handleIntroEnd() {
-      if (hasPlayedIntro) return;
-      hasPlayedIntro = true;
-      audioEl.removeEventListener('ended', handleIntroEnd);
-
-      // Switch to the weekly track
-      audioEl.src = mainSrc;
-      audioEl.setAttribute('aria-label', mainTrack.title);
-      titleEl.textContent = mainTrack.title;
-      setDownloadLinks(mainSrc, mainTrack.file, mainTrack.transcript);
-      loadTranscript(mainTrack.transcript, mainTrack.title);
-
-      audioEl.play().catch(() => {});
-    }
-
-    audioEl.addEventListener('ended', handleIntroEnd);
-    audioEl.play().catch(() => {}); // user gesture may be required
-  }
-
-  // Toggle behaviour for inline transcript
+  // Transcript toggle
   if (toggle && panel) {
     toggle.addEventListener('click', () => {
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       const next = !expanded;
       toggle.setAttribute('aria-expanded', String(next));
       toggle.textContent = next ? 'Hide transcript' : 'Show transcript';
-      if (next) {
-        panel.hidden = false;
-        panel.setAttribute('tabindex', '-1');
-        panel.focus({ preventScroll: false });
-      } else {
-        panel.hidden = true;
-        panel.removeAttribute('tabindex');
-      }
+      panel.hidden = !next;
+      if (next) { panel.setAttribute('tabindex', '-1'); panel.focus({ preventScroll:false }); }
+      else { panel.removeAttribute('tabindex'); }
     });
   }
 
@@ -171,24 +140,45 @@
       const week = weeks[weekIdx];
       if (!week || !Array.isArray(week.variants) || week.variants.length === 0) throw new Error('No variants');
 
-      let pick;
-      if (qs.has('variant')) {
-        const v = Math.max(0, Math.min(week.variants.length - 1, parseInt(qs.get('variant'), 10) || 0));
-        pick = week.variants[v];
-      } else {
-        pick = chooseVariant(week.variants, season, weekIdx + 1);
-      }
+      const track = qs.has('variant')
+        ? week.variants[Math.max(0, Math.min(week.variants.length - 1, parseInt(qs.get('variant'), 10) || 0))]
+        : chooseVariant(week.variants, season, weekIdx + 1);
 
+      // UI points to the weekly track (not the intro)
+      primeWeeklyUI(track);
+
+      // Preload hidden intro
       const introFile = manifest.intro || 'intro.mp3';
-      playWithIntro(introFile, pick);
+      introEl.src = AUDIO_BASE + introFile;
+
+      // Orchestration: click Play overlay -> play intro (hidden) -> then hand off to visible weekly player
+      playBtn.addEventListener('click', () => {
+        playBtn.disabled = true;
+        playBtn.textContent = '…';
+        // Start the hidden intro
+        const startIntro = () => introEl.play().catch(() => {
+          // If blocked, fall back to letting the user press play on the visible player (skip intro)
+          // But normally, the click counts as a gesture and this will succeed.
+        });
+        startIntro();
+
+        // When intro finishes, play the visible weekly track seamlessly
+        const onEnd = () => {
+          introEl.removeEventListener('ended', onEnd);
+          playBtn.classList.add('is-hidden'); // reveal only the native controls
+          audioEl.play().catch(() => { /* user can press play */ });
+        };
+        introEl.addEventListener('ended', onEnd, { once: true });
+      }, { once: true });
 
     } catch (e) {
-      // Fallback: intro only
-      const introFile = 'intro.mp3';
-      audioEl.src = AUDIO_BASE + introFile;
+      // Hard fallback: show only the visible player with intro loaded
+      const introSrc = AUDIO_BASE + 'intro.mp3';
       titleEl.textContent = '2-Minute Calm — Intro';
-      setDownloadLinks(AUDIO_BASE + introFile, introFile, 'intro.txt');
+      audioEl.src = introSrc;
+      setDownloadLinks(introSrc, 'intro.mp3', 'intro.txt');
       loadTranscript('intro.txt', 'Intro');
+      playBtn.classList.add('is-hidden'); // let user use the native controls
     }
   })();
 })();

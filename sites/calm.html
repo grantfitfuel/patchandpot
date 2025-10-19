@@ -19,9 +19,18 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 <main class="wrap" role="main">
   <h2 id="calm-title" aria-live="polite">Loading…</h2>
 
-  <audio id="calm-audio" controls preload="auto" aria-describedby="calm-note">
-    <p>Your browser does not support audio playback.</p>
-  </audio>
+  <!-- Visible player (WEEKLY TRACK ONLY) -->
+  <div class="calm-player">
+    <!-- Custom play button overlay (starts intro silently in background, then hands off to this player) -->
+    <button id="calm-play" class="calm-play" type="button" aria-label="Play this week’s calm">
+      ▶︎ Play
+    </button>
+
+    <audio id="calm-audio" controls preload="none" aria-describedby="calm-note"></audio>
+
+    <!-- Hidden intro element (no controls, invisible) -->
+    <audio id="calm-intro" preload="auto" aria-hidden="true" tabindex="-1" style="display:none"></audio>
+  </div>
 
   <p class="meta" id="calm-note">
     Come back each week for a new seasonal mindful moment.
@@ -67,7 +76,17 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
   .calm-copy h1{ margin: 0 0 .25rem 0; font-size: clamp(2rem, 3.4vw, 2.8rem); }
   .calm-copy p{ margin: .2rem 0 0 0; max-width: 640px; opacity: .9; }
 
-  #calm-audio{ width:100%; margin: .9rem 0 1rem; background: var(--glass); border-radius: 8px; }
+  /* Player */
+  .calm-player { position: relative; margin: .9rem 0 1rem; }
+  #calm-audio{ width:100%; background: var(--glass); border-radius: 8px; }
+  .calm-play{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--stroke); border-radius:8px; background:var(--glass);
+    font-size:1rem; color:var(--ink); cursor:pointer;
+  }
+  .calm-play:focus{ outline:2px solid var(--accent); outline-offset:2px; }
+  .calm-play.is-hidden{ display:none; }
+
   .meta{ color:var(--ink); opacity:.9; }
   .calm-sep{ margin: 0 .45rem; }
 
@@ -99,4 +118,4 @@ keywords: mindfulness, 2 minute calm, gardening calm, seasonal calm, Patch and P
 </style>
 
 <!-- Weekly rotation script -->
-<script src="{{ '/js/calm-rotation.js' | relative_url }}?v=introMain1"></script>
+<script src="{{ '/js/calm-rotation.js' | relative_url }}?v=introHidden2"></script>

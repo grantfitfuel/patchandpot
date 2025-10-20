@@ -1,15 +1,17 @@
 <footer class="site-footer" role="contentinfo">
   <div class="wrap">
-    <img class="footer-icon" src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="" aria-hidden="true">
-    <nav class="foot-nav" aria-label="Footer">
-      <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
-      <a href="{{ '/growing/' | relative_url }}">Growing</a>
-      <a href="{{ '/guides/' | relative_url }}">Guides</a>
-      <a href="{{ '/seasonal.html' | relative_url }}">Seasonal</a>
-      <a href="{{ '/wellbeing/' | relative_url }}">Wellbeing</a>
-      <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
-      <a href="{{ '/contact.html' | relative_url }}">Contact</a>
-    </nav>
+    <!-- Use an inner container so we don't fight any flex styles your theme applies to .wrap -->
+    <div class="footer-inner" style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;width:100%;">
+      <img class="footer-icon" src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo" style="height:48px;width:auto;">
+
+      <p class="mini" style="margin:0;">&copy; 2025 Patch &amp; Pot - All rights reserved.</pR
+      <p class="mini" style="margin:0;">Created by Grant Cameron Anthony</p>
+
+      <nav class="foot-nav" aria-label="Footer" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:6px;">
+        {% for item in site.data.nav %}
+          <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        {% endfor %}
+      </nav>
+    </div>
   </div>
 </footer>

@@ -1,97 +1,98 @@
-/* --- Scoped patch ONLY for the Propagation page --- */
+/* Patch & Pot — HOTFIX v36 */
 
-.propagation-page {
-  color: var(--ink, #f3f7f3);
+/* basics */
+body{margin:0}
+img{max-width:100%;height:auto;display:block}
+
+/* sticky header + no gap */
+.site-header{position:sticky;top:0;z-index:3000}
+.site-header+*{margin-top:0!important}
+
+/* structure to keep logo + nav from colliding */
+.site-header .wrap{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
 }
+.brand{flex:0 0 auto}
+.nav{flex:1 1 auto;display:flex;align-items:center;justify-content:flex-end;
+  gap:var(--nav-gap,1rem);flex-wrap:nowrap;white-space:nowrap;min-width:0}
+.nav,.nav ul{list-style:none;margin:0;padding:0}
+.nav ul{display:flex;gap:var(--nav-gap,1rem)}
+.nav li{list-style:none;margin:0;padding:0}
+.nav a{display:inline-block;text-decoration:none;padding:6px 8px}
 
-.propagation-page .section {
-  background: var(--glass, #152019);
-  border: 1px solid var(--stroke, #2a3a2f);
-  border-radius: 16px;
-  padding: 16px;
-  margin: 12px 0;
-}
+/* hamburger toggle */
+.nav-toggle{position:absolute;opacity:0;pointer-events:none}
+.hamburger{display:none;width:44px;height:38px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:6px}
+.hamburger span{width:26px;height:2px;background:#fff;box-shadow:0 0 3px rgba(0,0,0,.8)}
 
-.propagation-page .mini {
-  color: var(--ink-dim, #c6d0c6);
-}
-
-.propagation-page .table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--stroke, #2a3a2f);
-}
-
-.propagation-page .table th,
-.propagation-page .table td {
-  border-bottom: 1px solid var(--stroke, #2a3a2f);
-  padding: .55rem .7rem;
-  text-align: left;
-  vertical-align: top;
-  color: inherit;
-}
-
-.propagation-page .table thead th {
-  background: rgba(255, 255, 255, .06);
-}
-
-.propagation-page .tip {
-  border-left: 3px solid var(--accent, #7ed495);
-  padding: .6rem .7rem;
-  background: rgba(255, 255, 255, .06);
-  border-radius: 10px;
-  margin: .6rem 0;
-}
-
-.propagation-page .warn {
-  border-left: 3px solid #ffad99;
-  padding: .6rem .7rem;
-  background: rgba(255, 255, 255, .06);
-  border-radius: 10px;
-  margin: .6rem 0;
-}
-
-.propagation-page a {
-  color: var(--accent, #7ed495);
-}
-
-.propagation-page .mini-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .6rem;
-  margin: 10px 0 24px;
-}
-
-.propagation-page .mini-nav a {
-  padding: .4rem .7rem;
-  border: 1px solid var(--stroke, #2a3a2f);
-  border-radius: 999px;
-  text-decoration: none;
-  color: inherit;
-  background: rgba(255, 255, 255, .04);
-}
-
-/* Hero overlay tweak (just makes hero readable) */
-.hero .overlay {
-  background: linear-gradient(180deg, rgba(0, 0, 0, .12), rgba(0, 0, 0, .38));
-}
-
-@media (max-width: 480px) {
-  .hero img {
-    height: 360px;
-    object-fit: cover;
-    object-position: center;
+/* ===== phones & small tablets (≤900px) ===== */
+@media (max-width:900px){
+  .site-header .wrap{position:relative}
+  .hamburger{display:flex;z-index:3002}
+  .nav{
+    position:absolute;left:0;right:0;top:100%;
+    background:#0a0f0c;border-top:1px solid var(--stroke,#1f2630);
+    transform:scaleY(0);transform-origin:top;transition:transform .18s ease;
+    padding:6px 0;z-index:3001;flex-direction:column;gap:0
   }
-
-  .hero .overlay {
-    background: linear-gradient(180deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, .28));
-  }
+  .nav ul{display:block}
+  .nav li{border-top:1px solid rgba(255,255,255,.06)}
+  .nav a{display:block;padding:14px 20px;font-size:1rem;color:#e6f0ea;background:transparent}
+  .nav a:hover,.nav a:focus{background:#101612}
+  .nav-toggle:checked ~ .hamburger + .nav,
+  .nav-toggle:checked ~ .nav{transform:scaleY(1)}
 }
 
-/* Safety: if pre-header dimmer sticks, un-dim this page only */
-.propagation-page, .propagation-page * {
-  filter: none !important;
+/* ===== iPad & desktop (≥901px): tighter nav to fit nicely ===== */
+@media (min-width:901px){
+  .hamburger{display:none}
+  .nav{position:static;transform:none;background:transparent}
+  /* base size on large screens */
+  .nav a{font-size:.98rem;padding:4px 6px}
+  :root{--nav-gap:1rem}
+}
+@media (min-width:901px) and (max-width:1280px){
+  /* iPad / small laptop – reduce spacing & font size */
+  :root{--nav-gap:.8rem}
+  .nav a{font-size:.95rem;padding:4px 6px}
+}
+@media (min-width:901px) and (max-width:1100px){
+  /* tightest fit without wrapping or touching logo */
+  :root{--nav-gap:.6rem}
+  .nav a{font-size:.90rem;padding:3px 5px}
+}
+
+/* ===== HERO: show head + waist; remove gradient; text below image ===== */
+.hero{margin:0}
+.hero .overlay{display:none!important}
+.hero .content{display:none!important}
+.hero figure{position:relative;margin:0;overflow:hidden}
+.hero figure img{
+  width:100%;
+  /* taller frame = more top & bottom visible */
+  height:clamp(380px,52vh,520px);
+  object-fit:cover;
+  /* 34% lifts the focus slightly so you see head AND waist */
+  object-position:center 34%;
+}
+@media (max-width:900px){
+  .hero figure img{height:340px;object-position:center 28%}
+}
+
+/* hero text block */
+.hero-text{display:block;padding:1.25rem 20px 0;text-align:center}
+.hero-text .eyebrow{display:block;font-weight:600;text-transform:uppercase;font-size:.9rem;letter-spacing:.05em;color:var(--accent,#7ed495);opacity:.95;margin-bottom:.35rem}
+.hero-text .lead{color:#cfe9dc;margin:.4rem 0 1rem}
+
+/* Buttons (all green) */
+:root{--pp-green:#2e7d32;--pp-green-dark:#1b5e20;--pp-green-press:#145a19}
+.btn,.btn.primary,.btn.ghost,button,input[type="button"],input[type="submit"]{
+  background-color:var(--pp-green)!important;color:#fff!important;border:2px solid var(--pp-green)!important;
+  display:inline-block;padding:.65rem 1.2rem;border-radius:8px;font-weight:700;text-decoration:none;transition:.25s
+}
+.btn:hover,.btn:focus,button:hover,button:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus{
+  background-color:var(--pp-green-dark)!important;border-color:var(--pp-green-dark)!important
+}
+.btn:active,button:active,input[type="button"]:active,input[type="submit"]:active{
+  background-color:var(--pp-green-press)!important;border-color:var(--pp-green-press)!important
 }

@@ -130,3 +130,23 @@ a{ color:var(--accent); }
 
 /* Safety: prevent accidental dimming inside cards */
 .section{ opacity:1 !important; }
+/* --- Kill stuck dimmer + mobile contrast for propagation page --- */
+#content, main { opacity: 1 !important; filter: none !important; }
+
+/* make sure base text isn't near-black on iOS */
+body { color: var(--ink, #f3f7f3) !important; background: var(--bg, #101415); }
+.section, .table th, .table td { color: inherit !important; }
+
+/* lighten hero overlay a touch */
+.hero .overlay{
+  background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.38)) !important;
+}
+@media (max-width:480px){
+  .hero img{ height:360px; }
+  .hero .overlay{
+    background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.28)) !important;
+  }
+}
+
+
+

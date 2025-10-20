@@ -6,13 +6,15 @@
   url: /recipes.html
 - title: Exercise
   url: /exercise.html
-- title: Wellbeing
-  url: /wellbeing.html
 - title: Guides
   url: /guides/index.html
 - title: Ideas
   url: /ideas.html
 - title: Seasonal
   url: /seasonal.html
+- title: Wellbeing
+  url: /wellbeing.html
+- title: 2-Minute Calm
+  url: /calm.html
 - title: Contact
   url: /contact.html

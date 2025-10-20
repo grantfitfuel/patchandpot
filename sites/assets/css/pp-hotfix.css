@@ -1,91 +1,97 @@
-/* pp-hotfix.css — keep this file small and SCOPED */
+/* --- Scoped patch ONLY for the Propagation page --- */
 
-/* ---------- Propagation page only ---------- */
-.propagation-page{ color: var(--ink, #f3f7f3); }
-.propagation-page .section{
+.propagation-page {
+  color: var(--ink, #f3f7f3);
+}
+
+.propagation-page .section {
   background: var(--glass, #152019);
   border: 1px solid var(--stroke, #2a3a2f);
   border-radius: 16px;
   padding: 16px;
   margin: 12px 0;
+}
+
+.propagation-page .mini {
+  color: var(--ink-dim, #c6d0c6);
+}
+
+.propagation-page .table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--stroke, #2a3a2f);
+}
+
+.propagation-page .table th,
+.propagation-page .table td {
+  border-bottom: 1px solid var(--stroke, #2a3a2f);
+  padding: .55rem .7rem;
+  text-align: left;
+  vertical-align: top;
   color: inherit;
 }
-.propagation-page .grid{ display:grid; gap:14px; }
-@media (min-width:980px){ .propagation-page .grid.two{ grid-template-columns:1fr 1fr; } }
-@media (min-width:1200px){ .propagation-page .grid.three{ grid-template-columns:repeat(3,1fr); } }
 
-.propagation-page .mini{ color: var(--ink-dim, #c6d0c6); }
-.propagation-page .mono{ font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
-.propagation-page .table{
-  width:100%;
-  border-collapse:separate;
-  border-spacing:0;
-  overflow:hidden;
-  border-radius:12px;
-  border:1px solid var(--stroke, #2a3a2f);
-}
-.propagation-page .table th,
-.propagation-page .table td{
-  border-bottom:1px solid var(--stroke, #2a3a2f);
-  padding:.55rem .7rem;
-  text-align:left;
-  vertical-align:top;
-  color:inherit;
-}
-.propagation-page .table thead th{ background: rgba(255,255,255,.06); }
-.propagation-page .badge{
-  display:inline-block;
-  border:1px solid var(--stroke, #2a3a2f);
-  border-radius:999px;
-  padding:.22rem .6rem;
-  margin:.1rem .25rem;
-  font-size:.85rem;
-  background:rgba(255,255,255,.06);
-}
-.propagation-page .kbd{
-  padding:.05rem .35rem;
-  border:1px solid var(--stroke, #2a3a2f);
-  border-radius:6px;
-  background:rgba(255,255,255,.06);
-  font:600 .85rem/1 ui-monospace;
-}
-.propagation-page .tip{
-  border-left:3px solid var(--accent, #7ed495);
-  padding:.6rem .7rem;
-  background:rgba(255,255,255,.06);
-  border-radius:10px;
-  margin:.6rem 0;
-}
-.propagation-page .warn{
-  border-left:3px solid #ffad99;
-  padding:.6rem .7rem;
-  background:rgba(255,255,255,.06);
-  border-radius:10px;
-  margin:.6rem 0;
-}
-.propagation-page a{ color: var(--accent, #7ed495); }
-.propagation-page .mini-nav{
-  display:flex; flex-wrap:wrap; gap:.6rem; margin:10px 0 24px;
-}
-.propagation-page .mini-nav a{
-  padding:.4rem .7rem;
-  border:1px solid var(--stroke, #2a3a2f);
-  border-radius:999px;
-  text-decoration:none;
-  color:inherit;
-  background:rgba(255,255,255,.04);
+.propagation-page .table thead th {
+  background: rgba(255, 255, 255, .06);
 }
 
-/* Hero overlay: slightly lighter so text reads on mobile */
-.hero .overlay{
-  background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.38));
+.propagation-page .tip {
+  border-left: 3px solid var(--accent, #7ed495);
+  padding: .6rem .7rem;
+  background: rgba(255, 255, 255, .06);
+  border-radius: 10px;
+  margin: .6rem 0;
 }
-@media (max-width:480px){
-  .hero img{ height:360px; object-fit:cover; object-position:center; }
-  .hero .overlay{
-    background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.28));
+
+.propagation-page .warn {
+  border-left: 3px solid #ffad99;
+  padding: .6rem .7rem;
+  background: rgba(255, 255, 255, .06);
+  border-radius: 10px;
+  margin: .6rem 0;
+}
+
+.propagation-page a {
+  color: var(--accent, #7ed495);
+}
+
+.propagation-page .mini-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: 10px 0 24px;
+}
+
+.propagation-page .mini-nav a {
+  padding: .4rem .7rem;
+  border: 1px solid var(--stroke, #2a3a2f);
+  border-radius: 999px;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, .04);
+}
+
+/* Hero overlay tweak (just makes hero readable) */
+.hero .overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, .12), rgba(0, 0, 0, .38));
+}
+
+@media (max-width: 480px) {
+  .hero img {
+    height: 360px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero .overlay {
+    background: linear-gradient(180deg, rgba(0, 0, 0, .06), rgba(0, 0, 0, .28));
   }
 }
 
-/* If a pre-header dimmer ever leaves the page faded, un-dim THIS page only */
-.propagation-page, .propagation-page *{ filter:none !important; }
+/* Safety: if pre-header dimmer sticks, un-dim this page only */
+.propagation-page, .propagation-page * {
+  filter: none !important;
+}

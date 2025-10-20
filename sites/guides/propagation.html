@@ -4,98 +4,68 @@ title: Propagation: Cuttings, Division & Grafting
 description: The full small-space propagation handbook — salvias, herbs, softwood, semi-ripe and hardwood cuttings, division, layering, water-prop, seed starting, grafting, hygiene, media recipes, seasonal calendar, troubleshooting, FAQs and printable resources.
 ---
 
-<!-- PAGE-ONLY, SCOPED STYLES -->
+<!-- PAGE-ONLY, LIGHT-TOUCH & SCOPED -->
 <style>
-  /* Scope everything to this page only */
-  .p-prop{
-    /* local fallbacks so this page stays dark even if globals fail */
-    --accent:#43A047;
-    --glass:var(--glass, rgba(255,255,255,.04));
-    --stroke:var(--stroke, rgba(255,255,255,.14));
-    --ink:var(--ink, #e6f0ea);
-    --bg:var(--bg, #0b0f14);
-    color:var(--ink);
-    background:var(--bg);
+  /* scope to this page only */
+  .pg-prop img{display:block;max-width:100%;height:auto}
+  .pg-prop .hero .overlay{display:none}   /* keep your photo clean */
+  .pg-prop .hero .content{display:none}   /* do NOT overlay text on the hero image */
+
+  /* Green buttons on this page */
+  .pg-prop .btn,
+  .pg-prop .btn.primary,
+  .pg-prop .btn.ghost{
+    display:inline-block;
+    padding:.65rem 1rem;
+    border-radius:999px;
+    background:#43A047;
+    color:#fff;
+    font-weight:700;
+    text-decoration:none;
+    border:0;
+    line-height:1;
+    transition:background .15s ease, transform .08s ease;
+    white-space:nowrap;
   }
-  .p-prop *{box-sizing:border-box}
+  .pg-prop .btn:hover{background:#2E7D32}
+  .pg-prop .btn:active{transform:translateY(1px)}
 
-  /* HERO: image first; then a separate black band with white text */
-  .p-prop .hero{position:static;min-height:0;display:block}
-  .p-prop .hero figure{position:static;margin:0}
-  .p-prop .hero figure img{width:100%;height:auto;display:block;object-fit:cover;object-position:center 30%}
-  .p-prop .hero .overlay{display:none}
-  .p-prop .hero .content{display:none} /* avoid overlaying text on the photo */
-
-  .p-prop .hero-band{
-    background:#000;color:#fff;padding:1.6rem 0
-  }
-  .p-prop .hero-band .eyebrow{display:block;opacity:.9;margin-bottom:.25rem}
-  .p-prop .hero-band h1{margin:.2rem 0 .6rem;font-size:clamp(1.9rem,4vw,3rem);line-height:1.15}
-  .p-prop .hero-band .lead{max-width:62ch;opacity:.95;line-height:1.5;margin:0 0 .9rem}
-
-  /* Buttons – Patch & Pot green everywhere on this page */
-  .p-prop .btn{
-    display:inline-block;padding:.65rem 1rem;border:0;border-radius:999px;
-    background:#43A047;color:#fff;text-decoration:none;font-weight:700;line-height:1;
-    transition:background .15s ease, transform .08s ease;white-space:nowrap
-  }
-  .p-prop .btn:hover{background:#2E7D32}
-  .p-prop .btn:active{transform:translateY(1px)}
-
-  /* Layout helpers (scoped) */
-  .p-prop .wrap{max-width:var(--maxw,1100px);margin:0 auto;padding:0 20px}
-  .p-prop .wrap-wide{max-width:1160px;margin:0 auto;padding:0 20px}
-  .p-prop .grid{display:grid;gap:14px}
-  @media (min-width:980px){.p-prop .grid.two{grid-template-columns:1fr 1fr}}
-  @media (min-width:1200px){.p-prop .grid.three{grid-template-columns:repeat(3,1fr)}}
-
-  /* Cards/tables mimic site theme */
-  .p-prop .section{
-    background:var(--glass);border:1px solid var(--stroke);
-    border-radius:16px;padding:16px;margin:12px 0
-  }
-  .p-prop h2{color:#fff;margin:.1rem 0 .6rem}
-  .p-prop .steps{list-style:decimal;margin:.25rem 0 0 1.25rem}
-  .p-prop .tip{border-left:3px solid #43A047;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
-  .p-prop .warn{border-left:3px solid #ffad99;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
-  .p-prop .callout{border:1px dashed var(--stroke);border-radius:12px;padding:.7rem .85rem;background:rgba(255,255,255,.05)}
-  .p-prop .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
-  .p-prop .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)}
-  .p-prop .table th,.p-prop .table td{border-bottom:1px solid var(--stroke);padding:.55rem .7rem;text-align:left;vertical-align:top}
-  .p-prop .table thead th{background:rgba(255,255,255,.06)}
-
-  .p-prop .kbd{padding:.05rem .35rem;border:1px solid var(--stroke);border-radius:6px;background:rgba(255,255,255,.06);font:600 .85rem/1 ui-monospace}
-
-  /* Mini nav chips */
-  .p-prop .mini-nav{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin:1rem 0 2rem}
-  .p-prop .mini-nav a{background:#43A047;border:1px solid #2E7D32;color:#fff;padding:.45rem .75rem;border-radius:999px;text-decoration:none;font-weight:700}
-  .p-prop .mini-nav a:hover{background:#2E7D32}
+  /* Optional: keep the familiar card/table look, using your theme tokens */
+  .pg-prop .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:12px 0}
+  .pg-prop .grid{display:grid;gap:14px}
+  @media (min-width:980px){.pg-prop .grid.two{grid-template-columns:1fr 1fr}}
+  @media (min-width:1200px){.pg-prop .grid.three{grid-template-columns:repeat(3,1fr)}}
+  .pg-prop .table{width:100%;border:1px solid var(--stroke);border-radius:12px;border-collapse:separate;border-spacing:0;overflow:hidden}
+  .pg-prop .table th,.pg-prop .table td{border-bottom:1px solid var(--stroke);padding:.55rem .7rem;text-align:left;vertical-align:top}
+  .pg-prop .table thead th{background:rgba(255,255,255,.06)}
+  .pg-prop .tip{border-left:3px solid #43A047;background:rgba(255,255,255,.06);border-radius:10px;padding:.6rem .7rem;margin:.6rem 0}
+  .pg-prop .warn{border-left:3px solid #ffad99;background:rgba(255,255,255,.06);border-radius:10px;padding:.6rem .7rem;margin:.6rem 0}
+  .pg-prop .kbd{padding:.05rem .35rem;border:1px solid var(--stroke);border-radius:6px;background:rgba(255,255,255,.06);font:600 .85rem/1 ui-monospace}
+  .pg-prop .mini-nav{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin:1rem 0 2rem}
+  .pg-prop .mini-nav a{background:#43A047;border:1px solid #2E7D32;color:#fff;padding:.45rem .75rem;border-radius:999px;text-decoration:none;font-weight:700}
+  .pg-prop .mini-nav a:hover{background:#2E7D32}
 </style>
 
-<div class="p-prop">
+<div class="pg-prop">
 
-  <!-- HERO (image only) -->
+  <!-- HERO IMAGE ONLY (text comes below as normal content) -->
   <header class="hero" role="banner" aria-label="Propagation hero">
     <figure>
-      <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
+      <img src="{{ '/img/hero.jpg' | relative_url }}" alt="Hands potting up with soil and tools">
       <div class="overlay" aria-hidden="true"></div>
     </figure>
-    <!-- original .content intentionally suppressed via CSS on this page -->
     <div class="content" aria-hidden="true"></div>
   </header>
 
-  <!-- BLACK BAND WITH WHITE TEXT BELOW IMAGE -->
-  <div class="hero-band">
-    <div class="wrap">
-      <span class="eyebrow">Multiply for free</span>
-      <h1>Propagation: Cuttings, Division &amp; Grafting</h1>
-      <p class="lead">The complete small-space manual for salvias, herbs, ornamentals and edibles. Seasonal, step-by-step, balcony-friendly.</p>
-      <a class="btn" href="/pdf/propagation.pdf" target="_blank" rel="noopener">Download Full Handbook (PDF)</a>
-    </div>
-  </div>
+  <!-- NORMAL CONTENT BELOW HERO (on your global black page background) -->
+  <main class="wrap wrap-wide" role="main">
 
-  <!-- MAIN CONTENT -->
-  <div class="wrap-wide">
+    <!-- Intro block -->
+    <section class="section">
+      <h1>Propagation: Cuttings, Division &amp; Grafting</h1>
+      <p class="lead">The complete small-space manual for salvias, herbs, ornamentals and edibles. Use it on a windowsill, balcony or kitchen table.</p>
+      <p><a class="btn primary" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Download Full Handbook (PDF)</a></p>
+    </section>
 
     <!-- 1. Set-up & hygiene -->
     <section class="section">
@@ -133,7 +103,6 @@ description: The full small-space propagation handbook — salvias, herbs, softw
           <tr><td>Semi-ripe / woody bases</td><td>40% compost · 40% fine bark · 20% perlite</td><td>Bark adds structure and fungal balance</td></tr>
           <tr><td>Water-prop potting-on</td><td>60% compost · 30% bark · 10% grit</td><td>Holds moisture but drains fast for fragile water roots</td></tr>
           <tr><td>Hardwood sticks</td><td>1:1 sharp sand : compost</td><td>Cool, free-draining bed over winter</td></tr>
-          <tr><td>Seed starting</td><td>70% compost · 30% perlite</td><td>Fine, airy germination texture</td></tr>
         </tbody>
       </table>
       <p class="tip">Pre-moisten mixes like a wrung-out sponge. If you can squeeze water out, it is too wet.</p>
@@ -222,9 +191,6 @@ description: The full small-space propagation handbook — salvias, herbs, softw
           <tr><td>Basil / Mint</td><td>Water-prop or softwood</td><td>1–2 wks</td><td>3–5 cm roots</td><td>Pot early before roots tangle</td></tr>
           <tr><td>Pelargonium</td><td>Softwood</td><td>2–3 wks</td><td>First new leaf</td><td>Let cuts callus 1–2 hrs before inserting</td></tr>
           <tr><td>Strawberry</td><td>Runners (layering)</td><td>2–3 wks</td><td>Once anchored roots seen</td><td>Cut umbilical after rooting</td></tr>
-          <tr><td>Fig</td><td>Hardwood</td><td>6–8 wks</td><td>Spring bud swell</td><td>Cool frame through winter</td></tr>
-          <tr><td>Blackcurrant/Redcurrant</td><td>Hardwood</td><td>8–10 wks</td><td>When new leaves show</td><td>Label sticks clearly</td></tr>
-          <tr><td>Pothos / Monstera</td><td>Water-prop</td><td>3–4 wks</td><td>3–5 cm roots</td><td>Bright, indirect light</td></tr>
         </tbody>
       </table>
     </section>
@@ -342,13 +308,10 @@ description: The full small-space propagation handbook — salvias, herbs, softw
         </div>
         <div>
           <h3>Downloads</h3>
-          <ul style="list-style:none;margin:0;padding:0;display:grid;gap:.5rem">
-            <li><a class="btn" href="/pdf/propagation.pdf" target="_blank" rel="noopener">Propagation Handbook (PDF)</a></li>
-            <li><a class="btn" href="/pdf/prop-log-cards.pdf" target="_blank" rel="noopener">Propagation Log Cards (PDF)</a></li>
-            <li><a class="btn" href="/pdf/salvia-cuttings-guide.pdf" target="_blank" rel="noopener">Salvia Cuttings Quick Guide (PDF)</a></li>
-            <!-- remove the next two if you don’t ship them -->
-            <li><a class="btn" href="/pdf/herb-prop-guide.pdf" target="_blank" rel="noopener">Herbs &amp; Edibles Guide (PDF)</a></li>
-            <li><a class="btn" href="/pdf/houseplants-guide.pdf" target="_blank" rel="noopener">Houseplant Propagation Basics (PDF)</a></li>
+          <ul style="list-style:none;padding:0;margin:0;display:grid;gap:.5rem">
+            <li><a class="btn" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Handbook (PDF)</a></li>
+            <li><a class="btn" href="{{ '/pdf/prop-log-cards.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Log Cards (PDF)</a></li>
+            <li><a class="btn" href="{{ '/pdf/salvia-cuttings-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Salvia Cuttings Quick Guide (PDF)</a></li>
           </ul>
         </div>
       </div>
@@ -357,12 +320,12 @@ description: The full small-space propagation handbook — salvias, herbs, softw
 
     <!-- 11. Cross-nav -->
     <nav class="mini-nav" aria-label="Related guides">
-      <a href="/growing/first-pot.html">Your First Pot</a>
-      <a href="/growing/companion.html">Companion Planting</a>
-      <a href="/growing/pests.html">Pests &amp; Problems</a>
-      <a href="/guides/seed-saving.html">Seed Saving Basics</a>
-      <a href="/seasonal.html">Seasonal Calendar</a>
+      <a href="{{ '/growing/first-pot.html' | relative_url }}">Your First Pot</a>
+      <a href="{{ '/growing/companion.html' | relative_url }}">Companion Planting</a>
+      <a href="{{ '/growing/pests.html' | relative_url }}">Pests &amp; Problems</a>
+      <a href="{{ '/guides/seed-saving.html' | relative_url }}">Seed Saving Basics</a>
+      <a href="{{ '/seasonal.html' | relative_url }}">Seasonal Calendar</a>
     </nav>
 
-  </div><!-- /.wrap-wide -->
-</div><!-- /.p-prop -->
+  </main>
+</div>

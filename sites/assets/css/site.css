@@ -133,28 +133,6 @@ a {
   opacity:0.9;
 }
 
-/* Universal hero image fix and centring */
-.hero figure {
-  display: flex;
-  justify-content: center;      /* centers horizontally if image is smaller */
-  align-items: center;          /* centres vertically too */
-  width: 100%;
-  height: clamp(320px, 50vh, 500px);
-  margin: 0;
-  overflow: hidden;
-  position: relative;
-  background: #000;             /* fallback if image doesn't fill */
-}
-
-.hero figure img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  object-position: center center;
-}
-
 /* Per page hero tweak */
 .hero--growing figure img { object-position:center 25%; }
 .hero--exercise figure img { object-position:center 35%; }

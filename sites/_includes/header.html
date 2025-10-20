@@ -1,27 +1,14 @@
 <header class="site-header" role="banner">
   <div class="wrap">
-    <a class="brand" href="{{ '/' | relative_url }}">
-      <img class="logo" src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo">
-      <span>Patch & Pot</span>
+    <a class="brand" href="{{ '/index.html' | relative_url }}">
+      <img class="logo" src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot">
+      <span>Patch &amp; Pot</span>
     </a>
 
     <nav class="nav" aria-label="Primary">
-      {% assign items = site.data.nav.main %}
-      {% if items %}
-        {% for item in items %}
-          <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
-        {% endfor %}
-      {% else %}
-        <!-- fallback -->
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
-        <a href="{{ '/growing/' | relative_url }}">Growing</a>
-        <a href="{{ '/guides/' | relative_url }}">Guides</a>
-        <a href="{{ '/seasonal.html' | relative_url }}">Seasonal</a>
-        <a href="{{ '/wellbeing/' | relative_url }}">Wellbeing</a>
-        <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
-        <a href="{{ '/contact.html' | relative_url }}">Contact</a>
-      {% endif %}
+      {% for item in site.data.nav %}
+        <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+      {% endfor %}
     </nav>
   </div>
 </header>

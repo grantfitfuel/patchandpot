@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }} — Patch &amp; Pot</title>
 
-  <!-- Global CSS (site first, then optional hotfix overrides) -->
-  <link rel="stylesheet" href="/site.css?v=wb10">
-  <link rel="stylesheet" href="/pp-hotfix.css?v=wb10">
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/site.css?v=restored">
+  <link rel="stylesheet" href="/pp-hotfix.css?v=restored">
 
-  <!-- Favicons (adjust if your filenames differ) -->
+  <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/img/patchandpot-logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/patchandpot-logo-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/patchandpot-logo-180.png">
@@ -17,16 +17,14 @@
   <meta name="description" content="{{ page.description | default: site.description }}">
 </head>
 <body>
-  <!-- Universal header (ONE per page; mounted by header-loader.js) -->
+  <!-- Universal header mount (one per page) -->
   <div id="site-header"></div>
   <script src="/js/header-loader.js" defer></script>
 
-  <!-- Page content -->
   <main id="content" role="main">
     {{ content }}
   </main>
 
-  <!-- Optional footer include -->
   {% if site.footer_include %}{% include {{ site.footer_include }} %}{% endif %}
 </body>
 </html>

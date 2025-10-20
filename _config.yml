@@ -1,46 +1,28 @@
-# ============================
-# Patch & Pot — Jekyll Config
-# ============================
-
 title: "Patch & Pot"
 description: "Small-space growing, cooking, and calm."
-url: "https://patchandpot.com"    # your real domain when deployed
-baseurl: ""                       # leave blank if hosted at the root
+url: "https://patchandpot.com"
+baseurl: ""
 
-logo: /img/patchandpot-logo.png   # ✅ correct PNG path
+# Write the built site into /sites (your server docroot)
+destination: sites
 
-# Optional metadata
-author: "Grant Cameron Anthony"
-email: ""
-timezone: Europe/London
-markdown: kramdown
-permalink: pretty
-
-# Include folders (ensures Jekyll processes these)
-include:
-  - _pages
-  - _includes
+# IMPORTANT: keep your existing assets that already live inside /sites
+keep_files:
   - assets
   - img
   - pdf
 
-# Exclude things you don’t want published
-exclude:
-  - README.md
-  - node_modules
-  - Gemfile
-  - Gemfile.lock
+# PNG logo referenced by header/footer (public URL path)
+logo: /img/patchandpot-logo.png
 
-# Plugins (optional but common)
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
+timezone: Europe/London
+markdown: kramdown
+permalink: pretty
 
-# SEO defaults (optional)
+# Default layout for all pages unless overridden
 defaults:
-  -
-    scope:
-      path: ""
-    values:
-      image: /img/patchandpot-logo.png
-      layout: default
+  - scope: { path: "" }
+    values: { layout: default }
+
+# No plugins required
+plugins: []

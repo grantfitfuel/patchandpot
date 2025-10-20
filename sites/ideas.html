@@ -12,7 +12,7 @@ keywords: growing ideas, small space gardening, balcony garden, container garden
     --pp-green-dark: #2E7D32;
   }
 
-  /* HERO: optional crop tweak for visibility */
+  /* HERO crop tweak for visibility */
   .hero figure img {
     object-fit: cover;
     object-position: center 35%;
@@ -27,7 +27,8 @@ keywords: growing ideas, small space gardening, balcony garden, container garden
     margin:2rem 0;
   }
 
-  .tile{
+  /* Expandable tiles */
+  details.tile{
     background:var(--glass);
     border:1px solid var(--stroke);
     border-left:4px solid var(--pp-green);
@@ -36,12 +37,21 @@ keywords: growing ideas, small space gardening, balcony garden, container garden
     display:flex;
     flex-direction:column;
     transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    cursor:pointer;
   }
-  .tile:hover{
-    transform:translateY(-4px);
-    box-shadow:0 6px 16px rgba(0,0,0,.35);
+  details.tile[open]{
     border-left-color:var(--pp-green-dark);
+    box-shadow:0 6px 16px rgba(0,0,0,.35);
+    transform:translateY(-2px);
   }
+  details.tile summary{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    align-items:stretch;
+  }
+  details.tile summary::-webkit-details-marker{ display:none; }
 
   /* Square thumbs for visual consistency */
   .tile .thumb{
@@ -68,7 +78,29 @@ keywords: growing ideas, small space gardening, balcony garden, container garden
     color:#fff;
   }
 
-  /* Helper cards & FAQs reuse your site’s card style nicely */
+  /* Body content inside the expanded tile */
+  .ideas-grid .body{
+    padding:.9rem .9rem 1rem;
+    border-top:1px solid var(--stroke);
+    color:var(--ink);
+  }
+  .ideas-grid .body .facts{
+    display:flex; gap:.6rem; flex-wrap:wrap;
+    margin:0 0 .6rem;
+  }
+  .ideas-grid .body .facts .chip{
+    border:1px solid var(--stroke);
+    border-radius:999px; padding:.15rem .55rem;
+    font-size:.85rem; background:rgba(255,255,255,.04);
+  }
+  .ideas-grid .body ol{ margin:.25rem 0 0 1.1rem; }
+  .ideas-grid .body .tip{ margin:.6rem 0 0; }
+
+  /* Focus ring for keyboard users */
+  details.tile:focus-within{ outline:2px solid var(--pp-green); outline-offset:3px; }
+  details.tile summary:focus{ outline:none; }
+
+  /* Helper cards & mini nav (unchanged) */
   .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
@@ -82,35 +114,18 @@ keywords: growing ideas, small space gardening, balcony garden, container garden
     padding:1rem 1.1rem;
     box-shadow:0 2px 10px rgba(0,0,0,.2);
   }
-  .card h2{
-    margin:.1rem 0 .4rem;
-    font-size:1.1rem;
-    color:#fff;
-  }
-  .card .meta{
-    color:var(--ink);
-    opacity:.92;
-  }
+  .card h2{ margin:.1rem 0 .4rem; font-size:1.1rem; color:#fff; }
+  .card .meta{ color:var(--ink); opacity:.92; }
 
   .mini-nav{
-    display:flex;
-    gap:.8rem;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin:1rem 0 2rem;
+    display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; margin:1rem 0 2rem;
   }
   .mini-nav a{
     color:var(--pp-green);
     border:1px solid var(--pp-green);
-    padding:.45rem .7rem;
-    border-radius:999px;
-    text-decoration:none;
-    font-weight:700;
+    padding:.45rem .7rem; border-radius:999px; text-decoration:none; font-weight:700;
   }
-  .mini-nav a:hover{
-    background:var(--pp-green);
-    color:#fff;
-  }
+  .mini-nav a:hover{ background:var(--pp-green); color:#fff; }
 </style>
 
 <!-- HERO -->
@@ -123,95 +138,322 @@ keywords: growing ideas, small space gardening, balcony garden, container garden
     <div class="wrap">
       <span class="eyebrow">Start simple</span>
       <h1>Ideas You Can Start This Week</h1>
-      <p class="lead">Square tiles you can scan quickly. Pick one, try it in a pot, and eat what you grow.</p>
+      <p class="lead">Square tiles you can scan quickly. Tap one to see how to grow it in a pot.</p>
     </div>
   </div>
 </header>
 
 <main class="wrap" role="main">
-  <!-- Core ideas tiles -->
+  <!-- Inline-expanding ideas tiles -->
   <section class="ideas-grid" aria-label="Square idea tiles">
-    <!-- Original core set -->
-    <article class="tile" id="carrots">
-      <span class="thumb"><img src="{{ '/img/carrots.jpg' | relative_url }}" alt="Carrots in a deep pot"></span>
-      <div class="cap"><strong>Carrots</strong> — compact varieties thrive in deep pots</div>
-    </article>
 
-    <article class="tile" id="lettuce">
-      <span class="thumb"><img src="{{ '/img/lettuce.jpg' | relative_url }}" alt="Lettuce in a planter"></span>
-      <div class="cap"><strong>Lettuce</strong> — cut-and-come-again for constant salads</div>
-    </article>
+    <!-- Carrots -->
+    <details class="tile" id="carrots">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/carrots.jpg' | relative_url }}" alt="Carrots in a deep pot"></span>
+        <div class="cap"><strong>Carrots</strong> — compact varieties thrive in deep pots</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 30–35 cm deep</span><span class="chip">Sun: 6–8 h</span><span class="chip">Time: 10–12 wks</span>
+        </div>
+        <ol>
+          <li>Fill deep pot with fine, stone-free compost; pre-moisten.</li>
+          <li>Sow thinly; cover 5–10&nbsp;mm; water gently.</li>
+          <li>Keep evenly moist; thin to 3–4&nbsp;cm apart.</li>
+          <li>Harvest when shoulders show; lift in cool of day.</li>
+        </ol>
+        <p class="tip">Mini types: Paris Market, Amsterdam, Napoli.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="tomatoes">
-      <span class="thumb"><img src="{{ '/img/tomatoes.jpg' | relative_url }}" alt="Tomatoes ripening in a pot"></span>
-      <div class="cap"><strong>Tomatoes</strong> — bush types suit balconies &amp; patios</div>
-    </article>
+    <!-- Lettuce -->
+    <details class="tile" id="lettuce">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/lettuce.jpg' | relative_url }}" alt="Lettuce in a planter"></span>
+        <div class="cap"><strong>Lettuce</strong> — cut-and-come-again for constant salads</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: wide</span><span class="chip">Light: sun/part-shade</span><span class="chip">Time: 4–6 wks</span>
+        </div>
+        <ol>
+          <li>Sow thinly; cover lightly; keep moist.</li>
+          <li>Thin to 10–15&nbsp;cm or plant plugs 20&nbsp;cm apart.</li>
+          <li>Water little & often; avoid midday scorch.</li>
+          <li>Pick outer leaves weekly.</li>
+        </ol>
+        <p class="tip">Mix oakleaf, romaine, lollo for staggered harvests.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="kale">
-      <span class="thumb"><img src="{{ '/img/kale.jpg' | relative_url }}" alt="Kale leaves in a pot"></span>
-      <div class="cap"><strong>Kale</strong> — hardy, nutrient-dense, and cold-tolerant</div>
-    </article>
+    <!-- Tomatoes -->
+    <details class="tile" id="tomatoes">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/tomatoes.jpg' | relative_url }}" alt="Tomatoes ripening in a pot"></span>
+        <div class="cap"><strong>Tomatoes</strong> — bush types suit balconies &amp; patios</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 30–40 cm</span><span class="chip">Sun: 6–8 h</span><span class="chip">Feed: weekly</span>
+        </div>
+        <ol>
+          <li>Choose determinate types (Tumbling Tom, Totem).</li>
+          <li>Plant deep in rich compost; add support.</li>
+          <li>Water deeply; mulch; avoid wetting foliage.</li>
+          <li>Start tomato feed when first fruits set.</li>
+        </ol>
+        <p class="tip">Consistent moisture prevents splitting & blossom-end rot.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="chillies">
-      <span class="thumb"><img src="{{ '/img/chillies.jpg' | relative_url }}" alt="Chillies in a container"></span>
-      <div class="cap"><strong>Chillies</strong> — small plant, big flavour payoff</div>
-    </article>
+    <!-- Kale -->
+    <details class="tile" id="kale">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/kale.jpg' | relative_url }}" alt="Kale leaves in a pot"></span>
+        <div class="cap"><strong>Kale</strong> — hardy, nutrient-dense, cold-tolerant</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 25–30 cm</span><span class="chip">Light: sun/part-shade</span><span class="chip">Time: 8–10 wks</span>
+        </div>
+        <ol>
+          <li>Plant 1 per 25–30&nbsp;cm pot; keep moist.</li>
+          <li>Pick outer leaves; keep crown growing.</li>
+          <li>Net if pigeons/caterpillars are around.</li>
+        </ol>
+        <p class="tip">Varieties: Cavolo Nero, Red Russian, Dwarf Curled.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="herbs">
-      <span class="thumb"><img src="{{ '/img/herbs.jpg' | relative_url }}" alt="Mixed herbs: basil, parsley, mint"></span>
-      <div class="cap"><strong>Mixed herbs</strong> — basil, parsley, mint for instant wins</div>
-    </article>
+    <!-- Chillies -->
+    <details class="tile" id="chillies">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/chillies.jpg' | relative_url }}" alt="Chillies in a container"></span>
+        <div class="cap"><strong>Chillies</strong> — small plant, big flavour payoff</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 25–30 cm</span><span class="chip">Sun: warm & bright</span><span class="chip">Feed: weekly</span>
+        </div>
+        <ol>
+          <li>Use rich, free-draining compost; keep warm.</li>
+          <li>Water regularly; avoid waterlogging.</li>
+          <li>Pick often to encourage more fruit.</li>
+        </ol>
+        <p class="tip">Good starters: Jalapeño, Hungarian Wax, Apache.</p>
+      </div>
+    </details>
 
-    <!-- Expanded ideas -->
-    <article class="tile" id="radish">
-      <span class="thumb"><img src="{{ '/img/radish.png' | relative_url }}" alt="Radishes growing in a pot"></span>
-      <div class="cap"><strong>Radish</strong> — fast grower, ready in weeks</div>
-    </article>
+    <!-- Mixed herbs -->
+    <details class="tile" id="herbs">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/herbs.jpg' | relative_url }}" alt="Mixed herbs: basil, parsley, mint"></span>
+        <div class="cap"><strong>Mixed herbs</strong> — basil, parsley, mint for instant wins</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: shallow/wide</span><span class="chip">Light: bright</span><span class="chip">Harvest: all season</span>
+        </div>
+        <ol>
+          <li>Plant in good drainage; mint in its own pot.</li>
+          <li>Keep moist; don’t let basil dry out.</li>
+          <li>Pinch tips to keep bushy.</li>
+        </ol>
+        <p class="tip">Rotate cuttings between pots to always have fresh growth.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="springonions">
-      <span class="thumb"><img src="{{ '/img/spring-onions.png' | relative_url }}" alt="Spring onions in a trough planter"></span>
-      <div class="cap"><strong>Spring onions</strong> — easy, space-efficient and great in salads</div>
-    </article>
+    <!-- Radish -->
+    <details class="tile" id="radish">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/radish.png' | relative_url }}" alt="Radishes growing in a pot"></span>
+        <div class="cap"><strong>Radish</strong> — fast grower, ready in weeks</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 20–25 cm</span><span class="chip">Sun: 4–6 h</span><span class="chip">Time: 3–5 wks</span>
+        </div>
+        <ol>
+          <li>Sow thinly 1&nbsp;cm deep; firm gently.</li>
+          <li>Keep moist to avoid pithy roots.</li>
+          <li>Harvest when marble to golf-ball size.</li>
+        </ol>
+        <p class="tip">Succession sow every 2 weeks for a steady supply.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="beetroot">
-      <span class="thumb"><img src="{{ '/img/beetroot.png' | relative_url }}" alt="Beetroot leaves in a pot"></span>
-      <div class="cap"><strong>Beetroot</strong> — easy to grow, harvest roots and leaves</div>
-    </article>
+    <!-- Spring onions -->
+    <details class="tile" id="springonions">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/spring-onions.png' | relative_url }}" alt="Spring onions in a trough planter"></span>
+        <div class="cap"><strong>Spring onions</strong> — easy, space-efficient</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: trough</span><span class="chip">Sun: 6 h</span><span class="chip">Time: 6–8 wks</span>
+        </div>
+        <ol>
+          <li>Sow fairly close; no need to thin heavily.</li>
+          <li>Keep evenly moist.</li>
+          <li>Harvest at pencil thickness.</li>
+        </ol>
+        <p class="tip">Varieties: White Lisbon, Ishikura.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="strawberries">
-      <span class="thumb"><img src="{{ '/img/strawberries.png' | relative_url }}" alt="Strawberries in a hanging basket"></span>
-      <div class="cap"><strong>Strawberries</strong> — perfect for pots and hanging baskets</div>
-    </article>
+    <!-- Beetroot -->
+    <details class="tile" id="beetroot">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/beetroot.png' | relative_url }}" alt="Beetroot leaves in a pot"></span>
+        <div class="cap"><strong>Beetroot</strong> — harvest roots and leaves</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 25–30 cm</span><span class="chip">Sun: full</span><span class="chip">Time: 6–8 wks</span>
+        </div>
+        <ol>
+          <li>Sow 2&nbsp;cm deep; thin/space plants ~10&nbsp;cm.</li>
+          <li>Water evenly for tender roots.</li>
+          <li>Pick at golf-ball to billiard-ball size.</li>
+        </ol>
+        <p class="tip">Chioggia (striped) and Boltardy are container-friendly.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="courgette">
-      <span class="thumb"><img src="{{ '/img/courgette.png' | relative_url }}" alt="Courgette plant with fruit in container"></span>
-      <div class="cap"><strong>Courgette</strong> — one plant can give you a steady harvest</div>
-    </article>
+    <!-- Strawberries -->
+    <details class="tile" id="strawberries">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/strawberries.png' | relative_url }}" alt="Strawberries in a hanging basket"></span>
+        <div class="cap"><strong>Strawberries</strong> — perfect for pots &amp; baskets</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: hanging/bowl</span><span class="chip">Sun: 6 h+</span><span class="chip">Feed: fruiting</span>
+        </div>
+        <ol>
+          <li>Plant crowns at soil surface.</li>
+          <li>Keep evenly moist; mulch helps.</li>
+          <li>Feed every 2 weeks when fruiting.</li>
+        </ol>
+        <p class="tip">Remove runners unless propagating; net against birds.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="beans">
-      <span class="thumb"><img src="{{ '/img/beans.png' | relative_url }}" alt="Runner beans on a wigwam frame"></span>
-      <div class="cap"><strong>Runner beans</strong> — climb well with support, lots of yield</div>
-    </article>
+    <!-- Courgette -->
+    <details class="tile" id="courgette">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/courgette.png' | relative_url }}" alt="Courgette plant with fruit in container"></span>
+        <div class="cap"><strong>Courgette</strong> — steady harvest from one plant</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 40+ cm</span><span class="chip">Sun: 6–8 h</span><span class="chip">Feed: weekly</span>
+        </div>
+        <ol>
+          <li>Plant one per large pot; rich compost.</li>
+          <li>Water daily in hot spells; mulch.</li>
+          <li>Pick fruit young to keep plant producing.</li>
+        </ol>
+        <p class="tip">Patio Star & Black Beauty do well in containers.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="peas">
-      <span class="thumb"><img src="{{ '/img/peas.png' | relative_url }}" alt="Peas climbing netting in a pot"></span>
-      <div class="cap"><strong>Peas</strong> — sweet and easy, great for kids to pick</div>
-    </article>
+    <!-- Beans -->
+    <details class="tile" id="beans">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/beans.png' | relative_url }}" alt="Runner beans on a wigwam frame"></span>
+        <div class="cap"><strong>Runner beans</strong> — climb well with support</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 35–40 cm</span><span class="chip">Sun: full</span><span class="chip">Support: wigwam</span>
+        </div>
+        <ol>
+          <li>Sow direct or plant sturdy seedlings.</li>
+          <li>Train up canes/netting; tie in as needed.</li>
+          <li>Pick regularly to keep pods tender.</li>
+        </ol>
+        <p class="tip">Feed with high-potash once flowering starts.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="nasturtium">
-      <span class="thumb"><img src="{{ '/img/nasturtium.png' | relative_url }}" alt="Nasturtium flowers spilling over a pot"></span>
-      <div class="cap"><strong>Nasturtium</strong> — edible flowers and great for pollinators</div>
-    </article>
+    <!-- Peas -->
+    <details class="tile" id="peas">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/peas.png' | relative_url }}" alt="Peas climbing netting in a pot"></span>
+        <div class="cap"><strong>Peas</strong> — sweet and easy, great for kids</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: trough</span><span class="chip">Sun: full</span><span class="chip">Support: netting</span>
+        </div>
+        <ol>
+          <li>Sow or plant in rows; water well.</li>
+          <li>Provide net/strings to climb.</li>
+          <li>Pick pods when plump and bright.</li>
+        </ol>
+        <p class="tip">Dwarf/sugar-snap types are container naturals.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="lavender">
-      <span class="thumb"><img src="{{ '/img/lavender.png' | relative_url }}" alt="Lavender in a terracotta pot"></span>
-      <div class="cap"><strong>Lavender</strong> — scent, bees, and calm in one pot</div>
-    </article>
+    <!-- Nasturtium -->
+    <details class="tile" id="nasturtium">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/nasturtium.png' | relative_url }}" alt="Nasturtium flowers spilling over a pot"></span>
+        <div class="cap"><strong>Nasturtium</strong> — edible flowers &amp; pollinator magnet</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: hanging/wide</span><span class="chip">Sun: full</span><span class="chip">Soil: lean</span>
+        </div>
+        <ol>
+          <li>Sow 1–2&nbsp;cm deep; no heavy feeding.</li>
+          <li>Water moderately; trails nicely.</li>
+          <li>Pick flowers/leaves for salads.</li>
+        </ol>
+        <p class="tip">Light feeding = more flowers, fewer leaves.</p>
+      </div>
+    </details>
 
-    <article class="tile" id="sunflower">
-      <span class="thumb"><img src="{{ '/img/sunflower.png' | relative_url }}" alt="Sunflower in a large container"></span>
-      <div class="cap"><strong>Sunflower</strong> — tall joy, great for kids and pollinators</div>
-    </article>
+    <!-- Lavender -->
+    <details class="tile" id="lavender">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/lavender.png' | relative_url }}" alt="Lavender in a terracotta pot"></span>
+        <div class="cap"><strong>Lavender</strong> — scent, bees, and calm in one pot</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: terracotta</span><span class="chip">Sun: full</span><span class="chip">Water: light</span>
+        </div>
+        <ol>
+          <li>Use gritty mix; top-dress with gravel.</li>
+          <li>Water sparingly once established.</li>
+          <li>Trim after flowering to keep shape.</li>
+        </ol>
+        <p class="tip">English types (Hidcote, Munstead) are hardy & compact.</p>
+      </div>
+    </details>
+
+    <!-- Sunflower -->
+    <details class="tile" id="sunflower">
+      <summary>
+        <span class="thumb"><img src="{{ '/img/sunflower.png' | relative_url }}" alt="Sunflower in a large container"></span>
+        <div class="cap"><strong>Sunflower</strong> — tall joy, great for kids &amp; pollinators</div>
+      </summary>
+      <div class="body">
+        <div class="facts">
+          <span class="chip">Pot: 35–40 cm</span><span class="chip">Sun: full</span><span class="chip">Stake: yes</span>
+        </div>
+        <ol>
+          <li>Sow 2–3 seeds 2&nbsp;cm deep; thin to strongest.</li>
+          <li>Stake early; water regularly.</li>
+          <li>Pick pollen-free for vases; leave heads for birds.</li>
+        </ol>
+        <p class="tip">Dwarf/container types: Teddy Bear, Little Leo, Music Box.</p>
+      </div>
+    </details>
+
   </section>
 
   <!-- Quick Start (text-only helpers) -->

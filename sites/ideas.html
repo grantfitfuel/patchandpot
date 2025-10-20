@@ -504,3 +504,19 @@ keywords: growing ideas, small space gardening, balcony garden, container garden
     <a href="{{ '/index.html' | relative_url }}">Home</a>
   </nav>
 </main>
+
+<script>
+document.querySelectorAll('.ideas-grid details.tile').forEach(d=>{
+  d.addEventListener('toggle', e=>{
+    if(d.open){
+      document.querySelectorAll('.ideas-grid details.tile').forEach(o=>{
+        if(o!==d) o.removeAttribute('open');
+      });
+    }
+  });
+});
+</script>
+
+
+
+

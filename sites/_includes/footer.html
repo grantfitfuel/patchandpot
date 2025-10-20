@@ -1,89 +1,14 @@
 <footer class="site-footer" role="contentinfo">
-  <div class="wrap footer-flex">
-    {% assign brand_logo = site.logo | default: '/img/patchandpot-logo.png' %}
-    <img src="{{ brand_logo | relative_url }}" alt="Patch & Pot logo" class="footer-logo" width="70" height="70" loading="lazy">
+  <div class="wrap">
+    <img class="footer-icon" src="{{ '/assets/img/leaf.svg' | relative_url }}" alt="" aria-hidden="true">
 
-    <p class="footer-copy">&copy; {{ site.time | date: '%Y' }} Patch &amp; Pot</p>
-    <p class="footer-credit">Created by Grant Cameron Anthony</p>
-
-    <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="/index.html">Home</a>
-      <a href="/growing/index.html">Growing</a>
-      <a href="/guides/index.html">Guides</a>
-      <a href="/seasonal.html">Seasonal</a>
-      <a href="/ideas.html">Ideas</a>
-      <a href="/community.html">Community</a>
-      <a href="/wellbeing.html">Wellbeing</a>
-      <a href="/recipes.html">Recipes</a>
-      <a href="/contact.html">Contact</a>
-      <a href="/privacy.html">Privacy</a>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/growing/' | relative_url }}">Growing</a>
+      <a href="{{ '/guides/' | relative_url }}">Guides</a>
+      <a href="{{ '/seasonal.html' | relative_url }}">Seasonal</a>
+      <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
+      <a href="{{ '/contact/' | relative_url }}">Contact</a>
     </nav>
   </div>
 </footer>
-
-<style>
-  .site-footer {
-    background: #0a0f0c;
-    border-top: 1px solid var(--stroke);
-    text-align: center;
-    padding: 30px 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .footer-flex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 800px;
-    width: 100%;
-  }
-
-  .footer-logo {
-    display: block;
-    margin-bottom: 16px;
-  }
-
-  .footer-copy {
-    color: var(--ink);
-    font-size: 1rem;
-    margin: 0;
-  }
-
-  .footer-credit {
-    color: var(--ink);
-    font-size: 0.9rem;
-    margin: 6px 0 18px;
-    opacity: 0.9;
-  }
-
-  .footer-nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    max-width: 720px;
-  }
-
-  .footer-nav a {
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 0.9rem;
-    opacity: 0.9;
-    transition: opacity 0.2s ease, color 0.2s ease;
-  }
-
-  .footer-nav a:hover {
-    opacity: 1;
-    color: var(--accent);
-  }
-
-  @media (max-width: 600px) {
-    .footer-nav {
-      gap: 12px;
-    }
-    .footer-nav a {
-      font-size: 0.85rem;
-    }
-  }
-</style>

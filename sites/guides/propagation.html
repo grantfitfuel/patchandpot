@@ -4,8 +4,28 @@ title: Propagation: Cuttings, Division & Grafting
 description: The full small-space propagation handbook — salvias, herbs, softwood, semi-ripe and hardwood cuttings, division, layering, water-prop, seed starting, grafting, hygiene, media recipes, seasonal calendar, troubleshooting, FAQs and printable resources.
 ---
 
-<!-- HERO must be a SECTION to avoid double-header issues -->
-<section class="hero" role="banner" aria-label="Propagation hero">
+<style>
+  .wrap-wide{max-width:1160px;margin:0 auto}
+  .grid{display:grid;gap:14px}
+  @media (min-width:980px){.grid.two{grid-template-columns:1fr 1fr}}
+  @media (min-width:1200px){.grid.three{grid-template-columns:repeat(3,1fr)}}
+
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:12px 0}
+  .method h3{margin:.2rem 0 .4rem}
+  .steps{list-style:decimal;margin:0 0 0 1.25rem}
+  .tip{border-left:3px solid #7ed495;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
+  .warn{border-left:3px solid #ffad99;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
+  .callout{border:1px dashed var(--stroke);border-radius:12px;padding:.7rem .85rem;background:rgba(255,255,255,.05)}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+  .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)}
+  .table th,.table td{border-bottom:1px solid var(--stroke);padding:.55rem .7rem;text-align:left;vertical-align:top}
+  .table thead th{background:rgba(255,255,255,.06)}
+  .badge{display:inline-block;border:1px solid var(--stroke);border-radius:999px;padding:.22rem .6rem;margin:.1rem .25rem;font-size:.85rem;background:rgba(255,255,255,.06)}
+  .mini{font-size:.92rem;color:var(--muted)}
+  .kbd{padding:.05rem .35rem;border:1px solid var(--stroke);border-radius:6px;background:rgba(255,255,255,.06);font:600 .85rem/1 var(--font,ui-monospace)}
+</style>
+
+<header class="hero" role="banner" aria-label="Propagation hero">
   <figure>
     <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
     <div class="overlay" aria-hidden="true"></div>
@@ -20,10 +40,9 @@ description: The full small-space propagation handbook — salvias, herbs, softw
       </div>
     </div>
   </div>
-</section>
+</header>
 
-<!-- PAGE WRAPPER (makes all CSS in pp-hotfix.css target ONLY this page) -->
-<div class="propagation-page wrap wrap-wide">
+<div class="wrap wrap-wide">
 
   <!-- 1. Set-up & hygiene -->
   <section class="section">
@@ -285,6 +304,3 @@ description: The full small-space propagation handbook — salvias, herbs, softw
     <a href="/seasonal.html">Seasonal Calendar</a>
   </nav>
 </div>
-
-<!-- Failsafe: if header-loader stalls, ensure page is not dimmed -->
-<script>document.body.classList.add('header-ready');</script>

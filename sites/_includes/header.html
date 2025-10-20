@@ -1,31 +1,21 @@
-<header class="site-header" role="navigation" aria-label="Main">
+<header class="site-header" role="banner">
   <div class="wrap">
-    <a class="brand" href="{{ '/' | relative_url }}" aria-label="Patch & Pot — Home">
-      {% assign brand_logo = site.logo | default: '/img/patchandpot-logo.png' %}
-      <img class="logo" src="{{ brand_logo | relative_url }}" alt="Patch & Pot logo" width="28" height="28" loading="lazy">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img class="logo" src="{{ '/assets/img/logo.svg' | relative_url }}" alt="Patch & Pot">
       <span>Patch &amp; Pot</span>
     </a>
 
-    <!-- mobile toggle -->
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
-    <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </label>
-
-    <!-- primary nav -->
     <nav class="nav" aria-label="Primary">
-      <ul>
-        <li><a href="{{ '/' | relative_url }}">Home</a></li>
-        <li><a href="{{ '/growing/index.html' | relative_url }}">Growing</a></li>
-        <li><a href="{{ '/recipes.html' | relative_url }}">Recipes</a></li>
-        <li><a href="{{ '/exercise.html' | relative_url }}">Exercise</a></li>
-        <li><a href="{{ '/wellbeing.html' | relative_url }}">Wellbeing</a></li>
-        <li><a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a></li>
-        <li><a href="{{ '/guides/index.html' | relative_url }}">Guides</a></li>
-        <li><a href="{{ '/ideas.html' | relative_url }}">Ideas</a></li>
-        <li><a href="{{ '/community.html' | relative_url }}">Community</a></li>
-        <li><a href="{{ '/contact.html' | relative_url }}">Contact</a></li>
-      </ul>
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/growing/' | relative_url }}">Growing</a>
+      <a href="{{ '/recipes/' | relative_url }}">Recipes</a>
+      <a href="{{ '/exercise/' | relative_url }}">Exercise</a>
+      <a href="{{ '/wellbeing/' | relative_url }}">Wellbeing</a>
+      <a href="{{ '/calm.html' | relative_url }}">2-Minute Calm</a>
+      <a href="{{ '/guides/' | relative_url }}">Guides</a>
+      <a href="{{ '/ideas.html' | relative_url }}">Ideas</a>
+      <a href="{{ '/community/' | relative_url }}">Community</a>
+      <a href="{{ '/contact/' | relative_url }}">Contact</a>
     </nav>
   </div>
 </header>

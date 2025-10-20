@@ -3,34 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }} | {{ site.title }}</title>
+  <title>{{ page.title }} — Patch &amp; Pot</title>
 
+  <!-- Global CSS (site first, then optional hotfix overrides) -->
+  <link rel="stylesheet" href="/site.css?v=wb10">
+  <link rel="stylesheet" href="/pp-hotfix.css?v=wb10">
+
+  <!-- Favicons (adjust if your filenames differ) -->
+  <link rel="icon" type="image/svg+xml" href="/img/patchandpot-logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/patchandpot-logo-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/patchandpot-logo-180.png">
+  <meta name="theme-color" content="#214b35">
   <meta name="description" content="{{ page.description | default: site.description }}">
-  <meta name="keywords" content="{{ page.keywords }}">
-
-  <!-- Social (OG/Twitter) -->
-  <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
-  <meta property="og:description" content="{{ page.description | default: site.description | escape }}">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:image" content="{{ site.url }}{{ site.logo }}">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" href="{{ site.logo | relative_url }}">
-  <link rel="apple-touch-icon" href="{{ site.logo | relative_url }}">
-
-  <!-- CSS -->
-<link rel="stylesheet" href="/site.css?v=wb8">
-<link rel="stylesheet" href="/pp-hotfix.css?v=wb8">
-<script src="/js/header-loader.js" defer></script>
 </head>
 <body>
-  {% include header.html %}
+  <!-- Universal header (ONE per page; mounted by header-loader.js) -->
+  <div id="site-header"></div>
+  <script src="/js/header-loader.js" defer></script>
 
-  <main id="main-content" role="main">
+  <!-- Page content -->
+  <main id="content" role="main">
     {{ content }}
   </main>
 
-  {% include footer.html %}
+  <!-- Optional footer include -->
+  {% if site.footer_include %}{% include {{ site.footer_include }} %}{% endif %}
 </body>
 </html>

@@ -95,4 +95,38 @@ img{max-width:100%;height:auto;display:block}
 }
 .btn:active,button:active,input[type="button"]:active,input[type="submit"]:active{
   background-color:var(--pp-green-press)!important;border-color:var(--pp-green-press)!important
+}/* --- Propagation page hotfix (mobile contrast + hero) --- */
+:root{
+  --bg:#101415;            /* dark site bg (safe default) */
+  --ink:#f3f7f3;           /* main text */
+  --ink-dim:#c6d0c6;       /* muted text */
+  --glass:#152019; 
+  --stroke:#2a3a2f;
+  --accent:#7ed495;
 }
+
+/* Base colours (iOS was defaulting to black text) */
+body{ background:var(--bg); color:var(--ink); }
+.section{ color:var(--ink); }
+.section .mini{ color:var(--ink-dim); }
+.table th, .table td{ color:var(--ink); }
+a{ color:var(--accent); }
+
+/* Buttons readable */
+.btn{ color:var(--ink); }
+.btn.primary{ color:#0b130d; }
+
+/* Hero overlay: less heavy on mobile */
+.hero .overlay{
+  background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.38));
+}
+@media (max-width:480px){
+  .hero img{ height:360px; }
+  .hero .overlay{
+    background:linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.28));
+  }
+  .lead{ opacity:.95; }
+}
+
+/* Safety: prevent accidental dimming inside cards */
+.section{ opacity:1 !important; }

@@ -4,11 +4,9 @@ title: Propagation: Cuttings, Division & Grafting
 description: Full small-space propagation handbook — salvias, herbs, edibles, ornamentals, houseplants, softwood, semi-ripe and hardwood cuttings, division, layering, water-prop, grafting, media recipes, calendar, troubleshooting, FAQs and printable resources.
 ---
 
-{% include header.html %}
-
-<!-- PAGE-ONLY, FULLY SCOPED STYLES -->
+<!-- PAGE-ONLY, SCOPED STYLES -->
 <style>
-  /* Local tokens so the page still looks dark even if site vars don’t load */
+  /* local tokens so content stays dark even if site vars fail */
   .p-prop{
     --accent:#43A047;            /* Patch & Pot green */
     --glass:rgba(255,255,255,.04);
@@ -21,7 +19,7 @@ description: Full small-space propagation handbook — salvias, herbs, edibles, 
   }
   .p-prop *{box-sizing:border-box}
 
-  /* HERO : image on top, text band below on solid black */
+  /* HERO: image first; text band below on solid black */
   .p-prop .hero-img{margin:0}
   .p-prop .hero-img img{width:100%;height:auto;display:block;object-fit:cover}
   .p-prop .hero-band{background:#000;color:#fff;padding:1.6rem 0}
@@ -29,7 +27,7 @@ description: Full small-space propagation handbook — salvias, herbs, edibles, 
   .p-prop .hero-band h1{margin:.2rem 0 .6rem;font-size:clamp(1.6rem,3.2vw,2.25rem);line-height:1.15}
   .p-prop .hero-band .lead{max-width:62ch;opacity:.95;margin:0 0 .9rem;line-height:1.5}
 
-  /* Buttons — all green */
+  /* Buttons: all green */
   .p-prop .btn{
     display:inline-block;padding:.65rem 1rem;border:0;border-radius:999px;
     background:#43A047;color:#fff;text-decoration:none;font-weight:700;line-height:1;
@@ -70,6 +68,7 @@ description: Full small-space propagation handbook — salvias, herbs, edibles, 
   .p-prop .mini-nav a:hover{background:#2E7D32}
 </style>
 
+<!-- CONTENT (keeps site header/footer from the layout) -->
 <div class="p-prop" role="main">
 
   <!-- HERO -->
@@ -106,8 +105,8 @@ description: Full small-space propagation handbook — salvias, herbs, edibles, 
           <h3>Ethics &amp; permissions</h3>
           <ul>
             <li>Propagate only from plants you own or have permission to take from</li>
-            <li>Some ornamentals carry Plant Breeders’ Rights</li>
-            <li>Never collect from the wild without explicit consent</li>
+            <li>Check Plant Breeders’ Rights before distributing</li>
+            <li>Never collect from the wild without consent</li>
           </ul>
           <p class="mini">Healthy donors make the best babies—feed and water a few days beforehand.</p>
         </div>
@@ -279,11 +278,11 @@ description: Full small-space propagation handbook — salvias, herbs, edibles, 
         <li><a class="btn" href="/pdf/propagation.pdf" target="_blank" rel="noopener">Propagation Handbook (PDF)</a></li>
         <li><a class="btn" href="/pdf/prop-log-cards.pdf" target="_blank" rel="noopener">Propagation Log Cards</a></li>
         <li><a class="btn" href="/pdf/salvia-cuttings-guide.pdf" target="_blank" rel="noopener">Salvia Cuttings Quick Guide</a></li>
-        <!-- Remove any of these if not present in your repo -->
+        <!-- Remove if not present in repo -->
         <li><a class="btn" href="/pdf/herb-prop-guide.pdf" target="_blank" rel="noopener">Herbs &amp; Edibles Guide</a></li>
         <li><a class="btn" href="/pdf/houseplants-guide.pdf" target="_blank" rel="noopener">Houseplant Propagation Basics</a></li>
       </ul>
-      <p class="mini" style="margin-top:.6rem">Label every pot: <span class="kbd">plant · method · date</span> → e.g. <span class="kbd">S. nemorosa · softwood · 12-May</span>.</p>
+      <p class="mini" style="margin-top:.6rem">Label every pot: <span class="kbd">plant · method · date</span> — e.g. <span class="kbd">S. nemorosa · softwood · 12-May</span>.</p>
     </section>
 
     <!-- 9. Cross-nav -->
@@ -297,5 +296,3 @@ description: Full small-space propagation handbook — salvias, herbs, edibles, 
 
   </div><!-- /.wrap-wide -->
 </div><!-- /.p-prop -->
-
-{% include footer.html %}

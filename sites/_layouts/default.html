@@ -8,23 +8,20 @@
   <meta name="description" content="{{ page.description | default: site.description | escape }}">
   {% if page.keywords %}<meta name="keywords" content="{{ page.keywords | escape }}">{% endif %}
 
-  <!-- Open Graph / Social -->
+  <!-- Social -->
   <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
   <meta property="og:description" content="{{ page.description | default: site.description | escape }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:image" content="{{ site.url }}{{ site.logo }}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ page.title | default: site.title | escape }}">
-  <meta name="twitter:description" content="{{ page.description | default: site.description | escape }}">
-  <meta name="twitter:image" content="{{ site.url }}{{ site.logo }}">
 
   <!-- Icons -->
   <link rel="icon" href="{{ site.logo | relative_url }}">
   <link rel="apple-touch-icon" href="{{ site.logo | relative_url }}">
 
-  <!-- CSS (your real files) -->
-  <link rel="stylesheet" href="{{ '/assets/css/site.css?v=1'    | relative_url }}">
+  <!-- CSS (these files already exist in /sites/assets/ — we don't move them) -->
+  <link rel="stylesheet" href="{{ '/assets/css/site.css?v=1' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css?v=36' | relative_url }}">
 </head>
 <body>

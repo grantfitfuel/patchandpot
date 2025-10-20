@@ -4,48 +4,7 @@ title: Propagation: Cuttings, Division & Grafting
 description: The full small-space propagation handbook — salvias, herbs, softwood, semi-ripe and hardwood cuttings, division, layering, water-prop, seed starting, grafting, hygiene, media recipes, seasonal calendar, troubleshooting, FAQs and printable resources.
 ---
 
-<!-- Local fallbacks so the page still styles even if style.css fails to load -->
-<style>
-  :root{
-    --bg:#101415; --ink:#e9efe9; --muted:#b7c1b7;
-    --glass:#152019; --stroke:#2a3a2f;
-    --accent:#7ed495; --accent2:#ffad99;
-  }
-  .wrap-wide{max-width:1160px;margin:0 auto}
-  .grid{display:grid;gap:14px}
-  @media (min-width:980px){.grid.two{grid-template-columns:1fr 1fr}}
-  @media (min-width:1200px){.grid.three{grid-template-columns:repeat(3,1fr)}}
-  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:12px 0}
-  .method h3{margin:.2rem 0 .4rem}
-  .steps{list-style:decimal;margin:0 0 0 1.25rem}
-  .tip{border-left:3px solid var(--accent);padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
-  .warn{border-left:3px solid var(--accent2);padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px;margin:.6rem 0}
-  .callout{border:1px dashed var(--stroke);border-radius:12px;padding:.7rem .85rem;background:rgba(255,255,255,.05)}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
-  .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)}
-  .table th,.table td{border-bottom:1px solid var(--stroke);padding:.55rem .7rem;text-align:left;vertical-align:top}
-  .table thead th{background:rgba(255,255,255,.06)}
-  .badge{display:inline-block;border:1px solid var(--stroke);border-radius:999px;padding:.22rem .6rem;margin:.1rem .25rem;font-size:.85rem;background:rgba(255,255,255,.06)}
-  .mini{font-size:.92rem;color:var(--muted)}
-  .kbd{padding:.05rem .35rem;border:1px solid var(--stroke);border-radius:6px;background:rgba(255,255,255,.06);font:600 .85rem/1 ui-monospace}
-  /* hero helpers if your global .hero styles are missing */
-  .hero{position:relative;isolation:isolate}
-  .hero figure{margin:0;position:relative;max-height:440px;overflow:hidden}
-  .hero img{width:100%;height:440px;object-fit:cover;object-position:center}
-  .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.55))}
-  .hero .content{position:absolute;inset:0;display:flex;align-items:flex-end}
-  .hero .wrap{max-width:1100px;margin:0 auto;padding:16px 20px 22px}
-  .eyebrow{display:inline-block;opacity:.85;font-size:.9rem;margin-bottom:.25rem}
-  .lead{opacity:.9;max-width:60ch}
-  .cta-row{margin-top:.6rem}
-  .btn{display:inline-block;padding:.6rem 1rem;border-radius:999px;border:1px solid var(--stroke);text-decoration:none;color:inherit;background:rgba(255,255,255,.06)}
-  .btn.primary{background:var(--accent);color:#0b130d;border-color:transparent;font-weight:600}
-  .btn.ghost{background:transparent}
-  .mini-nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:10px 0 24px}
-  .mini-nav a{padding:.4rem .7rem;border:1px solid var(--stroke);border-radius:999px;text-decoration:none;color:inherit;background:rgba(255,255,255,.04)}
-</style>
-
-<!-- Use SECTION for the hero (one true <header> already lives in the layout) -->
+<!-- HERO must be a SECTION to avoid double-header issues -->
 <section class="hero" role="banner" aria-label="Propagation hero">
   <figure>
     <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
@@ -63,7 +22,8 @@ description: The full small-space propagation handbook — salvias, herbs, softw
   </div>
 </section>
 
-<div class="wrap wrap-wide">
+<!-- PAGE WRAPPER (makes all CSS in pp-hotfix.css target ONLY this page) -->
+<div class="propagation-page wrap wrap-wide">
 
   <!-- 1. Set-up & hygiene -->
   <section class="section">
@@ -325,3 +285,6 @@ description: The full small-space propagation handbook — salvias, herbs, softw
     <a href="/seasonal.html">Seasonal Calendar</a>
   </nav>
 </div>
+
+<!-- Failsafe: if header-loader stalls, ensure page is not dimmed -->
+<script>document.body.classList.add('header-ready');</script>

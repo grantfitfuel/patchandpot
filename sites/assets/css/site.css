@@ -64,3 +64,7 @@ a { color:var(--accent); text-decoration:none; }
 @media (min-width: 761px){
   .nav-toggle{ display:none; }
 }
+/* Ensure hero images fill and center, across all pages */
+header.hero { position: relative; width: 100%; }
+header.hero figure { position: absolute; inset: 0; margin: 0; width: 100%; }
+header.hero figure img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }

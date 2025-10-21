@@ -21,117 +21,73 @@
 
   <style>
     /* Base header */
-    #PP_HDR{
-      background:#0a0f0c;
-      border-bottom:1px solid #1f2630;
-      position:relative;
-      z-index:1000;
-    }
+    #PP_HDR{background:#0a0f0c;border-bottom:1px solid #1f2630;position:relative;z-index:1000}
     #PP_HDR .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:12px 20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap; /* allows wrapping if really tight */
+      max-width:1100px;margin:0 auto;padding:12px 20px;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
     }
-    #PP_HDR .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color:#e6f0ea;
-      text-decoration:none;
-      white-space:nowrap;
-    }
+    #PP_HDR .brand{display:flex;align-items:center;gap:8px;color:#e6f0ea;text-decoration:none;white-space:nowrap}
     #PP_HDR .logo{height:28px;width:auto}
-    #PP_HDR .site-name{color:#e6f0ea}
+    #PP_HDR .site-name{color:#e6f0ea;font-size:1rem}
 
     #PP_NAV{
-      display:flex;
-      gap:1.2rem;
-      white-space:nowrap;
-      margin-left:auto;
-      flex-wrap:wrap;
+      display:flex;gap:1rem;white-space:nowrap;margin-left:auto;flex-wrap:wrap;justify-content:flex-end;
     }
     #PP_NAV a{
-      color:#cfe9dc;
-      text-decoration:none;
-      padding:6px 8px;
-      border-radius:8px;
-      display:inline-block;
+      color:#cfe9dc;text-decoration:none;padding:5px 7px;border-radius:8px;display:inline-block;font-size:.95rem;
     }
-    #PP_NAV a:hover{
-      background:#101612;
-    }
+    #PP_NAV a:hover{background:#101612}
 
     #PP_TGL{
-      background:transparent;
-      border:0;
-      color:#fff;
-      font-size:24px;
-      cursor:pointer;
-      line-height:1;
-      padding:8px 10px;
-      display:none;
+      background:transparent;border:0;color:#fff;font-size:24px;cursor:pointer;line-height:1;padding:8px 10px;display:none;
     }
 
-    /* Phone (burger visible) */
+    /* Phones (burger + dropdown) */
     @media (max-width:820px){
       #PP_TGL{display:inline-block !important;}
       #PP_NAV{
-        display:none !important;
-        flex-direction:column;
-        position:absolute;
-        top:100%;
-        right:20px;
-        background:#0a0f0c;
-        border:1px solid #1f2630;
-        border-radius:10px;
-        padding:10px;
-        z-index:1001;
-        gap:.6rem;
+        display:none !important;flex-direction:column;position:absolute;top:100%;right:20px;
+        background:#0a0f0c;border:1px solid #1f2630;border-radius:10px;padding:10px;z-index:1001;gap:.6rem;
       }
       #PP_NAV.pp-open{display:flex !important;}
     }
 
-    /* Tablet (tighten nav) */
+    /* Tablets 821–1024: TIGHTEN HARD */
     @media (min-width:821px) and (max-width:1024px){
       #PP_TGL{display:none !important;}
+      #PP_HDR .wrap{padding:8px 10px;gap:10px}
+      #PP_HDR .brand{gap:6px}
+      #PP_HDR .site-name{font-size:.92rem}
+
       #PP_NAV{
         display:flex !important;
-        gap:0.5rem;                /* less gap */
+        gap:.35rem;             /* smaller gaps */
+        white-space:nowrap;
+        flex-wrap:wrap;         /* allow wrap instead of clipping */
+        justify-content:flex-end;
       }
       #PP_NAV a{
-        font-size:0.84rem;         /* smaller font */
-        padding:3px 5px;           /* less padding */
-      }
-      #PP_HDR .wrap{
-        padding:10px 14px;         /* slightly tighter container */
-      }
-      #PP_HDR .brand .site-name{
-        font-size:0.95rem;         /* slightly smaller label */
+        font-size:.78rem;       /* much smaller text */
+        padding:2px 4px;        /* tighter padding */
+        border-radius:6px;
       }
     }
 
-    /* Desktop */
+    /* EXTRA squeeze for 821–900 (portrait iPad etc.) */
+    @media (min-width:821px) and (max-width:900px){
+      #PP_HDR .wrap{padding:6px 8px}
+      #PP_NAV{gap:.25rem}
+      #PP_NAV a{font-size:.72rem;padding:2px 3px}
+      #PP_HDR .site-name{font-size:.9rem}
+    }
+
+    /* Desktop back to normal-ish */
     @media (min-width:1025px){
       #PP_TGL{display:none !important;}
-      #PP_NAV{
-        display:flex !important;
-        gap:1rem;
-      }
-      #PP_NAV a{
-        font-size:0.95rem;
-        padding:5px 7px;
-      }
-      #PP_HDR .wrap{
-        padding:12px 20px;
-      }
-      #PP_HDR .brand .site-name{
-        font-size:1rem;
-      }
+      #PP_HDR .wrap{padding:12px 20px}
+      #PP_NAV{display:flex !important;gap:1rem}
+      #PP_NAV a{font-size:.95rem;padding:5px 7px}
+      #PP_HDR .site-name{font-size:1rem}
     }
   </style>
 

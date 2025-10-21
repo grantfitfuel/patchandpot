@@ -1,53 +1,65 @@
-<header id="PP_HDR" style="background:#0a0f0c;border-bottom:1px solid #1f2630;color:#fff;position:relative;z-index:9999;">
-  <div style="max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
-    <a href="{{ '/' | relative_url }}" style="display:flex;align-items:center;gap:10px;color:#e6f0ea;text-decoration:none;">
-      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot" style="height:28px;width:auto">
+<header id="PP_HDR" class="site-header" role="banner">
+  <div class="wrap" style="max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;">
+    <!-- Brand -->
+    <a href="{{ '/' | relative_url }}" class="brand" style="display:flex;align-items:center;gap:10px;color:#e6f0ea;text-decoration:none;">
+      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo" class="logo" style="height:28px;width:auto;">
       <strong>Patch &amp; Pot</strong>
     </a>
 
-    <!-- PHONE-ONLY HAMBURGER (white) -->
-    <button id="PP_TGL" aria-label="Toggle navigation" aria-expanded="false"
+    <!-- Phone-only hamburger (white) -->
+    <button id="PP_TGL" aria-label="Toggle navigation" aria-expanded="false" aria-controls="PP_NAV"
             style="background:transparent;border:0;color:#fff;font-size:24px;cursor:pointer;line-height:1;padding:8px 10px;display:none;">
       &#9776;
     </button>
+
+    <!-- Inline nav (ALWAYS present; CSS decides when to show) -->
+    <nav id="PP_NAV" aria-label="Primary" style="display:flex;gap:1.2rem;white-space:nowrap;">
+      {% for item in site.data.nav %}
+        <a href="{{ item.url | relative_url }}" style="color:#cfe9dc;text-decoration:none;padding:6px 8px;border-radius:8px;">{{ item.title }}</a>
+      {% endfor %}
+    </nav>
   </div>
 
-  <!-- DROPDOWN NAV -->
-  <nav id="PP_NAV" aria-label="Primary"
-       style="display:none;position:relative;max-width:1100px;margin:0 auto 10px; padding:0 20px;">
-    <div style="display:flex;flex-wrap:wrap;gap:10px;background:#0a0f0c;border:1px solid #1f2630;border-radius:10px;padding:10px;">
-      {% for item in site.data.nav %}
-        <a href="{{ item.url | relative_url }}"
-           style="color:#cfe9dc;text-decoration:none;padding:6px 8px;border-radius:8px;display:inline-block;border:1px solid transparent">
-           {{ item.title }}
-        </a>
-      {% endfor %}
-    </div>
-  </nav>
-
+  <!-- Scoped styles (affect header only) -->
   <style>
-    /* Show burger only on phones; keep desktop nav visible in the header row */
-    @media (max-width: 820px){
+    #PP_HDR{background:#0a0f0c;border-bottom:1px solid #1f2630;position:relative;z-index:1000}
+    #PP_HDR a:hover{background:#101612;border-radius:8px}
+
+    /* Phones: show burger, hide inline nav until opened as dropdown */
+    @media (max-width:820px){
       #PP_TGL{display:inline-block !important;}
-      /* On phones, hide the inline header nav (we’re using the dropdown) */
-      #PP_HDR .header-inline-nav{display:none !important;}
+      /* Turn the nav into a dropdown, hidden by default */
+      #PP_NAV{
+        display:none !important;
+        flex-direction:column;
+        position:absolute; top:100%; right:20px;
+        background:#0a0f0c; border:1px solid #1f2630; border-radius:10px;
+        padding:10px; z-index:1001;
+      }
+      #PP_NAV.pp-open{display:flex !important;}
     }
-    @media (min-width: 821px){
+
+    /* iPad/desktop: hide burger, show inline nav horizontally */
+    @media (min-width:821px){
       #PP_TGL{display:none !important;}
-      /* Optional: keep a single-line inline nav by duplicating links if you want.
-         If you don't keep a second inline nav, the dropdown remains hidden on desktop. */
+      #PP_NAV{
+        display:flex !important;
+        position:static; background:transparent; border:0; padding:0;
+        flex-direction:row;
+      }
     }
   </style>
 
+  <!-- Tiny toggle script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var btn = document.getElementById('PP_TGL');
       var nav = document.getElementById('PP_NAV');
       if (!btn || !nav) return;
       btn.addEventListener('click', function () {
-        var open = nav.style.display === 'block';
-        nav.style.display = open ? 'none' : 'block';
+        var open = nav.classList.contains('pp-open');
         btn.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('pp-open');
       });
     });
   </script>

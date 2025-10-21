@@ -1,10 +1,19 @@
 <header class="site-header" role="banner">
   <div class="wrap">
-    <a class="brand" href="{{ '/index.html' | relative_url }}">
-      <img class="logo" src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot">
-      <span>Patch &amp; Pot</span>
+    <!-- Brand / Logo -->
+    <a href="{{ '/' | relative_url }}" class="brand">
+      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo" class="logo">
+      <span class="site-name">Patch &amp; Pot</span>
     </a>
 
+    <!-- Hamburger toggle -->
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <!-- Primary nav -->
     <nav class="nav" aria-label="Primary">
       {% for item in site.data.nav %}
         <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
@@ -12,3 +21,17 @@
     </nav>
   </div>
 </header>
+
+<!-- Simple inline script to handle toggle -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.querySelector('.site-header .nav');
+  if (!toggle || !nav) return;
+  toggle.addEventListener('click', function () {
+    var expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    nav.classList.toggle('open');
+  });
+});
+</script>

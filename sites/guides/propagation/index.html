@@ -1,213 +1,303 @@
 ---
 layout: default
 title: Propagation — Patch & Pot
-description: The complete small-space propagation guide: cuttings, division, layering, water-prop, grafting, hygiene, media recipes, seasonal calendar and troubleshooting.
+description: The complete small-space propagation guide — softwood, semi-ripe and hardwood cuttings, division, layering, water-prop, grafting, media recipes, seasonal calendar, troubleshooting and downloads.
 permalink: /guides/propagation/
 ---
 
-<!-- Universal header mount -->
-<div id="site-header"></div>
-<script src="/js/header-loader.js"></script>
-
-<style>
-  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:18px;margin:14px 0}
-  .grid{display:grid;gap:14px}
-  @media(min-width:920px){.grid.two{grid-template-columns:1fr 1fr}}
-  @media(min-width:1200px){.grid.three{grid-template-columns:repeat(3,1fr)}}
-  .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)}
-  .table th,.table td{border-bottom:1px solid var(--stroke);padding:.6rem .7rem;text-align:left;vertical-align:top}
-  .table thead th{background:rgba(255,255,255,.06)}
-  .tip{border-left:3px solid #7ed495;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px}
-  .warn{border-left:3px solid #e2a66a;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px}
-  .callout{border:1px dashed var(--stroke);border-radius:12px;padding:.7rem .8rem;background:rgba(255,255,255,.05)}
-  .pill{display:inline-block;border:1px solid var(--stroke);border-radius:999px;padding:.25rem .55rem;margin:.15rem .2rem;background:rgba(255,255,255,.06);font-size:.9rem}
-  .mini{font-size:.9rem;opacity:.85}
-  .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
-  .kbd{padding:.05rem .35rem;border:1px solid var(--stroke);border-radius:6px;background:rgba(255,255,255,.06);font:600 .85rem/1 var(--font,ui-monospace)}
-  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0;cursor:pointer}
-  .btn.primary{background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007}
-  .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:#fff}
-</style>
-
-<!-- Hero -->
+<!-- HERO -->
 <header class="hero" role="banner" aria-label="Propagation hero">
   <figure>
-    <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
+    <img src="{{ '/img/hero.jpg' | relative_url }}" alt="Hands potting up with soil and tools">
     <div class="overlay" aria-hidden="true"></div>
   </figure>
   <div class="content">
     <div class="wrap">
       <span class="eyebrow">Multiply for free</span>
       <h1>Propagation: Cuttings, Division &amp; More</h1>
-      <p class="lead">Grow more plants from what you already have — herbs, salvias, flowers and more, right on your balcony or windowsill.</p>
-      <a class="btn primary" href="/pdf/propagation.pdf" target="_blank" rel="noopener">Download PDF Guide</a>
+      <p class="lead">Turn one plant into many on a windowsill or balcony — fast wins for salvias, herbs, ornamentals and edibles.</p>
+      <p><a class="btn primary" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Download Full PDF</a></p>
     </div>
   </div>
 </header>
 
 <div class="wrap">
 
-  <!-- Why propagate -->
+  <!-- Workspace & Hygiene -->
   <section class="section">
-    <h2>Why Propagate?</h2>
-    <p>Propagation saves money, reduces waste, and gives you healthy, vigorous plants that adapt well to your space. Softwood cuttings can become mature plants in weeks, while division and layering keep older plants productive.</p>
-    <div class="callout">
-      <span class="pill">Low cost</span>
-      <span class="pill">Mindful gardening</span>
-      <span class="pill">Perfect for pots</span>
-      <span class="pill">Pollinator friendly</span>
+    <h2>Workspace, Hygiene &amp; Permissions</h2>
+    <div class="grid two">
+      <div>
+        <h3>Set up a tiny station</h3>
+        <ul>
+          <li>Tray or baking sheet to contain mess</li>
+          <li>Knife or secateurs + rubbing alcohol + kitchen roll</li>
+          <li>Labels + pencil, small pots/cell inserts, clear bag/dome</li>
+          <li>Mix: 50:50 peat-free compost : perlite (or 60:30:10 compost : bark fibre : perlite)</li>
+        </ul>
+        <p class="tip"><strong>Sterilise between plants:</strong> quick wipe with alcohol keeps damping-off and rot at bay.</p>
+      </div>
+      <div>
+        <h3>Ethics &amp; permissions</h3>
+        <ul>
+          <li>Propagate only from plants you own or have permission to take from</li>
+          <li>Some ornamentals carry Plant Breeders’ Rights (don’t sell clones)</li>
+          <li>Never collect in the wild unless explicitly permitted</li>
+        </ul>
+        <p class="mini">Healthy mother plants make the best babies. Feed and water the donor a few days before taking material.</p>
+      </div>
     </div>
   </section>
 
   <!-- Media recipes -->
   <section class="section">
     <h2>Propagation Media Recipes</h2>
-    <table class="table mono">
-      <thead><tr><th>Use</th><th>Mix</th><th>Why it works</th></tr></thead>
+    <table class="table mono" aria-label="Propagation media mixes">
+      <thead><tr><th>Use</th><th>Recipe</th><th>Why it works</th></tr></thead>
       <tbody>
-        <tr><td>Softwood cuttings</td><td>50% compost · 50% perlite</td><td>Air + moisture = less rot, good strike rate</td></tr>
-        <tr><td>Semi-ripe / woody</td><td>40% compost · 40% fine bark · 20% perlite</td><td>Bark adds structure and balance</td></tr>
-        <tr><td>Water-prop potting-on</td><td>60% compost · 30% bark · 10% grit</td><td>Holds moisture, drains well for delicate roots</td></tr>
-        <tr><td>Hardwood sticks</td><td>1:1 sand : compost</td><td>Cool, free-draining overwinter bed</td></tr>
+        <tr><td>Softwood cuttings</td><td>50% compost · 50% perlite</td><td>Air + moisture, lowers rot risk (salvias, herbs)</td></tr>
+        <tr><td>Semi-ripe / woody bases</td><td>40% compost · 40% fine bark · 20% perlite</td><td>Bark adds structure and fungal balance</td></tr>
+        <tr><td>Water-prop potting-on</td><td>60% compost · 30% bark · 10% grit</td><td>Holds moisture but drains fast for fragile water roots</td></tr>
+        <tr><td>Hardwood sticks</td><td>1:1 sharp sand : compost</td><td>Cool, free-draining bed over winter</td></tr>
       </tbody>
     </table>
-    <p class="tip">Pre-moisten mixes like a wrung-out sponge. If water drips out, it's too wet.</p>
+    <p class="tip">Pre-moisten mixes like a wrung-out sponge. If you can squeeze water out, it’s too wet.</p>
   </section>
 
   <!-- Methods -->
   <section class="section">
     <h2>Propagation Methods</h2>
     <div class="grid two">
-      <article>
-        <h3>Softwood Cuttings</h3>
-        <p>Perfect for salvias, basil, mint, oregano, thyme, pelargoniums.</p>
-        <ol>
-          <li>Take 8–10 cm tip cutting below a node, strip lower leaves.</li>
-          <li>Dip in rooting powder (optional) and insert into mix.</li>
-          <li>Water, cover with dome or bag, ventilate daily.</li>
+      <article class="method">
+        <h3>Softwood Cuttings <span class="pill">Spring–Early Summer</span></h3>
+        <p>Great for <em>Salvia nemorosa</em>, <em>S. microphylla</em>/<em>greggii</em>, basil, mint, oregano, thyme, sage, pelargonium, coleus.</p>
+        <ol class="steps">
+          <li>Take 8–10&nbsp;cm non-flowering tip below a node. Strip lower leaves.</li>
+          <li>Optional: dip in rooting powder. Insert into 50:50 compost:perlite. Firm.</li>
+          <li>Water. Cover with a clear dome or bag held off foliage.</li>
+          <li>Bright, indirect light. 18–22&nbsp;°C at base. Vent daily. Root in 2–4 weeks.</li>
         </ol>
-        <p class="tip">Multiple small cuttings root faster than one chunky stem.</p>
+        <p class="tip">For salvias, several small cuttings beat one chunky stem — faster strike, better branching.</p>
       </article>
-      <article>
-        <h3>Semi-ripe &amp; Hardwood</h3>
-        <p>Good for rosemary, lavender, woody salvias, currants, figs.</p>
-        <ol>
-          <li>Take 8–12 cm semi-ripe tip or hardwood stick.</li>
-          <li>Insert into airy mix. Shelter over winter for hardwood.</li>
+
+      <article class="method">
+        <h3>Semi-ripe &amp; Hardwood Cuttings</h3>
+        <p>Use semi-ripe late summer for rosemary, lavender, many salvias. Hardwood in late autumn–winter for currants, willow, dogwood, figs.</p>
+        <ol class="steps">
+          <li><strong>Semi-ripe:</strong> 8–12&nbsp;cm tips with some firmness; 40/40/20 mix; gentle bottom warmth helps.</li>
+          <li><strong>Hardwood:</strong> 15–20&nbsp;cm leafless sticks, pencil-thick. Two nodes buried in cool, gritty mix.</li>
+          <li>Keep barely moist. Shelter from hard frost. Root across winter into spring.</li>
         </ol>
-        <p class="warn">Cold + wet = failure. Keep mix just damp and ventilate.</p>
+        <p class="warn">Most woody failures = cold + wet compost. Err on the dry side and ventilate.</p>
       </article>
-      <article>
+
+      <article class="method">
         <h3>Division</h3>
-        <p>Best for chives, thyme, oregano, strawberries, hostas.</p>
-        <ol>
-          <li>Water day before. Tip out, tease or slice clump into sections.</li>
-          <li>Replant into fresh mix. Trim top growth by one-third.</li>
+        <p>Fast multiplication for clumps: chives, mint, oregano, thyme, <em>Salvia officinalis</em>, daylily, hosta, grasses, strawberries via runners.</p>
+        <ol class="steps">
+          <li>Water the parent plant the day before.</li>
+          <li>Tip out, tease or slice into sections each with roots and shoots.</li>
+          <li>Pot into fresh mix. Trim top growth by one-third. Shade 2–3 days.</li>
         </ol>
+        <p class="tip">Divide culinary sage and chives every 2–3 years to keep growth vigorous.</p>
       </article>
-      <article>
+
+      <article class="method">
         <h3>Layering</h3>
-        <p>Easy, no-cut propagation for strawberries, thyme, oregano, salvias.</p>
-        <ol>
-          <li>Nick underside of stem, peg into neighbour pot.</li>
-          <li>Keep moist. Roots in 2–4 weeks. Cut free & pot on.</li>
+        <p>Zero-drama propagation for trailing strawberries, thyme, oregano and woody salvias with arching stems.</p>
+        <ol class="steps">
+          <li>Nick underside of a low stem at a node. Pin to compost in a neighbour pot with a paperclip.</li>
+          <li>Keep moist. Roots form in 2–4 weeks.</li>
+          <li>Cut free and pot on.</li>
         </ol>
+        <p class="tip">Layering is brilliant for older salvias that sulk as cuttings.</p>
       </article>
-      <article>
+
+      <article class="method">
         <h3>Water Propagation</h3>
-        <p>Mint, basil, salvias — simple on a windowsill.</p>
-        <ol>
-          <li>Strip lower leaves, place in water jar covering nodes.</li>
-          <li>Change water every 2–3 days. Pot up at 3–5 cm roots.</li>
+        <p>For basil, mint, coleus and many soft salvias. A confidence booster on a bright sill.</p>
+        <ol class="steps">
+          <li>10&nbsp;cm tip cutting below a node. Strip lower leaves.</li>
+          <li>Jar of water covering nodes. Change every 2–3 days.</li>
+          <li>Pot up when roots are 3–5&nbsp;cm. Shade lightly for 2–3 days.</li>
         </ol>
-        <p class="warn">Water roots are fragile. Don’t let them get too long.</p>
+        <p class="warn">Water roots are fragile. Don’t let them get long and feathery before potting.</p>
       </article>
-      <article>
-        <h3>Grafting (Advanced)</h3>
-        <p>Used mainly for tomatoes and cucurbits.</p>
-        <ol>
-          <li>Match stem widths, cut both at 45°, align cambium.</li>
-          <li>Clip, high humidity 5–7 days, then wean to normal light.</li>
+
+      <article class="method">
+        <h3>Grafting (Advanced, Optional)</h3>
+        <p>Common for tomatoes and cucurbits to improve disease resistance and cool-summer vigour. Rarely needed for salvias.</p>
+        <ol class="steps">
+          <li>Raise rootstock and scion to similar stem width (3–4&nbsp;mm).</li>
+          <li>Cut both at 45°, align cambium, clip with silicone grafting clip.</li>
+          <li>High humidity and shade for 5–7 days, then wean to normal light.</li>
         </ol>
       </article>
     </div>
   </section>
 
-  <!-- Cheat sheet -->
+  <!-- Species cheat sheets -->
   <section class="section">
-    <h2>Cheat Sheet: Popular Plants</h2>
-    <table class="table mono">
-      <thead><tr><th>Plant</th><th>Best Method</th><th>Root Time</th><th>Notes</th></tr></thead>
+    <h2>Species Cheat Sheets</h2>
+    <table class="table mono" aria-label="Species cheat sheet">
+      <thead><tr><th>Plant</th><th>Best Method</th><th>Root Time</th><th>Potting-on</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td>Salvia nemorosa</td><td>Softwood</td><td>2–4 wks</td><td>Pinch tips after potting</td></tr>
-        <tr><td>Rosemary</td><td>Semi-ripe</td><td>4–8 wks</td><td>Bottom warmth speeds rooting</td></tr>
-        <tr><td>Lavender</td><td>Semi-ripe</td><td>4–8 wks</td><td>Gritty mix, bright light</td></tr>
-        <tr><td>Basil &amp; Mint</td><td>Water or softwood</td><td>1–2 wks</td><td>Pot early before roots tangle</td></tr>
-        <tr><td>Strawberry</td><td>Layering</td><td>2–3 wks</td><td>Cut umbilical after rooting</td></tr>
+        <tr><td>Salvia nemorosa</td><td>Softwood (spring)</td><td>2–4 wks</td><td>When 3–4 cm roots</td><td>Pinch tips after first potting to bush out</td></tr>
+        <tr><td>Salvia microphylla / greggii</td><td>Semi-ripe (late summer)</td><td>3–6 wks</td><td>Root ball holds together</td><td>Hates cold wet; airy mix and shelter</td></tr>
+        <tr><td>Salvia officinalis (culinary)</td><td>Division / semi-ripe</td><td>3–6 wks</td><td>Firm roots showing</td><td>Divide clumps every 2–3 yrs</td></tr>
+        <tr><td>Rosemary</td><td>Semi-ripe</td><td>4–8 wks</td><td>New growth flush visible</td><td>Bottom warmth speeds rooting</td></tr>
+        <tr><td>Lavender</td><td>Semi-ripe</td><td>4–8 wks</td><td>After gentle tug resists</td><td>Gritty mix, bright light</td></tr>
+        <tr><td>Basil / Mint</td><td>Water-prop or softwood</td><td>1–2 wks</td><td>3–5 cm roots</td><td>Pot early before roots tangle</td></tr>
+        <tr><td>Pelargonium</td><td>Softwood</td><td>2–3 wks</td><td>First new leaf</td><td>Let cuts callus 1–2 hrs before inserting</td></tr>
+        <tr><td>Strawberry</td><td>Runners (layering)</td><td>2–3 wks</td><td>Once anchored roots seen</td><td>Cut umbilical after rooting</td></tr>
+        <tr>
+          <td>Roses (modern &amp; heritage)</td>
+          <td>Hardwood or semi-ripe</td>
+          <td>6–10 wks (longer in cold)</td>
+          <td>Spring or autumn</td>
+          <td>Take 15–20 cm stem from healthy, non-flowering growth. Remove lower leaves &amp; thorns, dip in rooting hormone, insert two nodes. Keep cool, just moist, and shelter from frost. Shrub &amp; climbing types root best.</td>
+        </tr>
       </tbody>
     </table>
   </section>
 
-  <!-- Seasonal calendar -->
+  <!-- Humidity & aftercare -->
+  <section class="section grid two">
+    <div>
+      <h2>Humidity, Light &amp; Airflow</h2>
+      <ul>
+        <li>Dome or bag for humidity, but vent daily to prevent fungus</li>
+        <li>Bright, indirect light. Avoid midday scorch behind glass</li>
+        <li>Gentle fan or cracked window reduces mould and strengthens stems</li>
+      </ul>
+      <p class="tip">If leaves sweat inside the dome, raise it with pegs or chopsticks.</p>
+    </div>
+    <div>
+      <h2>Potting-On &amp; Hardening</h2>
+      <ul>
+        <li>Pot when a gentle tug meets resistance or roots reach 3–4&nbsp;cm</li>
+        <li>Feed at half-strength 7–10 days after potting</li>
+        <li>Harden off for 7–10 days before living outdoors full-time</li>
+      </ul>
+      <p class="mini">Newly rooted salvias often flop for a day after potting. Shade and they perk up.</p>
+    </div>
+  </section>
+
+  <!-- Hormones -->
   <section class="section">
-    <h2>Propagation Calendar (UK)</h2>
-    <table class="table mono">
+    <h2>Rooting Hormones &amp; Natural Aids</h2>
+    <ul>
+      <li>Commercial powders or gels are reliable for woody salvias, rosemary and roses</li>
+      <li>Willow water is mild — best as a soak for hardwood sticks</li>
+      <li>Cinnamon: antifungal dust for cut surfaces (not a rooting stimulant)</li>
+    </ul>
+  </section>
+
+  <!-- Calendar -->
+  <section class="section">
+    <h2>Propagation Calendar (UK, Balcony &amp; Patio)</h2>
+    <table class="table mono" aria-label="Monthly propagation calendar">
       <thead><tr><th>Month</th><th>Focus</th><th>Good Targets</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td>Jan</td><td>Hardwood</td><td>Currants, willow</td><td>Cool gritty bed</td></tr>
-        <tr><td>Mar–May</td><td>Softwood</td><td>Salvias, herbs</td><td>Best strike rates</td></tr>
-        <tr><td>Jun–Aug</td><td>Semi-ripe</td><td>Rosemary, lavender</td><td>Bottom warmth</td></tr>
-        <tr><td>Sep</td><td>Layering</td><td>Thyme, salvias</td><td>Root in place</td></tr>
-        <tr><td>Nov–Dec</td><td>Hardwood</td><td>Figs, currants</td><td>Cool frame</td></tr>
+        <tr><td>Jan</td><td>Hardwood prep</td><td>Currants, dogwood, willow, roses</td><td>Cool, gritty bed; minimal water</td></tr>
+        <tr><td>Feb</td><td>Hardwood continues</td><td>Figs, vines, roses</td><td>Label sticks clearly</td></tr>
+        <tr><td>Mar</td><td>Early softwood</td><td>Pelargonium, coleus</td><td>Bright light indoors</td></tr>
+        <tr><td>Apr</td><td>Prime softwood</td><td>Salvia nemorosa, herbs</td><td>Best strike rate</td></tr>
+        <tr><td>May</td><td>Softwood peak</td><td>Salvias, basil, mint</td><td>Vent domes daily</td></tr>
+        <tr><td>Jun</td><td>Semi-ripe begins</td><td>Rosemary, lavender</td><td>Bottom warmth helps</td></tr>
+        <tr><td>Jul</td><td>Division, runners</td><td>Chives, mint, strawberries</td><td>Shade post-division</td></tr>
+        <tr><td>Aug</td><td>Semi-ripe strong</td><td>Greggii/microphylla salvias, roses</td><td>Airy bark mix</td></tr>
+        <tr><td>Sep</td><td>Layering</td><td>Woody salvias, thyme</td><td>Root in place</td></tr>
+        <tr><td>Oct</td><td>Last softwood</td><td>Pelargonium cuttings</td><td>Overwinter frost-free</td></tr>
+        <tr><td>Nov</td><td>Hardwood starts</td><td>Currants, figs, roses</td><td>Cool frame, low water</td></tr>
+        <tr><td>Dec</td><td>Tools &amp; labels</td><td>—</td><td>Sharpen, clean, plan mother plants</td></tr>
       </tbody>
     </table>
   </section>
 
   <!-- Troubleshooting -->
-  <section class="section grid two">
-    <div>
-      <h2>Troubleshooting</h2>
-      <h3>Black stems</h3>
-      <ul>
-        <li>Too wet or too cold — refresh cutting & mix.</li>
-        <li>Warm base + airflow helps.</li>
-      </ul>
-      <h3>Wilt & crisp leaves</h3>
-      <ul>
-        <li>Heat stress — move out of midday sun.</li>
-      </ul>
+  <section class="section">
+    <h2>Troubleshooting</h2>
+    <div class="grid two">
+      <div>
+        <h3>Blackening stems</h3>
+        <ul>
+          <li>Too wet or too cold. Refresh cut; switch to drier airy mix</li>
+          <li>Warm the base, add airflow, reduce dome time</li>
+        </ul>
+        <h3>Leaves wilt, then crisp</h3>
+        <ul>
+          <li>Heat or sun stress. Move out of midday sun; mist lightly</li>
+          <li>Reduce leaf area by a third on floppy salvias</li>
+        </ul>
+      </div>
+      <div>
+        <h3>No roots after 4–6 weeks</h3>
+        <ul>
+          <li>Material too old or too cold — take fresher softwood or switch to semi-ripe timing</li>
+          <li>Try a smaller cutting and refresh the mix</li>
+        </ul>
+        <h3>Rooted but stall after potting</h3>
+        <ul>
+          <li>Pot too big or too rich — step up gradually; feed half-strength</li>
+          <li>Shade for 2–3 days and keep just moist</li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h3>No roots after 6 wks</h3>
-      <ul>
-        <li>Material too old or cold. Take fresher cuttings.</li>
-      </ul>
-      <h3>Stall after potting</h3>
-      <ul>
-        <li>Pot too big or too rich. Step up gradually.</li>
-      </ul>
-    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section">
+    <h2>FAQs</h2>
+    <details>
+      <summary>Water-prop vs soil: which is better?</summary>
+      <div class="callout">Water is fast and visible for basil and mint. Soil produces tougher roots for woody salvias, rosemary and roses. If you water-prop salvias, pot early and use a very airy mix.</div>
+    </details>
+    <details>
+      <summary>Can I root flowering stems?</summary>
+      <div class="callout">Pinch off flower buds — rooting energy should go to new roots and leaves, not blooms.</div>
+    </details>
+    <details>
+      <summary>Do I need heat mats?</summary>
+      <div class="callout">Not essential, but gentle 18–22&nbsp;°C base warmth increases success for semi-ripe cuttings.</div>
+    </details>
+    <details>
+      <summary>How big should the first pot be?</summary>
+      <div class="callout">Start small 7–9&nbsp;cm. Step up as roots fill. Oversized pots stay wet and promote rot.</div>
+    </details>
   </section>
 
   <!-- Downloads -->
   <section class="section">
-    <h2>Downloads</h2>
-    <p>Printable resources to make propagation easy at your bench.</p>
-    <ul>
-      <li><a class="btn ghost" href="/pdf/propagation.pdf" target="_blank">Propagation Handbook (PDF)</a></li>
-      <li><a class="btn ghost" href="/pdf/prop-log-cards.pdf" target="_blank">Propagation Log Cards</a></li>
-      <li><a class="btn ghost" href="/pdf/salvia-cuttings-guide.pdf" target="_blank">Salvia Cuttings Quick Guide</a></li>
-    </ul>
-    <p class="mini">Label every pot. Example: <span class="kbd">S. nemorosa · softwood · 12-May</span></p>
+    <h2>Checklists &amp; Printables</h2>
+    <div class="grid two">
+      <div>
+        <h3>Grab-and-Go Kit</h3>
+        <ul>
+          <li>Secateurs or knife + alcohol wipes</li>
+          <li>Small pots/cells + labels</li>
+          <li>Perlite, bark fibre, peat-free compost</li>
+          <li>Clear bags or mini dome, elastic bands or pegs</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Downloads</h3>
+        <ul>
+          <li><a class="btn ghost" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Handbook (PDF)</a></li>
+          <li><a class="btn ghost" href="{{ '/pdf/prop-log-cards.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Log Cards (PDF)</a></li>
+          <li><a class="btn ghost" href="{{ '/pdf/salvia-cuttings-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Salvia Cuttings Quick Guide (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="mini">Label every pot. Include plant, method and date, e.g. <span class="kbd">S. nemorosa · softwood · 12-May</span>.</p>
   </section>
 
-  <!-- Mini nav -->
+  <!-- Cross-nav -->
   <nav class="mini-nav" aria-label="Related guides">
-    <a href="/growing/first-pot.html">Your First Pot</a>
-    <a href="/growing/companion.html">Companion Planting</a>
-    <a href="/growing/pests.html">Pests &amp; Problems</a>
+    <a href="{{ '/growing/first-pot.html' | relative_url }}">Your First Pot</a>
+    <a href="{{ '/growing/companion.html' | relative_url }}">Companion Planting</a>
+    <a href="{{ '/growing/pests.html' | relative_url }}">Pests &amp; Problems</a>
+    <a href="{{ '/guides/seed-saving.html' | relative_url }}">Seed Saving Basics</a>
+    <a href="{{ '/seasonal.html' | relative_url }}">Seasonal Calendar</a>
   </nav>
 </div>
-
-<!-- Universal footer mount -->
-<div id="site-footer"></div>

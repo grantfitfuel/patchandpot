@@ -5,8 +5,39 @@ description: The complete small-space propagation guide — softwood, semi-ripe 
 permalink: /guides/propagation/
 ---
 
+<!-- PAGE-SCOPED STYLES (safe; won't affect other pages) -->
+<style>
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:18px;margin:14px 0}
+  .grid{display:grid;gap:14px}
+  @media(min-width:920px){.grid.two{grid-template-columns:1fr 1fr}}
+  @media(min-width:1200px){.grid.three{grid-template-columns:repeat(3,1fr)}}
+  .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)}
+  .table th,.table td{border-bottom:1px solid var(--stroke);padding:.6rem .7rem;text-align:left;vertical-align:top}
+  .table thead th{background:rgba(255,255,255,.06)}
+  .tip{border-left:3px solid #7ed495;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px}
+  .warn{border-left:3px solid #e2a66a;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px}
+  .callout{border:1px dashed var(--stroke);border-radius:12px;padding:.7rem .8rem;background:rgba(255,255,255,.05)}
+  .pill{display:inline-block;border:1px solid var(--stroke);border-radius:999px;padding:.25rem .55rem;margin:.15rem .2rem;background:rgba(255,255,255,.06);font-size:.9rem}
+  .mini{font-size:.9rem;opacity:.85}
+  .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+  .kbd{padding:.05rem .35rem;border:1px solid var(--stroke);border-radius:6px;background:rgba(255,255,255,.06);font:600 .85rem/1 ui-monospace}
+  .steps{list-style:decimal;margin:.4rem 0 0 1.25rem}
+
+  /* Buttons — all green, brand style */
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0;cursor:pointer;background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007;text-decoration:none}
+
+  /* HERO — text BELOW image on solid black band (page-scoped) */
+  .hero--prop{display:block}
+  .hero--prop figure{position:relative;min-height:clamp(320px,48vh,520px);margin:0}
+  .hero--prop figure img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+  .hero--prop .overlay{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+  .hero--prop .content{position:static;background:#000;border-top:1px solid var(--stroke)}
+  .hero--prop .content .wrap{max-width:var(--maxw);margin:0 auto;padding:1.25rem 20px 1.6rem}
+  .hero--prop .eyebrow,.hero--prop h1,.hero--prop .lead{color:#fff}
+</style>
+
 <!-- HERO -->
-<header class="hero" role="banner" aria-label="Propagation hero">
+<header class="hero hero--prop" role="banner" aria-label="Propagation hero">
   <figure>
     <img src="{{ '/img/hero.jpg' | relative_url }}" alt="Hands potting up with soil and tools">
     <div class="overlay" aria-hidden="true"></div>
@@ -16,14 +47,14 @@ permalink: /guides/propagation/
       <span class="eyebrow">Multiply for free</span>
       <h1>Propagation: Cuttings, Division &amp; More</h1>
       <p class="lead">Turn one plant into many on a windowsill or balcony — fast wins for salvias, herbs, ornamentals and edibles.</p>
-      <p><a class="btn primary" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Download Full PDF</a></p>
+      <p><a class="btn" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Download Full PDF</a></p>
     </div>
   </div>
 </header>
 
 <div class="wrap">
 
-  <!-- Workspace & Hygiene -->
+  <!-- 1. Workspace & Hygiene -->
   <section class="section">
     <h2>Workspace, Hygiene &amp; Permissions</h2>
     <div class="grid two">
@@ -49,7 +80,7 @@ permalink: /guides/propagation/
     </div>
   </section>
 
-  <!-- Media recipes -->
+  <!-- 2. Media recipes -->
   <section class="section">
     <h2>Propagation Media Recipes</h2>
     <table class="table mono" aria-label="Propagation media mixes">
@@ -64,7 +95,7 @@ permalink: /guides/propagation/
     <p class="tip">Pre-moisten mixes like a wrung-out sponge. If you can squeeze water out, it’s too wet.</p>
   </section>
 
-  <!-- Methods -->
+  <!-- 3. Methods -->
   <section class="section">
     <h2>Propagation Methods</h2>
     <div class="grid two">
@@ -136,7 +167,7 @@ permalink: /guides/propagation/
     </div>
   </section>
 
-  <!-- Species cheat sheets -->
+  <!-- 4. Species cheat sheets (incl. Roses) -->
   <section class="section">
     <h2>Species Cheat Sheets</h2>
     <table class="table mono" aria-label="Species cheat sheet">
@@ -161,7 +192,7 @@ permalink: /guides/propagation/
     </table>
   </section>
 
-  <!-- Humidity & aftercare -->
+  <!-- 5. Humidity & Aftercare -->
   <section class="section grid two">
     <div>
       <h2>Humidity, Light &amp; Airflow</h2>
@@ -183,7 +214,7 @@ permalink: /guides/propagation/
     </div>
   </section>
 
-  <!-- Hormones -->
+  <!-- 6. Hormones & natural aids -->
   <section class="section">
     <h2>Rooting Hormones &amp; Natural Aids</h2>
     <ul>
@@ -193,7 +224,7 @@ permalink: /guides/propagation/
     </ul>
   </section>
 
-  <!-- Calendar -->
+  <!-- 7. Calendar -->
   <section class="section">
     <h2>Propagation Calendar (UK, Balcony &amp; Patio)</h2>
     <table class="table mono" aria-label="Monthly propagation calendar">
@@ -215,7 +246,7 @@ permalink: /guides/propagation/
     </table>
   </section>
 
-  <!-- Troubleshooting -->
+  <!-- 8. Troubleshooting -->
   <section class="section">
     <h2>Troubleshooting</h2>
     <div class="grid two">
@@ -246,7 +277,7 @@ permalink: /guides/propagation/
     </div>
   </section>
 
-  <!-- FAQs -->
+  <!-- 9. FAQs -->
   <section class="section">
     <h2>FAQs</h2>
     <details>
@@ -267,7 +298,7 @@ permalink: /guides/propagation/
     </details>
   </section>
 
-  <!-- Downloads -->
+  <!-- 10. Downloads (All Green Buttons) -->
   <section class="section">
     <h2>Checklists &amp; Printables</h2>
     <div class="grid two">
@@ -283,16 +314,16 @@ permalink: /guides/propagation/
       <div>
         <h3>Downloads</h3>
         <ul>
-          <li><a class="btn ghost" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Handbook (PDF)</a></li>
-          <li><a class="btn ghost" href="{{ '/pdf/prop-log-cards.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Log Cards (PDF)</a></li>
-          <li><a class="btn ghost" href="{{ '/pdf/salvia-cuttings-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Salvia Cuttings Quick Guide (PDF)</a></li>
+          <li><a class="btn" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Handbook (PDF)</a></li>
+          <li><a class="btn" href="{{ '/pdf/prop-log-cards.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Log Cards (PDF)</a></li>
+          <li><a class="btn" href="{{ '/pdf/salvia-cuttings-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Salvia Cuttings Quick Guide (PDF)</a></li>
         </ul>
       </div>
     </div>
     <p class="mini">Label every pot. Include plant, method and date, e.g. <span class="kbd">S. nemorosa · softwood · 12-May</span>.</p>
   </section>
 
-  <!-- Cross-nav -->
+  <!-- 11. Cross-nav -->
   <nav class="mini-nav" aria-label="Related guides">
     <a href="{{ '/growing/first-pot.html' | relative_url }}">Your First Pot</a>
     <a href="{{ '/growing/companion.html' | relative_url }}">Companion Planting</a>

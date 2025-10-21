@@ -1,11 +1,213 @@
 ---
 layout: default
-title: Propagation — TEST
+title: Propagation — Patch & Pot
+description: The complete small-space propagation guide: cuttings, division, layering, water-prop, grafting, hygiene, media recipes, seasonal calendar and troubleshooting.
 permalink: /guides/propagation/
 ---
 
-<div style="min-height:60vh;background:#111;color:#7ed495;padding:20px;font:18px/1.5 ui-monospace">
-  <h1>Jekyll RENDER TEST</h1>
-  <p>If you see this green box AND your site header/footer + dark theme, the layout is being applied.</p>
-  <p><strong>Time:</strong> {{ site.time }}</p>
+<!-- Universal header mount -->
+<div id="site-header"></div>
+<script src="/js/header-loader.js"></script>
+
+<style>
+  .section{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:18px;margin:14px 0}
+  .grid{display:grid;gap:14px}
+  @media(min-width:920px){.grid.two{grid-template-columns:1fr 1fr}}
+  @media(min-width:1200px){.grid.three{grid-template-columns:repeat(3,1fr)}}
+  .table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--stroke)}
+  .table th,.table td{border-bottom:1px solid var(--stroke);padding:.6rem .7rem;text-align:left;vertical-align:top}
+  .table thead th{background:rgba(255,255,255,.06)}
+  .tip{border-left:3px solid #7ed495;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px}
+  .warn{border-left:3px solid #e2a66a;padding:.6rem .7rem;background:rgba(255,255,255,.06);border-radius:10px}
+  .callout{border:1px dashed var(--stroke);border-radius:12px;padding:.7rem .8rem;background:rgba(255,255,255,.05)}
+  .pill{display:inline-block;border:1px solid var(--stroke);border-radius:999px;padding:.25rem .55rem;margin:.15rem .2rem;background:rgba(255,255,255,.06);font-size:.9rem}
+  .mini{font-size:.9rem;opacity:.85}
+  .mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+  .kbd{padding:.05rem .35rem;border:1px solid var(--stroke);border-radius:6px;background:rgba(255,255,255,.06);font:600 .85rem/1 var(--font,ui-monospace)}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0;cursor:pointer}
+  .btn.primary{background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007}
+  .btn.ghost{background:rgba(255,255,255,.10);border:1px solid var(--stroke);color:#fff}
+</style>
+
+<!-- Hero -->
+<header class="hero" role="banner" aria-label="Propagation hero">
+  <figure>
+    <img src="/img/hero.jpg" alt="Hands potting up with soil and tools">
+    <div class="overlay" aria-hidden="true"></div>
+  </figure>
+  <div class="content">
+    <div class="wrap">
+      <span class="eyebrow">Multiply for free</span>
+      <h1>Propagation: Cuttings, Division &amp; More</h1>
+      <p class="lead">Grow more plants from what you already have — herbs, salvias, flowers and more, right on your balcony or windowsill.</p>
+      <a class="btn primary" href="/pdf/propagation.pdf" target="_blank" rel="noopener">Download PDF Guide</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- Why propagate -->
+  <section class="section">
+    <h2>Why Propagate?</h2>
+    <p>Propagation saves money, reduces waste, and gives you healthy, vigorous plants that adapt well to your space. Softwood cuttings can become mature plants in weeks, while division and layering keep older plants productive.</p>
+    <div class="callout">
+      <span class="pill">Low cost</span>
+      <span class="pill">Mindful gardening</span>
+      <span class="pill">Perfect for pots</span>
+      <span class="pill">Pollinator friendly</span>
+    </div>
+  </section>
+
+  <!-- Media recipes -->
+  <section class="section">
+    <h2>Propagation Media Recipes</h2>
+    <table class="table mono">
+      <thead><tr><th>Use</th><th>Mix</th><th>Why it works</th></tr></thead>
+      <tbody>
+        <tr><td>Softwood cuttings</td><td>50% compost · 50% perlite</td><td>Air + moisture = less rot, good strike rate</td></tr>
+        <tr><td>Semi-ripe / woody</td><td>40% compost · 40% fine bark · 20% perlite</td><td>Bark adds structure and balance</td></tr>
+        <tr><td>Water-prop potting-on</td><td>60% compost · 30% bark · 10% grit</td><td>Holds moisture, drains well for delicate roots</td></tr>
+        <tr><td>Hardwood sticks</td><td>1:1 sand : compost</td><td>Cool, free-draining overwinter bed</td></tr>
+      </tbody>
+    </table>
+    <p class="tip">Pre-moisten mixes like a wrung-out sponge. If water drips out, it's too wet.</p>
+  </section>
+
+  <!-- Methods -->
+  <section class="section">
+    <h2>Propagation Methods</h2>
+    <div class="grid two">
+      <article>
+        <h3>Softwood Cuttings</h3>
+        <p>Perfect for salvias, basil, mint, oregano, thyme, pelargoniums.</p>
+        <ol>
+          <li>Take 8–10 cm tip cutting below a node, strip lower leaves.</li>
+          <li>Dip in rooting powder (optional) and insert into mix.</li>
+          <li>Water, cover with dome or bag, ventilate daily.</li>
+        </ol>
+        <p class="tip">Multiple small cuttings root faster than one chunky stem.</p>
+      </article>
+      <article>
+        <h3>Semi-ripe &amp; Hardwood</h3>
+        <p>Good for rosemary, lavender, woody salvias, currants, figs.</p>
+        <ol>
+          <li>Take 8–12 cm semi-ripe tip or hardwood stick.</li>
+          <li>Insert into airy mix. Shelter over winter for hardwood.</li>
+        </ol>
+        <p class="warn">Cold + wet = failure. Keep mix just damp and ventilate.</p>
+      </article>
+      <article>
+        <h3>Division</h3>
+        <p>Best for chives, thyme, oregano, strawberries, hostas.</p>
+        <ol>
+          <li>Water day before. Tip out, tease or slice clump into sections.</li>
+          <li>Replant into fresh mix. Trim top growth by one-third.</li>
+        </ol>
+      </article>
+      <article>
+        <h3>Layering</h3>
+        <p>Easy, no-cut propagation for strawberries, thyme, oregano, salvias.</p>
+        <ol>
+          <li>Nick underside of stem, peg into neighbour pot.</li>
+          <li>Keep moist. Roots in 2–4 weeks. Cut free & pot on.</li>
+        </ol>
+      </article>
+      <article>
+        <h3>Water Propagation</h3>
+        <p>Mint, basil, salvias — simple on a windowsill.</p>
+        <ol>
+          <li>Strip lower leaves, place in water jar covering nodes.</li>
+          <li>Change water every 2–3 days. Pot up at 3–5 cm roots.</li>
+        </ol>
+        <p class="warn">Water roots are fragile. Don’t let them get too long.</p>
+      </article>
+      <article>
+        <h3>Grafting (Advanced)</h3>
+        <p>Used mainly for tomatoes and cucurbits.</p>
+        <ol>
+          <li>Match stem widths, cut both at 45°, align cambium.</li>
+          <li>Clip, high humidity 5–7 days, then wean to normal light.</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <!-- Cheat sheet -->
+  <section class="section">
+    <h2>Cheat Sheet: Popular Plants</h2>
+    <table class="table mono">
+      <thead><tr><th>Plant</th><th>Best Method</th><th>Root Time</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Salvia nemorosa</td><td>Softwood</td><td>2–4 wks</td><td>Pinch tips after potting</td></tr>
+        <tr><td>Rosemary</td><td>Semi-ripe</td><td>4–8 wks</td><td>Bottom warmth speeds rooting</td></tr>
+        <tr><td>Lavender</td><td>Semi-ripe</td><td>4–8 wks</td><td>Gritty mix, bright light</td></tr>
+        <tr><td>Basil &amp; Mint</td><td>Water or softwood</td><td>1–2 wks</td><td>Pot early before roots tangle</td></tr>
+        <tr><td>Strawberry</td><td>Layering</td><td>2–3 wks</td><td>Cut umbilical after rooting</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Seasonal calendar -->
+  <section class="section">
+    <h2>Propagation Calendar (UK)</h2>
+    <table class="table mono">
+      <thead><tr><th>Month</th><th>Focus</th><th>Good Targets</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Jan</td><td>Hardwood</td><td>Currants, willow</td><td>Cool gritty bed</td></tr>
+        <tr><td>Mar–May</td><td>Softwood</td><td>Salvias, herbs</td><td>Best strike rates</td></tr>
+        <tr><td>Jun–Aug</td><td>Semi-ripe</td><td>Rosemary, lavender</td><td>Bottom warmth</td></tr>
+        <tr><td>Sep</td><td>Layering</td><td>Thyme, salvias</td><td>Root in place</td></tr>
+        <tr><td>Nov–Dec</td><td>Hardwood</td><td>Figs, currants</td><td>Cool frame</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section class="section grid two">
+    <div>
+      <h2>Troubleshooting</h2>
+      <h3>Black stems</h3>
+      <ul>
+        <li>Too wet or too cold — refresh cutting & mix.</li>
+        <li>Warm base + airflow helps.</li>
+      </ul>
+      <h3>Wilt & crisp leaves</h3>
+      <ul>
+        <li>Heat stress — move out of midday sun.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>No roots after 6 wks</h3>
+      <ul>
+        <li>Material too old or cold. Take fresher cuttings.</li>
+      </ul>
+      <h3>Stall after potting</h3>
+      <ul>
+        <li>Pot too big or too rich. Step up gradually.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Downloads -->
+  <section class="section">
+    <h2>Downloads</h2>
+    <p>Printable resources to make propagation easy at your bench.</p>
+    <ul>
+      <li><a class="btn ghost" href="/pdf/propagation.pdf" target="_blank">Propagation Handbook (PDF)</a></li>
+      <li><a class="btn ghost" href="/pdf/prop-log-cards.pdf" target="_blank">Propagation Log Cards</a></li>
+      <li><a class="btn ghost" href="/pdf/salvia-cuttings-guide.pdf" target="_blank">Salvia Cuttings Quick Guide</a></li>
+    </ul>
+    <p class="mini">Label every pot. Example: <span class="kbd">S. nemorosa · softwood · 12-May</span></p>
+  </section>
+
+  <!-- Mini nav -->
+  <nav class="mini-nav" aria-label="Related guides">
+    <a href="/growing/first-pot.html">Your First Pot</a>
+    <a href="/growing/companion.html">Companion Planting</a>
+    <a href="/growing/pests.html">Pests &amp; Problems</a>
+  </nav>
 </div>
+
+<!-- Universal footer mount -->
+<div id="site-footer"></div>

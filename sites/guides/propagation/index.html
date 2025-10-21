@@ -34,6 +34,19 @@ permalink: /guides/propagation/
   .hero--prop .content{position:static;background:#000;border-top:1px solid var(--stroke)}
   .hero--prop .content .wrap{max-width:var(--maxw);margin:0 auto;padding:1.25rem 20px 1.6rem}
   .hero--prop .eyebrow,.hero--prop h1,.hero--prop .lead{color:#fff}
+
+/* ensure hero overlay can't cover content below */
+header.hero { position: relative; }
+header.hero .overlay { position:absolute; inset:0; pointer-events:none; z-index:1; }
+header.hero figure { margin:0; }
+header.hero figure img { width:100%; height:clamp(320px,48vh,520px); object-fit:cover; object-position:center 35%; }
+
+/* simple intro text styles (inherits your dark bg) */
+.intro .eyebrow{display:block;font-weight:600;text-transform:uppercase;letter-spacing:.04em;opacity:.9;margin-bottom:.25rem}
+.intro h1{margin:.2rem 0 .35rem;font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.12}
+.intro .lead{margin:.2rem 0 1rem;color:#e8efe9}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0;cursor:pointer;text-decoration:none}
+.btn.pp-green{background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007}
 </style>
 
 <!-- HERO -->
@@ -51,6 +64,13 @@ permalink: /guides/propagation/
     </div>
   </div>
 </header>
+
+<section class="wrap intro" aria-label="Propagation intro" style="padding:1.5rem 1rem 0;">
+  <span class="eyebrow">Multiply for free</span>
+  <h1>Propagation: Cuttings, Division &amp; Grafting</h1>
+  <p class="lead">The complete small-space manual for salvias, herbs, ornamentals and edibles — windowsill, balcony or kitchen table.</p>
+  <p><a class="btn pp-green" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Download Full Handbook (PDF)</a></p>
+</section>
 
 <div class="wrap">
 

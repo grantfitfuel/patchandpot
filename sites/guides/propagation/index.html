@@ -47,6 +47,9 @@ header.hero figure img { width:100%; height:clamp(320px,48vh,520px); object-fit:
 .intro .lead{margin:.2rem 0 1rem;color:#e8efe9}
 .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-radius:12px;font-weight:700;border:0;cursor:pointer;text-decoration:none}
 .btn.pp-green{background:linear-gradient(180deg,#7ed495,#2E7D32);color:#061007}
+
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.table{min-width:720px} /* gives the table a reasonable baseline width for small screens */
 </style>
 
 <!-- HERO -->
@@ -71,8 +74,6 @@ header.hero figure img { width:100%; height:clamp(320px,48vh,520px); object-fit:
   <p class="lead">The complete small-space manual for salvias, herbs, ornamentals and edibles — windowsill, balcony or kitchen table.</p>
   <p><a class="btn pp-green" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Download Full Handbook (PDF)</a></p>
 </section>
-
-<div class="wrap">
 
   <!-- 1. Workspace & Hygiene -->
   <section class="section">
@@ -189,8 +190,9 @@ header.hero figure img { width:100%; height:clamp(320px,48vh,520px); object-fit:
 
   <!-- 4. Species cheat sheets (incl. Roses) -->
   <section class="section">
-    <h2>Species Cheat Sheets</h2>
-    <table class="table mono" aria-label="Species cheat sheet">
+  <h2>Species Cheat Sheets</h2>
+  <div class="table-scroll">
+    <table class="table mono">
       <thead><tr><th>Plant</th><th>Best Method</th><th>Root Time</th><th>Potting-on</th><th>Notes</th></tr></thead>
       <tbody>
         <tr><td>Salvia nemorosa</td><td>Softwood (spring)</td><td>2–4 wks</td><td>When 3–4 cm roots</td><td>Pinch tips after first potting to bush out</td></tr>
@@ -210,6 +212,7 @@ header.hero figure img { width:100%; height:clamp(320px,48vh,520px); object-fit:
         </tr>
       </tbody>
     </table>
+  </div>
   </section>
 
   <!-- 5. Humidity & Aftercare -->

@@ -107,3 +107,39 @@ header.hero > figure > img {
   object-position: center;    /* center the subject */
 }
 header.hero > .overlay { position: absolute; inset: 0; }
+/* === HERO HARD RESET (wins over everything) === */
+header.hero,
+.hero {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  min-height: clamp(340px, 48vh, 560px) !important;
+  overflow: hidden !important;
+}
+
+/* Make the figure cover the header area */
+header.hero > figure,
+.hero > figure {
+  position: absolute !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Make the image fill and center */
+header.hero > figure > img,
+.hero > figure > img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;     /* fill the slot */
+  object-position: center !important;/* center subject */
+}
+
+/* If any page uses a variant class, it’s covered too */
+.hero--recipes > figure > img,
+.hero--growing > figure > img,
+.hero--exercise > figure > img {
+  object-position: center !important;
+}

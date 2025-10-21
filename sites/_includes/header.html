@@ -1,81 +1,39 @@
-<header id="ppHeader" class="site-header" role="banner">
-  <div class="wrap">
-    <!-- Brand -->
-    <a href="{{ '/' | relative_url }}" class="brand">
-      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo" class="logo">
-      <span class="site-name">Patch &amp; Pot</span>
+<header id="PP_HDR" style="background:#0a0f0c;border-bottom:1px solid #1f2630;color:#fff;position:relative;z-index:9999;">
+  <div style="max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+    <a href="{{ '/' | relative_url }}" style="display:flex;align-items:center;gap:10px;color:#e6f0ea;text-decoration:none;">
+      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot" style="height:28px;width:auto">
+      <strong>Patch &amp; Pot</strong>
     </a>
 
-    <!-- Hamburger (phones only) -->
-    <button id="ppNavToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="ppPrimaryNav">
-      <!-- White SVG burger -->
-      <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="1" y="2" width="24" height="2" rx="1" fill="#FFFFFF"/>
-        <rect x="1" y="10" width="24" height="2" rx="1" fill="#FFFFFF"/>
-        <rect x="1" y="18" width="24" height="2" rx="1" fill="#FFFFFF"/>
-      </svg>
-      <span class="sr">Menu</span>
+    <!-- ALWAYS VISIBLE MENU BUTTON (white) -->
+    <button id="PP_TGL" aria-label="Toggle navigation" aria-expanded="false"
+            style="background:transparent;border:0;color:#fff;font-size:18px;font-weight:700;cursor:pointer;line-height:1;padding:8px 10px;">
+      MENU &#9776;
     </button>
-
-    <!-- Primary nav -->
-    <nav id="ppPrimaryNav" aria-label="Primary">
-      {% for item in site.data.nav %}
-        <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
-      {% endfor %}
-    </nav>
   </div>
 
-  <!-- Scoped, defensive styles (IDs + !important on critical bits) -->
-  <style>
-    /* base header */
-    #ppHeader{background:#0a0f0c;border-bottom:1px solid #1f2630;position:relative;z-index:1000}
-    #ppHeader .wrap{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative}
-    #ppHeader .brand{display:flex;align-items:center;gap:10px;color:#e6f0ea;text-decoration:none}
-    #ppHeader .logo{height:28px;width:auto}
+  <!-- DROPDOWN NAV (hidden by default) -->
+  <nav id="PP_NAV" aria-label="Primary"
+       style="display:none;position:relative;max-width:1100px;margin:0 auto 10px; padding:0 20px;">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;background:#0a0f0c;border:1px solid #1f2630;border-radius:10px;padding:10px;">
+      {% for item in site.data.nav %}
+        <a href="{{ item.url | relative_url }}"
+           style="color:#cfe9dc;text-decoration:none;padding:6px 8px;border-radius:8px;display:inline-block;border:1px solid transparent">
+           {{ item.title }}
+        </a>
+      {% endfor %}
+    </div>
+  </nav>
 
-    /* nav links */
-    #ppPrimaryNav{display:flex;gap:1.2rem;white-space:nowrap}
-    #ppPrimaryNav a{color:#cfe9dc;text-decoration:none;padding:6px 8px;border-radius:8px}
-    #ppPrimaryNav a:hover{background:#101612}
-
-    /* burger button reset */
-    #ppNavToggle{display:none;background:transparent;border:0;cursor:pointer;padding:6px;line-height:0}
-    #ppNavToggle:focus{outline:2px solid #7ed495;outline-offset:2px}
-    #ppNavToggle svg{display:block}
-
-    /* accessibility helper */
-    .sr{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-    /* Phones (≤820px): show burger, hide nav until opened */
-    @media (max-width:820px){
-      #ppNavToggle{display:flex !important;align-items:center;justify-content:center}
-      #ppPrimaryNav{
-        display:none !important;
-        flex-direction:column;
-        position:absolute;top:100%;right:20px;
-        background:#0a0f0c;border:1px solid #1f2630;border-radius:10px;
-        padding:10px;z-index:1001;
-      }
-      #ppPrimaryNav.pp-open{display:flex !important;}
-    }
-
-    /* Desktop (>820px): hide burger, show nav */
-    @media (min-width:821px){
-      #ppNavToggle{display:none !important;}
-      #ppPrimaryNav{display:flex !important;}
-    }
-  </style>
-
-  <!-- Inline toggle (no external JS required) -->
   <script>
-    document.addEventListener('DOMContentLoaded',function(){
-      var btn=document.getElementById('ppNavToggle');
-      var nav=document.getElementById('ppPrimaryNav');
-      if(!btn||!nav) return;
-      btn.addEventListener('click',function(){
-        var exp=btn.getAttribute('aria-expanded')==='true';
-        btn.setAttribute('aria-expanded', String(!exp));
-        nav.classList.toggle('pp-open');
+    document.addEventListener('DOMContentLoaded', function () {
+      var btn = document.getElementById('PP_TGL');
+      var nav = document.getElementById('PP_NAV');
+      if (!btn || !nav) return;
+      btn.addEventListener('click', function () {
+        var open = nav.style.display === 'block';
+        nav.style.display = open ? 'none' : 'block';
+        btn.setAttribute('aria-expanded', String(!open));
       });
     });
   </script>

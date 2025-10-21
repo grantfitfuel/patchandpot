@@ -6,9 +6,9 @@
       <span class="site-name">Patch &amp; Pot</span>
     </a>
 
-    <!-- Hamburger -->
+    <!-- Hamburger (white for dark background) -->
     <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
-      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      <span class="burger" aria-hidden="true">☰</span>
     </button>
 
     <!-- Primary nav -->
@@ -18,17 +18,116 @@
       {% endfor %}
     </nav>
   </div>
-</header>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  var btn = document.querySelector('.nav-toggle');
-  var nav = document.getElementById('primary-nav');
-  if(!btn || !nav) return;
-  btn.addEventListener('click', function () {
-    var exp = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!exp));
-    nav.classList.toggle('open');
-  });
-});
-</script>
+  <!-- SCOPED STYLES -->
+  <style>
+    .site-header {
+      background:#0a0f0c;
+      border-bottom:1px solid #1f2630;
+      position:relative;
+      z-index:1000;
+    }
+    .site-header .wrap {
+      max-width:1100px;
+      margin:0 auto;
+      padding:12px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      position:relative;
+    }
+    .site-header .brand {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#e6f0ea;
+      text-decoration:none;
+    }
+    .site-header .logo {
+      height:28px;
+      width:auto;
+    }
+
+    /* Nav (desktop default) */
+    .site-header .nav {
+      display:flex;
+      gap:1.2rem;
+      white-space:nowrap;
+    }
+    .site-header .nav a {
+      color:#cfe9dc;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+    }
+    .site-header .nav a:hover {
+      background:#101612;
+    }
+
+    /* Hamburger styling */
+    .site-header .nav-toggle {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:transparent;
+      border:0;
+      cursor:pointer;
+      font-size:26px;
+      line-height:1;
+      color:#ffffff;  /* ← white burger on dark background */
+    }
+    .site-header .nav-toggle:focus {
+      outline:2px solid #7ed495;
+      outline-offset:2px;
+    }
+    .site-header .burger {
+      display:inline-block;
+      font-size:26px;
+      color:#ffffff;  /* ensure burger symbol stays white */
+    }
+
+    /* Mobile menu dropdown */
+    @media (max-width: 760px) {
+      .site-header .nav {
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:100%;
+        right:20px;
+        background:#0a0f0c;
+        border:1px solid #1f2630;
+        border-radius:10px;
+        padding:10px;
+        z-index:1001;
+      }
+      .site-header .nav.open {
+        display:flex;
+      }
+    }
+
+    /* Hide burger on desktop */
+    @media (min-width: 761px) {
+      .site-header .nav-toggle {
+        display:none;
+      }
+      .site-header .nav {
+        display:flex;
+      }
+    }
+  </style>
+
+  <!-- INLINE SCRIPT FOR BURGER TOGGLE -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var btn = document.querySelector('.site-header .nav-toggle');
+      var nav = document.getElementById('primary-nav');
+      if (!btn || !nav) return;
+      btn.addEventListener('click', function () {
+        var exp = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!exp));
+        nav.classList.toggle('open');
+      });
+    });
+  </script>
+</header>

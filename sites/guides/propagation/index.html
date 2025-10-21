@@ -339,29 +339,50 @@ header.hero figure img { width:100%; height:clamp(320px,48vh,520px); object-fit:
   </section>
 
   <!-- 10. Downloads (All Green Buttons) -->
-  <section class="section">
-    <h2>Checklists &amp; Printables</h2>
-    <div class="grid two">
-      <div>
-        <h3>Grab-and-Go Kit</h3>
-        <ul>
-          <li>Secateurs or knife + alcohol wipes</li>
-          <li>Small pots/cells + labels</li>
-          <li>Perlite, bark fibre, peat-free compost</li>
-          <li>Clear bags or mini dome, elastic bands or pegs</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Downloads</h3>
-        <ul>
-          <li><a class="btn" href="{{ '/pdf/propagation.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Handbook (PDF)</a></li>
-          <li><a class="btn" href="{{ '/pdf/prop-log-cards.pdf' | relative_url }}" target="_blank" rel="noopener">Propagation Log Cards (PDF)</a></li>
-          <li><a class="btn" href="{{ '/pdf/salvia-cuttings-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Salvia Cuttings Quick Guide (PDF)</a></li>
-        </ul>
-      </div>
-    </div>
-    <p class="mini">Label every pot. Include plant, method and date, e.g. <span class="kbd">S. nemorosa · softwood · 12-May</span>.</p>
-  </section>
+  <!-- =======================
+     Propagation Quick Guides (Downloads)
+     ======================= -->
+<section class="section" aria-label="Propagation quick guides downloads">
+  <h2>Quick Guides — Edible Herbs</h2>
+  <div class="prop-dl">
+    <a class="btn pp-green" href="{{ '/pdf/basil---mint-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Basil / Mint — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/chives-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Chives — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/lemon-balm-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Lemon Balm — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/oregano---marjoram-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Oregano / Marjoram — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/rosemary-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Rosemary — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/salvia-officinalis-culinary-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Sage (Salvia officinalis) — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/tarragon-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Tarragon (French) — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/thyme-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Thyme — Quick Guide (PDF)</a>
+  </div>
+</section>
+
+<section class="section" aria-label="Edible fruit propagation quick guides">
+  <h2>Quick Guides — Edible Fruit</h2>
+  <div class="prop-dl">
+    <a class="btn pp-green" href="{{ '/pdf/strawberry-fruit-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Strawberry — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/fig-(juvenile)-fruit-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Fig (juvenile) — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/currants-(ribes)-fruit-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Currants (Ribes) — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/grapevine-fruit-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Grapevine — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/raspberry-fruit-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Raspberry — Quick Guide (PDF)</a>
+    <a class="btn pp-green" href="{{ '/pdf/blueberry-fruit-quick-guide.pdf' | relative_url }}" target="_blank" rel="noopener">Blueberry — Quick Guide (PDF)</a>
+  </div>
+
+  <p style="margin-top:1rem">
+    <a class="btn pp-green" href="{{ '/pdf/edible-propagation-quick-guides-booklet.pdf' | relative_url }}" target="_blank" rel="noopener">
+      Download All Edible Guides (Booklet PDF)
+    </a>
+  </p>
+</section>
+
+<!-- Page-only, tiny layout helper for button grid -->
+<style>
+  .prop-dl{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:.6rem;
+    margin:.8rem 0 0;
+  }
+</style>
 
   <!-- 11. Cross-nav -->
   <nav class="mini-nav" aria-label="Related guides">

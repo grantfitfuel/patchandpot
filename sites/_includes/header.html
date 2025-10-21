@@ -1,56 +1,140 @@
 <header id="PP_HDR" class="site-header" role="banner">
-  <div class="wrap" style="max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:relative;">
+  <div class="wrap">
     <!-- Brand -->
-    <a href="{{ '/' | relative_url }}" class="brand" style="display:flex;align-items:center;gap:10px;color:#e6f0ea;text-decoration:none;">
-      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo" class="logo" style="height:28px;width:auto;">
-      <strong>Patch &amp; Pot</strong>
+    <a href="{{ '/' | relative_url }}" class="brand">
+      <img src="{{ '/img/patchandpot-logo.png' | relative_url }}" alt="Patch & Pot logo" class="logo">
+      <strong class="site-name">Patch &amp; Pot</strong>
     </a>
 
     <!-- Phone-only hamburger (white) -->
-    <button id="PP_TGL" aria-label="Toggle navigation" aria-expanded="false" aria-controls="PP_NAV"
-            style="background:transparent;border:0;color:#fff;font-size:24px;cursor:pointer;line-height:1;padding:8px 10px;display:none;">
+    <button id="PP_TGL" aria-label="Toggle navigation" aria-expanded="false" aria-controls="PP_NAV">
       &#9776;
     </button>
 
-    <!-- Inline nav (ALWAYS present; CSS decides when to show) -->
-    <nav id="PP_NAV" aria-label="Primary" style="display:flex;gap:1.2rem;white-space:nowrap;">
+    <!-- Inline nav -->
+    <nav id="PP_NAV" aria-label="Primary">
       {% for item in site.data.nav %}
-        <a href="{{ item.url | relative_url }}" style="color:#cfe9dc;text-decoration:none;padding:6px 8px;border-radius:8px;">{{ item.title }}</a>
+        <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
       {% endfor %}
     </nav>
   </div>
 
-  <!-- Scoped styles (affect header only) -->
   <style>
-    #PP_HDR{background:#0a0f0c;border-bottom:1px solid #1f2630;position:relative;z-index:1000}
-    #PP_HDR a:hover{background:#101612;border-radius:8px}
+    /* Base header */
+    #PP_HDR{
+      background:#0a0f0c;
+      border-bottom:1px solid #1f2630;
+      position:relative;
+      z-index:1000;
+    }
+    #PP_HDR .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:12px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap; /* allows wrapping if really tight */
+    }
+    #PP_HDR .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#e6f0ea;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    #PP_HDR .logo{height:28px;width:auto}
+    #PP_HDR .site-name{color:#e6f0ea}
 
-    /* Phones: show burger, hide inline nav until opened as dropdown */
+    #PP_NAV{
+      display:flex;
+      gap:1.2rem;
+      white-space:nowrap;
+      margin-left:auto;
+      flex-wrap:wrap;
+    }
+    #PP_NAV a{
+      color:#cfe9dc;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      display:inline-block;
+    }
+    #PP_NAV a:hover{
+      background:#101612;
+    }
+
+    #PP_TGL{
+      background:transparent;
+      border:0;
+      color:#fff;
+      font-size:24px;
+      cursor:pointer;
+      line-height:1;
+      padding:8px 10px;
+      display:none;
+    }
+
+    /* Phone (burger visible) */
     @media (max-width:820px){
       #PP_TGL{display:inline-block !important;}
-      /* Turn the nav into a dropdown, hidden by default */
       #PP_NAV{
         display:none !important;
         flex-direction:column;
-        position:absolute; top:100%; right:20px;
-        background:#0a0f0c; border:1px solid #1f2630; border-radius:10px;
-        padding:10px; z-index:1001;
+        position:absolute;
+        top:100%;
+        right:20px;
+        background:#0a0f0c;
+        border:1px solid #1f2630;
+        border-radius:10px;
+        padding:10px;
+        z-index:1001;
+        gap:.6rem;
       }
       #PP_NAV.pp-open{display:flex !important;}
     }
 
-    /* iPad/desktop: hide burger, show inline nav horizontally */
-    @media (min-width:821px){
+    /* Tablet (tighten nav) */
+    @media (min-width:821px) and (max-width:1024px){
       #PP_TGL{display:none !important;}
       #PP_NAV{
         display:flex !important;
-        position:static; background:transparent; border:0; padding:0;
-        flex-direction:row;
+        gap:0.5rem;                /* less gap */
+      }
+      #PP_NAV a{
+        font-size:0.84rem;         /* smaller font */
+        padding:3px 5px;           /* less padding */
+      }
+      #PP_HDR .wrap{
+        padding:10px 14px;         /* slightly tighter container */
+      }
+      #PP_HDR .brand .site-name{
+        font-size:0.95rem;         /* slightly smaller label */
+      }
+    }
+
+    /* Desktop */
+    @media (min-width:1025px){
+      #PP_TGL{display:none !important;}
+      #PP_NAV{
+        display:flex !important;
+        gap:1rem;
+      }
+      #PP_NAV a{
+        font-size:0.95rem;
+        padding:5px 7px;
+      }
+      #PP_HDR .wrap{
+        padding:12px 20px;
+      }
+      #PP_HDR .brand .site-name{
+        font-size:1rem;
       }
     }
   </style>
 
-  <!-- Tiny toggle script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var btn = document.getElementById('PP_TGL');

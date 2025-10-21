@@ -143,3 +143,27 @@ header.hero > figure > img,
 .hero--exercise > figure > img {
   object-position: center !important;
 }
+/* --- Tablet & Desktop nav formatting tweaks --- */
+@media (min-width:821px){
+  #PP_NAV a {
+    font-size: 0.9rem;        /* smaller text */
+    padding: 4px 6px;         /* less padding inside each link */
+  }
+  #PP_NAV {
+    gap: 0.8rem;              /* less gap between items */
+  }
+}
+
+/* --- Very wide screens --- */
+@media (min-width:1200px){
+  #PP_NAV a {
+    font-size: 1rem;
+    padding: 6px 8px;
+  }
+  #PP_NAV {
+    gap: 1.2rem;
+  }
+}
+
+
+

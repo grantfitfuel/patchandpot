@@ -3,34 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <title>{{ page.title }} | {{ site.title }}</title>
 
-  <meta name="description" content="{{ page.description | default: site.description | escape }}">
-  {% if page.keywords %}<meta name="keywords" content="{{ page.keywords | escape }}">{% endif %}
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <meta name="keywords" content="{{ page.keywords }}">
 
-  <!-- Social -->
+  <!-- Social (OG/Twitter) -->
   <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
   <meta property="og:description" content="{{ page.description | default: site.description | escape }}">
-  <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:image" content="{{ site.url }}/img/patchandpot-logo.png">
+  <meta property="og:image" content="{{ site.url }}{{ site.logo }}">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Icons -->
-  <link rel="icon" href="{{ '/img/patchandpot-logo.png' | relative_url }}">
-  <link rel="apple-touch-icon" href="{{ '/img/patchandpot-logo.png' | relative_url }}">
+  <link rel="icon" type="image/png" href="{{ site.logo | relative_url }}">
+  <link rel="apple-touch-icon" href="{{ site.logo | relative_url }}">
 
-  <!-- CSS (per your structure) -->
-  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css' | relative_url }}">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ '/assets/css/site.css?v=1' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/pp-hotfix.css?v=36' | relative_url }}">
 </head>
 <body>
+
+  <!-- Header Include -->
   {% include header.html %}
 
+  <!-- Page Content -->
   <main id="main-content" role="main">
     {{ content }}
   </main>
 
+  <!-- Footer Include -->
   {% include footer.html %}
+
+  <!-- Scripts -->
+  <script src="{{ '/assets/js/nav.js?v=1' | relative_url }}" defer></script>
+
 </body>
 </html>

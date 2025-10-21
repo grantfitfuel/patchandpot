@@ -5,14 +5,14 @@
       <strong>Patch &amp; Pot</strong>
     </a>
 
-    <!-- ALWAYS VISIBLE MENU BUTTON (white) -->
+    <!-- PHONE-ONLY HAMBURGER (white) -->
     <button id="PP_TGL" aria-label="Toggle navigation" aria-expanded="false"
-            style="background:transparent;border:0;color:#fff;font-size:18px;font-weight:700;cursor:pointer;line-height:1;padding:8px 10px;">
-      MENU &#9776;
+            style="background:transparent;border:0;color:#fff;font-size:24px;cursor:pointer;line-height:1;padding:8px 10px;display:none;">
+      &#9776;
     </button>
   </div>
 
-  <!-- DROPDOWN NAV (hidden by default) -->
+  <!-- DROPDOWN NAV -->
   <nav id="PP_NAV" aria-label="Primary"
        style="display:none;position:relative;max-width:1100px;margin:0 auto 10px; padding:0 20px;">
     <div style="display:flex;flex-wrap:wrap;gap:10px;background:#0a0f0c;border:1px solid #1f2630;border-radius:10px;padding:10px;">
@@ -24,6 +24,20 @@
       {% endfor %}
     </div>
   </nav>
+
+  <style>
+    /* Show burger only on phones; keep desktop nav visible in the header row */
+    @media (max-width: 820px){
+      #PP_TGL{display:inline-block !important;}
+      /* On phones, hide the inline header nav (we’re using the dropdown) */
+      #PP_HDR .header-inline-nav{display:none !important;}
+    }
+    @media (min-width: 821px){
+      #PP_TGL{display:none !important;}
+      /* Optional: keep a single-line inline nav by duplicating links if you want.
+         If you don't keep a second inline nav, the dropdown remains hidden on desktop. */
+    }
+  </style>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {

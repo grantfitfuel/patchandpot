@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monthly Tips – Patch & Pot</title>
+
+  <!-- Main site CSS (already in your project) -->
+  <link rel="stylesheet" href="site.css?v=monthly-nov-01">
+
+  <!-- Favicons (optional, keep your existing links) -->
+  <meta name="theme-color" content="#2F6F4E">
+  <style>
+    /* Scoped styles so we don’t touch the rest of the site */
+    .monthly .wrap{max-width: 980px; margin: 0 auto; padding: 0 1rem;}
+    .monthly .toggle{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0;}
+    .monthly .btn{background:#0F3D2E;color:#fff;border:0;border-radius:.4rem;padding:.55rem .9rem;cursor:pointer}
+    .monthly .btn[aria-pressed="true"]{background:#C46A3A}
+    .monthly .grid{display:grid;grid-template-columns:1fr;gap:1rem;margin:1rem 0}
+    @media(min-width:820px){.monthly .grid{grid-template-columns:1fr 1fr}}
+    .monthly h2{color:#0F3D2E;margin-top:1.25rem}
+    .monthly ul{margin:.25rem 0 0 1.1rem}
+    .monthly li{margin:.2rem 0}
+    .monthly .pdfbar{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem}
+    .monthly .pdfbar a{display:inline-block;background:#2F6F4E;color:#fff;padding:.5rem .75rem;border-radius:.4rem;text-decoration:none}
+    .monthly .badge{position:absolute;right:1rem;top:1rem;background:#C46A3A;color:#fff;padding:.35rem .6rem;border-radius:.4rem}
+    .monthly .hero figure{position:relative;margin:0}
+    .monthly .hero img{width:100%;height:clamp(220px,40vh,420px);object-fit:cover;object-position:center}
+    .monthly .hero .content{position:absolute;left:0;bottom:0;width:100%;background:linear-gradient(transparent, rgba(15,61,46,.88));color:#fff;padding:1rem}
+    .monthly .hero h1{margin:.2rem 0 .1rem 0}
+    .monthly .hero p{margin:.1rem 0 .25rem 0}
+    .monthly .mono{font-variant-numeric:tabular-nums}
+  </style>
+</head>
+<body class="monthly">
+  <!-- Universal header mount (your rule: only one <header> on page) -->
+  <div id="site-header"></div>
+  <script src="/js/header-loader.js"></script>
+
+  <!-- Hero -->
+  <section class="hero" role="banner" aria-label="Monthly tips hero">
+    <figure>
+      <img id="hero-img" src="img/monthly/monthly-nov-scotland-ireland-header.png" alt="Containers with hardy winter greens on a small patio">
+      <span id="region-badge" class="badge">Scotland/Ireland</span>
+      <div class="content wrap">
+        <h1>November small space growing tips</h1>
+        <p class="mono" id="month-stamp"></p>
+      </div>
+    </figure>
+  </section>
+
+  <main class="wrap" id="app" aria-live="polite">
+    <nav class="toggle" aria-label="Choose your region">
+      <button class="btn" id="btn-scot" aria-pressed="true">Scotland/Ireland</button>
+      <button class="btn" id="btn-eng">England/Wales</button>
+      <div class="pdfbar" aria-label="Printable one-page versions">
+        <a id="pdf-link" href="pdf/PatchAndPot-November-Scotland-Ireland.pdf">Download PDF</a>
+      </div>
+    </nav>
+
+    <div class="grid" id="panels">
+      <!-- Left column -->
+      <section>
+        <h2>What to sow</h2>
+        <ul id="sow"></ul>
+
+        <h2>What to plant</h2>
+        <ul id="plant"></ul>
+
+        <h2>What to harvest</h2>
+        <ul id="harvest"></ul>
+      </section>
+
+      <!-- Right column -->
+      <section>
+        <h2>Pest watch</h2>
+        <ul id="pest"></ul>
+
+        <h2>Top 3 tasks</h2>
+        <ul id="tasks"></ul>
+
+        <h2>Companion combos</h2>
+        <ul id="combos"></ul>
+      </section>
+    </div>
+  </main>
+
+  <script>
+  (function(){
+    const monthName = new Date().toLocaleString('en-GB', { month: 'long' }); // current month
+    document.getElementById('month-stamp').textContent = monthName + " (UK)";
+
+    // Data for November (expand later if you want other months)
+    const NOV = {
+      "Scotland/Ireland": {
+        hero: "img/monthly/monthly-nov-scotland-ireland-header.png",
+        pdf:  "pdf/PatchAndPot-November-Scotland-Ireland.pdf",
+        sow: [
+          "Winter salads in trays under cover: lamb’s lettuce, rocket, mizuna, winter spinach",
+          "Spring onions in modules; keep in a cold frame or bright window",
+          "Coriander and parsley for windowsill picking"
+        ],
+        plant: [
+          "Garlic cloves in deep pots (20–30 cm) with free-draining compost",
+          "Bare-root fruit: currants, gooseberries, raspberries; pot up now",
+          "Autumn shallots; strawberries into planters for next summer"
+        ],
+        harvest: [
+          "Kale, chard, beetroot, leeks, Brussels sprouts, last carrots",
+          "Windowsill salads and hardy herbs (parsley, chives, rosemary)",
+          "Parsnips after a frost for sweeter flavour"
+        ],
+        pest: [
+          "Slugs and snails in damp, mild spells — raise pots, use barriers",
+          "Vine-weevil larvae in containers — tip out suspect plants and check roots",
+          "Pigeons on brassicas — net securely; stake tall sprout stems against wind"
+        ],
+        tasks: [
+          "Mulch and insulate containers; raise pots on feet for drainage",
+          "Clear old growth, remove weeds, bag leaves for leaf-mould",
+          "Plant garlic and shallots; refresh labels and clean tools"
+        ],
+        combos: [
+          "Garlic + spinach + parsley (quick greens with gentle pest deterring)",
+          "Kale + thyme + chives (fragrant underplanting, pollinator-friendly in spring)",
+          "Strawberries + chives + viola (edible flowers, helpful scent)"
+        ]
+      },
+      "England/Wales": {
+        hero: "img/monthly/monthly-nov-england-wales-header.png",
+        pdf:  "pdf/PatchAndPot-November-England-Wales.pdf",
+        sow: [
+          "Broad beans in deep pots (Aquadulce type) for early spring picking",
+          "Hardy peas like ‘Meteor’ in troughs under cover or fleece",
+          "Winter salads: lamb’s lettuce, rocket, mizuna, spinach"
+        ],
+        plant: [
+          "Garlic and autumn onion sets in containers with sharp drainage",
+          "Bare-root fruit (currants, gooseberries, raspberries) and rhubarb crowns",
+          "Strawberries into planters; top with straw or fleece in cold snaps"
+        ],
+        harvest: [
+          "Parsnips, leeks, kale, Brussels sprouts, carrots, chard",
+          "Celery and celeriac where planted; hardy herbs",
+          "Cut-and-come-again salads from trays under cover"
+        ],
+        pest: [
+          "Pigeons on brassicas — net now; secure mesh against wind",
+          "Slugs and snails; check sheltered rims and bases of pots",
+          "Mice may raid broad beans — use mesh or sow under cover"
+        ],
+        tasks: [
+          "Stake and net brassicas; firm sprout stems to prevent wind-rock",
+          "Raise pots on feet; check drainage; refresh tired compost with leaf-mould",
+          "Succession-sow winter salads every 10–14 days under cover"
+        ],
+        combos: [
+          "Broad beans + spring onions + chamomile (space-saving, scents to confuse pests)",
+          "Garlic + spinach + carrots (quick leaves with a root row in a deep trough)",
+          "Leeks + carrots + parsley (upright leeks, feathery carrots, soft herb filler)"
+        ]
+      }
+    };
+
+    const els = {
+      hero: document.getElementById('hero-img'),
+      badge: document.getElementById('region-badge'),
+      pdf: document.getElementById('pdf-link'),
+      sow: document.getElementById('sow'),
+      plant: document.getElementById('plant'),
+      harvest: document.getElementById('harvest'),
+      pest: document.getElementById('pest'),
+      tasks: document.getElementById('tasks'),
+      combos: document.getElementById('combos'),
+      btnScot: document.getElementById('btn-scot'),
+      btnEng: document.getElementById('btn-eng')
+    };
+
+    function fillList(ul, items){
+      ul.innerHTML = items.map(x => `<li>${x}</li>`).join('');
+    }
+
+    function setRegion(region){
+      const data = NOV[region];
+      els.hero.src = data.hero;
+      els.badge.textContent = region;
+      els.pdf.href = data.pdf;
+      fillList(els.sow, data.sow);
+      fillList(els.plant, data.plant);
+      fillList(els.harvest, data.harvest);
+      fillList(els.pest, data.pest);
+      fillList(els.tasks, data.tasks);
+      fillList(els.combos, data.combos);
+      els.btnScot.setAttribute('aria-pressed', region === 'Scotland/Ireland');
+      els.btnEng.setAttribute('aria-pressed', region === 'England/Wales');
+    }
+
+    // Default to Scotland/Ireland; user can toggle
+    setRegion('Scotland/Ireland');
+
+    els.btnScot.addEventListener('click', () => setRegion('Scotland/Ireland'));
+    els.btnEng.addEventListener('click',  () => setRegion('England/Wales'));
+  })();
+  </script>
+</body>
+</html>

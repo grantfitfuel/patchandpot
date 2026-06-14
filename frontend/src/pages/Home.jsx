@@ -3,37 +3,31 @@ import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping }
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
-
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
+import { useI18n, monthLabel } from "@/i18n";
 
 export default function Home() {
   const { region } = useRegion();
+  const { t } = useI18n();
   const [pickerOpen, setPickerOpen] = useState(false);
-  const month = MONTHS[new Date().getMonth()];
+  const month = monthLabel(new Date().getMonth() + 1, t);
 
   return (
     <div className="animate-fade-up">
-      {/* Hero */}
       <section className="border-b border-border">
         <div className="container-narrow py-16 md:py-24 grid md:grid-cols-12 gap-10 items-end">
           <div className="md:col-span-7">
-            <p className="hero-eyebrow overline">Food &amp; flowers, anywhere</p>
+            <p className="hero-eyebrow overline">{t("home.eyebrow")}</p>
             <h1 className="font-serif text-5xl md:text-7xl text-forest mt-5 leading-[0.95] tracking-tight">
-              Grow anywhere,
+              {t("home.title.line1")}
               <br />
-              <em className="not-italic text-terracotta">your way.</em>
+              <em className="not-italic text-terracotta">{t("home.title.line2")}</em>
             </h1>
             <p className="mt-6 text-lg text-ink/80 max-w-xl leading-relaxed">
-              Patch &amp; Pot is a quiet companion for small-space growers — a monthly
-              calendar, pest watch, plant library and personal garden for both edibles and
-              flowers, tuned to wherever in the world you happen to be.
+              {t("home.intro")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/calendar" data-testid="cta-monthly-guide" className="btn-terracotta inline-flex items-center gap-2">
-                See {month} guide <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                {t("home.cta.guide", { month })} <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
               </Link>
               <button
                 type="button"
@@ -42,7 +36,7 @@ export default function Home() {
                 className="btn-ghost inline-flex items-center gap-2"
               >
                 <MapPin className="w-4 h-4" strokeWidth={1.5} />
-                {region ? `Region · ${region.name}` : "Set your region"}
+                {region ? `${t("region.region")} · ${region.name}` : t("region.set")}
               </button>
             </div>
           </div>
@@ -58,81 +52,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What you'll find */}
       <section className="container-narrow py-20">
         <div className="grid md:grid-cols-12 gap-8 mb-12">
           <div className="md:col-span-5">
-            <p className="overline">Inside Patch &amp; Pot</p>
+            <p className="overline">{t("home.section.eyebrow")}</p>
             <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
-              From pot to plate — <br /> grow anywhere, your way.
+              {t("home.section.title")}
             </h2>
           </div>
           <p className="md:col-span-6 md:col-start-7 text-ink/75 leading-relaxed">
-            Region-aware advice generated for your exact place and month. Whether you garden on a
-            ninth-floor balcony in Singapore or a windowsill in Reykjavík, you'll get a calendar,
-            tasks and pest warnings that actually fit your conditions.
+            {t("home.section.body")}
           </p>
         </div>
 
         <div className="grid md:grid-cols-12 gap-6">
-          <FeatureCard
-            to="/guides/first-pot"
-            label="Begin today"
-            title="Your First Pot"
+          <FeatureCard to="/guides/first-pot" label="Begin today" title="Your First Pot"
             blurb="Everything you need to begin — pot, compost, seeds, light and water."
-            icon={Sprout}
-            colSpan="md:col-span-5"
-          />
-          <FeatureCard
-            to="/guides/cut-flowers"
-            label="Bring colour home"
-            title="Cut Flowers"
+            icon={Sprout} colSpan="md:col-span-5" />
+          <FeatureCard to="/guides/cut-flowers" label="Bring colour home" title="Cut Flowers"
             blurb="Compact, container-friendly cut flowers — palettes, bulb lasagnes, arranging."
-            icon={Flower2}
-            colSpan="md:col-span-7"
-          />
-          <FeatureCard
-            to="/guides/space-saving"
-            label="Small spaces"
-            title="Space-Saving Ideas"
+            icon={Flower2} colSpan="md:col-span-7" />
+          <FeatureCard to="/guides/space-saving" label="Small spaces" title="Space-Saving Ideas"
             blurb="Vertical towers, hanging rails, and crate setups for tiny spaces."
-            icon={LayoutGrid}
-            colSpan="md:col-span-7"
-          />
-          <FeatureCard
-            to="/guides/companion"
-            label="Plants helping plants"
-            title="Companion Planting"
+            icon={LayoutGrid} colSpan="md:col-span-7" />
+          <FeatureCard to="/guides/companion" label="Plants helping plants" title="Companion Planting"
             blurb="Pair flowers with food: pollinators in, pests out, more flavour."
-            icon={HandHelping}
-            colSpan="md:col-span-5"
-          />
-          <FeatureCard
-            to="/guides/regrow"
-            label="Zero waste"
-            title="Regrow from Scraps"
+            icon={HandHelping} colSpan="md:col-span-5" />
+          <FeatureCard to="/guides/regrow" label="Zero waste" title="Regrow from Scraps"
             blurb="Save money and reduce waste by regrowing from kitchen scraps."
-            icon={Recycle}
-            colSpan="md:col-span-6"
-          />
-          <FeatureCard
-            to="/plants"
-            label="Browse"
-            title="Plant Database"
+            icon={Recycle} colSpan="md:col-span-6" />
+          <FeatureCard to="/plants" label="Browse" title="Plant Database"
             blurb="Edibles, herbs and flowers that thrive in pots and patches."
-            icon={Sprout}
-            colSpan="md:col-span-6"
-          />
+            icon={Sprout} colSpan="md:col-span-6" />
         </div>
       </section>
 
-      {/* Editorial pull quote */}
       <section className="border-t border-border bg-surface">
         <div className="container-narrow py-20 max-w-3xl">
-          <p className="overline">A note on patience</p>
+          <p className="overline">{t("home.quote.eyebrow")}</p>
           <p className="font-serif text-3xl md:text-4xl text-forest mt-5 leading-snug">
-            “Plants don't read calendars — but they do feel where you live. The most useful
-            gardening advice is the kind written for <em>your</em> month, in <em>your</em> place.”
+            {t("home.quote.body")}
           </p>
         </div>
       </section>

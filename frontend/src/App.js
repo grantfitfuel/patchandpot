@@ -9,6 +9,7 @@ import PlantDetailPage from "@/pages/PlantDetail";
 import PestControlPage from "@/pages/PestControl";
 import MyGardenPage from "@/pages/MyGarden";
 import GuidesPage from "@/pages/Guides";
+import PrintPage from "@/pages/Print";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/garden" element={<MyGardenPage />} />
             <Route path="/guides" element={<GuidesPage />} />
             <Route path="/guides/:slug" element={<GuidesPage />} />
+            <Route path="/print/:month" element={<PrintPage />} />
           </Routes>
         </main>
         <Footer />

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Crosshair, Search, X, Loader2 } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
 import { searchRegions, reverseGeocode } from "@/lib/api";
+import { useI18n } from "@/i18n";
 
 export default function RegionPicker({ open, onClose }) {
   const { region, setRegion, defaultRegion } = useRegion();
+  const { t } = useI18n();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ export default function RegionPicker({ open, onClose }) {
       setResults([]);
       return;
     }
-    const t = setTimeout(async () => {
+    const t2 = setTimeout(async () => {
       setLoading(true);
       try {
         const data = await searchRegions(query);
@@ -35,7 +37,7 @@ export default function RegionPicker({ open, onClose }) {
         setLoading(false);
       }
     }, 300);
-    return () => clearTimeout(t);
+    return () => clearTimeout(t2);
   }, [query]);
 
   const hemisphereFor = (lat) => (lat < 0 ? "southern" : "northern");
@@ -106,8 +108,8 @@ export default function RegionPicker({ open, onClose }) {
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <div>
-            <p className="overline">Choose your region</p>
-            <h2 className="font-serif text-2xl text-forest mt-1">Where are you growing?</h2>
+            <p className="overline">{t("region.subtitle")}</p>
+            <h2 className="font-serif text-2xl text-forest mt-1">{t("region.title")}</h2>
           </div>
           <button onClick={onClose} data-testid="region-picker-close" aria-label="Close" className="text-moss hover:text-forest">
             <X strokeWidth={1.5} />
@@ -123,7 +125,7 @@ export default function RegionPicker({ open, onClose }) {
             className="w-full flex items-center justify-center gap-2 btn-forest"
           >
             {locating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Crosshair className="w-4 h-4" strokeWidth={1.5} />}
-            {locating ? "Detecting…" : "Detect my location"}
+            {locating ? t("region.detecting") : t("region.detect")}
           </button>
 
           <div className="relative">
@@ -131,14 +133,14 @@ export default function RegionPicker({ open, onClose }) {
             <input
               data-testid="region-search-input"
               type="text"
-              placeholder="Or search a city, region or country…"
+              placeholder={t("region.search_placeholder")}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="w-full pl-10 pr-3 py-3 bg-surface border border-border focus:border-forest outline-none text-ink"
             />
           </div>
 
-          {loading && <p className="text-sm text-moss">Searching…</p>}
+          {loading && <p className="text-sm text-moss">{t("region.searching")}</p>}
           {error && <p className="text-sm text-terracotta" data-testid="region-error">{error}</p>}
 
           {results.length > 0 && (
@@ -163,7 +165,7 @@ export default function RegionPicker({ open, onClose }) {
 
           {!region && (
             <button onClick={useDefault} data-testid="region-default-btn" className="btn-ghost w-full">
-              Skip – use London (default)
+              {t("region.use_default")}
             </button>
           )}
         </div>

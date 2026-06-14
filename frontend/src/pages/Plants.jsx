@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { Search, Sun, Droplets, Sprout } from "lucide-react";
 import { fetchPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
+import { useI18n } from "@/i18n";
 
 const CATEGORIES = ["All", "Vegetable", "Herb", "Leafy green", "Fruit", "Root", "Allium", "Flower"];
 
 export default function PlantsPage() {
+  const { t } = useI18n();
   const [plants, setPlants] = useState([]);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
@@ -21,16 +23,14 @@ export default function PlantsPage() {
     return true;
   });
 
+  const catLabel = (c) => t(`plants.category.${c.toLowerCase().replace(/\s+/g, "-")}`);
+
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
       <div className="mb-10">
-        <p className="overline">Plant database</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          A library for small spaces
-        </h1>
-        <p className="mt-3 text-ink/75 max-w-xl">
-          Edibles, herbs and curiosities that thrive in pots, patches and windowsills.
-        </p>
+        <p className="overline">{t("plants.eyebrow")}</p>
+        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("plants.title")}</h1>
+        <p className="mt-3 text-ink/75 max-w-xl">{t("plants.subtitle")}</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 mb-8">
@@ -39,7 +39,7 @@ export default function PlantsPage() {
           <input
             type="text"
             data-testid="plants-search"
-            placeholder="Search plants…"
+            placeholder={t("plants.search")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full pl-10 pr-3 py-3 bg-sand border border-border focus:border-forest outline-none text-ink"
@@ -55,7 +55,7 @@ export default function PlantsPage() {
                 category === c ? "bg-forest text-sand border-forest" : "bg-sand text-ink/70 border-border hover:border-forest/40"
               }`}
             >
-              {c}
+              {catLabel(c)}
             </button>
           ))}
         </div>
@@ -87,7 +87,7 @@ export default function PlantsPage() {
       </div>
 
       {filtered.length === 0 && (
-        <p className="text-moss" data-testid="plants-empty">No plants match your search.</p>
+        <p className="text-moss" data-testid="plants-empty">{t("plants.empty")}</p>
       )}
     </div>
   );

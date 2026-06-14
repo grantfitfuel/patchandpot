@@ -33,3 +33,15 @@
   background-color: #5C6B52;
   display: inline-block;
 }
+
+/* Print styles for /print/:month — saves cleanly as PDF */
+@media print {
+  body::before { display: none; }
+  body { background: #ffffff !important; }
+  .print-area { padding: 0 !important; max-width: none !important; }
+  .container-narrow { padding: 0 !important; }
+  .card-flat { border: 1px solid #ccc !important; box-shadow: none !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+  .break-inside-avoid { break-inside: avoid; }
+  @page { margin: 1.5cm; }
+}

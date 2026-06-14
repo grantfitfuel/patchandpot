@@ -3,10 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff } from "lucide-react";
 import { fetchPlant } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
+import CompanionsSection from "@/components/CompanionsSection";
 import { useMyGarden } from "@/hooks/useMyGarden";
+import { useI18n } from "@/i18n";
 
 export default function PlantDetailPage() {
   const { id } = useParams();
+  const { t } = useI18n();
   const [plant, setPlant] = useState(null);
   const [error, setError] = useState("");
   const { has, addPlant, removePlant } = useMyGarden();
@@ -23,7 +26,7 @@ export default function PlantDetailPage() {
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
       <Link to="/plants" data-testid="back-to-plants" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
-        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> All plants
+        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("plant.back")}
       </Link>
 
       <div className="grid md:grid-cols-12 gap-10">
@@ -39,12 +42,12 @@ export default function PlantDetailPage() {
           <p className="text-ink/80 mt-5 text-lg leading-relaxed">{plant.summary}</p>
 
           <div className="grid grid-cols-2 gap-4 mt-8">
-            <Spec icon={Sun} label="Sun" value={plant.sun} />
-            <Spec icon={Droplets} label="Water" value={plant.water} />
-            <Spec icon={Sprout} label="Soil" value={plant.soil} />
-            <Spec icon={Sprout} label="Difficulty" value={plant.difficulty} />
-            <Spec icon={Sprout} label="Container" value={plant.container ? "Yes — pots and balconies" : "Needs a bed"} />
-            <Spec icon={Sprout} label="Edible part" value={plant.edible_part} />
+            <Spec icon={Sun} label={t("plant.sun")} value={plant.sun} />
+            <Spec icon={Droplets} label={t("plant.water")} value={plant.water} />
+            <Spec icon={Sprout} label={t("plant.soil")} value={plant.soil} />
+            <Spec icon={Sprout} label={t("plant.difficulty")} value={plant.difficulty} />
+            <Spec icon={Sprout} label={t("plant.container")} value={plant.container ? "Yes" : "No"} />
+            <Spec icon={Sprout} label={t("plant.edible_part")} value={plant.edible_part} />
           </div>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -55,7 +58,7 @@ export default function PlantDetailPage() {
                 onClick={() => removePlant(plant.id)}
                 className="btn-ghost inline-flex items-center gap-2"
               >
-                <HeartOff strokeWidth={1.5} className="w-4 h-4" /> Remove from My Garden
+                <HeartOff strokeWidth={1.5} className="w-4 h-4" /> {t("plant.remove")}
               </button>
             ) : (
               <button
@@ -64,25 +67,27 @@ export default function PlantDetailPage() {
                 onClick={() => addPlant(plant)}
                 className="btn-terracotta inline-flex items-center gap-2"
               >
-                <Heart strokeWidth={1.5} className="w-4 h-4" /> Add to My Garden
+                <Heart strokeWidth={1.5} className="w-4 h-4" /> {t("plant.add")}
               </button>
             )}
             <Link to="/calendar" data-testid="see-month-guide" className="btn-ghost">
-              See this month's tasks
+              {t("plant.see_month")}
             </Link>
           </div>
 
           {plant.tags && plant.tags.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-2">
-              {plant.tags.map((t) => (
-                <span key={t} className="text-xs px-3 py-1 border border-border bg-surface text-moss tracking-wider uppercase">
-                  {t}
+              {plant.tags.map((t2) => (
+                <span key={t2} className="text-xs px-3 py-1 border border-border bg-surface text-moss tracking-wider uppercase">
+                  {t2}
                 </span>
               ))}
             </div>
           )}
         </div>
       </div>
+
+      <CompanionsSection plantId={plant.id} />
     </div>
   );
 }

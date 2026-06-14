@@ -139,3 +139,118 @@ def test_plant_image_cache(s):
     assert r.status_code == 200
     data = r.json()
     assert data.get("cached") is True
+
+
+# ---------- Companions (iteration 2) ----------
+def test_companions_tomato(s):
+    r = s.get(f"{API}/plants/tomato/companions", timeout=15)
+    assert r.status_code == 200
+    data = r.json()
+    assert data["plant_id"] == "tomato"
+    names = {c["name"] for c in data["companions"]}
+    assert {"Basil", "Marigold", "Nasturtium", "Chives", "Borage"}.issubset(names), names
+    # at least one curated reason exists for tomato pairings
+    reasons = [c.get("reason") for c in data["companions"] if c.get("reason")]
+    assert len(reasons) >= 3
+
+
+def test_companions_lavender(s):
+    r = s.get(f"{API}/plants/lavender/companions", timeout=15)
+    assert r.status_code == 200
+    names = {c["name"] for c in r.json()["companions"]}
+    assert "Rosemary" in names and "Thyme" in names
+
+
+def test_companions_mint_empty(s):
+    r = s.get(f"{API}/plants/mint/companions", timeout=15)
+    assert r.status_code == 200
+    assert r.json()["companions"] == []
+
+
+def test_companions_sweet_pea_empty(s):
+    r = s.get(f"{API}/plants/sweet-pea/companions", timeout=15)
+    assert r.status_code == 200
+    assert r.json()["companions"] == []
+
+
+def test_companions_invalid_404(s):
+    r = s.get(f"{API}/plants/does-not-exist/companions", timeout=15)
+    assert r.status_code == 404
+
+
+# ---------- Pest image (iteration 2) ----------
+def test_pest_image_generation(s):
+    r = s.post(f"{API}/pest-image", json={"name": "Aphids"}, timeout=120)
+    assert r.status_code == 200, f"Got {r.status_code}: {r.text[:300]}"
+    data = r.json()
+    assert data["image"].startswith("data:")
+    assert ";base64," in data["image"]
+
+
+def test_pest_image_cache(s):
+    r = s.post(f"{API}/pest-image", json={"name": "Aphids"}, timeout=30)
+    assert r.status_code == 200
+    assert r.json().get("cached") is True
+
+
+# ---------- Multi-language guidance (iteration 2) ----------
+def _lang_payload(lang):
+    return {**GUIDANCE_PAYLOAD, "language": lang}
+
+
+def test_guidance_french(s):
+    r = s.post(f"{API}/guidance", json=_lang_payload("fr"), timeout=180)
+    assert r.status_code == 200
+    data = r.json()
+    # kind field stays English
+    kinds = {item.get("kind") for item in data["plant_now"]}
+    assert kinds.issubset({"food", "flower"}), f"kind should stay English: {kinds}"
+    # heuristic: French summary contains French accents or common French words
+    summary = (data.get("summary") or "").lower()
+    french_markers = ["é", "è", "à", "ê", "ç", " le ", " la ", " les ", " des ", " et ", " est ", "jardin", "plant"]
+    assert any(m in summary for m in french_markers), f"Not French-looking: {summary[:200]}"
+
+
+def test_guidance_german(s):
+    r = s.post(f"{API}/guidance", json=_lang_payload("de"), timeout=180)
+    assert r.status_code == 200
+    summary = (r.json().get("summary") or "").lower()
+    german_markers = ["ä", "ö", "ü", "ß", " der ", " die ", " das ", " und ", " ist ", "garten", "pflanz"]
+    assert any(m in summary for m in german_markers), f"Not German-looking: {summary[:200]}"
+
+
+def test_guidance_japanese(s):
+    r = s.post(f"{API}/guidance", json=_lang_payload("ja"), timeout=180)
+    assert r.status_code == 200
+    summary = r.json().get("summary") or ""
+    # Check at least one Hiragana/Katakana/CJK character
+    has_cjk = any("\u3040" <= c <= "\u9fff" for c in summary)
+    assert has_cjk, f"Expected Japanese chars: {summary[:200]}"
+
+
+def test_guidance_chinese(s):
+    r = s.post(f"{API}/guidance", json=_lang_payload("zh"), timeout=180)
+    assert r.status_code == 200
+    summary = r.json().get("summary") or ""
+    has_cjk = any("\u4e00" <= c <= "\u9fff" for c in summary)
+    assert has_cjk, f"Expected Chinese chars: {summary[:200]}"
+
+
+def test_guidance_invalid_language_defaults_en(s):
+    # Use a fresh region/month combo to avoid cache hit on existing 'en'
+    payload = {**GUIDANCE_PAYLOAD, "month": 7, "language": "xx-invalid"}
+    r = s.post(f"{API}/guidance", json=payload, timeout=180)
+    assert r.status_code == 200
+    summary = (r.json().get("summary") or "").lower()
+    # English heuristic
+    en_markers = [" the ", " and ", " is ", " a ", " in ", "garden", "plant"]
+    assert any(m in summary for m in en_markers), f"Not English: {summary[:200]}"
+
+
+def test_guidance_language_cache_separation(s):
+    # FR should be cached from earlier call -> fast second call
+    t0 = time.time()
+    r = s.post(f"{API}/guidance", json=_lang_payload("fr"), timeout=30)
+    elapsed = time.time() - t0
+    assert r.status_code == 200
+    assert elapsed < 5, f"FR cache miss? Took {elapsed:.1f}s"

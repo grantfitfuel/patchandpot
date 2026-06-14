@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Sprout, Scissors, ListTodo, Bug, Quote, Loader2 } from "lucide-react";
 import { fetchGuidance } from "@/lib/api";
 import { useCompletedTasks } from "@/hooks/useMyGarden";
+import { useI18n } from "@/i18n";
+import PestImage from "@/components/PestImage";
 
 function Section({ icon: Icon, eyebrow, title, children }) {
   return (
@@ -16,12 +18,13 @@ function Section({ icon: Icon, eyebrow, title, children }) {
   );
 }
 
-export default function GuidanceView({ region, month, view = "all" }) {
+export default function GuidanceView({ region, month, view = "all", onData }) {
+  const { t, lang } = useI18n();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const monthKey = `${region?.name || "x"}-${month}`;
+  const monthKey = `${region?.name || "x"}-${month}-${lang}`;
   const { completed, toggle } = useCompletedTasks(monthKey);
 
   useEffect(() => {
@@ -29,16 +32,16 @@ export default function GuidanceView({ region, month, view = "all" }) {
     setLoading(true);
     setError("");
     setData(null);
-    fetchGuidance(region, month)
-      .then(setData)
-      .catch((e) => setError(e?.response?.data?.detail || "Could not load guidance"))
+    fetchGuidance(region, month, lang)
+      .then((d) => { setData(d); if (onData) onData(d); })
+      .catch((e) => setError(e?.response?.data?.detail || t("guidance.error")))
       .finally(() => setLoading(false));
-  }, [region, month]);
+  }, [region, month, lang]); // eslint-disable-line
 
   if (!region) {
     return (
       <div className="card-flat p-10 text-center" data-testid="guidance-no-region">
-        <p className="text-moss">Pick your region to see what to grow this month.</p>
+        <p className="text-moss">{t("guidance.no_region")}</p>
       </div>
     );
   }
@@ -47,15 +50,13 @@ export default function GuidanceView({ region, month, view = "all" }) {
     return (
       <div className="card-flat p-10 flex items-center justify-center gap-3 text-moss" data-testid="guidance-loading">
         <Loader2 className="w-4 h-4 animate-spin" />
-        <span>Growing your monthly guide for {region.name}…</span>
+        <span>{t("guidance.loading")} {region.name}…</span>
       </div>
     );
   }
 
   if (error) {
-    return (
-      <div className="card-flat p-10 text-terracotta" data-testid="guidance-error">{error}</div>
-    );
+    return <div className="card-flat p-10 text-terracotta" data-testid="guidance-error">{error}</div>;
   }
 
   if (!data) return null;
@@ -71,7 +72,7 @@ export default function GuidanceView({ region, month, view = "all" }) {
 
       <div className={`grid gap-6 ${showAll ? "lg:grid-cols-2" : ""}`}>
         {(showAll || view === "plant") && (
-          <Section icon={Sprout} eyebrow="Plant now" title="What to sow & plant">
+          <Section icon={Sprout} eyebrow={t("guidance.plant_now.eyebrow")} title={t("guidance.plant_now")}>
             <ul className="space-y-4" data-testid="plant-now-list">
               {(data.plant_now || []).map((p, i) => (
                 <li key={i} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
@@ -96,7 +97,7 @@ export default function GuidanceView({ region, month, view = "all" }) {
         )}
 
         {(showAll || view === "harvest") && (
-          <Section icon={Scissors} eyebrow="Harvest now" title="Ready to pick">
+          <Section icon={Scissors} eyebrow={t("guidance.harvest_now.eyebrow")} title={t("guidance.harvest_now")}>
             <ul className="space-y-3" data-testid="harvest-list">
               {(data.harvest_now || []).map((p, i) => (
                 <li key={i} className="flex gap-3">
@@ -121,9 +122,9 @@ export default function GuidanceView({ region, month, view = "all" }) {
         )}
 
         {(showAll || view === "tasks") && (
-          <Section icon={ListTodo} eyebrow="This month" title="Tasks & to-do">
+          <Section icon={ListTodo} eyebrow={t("guidance.tasks.eyebrow")} title={t("guidance.tasks")}>
             <ul className="space-y-3" data-testid="tasks-list">
-              {(data.tasks || []).map((t, i) => {
+              {(data.tasks || []).map((task, i) => {
                 const id = `t-${i}`;
                 const done = !!completed[id];
                 return (
@@ -140,8 +141,8 @@ export default function GuidanceView({ region, month, view = "all" }) {
                       {done && <span className="block text-sand text-xs leading-5 text-center">✓</span>}
                     </button>
                     <div className={done ? "opacity-50 line-through" : ""}>
-                      <p className="font-medium text-ink">{t.title}</p>
-                      <p className="text-sm text-moss">{t.detail}</p>
+                      <p className="font-medium text-ink">{task.title}</p>
+                      <p className="text-sm text-moss">{task.detail}</p>
                     </div>
                   </li>
                 );
@@ -151,13 +152,14 @@ export default function GuidanceView({ region, month, view = "all" }) {
         )}
 
         {(showAll || view === "pests") && (
-          <Section icon={Bug} eyebrow="Watch out" title="Pests & diseases">
+          <Section icon={Bug} eyebrow={t("guidance.pests.eyebrow")} title={t("guidance.pests")}>
             <ul className="space-y-4" data-testid="pests-list">
               {(data.pests || []).map((p, i) => (
                 <li key={i} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
                   <p className="font-serif text-xl text-forest">{p.name}</p>
-                  <p className="text-sm text-ink/80 mt-1"><span className="text-moss">Signs · </span>{p.signs}</p>
-                  <p className="text-sm text-ink/80 mt-1"><span className="text-moss">Control · </span>{p.control}</p>
+                  <p className="text-sm text-ink/80 mt-1"><span className="text-moss">{t("guidance.signs")} · </span>{p.signs}</p>
+                  <p className="text-sm text-ink/80 mt-1"><span className="text-moss">{t("guidance.control")} · </span>{p.control}</p>
+                  <PestImage name={p.name} />
                 </li>
               ))}
             </ul>

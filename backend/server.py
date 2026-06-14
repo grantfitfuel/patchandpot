@@ -1,11 +1,13 @@
 """Patch & Pot – gardening app backend.
 
 Provides:
-- /api/guidance     -> AI-generated monthly planting/pest/task guidance for a region (Claude Sonnet 4.5)
-- /api/plants       -> curated edible plant database
+- /api/guidance     -> AI-generated monthly planting/pest/task guidance (Claude Sonnet 4.5, multi-language)
+- /api/plants       -> curated edible/flower plant database
 - /api/plants/{id}  -> single plant
+- /api/plants/{id}/companions -> companion planting suggestions
 - /api/plant-image  -> AI image generation for a plant (Gemini Nano Banana), cached in Mongo
-- /api/regions/search -> simple geolocation/region search via Open-Meteo geocoding
+- /api/pest-image   -> AI image generation for a pest, cached in Mongo
+- /api/regions/search  -> place search via Open-Meteo geocoding
 - /api/regions/reverse -> reverse geocode lat/lon -> place + approximate climate zone
 """
 
@@ -58,12 +60,22 @@ class Region(BaseModel):
 class GuidanceRequest(BaseModel):
     region: Region
     month: int = Field(ge=1, le=12)
+    language: Optional[str] = "en"  # en | de | fr | ja | zh
 
 
 class PlantImageRequest(BaseModel):
     plant_id: str
     plant_name: str
     style_hint: Optional[str] = None
+
+
+class PestImageRequest(BaseModel):
+    name: str
+
+
+LANG_NAMES = {
+    "en": "English", "de": "German", "fr": "French", "ja": "Japanese", "zh": "Simplified Chinese",
+}
 
 
 # ───────────────────────── Plant database ─────────────────────────
@@ -247,13 +259,14 @@ MONTHS = ["", "January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
 
-def _guidance_cache_key(region: Region, month: int) -> str:
+def _guidance_cache_key(region: Region, month: int, language: str = "en") -> str:
     key_parts = [
         (region.name or "").lower().strip(),
         (region.country or "").lower().strip(),
         (region.climate_zone or "").lower().strip(),
         (region.hemisphere or "northern").lower().strip(),
         str(month),
+        (language or "en").lower().strip(),
     ]
     return "|".join(key_parts)
 
@@ -279,8 +292,11 @@ async def get_plant(plant_id: str):
 
 @api_router.post("/guidance")
 async def get_guidance(req: GuidanceRequest):
-    """Region + month -> AI-generated monthly gardening guidance, cached in Mongo."""
-    cache_key = _guidance_cache_key(req.region, req.month)
+    """Region + month + language -> AI-generated monthly gardening guidance, cached in Mongo."""
+    language = (req.language or "en").lower()
+    if language not in LANG_NAMES:
+        language = "en"
+    cache_key = _guidance_cache_key(req.region, req.month, language)
     cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
     if cached:
         return cached["data"]
@@ -290,6 +306,7 @@ async def get_guidance(req: GuidanceRequest):
     climate = req.region.climate_zone or "unknown climate"
     hemi = req.region.hemisphere or "northern"
     plant_names = ", ".join(p["name"] for p in PLANTS)
+    language_name = LANG_NAMES[language]
 
     system = (
         "You are an expert kitchen gardener, flower grower and horticulturalist who advises "
@@ -306,14 +323,17 @@ Region: {region_label}
 Approximate climate: {climate}
 Hemisphere: {hemi}
 Month: {month_name} (month #{req.month})
+OUTPUT LANGUAGE: {language_name}. All text values in the JSON (summary, season_label, names,
+why, how, tip, signs, control, etc.) MUST be written in {language_name}. The JSON KEYS stay in English.
+Use locally common plant names in {language_name} where natural.
 
 Consider local seasonality (e.g. {month_name} is winter in the southern hemisphere if hemi is southern).
 Focus on home-scale, small-space and container growing. Mix food crops and flowers throughout —
-do not return flowers-only or food-only lists. Use these plant names where relevant
-(but you may mention other locally common edibles and flowers too):
+do not return flowers-only or food-only lists. You may reference these (English) plant names
+but feel free to mention other locally common edibles and flowers too:
 {plant_names}
 
-Return STRICT JSON with this exact shape and keys:
+Return STRICT JSON with this exact shape and keys (keys MUST stay in English):
 {{
   "summary": "2-3 sentence overview of what {month_name} feels like for a grower in {region_label}.",
   "season_label": "Short label e.g. 'Late spring', 'Dry season', 'Monsoon', 'Mid-winter'.",
@@ -332,6 +352,7 @@ Return STRICT JSON with this exact shape and keys:
   "tip": "One short 'mindful growing' wisdom for the month."
 }}
 
+The "kind" value MUST remain in English ("food" or "flower"). Everything else translates to {language_name}.
 For plant_now and harvest_now include a healthy mix: at least 2 food items AND at least 2 flowers
 (edible or ornamental). Provide 4-6 items each for plant_now, harvest_now, tasks, and pests.
 Keep advice realistic for {region_label} in {month_name}. Return JSON only."""
@@ -383,6 +404,127 @@ async def generate_plant_image(req: PlantImageRequest):
         _text, images = await chat.send_message_multimodal_response(UserMessage(text=prompt))
     except Exception as e:
         logger.error("Image gen failed for %s: %s", req.plant_name, e)
+        raise HTTPException(502, "Image generation failed")
+
+    if not images:
+        raise HTTPException(502, "No image returned")
+
+    img = images[0]
+    data_url = f"data:{img['mime_type']};base64,{img['data']}"
+
+    await db.image_cache.insert_one({
+        "key": cache_key,
+        "image": data_url,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return {"image": data_url, "cached": False}
+
+
+# Companion planting pairs (curated from patchandpot.com & gardening references)
+COMPANIONS = {
+    "tomato": ["basil", "marigold", "nasturtium", "chives", "borage"],
+    "basil": ["tomato", "chilli", "marigold"],
+    "lettuce": ["chives", "radish", "carrot", "viola"],
+    "mint": [],  # keep mint isolated — it spreads
+    "chilli": ["basil", "marigold", "oregano"],
+    "strawberry": ["thyme", "chives", "borage"],
+    "radish": ["lettuce", "carrot", "spring-onion"],
+    "spinach": ["radish", "strawberry", "chives"],
+    "carrot": ["spring-onion", "chives", "lettuce", "radish"],
+    "rosemary": ["thyme", "lavender", "sage"],
+    "thyme": ["rosemary", "strawberry", "lavender"],
+    "chives": ["carrot", "tomato", "strawberry", "kale", "lettuce"],
+    "kale": ["chives", "garlic", "calendula", "nasturtium"],
+    "cucumber": ["coriander", "nasturtium", "borage", "marigold"],
+    "courgette": ["nasturtium", "borage", "marigold"],
+    "spring-onion": ["carrot", "lettuce", "beetroot"],
+    "coriander": ["cucumber", "spinach", "spring-onion"],
+    "parsley": ["tomato", "chives", "rosemary"],
+    "beetroot": ["spring-onion", "lettuce", "garlic"],
+    "garlic": ["kale", "beetroot", "strawberry"],
+    # Flowers
+    "nasturtium": ["courgette", "cucumber", "tomato", "kale"],
+    "calendula": ["kale", "tomato", "chilli"],
+    "sunflower": ["cucumber", "courgette"],
+    "marigold": ["tomato", "chilli", "courgette", "basil"],
+    "lavender": ["rosemary", "thyme"],
+    "cosmos": ["zinnia", "marigold"],
+    "viola": ["lettuce", "parsley", "chives"],
+    "sweet-pea": [],
+    "zinnia": ["cosmos", "marigold"],
+    "borage": ["strawberry", "tomato", "courgette", "cucumber"],
+    "geranium": ["lavender", "thyme"],
+    "chamomile": ["kale", "basil", "chives"],
+}
+
+# Hand-written reasons keep this useful (not just a list of names)
+COMPANION_REASONS = {
+    ("tomato", "basil"): "Classic pairing — basil masks tomato's scent from pests and is said to boost flavour.",
+    ("tomato", "marigold"): "Marigolds pull in pollinators and confuse whitefly around tomatoes.",
+    ("tomato", "nasturtium"): "Nasturtium lures aphids away from your tomatoes.",
+    ("tomato", "chives"): "Chives discourage aphids and look beautiful in flower together.",
+    ("tomato", "borage"): "Borage brings bees and is said to improve tomato flavour.",
+    ("courgette", "nasturtium"): "Trailing nasturtiums shade the soil and decoy aphids.",
+    ("cucumber", "nasturtium"): "Lures aphids and adds edible flowers to your salads.",
+    ("kale", "chives"): "Onion scent deters cabbage aphids.",
+    ("carrot", "spring-onion"): "Muddles carrot fly with onion volatiles — classic combo.",
+    ("strawberry", "thyme"): "Bee traffic for berries; thyme likes the same dry feet.",
+    ("strawberry", "borage"): "Borage attracts pollinators that help strawberries set fruit.",
+    ("chilli", "marigold"): "Marigolds pull pollinators in and confuse pests.",
+}
+
+
+@api_router.get("/plants/{plant_id}/companions")
+async def get_companions(plant_id: str):
+    """Return curated companion plants for a given plant id."""
+    if plant_id not in PLANT_INDEX:
+        raise HTTPException(404, "Plant not found")
+    companion_ids = COMPANIONS.get(plant_id, [])
+    items = []
+    for cid in companion_ids:
+        p = PLANT_INDEX.get(cid)
+        if not p:
+            continue
+        reason = COMPANION_REASONS.get((plant_id, cid)) or COMPANION_REASONS.get((cid, plant_id))
+        items.append({
+            "id": p["id"],
+            "name": p["name"],
+            "category": p["category"],
+            "summary": p["summary"],
+            "reason": reason,
+        })
+    return {"plant_id": plant_id, "companions": items}
+
+
+@api_router.post("/pest-image")
+async def generate_pest_image(req: PestImageRequest):
+    """Generate (or fetch cached) AI image of a pest/disease. Returns data URL."""
+    safe_key = re.sub(r"[^a-z0-9]+", "-", req.name.lower()).strip("-")
+    cache_key = f"pest-image:{safe_key}"
+    cached = await db.image_cache.find_one({"key": cache_key}, {"_id": 0})
+    if cached:
+        return {"image": cached["image"], "cached": True}
+
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(500, "EMERGENT_LLM_KEY not configured")
+
+    prompt = (
+        f"A close-up macro reference photograph of '{req.name}' as seen by a home gardener "
+        f"on leaves or stems. Naturalistic, soft daylight, gardening field-guide style, "
+        f"no text, no people, no pesticide bottles. Subject in sharp focus, background "
+        f"a softly blurred green leaf."
+    )
+
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=f"pest-img-{safe_key}-{uuid.uuid4()}",
+        system_message="You are an image generation assistant.",
+    ).with_model("gemini", "gemini-3.1-flash-image-preview").with_params(modalities=["image", "text"])
+
+    try:
+        _text, images = await chat.send_message_multimodal_response(UserMessage(text=prompt))
+    except Exception as e:
+        logger.error("Pest image gen failed for %s: %s", req.name, e)
         raise HTTPException(502, "Image generation failed")
 
     if not images:

@@ -1,0 +1,36 @@
+{
+  "summary": "Iteration 2 verification of i18n (EN/DE/FR/JA/ZH), companions endpoint, pest-image endpoint, print page, and PWA additions. Extended backend regression suite to 25 tests (all passing) — added 13 new tests covering /api/plants/{id}/companions (tomato, lavender, mint=empty, sweet-pea=empty, 404), /api/pest-image (Aphids + cache), multi-language /api/guidance (fr/de/ja/zh + invalid->en fallback + per-language cache separation). Frontend e2e via Playwright confirmed: language selector with 5 options, instant UI translation (DE shows 'Start/Pflanzen/Mein Garten/Schädlinge/Anleitungen' + hero 'Pflanze überall', JA 'ホーム/マイガーデン', ZH '首页/我的花园', FR 'Accueil/Mon jardin'), localStorage persistence ('patchpot.lang.v1'='fr' survives reload), CompanionsSection on /plants/tomato lists Basil/Marigold/Nasturtium/Chives/Borage with links to each plant detail, /plants/mint shows companions-empty message, /calendar download-month-btn navigates to /print/6, /garden garden-download-btn visible when region set, Print page renders region label, big June month, summary, plant-now/harvest-now items, print-btn, pest-image-trigger on Calendar generates and renders an inline Aphids image within ~30s. PWA manifest.json + sw.js reachable with valid content. All flows working; no critical bugs.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_backend.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Note: I restarted the frontend supervisor to pick up the updated /app/frontend/public/index.html (CRA reads it only at startup, so the manifest link / theme-color / title were stale until restart). The change is now live. No code action required from main agent."
+  ],
+  "critical_code_review_comments": [
+    "server.py is now ~630 lines — past the 700-line ceiling soon. Consider extracting PLANTS, COMPANIONS, COMPANION_REASONS, and LANG_NAMES into separate modules (e.g. backend/data/plants.py, backend/data/companions.py).",
+    "/api/guidance and /api/pest-image have no rate limiting — Gemini image gen + Claude calls are expensive. Acceptable given no-auth project scope, but worth flagging.",
+    "COMPANIONS includes ids that are not in PLANT_INDEX (e.g. 'oregano', 'sage' referenced from chilli/rosemary) — they are silently skipped in get_companions which is graceful, but the data is misleading. Either add these plants or remove the orphan ids.",
+    "Print page does not show literal checkbox <input> elements (the review request mentions 'checkbox squares'); the tasks are rendered with styled empty squares via CSS rather than form inputs. Visually correct, but worth confirming this matches intent.",
+    "PWA: index.html updates only take effect after a frontend restart (CRA dev server caches index.html). Main agent should be aware that any future <head> change requires `sudo supervisorctl restart frontend`."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_backend.py"
+  ],
+  "success_rate": {"backend": "100% (25/25)", "frontend": "100% (all critical flows incl. i18n, companions, pest-image, print, PWA)"},
+  "test_credentials": "n/a — app has no auth",
+  "seed_data_creation": "None — companions, plants, languages all in-code. Guidance/image caches in Mongo populated on first call (per-language cache key now segregates EN/DE/FR/JA/ZH).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend suite at /app/backend/tests/test_backend.py runs in ~3s when caches are warm (guidance + images cached for London June across en/de/fr/ja/zh after this iteration). Multi-language detection uses heuristic markers (accents/CJK ranges) on the summary field, which has been reliable. Frontend MyGarden route is /garden (not /my-garden). All new data-testids verified: language-selector-trigger, language-selector-menu, language-option-{en|de|fr|ja|zh}, companions-section, companions-empty, companion-{id}, download-month-btn, garden-download-btn, print-btn, pest-image-trigger-{n}. PWA: <link rel='manifest'> only appears in served HTML after `supervisorctl restart frontend` because CRA caches index.html at server start.",
+  "rca of the issue": "Initial Playwright run reported <link rel='manifest'> missing from runtime DOM despite being present in /app/frontend/public/index.html. Root cause: CRA dev server reads index.html once at startup; the file had been updated for PWA but the frontend supervisor process had not been restarted, so the served HTML still had the old title/theme-color and lacked the manifest link. Mitigation applied: `sudo supervisorctl restart frontend`. After restart, the served HTML correctly contains <link rel='manifest' href='/manifest.json'>, <meta name='theme-color' content='#2D4A22'>, and <title>Patch & Pot — Grow Anywhere</title>. No source change required."
+}

@@ -1,0 +1,86 @@
+{
+  "theme_and_archetype": {
+    "theme": "Light",
+    "archetype": "1 (Organic & Earthy)",
+    "description": "Grounded, natural, matte. Warm, inviting, and mindful, moving away from glossy tech aesthetics into an editorial publication feel."
+  },
+  "typography": {
+    "primary_heading_font": "Cormorant Garamond",
+    "body_font": "Outfit",
+    "typesetting_rules": [
+      "H1 must use text-4xl to text-6xl clamp, tracking-tight.",
+      "Overlines must be uppercase, text-xs, tracking-[0.2em] (e.g., for 'APRIL TASKS').",
+      "Line height for body must be loose (leading-relaxed)."
+    ]
+  },
+  "color_palette": {
+    "base_background": "#F7F5F0",
+    "surface_background": "#EFECE5",
+    "brand_primary": "#2D4A22",
+    "brand_secondary": "#5C6B52",
+    "accent_cta": "#C65D47",
+    "text_main": "#1C231A",
+    "text_muted": "#5C6B52",
+    "border_color": "rgba(45, 74, 34, 0.15)",
+    "rules": [
+      "No pure #000000 or pure #FFFFFF. Use #F7F5F0 for white, #1C231A for black.",
+      "Background gradients should be avoided. Use flat matte colors or subtle noise textures."
+    ]
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing, Editoral Asymmetry",
+    "containers": "Containers with borders must use internal padding p-6 or p-8.",
+    "grids": {
+      "marketing_sections": "Mode A: 'Tetris' Grid (gap-8 to gap-12, col-span mixing).",
+      "dashboard_my_garden": "Mode B: 'Control Room' Grid (gap-6, high density but flat design)."
+    }
+  },
+  "surface_strategies": {
+    "cards": "Solid flat backgrounds matching the parent or surface_background, 1px delicate inner stroke (border-border_color), NO drop shadow or very soft diffuse shadow.",
+    "headers": "Solid background #F7F5F0 with a hard bottom border. Avoid glassmorphism to keep the raw earthy feel.",
+    "buttons": "Flat terracotta (#C65D47) or dark green (#2D4A22) with crisp edges. Hover states must be a lighter hue."
+  },
+  "motion_and_interactions": {
+    "scroll": "Use Lenis for smooth momentum scrolling.",
+    "hover_states": "Slight lift (-translate-y-1) for plant cards.",
+    "transitions": "transition-transform 0.3s ease-out, opacity 0.3s ease-out."
+  },
+  "image_urls": {
+    "hero_backgrounds": [
+      {
+        "url": "https://images.unsplash.com/photo-1745063537934-e6bf484d72eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
+        "description": "Someone waters plants in pots on a balcony - Mindful growing hero image."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1763741186493-509db18f6a6a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHw0fHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
+        "description": "Two potted plants on a weathered windowsill - Sub-section 'Your First Pot'."
+      }
+    ],
+    "plant_database_and_cards": [
+      {
+        "url": "https://images.unsplash.com/photo-1765558290832-f50b7fab8f36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwzfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
+        "description": "Hanging plants in colorful pots - 'Space-Saving Ideas' section."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1580133318324-f2f76d987dd8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1NzR8MHwxfHNlYXJjaHwxfHxwbGFudCUyMGxlYWYlMjBjbG9zZSUyMHVwJTIwdGV4dHVyZXxlbnwwfHx8fDE3ODE0NjI5MzJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Close up of a green leaf with drops of water - Background texture for 'Pest & Disease Control'."
+      }
+    ],
+    "texture_details": [
+      {
+        "url": "https://images.unsplash.com/photo-1566249099725-1b0ce8da8c32?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwyfHxwbGFudCUyMGxlYWYlMjBjbG9zZSUyMHVwJTIwdGV4dHVyZXxlbnwwfHx8fDE3ODE0NjI5MzJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Macro leaf - Use as section break texture or background for the seasonal calendar."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "NOTE: Codebase uses .js files, NOT .tsx files. Write React components using JSX in .js files.",
+    "Do not use generic SaaS cards. The 'My Garden' dashboard and 'Plant Database' should have an editorial feel. Use pure HTML/Tailwind with flex/grid instead of standard Shadcn Cards where possible. Apply the 1px subtle inner border instead.",
+    "Data testing: Include `data-testid` on ALL interactive elements, especially in the Region Picker, Tasks, and 'Add to My Garden' buttons.",
+    "Icons: Use `lucide-react`. Avoid emojis entirely. Keep icon stroke-width thin (e.g., 1.5) to match the elegant serif typography.",
+    "Storage: Since there is no auth, implement 'My Garden' persistence using `localStorage`. Create a custom hook for managing user plants and current region state.",
+    "Mock AI Service: Implement a mock service (or API endpoint) simulating Claude Sonnet 4.5 that returns region-specific planting schedules, pest info, and tasks based on the selected region and current month. Highlight this flow as MOCKED.",
+    "Feature setup: Implement an auto-detect geo-location mockup that defaults to a generic region if denied, allowing manual override via a dropdown.",
+    "Aesthetic check: Make sure headers use the serif font (Cormorant Garamond) and are dark green (#2D4A22), with terracotta (#C65D47) for key CTAs (e.g., 'Add to Garden', 'Mark Task Complete')."
+  ]
+}

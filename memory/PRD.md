@@ -32,7 +32,8 @@
 
 ## Status
 - **Iteration 1**: 12/12 backend + 100% frontend ✅
-- **Iteration 2**: 25/25 backend + 100% frontend ✅
+- **Iteration 2**: 25/25 backend + 100% frontend ✅ (i18n, companions, pest gallery, print/download, PWA)
+- **Iteration 3**: 100% frontend (13/13 masterclass flows + 6/6 regression) ✅ (Masterclasses feature)
 
 ## Prioritised Backlog
 ### P1

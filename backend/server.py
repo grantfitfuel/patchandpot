@@ -813,6 +813,51 @@ async def reverse_geocode(lat: float, lon: float):
     }
 
 
+# Flower portrait subjects, mirrored from frontend data so /api/admin/prewarm
+# can generate every masterclass card image up-front (cached to MongoDB).
+FLOWER_PORTRAITS = {
+    "dahlia": "a single 'Cafe au Lait' dahlia bloom in soft natural light against a cream linen background",
+    "aster": "a small cluster of late-season Symphyotrichum 'Little Carlow' Michaelmas daisies, lilac-blue, on cream backdrop",
+    "rose": "a single antique pink garden rose in full bloom with morning dew, soft natural light, cream backdrop",
+    "sweet-pea": "a small bunch of pastel sweet pea flowers (Lathyrus odoratus) in a clear glass jar on cream linen, soft natural light",
+    "tulip": "a trio of elegant tulip blooms in cream and dusty pink standing in a stoneware vase, soft natural light",
+    "sunflower": "a single sunflower head (Helianthus annuus 'Vanilla Ice'), creamy yellow petals, golden hour light, cream backdrop",
+    "peony": "a single fully open blush peony bloom (Paeonia lactiflora) on cream linen, painterly natural light",
+    "cosmos": "three Cosmos bipinnatus flowers in pink, apricot and white, airy stems, cream backdrop",
+    "zinnia": "a trio of bright Zinnia elegans 'Benary's Giant' blooms in coral and lemon, summer light, cream backdrop",
+    "lavender": "a small bundle of fresh English lavender stems (Lavandula angustifolia) tied with twine on cream linen, soft daylight",
+    "lily": "a single white oriental lily flower (Lilium 'Casa Blanca') in full bloom on cream backdrop, natural daylight",
+    "chrysanthemum": "a single bronze chrysanthemum bloom (Chrysanthemum 'Emperor of China') with coppery petals on cream linen",
+}
+
+
+@api_router.post("/admin/prewarm")
+async def prewarm_image_cache():
+    """One-shot endpoint: generate every flower-card image that isn't already
+    cached. Safe to call repeatedly. Returns counts so admins can verify.
+    Skips any image whose cache key already exists in MongoDB."""
+    generated, skipped, failed = 0, 0, []
+    for slug, subject in FLOWER_PORTRAITS.items():
+        key = f"masterclass-card:{slug}"
+        existing = await db.image_cache.find_one({"key": key}, {"_id": 1})
+        if existing:
+            skipped += 1
+            continue
+        try:
+            await _cached_image(
+                key=key,
+                prompt=f"A beautiful photograph of {subject}. natural daylight, soft focus, "
+                       f"terracotta and cream palette, botanical editorial magazine style, "
+                       f"shallow depth of field, no text, no people, no logos.",
+                session=f"prewarm-{slug}-{uuid.uuid4()}",
+            )
+            generated += 1
+        except Exception as e:
+            logger.warning("prewarm failed for %s: %s", slug, e)
+            failed.append(slug)
+    return {"generated": generated, "skipped_cached": skipped, "failed": failed, "total": len(FLOWER_PORTRAITS)}
+
+
 # ───────────────────────── App wiring ─────────────────────────
 app.include_router(api_router)
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping } from "lucide-react";
+import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, GraduationCap } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
@@ -66,12 +66,15 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-12 gap-6">
+          <FeatureCard to="/masterclasses" label="Learn deeply" title="Masterclasses"
+            blurb="Three structured courses: propagation, pest control, and plant care."
+            icon={GraduationCap} colSpan="md:col-span-7" />
+          <FeatureCard to="/guides/cut-flowers" label="Bring colour home" title="Cut Flowers"
+            blurb="Compact, container-friendly cut flowers — palettes, bulb lasagnes, arranging."
+            icon={Flower2} colSpan="md:col-span-5" />
           <FeatureCard to="/guides/first-pot" label="Begin today" title="Your First Pot"
             blurb="Everything you need to begin — pot, compost, seeds, light and water."
             icon={Sprout} colSpan="md:col-span-5" />
-          <FeatureCard to="/guides/cut-flowers" label="Bring colour home" title="Cut Flowers"
-            blurb="Compact, container-friendly cut flowers — palettes, bulb lasagnes, arranging."
-            icon={Flower2} colSpan="md:col-span-7" />
           <FeatureCard to="/guides/space-saving" label="Small spaces" title="Space-Saving Ideas"
             blurb="Vertical towers, hanging rails, and crate setups for tiny spaces."
             icon={LayoutGrid} colSpan="md:col-span-7" />
@@ -80,10 +83,10 @@ export default function Home() {
             icon={HandHelping} colSpan="md:col-span-5" />
           <FeatureCard to="/guides/regrow" label="Zero waste" title="Regrow from Scraps"
             blurb="Save money and reduce waste by regrowing from kitchen scraps."
-            icon={Recycle} colSpan="md:col-span-6" />
+            icon={Recycle} colSpan="md:col-span-4" />
           <FeatureCard to="/plants" label="Browse" title="Plant Database"
             blurb="Edibles, herbs and flowers that thrive in pots and patches."
-            icon={Sprout} colSpan="md:col-span-6" />
+            icon={Sprout} colSpan="md:col-span-3" />
         </div>
       </section>
 

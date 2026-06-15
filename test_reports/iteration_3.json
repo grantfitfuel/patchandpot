@@ -1,0 +1,31 @@
+{
+  "summary": "Iteration 3 frontend-only verification of the new Masterclasses feature. All 13 critical flows passed end-to-end via Playwright against the live preview URL. Verified: /masterclasses index page (heading 'Learn to grow, deeply.' + 3 cards propagation/pest-control/plant-care with images, duration, tagline, progress bars); /masterclasses/propagation detail page (data-testid='masterclass-detail-propagation') with 6 lesson nav items and Lesson 1 'Why propagate?' rendering prose + 'What you'll learn' info box; lesson-nav-seed navigates to /masterclasses/propagation/seed showing Lesson 2 'Starting from seed' with 'The reliable indoor sowing routine' steps section and tip; mark-complete-btn from an uncompleted Lesson 2 auto-advances to softwood-cuttings within the 250ms window; completed lesson shows tick (bg-forest) in sidebar; Previous absent on Lesson 1, Next absent on Lesson 6; localStorage persists under key 'patchpot.masterclass.v1' as {propagation:{seed:true}} and survives reload; index page shows '1 of 6 lessons' after marking one; setting all 6 propagation lessons true renders the masterclass-complete card on the last lesson with links to Pest Control and Plant Care; nav-masterclasses i18n correct in DE='Meisterkurse', FR='Masterclasses', JA='マスタークラス', ZH='大师课'; nav-mobile-masterclasses present in DOM; Home feature--masterclasses card present. Regression: Calendar download-month-btn, /plants/tomato companions-section, /plants list, /pests gallery (still reachable via direct URL though removed from top nav), /garden, and /guides/cut-flowers all load without errors.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_backend.py"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "useMasterclassProgress.useEffect that writes to localStorage runs on mount with the initial value, which re-writes the storage every time the hook initialises (a no-op if value is the same JSON, but it could clobber concurrent updates from useAllMasterclassProgress on the index page if both mount simultaneously). Minor — current flow is fine because the detail page and index page do not coexist.",
+    "useAllMasterclassProgress only listens to the 'storage' event (cross-tab) — it does not re-read on focus or after a same-tab write. In practice the index page is re-mounted on navigation from a detail page so this works, but if a future feature mounts both on the same screen the index won't live-update. Consider exposing a manual refresh or using a small pub/sub.",
+    "MasterclassDetail.jsx mark-complete onClick reads `isDone(currentLesson.slug)` BEFORE the toggle state update has committed. This currently works (the pre-toggle value is the right gate for 'we were uncompleted, advance after marking'), but the inversion is non-obvious — a comment explaining the logic would help future maintainers.",
+    "masterclasses.js is ~420 lines of authored prose data. Fine for now, but if more masterclasses are added consider splitting per-course into /data/masterclasses/propagation.js etc.",
+    "Lesson content is intentionally English-only across all 5 UI languages — only the nav chrome translates. This matches the acceptance criteria but should be documented in the README so future i18n work doesn't accidentally try to translate the prose."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a — frontend-only iteration", "frontend": "100% (13/13 masterclass flows + 6/6 regression flows)"},
+  "test_credentials": "n/a — app has no auth",
+  "seed_data_creation": "Test populated localStorage 'patchpot.masterclass.v1' temporarily to exercise progress + masterclass-complete flows; cleared between phases.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Masterclasses feature is fully wired and stable. data-testids confirmed live: masterclass-card-{propagation|pest-control|plant-care}, masterclass-detail-{slug}, lesson-list, lesson-nav-{lessonSlug}, lesson-content-{lessonSlug}, mark-complete-btn, lesson-prev, lesson-next, masterclass-complete, masterclass-progress-{slug}, masterclass-detail-progress, nav-masterclasses, nav-mobile-masterclasses, feature--masterclasses (note the double dash because the to='/masterclasses' replace('/','-') produces '-masterclasses'). Auto-advance delay is exactly 250ms; tests should wait ≥500ms or use wait_for_url. Lesson slugs for propagation in order: intro, seed, softwood-cuttings, division, layering, aftercare. /pests route is still reachable (just removed from top nav per spec).",
+  "rca of the issue": "n/a — no bugs found."
+}

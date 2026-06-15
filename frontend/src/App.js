@@ -10,6 +10,8 @@ import PestControlPage from "@/pages/PestControl";
 import MyGardenPage from "@/pages/MyGarden";
 import GuidesPage from "@/pages/Guides";
 import PrintPage from "@/pages/Print";
+import MasterclassesPage from "@/pages/Masterclasses";
+import MasterclassDetailPage from "@/pages/MasterclassDetail";
 
 export default function App() {
   return (
@@ -26,6 +28,9 @@ export default function App() {
             <Route path="/garden" element={<MyGardenPage />} />
             <Route path="/guides" element={<GuidesPage />} />
             <Route path="/guides/:slug" element={<GuidesPage />} />
+            <Route path="/masterclasses" element={<MasterclassesPage />} />
+            <Route path="/masterclasses/:slug" element={<MasterclassDetailPage />} />
+            <Route path="/masterclasses/:slug/:lessonSlug" element={<MasterclassDetailPage />} />
             <Route path="/print/:month" element={<PrintPage />} />
           </Routes>
         </main>

@@ -15,7 +15,7 @@ export default function Header() {
     { to: "/", label: t("nav.home"), key: "home" },
     { to: "/calendar", label: t("nav.calendar"), key: "calendar" },
     { to: "/plants", label: t("nav.plants"), key: "plants" },
-    { to: "/pests", label: t("nav.pests"), key: "pests" },
+    { to: "/masterclasses", label: t("nav.masterclasses"), key: "masterclasses" },
     { to: "/garden", label: t("nav.garden"), key: "garden" },
     { to: "/guides", label: t("nav.guides"), key: "guides" },
   ];

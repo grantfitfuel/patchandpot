@@ -858,6 +858,127 @@ async def prewarm_image_cache():
     return {"generated": generated, "skipped_cached": skipped, "failed": failed, "total": len(FLOWER_PORTRAITS)}
 
 
+# ───────────────────────── AI plant guide (any plant) ─────────────────────────
+class PlantGuideRequest(BaseModel):
+    query: str  # plant common or botanical name
+    language: Optional[str] = "en"
+
+
+def _plant_slug(name: str) -> str:
+    return "ai-" + re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:48]
+
+
+@api_router.post("/plant-guide")
+async def generate_plant_guide(req: PlantGuideRequest):
+    """Generate (or return cached) AI plant guide for ANY plant — even ones not
+    in the curated database. Returned in the same shape as curated plants, with
+    extra fields (growing, problems, companions, seasonality, ai_generated)."""
+    name = (req.query or "").strip()
+    if len(name) < 2:
+        raise HTTPException(400, "Query too short")
+    if len(name) > 80:
+        raise HTTPException(400, "Query too long")
+
+    language = (req.language or "en").lower()
+    if language not in LANG_NAMES:
+        language = "en"
+
+    slug = _plant_slug(name)
+    cache_key = f"plant-guide:{slug}:{language}"
+    cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
+    if cached:
+        return cached["data"]
+
+    # First — check whether the curated DB already has it (case-insensitive name).
+    for p in PLANTS:
+        if p["name"].lower() == name.lower():
+            return {**p, "ai_generated": False, "curated": True}
+
+    language_name = LANG_NAMES[language]
+    system = (
+        "You are a careful horticulturalist creating concise, accurate plant care guides "
+        "for small-space gardeners. Stick to widely-accepted advice. If asked about a plant "
+        "you're unsure exists, set 'unknown' to true and return minimal fields. "
+        "ALWAYS respond as valid JSON only — no markdown fences, no extra prose."
+    )
+
+    user_prompt = f"""Generate a plant care guide for: "{name}"
+
+OUTPUT LANGUAGE: {language_name}. All string values must be in {language_name}.
+
+Return STRICT JSON with this exact shape (keys stay in English):
+{{
+  "unknown": false,                                  // true if you cannot identify the plant
+  "id": "{slug}",
+  "name": "<official common name>",
+  "botanical_name": "<botanical name if known, else empty>",
+  "category": "Vegetable | Herb | Leafy green | Fruit | Root | Allium | Flower | Other",
+  "difficulty": "Very easy | Easy | Medium | Hard",
+  "sun": "Full sun | Full to partial | Partial sun | Shade",
+  "water": "Low | Moderate | Regular | Frequent",
+  "soil": "<one-line soil description>",
+  "container": true,                                  // grows OK in pots/containers?
+  "edible_part": "<comma-separated parts that are edible, or 'Ornamental' if not edible>",
+  "summary": "<1-2 sentence overview>",
+  "growing": ["<3-5 short tips on growing — sowing, planting, daily care>"],
+  "problems": [
+    {{"name": "<pest or disease>", "solution": "<one sentence organic-first control>"}}
+  ],
+  "companions": ["<3-5 plant names that grow well near this one>"],
+  "seasonality": "<one sentence on best growing season(s) in temperate climates>",
+  "warnings": "<empty string OR a single safety note e.g. 'Leaves toxic; only fruit is edible' or 'Sap can irritate skin'. Leave empty if no warnings are warranted.>",
+  "tags": ["<3-6 short lowercase tags e.g. 'heat', 'beginner', 'perennial'>"]
+}}
+
+If the plant is not a real plant or you cannot give a confident answer, return:
+{{"unknown": true, "name": "{name}", "id": "{slug}"}}
+
+Return JSON only."""
+
+    data = await _llm_json(system, user_prompt, session_id=f"plant-guide-{slug}-{language}")
+
+    if data.get("unknown"):
+        raise HTTPException(404, f"Couldn't find reliable information on '{name}'. Try a more common name.")
+
+    # Ensure required fields + force the slug/flag
+    data["id"] = slug
+    data["ai_generated"] = True
+    data["curated"] = False
+    data.setdefault("container", True)
+    data.setdefault("tags", [])
+    data.setdefault("growing", [])
+    data.setdefault("problems", [])
+    data.setdefault("companions", [])
+    data.setdefault("warnings", "")
+    data.setdefault("botanical_name", "")
+    data.setdefault("category", "Other")
+    data.setdefault("difficulty", "Medium")
+    data.setdefault("sun", "Full to partial")
+    data.setdefault("water", "Moderate")
+    data.setdefault("soil", "Well-drained")
+    data.setdefault("edible_part", "Ornamental")
+    data.setdefault("summary", f"AI-generated guide for {data['name']}.")
+    data.setdefault("seasonality", "")
+
+    await db.guidance_cache.insert_one({
+        "key": cache_key, "data": data,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return data
+
+
+@api_router.get("/plant-guide/{slug}")
+async def get_cached_plant_guide(slug: str, language: str = "en"):
+    """Lookup an AI plant guide by its slug — used when navigating directly to /plants/ai/{slug}."""
+    if not slug.startswith("ai-"):
+        raise HTTPException(404, "Not an AI plant slug")
+    cache_key = f"plant-guide:{slug}:{language}"
+    cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
+    if cached:
+        return cached["data"]
+    raise HTTPException(404, "Guide not cached yet — search for the plant from the Plants page.")
+
+
 # ───────────────────────── App wiring ─────────────────────────
 app.include_router(api_router)
 

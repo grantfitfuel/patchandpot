@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import CalendarPage from "@/pages/Calendar";
 import PlantsPage from "@/pages/Plants";
 import PlantDetailPage from "@/pages/PlantDetail";
+import AIPlantDetailPage from "@/pages/AIPlantDetail";
 import PestControlPage from "@/pages/PestControl";
 import MyGardenPage from "@/pages/MyGarden";
 import GuidesPage from "@/pages/Guides";
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/calendar" element={<CalendarPage />} />
             <Route path="/plants" element={<PlantsPage />} />
+            <Route path="/plants/ai/:slug" element={<AIPlantDetailPage />} />
             <Route path="/plants/:id" element={<PlantDetailPage />} />
             <Route path="/pests" element={<PestControlPage />} />
             <Route path="/garden" element={<MyGardenPage />} />

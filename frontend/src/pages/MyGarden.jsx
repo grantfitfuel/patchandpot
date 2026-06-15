@@ -60,28 +60,33 @@ export default function MyGardenPage() {
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" data-testid="garden-plants-grid">
-            {plants.map((p) => (
-              <div key={p.id} className="card-flat overflow-hidden">
-                <Link to={`/plants/${p.id}`} className="block aspect-[4/3] bg-surface">
-                  <PlantImage plant={p} />
-                </Link>
-                <div className="p-5 flex items-start justify-between gap-4">
-                  <div>
-                    <p className="overline">{p.category}</p>
-                    <h3 className="font-serif text-2xl text-forest mt-1">{p.name}</h3>
+            {plants.map((p) => {
+              const linkTo = p.id.startsWith("ai-") ? `/plants/ai/${p.id}` : `/plants/${p.id}`;
+              return (
+                <div key={p.id} className="card-flat overflow-hidden">
+                  <Link to={linkTo} className="block aspect-[4/3] bg-surface">
+                    <PlantImage plant={p} />
+                  </Link>
+                  <div className="p-5 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="overline">
+                        {p.category}{p.ai_generated ? " · AI" : ""}
+                      </p>
+                      <h3 className="font-serif text-2xl text-forest mt-1">{p.name}</h3>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removePlant(p.id)}
+                      data-testid={`garden-remove-${p.id}`}
+                      className="text-moss hover:text-terracotta"
+                      aria-label={`Remove ${p.name}`}
+                    >
+                      <Trash2 strokeWidth={1.5} className="w-4 h-4" />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => removePlant(p.id)}
-                    data-testid={`garden-remove-${p.id}`}
-                    className="text-moss hover:text-terracotta"
-                    aria-label={`Remove ${p.name}`}
-                  >
-                    <Trash2 strokeWidth={1.5} className="w-4 h-4" />
-                  </button>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="border-t border-border pt-12">

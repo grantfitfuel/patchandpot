@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Search, Sun, Droplets, Sprout } from "lucide-react";
-import { fetchPlants } from "@/lib/api";
+import { Link, useNavigate } from "react-router-dom";
+import { Search, Sun, Droplets, Sprout, Sparkles, Loader2 } from "lucide-react";
+import { fetchPlants, fetchPlantGuide } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import { useI18n } from "@/i18n";
 
 const CATEGORIES = ["All", "Vegetable", "Herb", "Leafy green", "Fruit", "Root", "Allium", "Flower"];
 
 export default function PlantsPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const navigate = useNavigate();
   const [plants, setPlants] = useState([]);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [generating, setGenerating] = useState(false);
+  const [aiError, setAiError] = useState("");
 
   useEffect(() => {
     fetchPlants().then(setPlants).catch(() => setPlants([]));
@@ -24,6 +27,24 @@ export default function PlantsPage() {
   });
 
   const catLabel = (c) => t(`plants.category.${c.toLowerCase().replace(/\s+/g, "-")}`);
+
+  const askAI = async () => {
+    if (!query.trim() || generating) return;
+    setGenerating(true);
+    setAiError("");
+    try {
+      const guide = await fetchPlantGuide(query.trim(), lang);
+      // Cache hit on backend means instant; otherwise this is the slow path.
+      navigate(`/plants/ai/${guide.id}?q=${encodeURIComponent(query.trim())}`);
+    } catch (e) {
+      const msg = e?.response?.data?.detail || "Couldn't generate a guide for that plant.";
+      setAiError(msg);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const showAskCTA = query.trim().length >= 2 && filtered.length === 0;
 
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
@@ -41,7 +62,8 @@ export default function PlantsPage() {
             data-testid="plants-search"
             placeholder={t("plants.search")}
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => { setQuery(e.target.value); setAiError(""); }}
+            onKeyDown={(e) => { if (e.key === "Enter" && showAskCTA) askAI(); }}
             className="w-full pl-10 pr-3 py-3 bg-sand border border-border focus:border-forest outline-none text-ink"
           />
         </div>
@@ -60,6 +82,30 @@ export default function PlantsPage() {
           ))}
         </div>
       </div>
+
+      {/* Empty state with AI CTA */}
+      {showAskCTA && (
+        <div className="card-flat p-8 mb-10 flex flex-col sm:flex-row items-center gap-6" data-testid="ai-plant-cta">
+          <Sparkles strokeWidth={1.4} className="w-8 h-8 text-terracotta flex-shrink-0" />
+          <div className="flex-1 text-center sm:text-left">
+            <h2 className="font-serif text-2xl text-forest">Not in our library?</h2>
+            <p className="text-moss mt-1">
+              Ask Patch &amp; Pot to put together a quick guide for <em className="text-forest not-italic">&ldquo;{query}&rdquo;</em> — care, season, problems and companions.
+            </p>
+            {aiError && <p className="text-sm text-terracotta mt-2" data-testid="ai-plant-error">{aiError}</p>}
+          </div>
+          <button
+            type="button"
+            onClick={askAI}
+            disabled={generating}
+            data-testid="ask-ai-btn"
+            className="btn-terracotta inline-flex items-center gap-2 whitespace-nowrap"
+          >
+            {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" strokeWidth={1.5} />}
+            {generating ? "Growing your guide…" : `Ask about ${query.trim().split(" ")[0]}`}
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="plants-grid">
         {filtered.map((p) => (
@@ -86,7 +132,7 @@ export default function PlantsPage() {
         ))}
       </div>
 
-      {filtered.length === 0 && (
+      {filtered.length === 0 && !showAskCTA && (
         <p className="text-moss" data-testid="plants-empty">{t("plants.empty")}</p>
       )}
     </div>

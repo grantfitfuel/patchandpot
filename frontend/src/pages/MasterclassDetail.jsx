@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Check, GraduationCap, Lightbulb } from "lucide-react";
-import { MASTERCLASSES, MASTERCLASS_ORDER } from "@/data/masterclasses";
+import { ALL_MASTERCLASSES } from "@/data/all-masterclasses";
 import { useMasterclassProgress } from "@/hooks/useMasterclassProgress";
 
 export default function MasterclassDetailPage() {
   const { slug, lessonSlug } = useParams();
   const navigate = useNavigate();
 
-  const masterclass = MASTERCLASSES[slug];
+  const masterclass = ALL_MASTERCLASSES[slug];
   const { completed, toggle, isDone } = useMasterclassProgress(slug || "");
 
   const currentLesson = useMemo(() => {
@@ -194,11 +194,14 @@ export default function MasterclassDetailPage() {
                 Now do it. The plants are waiting.
               </p>
               <div className="flex flex-wrap gap-3 justify-center mt-6">
-                {MASTERCLASS_ORDER.filter((s) => s !== slug).map((s) => (
-                  <Link key={s} to={`/masterclasses/${s}`} className="btn-ghost">
-                    {MASTERCLASSES[s].title} →
-                  </Link>
-                ))}
+                {Object.keys(ALL_MASTERCLASSES)
+                  .filter((s) => s !== slug)
+                  .slice(0, 3)
+                  .map((s) => (
+                    <Link key={s} to={`/masterclasses/${s}`} className="btn-ghost">
+                      {ALL_MASTERCLASSES[s].title} →
+                    </Link>
+                  ))}
               </div>
             </div>
           )}

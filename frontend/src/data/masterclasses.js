@@ -279,6 +279,94 @@ export const MASTERCLASSES = {
           ]},
         ],
       },
+      {
+        slug: "id-cards",
+        title: "Quick ID cards — the 13 pests you'll meet",
+        eyebrow: "Lesson 7",
+        body: [
+          "Identification is half the battle. The same plant under attack by aphids, spider mites or whitefly needs three different responses. Here are the thirteen pests and diseases that account for almost all damage in small-space and container growing — with the signs and the same-day fix.",
+        ],
+        boxes: [
+          { label: "Aphids — sticky, curled tips, ants nearby", items: [
+            "Blast with water from a spray bottle; repeat after 2–3 days (undersides).",
+            "Mild soapy water wipe; rinse next day on edibles.",
+            "Attract ladybirds and hoverflies with dill, fennel and calendula nearby.",
+          ]},
+          { label: "Spider mites — fine web, speckled leaves, dry air", items: [
+            "Mist daily to raise humidity; shower the plant gently once a week.",
+            "Wipe leaf undersides with a damp cloth; increase airflow around the pot.",
+            "Isolate heavily affected pots so mites don't drift to neighbours.",
+          ]},
+          { label: "Slugs & snails — big holes, silvery trails", items: [
+            "Evening hand-pick; copper tape stuck around pot rims is brilliant.",
+            "Beer traps; wool pellets; tidy away damp hiding spots.",
+            "Raise pots on feet; avoid heavy watering at dusk.",
+          ]},
+          { label: "Whitefly — little white cloud, sticky leaves", items: [
+            "Yellow sticky cards hung in the canopy.",
+            "Wipe with soapy water; rinse next day.",
+            "Boost airflow; avoid crowded foliage.",
+          ]},
+          { label: "Leaf miner — pale snake trails inside the leaf", items: [
+            "Remove affected leaves promptly (bin, don't compost).",
+            "Use fine insect mesh over susceptible crops (chard, beetroot, leafy greens).",
+          ]},
+          { label: "Tomato / potato blight — brown patches, blackened stems, rapid collapse", items: [
+            "Remove affected growth immediately; bin (do NOT compost).",
+            "Water soil only, never leaves; increase spacing and airflow.",
+            "Choose earlier or determinate tomato varieties for pots in blight-prone climates.",
+          ]},
+          { label: "Fungus gnats — tiny flies hovering over wet compost", items: [
+            "Let the top 2–3 cm of compost dry out between waterings.",
+            "Top-dress with coarse sand or grit to interrupt the life cycle.",
+            "Yellow sticky traps placed flat on the soil surface.",
+          ]},
+          { label: "Powdery mildew — white powder, dry still air", items: [
+            "Prune for airflow; never water overhead late in the day.",
+            "Remove the worst affected leaves; keep new growth vigorous.",
+            "Weekly milk spray (1:9 milk to water) is a strong preventative.",
+          ]},
+          { label: "Vine weevil — leaf notches by adults, grub damage to roots", items: [
+            "Check at night with a torch for the slow black adults; hand-pick.",
+            "Repot badly hit plants, washing roots and discarding old compost.",
+            "Apply biological nematodes labelled for vine weevil in warm months.",
+          ]},
+          { label: "Flea beetle — tiny shot-holes, jumps when disturbed", items: [
+            "Fine mesh over young brassicas and rocket from sowing.",
+            "Keep plants growing fast with even moisture — stress invites them.",
+            "Interplant with strong-scented herbs (mint, coriander) to confuse adults.",
+          ]},
+          { label: "Cabbage white caterpillars — butterflies hovering, green grubs", items: [
+            "Fine mesh over brassicas; check undersides for yellow egg clusters weekly.",
+            "Hand-pick caterpillars early — they're slow and easy.",
+            "Grow decoy nasturtiums nearby to draw the butterflies away.",
+          ]},
+          { label: "Damping-off — seedlings collapse, brown stem at soil line", items: [
+            "Use fresh seed compost and clean trays / pots.",
+            "Avoid overwatering; give bright light and gentle airflow.",
+            "Sow a little thinner; bottom-water (sit pots in a tray) when possible.",
+          ]},
+        ],
+        tip: "Photograph the damage before you spray. A clear photo lets you compare next week — and confirm whether what you tried actually worked.",
+      },
+      {
+        slug: "nematodes",
+        title: "Are nematodes safe? — the gentle nuclear option",
+        eyebrow: "Lesson 8",
+        body: [
+          "Biological controls like nematodes are often misunderstood. They sound technical but they're some of the gentlest, most precisely-targeted tools in the organic toolbox.",
+          "Nematodes are microscopic soil-dwelling worms. Different species target different pests — and only those pests. They are widely available by post from garden suppliers in spring through autumn.",
+        ],
+        boxes: [
+          { label: "What's safe, what's targeted", items: [
+            "Slug nematodes (Phasmarhabditis) only affect small soil-dwelling slugs. They do NOT harm earthworms, pets, bees or people.",
+            "Vine weevil nematodes (Steinernema / Heterorhabditis) attack only the larvae that chew plant roots. Adult weevils still need hand-picking. Pollinators are not affected.",
+            "Both products are safe for pollinators — they don't infect bees, butterflies or other garden helpers.",
+            "Best results: apply to MOIST soil in warm conditions (10–20°C). Repeat through the season for full effect.",
+          ]},
+        ],
+        tip: "Nematodes have a short shelf life and need refrigerating — order only when you're ready to use within a fortnight, and water in straight away.",
+      },
     ],
   },
 
@@ -418,6 +506,142 @@ export const MASTERCLASSES = {
       },
     ],
   },
+
+  "seasonal-planting": {
+    slug: "seasonal-planting",
+    title: "Seasonal Planting",
+    tagline: "Read the year like a gardener — sowing windows, succession, and stretching every season.",
+    icon: HeartPulse,
+    image:
+      "https://images.unsplash.com/photo-1745063537934-e6bf484d72eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
+    duration: "About 35 minutes",
+    lessons: [
+      {
+        slug: "reading-seasons",
+        title: "Reading the seasons where you live",
+        eyebrow: "Lesson 1",
+        body: [
+          "Generic gardening calendars fail because the year is not the same everywhere. A Sussex grower sows tomatoes in April; a Madrid grower sows them in February; a Sydney grower sows them in August. The trick is to read your own year by the three signals that actually matter: last frost date, average daylight, and soil temperature.",
+          "You don't need a weather station — you need to notice. When does forsythia flower locally? When do the first daffodils open? Local frost guidance from a national met service plus a free soil thermometer (£8) will do more for your timing than any month-by-month book.",
+        ],
+        boxes: [
+          { label: "The four signals that drive your year", items: [
+            "Last frost date — gates everything tender (tomato, basil, dahlia, courgette).",
+            "Average daylight — leafy crops bolt above 14 hours; flowers like cosmos delay below 12.",
+            "Soil temperature — most seeds need 10°C+ to germinate; tomatoes and zinnias want 18°C+.",
+            "First frost date in autumn — backwards-counts your last harvest window.",
+          ]},
+        ],
+        tip: "Note the date of your last frost each year on the inside cover of your seed box. Within three years you'll have a personal forecast tighter than any almanac.",
+      },
+      {
+        slug: "windows",
+        title: "Sowing windows — early, main, late",
+        eyebrow: "Lesson 2",
+        body: [
+          "Most edibles and many cut flowers have three usable sowing windows. Beginners default to one (usually the main spring sow) and lose the year's possibilities.",
+        ],
+        boxes: [
+          { label: "Three windows worth knowing", items: [
+            "Early — cool-tolerant crops sown indoors / under cover 6–8 weeks before last frost: lettuce, brassicas, hardy annual flowers (cornflower, ammi), broad beans.",
+            "Main — the big spring window. Tender crops indoors, hardy crops direct: tomato, chilli, basil, courgette, sweet pea, cosmos.",
+            "Late — mid- to late-summer sowings for autumn / winter cropping: chard, kale, winter lettuce, spinach, autumn carrots, hardy annuals for an early next-year flush.",
+          ]},
+        ],
+        steps: {
+          title: "How to find your windows",
+          items: [
+            "Look up your average last frost date (LFD). Mark it on the calendar.",
+            "Count back 6–8 weeks — that's when 'early' sowing under cover begins.",
+            "Main sowings = 2 weeks BEFORE to 4 weeks AFTER your LFD.",
+            "Look up your first frost date (FFD). Count back the days-to-maturity on a seed packet to find the latest sensible direct-sow date.",
+            "Late sowings for autumn / overwintering = mid-summer (July–August in northern hemisphere temperate climates).",
+          ],
+        },
+      },
+      {
+        slug: "succession",
+        title: "Succession — pick instead of waiting",
+        eyebrow: "Lesson 3",
+        body: [
+          "The single biggest leap from beginner to confident grower is succession sowing — sowing the same crop in small batches, two to three weeks apart, instead of in one big sowing.",
+          "It works for lettuce, radish, coriander, dill, beetroot, spring onions, salad turnip, baby carrots, and most cut-flower annuals (cosmos, calendula, scabious, cornflower).",
+        ],
+        steps: {
+          title: "A reliable succession rhythm",
+          items: [
+            "Sow a small batch — half a packet of lettuce, a 30 cm row of radish.",
+            "Mark the date on the pot or row tag.",
+            "Two weeks later, sow another small batch in fresh soil.",
+            "Repeat every 2 weeks until 8 weeks before your first frost.",
+            "Stop in midsummer for crops that bolt in heat (coriander, lettuce); restart in autumn for cool-tolerant types.",
+          ],
+        },
+        tip: "It feels wasteful to sow only half a packet. Trust it — by week 8 you'll be harvesting from rows 1–4 simultaneously and never short of salad again.",
+      },
+      {
+        slug: "season-extension",
+        title: "Season extension — fleece, cloches, and microclimates",
+        eyebrow: "Lesson 4",
+        body: [
+          "You can buy yourself 4–6 weeks at each end of the season with the simplest equipment: horticultural fleece (£10 for a roll), cloches made from plastic bottles, and a sunny wall.",
+          "South-facing brick walls (north-facing in the southern hemisphere) absorb daytime heat and release it overnight — pots against them can be 3–5°C warmer than open ground. This single trick lets temperate balconies grow chilli, basil and aubergine reliably.",
+        ],
+        boxes: [
+          { label: "What buys you what time", items: [
+            "Single layer of fleece over pots overnight — protects to about −2°C (3–4 weeks extra in spring/autumn).",
+            "Cloche (plastic bottle or glass jar) over individual seedlings — protects to about −1°C.",
+            "Cold frame or mini greenhouse — 6–8 weeks extra each side, can grow winter salads.",
+            "Sunny sheltered corner against a south wall — effectively one climate zone warmer.",
+          ]},
+        ],
+      },
+      {
+        slug: "winter-growing",
+        title: "Winter growing — the quietly productive season",
+        eyebrow: "Lesson 5",
+        body: [
+          "Winter is the most underused season for home growers. The cool months are perfect for hardy crops that taste BETTER after frost: kale, leeks, winter lettuce, mâche, mizuna, hardy spring onions, garlic.",
+          "Bulbs planted in autumn give you the most morale-boosting spring imaginable — tulips, narcissus, alliums, crocus, hyacinths. None of them need any winter care after planting.",
+        ],
+        boxes: [
+          { label: "A winter-grower's wishlist", items: [
+            "Hardy leaves: lamb's lettuce / mâche, mizuna, mustards, winter lettuce (Winter Density, Rouge d'Hiver).",
+            "Roots & stems: leeks (planted summer), salsify, hardy spring onions, parsnip (sown spring).",
+            "Garlic: plant cloves October–November, harvest June–July.",
+            "Spring bulbs: plant Sep–Nov for Feb–May colour. Tulips last (Nov–Dec).",
+            "Indoor: microgreens trays on a windowsill keep going year-round.",
+          ]},
+        ],
+        tip: "Most winter crops want LESS water than summer ones — heated rooms cause overwatering. Wait until the surface compost is dry to the touch before watering.",
+      },
+      {
+        slug: "the-year",
+        title: "The year on a page",
+        eyebrow: "Lesson 6",
+        body: [
+          "Once you know your last frost date, the whole gardening year can fit on a single page. This is the rhythm experienced growers use without thinking — and you'll have it by the end of one season of doing.",
+        ],
+        boxes: [
+          { label: "12 months in one breath (northern hemisphere; flip for southern)", items: [
+            "January — plan, order seeds, prune fruit trees, clean tools.",
+            "February — sow chillies and aubergines indoors; chit potatoes.",
+            "March — sow tomatoes, sweet peas, hardy annual flowers; prune roses.",
+            "April — sow main crops under cover; plant first early potatoes; harden off.",
+            "May — plant out tender crops after last frost; sow direct beans, squash; pinch dahlias.",
+            "June — water deeply; succession-sow salads; dead-head religiously.",
+            "July — harvest harvest harvest; sow autumn crops; save sweet pea seed.",
+            "August — sow winter salads; lift garlic; take softwood cuttings.",
+            "September — sow hardy annuals for next year; plant first spring bulbs.",
+            "October — clear summer crops; plant tulips; mulch tender plants.",
+            "November — final tulip planting; clean and store tools; bring tender plants under cover.",
+            "December — rest, plan, read seed catalogues. The season starts again.",
+          ]},
+        ],
+        tip: "Print this list and tape it inside your shed or seed drawer. After one full year you'll know which months you over- or under-did.",
+      },
+    ],
+  },
 };
 
-export const MASTERCLASS_ORDER = ["propagation", "pest-control", "plant-care"];
+export const MASTERCLASS_ORDER = ["propagation", "pest-control", "plant-care", "seasonal-planting"];

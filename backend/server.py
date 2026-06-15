@@ -541,6 +541,206 @@ async def generate_pest_image(req: PestImageRequest):
     return {"image": data_url, "cached": False}
 
 
+class TopicImageRequest(BaseModel):
+    subject: str
+    style: Optional[str] = None
+    cache_key: Optional[str] = None
+
+
+class LessonAdaptRequest(BaseModel):
+    masterclass_slug: str
+    lesson_slug: str
+    lesson_title: str
+    body: List[str] = []
+    steps_title: Optional[str] = None
+    steps_items: List[str] = []
+    box_items: List[str] = []
+    tip: Optional[str] = None
+    language: str = "en"
+    region: Optional[Region] = None
+
+
+class ShareImageRequest(BaseModel):
+    masterclass_slug: str
+    masterclass_title: str
+    region_name: Optional[str] = None
+
+
+def _image_gen(prompt: str, session: str):
+    return LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=session,
+        system_message="You are an image generation assistant.",
+    ).with_model("gemini", "gemini-3.1-flash-image-preview").with_params(modalities=["image", "text"])
+
+
+async def _cached_image(key: str, prompt: str, session: str) -> dict:
+    cached = await db.image_cache.find_one({"key": key}, {"_id": 0})
+    if cached:
+        return {"image": cached["image"], "cached": True}
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(500, "EMERGENT_LLM_KEY not configured")
+    try:
+        _text, images = await _image_gen(prompt, session).send_message_multimodal_response(UserMessage(text=prompt))
+    except Exception as e:
+        logger.error("Image gen failed for %s: %s", key, e)
+        raise HTTPException(502, "Image generation failed")
+    if not images:
+        raise HTTPException(502, "No image returned")
+    img = images[0]
+    data_url = f"data:{img['mime_type']};base64,{img['data']}"
+    await db.image_cache.insert_one({
+        "key": key, "image": data_url, "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return {"image": data_url, "cached": False}
+
+
+@api_router.post("/topic-image")
+async def generate_topic_image(req: TopicImageRequest):
+    """General-purpose AI image for masterclass cards, lesson heroes, flowers etc."""
+    key = req.cache_key or "topic:" + re.sub(r"[^a-z0-9]+", "-", req.subject.lower()).strip("-")
+    style = req.style or (
+        "natural daylight, soft focus, terracotta and cream palette, botanical editorial "
+        "magazine style, shallow depth of field, no text, no people, no logos"
+    )
+    prompt = f"A beautiful photograph of {req.subject}. {style}."
+    return await _cached_image(key, prompt, session=f"topic-{key}-{uuid.uuid4()}")
+
+
+SHARE_MOTIFS = {
+    "propagation": "delicate green cuttings in a vintage glass jar, light from a window, soft pastel cream background",
+    "pest-control": "macro of a single ladybird on a healthy green leaf, golden afternoon light, cream background",
+    "plant-care": "watering can pouring on terracotta pot of basil, sunlight on a windowsill, cream background",
+    "rose": "single antique pink rose in soft natural light, cream backdrop",
+    "dahlia": "single Cafe au Lait dahlia bloom on cream linen, soft natural light",
+    "peony": "single blush peony in full bloom, cream backdrop, painterly natural light",
+    "tulip": "trio of tulip bulbs and one open tulip on cream linen",
+    "lily": "single white oriental lily bloom on cream backdrop",
+    "sweet-pea": "small bunch of pastel sweet peas in a glass jar, cream backdrop",
+    "cosmos": "three cosmos flowers in pink and apricot on cream linen",
+    "zinnia": "trio of vibrant zinnias on cream linen, summer light",
+    "sunflower": "single sunflower head against cream linen, golden hour",
+    "aster": "small posy of late-season asters on cream linen",
+    "chrysanthemum": "small chrysanthemum bloom in copper tones on cream linen",
+    "lavender": "small bundle of fresh lavender stems on cream linen",
+}
+
+
+@api_router.post("/share-image")
+async def generate_share_image(req: ShareImageRequest):
+    """Bloom-motif backdrop for the 'masterclass complete' share card.
+    Client composites the masterclass title + region text on top via canvas."""
+    safe = re.sub(r"[^a-z0-9]+", "-", req.masterclass_slug.lower()).strip("-")
+    key = f"share-bg:{safe}"
+    motif = SHARE_MOTIFS.get(req.masterclass_slug, "single beautiful flower bloom on cream linen background")
+    prompt = (
+        f"A serene square portrait composition for a social share card. {motif}. "
+        f"Botanical editorial style, soft cream/sand background with plenty of negative space "
+        f"on the lower third for text. Painterly natural daylight. No text, no people, no logos. "
+        f"Highly aesthetic, Instagram-ready."
+    )
+    return await _cached_image(key, prompt, session=f"share-{safe}-{uuid.uuid4()}")
+
+
+@api_router.post("/lesson-adapt")
+async def adapt_lesson(req: LessonAdaptRequest):
+    """Translate + optionally personalise a masterclass lesson for a region."""
+    language = (req.language or "en").lower()
+    if language not in LANG_NAMES:
+        language = "en"
+
+    region_key = ""
+    region_label = ""
+    if req.region:
+        region_label = req.region.name + (f", {req.region.country}" if req.region.country else "")
+        region_key = "|".join([
+            (req.region.name or "").lower(),
+            (req.region.country or "").lower(),
+            (req.region.climate_zone or "").lower(),
+            (req.region.hemisphere or "northern").lower(),
+        ])
+
+    key = f"lesson-adapt:{req.masterclass_slug}:{req.lesson_slug}:{language}:{region_key}"
+    cached = await db.guidance_cache.find_one({"key": key}, {"_id": 0})
+    if cached:
+        return cached["data"]
+
+    if language == "en" and not req.region:
+        return {
+            "body": req.body, "steps_items": req.steps_items,
+            "box_items": req.box_items, "tip": req.tip,
+            "translated": False, "personalised": False,
+        }
+
+    system = (
+        "You are an expert kitchen gardener who adapts existing gardening lesson content "
+        "for a specific reader. Preserve the meaning, voice and order of the original lesson — "
+        "do not invent unrelated facts, do not add headers, do not add disclaimers. "
+        "Return STRICT JSON only — no markdown fences, no commentary."
+    )
+
+    region_clause = (
+        f"PERSONALISE for a reader gardening in {region_label} "
+        f"({req.region.climate_zone or 'unknown climate'}, "
+        f"{req.region.hemisphere or 'northern'} hemisphere). "
+        f"Where the original mentions seasons, pest timing or temperature, ADJUST so the example "
+        f"makes sense in this region — switch hemispheres, swap species for locally common ones "
+        f"where natural, keep timing realistic. "
+        if req.region else ""
+    )
+
+    lang_clause = (
+        f"OUTPUT LANGUAGE: {LANG_NAMES[language]}. Translate every string to {LANG_NAMES[language]}."
+        if language != "en" else "OUTPUT LANGUAGE: English."
+    )
+
+    user_prompt = f"""Adapt the following gardening lesson.
+
+Masterclass: {req.masterclass_slug}
+Lesson title: {req.lesson_title}
+
+{region_clause}
+{lang_clause}
+
+Return STRICT JSON with this exact shape:
+{{
+  "body": [<adapted body paragraphs, same count as input>],
+  "steps_items": [<adapted step items, same count as input, or [] if no steps>],
+  "box_items": [<adapted info-box items, same count, or [] if no box>],
+  "tip": "<adapted tip, or empty string if none>",
+  "translated": {str(language != "en").lower()},
+  "personalised": {str(bool(req.region)).lower()}
+}}
+
+Original body paragraphs:
+{json.dumps(req.body, ensure_ascii=False)}
+
+Original steps (title: "{req.steps_title or ''}"):
+{json.dumps(req.steps_items, ensure_ascii=False)}
+
+Original info-box items:
+{json.dumps(req.box_items, ensure_ascii=False)}
+
+Original tip:
+{json.dumps(req.tip or '', ensure_ascii=False)}
+
+Return JSON only."""
+
+    data = await _llm_json(system, user_prompt, session_id=f"lesson-adapt-{key}")
+    data.setdefault("body", req.body)
+    data.setdefault("steps_items", req.steps_items)
+    data.setdefault("box_items", req.box_items)
+    if "tip" not in data or data.get("tip") in (None, ""):
+        data["tip"] = req.tip
+    data["translated"] = language != "en"
+    data["personalised"] = bool(req.region)
+
+    await db.guidance_cache.insert_one({
+        "key": key, "data": data, "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return data
+
+
 @api_router.get("/regions/search")
 async def search_regions(q: str):
     """Search places via Open-Meteo geocoding (free, no key)."""

@@ -5,20 +5,23 @@
 
 import { Flower2 } from "lucide-react";
 
-const IMG = {
-  dahlia: "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  aster: "https://images.unsplash.com/photo-1597305877032-0668b3c6413a?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  rose: "https://images.unsplash.com/photo-1496062031456-07b8f162a322?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  "sweet-pea": "https://images.unsplash.com/photo-1561181286-d3fee7d55364?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  tulip: "https://images.unsplash.com/photo-1520763185298-1b434c919102?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  sunflower: "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  peony: "https://images.unsplash.com/photo-1591886960571-74d43a9d4166?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  cosmos: "https://images.unsplash.com/photo-1502209524164-acea936639a2?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  zinnia: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  lavender: "https://images.unsplash.com/photo-1471197497129-bdac0b54bd5e?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  lily: "https://images.unsplash.com/photo-1591886960571-74d43a9d4166?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
-  chrysanthemum: "https://images.unsplash.com/photo-1502209524164-acea936639a2?crop=entropy&cs=srgb&fm=jpg&q=80&w=1600",
+// Image subjects for Nano Banana — generated on demand, cached in Mongo.
+// Each flower gets a portrait that actually matches the species.
+const SUBJECT = {
+  dahlia: "a single 'Cafe au Lait' dahlia bloom in soft natural light against a cream linen background",
+  aster: "a small cluster of late-season Symphyotrichum 'Little Carlow' Michaelmas daisies, lilac-blue, on cream backdrop",
+  rose: "a single antique pink garden rose in full bloom with morning dew, soft natural light, cream backdrop",
+  "sweet-pea": "a small bunch of pastel sweet pea flowers (Lathyrus odoratus) in a clear glass jar on cream linen, soft natural light",
+  tulip: "a trio of elegant tulip blooms in cream and dusty pink standing in a stoneware vase, soft natural light",
+  sunflower: "a single sunflower head (Helianthus annuus 'Vanilla Ice'), creamy yellow petals, golden hour light, cream backdrop",
+  peony: "a single fully open blush peony bloom (Paeonia lactiflora) on cream linen, painterly natural light",
+  cosmos: "three Cosmos bipinnatus flowers in pink, apricot and white, airy stems, cream backdrop",
+  zinnia: "a trio of bright Zinnia elegans 'Benary's Giant' blooms in coral and lemon, summer light, cream backdrop",
+  lavender: "a small bundle of fresh English lavender stems (Lavandula angustifolia) tied with twine on cream linen, soft daylight",
+  lily: "a single white oriental lily flower (Lilium 'Casa Blanca') in full bloom on cream backdrop, natural daylight",
+  chrysanthemum: "a single bronze chrysanthemum bloom (Chrysanthemum 'Emperor of China') with coppery petals on cream linen",
 };
+
 
 // Tiny helper to keep the data table compact and the file readable.
 const L = (slug, n, title, body, extras = {}) => ({
@@ -31,7 +34,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Dahlias",
     tagline: "Big, generous, late-summer showstoppers — from tubers to vase.",
     icon: Flower2,
-    image: IMG.dahlia,
+    imageSubject: SUBJECT.dahlia,
     duration: "About 35 minutes",
     lessons: [
       L("varieties", 1, "Choosing varieties",
@@ -78,7 +81,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Asters",
     tagline: "Pollinator-loving late-season stars — for that last burst before frost.",
     icon: Flower2,
-    image: IMG.aster,
+    imageSubject: SUBJECT.aster,
     duration: "About 25 minutes",
     lessons: [
       L("varieties", 1, "Choosing varieties",
@@ -105,7 +108,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Roses",
     tagline: "From bare-root patio rose to fragrant climber — the queen of the garden, made simple.",
     icon: Flower2,
-    image: IMG.rose,
+    imageSubject: SUBJECT.rose,
     duration: "About 45 minutes",
     lessons: [
       L("varieties", 1, "Choosing the right rose",
@@ -156,7 +159,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Sweet Peas",
     tagline: "The most fragrant cut flower in the garden — and forgiving with the right routine.",
     icon: Flower2,
-    image: IMG["sweet-pea"],
+    imageSubject: SUBJECT["sweet-pea"],
     duration: "About 25 minutes",
     lessons: [
       L("varieties", 1, "Scent vs. show",
@@ -191,7 +194,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Tulips",
     tagline: "Plant late, plant deep, layer for a long show — the most generous bulb in the garden.",
     icon: Flower2,
-    image: IMG.tulip,
+    imageSubject: SUBJECT.tulip,
     duration: "About 25 minutes",
     lessons: [
       L("varieties", 1, "Tulip groups",
@@ -218,7 +221,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Sunflowers",
     tagline: "Sow once, watch the season turn — from giants to delicate branching multi-heads.",
     icon: Flower2,
-    image: IMG.sunflower,
+    imageSubject: SUBJECT.sunflower,
     duration: "About 20 minutes",
     lessons: [
       L("varieties", 1, "More than the giant",
@@ -246,7 +249,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Peonies",
     tagline: "Long-lived, fragrant, almost impossibly generous — the patient gardener's reward.",
     icon: Flower2,
-    image: IMG.peony,
+    imageSubject: SUBJECT.peony,
     duration: "About 25 minutes",
     lessons: [
       L("varieties", 1, "Three peony families",
@@ -274,7 +277,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Cosmos",
     tagline: "The easiest, longest-flowering cutting annual on the planet.",
     icon: Flower2,
-    image: IMG.cosmos,
+    imageSubject: SUBJECT.cosmos,
     duration: "About 20 minutes",
     lessons: [
       L("varieties", 1, "Beyond pink",
@@ -300,7 +303,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Zinnias",
     tagline: "Heat-loving, every-colour, kept-coming-by-picking — the bouquet machine.",
     icon: Flower2,
-    image: IMG.zinnia,
+    imageSubject: SUBJECT.zinnia,
     duration: "About 20 minutes",
     lessons: [
       L("varieties", 1, "Three families to know",
@@ -328,7 +331,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Lavender",
     tagline: "Drought-tolerant, bee-magnet, fragrant — the Mediterranean classic that hates being loved too much.",
     icon: Flower2,
-    image: IMG.lavender,
+    imageSubject: SUBJECT.lavender,
     duration: "About 20 minutes",
     lessons: [
       L("varieties", 1, "Three lavender families",
@@ -356,7 +359,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Lilies",
     tagline: "Pots full of stately scent — from Asiatics to Oriental giants.",
     icon: Flower2,
-    image: IMG.lily,
+    imageSubject: SUBJECT.lily,
     duration: "About 25 minutes",
     lessons: [
       L("varieties", 1, "Lily groups",
@@ -382,7 +385,7 @@ export const FLOWER_MASTERCLASSES = {
     title: "Chrysanthemums",
     tagline: "The autumn powerhouse — when everything else is finishing, mums begin.",
     icon: Flower2,
-    image: IMG.chrysanthemum,
+    imageSubject: SUBJECT.chrysanthemum,
     duration: "About 25 minutes",
     lessons: [
       L("varieties", 1, "Cut flower vs. bedding",

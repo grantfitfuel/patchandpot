@@ -33,7 +33,15 @@
 ## Status
 - **Iteration 1**: 12/12 backend + 100% frontend ✅
 - **Iteration 2**: 25/25 backend + 100% frontend ✅ (i18n, companions, pest gallery, print/download, PWA)
-- **Iteration 3**: 100% frontend (13/13 masterclass flows + 6/6 regression) ✅ (Masterclasses feature)
+- **Iteration 3**: 100% frontend ✅ (3 Foundation masterclasses with progress tracking)
+- **Iteration 4**: 100% frontend ✅ (12 per-flower masterclasses)
+- **Iteration 5** (current): ✅
+  - **Content**: enhanced Pest Control with 2 new lessons (13-card pest ID guide + nematodes safety, sourced from patchandpot.com); added new Seasonal Planting Foundation masterclass (6 lessons on reading seasons, sowing windows, succession, season extension, winter growing, the year-in-a-page)
+  - **AI lesson hero images** via Nano Banana on `/api/topic-image` — every lesson gets a context-aware botanical photograph (cached)
+  - **Real flower images** via Nano Banana — 12 flower masterclass cards now use specific AI-generated portraits keyed to each species
+  - **"Apply to my region" CTA** on Pest Control, Plant Care, Seasonal Planting — uses Claude Sonnet 4.5 via `/api/lesson-adapt` to rewrite lesson content for the user's region/hemisphere/climate (cached)
+  - **Auto-translation** of lesson prose when UI language ≠ English (DE/FR/JA/ZH), same endpoint
+  - **Share card on completion** — finishing a masterclass opens a modal with a Nano Banana bloom backdrop + canvas-composited title/region/date, downloadable as 1080×1080 PNG via `/api/share-image`
 
 ## Prioritised Backlog
 ### P1

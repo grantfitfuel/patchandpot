@@ -2,6 +2,31 @@ import { Link } from "react-router-dom";
 import { ArrowRight, GraduationCap } from "lucide-react";
 import { ALL_MASTERCLASSES, MASTERCLASS_SECTIONS } from "@/data/all-masterclasses";
 import { useAllMasterclassProgress } from "@/hooks/useMasterclassProgress";
+import TopicImage from "@/components/TopicImage";
+
+function MasterclassCardImage({ masterclass, compact }) {
+  // Foundation classes have a static `image` URL; flower classes use AI generation.
+  const aspect = compact ? "aspect-square" : "aspect-[4/3]";
+  if (masterclass.imageSubject) {
+    return (
+      <div className={`${aspect} overflow-hidden bg-surface`}>
+        <TopicImage
+          subject={masterclass.imageSubject}
+          cacheKey={`masterclass-card:${masterclass.slug}`}
+          alt={masterclass.title}
+          eager
+          className="transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+    );
+  }
+  return (
+    <div className={`${aspect} overflow-hidden`}>
+      <img src={masterclass.image} alt={masterclass.title}
+        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" />
+    </div>
+  );
+}
 
 export default function MasterclassesPage() {
   const progress = useAllMasterclassProgress();
@@ -51,9 +76,7 @@ export default function MasterclassesPage() {
                   data-testid={`masterclass-card-${slug}`}
                   className="card-flat overflow-hidden flex flex-col group"
                 >
-                  <div className={isCompact ? "aspect-square overflow-hidden" : "aspect-[4/3] overflow-hidden"}>
-                    <img src={m.image} alt={m.title} className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" />
-                  </div>
+                  <MasterclassCardImage masterclass={m} compact={isCompact} />
                   <div className={isCompact ? "p-4 flex flex-col flex-1" : "p-6 flex flex-col flex-1"}>
                     <div className="flex items-center gap-2">
                       <Icon strokeWidth={1.4} className="w-4 h-4 text-terracotta flex-shrink-0" />

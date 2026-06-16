@@ -349,8 +349,9 @@ Return JSON only, in the same shape.
 """
     try:
         translated_map = await _llm_json(system, user, session_id=f"plants-trans-{language}")
-    except HTTPException:
-        return PLANTS  # fail soft → English fallback
+    except Exception as e:  # noqa: BLE001 — soft-fallback to English if Claude misbehaves
+        logger.warning("plants translation failed for %s: %s — falling back to English", language, e)
+        return PLANTS
 
     # Re-assemble the full plant list, replacing only translated fields. Non-translated
     # fields (id, container, image_url, etc.) keep their original values.
@@ -594,8 +595,8 @@ async def get_companions(plant_id: str, language: str = "en"):
     if (language or "en").lower() != "en" and (language or "").lower() in LANG_NAMES and items:
         try:
             items = await _translate_companion_reasons(items, language)
-        except HTTPException:
-            pass
+        except Exception as e:  # noqa: BLE001 — soft-fallback: keep English reasons
+            logger.warning("companion-reasons translation failed for %s: %s", language, e)
     return {"plant_id": plant_id, "companions": items}
 
 

@@ -62,18 +62,20 @@
   - **Affiliate click tracking** (`POST /api/affiliate/click`, `GET /api/affiliate/stats`): every outbound vendor card click is logged via `navigator.sendBeacon` (graceful fetch+keepalive fallback) into MongoDB `affiliate_clicks` with shape `{vendor_id, vendor_name, plant_name, country, language, slot, ts}`. No IP stored, fire-and-forget — tracking never blocks the user's click-through.
   - **Stats endpoint** (`GET /api/affiliate/stats?days=N&token=...`) returns `{since, days, total_clicks, top_vendors, top_countries, top_plants, top_languages, top_slots}` aggregated via MongoDB pipeline. Protected by the existing `ADMIN_TOKEN` env var (`patchpot-admin-d3f8a2b9c4`); endpoint is open if the env var is unset.
   - **Verified end-to-end**: 4 seed POSTs all returned 204, stats endpoint correctly aggregates top vendors / countries / plants / languages / slots; Playwright click test confirmed both card clicks trigger `sendBeacon` to the correct URL.
-- **Iteration 11** (2026-02-16): ✅
-  - **Massive localisation expansion**: total supported languages went from **14 → 31**. Added: Portuguese (`pt`), Italian (`it`), Dutch (`nl`), Polish (`pl`), Czech (`cs`), Slovak (`sk`), Slovenian (`sl`), Croatian (`hr`), Bulgarian (`bg`), Romanian (`ro`), Hungarian (`hu`), Greek (`el`), Estonian (`et`), Latvian (`lv`), Lithuanian (`lt`), Maltese (`mt`), Ukrainian (`uk`). All 24 official EU languages now covered, plus Ukrainian as the major non-EU European language.
-  - **Translation-gap sweep**: extracted 20 hard-coded English strings into i18n keys (`region.search_failed`, `region.geo_not_supported`, etc.). All 14 pre-existing locales got full native translations for these new keys via a Python injection script.
-  - Backend `LANG_NAMES` extended to all 31 codes; Claude now writes natively in any of them.
-  - LANGUAGES dropdown exposes all 31 options with their native labels.
-  - **Coverage trade-off**: 4 fully-native new locales (pt, it, nl, pl) ship complete ~130-key dictionaries. The other 13 (cs, sk, sl, hr, bg, ro, hu, el, et, lv, lt, mt, uk) ship a focused ~40-key dictionary covering nav, months, calendar/plants/garden titles, ThisMonthCard, source links, climates and the most visible buttons. Body paragraphs in those 13 fall back to English via the existing `t()` lookup.
-  - **Verified end-to-end**: Polish UI screenshot confirms all visible page elements render in Polish. Claude API tests confirm natural-sounding vendor-blurbs in Polish, Greek, Ukrainian and Hungarian — with climate awareness.
+- **Iteration 12** (2026-02-16): ✅ **Hardcoded-JSX i18n sweep**
+  - User reported "far too many areas not being translated into chosen language" — root cause: previous iteration only padded the i18n dictionary but never wrapped raw English JSX strings in `t('key')` calls.
+  - **+ ~70 new i18n keys × all 31 languages** generated via batched Claude Sonnet 4.5 calls. Wired through `t()` across Home, AIPlantDetail, PlantDetail, Guides, Masterclasses, MasterclassDetail, ShareCard and FeedbackWidget. i18n file: 1408 → 7563 lines.
+
+- **Iteration 13** (2026-02-16): ✅ **Phase 1 (lesson titles) + Phase 2 (static plant data) + browser-detected language banner**
+  - **Phase 1 — Lesson titles**: Extracted 86 lesson titles across all 16 masterclasses. Translated to all 30 non-English languages via batched Claude calls. Wired through `t(`mc.lesson.${classSlug}.${lessonSlug}`)` in `MasterclassDetail.jsx` sidebar + article H1.
+  - **Phase 2 — Static plant data**: Backend now translates the entire 32-plant catalogue at request time via Claude and caches per language in `db.guidance_cache` (`key: "plants:<lang>"`). Endpoints `/api/plants`, `/api/plants/{id}`, `/api/plants/{id}/companions` accept a `language` query parameter; frontend `fetchPlants` / `fetchPlant` / `fetchCompanions` pass current `lang`; pages re-fetch on lang change. First request per new language ~10-25s; subsequent <100ms from cache. English requests bypass Claude entirely. Soft-fallback to English on any Claude/JSON error (broadened from `HTTPException` to generic `Exception` per iter-10 minor finding).
+  - **Companion plant reasons**: Short companion-pair reason strings also translated and cached separately (`key: "companion-reasons:<lang>:<sorted-ids>"`).
+  - **Language-detected banner**: New `<LanguageDetectedBanner/>` component. On first visit, if browser lang matches a supported non-English locale, the app auto-switches AND shows a polite forest-green banner at bottom centre with **Keep {Language}** / **Switch back to English** / **X**. StrictMode-safe (persistent `patchpot.lang.auto_detected.v1` flag so double-init doesn't lose state).
+  - **i18n file size**: 7,563 → 10,414 lines.
+  - **Tests**: testing agent iteration 10 PASS 12/12 (9/9 backend pytest + 4/4 frontend Playwright). Plant-translation caches `plants:de`, `plants:fr`, `plants:ja` warmed during testing.
 
 ## Prioritised Backlog
 ### P1
-- **Translate masterclass lesson titles & in-lesson box headings** ("Why propagate?", "What you'll learn", etc.) — currently still English in sidebar regardless of UI language. Approach: add `mc.lesson.<slug>.<lesson-slug>` keys batch-translated via Claude, or extend `/api/lesson-adapt` to also return translated lesson chrome.
-- **Translate static plant data** (`summary`, `sun`, `water`, `soil`, `difficulty`, `edible_part`, `category`) on the legacy `/plants/:id` route. The AI route `/plants/ai/:slug` already passes `language` and gets fully-translated content from Claude.
 - Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
 - Real cron for monthly auto-refresh of guides.
 - Lazy-load plant images on grid (defer LLM cost until card focused).
@@ -82,7 +84,7 @@
 ### P2
 - Optional email subscription via Resend (when user supplies API key).
 - Community / journal entries (would need auth).
-- Refactor: consider splitting `/app/frontend/src/i18n/index.jsx` (now ~7500 lines) into `i18n/en.js`, `i18n/de.js`, … with a `langLoader` per locale to keep diffs reviewable.
+- Refactor: consider splitting `/app/frontend/src/i18n/index.jsx` (now ~10,400 lines) into `i18n/en.js`, `i18n/de.js`, … with a `langLoader` per locale to keep diffs reviewable.
 - Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` (near-duplicates).
 
 ## Smart Next Action

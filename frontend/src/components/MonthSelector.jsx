@@ -49,10 +49,17 @@ export default function MonthSelector({ month, onChange }) {
                 : "bg-sand text-ink/70 border-border hover:border-forest/50"
             }`}
           >
-            {monthLabel(i, t).slice(0, 3)}
+            {shortMonth(monthLabel(i, t))}
           </button>
         ))}
       </div>
     </div>
   );
+}
+
+// Trim leading articles (Scottish Gaelic / others) before slicing so chips
+// don't all collapse to "Am" / "An".
+function shortMonth(label) {
+  const cleaned = label.replace(/^(An t-|Am |An |A' |Le |La |La' )/i, "");
+  return cleaned.slice(0, 3);
 }

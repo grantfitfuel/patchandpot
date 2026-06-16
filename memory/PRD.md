@@ -54,6 +54,9 @@
   - **Fail-soft contract**: if the LLM throws (budget, network, parse error), the endpoint returns `{blurbs:{}, cached:false}` → UI silently falls back to the existing static sub-text. Output is filtered to known vendor ids and truncated to 220 chars, defending against prompt-leak / oversized response.
   - **Slot-based unique testids**: `data-testid="source-card-{slot}"` and `data-testid="source-blurb-{slot}"` where `slot ∈ {seeds, pots, tools}`, fixing the iteration-7 ambiguity where two seed-kind vendors (e.g. Australia: Diggers + Yates) shared the same testid.
   - **Verified**: 35/35 pytest backend tests pass (10 new vendor-blurbs + 25 regression), 100% frontend success across UK/AU/DE locales, region switch, cached reload, and home/calendar/garden regressions. New test file: `/app/backend/tests/test_vendor_blurbs.py`.
+- **Iteration 9** (2026-02-16): ✅
+  - **Spanish (`es`) + Irish Gaelic (`ga`)** added. Total supported languages: 7 (en/de/es/fr/ga/ja/zh). Both locales added to `LANG_NAMES` (backend) so Claude generates region-specific guidance, plant guides, lesson adaptations, and vendor blurbs in each language. Full UI dictionaries added to `i18n/index.jsx` covering all ~100 keys per locale (nav, regions, months, guidance, plants, garden, home, source links, print, footer). LANGUAGES dropdown extended in `i18n/index.jsx` so the language selector exposes "Español" and "Gaeilge" alongside the others.
+  - **Verified end-to-end**: language switch on home page renders Spanish + Gaeilge hero, nav, footer, ThisMonthCard, calendar title and loading state. Backend `/api/vendor-blurbs` returns natural-sounding Spanish ("variedades de tomate resistentes al calor, ideales para los veranos cálidos y secos de Madrid") and Irish ("síolta tráta oiriúnach d'aeráid fhionnuar Bhaile Átha Cliath").
 
 ## Prioritised Backlog
 ### P1

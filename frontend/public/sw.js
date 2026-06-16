@@ -1,7 +1,8 @@
 // Patch & Pot — minimal offline-capable service worker.
 // Caches the app shell + API responses for the current month so users can
 // pull up their region's guide even without connection.
-const VERSION = "patchpot-v1";
+// Bump VERSION on any cache-invalidating release.
+const VERSION = "patchpot-v2";
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
@@ -34,8 +35,11 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(req.url);
 
-  // API: stale-while-revalidate for /api/guidance, /api/plants, /api/plant-image
+  // API: stale-while-revalidate for /api/guidance, /api/plants, /api/plant-image.
+  // EXCLUDE /api/guide-pdf — large binary PDFs, served straight from network so
+  // upstream changes always reach the user without hitting the SW cache.
   if (url.pathname.startsWith("/api/")) {
+    if (url.pathname.startsWith("/api/guide-pdf/")) return;
     event.respondWith(
       caches.open(RUNTIME_CACHE).then(async (cache) => {
         const cached = await cache.match(req);

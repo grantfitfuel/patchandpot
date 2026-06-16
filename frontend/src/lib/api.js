@@ -30,3 +30,12 @@ export const searchRegions = (q) =>
   api.get("/regions/search", { params: { q } }).then((r) => r.data);
 export const reverseGeocode = (lat, lon) =>
   api.get("/regions/reverse", { params: { lat, lon } }).then((r) => r.data);
+export const fetchVendorBlurbs = (plantName, vendors, region, language = "en") =>
+  api
+    .post("/vendor-blurbs", {
+      plant_name: plantName,
+      vendors: vendors.map((v) => ({ id: v.id, name: v.name, kind: v.kind })),
+      region: region || null,
+      language,
+    })
+    .then((r) => r.data);

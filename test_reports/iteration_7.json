@@ -1,0 +1,33 @@
+{
+  "summary": "Iteration 8 full-stack verification of the new POST /api/vendor-blurbs endpoint (Claude Sonnet 4.5 one-line vendor blurbs) + SourceLinks UI integration with slot-based unique testids. Backend: 35/35 pytest pass (10 new vendor-blurbs tests + 25 regression). Frontend: SourceLinks renders 3 unique slot cards (source-card-seeds, source-card-pots, source-card-tools) for both UK and AU, with AI-generated blurbs containing real plant + region context. Region switch UK→AU correctly refetches blurbs; Yates lands in the 'tools' slot (slot-based testid, not kind-based) — fixing the iteration-7 ambiguity flagged for Australia. Cached reload returns blurbs in 1.5s. DE language produces a German blurb. Fail-soft contract holds for empty vendors / invalid language / unknown vendor ids — endpoint never 5xx.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_vendor_blurbs.py",
+    "/app/backend/tests/test_backend.py",
+    "/app/test_reports/pytest/iter7_vendor_blurbs.xml",
+    "/app/test_reports/pytest/iter7_regression.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py vendor_blurbs(): clean implementation. Cache key correctly normalises plant/country/lang and sorts vendor ids so order-independent. Fail-soft path swallows HTTPException from _llm_json and returns {blurbs:{}, cached:false} — exactly what the UI expects. Output filtered to known vendor ids and truncated to 220 chars (prevents prompt-leak / oversized blurbs).",
+    "SourceLinks.jsx: slot-based data-testid (source-card-{slot} where slot ∈ {seeds,pots,tools}) is the right fix for the iteration-7 ambiguity. Each slot now appears at most once per page even when a country has two seeds-kind vendors (verified for AU: Diggers→seeds, Bunnings→pots, Yates→tools). Module-level Map blurbCache prevents redundant refetches across plant navigations within a session.",
+    "MINOR: SourceLinks blurbCache is a Map that grows unbounded for the lifetime of the SPA session. In practice the key space is tiny (plants × countries × langs × vendor sets) but for very long sessions you may want an LRU cap (~50). Not a blocker.",
+    "MINOR: When blurbsLoading is true the UI shows a single ellipsis '…' but a screen-reader user has no aria-busy/aria-live hint. Cosmetic.",
+    "Verified that the LLM never invented vendor ids in test runs (or, if it did, the backend filter dropped them). The 220-char truncation guard protects against runaway output."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_vendor_blurbs.py (new — 10 tests)"
+  ],
+  "success_rate": {"backend": "100% (35/35 pytest: 10 new vendor-blurbs + 25 regression)", "frontend": "100% (all SourceLinks scenarios + UK/AU slot uniqueness + region switch + cached reload + DE locale + home/calendar/garden regressions)"},
+  "test_credentials": "n/a — app has no auth",
+  "seed_data_creation": "Tests reuse db.guidance_cache keyed by 'vendor-blurbs:<plant>|<country>|<lang>|<sorted-ids>'. Backend cached entries created during the run for Tomato (UK en/de/fr/ja/zh, no-region), Tomato (AU en), Lavender (UK en, two single-vendor variants).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "vendor-blurbs endpoint is fully wired and cached in MongoDB (collection: guidance_cache, key prefix 'vendor-blurbs:'). Frontend uses slot-based testids data-testid='source-card-{seeds|pots|tools}' which are each guaranteed unique per /plants/* page. Blurb testid pattern: data-testid='source-blurb-{slot}'. Fail-soft path returns {blurbs:{}, cached:false} on any LLM error so UI silently falls back to static sub-text (source.seeds_sub / source.pots_sub / source.tools_sub i18n keys). Reminder: zh locale source.* keys are still missing from /app/frontend/src/i18n/index.jsx (pre-existing minor TODO from iteration 7).",
+  "rca of the issue": "No bug. Iteration-7's ambiguous-testid issue (data-testid='source-card-seeds' appearing twice on the Australia plant page when both Diggers and Yates were kind=seeds) is fixed by replacing the testid suffix from vendor.kind → assigned slot ('seeds'/'pots'/'tools'). Confirmed on /plants/tomato with region=Australia: exactly one source-card-seeds (Diggers), one source-card-pots (Bunnings), one source-card-tools (Yates)."
+}

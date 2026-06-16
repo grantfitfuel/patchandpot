@@ -581,6 +581,19 @@ class ShareImageRequest(BaseModel):
     region_name: Optional[str] = None
 
 
+class VendorRef(BaseModel):
+    id: str
+    name: str
+    kind: str  # "seeds" | "pots" | other
+
+
+class VendorBlurbRequest(BaseModel):
+    plant_name: str
+    vendors: List[VendorRef]
+    region: Optional[Region] = None
+    language: str = "en"
+
+
 def _image_gen(prompt: str, session: str):
     return LlmChat(
         api_key=EMERGENT_LLM_KEY,
@@ -754,6 +767,102 @@ Return JSON only."""
         "key": key, "data": data, "created_at": datetime.now(timezone.utc).isoformat(),
     })
     return data
+
+
+@api_router.post("/vendor-blurbs")
+async def vendor_blurbs(req: VendorBlurbRequest):
+    """One-line, region-specific reason why each vendor pairs well with the plant.
+
+    Returns: {"blurbs": {<vendor_id>: "<sentence>", ...}, "cached": <bool>}
+
+    Cached per (plant, country, language, vendor-id-set) so we make at most
+    one LLM call per page-view per region. Fails soft — on any error we return
+    an empty blurbs map so the UI silently falls back to the static sub-text.
+    """
+    language = (req.language or "en").lower()
+    if language not in LANG_NAMES:
+        language = "en"
+
+    country = (req.region.country if req.region and req.region.country else "").strip()
+    region_name = (req.region.name if req.region and req.region.name else "").strip()
+    climate = (req.region.climate_zone if req.region and req.region.climate_zone else "").strip()
+    hemisphere = (req.region.hemisphere if req.region and req.region.hemisphere else "northern").strip()
+
+    vendor_ids = sorted(v.id for v in req.vendors)
+    key = "vendor-blurbs:" + "|".join([
+        req.plant_name.lower().strip(),
+        country.lower(),
+        language,
+        ",".join(vendor_ids),
+    ])
+
+    cached = await db.guidance_cache.find_one({"key": key}, {"_id": 0})
+    if cached:
+        return {**cached["data"], "cached": True}
+
+    if not EMERGENT_LLM_KEY:
+        return {"blurbs": {}, "cached": False}
+
+    vendor_lines = "\n".join(
+        f"- id: {v.id} | name: {v.name} | sells: {v.kind}" for v in req.vendors
+    )
+    region_clause = (
+        f"The reader gardens in {region_name}{', ' + country if country else ''} "
+        f"({climate or 'unknown climate'}, {hemisphere} hemisphere). "
+        if region_name else ""
+    )
+    lang_clause = (
+        f"Write the sentence in {LANG_NAMES[language]}."
+        if language != "en" else "Write the sentence in English."
+    )
+
+    system = (
+        "You are a knowledgeable kitchen-garden writer. Given a plant, a reader's region, "
+        "and a list of garden suppliers in that region, write ONE short, specific sentence "
+        "(max 18 words) for EACH vendor explaining why that supplier is a good pick for "
+        "this plant in this region. Be concrete: mention real strengths (e.g. heritage seed "
+        "range, climate-tolerant varieties, container sizes, local stock, organic compost) "
+        "and tie it to the plant + climate where it makes sense. NEVER invent product names. "
+        "NEVER use marketing fluff like 'amazing' or 'best ever'. Return STRICT JSON only."
+    )
+
+    user_prompt = f"""Plant: {req.plant_name}
+{region_clause}{lang_clause}
+
+Vendors:
+{vendor_lines}
+
+Return STRICT JSON with this exact shape:
+{{
+  "blurbs": {{
+    "<vendor id 1>": "<one-sentence reason, <=18 words>",
+    "<vendor id 2>": "<one-sentence reason, <=18 words>",
+    ...
+  }}
+}}
+
+Use the exact `id` strings as keys. Return JSON only."""
+
+    try:
+        data = await _llm_json(system, user_prompt, session_id=f"vendor-blurbs-{key}")
+    except HTTPException:
+        # Fail soft: empty map means UI uses static sub-text fallback.
+        return {"blurbs": {}, "cached": False}
+
+    blurbs = data.get("blurbs") or {}
+    # Filter to known vendor ids only and trim long output.
+    known = {v.id for v in req.vendors}
+    blurbs = {
+        k: (str(v).strip()[:220])
+        for k, v in blurbs.items()
+        if k in known and isinstance(v, str) and v.strip()
+    }
+    result = {"blurbs": blurbs}
+
+    await db.guidance_cache.insert_one({
+        "key": key, "data": result, "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return {**result, "cached": False}
 
 
 @api_router.get("/regions/search")

@@ -92,10 +92,10 @@ export default function MyGardenPage() {
           <div className="border-t border-border pt-12">
             <p className="overline">{t("garden.this_month.eyebrow")}</p>
             <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 mb-8">{t("garden.this_month")}</h2>
-            <div className="mb-8">
-              <MonthSelector month={month} onChange={setMonth} />
-            </div>
-            <GuidanceView region={region} month={month} view="tasks" />
+          <div className="mb-8">
+            <MonthSelector month={month} onChange={setMonth} />
+          </div>
+          <GuidanceView region={region} month={month} view="tasks" myGarden={plants.map((p) => p.name)} />
           </div>
         </>
       )}

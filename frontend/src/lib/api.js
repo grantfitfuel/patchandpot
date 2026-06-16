@@ -8,6 +8,10 @@ export const api = axios.create({
   timeout: 60000,
 });
 
+export const fetchRecentAIPlants = (language = "en") =>
+  api.get("/recent-plants", { params: { language } }).then((r) => r.data);
+export const submitFeedback = (payload) =>
+  api.post("/feedback", payload).then((r) => r.data);
 export const fetchPlants = () => api.get("/plants").then((r) => r.data);
 export const fetchPlant = (id) => api.get(`/plants/${id}`).then((r) => r.data);
 export const fetchCompanions = (id) =>
@@ -16,8 +20,8 @@ export const fetchPlantGuide = (query, language = "en") =>
   api.post("/plant-guide", { query, language }).then((r) => r.data);
 export const fetchCachedPlantGuide = (slug, language = "en") =>
   api.get(`/plant-guide/${slug}`, { params: { language } }).then((r) => r.data);
-export const fetchGuidance = (region, month, language = "en") =>
-  api.post("/guidance", { region, month, language }).then((r) => r.data);
+export const fetchGuidance = (region, month, language = "en", myGarden = null) =>
+  api.post("/guidance", { region, month, language, my_garden: myGarden }).then((r) => r.data);
 export const fetchPlantImage = (plant) =>
   api.post("/plant-image", { plant_id: plant.id, plant_name: plant.name }).then((r) => r.data);
 export const fetchPestImage = (name) =>

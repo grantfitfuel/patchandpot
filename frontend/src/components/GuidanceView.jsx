@@ -18,13 +18,14 @@ function Section({ icon: Icon, eyebrow, title, children }) {
   );
 }
 
-export default function GuidanceView({ region, month, view = "all", onData }) {
+export default function GuidanceView({ region, month, view = "all", onData, myGarden = null }) {
   const { t, lang } = useI18n();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const monthKey = `${region?.name || "x"}-${month}-${lang}`;
+  const gardenKey = (myGarden || []).map((p) => p.toLowerCase()).sort().join(",");
+  const monthKey = `${region?.name || "x"}-${month}-${lang}-${gardenKey}`;
   const { completed, toggle } = useCompletedTasks(monthKey);
 
   useEffect(() => {
@@ -32,11 +33,11 @@ export default function GuidanceView({ region, month, view = "all", onData }) {
     setLoading(true);
     setError("");
     setData(null);
-    fetchGuidance(region, month, lang)
+    fetchGuidance(region, month, lang, myGarden && myGarden.length ? myGarden : null)
       .then((d) => { setData(d); if (onData) onData(d); })
       .catch((e) => setError(e?.response?.data?.detail || t("guidance.error")))
       .finally(() => setLoading(false));
-  }, [region, month, lang]); // eslint-disable-line
+  }, [region, month, lang, gardenKey]); // eslint-disable-line
 
   if (!region) {
     return (

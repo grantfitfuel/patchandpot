@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Sun, Droplets, Sprout, Sparkles, Loader2 } from "lucide-react";
-import { fetchPlants, fetchPlantGuide } from "@/lib/api";
+import { fetchPlants, fetchPlantGuide, fetchRecentAIPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import { useI18n } from "@/i18n";
 
@@ -11,6 +11,7 @@ export default function PlantsPage() {
   const { t, lang } = useI18n();
   const navigate = useNavigate();
   const [plants, setPlants] = useState([]);
+  const [recent, setRecent] = useState([]);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [generating, setGenerating] = useState(false);
@@ -19,6 +20,10 @@ export default function PlantsPage() {
   useEffect(() => {
     fetchPlants().then(setPlants).catch(() => setPlants([]));
   }, []);
+
+  useEffect(() => {
+    fetchRecentAIPlants(lang).then((d) => setRecent(d.items || [])).catch(() => {});
+  }, [lang]);
 
   const filtered = plants.filter((p) => {
     if (category !== "All" && p.category !== category) return false;
@@ -105,6 +110,32 @@ export default function PlantsPage() {
             {generating ? "Growing your guide…" : `Ask about ${query.trim().split(" ")[0]}`}
           </button>
         </div>
+      )}
+
+      {/* Recently searched AI plants rail */}
+      {recent.length > 0 && (
+        <section className="mb-12" data-testid="recent-ai-rail">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Sparkles strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
+              <span className="overline">Recently searched · AI guides</span>
+            </div>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2 -mx-2 px-2">
+            {recent.map((r) => (
+              <Link
+                key={r.id}
+                to={`/plants/ai/${r.id}`}
+                data-testid={`recent-ai-${r.id}`}
+                className="card-flat px-4 py-3 min-w-[180px] flex-shrink-0 group hover:border-forest/40"
+              >
+                <p className="overline">{r.category}</p>
+                <p className="font-serif text-lg text-forest mt-1 truncate">{r.name}</p>
+                <p className="text-xs text-moss mt-1 line-clamp-2 leading-snug">{r.summary}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-testid="plants-grid">

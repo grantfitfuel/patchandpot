@@ -61,6 +61,7 @@ class GuidanceRequest(BaseModel):
     region: Region
     month: int = Field(ge=1, le=12)
     language: Optional[str] = "en"  # en | de | fr | ja | zh
+    my_garden: Optional[List[str]] = None  # plant names the user is growing
 
 
 class PlantImageRequest(BaseModel):
@@ -259,7 +260,7 @@ MONTHS = ["", "January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
 
-def _guidance_cache_key(region: Region, month: int, language: str = "en") -> str:
+def _guidance_cache_key(region: Region, month: int, language: str = "en", garden_key: str = "") -> str:
     key_parts = [
         (region.name or "").lower().strip(),
         (region.country or "").lower().strip(),
@@ -267,6 +268,7 @@ def _guidance_cache_key(region: Region, month: int, language: str = "en") -> str
         (region.hemisphere or "northern").lower().strip(),
         str(month),
         (language or "en").lower().strip(),
+        garden_key,
     ]
     return "|".join(key_parts)
 
@@ -296,7 +298,13 @@ async def get_guidance(req: GuidanceRequest):
     language = (req.language or "en").lower()
     if language not in LANG_NAMES:
         language = "en"
-    cache_key = _guidance_cache_key(req.region, req.month, language)
+
+    # Normalise user's My Garden list and produce a stable cache key component.
+    garden = [(p or "").strip() for p in (req.my_garden or []) if (p or "").strip()]
+    garden = sorted({p.lower(): p for p in garden}.values())  # dedupe case-insensitive
+    garden_key = "garden:" + ",".join(p.lower() for p in garden) if garden else ""
+
+    cache_key = _guidance_cache_key(req.region, req.month, language, garden_key)
     cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
     if cached:
         return cached["data"]
@@ -332,6 +340,13 @@ Focus on home-scale, small-space and container growing. Mix food crops and flowe
 do not return flowers-only or food-only lists. You may reference these (English) plant names
 but feel free to mention other locally common edibles and flowers too:
 {plant_names}
+
+{(
+  f"THE USER'S PERSONAL GARDEN this month contains: {', '.join(garden)}. "
+  f"IMPORTANT: in the 'tasks' list, include at least ONE specific task per plant in this list, "
+  f"clearly named, tailored to {month_name} in {region_label}. These personalised tasks should come "
+  f"first in the tasks array. After them, add general tasks for the month."
+) if garden else ""}
 
 Return STRICT JSON with this exact shape and keys (keys MUST stay in English):
 {{
@@ -977,6 +992,58 @@ async def get_cached_plant_guide(slug: str, language: str = "en"):
     if cached:
         return cached["data"]
     raise HTTPException(404, "Guide not cached yet — search for the plant from the Plants page.")
+
+
+@api_router.get("/recent-plants")
+async def recent_ai_plants(language: str = "en", limit: int = 8):
+    """Most recently generated AI plant guides — used to seed a 'Recently searched'
+    rail on the Plants page so the AI cache grows visibly and other users benefit."""
+    limit = max(1, min(limit, 24))
+    pattern = f"^plant-guide:ai-.*:{re.escape(language)}$"
+    cursor = (
+        db.guidance_cache
+          .find({"key": {"$regex": pattern}}, {"_id": 0})
+          .sort("created_at", -1)
+          .limit(limit)
+    )
+    items = []
+    seen_ids = set()
+    async for row in cursor:
+        d = row.get("data") or {}
+        if not d.get("id") or d["id"] in seen_ids:
+            continue
+        seen_ids.add(d["id"])
+        items.append({
+            "id": d["id"], "name": d.get("name"), "category": d.get("category"),
+            "summary": d.get("summary"),
+        })
+    return {"items": items}
+
+
+class FeedbackRequest(BaseModel):
+    target_type: str       # e.g. "plant-guide" | "lesson" | "guidance"
+    target_id: str         # e.g. "ai-okra"
+    rating: str            # "up" | "down"
+    comment: Optional[str] = None
+
+
+@api_router.post("/feedback")
+async def submit_feedback(req: FeedbackRequest):
+    """Store user feedback on AI-generated content. Lightweight signal so we can
+    later improve quality and decide which AI plants to curate."""
+    if req.rating not in ("up", "down"):
+        raise HTTPException(400, "rating must be 'up' or 'down'")
+    if req.target_type not in ("plant-guide", "lesson", "guidance"):
+        raise HTTPException(400, "unknown target_type")
+    doc = {
+        "target_type": req.target_type,
+        "target_id": req.target_id[:128],
+        "rating": req.rating,
+        "comment": (req.comment or "")[:500] or None,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.feedback.insert_one(doc)
+    return {"ok": True}
 
 
 # ───────────────────────── App wiring ─────────────────────────

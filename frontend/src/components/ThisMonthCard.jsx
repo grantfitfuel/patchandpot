@@ -47,7 +47,32 @@ export default function ThisMonthCard({ onSetRegion }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeRegion?.name, month, lang, gardenIds]);
 
-  if (error) return null;
+  if (error) {
+    return (
+      <section
+        className="border-y border-border bg-surface/60"
+        data-testid="home-thismonth-card"
+      >
+        <div className="container-narrow py-12">
+          <p className="overline">{t("home.thismonth.eyebrow")}</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 leading-tight">
+            {t("home.thismonth.title", { month: monthName })}
+          </h2>
+          <p className="mt-4 text-sm text-moss max-w-xl">
+            {t("guidance.error")}
+          </p>
+          <Link
+            to="/calendar"
+            data-testid="home-thismonth-cta"
+            className="mt-6 btn-terracotta inline-flex items-center gap-2"
+          >
+            {t("home.thismonth.cta", { month: monthName })}
+            <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+          </Link>
+        </div>
+      </section>
+    );
+  }
 
   const plantNow = (data?.plant_now || []).slice(0, 2);
   const tasks = (data?.tasks || []).slice(0, 2);

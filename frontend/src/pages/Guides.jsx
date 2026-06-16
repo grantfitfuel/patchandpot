@@ -347,7 +347,6 @@ export default function GuidesPage() {
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              download
               data-testid={`pdf-${p.href.split("/").pop()}`}
               className="inline-flex items-center gap-2 btn-forest"
             >

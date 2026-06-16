@@ -329,7 +329,9 @@ async def guide_pdf(slug: str):
         content=r.content,
         media_type="application/pdf",
         headers={
-            "Content-Disposition": f'attachment; filename="{entry["filename"]}"',
+            # `inline` lets the browser render the PDF in the new tab so users
+            # see the document directly. A Save button is one click away.
+            "Content-Disposition": f'inline; filename="{entry["filename"]}"',
             "Cache-Control": "public, max-age=86400",
         },
     )

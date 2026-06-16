@@ -69,26 +69,47 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-12 gap-6">
-          <FeatureCard to="/masterclasses" label="Learn deeply" title="Masterclasses"
-            blurb="Three structured courses: propagation, pest control, and plant care."
+          <FeatureCard to="/masterclasses"
+            label={t("home.feature.masterclasses.label")}
+            title={t("home.feature.masterclasses.title")}
+            blurb={t("home.feature.masterclasses.blurb")}
+            openLabel={t("home.feature.open_guide")}
             icon={GraduationCap} colSpan="md:col-span-7" />
-          <FeatureCard to="/guides/cut-flowers" label="Bring colour home" title="Cut Flowers"
-            blurb="Compact, container-friendly cut flowers — palettes, bulb lasagnes, arranging."
+          <FeatureCard to="/guides/cut-flowers"
+            label={t("home.feature.cut_flowers.label")}
+            title={t("home.feature.cut_flowers.title")}
+            blurb={t("home.feature.cut_flowers.blurb")}
+            openLabel={t("home.feature.open_guide")}
             icon={Flower2} colSpan="md:col-span-5" />
-          <FeatureCard to="/guides/first-pot" label="Begin today" title="Your First Pot"
-            blurb="Everything you need to begin — pot, compost, seeds, light and water."
+          <FeatureCard to="/guides/first-pot"
+            label={t("home.feature.first_pot.label")}
+            title={t("home.feature.first_pot.title")}
+            blurb={t("home.feature.first_pot.blurb")}
+            openLabel={t("home.feature.open_guide")}
             icon={Sprout} colSpan="md:col-span-5" />
-          <FeatureCard to="/guides/space-saving" label="Small spaces" title="Space-Saving Ideas"
-            blurb="Vertical towers, hanging rails, and crate setups for tiny spaces."
+          <FeatureCard to="/guides/space-saving"
+            label={t("home.feature.space_saving.label")}
+            title={t("home.feature.space_saving.title")}
+            blurb={t("home.feature.space_saving.blurb")}
+            openLabel={t("home.feature.open_guide")}
             icon={LayoutGrid} colSpan="md:col-span-7" />
-          <FeatureCard to="/guides/companion" label="Plants helping plants" title="Companion Planting"
-            blurb="Pair flowers with food: pollinators in, pests out, more flavour."
+          <FeatureCard to="/guides/companion"
+            label={t("home.feature.companion.label")}
+            title={t("home.feature.companion.title")}
+            blurb={t("home.feature.companion.blurb")}
+            openLabel={t("home.feature.open_guide")}
             icon={HandHelping} colSpan="md:col-span-5" />
-          <FeatureCard to="/guides/regrow" label="Zero waste" title="Regrow from Scraps"
-            blurb="Save money and reduce waste by regrowing from kitchen scraps."
+          <FeatureCard to="/guides/regrow"
+            label={t("home.feature.regrow.label")}
+            title={t("home.feature.regrow.title")}
+            blurb={t("home.feature.regrow.blurb")}
+            openLabel={t("home.feature.open_guide")}
             icon={Recycle} colSpan="md:col-span-4" />
-          <FeatureCard to="/plants" label="Browse" title="Plant Database"
-            blurb="Edibles, herbs and flowers that thrive in pots and patches."
+          <FeatureCard to="/plants"
+            label={t("home.feature.plants.label")}
+            title={t("home.feature.plants.title")}
+            blurb={t("home.feature.plants.blurb")}
+            openLabel={t("home.feature.open_guide")}
             icon={Sprout} colSpan="md:col-span-3" />
         </div>
       </section>
@@ -107,7 +128,7 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ to, label, title, blurb, icon: Icon, colSpan }) {
+function FeatureCard({ to, label, title, blurb, openLabel, icon: Icon, colSpan }) {
   return (
     <Link
       to={to}
@@ -121,7 +142,7 @@ function FeatureCard({ to, label, title, blurb, icon: Icon, colSpan }) {
       <h3 className="font-serif text-3xl md:text-4xl text-forest mb-3">{title}</h3>
       <p className="text-ink/75 leading-relaxed mb-6">{blurb}</p>
       <span className="inline-flex items-center gap-2 text-forest text-sm tracking-wider uppercase group-hover:gap-3 transition-all">
-        Open guide <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+        {openLabel} <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
       </span>
     </Link>
   );

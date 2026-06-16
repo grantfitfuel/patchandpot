@@ -3,6 +3,7 @@ import {
   ArrowLeft, ArrowRight, Sprout, LayoutGrid, Recycle, Flower2,
   HandHelping, FileDown,
 } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 const GUIDES = {
   "first-pot": {
@@ -247,16 +248,17 @@ const ORDER = ["first-pot", "space-saving", "regrow", "cut-flowers", "companion"
 
 export default function GuidesPage() {
   const { slug } = useParams();
+  const { t } = useI18n();
 
   if (!slug) {
     return (
       <div className="container-narrow py-12 md:py-16 animate-fade-up">
-        <p className="overline">Beginner guides</p>
+        <p className="overline">{t("guides.eyebrow")}</p>
         <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          Guides to get growing
+          {t("guides.title")}
         </h1>
         <p className="mt-3 text-ink/75 max-w-2xl">
-          Practical playbooks for food and flowers in pots, balconies and patches — wherever you grow.
+          {t("guides.intro")}
         </p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {ORDER.map((id) => {
@@ -293,14 +295,14 @@ export default function GuidesPage() {
 
   const guide = GUIDES[slug];
   if (!guide) {
-    return <div className="container-narrow py-16 text-terracotta">Guide not found.</div>;
+    return <div className="container-narrow py-16 text-terracotta">{t("guides.not_found")}</div>;
   }
   const Icon = guide.icon;
 
   return (
     <article className="container-narrow py-12 md:py-16 animate-fade-up max-w-4xl">
       <Link to="/guides" data-testid="back-to-guides" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
-        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> All guides
+        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("guides.all_guides")}
       </Link>
 
       <div className="flex items-center gap-3">
@@ -318,7 +320,7 @@ export default function GuidesPage() {
 
       {guide.pdfs && guide.pdfs.length > 0 && (
         <div className="border border-border bg-surface p-5 mb-10 flex flex-wrap gap-3">
-          <p className="overline w-full">Downloads</p>
+          <p className="overline w-full">{t("guides.downloads")}</p>
           {guide.pdfs.map((p) => (
             <a
               key={p.href}

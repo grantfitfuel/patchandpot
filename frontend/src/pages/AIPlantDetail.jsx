@@ -135,7 +135,7 @@ export default function AIPlantDetailPage() {
         <section className="mt-16 border-t border-border pt-10 max-w-3xl" data-testid="ai-plant-growing">
           <div className="flex items-center gap-3 mb-5">
             <Sprout strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-            <span className="overline">Growing tips</span>
+            <span className="overline">{t("ai_plant.growing_tips")}</span>
           </div>
           <ol className="space-y-4">
             {plant.growing.map((tip, i) => (
@@ -151,7 +151,7 @@ export default function AIPlantDetailPage() {
       {/* Seasonality */}
       {plant.seasonality && (
         <section className="mt-12 max-w-3xl">
-          <p className="overline">Season</p>
+          <p className="overline">{t("ai_plant.season")}</p>
           <p className="font-serif text-2xl text-forest mt-2 leading-snug">{plant.seasonality}</p>
         </section>
       )}
@@ -161,7 +161,7 @@ export default function AIPlantDetailPage() {
         <section className="mt-12 max-w-3xl" data-testid="ai-plant-problems">
           <div className="flex items-center gap-3 mb-5">
             <AlertTriangle strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-            <span className="overline">Common problems</span>
+            <span className="overline">{t("ai_plant.common_problems")}</span>
           </div>
           <ul className="space-y-4">
             {plant.problems.map((p) => (
@@ -179,7 +179,7 @@ export default function AIPlantDetailPage() {
         <section className="mt-12 max-w-3xl" data-testid="ai-plant-companions">
           <div className="flex items-center gap-3 mb-5">
             <HandHelping strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-            <span className="overline">Plants well with</span>
+            <span className="overline">{t("ai_plant.plants_well_with")}</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {plant.companions.map((c) => (

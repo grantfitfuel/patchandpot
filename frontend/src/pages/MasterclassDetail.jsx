@@ -97,7 +97,7 @@ export default function MasterclassDetailPage() {
   const { slug, lessonSlug } = useParams();
   const navigate = useNavigate();
   const { region } = useRegion();
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
 
   const masterclass = ALL_MASTERCLASSES[slug];
   const { completed, toggle, isDone } = useMasterclassProgress(slug || "");
@@ -122,8 +122,8 @@ export default function MasterclassDetailPage() {
   if (!masterclass) {
     return (
       <div className="container-narrow py-16">
-        <p className="text-terracotta">Masterclass not found.</p>
-        <Link to="/masterclasses" className="btn-ghost mt-4 inline-flex">All masterclasses</Link>
+        <p className="text-terracotta">{t("mc.not_found")}</p>
+        <Link to="/masterclasses" className="btn-ghost mt-4 inline-flex">{t("mc.all_masterclasses")}</Link>
       </div>
     );
   }
@@ -149,7 +149,7 @@ export default function MasterclassDetailPage() {
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid={`masterclass-detail-${slug}`}>
       <Link to="/masterclasses" data-testid="back-to-masterclasses" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
-        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> All masterclasses
+        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("mc.all_masterclasses")}
       </Link>
 
       <div className="grid md:grid-cols-12 gap-10">
@@ -158,7 +158,7 @@ export default function MasterclassDetailPage() {
           <div className="md:sticky md:top-8">
             <div className="flex items-center gap-3 mb-3">
               <Icon strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
-              <span className="overline">Masterclass</span>
+              <span className="overline">{t("mc.label")}</span>
             </div>
             <h2 className="font-serif text-3xl text-forest leading-tight">{masterclass.title}</h2>
             <p className="text-sm text-moss mt-1">{masterclass.duration}</p>
@@ -171,7 +171,7 @@ export default function MasterclassDetailPage() {
                   data-testid="masterclass-detail-progress"
                 />
               </div>
-              <p className="text-xs text-moss mt-2">{doneCount} of {total} complete</p>
+              <p className="text-xs text-moss mt-2">{t("mc.progress_label", { done: doneCount, total })}</p>
             </div>
 
             <ol className="mt-8 space-y-1" data-testid="lesson-list">
@@ -196,7 +196,7 @@ export default function MasterclassDetailPage() {
                       </span>
                       <span className="flex-1">
                         <span className="block text-[10px] tracking-[0.18em] uppercase text-moss">
-                          Lesson {i + 1}
+                          {t("mc.lesson_number", { n: i + 1 })}
                         </span>
                         <span className={`block text-sm ${active ? "font-medium" : ""}`}>{lesson.title}</span>
                       </span>
@@ -321,12 +321,12 @@ export default function MasterclassDetailPage() {
             <div className="flex gap-3">
               {prev && (
                 <Link to={`/masterclasses/${slug}/${prev.slug}`} data-testid="lesson-prev" className="btn-ghost inline-flex items-center gap-2">
-                  <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> Previous
+                  <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("mc.previous")}
                 </Link>
               )}
               {next && (
                 <Link to={`/masterclasses/${slug}/${next.slug}`} data-testid="lesson-next" className="btn-ghost inline-flex items-center gap-2">
-                  Next <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+                  {t("mc.next")} <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
                 </Link>
               )}
             </div>
@@ -336,8 +336,8 @@ export default function MasterclassDetailPage() {
           {!next && doneCount === total && (
             <div className="mt-12 card-flat p-8 text-center" data-testid="masterclass-complete">
               <GraduationCap strokeWidth={1.3} className="w-8 h-8 text-terracotta mx-auto mb-4" />
-              <h3 className="font-serif text-3xl text-forest">Masterclass complete.</h3>
-              <p className="text-moss mt-3">Now do it. The plants are waiting.</p>
+              <h3 className="font-serif text-3xl text-forest">{t("mc.complete_title")}</h3>
+              <p className="text-moss mt-3">{t("mc.complete_subtitle")}</p>
               <div className="flex flex-wrap gap-3 justify-center mt-6">
                 <button
                   type="button"
@@ -345,7 +345,7 @@ export default function MasterclassDetailPage() {
                   onClick={() => setShareOpen(true)}
                   className="btn-terracotta inline-flex items-center gap-2"
                 >
-                  <Download className="w-4 h-4" strokeWidth={1.5} /> Get your share card
+                  <Download className="w-4 h-4" strokeWidth={1.5} /> {t("mc.get_share_card")}
                 </button>
                 {Object.keys(ALL_MASTERCLASSES)
                   .filter((s) => s !== slug)

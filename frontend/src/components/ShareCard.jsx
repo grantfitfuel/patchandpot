@@ -131,10 +131,10 @@ export default function ShareCard({ open, onClose, masterclassSlug, masterclassT
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <div>
-            <p className="overline">A small moment</p>
-            <h2 className="font-serif text-2xl text-forest mt-1">Share your finish</h2>
+            <p className="overline">{t("share.eyebrow")}</p>
+            <h2 className="font-serif text-2xl text-forest mt-1">{t("share.title")}</h2>
           </div>
-          <button onClick={onClose} aria-label="Close" data-testid="share-card-close" className="text-moss hover:text-forest">
+          <button onClick={onClose} aria-label={t("share.close")} data-testid="share-card-close" className="text-moss hover:text-forest">
             <X strokeWidth={1.5} />
           </button>
         </div>
@@ -144,7 +144,7 @@ export default function ShareCard({ open, onClose, masterclassSlug, masterclassT
             {loading && (
               <div className="flex flex-col items-center gap-3 text-moss">
                 <Loader2 strokeWidth={1.2} className="w-7 h-7 animate-spin" />
-                <span className="text-xs tracking-wider uppercase">Growing your card…</span>
+                <span className="text-xs tracking-wider uppercase">{t("share.loading")}</span>
               </div>
             )}
             {error && <p className="text-terracotta">{error}</p>}
@@ -156,7 +156,7 @@ export default function ShareCard({ open, onClose, masterclassSlug, masterclassT
           </div>
 
           <p className="text-sm text-moss mt-5 leading-relaxed">
-            A square PNG (1080 × 1080) — perfect for Instagram. Download below, or screenshot and send to a friend.
+            {t("share.description")}
           </p>
 
           <button
@@ -166,7 +166,7 @@ export default function ShareCard({ open, onClose, masterclassSlug, masterclassT
             data-testid="share-card-download"
             className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2 disabled:opacity-50"
           >
-            <Download strokeWidth={1.5} className="w-4 h-4" /> Download PNG
+            <Download strokeWidth={1.5} className="w-4 h-4" /> {t("share.download")}
           </button>
         </div>
       </div>

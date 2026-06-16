@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, GraduationCap } from "lucide-react";
 import { ALL_MASTERCLASSES, MASTERCLASS_SECTIONS } from "@/data/all-masterclasses";
 import { useAllMasterclassProgress } from "@/hooks/useMasterclassProgress";
+import { useI18n } from "@/i18n";
 import TopicImage from "@/components/TopicImage";
 
 function MasterclassCardImage({ masterclass, compact }) {
@@ -30,19 +31,19 @@ function MasterclassCardImage({ masterclass, compact }) {
 
 export default function MasterclassesPage() {
   const progress = useAllMasterclassProgress();
+  const { t } = useI18n();
 
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
       <div className="flex items-center gap-3 mb-3">
         <GraduationCap strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-        <span className="overline">Masterclasses</span>
+        <span className="overline">{t("mc.list_eyebrow")}</span>
       </div>
       <h1 className="font-serif text-5xl md:text-6xl text-forest tracking-tight">
-        Learn to grow, deeply.
+        {t("mc.list_title")}
       </h1>
       <p className="mt-4 text-ink/75 max-w-2xl leading-relaxed text-lg">
-        Structured courses in plain language — foundations of growing, plus deep dives into the
-        flowers you love most. Read at your own pace, mark lessons complete, come back across seasons.
+        {t("mc.list_intro")}
       </p>
 
       {MASTERCLASS_SECTIONS.map((section, idx) => (
@@ -53,7 +54,7 @@ export default function MasterclassesPage() {
               <h2 className="font-serif text-3xl md:text-4xl text-forest mt-2">{section.title}</h2>
               <p className="text-ink/70 mt-2 max-w-xl">{section.description}</p>
             </div>
-            <p className="text-sm text-moss">{section.order.length} course{section.order.length === 1 ? "" : "s"}</p>
+            <p className="text-sm text-moss">{section.order.length} {section.order.length === 1 ? t("mc.courses_singular") : t("mc.courses_plural")}</p>
           </div>
 
           <div className={section.key === "flowers"
@@ -98,7 +99,7 @@ export default function MasterclassesPage() {
                           />
                         </div>
                         <p className="text-[11px] text-moss mt-1.5">
-                          {done}/{total} {done === total && total > 0 ? "✓" : "lessons"}
+                          {done}/{total} {done === total && total > 0 ? "✓" : t("mc.lessons_label")}
                         </p>
                       </div>
                       {!isCompact && (

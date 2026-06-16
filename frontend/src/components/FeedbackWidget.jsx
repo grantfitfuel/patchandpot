@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ThumbsUp, ThumbsDown, Check, Loader2 } from "lucide-react";
 import { submitFeedback } from "@/lib/api";
+import { useI18n } from "@/i18n";
 
 /**
  * Lightweight rate-and-comment widget for AI-generated content.
@@ -8,6 +9,7 @@ import { submitFeedback } from "@/lib/api";
  * so users don't see the prompt again for the same target.
  */
 export default function FeedbackWidget({ targetType, targetId, label }) {
+  const { t } = useI18n();
   const storageKey = `patchpot.feedback.v1.${targetType}.${targetId}`;
   const initial = typeof localStorage !== "undefined" ? localStorage.getItem(storageKey) : null;
   const [phase, setPhase] = useState(initial ? "thanks" : "ask"); // ask | comment | sending | thanks
@@ -40,7 +42,7 @@ export default function FeedbackWidget({ targetType, targetId, label }) {
     return (
       <div data-testid="feedback-thanks" className="inline-flex items-center gap-2 text-sm text-moss mt-4">
         <Check strokeWidth={1.5} className="w-4 h-4 text-forest" />
-        Thank you — that helps us improve.
+        {t("feedback.thanks")}
       </div>
     );
   }
@@ -48,7 +50,7 @@ export default function FeedbackWidget({ targetType, targetId, label }) {
   if (phase === "comment") {
     return (
       <div className="mt-4 card-flat p-4 max-w-md" data-testid="feedback-comment">
-        <p className="text-sm text-moss mb-2">What was off? (optional)</p>
+        <p className="text-sm text-moss mb-2">{t("feedback.comment_prompt")}</p>
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -56,15 +58,15 @@ export default function FeedbackWidget({ targetType, targetId, label }) {
           maxLength={500}
           data-testid="feedback-comment-input"
           className="w-full text-sm p-2 bg-sand border border-border outline-none focus:border-forest"
-          placeholder="e.g. wrong season for my region, edibility unclear, …"
+          placeholder={t("feedback.comment_placeholder")}
         />
         <div className="flex gap-2 mt-3">
           <button type="button" onClick={() => send(comment)}
             data-testid="feedback-send"
             className="btn-forest text-sm inline-flex items-center gap-2">
-            Send
+            {t("feedback.send")}
           </button>
-          <button type="button" onClick={() => send("")} className="btn-ghost text-sm">Skip</button>
+          <button type="button" onClick={() => send("")} className="btn-ghost text-sm">{t("feedback.skip")}</button>
         </div>
       </div>
     );
@@ -73,23 +75,23 @@ export default function FeedbackWidget({ targetType, targetId, label }) {
   if (phase === "sending") {
     return (
       <div className="inline-flex items-center gap-2 text-sm text-moss mt-4">
-        <Loader2 strokeWidth={1.4} className="w-4 h-4 animate-spin" /> Sending…
+        <Loader2 strokeWidth={1.4} className="w-4 h-4 animate-spin" /> {t("feedback.sending")}
       </div>
     );
   }
 
   return (
     <div className="mt-4 flex items-center gap-3" data-testid="feedback-ask">
-      <span className="text-sm text-moss">{label || "Did we get this right?"}</span>
+      <span className="text-sm text-moss">{label || t("feedback.ask_default")}</span>
       <button type="button" onClick={() => pickThumb("up")}
         data-testid="feedback-up"
-        aria-label="Yes, this is helpful"
+        aria-label={t("feedback.up_aria")}
         className="p-2 text-moss hover:text-forest border border-border hover:border-forest/40 transition-colors">
         <ThumbsUp strokeWidth={1.5} className="w-4 h-4" />
       </button>
       <button type="button" onClick={() => pickThumb("down")}
         data-testid="feedback-down"
-        aria-label="Spot an error"
+        aria-label={t("feedback.down_aria")}
         className="p-2 text-moss hover:text-terracotta border border-border hover:border-terracotta/40 transition-colors">
         <ThumbsDown strokeWidth={1.5} className="w-4 h-4" />
       </button>

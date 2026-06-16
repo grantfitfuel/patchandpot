@@ -106,6 +106,8 @@ export default function SourceLinks({ plant }) {
             blurb={blurbs[c.vendor.id]}
             blurbsLoading={blurbsLoading}
             cta={t("source.cta")}
+            region={activeRegion}
+            language={lang}
           />
         ))}
       </div>
@@ -113,14 +115,38 @@ export default function SourceLinks({ plant }) {
   );
 }
 
-function VendorCard({ card, plantName, blurb, blurbsLoading, cta }) {
+function VendorCard({ card, plantName, blurb, blurbsLoading, cta, region, language }) {
   const Icon = card.icon;
+  const handleClick = () => {
+    // Fire-and-forget — never blocks the navigation. sendBeacon is the
+    // canonical API for outbound-click logging; it survives page unload.
+    try {
+      const body = JSON.stringify({
+        vendor_id: card.vendor.id,
+        vendor_name: card.vendor.name,
+        plant_name: plantName,
+        country: region?.country || null,
+        language,
+        slot: card.slot,
+      });
+      const url = `${process.env.REACT_APP_BACKEND_URL}/api/affiliate/click`;
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([body], { type: "application/json" }));
+      } else {
+        // Fallback for browsers without sendBeacon (very rare today)
+        fetch(url, { method: "POST", body, headers: { "Content-Type": "application/json" }, keepalive: true }).catch(() => {});
+      }
+    } catch {
+      /* tracking must never break the click */
+    }
+  };
   return (
     <a
       href={card.vendor.url(plantName)}
       target="_blank"
       rel="sponsored noopener noreferrer"
       data-testid={`source-card-${card.slot}`}
+      onClick={handleClick}
       className="card-flat p-5 group hover:border-terracotta/60 transition-colors"
     >
       <div className="flex items-center gap-2 mb-3">

@@ -48,14 +48,14 @@ export default function AIPlantDetailPage() {
     return (
       <div className="container-narrow py-16 flex items-center gap-3 text-moss" data-testid="ai-plant-loading">
         <Loader2 strokeWidth={1.4} className="w-4 h-4 animate-spin" />
-        <span>Growing your plant guide…</span>
+        <span>{t("ai_plant.loading")}</span>
       </div>
     );
   }
   if (error || !plant) {
     return (
       <div className="container-narrow py-16">
-        <p className="text-terracotta" data-testid="ai-plant-error-message">{error || "Plant guide not found."}</p>
+        <p className="text-terracotta" data-testid="ai-plant-error-message">{error || t("ai_plant.not_found")}</p>
         <Link to="/plants" className="btn-ghost mt-6 inline-flex">{t("plant.back")}</Link>
       </div>
     );

@@ -219,7 +219,7 @@ export default function MasterclassDetailPage() {
               {lang !== "en" && (
                 <span className="inline-flex items-center gap-2 text-moss">
                   <Languages strokeWidth={1.5} className="w-4 h-4" />
-                  {adapted?.translated ? "Translated" : adapting ? "Translating…" : "Auto-translating…"}
+                  {adapted?.translated ? t("mc.translated") : adapting ? t("mc.translating") : t("mc.auto_translating")}
                 </span>
               )}
               {PERSONALISE_ELIGIBLE.has(slug) && (
@@ -315,7 +315,7 @@ export default function MasterclassDetailPage() {
               }`}
             >
               <Check strokeWidth={1.5} className="w-4 h-4" />
-              {isDone(currentLesson.slug) ? "Marked complete" : next ? "Mark complete & continue" : "Mark complete"}
+              {isDone(currentLesson.slug) ? t("mc.marked_complete") : next ? t("mc.mark_complete_continue") : t("mc.mark_complete")}
             </button>
 
             <div className="flex gap-3">

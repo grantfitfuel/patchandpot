@@ -81,6 +81,11 @@ LANG_NAMES = {
     "ga": "Irish (Gaeilge)",
     "da": "Danish", "nb": "Norwegian Bokmål", "sv": "Swedish",
     "is": "Icelandic", "fi": "Finnish",
+    "pt": "Portuguese", "it": "Italian", "nl": "Dutch",
+    "pl": "Polish", "cs": "Czech", "sk": "Slovak", "sl": "Slovenian",
+    "hr": "Croatian", "bg": "Bulgarian", "ro": "Romanian", "hu": "Hungarian",
+    "el": "Greek", "et": "Estonian", "lv": "Latvian", "lt": "Lithuanian",
+    "mt": "Maltese", "uk": "Ukrainian",
 }
 
 

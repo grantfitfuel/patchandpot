@@ -62,6 +62,13 @@
   - **Affiliate click tracking** (`POST /api/affiliate/click`, `GET /api/affiliate/stats`): every outbound vendor card click is logged via `navigator.sendBeacon` (graceful fetch+keepalive fallback) into MongoDB `affiliate_clicks` with shape `{vendor_id, vendor_name, plant_name, country, language, slot, ts}`. No IP stored, fire-and-forget — tracking never blocks the user's click-through.
   - **Stats endpoint** (`GET /api/affiliate/stats?days=N&token=...`) returns `{since, days, total_clicks, top_vendors, top_countries, top_plants, top_languages, top_slots}` aggregated via MongoDB pipeline. Protected by the existing `ADMIN_TOKEN` env var (`patchpot-admin-d3f8a2b9c4`); endpoint is open if the env var is unset.
   - **Verified end-to-end**: 4 seed POSTs all returned 204, stats endpoint correctly aggregates top vendors / countries / plants / languages / slots; Playwright click test confirmed both card clicks trigger `sendBeacon` to the correct URL.
+- **Iteration 11** (2026-02-16): ✅
+  - **Massive localisation expansion**: total supported languages went from **14 → 31**. Added: Portuguese (`pt`), Italian (`it`), Dutch (`nl`), Polish (`pl`), Czech (`cs`), Slovak (`sk`), Slovenian (`sl`), Croatian (`hr`), Bulgarian (`bg`), Romanian (`ro`), Hungarian (`hu`), Greek (`el`), Estonian (`et`), Latvian (`lv`), Lithuanian (`lt`), Maltese (`mt`), Ukrainian (`uk`). All 24 official EU languages now covered, plus Ukrainian as the major non-EU European language.
+  - **Translation-gap sweep**: extracted 20 hard-coded English strings into i18n keys (`region.search_failed`, `region.geo_not_supported`, etc.). All 14 pre-existing locales got full native translations for these new keys via a Python injection script.
+  - Backend `LANG_NAMES` extended to all 31 codes; Claude now writes natively in any of them.
+  - LANGUAGES dropdown exposes all 31 options with their native labels.
+  - **Coverage trade-off**: 4 fully-native new locales (pt, it, nl, pl) ship complete ~130-key dictionaries. The other 13 (cs, sk, sl, hr, bg, ro, hu, el, et, lv, lt, mt, uk) ship a focused ~40-key dictionary covering nav, months, calendar/plants/garden titles, ThisMonthCard, source links, climates and the most visible buttons. Body paragraphs in those 13 fall back to English via the existing `t()` lookup.
+  - **Verified end-to-end**: Polish UI screenshot confirms all visible page elements render in Polish. Claude API tests confirm natural-sounding vendor-blurbs in Polish, Greek, Ukrainian and Hungarian — with climate awareness.
 
 ## Prioritised Backlog
 ### P1

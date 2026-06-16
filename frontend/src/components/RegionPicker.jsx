@@ -32,7 +32,7 @@ export default function RegionPicker({ open, onClose }) {
         const data = await searchRegions(query);
         setResults(data.results || []);
       } catch (e) {
-        setError("Search failed.");
+        setError(t("region.search_failed"));
       } finally {
         setLoading(false);
       }
@@ -43,11 +43,11 @@ export default function RegionPicker({ open, onClose }) {
   const hemisphereFor = (lat) => (lat < 0 ? "southern" : "northern");
   const climateFor = (lat) => {
     const a = Math.abs(lat);
-    if (a < 23.5) return "Tropical";
-    if (a < 35) return "Subtropical";
-    if (a < 55) return "Temperate";
-    if (a < 66.5) return "Cool temperate";
-    return "Polar";
+    if (a < 23.5) return t("climate.tropical");
+    if (a < 35) return t("climate.subtropical");
+    if (a < 55) return t("climate.temperate");
+    if (a < 66.5) return t("climate.cool_temperate");
+    return t("climate.polar");
   };
 
   const pick = (r) => {
@@ -64,7 +64,7 @@ export default function RegionPicker({ open, onClose }) {
 
   const detect = () => {
     if (!("geolocation" in navigator)) {
-      setError("Geolocation not supported in this browser.");
+      setError(t("region.geo_not_supported"));
       return;
     }
     setLocating(true);
@@ -76,14 +76,14 @@ export default function RegionPicker({ open, onClose }) {
           setRegion(data);
           onClose();
         } catch (e) {
-          setError("Could not detect your region.");
+          setError(t("region.detect_failed"));
         } finally {
           setLocating(false);
         }
       },
       (err) => {
         setLocating(false);
-        setError(err.code === 1 ? "Permission denied. Please search manually." : "Could not get your location.");
+        setError(err.code === 1 ? t("region.permission_denied") : t("region.get_location_failed"));
       },
       { timeout: 8000 }
     );

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Download, Loader2, X } from "lucide-react";
 import { api } from "@/lib/api";
+import { useI18n } from "@/i18n";
 
 const shareCache = new Map();
 
@@ -11,6 +12,7 @@ const shareCache = new Map();
  * 3. Lets the user download the PNG.
  */
 export default function ShareCard({ open, onClose, masterclassSlug, masterclassTitle, regionName }) {
+  const { t } = useI18n();
   const canvasRef = useRef(null);
   const [bgSrc, setBgSrc] = useState(() => shareCache.get(masterclassSlug) || null);
   const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ export default function ShareCard({ open, onClose, masterclassSlug, masterclassT
         shareCache.set(masterclassSlug, res.data.image);
         setBgSrc(res.data.image);
       })
-      .catch(() => !cancelled && setError("Could not generate share image."))
+      .catch(() => !cancelled && setError(t("share.image_failed")))
       .finally(() => !cancelled && setLoading(false));
     return () => { cancelled = true; };
   }, [open, masterclassSlug, masterclassTitle, regionName]);

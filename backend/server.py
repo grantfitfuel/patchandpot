@@ -294,6 +294,47 @@ async def list_plants(language: str = "en"):
     return await _plants_in_language(language)
 
 
+# ────────────────────────────────────────────────────────────────────────────
+# Guide downloads — proxy patchandpot.com PDFs so they download cleanly on every
+# device (avoids cross-origin inline-render quirks on iOS Safari, in-app
+# webviews, etc.) and lets us serve them with a friendly filename.
+
+_GUIDE_PDFS = {
+    "cut-flower-journal": {
+        "url": "https://patchandpot.com/pdf/cut-flowers.pdf",
+        "filename": "Cut-Flower-Journal.pdf",
+    },
+    "arranging-and-colour-guide": {
+        "url": "https://patchandpot.com/pdf/arranging-and-colour-guide.pdf",
+        "filename": "Arranging-and-Colour-Guide.pdf",
+    },
+}
+
+
+@api_router.get("/guide-pdf/{slug}")
+async def guide_pdf(slug: str):
+    """Stream a guide PDF from patchandpot.com with attachment headers."""
+    entry = _GUIDE_PDFS.get(slug)
+    if not entry:
+        raise HTTPException(404, "PDF not found")
+    try:
+        async with httpx.AsyncClient(timeout=20) as http:
+            r = await http.get(entry["url"])
+        if r.status_code != 200 or not r.content:
+            raise HTTPException(502, "Upstream PDF unavailable")
+    except httpx.HTTPError as e:
+        logger.warning("guide_pdf fetch failed for %s: %s", slug, e)
+        raise HTTPException(502, "Upstream PDF unavailable") from e
+    return Response(
+        content=r.content,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="{entry["filename"]}"',
+            "Cache-Control": "public, max-age=86400",
+        },
+    )
+
+
 @api_router.get("/plants/{plant_id}")
 async def get_plant(plant_id: str, language: str = "en"):
     plants = await _plants_in_language(language)

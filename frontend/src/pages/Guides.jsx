@@ -5,6 +5,9 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/i18n";
 
+// Resolve at module load so the PDF links go through our backend proxy.
+const API_BASE = process.env.REACT_APP_BACKEND_URL || "";
+
 const GUIDES = {
   "first-pot": {
     label: "Begin today",
@@ -74,8 +77,8 @@ const GUIDES = {
     image:
       "https://images.unsplash.com/photo-1745063537934-e6bf484d72eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
     pdfs: [
-      { label: "Cut Flower Journal (PDF)", href: "https://patchandpot.com/pdf/cut-flowers.pdf" },
-      { label: "Arranging & Colour Guide (PDF)", href: "https://patchandpot.com/pdf/arranging-and-colour-guide.pdf" },
+      { label: "Cut Flower Journal (PDF)", href: `${API_BASE}/api/guide-pdf/cut-flower-journal` },
+      { label: "Arranging & Colour Guide (PDF)", href: `${API_BASE}/api/guide-pdf/arranging-and-colour-guide` },
     ],
     sections: [
       { type: "prose", title: "Why grow cut flowers?",
@@ -344,6 +347,7 @@ export default function GuidesPage() {
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
+              download
               data-testid={`pdf-${p.href.split("/").pop()}`}
               className="inline-flex items-center gap-2 btn-forest"
             >

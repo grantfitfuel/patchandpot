@@ -5,7 +5,9 @@ import { useI18n, monthLabel } from "@/i18n";
 export default function MonthSelector({ month, onChange }) {
   const { t, lang } = useI18n();
   const [, force] = useState(0);
-  useEffect(() => { force((n) => n + 1); }, [lang]);
+  useEffect(() => {
+    force((n) => n + 1);
+  }, [lang]);
 
   const prev = () => onChange(month === 1 ? 12 : month - 1);
   const next = () => onChange(month === 12 ? 1 : month + 1);

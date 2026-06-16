@@ -37,7 +37,8 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
       .then((d) => { setData(d); if (onData) onData(d); })
       .catch((e) => setError(e?.response?.data?.detail || t("guidance.error")))
       .finally(() => setLoading(false));
-  }, [region, month, lang, gardenKey]); // eslint-disable-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [region, month, lang, gardenKey]);
 
   if (!region) {
     return (

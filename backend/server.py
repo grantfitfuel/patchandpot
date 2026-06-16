@@ -1027,6 +1027,34 @@ class FeedbackRequest(BaseModel):
     comment: Optional[str] = None
 
 
+@api_router.get("/admin/feedback")
+async def list_feedback(token: str, target_type: Optional[str] = None, limit: int = 100):
+    """Read-only feedback log. Requires ?token=... matching ADMIN_TOKEN env var.
+    No token configured → endpoint is disabled (returns 503)."""
+    admin_token = os.environ.get("ADMIN_TOKEN", "")
+    if not admin_token:
+        raise HTTPException(503, "ADMIN_TOKEN not configured")
+    if token != admin_token:
+        raise HTTPException(401, "Bad token")
+
+    query = {}
+    if target_type:
+        query["target_type"] = target_type
+    limit = max(1, min(limit, 500))
+
+    rows = []
+    cursor = db.feedback.find(query, {"_id": 0}).sort("created_at", -1).limit(limit)
+    async for row in cursor:
+        rows.append(row)
+
+    # tiny aggregate
+    counts = {"up": 0, "down": 0}
+    for r in rows:
+        if r.get("rating") in counts:
+            counts[r["rating"]] += 1
+    return {"items": rows, "counts": counts, "total": len(rows)}
+
+
 @api_router.post("/feedback")
 async def submit_feedback(req: FeedbackRequest):
     """Store user feedback on AI-generated content. Lightweight signal so we can

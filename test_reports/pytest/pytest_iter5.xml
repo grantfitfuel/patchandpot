@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="25" time="233.437" timestamp="2026-06-16T10:56:12.589345+00:00" hostname="agent-env-afcf2287-88a2-42d2-a18a-13616133aecf"><testcase classname="backend.tests.test_backend" name="test_root_status" time="0.247" /><testcase classname="backend.tests.test_backend" name="test_plants_list" time="0.046" /><testcase classname="backend.tests.test_backend" name="test_plants_flowers" time="0.047" /><testcase classname="backend.tests.test_backend" name="test_plant_by_id" time="0.045" /><testcase classname="backend.tests.test_backend" name="test_plant_404" time="0.045" /><testcase classname="backend.tests.test_backend" name="test_regions_search" time="0.642" /><testcase classname="backend.tests.test_backend" name="test_regions_reverse" time="0.582" /><testcase classname="backend.tests.test_backend" name="test_regions_reverse_southern" time="0.596" /><testcase classname="backend.tests.test_backend" name="test_guidance_generation" time="0.052" /><testcase classname="backend.tests.test_backend" name="test_guidance_caching" time="0.093" /><testcase classname="backend.tests.test_backend" name="test_plant_image_generation" time="0.142" /><testcase classname="backend.tests.test_backend" name="test_plant_image_cache" time="0.106" /><testcase classname="backend.tests.test_backend" name="test_companions_tomato" time="0.045" /><testcase classname="backend.tests.test_backend" name="test_companions_lavender" time="0.044" /><testcase classname="backend.tests.test_backend" name="test_companions_mint_empty" time="0.090" /><testcase classname="backend.tests.test_backend" name="test_companions_sweet_pea_empty" time="0.048" /><testcase classname="backend.tests.test_backend" name="test_companions_invalid_404" time="0.048" /><testcase classname="backend.tests.test_backend" name="test_pest_image_generation" time="0.098" /><testcase classname="backend.tests.test_backend" name="test_pest_image_cache" time="0.095" /><testcase classname="backend.tests.test_backend" name="test_guidance_french" time="0.268"><failure message="assert 500 == 200&#10; +  where 500 = &lt;Response [500]&gt;.status_code">backend/tests/test_backend.py:203: in test_guidance_french
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500]&gt;.status_code</failure></testcase><testcase classname="backend.tests.test_backend" name="test_guidance_german" time="51.740" /><testcase classname="backend.tests.test_backend" name="test_guidance_japanese" time="56.102" /><testcase classname="backend.tests.test_backend" name="test_guidance_chinese" time="49.503" /><testcase classname="backend.tests.test_backend" name="test_guidance_invalid_language_defaults_en" time="42.295" /><testcase classname="backend.tests.test_backend" name="test_guidance_language_cache_separation" time="30.032"><failure message="requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='grow-by-season-1.preview.emergentagent.com', port=443): Read timed out. (read timeout=30)">/root/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py:534: in _make_request
+    response = conn.getresponse()
+               ^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/urllib3/connection.py:571: in getresponse
+    httplib_response = super().getresponse()
+                       ^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/http/client.py:1415: in getresponse
+    response.begin()
+/usr/local/lib/python3.11/http/client.py:330: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/http/client.py:291: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/socket.py:718: in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/ssl.py:1314: in recv_into
+    return self.read(nbytes, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/ssl.py:1166: in read
+    return self._sslobj.read(len, buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TimeoutError: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+/root/.venv/lib/python3.11/site-packages/requests/adapters.py:696: in send
+    resp = conn.urlopen(
+/root/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py:842: in urlopen
+    retries = retries.increment(
+/root/.venv/lib/python3.11/site-packages/urllib3/util/retry.py:498: in increment
+    raise reraise(type(error), error, _stacktrace)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/urllib3/util/util.py:39: in reraise
+    raise value
+/root/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py:788: in urlopen
+    response = self._make_request(
+/root/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py:536: in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+/root/.venv/lib/python3.11/site-packages/urllib3/connectionpool.py:367: in _raise_timeout
+    raise ReadTimeoutError(
+E   urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='grow-by-season-1.preview.emergentagent.com', port=443): Read timed out. (read timeout=30)
+
+During handling of the above exception, another exception occurred:
+backend/tests/test_backend.py:253: in test_guidance_language_cache_separation
+    r = s.post(f"{API}/guidance", json=_lang_payload("fr"), timeout=30)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:712: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:651: in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:784: in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/adapters.py:742: in send
+    raise ReadTimeout(e, request=request)
+E   requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='grow-by-season-1.preview.emergentagent.com', port=443): Read timed out. (read timeout=30)</failure></testcase></testsuite></testsuites>

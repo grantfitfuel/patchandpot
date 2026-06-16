@@ -74,6 +74,7 @@ function useAdaptedLesson({ masterclass, lesson, language, region, personalise }
       .catch(() => !cancelled && setData(null))
       .finally(() => !cancelled && setLoading(false));
     return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, language, targetRegion, masterclass.slug, lesson.slug, lesson.title, lesson.body, lesson.tip, lesson.steps, lesson.boxes]);
 
   return { data, loading, key };

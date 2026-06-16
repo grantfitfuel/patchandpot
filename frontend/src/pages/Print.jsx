@@ -18,7 +18,8 @@ export default function PrintPage() {
     fetchGuidance(region, month, lang)
       .then(setData)
       .catch(() => setError(t("guidance.error")));
-  }, [region, month, lang]); // eslint-disable-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [region, month, lang]);
 
   if (!region) {
     return (

@@ -3,6 +3,7 @@ import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, 
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
+import ThisMonthCard from "@/components/ThisMonthCard";
 import { useI18n, monthLabel } from "@/i18n";
 
 export default function Home() {
@@ -51,6 +52,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ThisMonthCard onSetRegion={() => setPickerOpen(true)} />
 
       <section className="container-narrow py-20">
         <div className="grid md:grid-cols-12 gap-8 mb-12">

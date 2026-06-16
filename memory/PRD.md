@@ -72,6 +72,9 @@
 
 ## Prioritised Backlog
 ### P1
+- **Translate masterclass lesson titles & in-lesson box headings** ("Why propagate?", "What you'll learn", etc.) — currently still English in sidebar regardless of UI language. Approach: add `mc.lesson.<slug>.<lesson-slug>` keys batch-translated via Claude, or extend `/api/lesson-adapt` to also return translated lesson chrome.
+- **Translate static plant data** (`summary`, `sun`, `water`, `soil`, `difficulty`, `edible_part`, `category`) on the legacy `/plants/:id` route. The AI route `/plants/ai/:slug` already passes `language` and gets fully-translated content from Claude.
+- Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
 - Real cron for monthly auto-refresh of guides.
 - Lazy-load plant images on grid (defer LLM cost until card focused).
 - Save multiple "patches" (home + holiday cottage).
@@ -79,7 +82,8 @@
 ### P2
 - Optional email subscription via Resend (when user supplies API key).
 - Community / journal entries (would need auth).
-- More languages (es, pt, it, hi, ar).
+- Refactor: consider splitting `/app/frontend/src/i18n/index.jsx` (now ~7500 lines) into `i18n/en.js`, `i18n/de.js`, … with a `langLoader` per locale to keep diffs reviewable.
+- Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` (near-duplicates).
 
 ## Smart Next Action
 Region-aware **affiliate links** on the plant database (seeds, compost, pots) — genuinely helpful

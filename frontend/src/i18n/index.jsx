@@ -235,6 +235,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chrysanthemums",
     "mc.tagline.chrysanthemum": "The autumn powerhouse — when everything else is finishing, mums begin.",
     "mc.duration_about": "About {min} minutes",
+    "mc.title.sweet-pea": "Sweet Peas",
+    "mc.tagline.sweet-pea": "The most fragrant cut flower in the garden — and forgiving with the right routine.",
   },
   de: {
     "app.tagline": "Achtsam gärtnern auf kleinem Raum.",
@@ -457,6 +459,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chrysanthemen",
     "mc.tagline.chrysanthemum": "Das Herbst-Kraftpaket — wenn alles andere endet, fangen Chrysanthemen an.",
     "mc.duration_about": "Etwa {min} Minuten",
+    "mc.title.sweet-pea": "Duftwicken",
+    "mc.tagline.sweet-pea": "Die duftendste Schnittblume im Garten — und verzeihend mit der richtigen Pflege.",
   },
   es: {
     "app.tagline": "Cultivo consciente para espacios pequeños.",
@@ -679,6 +683,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Crisantemos",
     "mc.tagline.chrysanthemum": "La potencia del otoño — cuando todo lo demás termina, los crisantemos comienzan.",
     "mc.duration_about": "Aproximadamente {min} minutos",
+    "mc.title.sweet-pea": "Guisantes de Olor",
+    "mc.tagline.sweet-pea": "La flor de corte más fragante del jardín — e indulgente con la rutina adecuada.",
   },
   gd: {
     "app.tagline": "Gàirneilearachd mhothachail airson àiteachan beaga.",
@@ -901,6 +907,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Criosantamaman",
     "mc.tagline.chrysanthemum": "Cumhachd an fhoghair — nuair a tha a h-uile càil eile a' crìochnachadh, bidh criosantamaman a' tòiseachadh.",
     "mc.duration_about": "Mu {min} mionaidean",
+    "mc.title.sweet-pea": "Peasair Mhilis",
+    "mc.tagline.sweet-pea": "Am flùr gearrte as cùbhraidhe sa ghàrradh — agus maitheach leis an dòigh-obrach cheart.",
   },
   cy: {
     "app.tagline": "Garddio ystyriol ar gyfer mannau bach.",
@@ -1123,6 +1131,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chrysanthemums",
     "mc.tagline.chrysanthemum": "Pŵer yr hydref — pan mae popeth arall yn gorffen, mae mymiau'n dechrau.",
     "mc.duration_about": "Tua {min} munud",
+    "mc.title.sweet-pea": "Pys Pêr",
+    "mc.tagline.sweet-pea": "Y blodyn torri mwyaf persawrus yn yr ardd — ac yn faddeugar gyda'r drefn gywir.",
   },
   ga: {
     "app.tagline": "Garraíodóireacht aireach do spásanna beaga.",
@@ -1340,6 +1350,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Criosantamam",
     "mc.tagline.chrysanthemum": "Cumhacht an fhómhair — nuair atá gach rud eile ag críochnú, tosaíonn criosantamam.",
     "mc.duration_about": "Timpeall {min} nóiméad",
+    "mc.title.sweet-pea": "Piseanna Cumhra",
+    "mc.tagline.sweet-pea": "An bláth gearrtha is cumhraí sa ghairdín — agus maithiúnach leis an ngnáthamh ceart.",
   },
   da: {
     "app.tagline": "Bevidst havearbejde til små rum.",
@@ -1557,6 +1569,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krysantemum",
     "mc.tagline.chrysanthemum": "Efterårets kraftcenter — når alt andet er ved at slutte, begynder krysantemum.",
     "mc.duration_about": "Cirka {min} minutter",
+    "mc.title.sweet-pea": "Fladbælg",
+    "mc.tagline.sweet-pea": "Den mest duftende afskårne blomst i haven — og tilgivende med den rigtige rutine.",
   },
   nb: {
     "app.tagline": "Bevisst hagebruk for små rom.",
@@ -1774,6 +1788,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krysantemum",
     "mc.tagline.chrysanthemum": "Høstens kraftpakke — når alt annet er ferdig, begynner krysantemumene.",
     "mc.duration_about": "Omtrent {min} minutter",
+    "mc.title.sweet-pea": "Lukterter",
+    "mc.tagline.sweet-pea": "Den mest duftende snittblomsten i hagen — og tilgivende med riktig stell.",
   },
   sv: {
     "app.tagline": "Medveten trädgårdsodling för små utrymmen.",
@@ -1991,6 +2007,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krysantemum",
     "mc.tagline.chrysanthemum": "Höstens kraftpaket — när allt annat är slut börjar krysantemumen.",
     "mc.duration_about": "Ungefär {min} minuter",
+    "mc.title.sweet-pea": "Luktärter",
+    "mc.tagline.sweet-pea": "Den mest doftande snittblomman i trädgården — och förlåtande med rätt rutin.",
   },
   is: {
     "app.tagline": "Meðvituð garðrækt fyrir lítil rými.",
@@ -2208,6 +2226,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krýsantemu",
     "mc.tagline.chrysanthemum": "Haustið kraftaverk — þegar allt annað er að ljúka, byrja krýsantemur.",
     "mc.duration_about": "Um það bil {min} mínútur",
+    "mc.title.sweet-pea": "Ilmertir",
+    "mc.tagline.sweet-pea": "Ilmandi skurðblóm garðsins — og fyrirgefandi með réttum rútínum.",
   },
   fi: {
     "app.tagline": "Tietoinen puutarhanhoito pieniin tiloihin.",
@@ -2425,6 +2445,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krysanteemit",
     "mc.tagline.chrysanthemum": "Syksyn voimapesä — kun kaikki muu on päättymässä, krysanteemit alkavat.",
     "mc.duration_about": "Noin {min} minuuttia",
+    "mc.title.sweet-pea": "Tuoksuherneeet",
+    "mc.tagline.sweet-pea": "Puutarhan tuoksuvimmat leikkokukat — ja anteeksiantavat oikealla hoitorutiinilla.",
   },
   pt: {
     "app.tagline": "Jardinagem consciente para pequenos espaços.",
@@ -2679,6 +2701,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Crisântemos",
     "mc.tagline.chrysanthemum": "A potência do outono — quando tudo o resto está a terminar, os crisântemos começam.",
     "mc.duration_about": "Cerca de {min} minutos",
+    "mc.title.sweet-pea": "Ervilhas-de-cheiro",
+    "mc.tagline.sweet-pea": "A flor de corte mais perfumada do jardim — e tolerante com a rotina certa.",
   },
   it: {
     "app.tagline": "Giardinaggio consapevole per piccoli spazi.",
@@ -2933,6 +2957,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Crisantemi",
     "mc.tagline.chrysanthemum": "La potenza dell'autunno — quando tutto il resto finisce, i crisantemi iniziano.",
     "mc.duration_about": "Circa {min} minuti",
+    "mc.title.sweet-pea": "Piselli Odorosi",
+    "mc.tagline.sweet-pea": "Il fiore reciso più profumato del giardino — e tollerante con la giusta cura.",
   },
   nl: {
     "app.tagline": "Bewust tuinieren voor kleine ruimtes.",
@@ -3187,6 +3213,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chrysanten",
     "mc.tagline.chrysanthemum": "Het herfstkanon — wanneer al het andere eindigt, beginnen chrysanten.",
     "mc.duration_about": "Ongeveer {min} minuten",
+    "mc.title.sweet-pea": "Lathyrus",
+    "mc.tagline.sweet-pea": "De meest geurige snijbloem in de tuin — en vergevingsgezind met de juiste verzorging.",
   },
   pl: {
     "app.tagline": "Świadome ogrodnictwo dla małych przestrzeni.",
@@ -3441,6 +3469,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chryzantemy",
     "mc.tagline.chrysanthemum": "Jesienna potęga — gdy wszystko inne kończy, chryzantemy zaczynają.",
     "mc.duration_about": "Około {min} minut",
+    "mc.title.sweet-pea": "Groszek pachnący",
+    "mc.tagline.sweet-pea": "Najbardziej pachnący kwiat cięty w ogrodzie — i wyrozumiały przy odpowiedniej pielęgnacji.",
   },
   cs: {
     "app.tagline": "Vědomé zahradničení pro malé prostory.",
@@ -3695,6 +3725,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chryzantémy",
     "mc.tagline.chrysanthemum": "Podzimní elektrárna — když všechno ostatní končí, chryzantémy začínají.",
     "mc.duration_about": "Přibližně {min} minut",
+    "mc.title.sweet-pea": "Hrachor vonný",
+    "mc.tagline.sweet-pea": "Nejvoněvější řezaná květina na zahradě — a shovívavá při správné péči.",
   },
   sk: {
     "app.tagline": "Uvedomelé záhradkárčenie pre malé priestory.",
@@ -3949,6 +3981,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chryzantémy",
     "mc.tagline.chrysanthemum": "Jesenný gigant — keď všetko ostatné končí, chryzantémy začínajú.",
     "mc.duration_about": "Približne {min} minút",
+    "mc.title.sweet-pea": "Hrachor voňavý",
+    "mc.tagline.sweet-pea": "Najvoňavejšiarezaná kvetina v záhrade — a odpúšťajúca s tou správnou starostlivosťou.",
   },
   sl: {
     "app.tagline": "Premišljeno vrtnarjenje za majhne prostore.",
@@ -4203,6 +4237,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krizanteme",
     "mc.tagline.chrysanthemum": "Jesenska moč — ko vse drugo končuje, krizanteme šele začenjajo.",
     "mc.duration_about": "Približno {min} minut",
+    "mc.title.sweet-pea": "Dišeči grašek",
+    "mc.tagline.sweet-pea": "Najbolj dišeča rezana roža na vrtu — in odpuščajoča ob pravilni negi.",
   },
   hr: {
     "app.tagline": "Svjesno vrtlarenje za male prostore.",
@@ -4457,6 +4493,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krizanteme",
     "mc.tagline.chrysanthemum": "Jesenska snaga — kada sve ostalo završava, krizanteme tek počinju.",
     "mc.duration_about": "Otprilike {min} minuta",
+    "mc.title.sweet-pea": "Mirisni grašak",
+    "mc.tagline.sweet-pea": "Najmiomisniji cvijet za rezanje u vrtu — i popustljiv uz pravu rutinu.",
   },
   bg: {
     "app.tagline": "Внимателно градинарство за малки пространства.",
@@ -4711,6 +4749,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Хризантеми",
     "mc.tagline.chrysanthemum": "Есенната мощ — когато всичко друго завършва, хризантемите започват.",
     "mc.duration_about": "Около {min} минути",
+    "mc.title.sweet-pea": "Сладки грахове",
+    "mc.tagline.sweet-pea": "Най-ароматното цвете за рязане в градината — и толерантно при правилната грижа.",
   },
   ro: {
     "app.tagline": "Grădinărit conștient pentru spații mici.",
@@ -4965,6 +5005,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Crizanteme",
     "mc.tagline.chrysanthemum": "Puterea toamnei — când totul se termină, crizantemele încep.",
     "mc.duration_about": "Aproximativ {min} minute",
+    "mc.title.sweet-pea": "Mazăre de miros",
+    "mc.tagline.sweet-pea": "Cea mai parfumată floare de tăiat din grădină — și indulgentă cu rutina potrivită.",
   },
   hu: {
     "app.tagline": "Tudatos kertészkedés kis terekhez.",
@@ -5219,6 +5261,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krizantémok",
     "mc.tagline.chrysanthemum": "Az őszi erőmű — amikor minden más véget ér, a krizantémok csak most kezdenek.",
     "mc.duration_about": "Körülbelül {min} perc",
+    "mc.title.sweet-pea": "Illatos borsó",
+    "mc.tagline.sweet-pea": "A kert legillatosabb vágott virága — és megbocsátó a megfelelő rutin mellett.",
   },
   el: {
     "app.tagline": "Συνειδητή κηπουρική για μικρούς χώρους.",
@@ -5473,6 +5517,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Χρυσάνθεμα",
     "mc.tagline.chrysanthemum": "Η δύναμη του φθινοπώρου — όταν όλα τα άλλα τελειώνουν, τα χρυσάνθεμα ξεκινούν.",
     "mc.duration_about": "Περίπου {min} λεπτά",
+    "mc.title.sweet-pea": "Μπιζέλια της Αφροδίτης",
+    "mc.tagline.sweet-pea": "Το πιο ευωδιαστό λουλούδι κοπής στον κήπο — και ανεκτικό με τη σωστή φροντίδα.",
   },
   et: {
     "app.tagline": "Teadlik aiapidamine väikestele ruumidele.",
@@ -5727,6 +5773,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krüsanteemid",
     "mc.tagline.chrysanthemum": "Sügise jõuallikas — kui kõik muu hääbub, krüsanteemid alustavad.",
     "mc.duration_about": "Umbes {min} minutit",
+    "mc.title.sweet-pea": "Lillhernes",
+    "mc.tagline.sweet-pea": "Aia kõige lõhnavam lõikelill — ja andestav õige rutiini korral.",
   },
   lv: {
     "app.tagline": "Apzināta dārzkopība maziem laukumiem.",
@@ -5981,6 +6029,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Krizantēmas",
     "mc.tagline.chrysanthemum": "Rudens spēka avots — kad viss pārējais beidzas, krizantēmas tikai sākas.",
     "mc.duration_about": "Aptuveni {min} minūtes",
+    "mc.title.sweet-pea": "Smaržīgais zirnis",
+    "mc.tagline.sweet-pea": "Visdvesošākais griezto ziedu zieds dārzā — un piedodošs ar pareizo kopšanas rutīnu.",
   },
   lt: {
     "app.tagline": "Sąmoningas sodininkavimas mažoms erdvėms.",
@@ -6235,6 +6285,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chrizantemos",
     "mc.tagline.chrysanthemum": "Rudens galybė — kai viskas baigiasi, chrizantemos tik prasideda.",
     "mc.duration_about": "Apie {min} min.",
+    "mc.title.sweet-pea": "Kvapnieji žirneliai",
+    "mc.tagline.sweet-pea": "Kvapniausios pjautinės gėlės sode — ir atlaidžios, kai taikoma tinkama priežiūra.",
   },
   mt: {
     "app.tagline": "Ġardinaġġ konxju għal spazji żgħar.",
@@ -6489,6 +6541,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Kriżantemi",
     "mc.tagline.chrysanthemum": "Il-qawwa tal-ħarifa — meta kollox ieħor qed jispiċċa, il-kriżantemi jibdew.",
     "mc.duration_about": "Madwar {min} minuta",
+    "mc.title.sweet-pea": "Piżelli Ħelwin",
+    "mc.tagline.sweet-pea": "L-aktar fjura fragranti biex taqta' fil-ġnien — u tolleranti bl-rutina t-tajba.",
   },
   uk: {
     "app.tagline": "Усвідомлене садівництво для невеликих просторів.",
@@ -6743,6 +6797,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Хризантеми",
     "mc.tagline.chrysanthemum": "Осіння потуга — коли все інше завершується, хризантеми тільки починають.",
     "mc.duration_about": "Близько {min} хвилин",
+    "mc.title.sweet-pea": "Запашний горошок",
+    "mc.tagline.sweet-pea": "Найароматніша квітка для зрізання в саду — і невибаглива за правильного догляду.",
   },
   fr: {
     "app.tagline": "Cultiver avec sérénité, même dans les petits espaces.",
@@ -6965,6 +7021,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "Chrysanthèmes",
     "mc.tagline.chrysanthemum": "La puissance de l'automne — quand tout le reste finit, les chrysanthèmes commencent.",
     "mc.duration_about": "Environ {min} minutes",
+    "mc.title.sweet-pea": "Pois de senteur",
+    "mc.tagline.sweet-pea": "La fleur à couper la plus parfumée du jardin — et facile à cultiver avec la bonne routine.",
   },
   ja: {
     "app.tagline": "小さな場所で、丁寧に育てる。",
@@ -7187,6 +7245,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "菊",
     "mc.tagline.chrysanthemum": "秋のパワーハウス—他のすべてが終わる頃、菊が始まる。",
     "mc.duration_about": "約{min}分",
+    "mc.title.sweet-pea": "スイートピー",
+    "mc.tagline.sweet-pea": "庭で最も香り高い切り花—適切な手入れをすれば育てやすい花です。",
   },
   zh: {
     "app.tagline": "小空间，安心耕作。",
@@ -7409,6 +7469,8 @@ const STRINGS = {
     "mc.title.chrysanthemum": "菊花",
     "mc.tagline.chrysanthemum": "秋季主力——当其他花卉凋谢时,菊花才刚开始。",
     "mc.duration_about": "约 {min} 分钟",
+    "mc.title.sweet-pea": "香豌豆",
+    "mc.tagline.sweet-pea": "花园中最芳香的切花——只要掌握正确的养护方法，它会很好养护。",
   },
 };
 

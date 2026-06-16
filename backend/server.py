@@ -76,7 +76,7 @@ class PestImageRequest(BaseModel):
 
 LANG_NAMES = {
     "en": "English", "de": "German", "fr": "French", "ja": "Japanese", "zh": "Simplified Chinese",
-    "es": "Spanish", "gd": "Scottish Gaelic (Gàidhlig)",
+    "es": "Spanish", "gd": "Scottish Gaelic (Gàidhlig)", "cy": "Welsh (Cymraeg)",
 }
 
 

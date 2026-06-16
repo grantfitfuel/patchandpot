@@ -10,17 +10,17 @@ import { useI18n } from "@/i18n";
 
 export default function PlantDetailPage() {
   const { id } = useParams();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [plant, setPlant] = useState(null);
   const [error, setError] = useState("");
   const { has, addPlant, removePlant } = useMyGarden();
 
   useEffect(() => {
-    fetchPlant(id).then(setPlant).catch(() => setError("Plant not found"));
-  }, [id]);
+    fetchPlant(id, lang).then(setPlant).catch(() => setError(t("plant.not_found")));
+  }, [id, lang, t]);
 
   if (error) return <div className="container-narrow py-16 text-terracotta">{error}</div>;
-  if (!plant) return <div className="container-narrow py-16 text-moss">Loading…</div>;
+  if (!plant) return <div className="container-narrow py-16 text-moss">{t("plant.loading")}</div>;
 
   const inGarden = has(plant.id);
 

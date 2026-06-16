@@ -18,8 +18,8 @@ export default function PlantsPage() {
   const [aiError, setAiError] = useState("");
 
   useEffect(() => {
-    fetchPlants().then(setPlants).catch(() => setPlants([]));
-  }, []);
+    fetchPlants(lang).then(setPlants).catch(() => setPlants([]));
+  }, [lang]);
 
   useEffect(() => {
     fetchRecentAIPlants(lang).then((d) => setRecent(d.items || [])).catch(() => {});

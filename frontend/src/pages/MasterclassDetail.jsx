@@ -198,7 +198,7 @@ export default function MasterclassDetailPage() {
                         <span className="block text-[10px] tracking-[0.18em] uppercase text-moss">
                           {t("mc.lesson_number", { n: i + 1 })}
                         </span>
-                        <span className={`block text-sm ${active ? "font-medium" : ""}`}>{lesson.title}</span>
+                        <span className={`block text-sm ${active ? "font-medium" : ""}`}>{t(`mc.lesson.${slug}.${lesson.slug}`)}</span>
                       </span>
                     </Link>
                   </li>
@@ -211,7 +211,7 @@ export default function MasterclassDetailPage() {
         {/* Main content */}
         <article className="md:col-span-8 lg:col-span-9 max-w-3xl" data-testid={`lesson-content-${currentLesson.slug}`}>
           <p className="overline">{t("mc.lesson_number", { n: currentIndex + 1 })}</p>
-          <h1 className="font-serif text-4xl md:text-5xl text-forest mt-3 tracking-tight">{currentLesson.title}</h1>
+          <h1 className="font-serif text-4xl md:text-5xl text-forest mt-3 tracking-tight">{t(`mc.lesson.${slug}.${currentLesson.slug}`)}</h1>
 
           {/* Adapt CTA bar (translation + regional personalisation) */}
           {(lang !== "en" || PERSONALISE_ELIGIBLE.has(slug)) && (

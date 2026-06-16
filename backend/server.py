@@ -290,16 +290,86 @@ async def root():
 
 
 @api_router.get("/plants")
-async def list_plants():
-    return PLANTS
+async def list_plants(language: str = "en"):
+    return await _plants_in_language(language)
 
 
 @api_router.get("/plants/{plant_id}")
-async def get_plant(plant_id: str):
-    plant = PLANT_INDEX.get(plant_id)
+async def get_plant(plant_id: str, language: str = "en"):
+    plants = await _plants_in_language(language)
+    by_id = {p["id"]: p for p in plants}
+    plant = by_id.get(plant_id)
     if not plant:
         raise HTTPException(404, "Plant not found")
     return plant
+
+
+# Fields on each plant that must be re-rendered in the target language.
+_PLANT_TRANS_FIELDS = ("name", "category", "summary", "difficulty", "sun", "water", "soil", "edible_part", "tags")
+
+
+async def _plants_in_language(language: str) -> list:
+    """Return PLANTS — original English OR a cached/AI-translated copy."""
+    language = (language or "en").lower()
+    if language == "en" or language not in LANG_NAMES:
+        return PLANTS
+
+    cache_key = f"plants:{language}"
+    cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
+    if cached:
+        return cached["data"]
+
+    language_name = LANG_NAMES[language]
+    # Build a compact source dict: id → translatable fields only.
+    source = {
+        p["id"]: {f: p.get(f) for f in _PLANT_TRANS_FIELDS}
+        for p in PLANTS
+    }
+
+    system = (
+        "You translate a gardening plant catalogue into the target language. "
+        "Use natural, locally idiomatic plant names. Keep summaries calm and concise — "
+        "do NOT change their length significantly. Preserve em-dashes (—), hyphens and "
+        "ellipses. Return ONLY valid JSON, no markdown fences."
+    )
+    user = f"""Translate the values of this plant catalogue into {language_name}.
+
+Rules:
+- Keep the JSON shape EXACTLY the same: every plant id maps to an object with the same fields.
+- Translate string values (name, category, summary, difficulty, sun, water, soil, edible_part).
+- Translate each tag in the `tags` array (keep array length the same).
+- If a value is null, return null.
+- Use the locally-common plant name where one exists; if the plant has no native name, transliterate naturally.
+- Keep "summary" punchy — the same idea, similar length.
+
+Source:
+{json.dumps(source, ensure_ascii=False, indent=2)}
+
+Return JSON only, in the same shape.
+"""
+    try:
+        translated_map = await _llm_json(system, user, session_id=f"plants-trans-{language}")
+    except HTTPException:
+        return PLANTS  # fail soft → English fallback
+
+    # Re-assemble the full plant list, replacing only translated fields. Non-translated
+    # fields (id, container, image_url, etc.) keep their original values.
+    out = []
+    for p in PLANTS:
+        merged = dict(p)
+        t = translated_map.get(p["id"]) if isinstance(translated_map, dict) else None
+        if isinstance(t, dict):
+            for field in _PLANT_TRANS_FIELDS:
+                if field in t and t[field] is not None:
+                    merged[field] = t[field]
+        out.append(merged)
+
+    await db.guidance_cache.insert_one({
+        "key": cache_key,
+        "data": out,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return out
 
 
 @api_router.post("/guidance")
@@ -500,14 +570,16 @@ COMPANION_REASONS = {
 
 
 @api_router.get("/plants/{plant_id}/companions")
-async def get_companions(plant_id: str):
+async def get_companions(plant_id: str, language: str = "en"):
     """Return curated companion plants for a given plant id."""
     if plant_id not in PLANT_INDEX:
         raise HTTPException(404, "Plant not found")
+    plants = await _plants_in_language(language)
+    by_id = {p["id"]: p for p in plants}
     companion_ids = COMPANIONS.get(plant_id, [])
     items = []
     for cid in companion_ids:
-        p = PLANT_INDEX.get(cid)
+        p = by_id.get(cid) or PLANT_INDEX.get(cid)
         if not p:
             continue
         reason = COMPANION_REASONS.get((plant_id, cid)) or COMPANION_REASONS.get((cid, plant_id))
@@ -518,7 +590,42 @@ async def get_companions(plant_id: str):
             "summary": p["summary"],
             "reason": reason,
         })
+    # Translate `reason` strings too (short, sentence-length) when language != en.
+    if (language or "en").lower() != "en" and (language or "").lower() in LANG_NAMES and items:
+        try:
+            items = await _translate_companion_reasons(items, language)
+        except HTTPException:
+            pass
     return {"plant_id": plant_id, "companions": items}
+
+
+async def _translate_companion_reasons(items: list, language: str) -> list:
+    """Batch-translate the short companion `reason` strings for a single plant."""
+    language_name = LANG_NAMES[language]
+    cache_key = f"companion-reasons:{language}:{':'.join(sorted(i['id'] for i in items))}"
+    cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
+    if cached:
+        reasons_map = cached["data"]
+    else:
+        source = {i["id"]: i.get("reason") for i in items if i.get("reason")}
+        if not source:
+            return items
+        system = "You translate concise gardening companion-planting reasons. Return ONLY a JSON object."
+        user = (
+            f"Translate these companion-planting reasons into {language_name}. "
+            "Keep them short and gardener-friendly. Return JSON with the same keys.\n\n"
+            f"{json.dumps(source, ensure_ascii=False, indent=2)}"
+        )
+        reasons_map = await _llm_json(system, user, session_id=f"companion-reasons-{language}")
+        await db.guidance_cache.insert_one({
+            "key": cache_key,
+            "data": reasons_map,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        })
+    for i in items:
+        if i["id"] in reasons_map and reasons_map[i["id"]]:
+            i["reason"] = reasons_map[i["id"]]
+    return items
 
 
 @api_router.post("/pest-image")

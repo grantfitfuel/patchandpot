@@ -5,12 +5,12 @@ import { fetchCompanions } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
 export default function CompanionsSection({ plantId }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [companions, setCompanions] = useState(null);
 
   useEffect(() => {
-    fetchCompanions(plantId).then((d) => setCompanions(d.companions)).catch(() => setCompanions([]));
-  }, [plantId]);
+    fetchCompanions(plantId, lang).then((d) => setCompanions(d.companions)).catch(() => setCompanions([]));
+  }, [plantId, lang]);
 
   if (companions === null) return null;
 

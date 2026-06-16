@@ -13,6 +13,7 @@ import GuidesPage from "@/pages/Guides";
 import PrintPage from "@/pages/Print";
 import MasterclassesPage from "@/pages/Masterclasses";
 import MasterclassDetailPage from "@/pages/MasterclassDetail";
+import LanguageDetectedBanner from "@/components/LanguageDetectedBanner";
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <LanguageDetectedBanner />
       </div>
     </BrowserRouter>
   );

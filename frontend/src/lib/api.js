@@ -12,10 +12,12 @@ export const fetchRecentAIPlants = (language = "en") =>
   api.get("/recent-plants", { params: { language } }).then((r) => r.data);
 export const submitFeedback = (payload) =>
   api.post("/feedback", payload).then((r) => r.data);
-export const fetchPlants = () => api.get("/plants").then((r) => r.data);
-export const fetchPlant = (id) => api.get(`/plants/${id}`).then((r) => r.data);
-export const fetchCompanions = (id) =>
-  api.get(`/plants/${id}/companions`).then((r) => r.data);
+export const fetchPlants = (language = "en") =>
+  api.get("/plants", { params: { language } }).then((r) => r.data);
+export const fetchPlant = (id, language = "en") =>
+  api.get(`/plants/${id}`, { params: { language } }).then((r) => r.data);
+export const fetchCompanions = (id, language = "en") =>
+  api.get(`/plants/${id}/companions`, { params: { language } }).then((r) => r.data);
 export const fetchPlantGuide = (query, language = "en") =>
   api.post("/plant-guide", { query, language }).then((r) => r.data);
 export const fetchCachedPlantGuide = (slug, language = "en") =>

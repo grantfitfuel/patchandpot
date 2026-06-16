@@ -134,10 +134,12 @@ function VendorCard({ card, plantName, blurb, blurbsLoading, cta, region, langua
         navigator.sendBeacon(url, new Blob([body], { type: "application/json" }));
       } else {
         // Fallback for browsers without sendBeacon (very rare today)
-        fetch(url, { method: "POST", body, headers: { "Content-Type": "application/json" }, keepalive: true }).catch(() => {});
+        fetch(url, { method: "POST", body, headers: { "Content-Type": "application/json" }, keepalive: true })
+          .catch((e) => console.warn("affiliate click POST failed", e));
       }
-    } catch {
-      /* tracking must never break the click */
+    } catch (e) {
+      // Tracking must never break the click — just log so we can spot issues.
+      console.warn("affiliate click tracking failed", e);
     }
   };
   return (

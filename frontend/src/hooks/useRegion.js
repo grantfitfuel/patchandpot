@@ -48,8 +48,8 @@ export function useRegion() {
     try {
       if (next) localStorage.setItem(KEY, JSON.stringify(next));
       else localStorage.removeItem(KEY);
-    } catch {
-      /* storage may be unavailable */
+    } catch (e) {
+      console.warn("useRegion: persist failed", e);
     }
     emit();
   }, []);
@@ -58,8 +58,8 @@ export function useRegion() {
     current = null;
     try {
       localStorage.removeItem(KEY);
-    } catch {
-      /* ignore */
+    } catch (e) {
+      console.warn("useRegion: clear failed", e);
     }
     emit();
   }, []);

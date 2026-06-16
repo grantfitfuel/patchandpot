@@ -110,6 +110,13 @@ export default function MasterclassDetailPage() {
     return masterclass.lessons.find((l) => l.slug === lessonSlug) || masterclass.lessons[0];
   }, [masterclass, lessonSlug]);
 
+  // "Up next" suggestion list — first two other masterclasses. Memoised because
+  // it ran on every render including during the in-progress reading state.
+  const nextMasterclasses = useMemo(
+    () => Object.keys(ALL_MASTERCLASSES).filter((s) => s !== slug).slice(0, 2),
+    [slug]
+  );
+
   const adaptable = !!currentLesson && (lang !== "en" || PERSONALISE_ELIGIBLE.has(slug));
   const { data: adapted, loading: adapting } = useAdaptedLesson({
     masterclass: masterclass || { slug: "" },
@@ -347,14 +354,11 @@ export default function MasterclassDetailPage() {
                 >
                   <Download className="w-4 h-4" strokeWidth={1.5} /> {t("mc.get_share_card")}
                 </button>
-                {Object.keys(ALL_MASTERCLASSES)
-                  .filter((s) => s !== slug)
-                  .slice(0, 2)
-                  .map((s) => (
-                    <Link key={s} to={`/masterclasses/${s}`} className="btn-ghost">
-                      {ALL_MASTERCLASSES[s].title} →
-                    </Link>
-                  ))}
+                {nextMasterclasses.map((s) => (
+                  <Link key={s} to={`/masterclasses/${s}`} className="btn-ghost">
+                    {t(`mc.title.${s}`)} →
+                  </Link>
+                ))}
               </div>
             </div>
           )}

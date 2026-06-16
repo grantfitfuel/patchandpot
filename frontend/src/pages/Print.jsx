@@ -67,8 +67,8 @@ export default function PrintPage() {
 
           <div className="grid sm:grid-cols-2 gap-8">
             <PrintSection icon={Sprout} eyebrow={t("guidance.plant_now.eyebrow")} title={t("guidance.plant_now")}>
-              {(data.plant_now || []).map((p, i) => (
-                <div key={i} className="break-inside-avoid">
+              {(data.plant_now || []).map((p) => (
+                <div key={`plant-${p.name}`} className="break-inside-avoid">
                   <div className="flex items-baseline gap-2">
                     <span className="font-serif text-lg text-forest">{p.name}</span>
                     {p.kind && (
@@ -84,8 +84,8 @@ export default function PrintPage() {
             </PrintSection>
 
             <PrintSection icon={Scissors} eyebrow={t("guidance.harvest_now.eyebrow")} title={t("guidance.harvest_now")}>
-              {(data.harvest_now || []).map((p, i) => (
-                <div key={i}>
+              {(data.harvest_now || []).map((p) => (
+                <div key={`harvest-${p.name}`}>
                   <span className="font-medium text-ink">{p.name}</span>
                   <p className="text-sm text-moss">{p.tip}</p>
                 </div>
@@ -93,8 +93,8 @@ export default function PrintPage() {
             </PrintSection>
 
             <PrintSection icon={ListTodo} eyebrow={t("guidance.tasks.eyebrow")} title={t("guidance.tasks")}>
-              {(data.tasks || []).map((task, i) => (
-                <div key={i} className="flex gap-2">
+              {(data.tasks || []).map((task) => (
+                <div key={`task-${task.title}`} className="flex gap-2">
                   <span className="w-4 h-4 border border-forest/50 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-medium text-ink">{task.title}</p>
@@ -105,8 +105,8 @@ export default function PrintPage() {
             </PrintSection>
 
             <PrintSection icon={Bug} eyebrow={t("guidance.pests.eyebrow")} title={t("guidance.pests")}>
-              {(data.pests || []).map((p, i) => (
-                <div key={i} className="break-inside-avoid">
+              {(data.pests || []).map((p) => (
+                <div key={`pest-${p.name}`} className="break-inside-avoid">
                   <span className="font-serif text-lg text-forest">{p.name}</span>
                   <p className="text-sm"><span className="text-moss">{t("guidance.signs")}: </span>{p.signs}</p>
                   <p className="text-sm"><span className="text-moss">{t("guidance.control")}: </span>{p.control}</p>

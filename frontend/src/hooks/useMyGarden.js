@@ -46,8 +46,8 @@ export function useCompletedTasks(monthKey) {
       const all = JSON.parse(localStorage.getItem(TASKS_KEY) || "{}");
       all[monthKey] = completed;
       localStorage.setItem(TASKS_KEY, JSON.stringify(all));
-    } catch {
-      /* ignore */
+    } catch (e) {
+      console.warn("useCompletedTasks: persist failed", e);
     }
   }, [completed, monthKey]);
 

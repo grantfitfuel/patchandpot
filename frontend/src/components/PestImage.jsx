@@ -17,8 +17,8 @@ export default function PestImage({ name, testId }) {
       const res = await fetchPestImage(name);
       cache.set(name, res.image);
       setSrc(res.image);
-    } catch {
-      /* swallow */
+    } catch (e) {
+      console.warn("PestImage: fetch failed", name, e);
     } finally {
       setLoading(false);
     }

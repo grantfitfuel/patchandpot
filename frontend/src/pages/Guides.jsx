@@ -358,7 +358,9 @@ export default function GuidesPage() {
       )}
 
       <div className="space-y-10">
-        {guide.sections.map((s, i) => <SectionBlock key={i} section={s} />)}
+        {guide.sections.map((s, i) => (
+          <SectionBlock key={`${s.type}-${s.title || i}`} section={s} />
+        ))}
       </div>
     </article>
   );
@@ -395,9 +397,9 @@ function SectionBlock({ section }) {
             </thead>
             <tbody>
               {section.rows.map((row, idx) => (
-                <tr key={idx} className="border-b border-border last:border-b-0">
+                <tr key={`row-${row[0] || idx}`} className="border-b border-border last:border-b-0">
                   {row.map((cell, ci) => (
-                    <td key={ci} className={`px-4 py-3 ${ci === 0 ? "font-medium text-ink" : "text-ink/80"}`}>
+                    <td key={`cell-${ci}`} className={`px-4 py-3 ${ci === 0 ? "font-medium text-ink" : "text-ink/80"}`}>
                       {cell}
                     </td>
                   ))}
@@ -415,8 +417,8 @@ function SectionBlock({ section }) {
       <section>
         {section.title && <h2 className="font-serif text-3xl text-forest mb-4">{section.title}</h2>}
         <ul className="space-y-3">
-          {section.items.map((it, i) => (
-            <li key={i} className="flex gap-3 text-ink/80 leading-relaxed">
+          {section.items.map((it) => (
+            <li key={it} className="flex gap-3 text-ink/80 leading-relaxed">
               <span className="text-terracotta mt-1.5 w-1 h-1 bg-terracotta rounded-full flex-shrink-0" />
               <span>{it}</span>
             </li>
@@ -432,7 +434,7 @@ function SectionBlock({ section }) {
         {section.title && <h2 className="font-serif text-3xl text-forest mb-4">{section.title}</h2>}
         <ol className="space-y-4">
           {section.items.map((it, i) => (
-            <li key={i} className="flex gap-4 leading-relaxed">
+            <li key={it} className="flex gap-4 leading-relaxed">
               <span className="font-serif text-2xl text-terracotta flex-shrink-0 w-8">{i + 1}</span>
               <span className="text-ink/80 pt-1">{it}</span>
             </li>

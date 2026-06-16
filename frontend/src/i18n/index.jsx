@@ -10348,14 +10348,18 @@ function readInitialLang() {
     if (stored && STRINGS[stored]) {
       return { lang: stored, autoDetected: localStorage.getItem(AUTO_KEY) === "1" };
     }
-  } catch { /* ignore */ }
+  } catch (e) {
+    console.warn("i18n: localStorage read failed", e);
+  }
   if (typeof navigator !== "undefined") {
     const browser = (navigator.language || "en").slice(0, 2).toLowerCase();
     if (STRINGS[browser] && browser !== "en") {
       try {
         localStorage.setItem(KEY, browser);
         localStorage.setItem(AUTO_KEY, "1");
-      } catch { /* ignore */ }
+      } catch (e) {
+        console.warn("i18n: localStorage write failed", e);
+      }
       return { lang: browser, autoDetected: true };
     }
   }
@@ -10366,20 +10370,32 @@ export function I18nProvider({ children }) {
   const [{ lang, autoDetected }, setLangAndAuto] = useState(readInitialLang);
 
   useEffect(() => {
-    localStorage.setItem(KEY, lang);
+    try {
+      localStorage.setItem(KEY, lang);
+    } catch (e) {
+      console.warn("i18n: persist failed", e);
+    }
     if (typeof document !== "undefined") document.documentElement.lang = lang;
   }, [lang]);
 
   const setLang = useCallback((code) => {
     if (STRINGS[code]) {
       // Explicit user choice cancels any pending auto-detect banner.
-      try { localStorage.removeItem(AUTO_KEY); } catch { /* ignore */ }
+      try {
+        localStorage.removeItem(AUTO_KEY);
+      } catch (e) {
+        console.warn("i18n: clear auto-flag failed", e);
+      }
       setLangAndAuto({ lang: code, autoDetected: false });
     }
   }, []);
 
   const dismissAutoDetectedBanner = useCallback(() => {
-    try { localStorage.removeItem(AUTO_KEY); } catch { /* ignore */ }
+    try {
+      localStorage.removeItem(AUTO_KEY);
+    } catch (e) {
+      console.warn("i18n: dismiss banner persist failed", e);
+    }
     setLangAndAuto((prev) => ({ ...prev, autoDetected: false }));
   }, []);
 

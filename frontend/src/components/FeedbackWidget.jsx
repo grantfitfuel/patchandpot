@@ -24,7 +24,11 @@ export default function FeedbackWidget({ targetType, targetId, label }) {
       // Swallow — feedback is best-effort. Still thank the user.
       console.warn("feedback failed", e);
     }
-    try { localStorage.setItem(storageKey, JSON.stringify({ rating, at: Date.now() })); } catch (e) { /* ignore */ }
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({ rating, at: Date.now() }));
+    } catch (e) {
+      console.warn("feedback: persist failed", e);
+    }
     setPhase("thanks");
   };
 

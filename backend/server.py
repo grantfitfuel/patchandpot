@@ -1074,6 +1074,9 @@ async def reverse_geocode(lat: float, lon: float):
 
     hemisphere = "southern" if lat < 0 else "northern"
     abs_lat = abs(lat)
+    # Initialise up-front so every return path has `climate` defined even if a
+    # branch is somehow missed later.
+    climate = "Temperate"
     if abs_lat < 23.5:
         climate = "Tropical"
     elif abs_lat < 35:
@@ -1084,7 +1087,6 @@ async def reverse_geocode(lat: float, lon: float):
         climate = "Cool temperate / Subpolar"
     else:
         climate = "Polar"
-    assert climate  # all paths above assign — keeps linters happy
 
     return {
         "name": place.get("name") or "Your location",

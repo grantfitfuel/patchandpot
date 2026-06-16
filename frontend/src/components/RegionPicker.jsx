@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Crosshair, Search, X, Loader2 } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
 import { searchRegions, reverseGeocode } from "@/lib/api";
@@ -145,21 +145,22 @@ export default function RegionPicker({ open, onClose }) {
 
           {results.length > 0 && (
             <ul data-testid="region-results" className="divide-y divide-border border border-border max-h-72 overflow-y-auto">
-              {results.map((r, i) => (
-                <li key={`${r.name}-${i}`}>
-                  <button
-                    type="button"
-                    data-testid={`region-result-${i}`}
-                    onClick={() => pick(r)}
-                    className="w-full text-left px-4 py-3 hover:bg-surface transition-colors"
-                  >
-                    <div className="font-medium text-ink">{r.name}</div>
-                    <div className="text-xs text-moss">
-                      {[r.admin, r.country].filter(Boolean).join(", ")}
-                    </div>
-                  </button>
-                </li>
-              ))}
+              {results.map((r, i) => {
+                const subtitle = [r.admin, r.country].filter(Boolean).join(", ");
+                return (
+                  <li key={`${r.name}-${i}`}>
+                    <button
+                      type="button"
+                      data-testid={`region-result-${i}`}
+                      onClick={() => pick(r)}
+                      className="w-full text-left px-4 py-3 hover:bg-surface transition-colors"
+                    >
+                      <div className="font-medium text-ink">{r.name}</div>
+                      <div className="text-xs text-moss">{subtitle}</div>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           )}
 

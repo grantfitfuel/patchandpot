@@ -76,8 +76,8 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
         {(showAll || view === "plant") && (
           <Section icon={Sprout} eyebrow={t("guidance.plant_now.eyebrow")} title={t("guidance.plant_now")}>
             <ul className="space-y-4" data-testid="plant-now-list">
-              {(data.plant_now || []).map((p, i) => (
-                <li key={i} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
+              {(data.plant_now || []).map((p) => (
+                <li key={p.name} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
                   <div className="flex items-baseline justify-between gap-4">
                     <p className="font-serif text-xl text-forest">{p.name}</p>
                     {p.kind && (
@@ -101,8 +101,8 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
         {(showAll || view === "harvest") && (
           <Section icon={Scissors} eyebrow={t("guidance.harvest_now.eyebrow")} title={t("guidance.harvest_now")}>
             <ul className="space-y-3" data-testid="harvest-list">
-              {(data.harvest_now || []).map((p, i) => (
-                <li key={i} className="flex gap-3">
+              {(data.harvest_now || []).map((p) => (
+                <li key={p.name} className="flex gap-3">
                   <span className="text-terracotta">—</span>
                   <div className="flex-1">
                     <div className="flex items-baseline justify-between gap-3">
@@ -127,10 +127,10 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
           <Section icon={ListTodo} eyebrow={t("guidance.tasks.eyebrow")} title={t("guidance.tasks")}>
             <ul className="space-y-3" data-testid="tasks-list">
               {(data.tasks || []).map((task, i) => {
-                const id = `t-${i}`;
+                const id = `task:${task.title}`;
                 const done = !!completed[id];
                 return (
-                  <li key={i} className="flex items-start gap-3">
+                  <li key={id} className="flex items-start gap-3">
                     <button
                       type="button"
                       onClick={() => toggle(id)}
@@ -156,8 +156,8 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
         {(showAll || view === "pests") && (
           <Section icon={Bug} eyebrow={t("guidance.pests.eyebrow")} title={t("guidance.pests")}>
             <ul className="space-y-4" data-testid="pests-list">
-              {(data.pests || []).map((p, i) => (
-                <li key={i} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
+              {(data.pests || []).map((p) => (
+                <li key={p.name} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
                   <p className="font-serif text-xl text-forest">{p.name}</p>
                   <p className="text-sm text-ink/80 mt-1"><span className="text-moss">{t("guidance.signs")} · </span>{p.signs}</p>
                   <p className="text-sm text-ink/80 mt-1"><span className="text-moss">{t("guidance.control")} · </span>{p.control}</p>

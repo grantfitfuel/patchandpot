@@ -138,7 +138,7 @@ export default function AIPlantDetailPage() {
           </div>
           <ol className="space-y-4">
             {plant.growing.map((tip, i) => (
-              <li key={i} className="flex gap-4 leading-relaxed">
+              <li key={tip} className="flex gap-4 leading-relaxed">
                 <span className="font-serif text-2xl text-terracotta flex-shrink-0 w-8">{i + 1}</span>
                 <span className="text-ink/80 pt-1">{tip}</span>
               </li>
@@ -163,8 +163,8 @@ export default function AIPlantDetailPage() {
             <span className="overline">Common problems</span>
           </div>
           <ul className="space-y-4">
-            {plant.problems.map((p, i) => (
-              <li key={i} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
+            {plant.problems.map((p) => (
+              <li key={p.name} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
                 <p className="font-serif text-xl text-forest">{p.name}</p>
                 <p className="text-sm text-ink/80 mt-1">{p.solution}</p>
               </li>

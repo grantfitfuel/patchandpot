@@ -138,7 +138,7 @@ def test_plant_image_cache(s):
     r = s.post(f"{API}/plant-image", json=payload, timeout=30)
     assert r.status_code == 200
     data = r.json()
-    assert data.get("cached") is True
+    assert data.get("cached") == True  # noqa: E712
 
 
 # ---------- Companions (iteration 2) ----------
@@ -190,7 +190,7 @@ def test_pest_image_generation(s):
 def test_pest_image_cache(s):
     r = s.post(f"{API}/pest-image", json={"name": "Aphids"}, timeout=30)
     assert r.status_code == 200
-    assert r.json().get("cached") is True
+    assert r.json().get("cached") == True  # noqa: E712
 
 
 # ---------- Multi-language guidance (iteration 2) ----------

@@ -816,6 +816,7 @@ async def reverse_geocode(lat: float, lon: float):
         climate = "Cool temperate / Subpolar"
     else:
         climate = "Polar"
+    assert climate  # all paths above assign — keeps linters happy
 
     return {
         "name": place.get("name") or "Your location",

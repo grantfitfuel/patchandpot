@@ -160,8 +160,8 @@ export default function MasterclassDetailPage() {
               <Icon strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
               <span className="overline">{t("mc.label")}</span>
             </div>
-            <h2 className="font-serif text-3xl text-forest leading-tight">{masterclass.title}</h2>
-            <p className="text-sm text-moss mt-1">{masterclass.duration}</p>
+            <h2 className="font-serif text-3xl text-forest leading-tight">{t(`mc.title.${slug}`)}</h2>
+            <p className="text-sm text-moss mt-1">{(masterclass.duration || "").match(/(\d+)/) ? t("mc.duration_about", { min: masterclass.duration.match(/(\d+)/)[1] }) : masterclass.duration}</p>
 
             <div className="mt-5">
               <div className="h-1 bg-border overflow-hidden">
@@ -210,7 +210,7 @@ export default function MasterclassDetailPage() {
 
         {/* Main content */}
         <article className="md:col-span-8 lg:col-span-9 max-w-3xl" data-testid={`lesson-content-${currentLesson.slug}`}>
-          <p className="overline">{currentLesson.eyebrow}</p>
+          <p className="overline">{t("mc.lesson_number", { n: currentIndex + 1 })}</p>
           <h1 className="font-serif text-4xl md:text-5xl text-forest mt-3 tracking-tight">{currentLesson.title}</h1>
 
           {/* Adapt CTA bar (translation + regional personalisation) */}

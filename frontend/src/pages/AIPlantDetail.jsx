@@ -99,7 +99,7 @@ export default function AIPlantDetailPage() {
             <Spec icon={Droplets} label={t("plant.water")} value={plant.water} />
             <Spec icon={Sprout} label={t("plant.soil")} value={plant.soil} />
             <Spec icon={Sprout} label={t("plant.difficulty")} value={plant.difficulty} />
-            <Spec icon={Sprout} label={t("plant.container")} value={plant.container ? "Yes" : "No"} />
+            <Spec icon={Sprout} label={t("plant.container")} value={plant.container ? t("common.yes") : t("common.no")} />
             <Spec icon={Sprout} label={t("plant.edible_part")} value={plant.edible_part} />
           </div>
 

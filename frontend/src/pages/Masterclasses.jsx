@@ -29,6 +29,14 @@ function MasterclassCardImage({ masterclass, compact }) {
   );
 }
 
+// Pull the integer minute count from "About 45 minutes" so we can re-format it in any locale.
+function localisedDuration(m, t) {
+  const raw = m.duration || "";
+  const match = raw.match(/(\d+)/);
+  if (match) return t("mc.duration_about", { min: match[1] });
+  return raw;
+}
+
 export default function MasterclassesPage() {
   const progress = useAllMasterclassProgress();
   const { t } = useI18n();
@@ -50,9 +58,9 @@ export default function MasterclassesPage() {
         <section key={section.key} className={idx === 0 ? "mt-14" : "mt-20"} data-testid={`section-${section.key}`}>
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8 border-b border-border pb-4">
             <div>
-              <p className="overline">{section.label}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-forest mt-2">{section.title}</h2>
-              <p className="text-ink/70 mt-2 max-w-xl">{section.description}</p>
+              <p className="overline">{t(`mc.section.${section.key}.label`)}</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-forest mt-2">{t(`mc.section.${section.key}.title`)}</h2>
+              <p className="text-ink/70 mt-2 max-w-xl">{t(`mc.section.${section.key}.description`)}</p>
             </div>
             <p className="text-sm text-moss">{section.order.length} {section.order.length === 1 ? t("mc.courses_singular") : t("mc.courses_plural")}</p>
           </div>
@@ -81,13 +89,13 @@ export default function MasterclassesPage() {
                   <div className={isCompact ? "p-4 flex flex-col flex-1" : "p-6 flex flex-col flex-1"}>
                     <div className="flex items-center gap-2">
                       <Icon strokeWidth={1.4} className="w-4 h-4 text-terracotta flex-shrink-0" />
-                      <span className="overline truncate">{m.duration}</span>
+                      <span className="overline truncate">{localisedDuration(m, t)}</span>
                     </div>
                     <h3 className={isCompact ? "font-serif text-xl text-forest mt-2" : "font-serif text-3xl text-forest mt-3"}>
-                      {m.title}
+                      {t(`mc.title.${slug}`)}
                     </h3>
-                    {!isCompact && <p className="text-ink/75 mt-3 flex-1 leading-relaxed">{m.tagline}</p>}
-                    {isCompact && <p className="text-xs text-ink/70 mt-2 flex-1 leading-snug line-clamp-2">{m.tagline}</p>}
+                    {!isCompact && <p className="text-ink/75 mt-3 flex-1 leading-relaxed">{t(`mc.tagline.${slug}`)}</p>}
+                    {isCompact && <p className="text-xs text-ink/70 mt-2 flex-1 leading-snug line-clamp-2">{t(`mc.tagline.${slug}`)}</p>}
 
                     <div className={isCompact ? "mt-4" : "mt-6 flex items-center justify-between gap-3"}>
                       <div className="flex-1">

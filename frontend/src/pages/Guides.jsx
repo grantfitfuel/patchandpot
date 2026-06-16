@@ -246,6 +246,15 @@ const GUIDES = {
 
 const ORDER = ["first-pot", "space-saving", "regrow", "cut-flowers", "companion"];
 
+// Map guide slugs to their matching home.feature.* i18n key prefix.
+const GUIDE_I18N_KEY = {
+  "first-pot": "first_pot",
+  "space-saving": "space_saving",
+  "regrow": "regrow",
+  "cut-flowers": "cut_flowers",
+  "companion": "companion",
+};
+
 export default function GuidesPage() {
   const { slug } = useParams();
   const { t } = useI18n();
@@ -264,6 +273,10 @@ export default function GuidesPage() {
           {ORDER.map((id) => {
             const g = GUIDES[id];
             const Icon = g.icon;
+            const i18nId = GUIDE_I18N_KEY[id];
+            const cardLabel = i18nId ? t(`home.feature.${i18nId}.label`) : g.label;
+            const cardTitle = i18nId ? t(`home.feature.${i18nId}.title`) : g.title;
+            const cardBlurb = i18nId ? t(`home.feature.${i18nId}.blurb`) : g.intro;
             return (
               <Link
                 key={id}
@@ -272,17 +285,17 @@ export default function GuidesPage() {
                 className="card-flat overflow-hidden flex flex-col"
               >
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img src={g.image} alt={g.title} className="object-cover w-full h-full" />
+                  <img src={g.image} alt={cardTitle} className="object-cover w-full h-full" />
                 </div>
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-3">
                     <Icon strokeWidth={1.5} className="w-4 h-4 text-terracotta" />
-                    <span className="overline">{g.label}</span>
+                    <span className="overline">{cardLabel}</span>
                   </div>
-                  <h3 className="font-serif text-3xl text-forest mt-3">{g.title}</h3>
-                  <p className="text-sm text-ink/70 mt-3 flex-1">{g.intro}</p>
+                  <h3 className="font-serif text-3xl text-forest mt-3">{cardTitle}</h3>
+                  <p className="text-sm text-ink/70 mt-3 flex-1">{cardBlurb}</p>
                   <span className="mt-6 inline-flex items-center gap-2 text-forest text-sm tracking-wider uppercase">
-                    Open guide <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+                    {t("home.feature.open_guide")} <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
                   </span>
                 </div>
               </Link>
@@ -298,6 +311,10 @@ export default function GuidesPage() {
     return <div className="container-narrow py-16 text-terracotta">{t("guides.not_found")}</div>;
   }
   const Icon = guide.icon;
+  const i18nId = GUIDE_I18N_KEY[slug];
+  const headerLabel = i18nId ? t(`home.feature.${i18nId}.label`) : guide.label;
+  const headerTitle = i18nId ? t(`home.feature.${i18nId}.title`) : guide.title;
+  const headerIntro = i18nId ? t(`home.feature.${i18nId}.blurb`) : guide.intro;
 
   return (
     <article className="container-narrow py-12 md:py-16 animate-fade-up max-w-4xl">
@@ -307,15 +324,15 @@ export default function GuidesPage() {
 
       <div className="flex items-center gap-3">
         <Icon strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-        <span className="overline">{guide.label}</span>
+        <span className="overline">{headerLabel}</span>
       </div>
-      <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{guide.title}</h1>
-      {guide.intro && (
-        <p className="mt-5 text-lg text-ink/80 max-w-2xl leading-relaxed">{guide.intro}</p>
+      <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{headerTitle}</h1>
+      {headerIntro && (
+        <p className="mt-5 text-lg text-ink/80 max-w-2xl leading-relaxed">{headerIntro}</p>
       )}
 
       <div className="aspect-[16/9] overflow-hidden border border-border my-10">
-        <img src={guide.image} alt={guide.title} className="object-cover w-full h-full" />
+        <img src={guide.image} alt={headerTitle} className="object-cover w-full h-full" />
       </div>
 
       {guide.pdfs && guide.pdfs.length > 0 && (

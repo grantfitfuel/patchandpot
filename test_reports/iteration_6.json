@@ -1,0 +1,30 @@
+{
+  "summary": "Iteration 7 (region-aware affiliate SourceLinks) FRONTEND-ONLY testing. Verified UK/AU/US/DE/FR vendor mappings on /plants/tomato, the GLOBAL fallback (Brazil → Amazon+Etsy), URL embedding of plant name, target=_blank + rel='sponsored noopener noreferrer' on all anchors, the EN/DE/FR i18n strings (overline, h2 'Loslegen in {country}' / 'Get growing in {country}', disclosure). Verified SourceLinks renders on AIPlantDetail below the safety disclaimer. Spot-checked regressions: home (London default + nav), language switch EN→DE, calendar renders, /garden empty state — all OK.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Add `source.*` translation keys to the `zh` language pack in /app/frontend/src/i18n/index.jsx — currently Chinese users see English fallback ('Where to source', 'Get growing in …', 'Some links may earn us…'). All other languages (en/de/fr/ja) are complete.",
+    "Replace the inline `?tag=YOUR_AFFILIATE` placeholders in /app/frontend/src/data/vendors.js with real affiliate IDs before monetising (Amazon Global, Amazon India). Currently they will not earn commission and may look unprofessional to anyone inspecting the URL.",
+    "(Doc-only) The review request referenced route `/plants/aiplant-xyz` but the actual route in App.js is `/plants/ai/:slug`. Tested with corrected path — works correctly."
+  ],
+  "critical_code_review_comments": [
+    "SourceLinks.jsx (90 lines) is clean, accessible (overline + h2 + small disclosure), and correctly uses `rel='sponsored noopener noreferrer'` for FTC + SEO compliance.",
+    "vendors.js correctly performs case-insensitive country lookup with a safe GLOBAL fallback so the section never renders empty.",
+    "Vendor.kind classification logic: `vendors.find(v => v.kind==='seeds')` for slot 1, `vendors.find(v => v.kind==='pots')` for slot 2, then `find(v => v !== seeds && v !== pots)` for 'tools' slot. The third card data-testid mirrors `kind` (e.g. AU shows the second 'seeds'-kind vendor Yates with data-testid='source-card-seeds'). This means two cards can share the same data-testid='source-card-seeds' when a country has 2+ seeds vendors — confirmed for Australia (Diggers + Yates). If selectors should be unique per page, consider using the slot ('seeds'/'pots'/'tools') as the testid suffix instead of kind. NOT a blocker.",
+    "i18n: zh locale missing all source.* keys → silent fallback to English. Add 6 keys for completeness.",
+    "Plant name encoding via encodeURIComponent is correct; URLs include the plant name (e.g. 'Chinese%20Evergreen%20seeds' for AI plants)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not tested)", "frontend": "100% (8/8 SourceLinks scenarios + 4/4 regressions)"},
+  "test_credentials": "none (no-auth app)",
+  "seed_data_creation": "none — only client-side localStorage region switching",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "SourceLinks region-aware vendor cards work end-to-end. Region switching is done via localStorage key 'patchpot.region.v1' (JSON {name, country, lat, lon, timezone}) then page reload. Language via 'patchpot.lang.v1' = en/de/fr/ja/zh. AIPlantDetail route is /plants/ai/:slug?q=<query> (NOT /plants/aiplant-xxx). Known minor issue: zh locale is missing source.* keys (falls back to English). LLM /api/guidance and /api/plants/guide endpoints worked during this run (the budget-exhausted note from main agent did not block this iteration's AI plant test for Aglaonema/Chinese Evergreen).",
+  "rca of the issue": "No bugs found in the new SourceLinks/vendor feature. The two minor follow-ups (missing zh translations, placeholder affiliate tags) are pre-existing/intentional TODOs and do not affect rendering."
+}

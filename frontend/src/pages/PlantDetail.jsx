@@ -4,6 +4,7 @@ import { ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff } from "lucide-react"
 import { fetchPlant } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import CompanionsSection from "@/components/CompanionsSection";
+import SourceLinks from "@/components/SourceLinks";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useI18n } from "@/i18n";
 
@@ -88,6 +89,7 @@ export default function PlantDetailPage() {
       </div>
 
       <CompanionsSection plantId={plant.id} />
+      <SourceLinks plant={plant} />
     </div>
   );
 }

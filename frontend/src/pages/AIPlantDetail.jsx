@@ -7,6 +7,7 @@ import {
 import { fetchPlantGuide, fetchCachedPlantGuide } from "@/lib/api";
 import TopicImage from "@/components/TopicImage";
 import FeedbackWidget from "@/components/FeedbackWidget";
+import SourceLinks from "@/components/SourceLinks";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useI18n } from "@/i18n";
 
@@ -204,6 +205,8 @@ export default function AIPlantDetailPage() {
         Before eating any part of a plant, cross-check with a trusted local source or grower.
         Toxicity and edibility vary by variety, growing conditions and individual sensitivity.
       </p>
+
+      <SourceLinks plant={plant} />
 
       <FeedbackWidget targetType="plant-guide" targetId={plant.id} label="Spot something off?" />
     </div>

@@ -1,4 +1,4 @@
-import { Globe, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useI18n, LANGUAGES } from "@/i18n";
 
 /**
@@ -12,7 +12,9 @@ export default function LanguageDetectedBanner() {
 
   if (!autoDetected) return null;
 
-  const langName = LANGUAGES.find((l) => l.code === lang)?.label || lang;
+  const entry = LANGUAGES.find((l) => l.code === lang);
+  const langName = entry?.label || lang;
+  const flag = entry?.flag || "";
 
   return (
     <div
@@ -23,7 +25,7 @@ export default function LanguageDetectedBanner() {
                  animate-fade-up"
     >
       <div className="flex items-start gap-3 px-4 py-3">
-        <Globe strokeWidth={1.4} className="w-5 h-5 mt-0.5 text-sand/90 flex-shrink-0" />
+        <span className="text-xl leading-none mt-0.5 flex-shrink-0" aria-hidden="true">{flag}</span>
         <div className="flex-1 min-w-0">
           <p className="text-sm leading-snug">
             {t("lang.detected", { name: langName })}

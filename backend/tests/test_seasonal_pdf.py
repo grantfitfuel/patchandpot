@@ -14,7 +14,7 @@ if not BASE_URL:
             BASE_URL = line.split("=", 1)[1].strip().rstrip("/")
             break
 
-TOKEN = "test-token-pdf-smoke"
+TOKEN = os.environ.get("SEASONAL_PDF_TEST_TOKEN", "test-token-pdf-smoke")
 
 
 @pytest.fixture(scope="session", autouse=True)

@@ -681,6 +681,63 @@ Keep advice realistic for {region_label} in {month_name}. Return JSON only."""
     return data
 
 
+# ─────────────────── Seasonal PDF (paywalled) ────────────────────
+from pdf_seasonal import build_seasonal_pdf  # noqa: E402
+
+
+class SeasonalPdfRequest(BaseModel):
+    region: Region
+    month: int
+    language: str = "en"
+    orientation: str = "portrait"  # "portrait" | "landscape"
+    my_garden: List[str] = []
+    access_token: str  # Stripe session_id stored in localStorage
+
+
+@api_router.post("/seasonal-pdf")
+async def seasonal_pdf(req: SeasonalPdfRequest):
+    """Build a personalised A4 PDF of the current monthly guide. Paywalled."""
+    token = (req.access_token or "").strip()
+    if not token or not await db.access_grants.find_one({"token": token}):
+        raise HTTPException(402, "Access required — pay £5 once to unlock.")
+
+    if not (1 <= req.month <= 12):
+        raise HTTPException(400, "month must be 1–12")
+
+    # Reuse the existing guidance pipeline (cached per region+month+language+garden).
+    guidance = await get_guidance(GuidanceRequest(
+        region=req.region,
+        month=req.month,
+        language=req.language,
+        my_garden=req.my_garden,
+    ))
+
+    language = (req.language or "en").lower()
+    if language not in LANG_NAMES:
+        language = "en"
+    month_label = MONTHS[req.month]
+    region_label = req.region.name + (f", {req.region.country}" if req.region.country else "")
+
+    pdf_bytes = build_seasonal_pdf(
+        guidance=guidance,
+        region_name=region_label,
+        month_label=month_label,
+        language=language,
+        orientation=(req.orientation or "portrait").lower(),
+    )
+
+    safe_region = re.sub(r"[^A-Za-z0-9_-]+", "-", req.region.name)[:40] or "region"
+    filename = f"Patch-and-Pot-{month_label}-{safe_region}.pdf"
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'inline; filename="{filename}"',
+            "Cache-Control": "private, max-age=300",
+        },
+    )
+
+
 @api_router.post("/plant-image")
 async def generate_plant_image(req: PlantImageRequest):
     """Generate (or fetch cached) AI image of a plant. Returns data URL."""

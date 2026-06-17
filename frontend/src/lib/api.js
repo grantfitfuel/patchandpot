@@ -26,6 +26,10 @@ export const getCheckoutStatus = (sessionId) =>
   api.get(`/checkout/status/${sessionId}`).then((r) => r.data);
 export const checkAccess = (token) =>
   api.post("/access/check", { token }).then((r) => r.data);
+
+// Build URL for the seasonal PDF endpoint. We POST so the access token doesn't
+// end up in browser history/server logs.
+export const seasonalPdfUrl = () => `${API}/seasonal-pdf`;
 export const fetchPlantGuide = (query, language = "en") =>
   api.post("/plant-guide", { query, language }).then((r) => r.data);
 export const fetchCachedPlantGuide = (slug, language = "en") =>

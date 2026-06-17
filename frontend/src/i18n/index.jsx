@@ -359,6 +359,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   de: {
     "app.tagline": "Achtsam gärtnern auf kleinem Raum.",
@@ -705,6 +707,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   es: {
     "app.tagline": "Cultivo consciente para espacios pequeños.",
@@ -1051,6 +1055,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   gd: {
     "app.tagline": "Gàirneilearachd mhothachail airson àiteachan beaga.",
@@ -1397,6 +1403,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   cy: {
     "app.tagline": "Garddio ystyriol ar gyfer mannau bach.",
@@ -1743,6 +1751,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   ga: {
     "app.tagline": "Garraíodóireacht aireach do spásanna beaga.",
@@ -2084,6 +2094,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   da: {
     "app.tagline": "Bevidst havearbejde til små rum.",
@@ -2425,6 +2437,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   nb: {
     "app.tagline": "Bevisst hagebruk for små rom.",
@@ -2766,6 +2780,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   sv: {
     "app.tagline": "Medveten trädgårdsodling för små utrymmen.",
@@ -3107,6 +3123,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   is: {
     "app.tagline": "Meðvituð garðrækt fyrir lítil rými.",
@@ -3448,6 +3466,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   fi: {
     "app.tagline": "Tietoinen puutarhanhoito pieniin tiloihin.",
@@ -3789,6 +3809,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   pt: {
     "app.tagline": "Jardinagem consciente para pequenos espaços.",
@@ -4167,6 +4189,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   it: {
     "app.tagline": "Giardinaggio consapevole per piccoli spazi.",
@@ -4545,6 +4569,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   nl: {
     "app.tagline": "Bewust tuinieren voor kleine ruimtes.",
@@ -4923,6 +4949,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   pl: {
     "app.tagline": "Świadome ogrodnictwo dla małych przestrzeni.",
@@ -5301,6 +5329,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   cs: {
     "app.tagline": "Vědomé zahradničení pro malé prostory.",
@@ -5679,6 +5709,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   sk: {
     "app.tagline": "Uvedomelé záhradkárčenie pre malé priestory.",
@@ -6057,6 +6089,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   sl: {
     "app.tagline": "Premišljeno vrtnarjenje za majhne prostore.",
@@ -6435,6 +6469,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   hr: {
     "app.tagline": "Svjesno vrtlarenje za male prostore.",
@@ -6813,6 +6849,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   bg: {
     "app.tagline": "Внимателно градинарство за малки пространства.",
@@ -7191,6 +7229,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   ro: {
     "app.tagline": "Grădinărit conștient pentru spații mici.",
@@ -7569,6 +7609,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   hu: {
     "app.tagline": "Tudatos kertészkedés kis terekhez.",
@@ -7947,6 +7989,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   el: {
     "app.tagline": "Συνειδητή κηπουρική για μικρούς χώρους.",
@@ -8325,6 +8369,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   et: {
     "app.tagline": "Teadlik aiapidamine väikestele ruumidele.",
@@ -8703,6 +8749,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   lv: {
     "app.tagline": "Apzināta dārzkopība maziem laukumiem.",
@@ -9081,6 +9129,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   lt: {
     "app.tagline": "Sąmoningas sodininkavimas mažoms erdvėms.",
@@ -9459,6 +9509,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   mt: {
     "app.tagline": "Ġardinaġġ konxju għal spazji żgħar.",
@@ -9837,6 +9889,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   uk: {
     "app.tagline": "Усвідомлене садівництво для невеликих просторів.",
@@ -10215,6 +10269,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   fr: {
     "app.tagline": "Cultiver avec sérénité, même dans les petits espaces.",
@@ -10561,6 +10617,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   ja: {
     "app.tagline": "小さな場所で、丁寧に育てる。",
@@ -10907,6 +10965,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   zh: {
     "app.tagline": "小空间，安心耕作。",
@@ -11253,6 +11313,8 @@ const STRINGS = {
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
     "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
+    "calendar.seasonal_pdf": "Download seasonal PDF",
+    "calendar.pdf_error": "Couldn't build the PDF. Please try again.",
   },
   hi: {},
   bn: {},

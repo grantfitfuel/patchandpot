@@ -1,0 +1,40 @@
+{
+  "summary": "Iteration 11 — Seasonal Growing Journal PDF (paywalled). ALL acceptance criteria PASS (8/8 backend pytest + 4/4 frontend Playwright flows).\n\nBACKEND (8/8 pytest pass in 96s):\n- POST /api/seasonal-pdf London/UK month=3 en portrait + access_token='test-token-pdf-smoke' → 200, Content-Type application/pdf, starts with %PDF-, >=4KB.\n- POST /api/seasonal-pdf Paris/FR month=4 fr landscape + valid token → 200 application/pdf %PDF.\n- pypdf text extraction confirms all 4 section headings present: 'Sow & plant this month', 'Harvest now', 'Tasks', 'Pest watch'.\n- POST without access_token → 402 'Access required — pay £5 once to unlock.'\n- POST with bogus 'totally-bogus-not-in-db' token → 402 'Access required'.\n- POST with month=13 → 400.\n- Regression /api/guidance London/March/en → 200 with plant_now/harvest_now/tasks/pests lists.\n- Regression /api/plants?language=en → 200, list of 32 plants including 'tomato'.\n\nFRONTEND (Playwright on /calendar via REACT_APP_BACKEND_URL):\n- Button [data-testid=download-seasonal-pdf] visible — labelled 'Download seasonal PDF'.\n- Unpaid state (localStorage clean): Lock icon present in button. Click opens PaywallModal (data-testid='paywall-modal'). Network observer recorded ZERO requests to /api/seasonal-pdf during the unpaid click — paywall short-circuits before fetch as designed.\n- Paid state (localStorage seeded with the ACTUAL keys the app reads: 'patchpot.access.v1'='test-token-pdf-smoke' AND 'patchpot.access.paid.v1'='1'): button swaps to Download icon (Lock no longer shown). Click triggers POST /api/seasonal-pdf → 200, content-type application/pdf. window.open() was invoked exactly once with a blob: URL (verified via stubbed window.open: ['blob:https://grow-by-season-1.preview.emergentagent.com/...']). PaywallModal does NOT appear in paid flow.\n- No JS console errors during either flow.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_seasonal_pdf.py",
+    "/app/test_reports/pytest/iter11_seasonal_pdf.xml"
+  ],
+  "action_items": [
+    "DOCS-ONLY: The review-request specified the frontend localStorage key as 'pp_access_token', but the actual code in /app/frontend/src/hooks/usePaywall.js uses TOKEN_KEY='patchpot.access.v1' (with companion cache key 'patchpot.access.paid.v1'='1'). The implementation is internally consistent — Calendar.jsx, PaywallModal.jsx and usePaywall.js all use the same key. No code change needed; just align future agent-to-agent notes / docs to the actual key names so seed instructions are correct on first try."
+  ],
+  "critical_code_review_comments": [
+    "Positive: paywall is properly enforced server-side — bogus tokens return 402 before any LLM/PDF work happens. Token compared via db.access_grants.find_one which is the same source-of-truth used by /api/access/check.",
+    "Positive: pdf_seasonal.py escapes Paragraph input (handles & < > safely) and uses KeepTogether per item, so items don't split awkwardly across pages.",
+    "Positive: seasonal-pdf reuses get_guidance() → benefits from existing Mongo cache; warm region/month responses return PDFs in <2s.",
+    "Positive: Calendar.jsx correctly revokes the blob URL after 60s (memory hygiene) and uses noopener,noreferrer on the new tab.",
+    "Minor design note: when the user closes the new PDF tab quickly, the 60s URL.revokeObjectURL still runs harmlessly — fine. No action required.",
+    "Style: server.py is 1500+ lines and well past the 700-line guideline — splitting paywall/PDF/AI routes into modules would aid maintainability, but not a blocker."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_seasonal_pdf.py (new)"
+  ],
+  "success_rate": {
+    "backend": "8/8 (100%)",
+    "frontend": "4/4 (100%) of in-scope flows"
+  },
+  "test_credentials": "Backend access_token: 'test-token-pdf-smoke' (seeded into db.access_grants by the test fixture). Frontend localStorage keys: 'patchpot.access.v1'='test-token-pdf-smoke' AND 'patchpot.access.paid.v1'='1'. The frontend does NOT use 'pp_access_token' as the review note implied.",
+  "seed_data_creation": "Test fixture upserts {token:'test-token-pdf-smoke', email:'test@test.com', package_id:'lifetime'} into db.access_grants. The seed is intentionally NOT torn down so it remains available for ad-hoc manual retesting and for the frontend paid-flow simulation.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Seed token 'test-token-pdf-smoke' is already in db.access_grants — pytest fixture upserts it idempotently. To simulate the paid frontend flow, set BOTH localStorage keys: 'patchpot.access.v1'='test-token-pdf-smoke' and 'patchpot.access.paid.v1'='1' (cache flag prevents an optimistic-flash to unpaid). After page reload, click data-testid='download-seasonal-pdf' to trigger a POST to /api/seasonal-pdf; the response is a blob opened via window.open(blob:...). To assert window.open without actually opening a tab, stub it via page.evaluate before the click. pypdf (or PyPDF2) is now installed at the system level so PDF text-extraction asserts work out of the box.",
+  "rca of the issue": "n/a — no failures observed."
+}

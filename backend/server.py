@@ -86,6 +86,20 @@ LANG_NAMES = {
     "hr": "Croatian", "bg": "Bulgarian", "ro": "Romanian", "hu": "Hungarian",
     "el": "Greek", "et": "Estonian", "lv": "Latvian", "lt": "Lithuanian",
     "mt": "Maltese", "uk": "Ukrainian",
+    # Indian subcontinent
+    "hi": "Hindi", "bn": "Bengali", "te": "Telugu", "mr": "Marathi",
+    "ta": "Tamil", "gu": "Gujarati", "ur": "Urdu", "kn": "Kannada",
+    "ml": "Malayalam", "pa": "Punjabi",
+    # Southeast & East Asian
+    "id": "Indonesian", "ms": "Malay", "vi": "Vietnamese", "th": "Thai",
+    "ko": "Korean", "tl": "Filipino (Tagalog)",
+    # Pacific
+    "mi": "Māori",
+    # Middle East / Turkish
+    "ar": "Arabic (Modern Standard)", "tr": "Turkish",
+    # Russia / Former USSR
+    "ru": "Russian", "be": "Belarusian", "kk": "Kazakh", "uz": "Uzbek",
+    "az": "Azerbaijani", "ky": "Kyrgyz", "hy": "Armenian", "ka": "Georgian",
 }
 
 

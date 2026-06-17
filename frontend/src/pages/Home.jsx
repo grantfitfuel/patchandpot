@@ -1,19 +1,32 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, GraduationCap } from "lucide-react";
+import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, GraduationCap, Heart } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
 import ThisMonthCard from "@/components/ThisMonthCard";
+import { usePaywall } from "@/hooks/usePaywall";
 import { useI18n, monthLabel } from "@/i18n";
 
 export default function Home() {
   const { region } = useRegion();
   const { t } = useI18n();
+  const { paid } = usePaywall();
   const [pickerOpen, setPickerOpen] = useState(false);
   const month = monthLabel(new Date().getMonth() + 1, t);
 
   return (
     <div className="animate-fade-up">
+      {paid && (
+        <div
+          data-testid="supporter-ribbon"
+          className="border-b border-forest/15 bg-forest/5"
+        >
+          <div className="container-narrow py-2 flex items-center justify-center gap-2 text-xs text-forest tracking-wider uppercase">
+            <Heart strokeWidth={1.6} className="w-3.5 h-3.5 fill-terracotta text-terracotta" />
+            <span>{t("home.supporter_ribbon")}</span>
+          </div>
+        </div>
+      )}
       <section className="border-b border-border">
         <div className="container-narrow py-16 md:py-24 grid md:grid-cols-12 gap-10 items-end">
           <div className="md:col-span-7">

@@ -358,6 +358,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   de: {
     "app.tagline": "Achtsam gärtnern auf kleinem Raum.",
@@ -703,6 +704,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   es: {
     "app.tagline": "Cultivo consciente para espacios pequeños.",
@@ -1048,6 +1050,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   gd: {
     "app.tagline": "Gàirneilearachd mhothachail airson àiteachan beaga.",
@@ -1393,6 +1396,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   cy: {
     "app.tagline": "Garddio ystyriol ar gyfer mannau bach.",
@@ -1738,6 +1742,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   ga: {
     "app.tagline": "Garraíodóireacht aireach do spásanna beaga.",
@@ -2078,6 +2083,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   da: {
     "app.tagline": "Bevidst havearbejde til små rum.",
@@ -2418,6 +2424,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   nb: {
     "app.tagline": "Bevisst hagebruk for små rom.",
@@ -2758,6 +2765,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   sv: {
     "app.tagline": "Medveten trädgårdsodling för små utrymmen.",
@@ -3098,6 +3106,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   is: {
     "app.tagline": "Meðvituð garðrækt fyrir lítil rými.",
@@ -3438,6 +3447,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   fi: {
     "app.tagline": "Tietoinen puutarhanhoito pieniin tiloihin.",
@@ -3778,6 +3788,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   pt: {
     "app.tagline": "Jardinagem consciente para pequenos espaços.",
@@ -4155,6 +4166,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   it: {
     "app.tagline": "Giardinaggio consapevole per piccoli spazi.",
@@ -4532,6 +4544,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   nl: {
     "app.tagline": "Bewust tuinieren voor kleine ruimtes.",
@@ -4909,6 +4922,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   pl: {
     "app.tagline": "Świadome ogrodnictwo dla małych przestrzeni.",
@@ -5286,6 +5300,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   cs: {
     "app.tagline": "Vědomé zahradničení pro malé prostory.",
@@ -5663,6 +5678,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   sk: {
     "app.tagline": "Uvedomelé záhradkárčenie pre malé priestory.",
@@ -6040,6 +6056,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   sl: {
     "app.tagline": "Premišljeno vrtnarjenje za majhne prostore.",
@@ -6417,6 +6434,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   hr: {
     "app.tagline": "Svjesno vrtlarenje za male prostore.",
@@ -6794,6 +6812,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   bg: {
     "app.tagline": "Внимателно градинарство за малки пространства.",
@@ -7171,6 +7190,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   ro: {
     "app.tagline": "Grădinărit conștient pentru spații mici.",
@@ -7548,6 +7568,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   hu: {
     "app.tagline": "Tudatos kertészkedés kis terekhez.",
@@ -7925,6 +7946,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   el: {
     "app.tagline": "Συνειδητή κηπουρική για μικρούς χώρους.",
@@ -8302,6 +8324,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   et: {
     "app.tagline": "Teadlik aiapidamine väikestele ruumidele.",
@@ -8679,6 +8702,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   lv: {
     "app.tagline": "Apzināta dārzkopība maziem laukumiem.",
@@ -9056,6 +9080,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   lt: {
     "app.tagline": "Sąmoningas sodininkavimas mažoms erdvėms.",
@@ -9433,6 +9458,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   mt: {
     "app.tagline": "Ġardinaġġ konxju għal spazji żgħar.",
@@ -9810,6 +9836,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   uk: {
     "app.tagline": "Усвідомлене садівництво для невеликих просторів.",
@@ -10187,6 +10214,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   fr: {
     "app.tagline": "Cultiver avec sérénité, même dans les petits espaces.",
@@ -10532,6 +10560,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   ja: {
     "app.tagline": "小さな場所で、丁寧に育てる。",
@@ -10877,6 +10906,7 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
   zh: {
     "app.tagline": "小空间，安心耕作。",
@@ -11222,7 +11252,35 @@ const STRINGS = {
     "checkout.expired.title": "That checkout session has expired.",
     "checkout.expired.body": "Sessions only stay open for a short window. Start a new one whenever you're ready.",
     "checkout.back_home": "Back to home",
+    "home.supporter_ribbon": "Patch & Pot supporter — thank you for keeping this growing",
   },
+  hi: {},
+  bn: {},
+  te: {},
+  mr: {},
+  ta: {},
+  gu: {},
+  ur: {},
+  kn: {},
+  ml: {},
+  pa: {},
+  id: {},
+  ms: {},
+  vi: {},
+  th: {},
+  ko: {},
+  tl: {},
+  mi: {},
+  ar: {},
+  tr: {},
+  ru: {},
+  be: {},
+  kk: {},
+  uz: {},
+  az: {},
+  ky: {},
+  hy: {},
+  ka: {},
 };
 
 export const LANGUAGES = [
@@ -11257,6 +11315,33 @@ export const LANGUAGES = [
   { code: "uk", label: "Українська",  flag: "🇺🇦" },
   { code: "ja", label: "日本語",       flag: "🇯🇵" },
   { code: "zh", label: "中文",         flag: "🇨🇳" },
+  { code: "hi", label: "हिन्दी", flag: "🇮🇳" },
+  { code: "bn", label: "বাংলা", flag: "🇮🇳" },
+  { code: "te", label: "తెలుగు", flag: "🇮🇳" },
+  { code: "mr", label: "मराठी", flag: "🇮🇳" },
+  { code: "ta", label: "தமிழ்", flag: "🇮🇳" },
+  { code: "gu", label: "ગુજરાતી", flag: "🇮🇳" },
+  { code: "ur", label: "اردو", flag: "🇵🇰" },
+  { code: "kn", label: "ಕನ್ನಡ", flag: "🇮🇳" },
+  { code: "ml", label: "മലയാളം", flag: "🇮🇳" },
+  { code: "pa", label: "ਪੰਜਾਬੀ", flag: "🇮🇳" },
+  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
+  { code: "ms", label: "Bahasa Melayu", flag: "🇲🇾" },
+  { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
+  { code: "th", label: "ไทย", flag: "🇹🇭" },
+  { code: "ko", label: "한국어", flag: "🇰🇷" },
+  { code: "tl", label: "Filipino", flag: "🇵🇭" },
+  { code: "mi", label: "Māori", flag: "🇳🇿" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
+  { code: "ru", label: "Русский", flag: "🇷🇺" },
+  { code: "be", label: "Беларуская", flag: "🇧🇾" },
+  { code: "kk", label: "Қазақша", flag: "🇰🇿" },
+  { code: "uz", label: "Oʻzbekcha", flag: "🇺🇿" },
+  { code: "az", label: "Azərbaycanca", flag: "🇦🇿" },
+  { code: "ky", label: "Кыргызча", flag: "🇰🇬" },
+  { code: "hy", label: "Հայերեն", flag: "🇦🇲" },
+  { code: "ka", label: "ქართული", flag: "🇬🇪" },
 ];
 
 const KEY = "patchpot.lang.v1";
@@ -11296,6 +11381,9 @@ function readInitialLang() {
   return { lang: "en", autoDetected: false };
 }
 
+// Languages written right-to-left.
+const RTL_LANGS = new Set(["ar", "ur", "he", "fa"]);
+
 export function I18nProvider({ children }) {
   const [{ lang, autoDetected }, setLangAndAuto] = useState(readInitialLang);
 
@@ -11305,7 +11393,10 @@ export function I18nProvider({ children }) {
     } catch (e) {
       console.warn("i18n: persist failed", e);
     }
-    if (typeof document !== "undefined") document.documentElement.lang = lang;
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = RTL_LANGS.has(lang) ? "rtl" : "ltr";
+    }
   }, [lang]);
 
   const setLang = useCallback((code) => {

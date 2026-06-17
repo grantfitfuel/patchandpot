@@ -18,6 +18,14 @@ export const fetchPlant = (id, language = "en") =>
   api.get(`/plants/${id}`, { params: { language } }).then((r) => r.data);
 export const fetchCompanions = (id, language = "en") =>
   api.get(`/plants/${id}/companions`, { params: { language } }).then((r) => r.data);
+
+// ────────────────── Paywall ──────────────────
+export const createCheckout = (originUrl, email) =>
+  api.post("/checkout/session", { origin_url: originUrl, email }).then((r) => r.data);
+export const getCheckoutStatus = (sessionId) =>
+  api.get(`/checkout/status/${sessionId}`).then((r) => r.data);
+export const checkAccess = (token) =>
+  api.post("/access/check", { token }).then((r) => r.data);
 export const fetchPlantGuide = (query, language = "en") =>
   api.post("/plant-guide", { query, language }).then((r) => r.data);
 export const fetchCachedPlantGuide = (slug, language = "en") =>

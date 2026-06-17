@@ -23,7 +23,7 @@ from typing import List, Optional
 
 import httpx
 from dotenv import load_dotenv
-from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException, Request
 from fastapi.responses import Response
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field
@@ -236,6 +236,167 @@ PLANTS = [
 ]
 
 PLANT_INDEX = {p["id"]: p for p in PLANTS}
+
+
+# ───────────────────────── Paywall (Stripe Checkout) ─────────────────────────
+# £5 GBP, one-time, lifetime access. No traditional accounts — the Stripe
+# checkout session_id IS the access token. Stored in MongoDB once verified.
+from emergentintegrations.payments.stripe.checkout import (  # noqa: E402
+    StripeCheckout, CheckoutSessionRequest,
+)
+
+STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY", "")
+
+# Single fixed package — amount lives server-side so the frontend can't manipulate price.
+PAYWALL_PACKAGE = {
+    "id": "lifetime",
+    "amount": 5.0,
+    "currency": "gbp",
+    "label": "Patch & Pot — lifetime access",
+}
+
+
+def _stripe_checkout(host_url: str) -> StripeCheckout:
+    if not STRIPE_API_KEY:
+        raise HTTPException(503, "Payments are not configured.")
+    webhook_url = f"{host_url.rstrip('/')}/api/webhook/stripe"
+    return StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
+
+
+class CheckoutRequest(BaseModel):
+    origin_url: str  # frontend window.location.origin, used to build success/cancel URLs
+    email: Optional[str] = None  # optional, captured for recovery
+
+
+@api_router.post("/checkout/session")
+async def create_checkout(payload: CheckoutRequest, request: Request):
+    """Create a Stripe Checkout session for the lifetime-access package."""
+    sc = _stripe_checkout(str(request.base_url))
+    origin = payload.origin_url.rstrip("/")
+    success_url = f"{origin}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
+    cancel_url = f"{origin}/checkout/cancel"
+    metadata = {"package_id": PAYWALL_PACKAGE["id"], "source": "web"}
+    if payload.email:
+        metadata["email"] = payload.email[:120]
+
+    req = CheckoutSessionRequest(
+        amount=PAYWALL_PACKAGE["amount"],
+        currency=PAYWALL_PACKAGE["currency"],
+        success_url=success_url,
+        cancel_url=cancel_url,
+        metadata=metadata,
+    )
+    session = await sc.create_checkout_session(req)
+
+    # Record the intent before redirecting the user away.
+    await db.payment_transactions.insert_one({
+        "session_id": session.session_id,
+        "amount": PAYWALL_PACKAGE["amount"],
+        "currency": PAYWALL_PACKAGE["currency"],
+        "payment_status": "pending",
+        "status": "open",
+        "metadata": metadata,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "access_granted": False,
+    })
+    return {"url": session.url, "session_id": session.session_id}
+
+
+@api_router.get("/checkout/status/{session_id}")
+async def get_checkout_status(session_id: str, request: Request):
+    """Poll Stripe, update our record, and grant access on first 'paid' result."""
+    sc = _stripe_checkout(str(request.base_url))
+    status = await sc.get_checkout_status(session_id)
+
+    update = {
+        "status": status.status,
+        "payment_status": status.payment_status,
+        "checked_at": datetime.now(timezone.utc).isoformat(),
+    }
+    txn = await db.payment_transactions.find_one_and_update(
+        {"session_id": session_id},
+        {"$set": update},
+        return_document=True,
+    )
+
+    paid = status.payment_status == "paid"
+    # On the first paid result, atomically create the access_grant. The
+    # `access_granted` flip guards against double-credit on parallel polling.
+    if paid and txn and not txn.get("access_granted"):
+        flipped = await db.payment_transactions.update_one(
+            {"session_id": session_id, "access_granted": {"$ne": True}},
+            {"$set": {"access_granted": True}},
+        )
+        if flipped.modified_count == 1:
+            await db.access_grants.update_one(
+                {"token": session_id},
+                {"$set": {
+                    "token": session_id,
+                    "email": (status.metadata or {}).get("email"),
+                    "package_id": PAYWALL_PACKAGE["id"],
+                    "granted_at": datetime.now(timezone.utc).isoformat(),
+                }},
+                upsert=True,
+            )
+
+    return {
+        "session_id": session_id,
+        "status": status.status,
+        "payment_status": status.payment_status,
+        "amount_total": status.amount_total,
+        "currency": status.currency,
+        "paid": paid,
+    }
+
+
+@api_router.post("/webhook/stripe")
+async def stripe_webhook(request: Request):
+    """Idempotent webhook — backstop for cases where the user closes the success tab."""
+    sc = _stripe_checkout(str(request.base_url))
+    body = await request.body()
+    signature = request.headers.get("Stripe-Signature", "")
+    try:
+        evt = await sc.handle_webhook(body, signature)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("stripe webhook verification failed: %s", e)
+        raise HTTPException(400, "Invalid webhook")
+
+    if evt.payment_status == "paid" and evt.session_id:
+        txn = await db.payment_transactions.find_one_and_update(
+            {"session_id": evt.session_id, "access_granted": {"$ne": True}},
+            {"$set": {
+                "payment_status": "paid",
+                "access_granted": True,
+                "webhook_at": datetime.now(timezone.utc).isoformat(),
+            }},
+            return_document=True,
+        )
+        if txn:
+            await db.access_grants.update_one(
+                {"token": evt.session_id},
+                {"$set": {
+                    "token": evt.session_id,
+                    "email": (evt.metadata or {}).get("email"),
+                    "package_id": PAYWALL_PACKAGE["id"],
+                    "granted_at": datetime.now(timezone.utc).isoformat(),
+                }},
+                upsert=True,
+            )
+    return {"ok": True}
+
+
+class AccessCheckRequest(BaseModel):
+    token: str
+
+
+@api_router.post("/access/check")
+async def check_access(payload: AccessCheckRequest):
+    """Validate that a session_id has been granted lifetime access."""
+    token = (payload.token or "").strip()
+    if not token:
+        return {"paid": False}
+    grant = await db.access_grants.find_one({"token": token}, {"_id": 0})
+    return {"paid": bool(grant), "granted_at": grant.get("granted_at") if grant else None}
 
 
 # ───────────────────────── AI helpers ─────────────────────────

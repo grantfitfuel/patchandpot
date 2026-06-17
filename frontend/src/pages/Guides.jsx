@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Sprout, LayoutGrid, Recycle, Flower2,
-  HandHelping, FileDown,
+  HandHelping, FileDown, Lock,
 } from "lucide-react";
 import { useI18n } from "@/i18n";
+import { usePaywall } from "@/hooks/usePaywall";
+import PaywallModal from "@/components/PaywallModal";
 
 // Resolve at module load so the PDF links go through our backend proxy.
 const API_BASE = process.env.REACT_APP_BACKEND_URL || "";
@@ -342,16 +345,7 @@ export default function GuidesPage() {
         <div className="border border-border bg-surface p-5 mb-10 flex flex-wrap gap-3">
           <p className="overline w-full">{t("guides.downloads")}</p>
           {guide.pdfs.map((p) => (
-            <a
-              key={p.href}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid={`pdf-${p.href.split("/").pop()}`}
-              className="inline-flex items-center gap-2 btn-forest"
-            >
-              <FileDown strokeWidth={1.5} className="w-4 h-4" /> {p.label}
-            </a>
+            <LockedPdfButton key={p.href} href={p.href} label={p.label} />
           ))}
         </div>
       )}
@@ -474,3 +468,43 @@ function SectionBlock({ section }) {
     </section>
   );
 }
+
+function LockedPdfButton({ href, label }) {
+  const { paid } = usePaywall();
+  const [showModal, setShowModal] = useState(false);
+  const testId = `pdf-${href.split("/").pop()}`;
+
+  if (paid) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-testid={testId}
+        className="inline-flex items-center gap-2 btn-forest"
+      >
+        <FileDown strokeWidth={1.5} className="w-4 h-4" /> {label}
+      </a>
+    );
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        data-testid={testId}
+        onClick={() => setShowModal(true)}
+        className="inline-flex items-center gap-2 btn-forest opacity-90"
+      >
+        <Lock strokeWidth={1.5} className="w-4 h-4" /> {label}
+      </button>
+      {showModal && (
+        <PaywallModal
+          onClose={() => setShowModal(false)}
+          onUnlocked={() => setShowModal(false)}
+        />
+      )}
+    </>
+  );
+}
+

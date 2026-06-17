@@ -8,6 +8,7 @@ import { fetchPlantGuide, fetchCachedPlantGuide } from "@/lib/api";
 import TopicImage from "@/components/TopicImage";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import SourceLinks from "@/components/SourceLinks";
+import PremiumGate from "@/components/PremiumGate";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useI18n } from "@/i18n";
 
@@ -64,7 +65,8 @@ export default function AIPlantDetailPage() {
   const inGarden = has(plant.id);
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid={`ai-plant-${plant.id}`}>
+    <PremiumGate>
+      <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid={`ai-plant-${plant.id}`}>
       <Link to="/plants" data-testid="back-to-plants" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
         <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("plant.back")}
       </Link>
@@ -209,7 +211,8 @@ export default function AIPlantDetailPage() {
       <SourceLinks plant={plant} />
 
       <FeedbackWidget targetType="plant-guide" targetId={plant.id} label="Spot something off?" />
-    </div>
+      </div>
+    </PremiumGate>
   );
 }
 

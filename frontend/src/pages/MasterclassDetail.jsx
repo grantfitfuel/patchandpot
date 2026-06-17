@@ -10,6 +10,7 @@ import { useRegion } from "@/hooks/useRegion";
 import { useI18n } from "@/i18n";
 import TopicImage from "@/components/TopicImage";
 import ShareCard from "@/components/ShareCard";
+import PremiumGate from "@/components/PremiumGate";
 import { api } from "@/lib/api";
 
 // In-memory cache of adapted lesson payloads, keyed by request signature.
@@ -154,6 +155,7 @@ export default function MasterclassDetailPage() {
   const lessonHeroKey = `lesson-hero:${slug}:${currentLesson.slug}`;
 
   return (
+    <PremiumGate>
     <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid={`masterclass-detail-${slug}`}>
       <Link to="/masterclasses" data-testid="back-to-masterclasses" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
         <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("mc.all_masterclasses")}
@@ -373,5 +375,6 @@ export default function MasterclassDetailPage() {
         regionName={region?.name}
       />
     </div>
+    </PremiumGate>
   );
 }

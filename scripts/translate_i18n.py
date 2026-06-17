@@ -90,7 +90,11 @@ def extract_en_dict(text: str) -> dict[str, str]:
 
 
 async def translate_one(lang_code: str, lang_label: str, en: dict[str, str]) -> dict[str, str]:
-    """Ask Claude Sonnet 4.5 to translate the whole dict into the target language."""
+    """Ask Claude Sonnet 4.5 to translate the whole dict into the target language.
+
+    Chunked into ~125-key batches so each call's output stays well under the
+    16K-token model cap and finishes within a sensible wall-clock budget.
+    """
     sys_msg = (
         "You are a professional localiser for a gardening web app called "
         "'Patch & Pot'. The user will give you a JSON object of UI strings in "
@@ -102,26 +106,16 @@ async def translate_one(lang_code: str, lang_label: str, en: dict[str, str]) -> 
         "native to the target language. Output ONLY a single JSON object — no "
         "prose, no markdown fences."
     )
-    chat = LlmChat(api_key=KEY, session_id=f"i18n-{lang_code}", system_message=sys_msg)
-    chat.with_model("anthropic", "claude-sonnet-4-5-20250929")
-    chat.with_params(max_tokens=16000)
 
-    payload = (
-        f"TARGET LANGUAGE: {lang_label}\n"
-        f"LANGUAGE CODE: {lang_code}\n\n"
-        f"INPUT JSON (English):\n{json.dumps(en, ensure_ascii=False, indent=2)}\n\n"
-        "Return ONLY the translated JSON object."
-    )
-    msg = UserMessage(text=payload)
-    resp = await chat.send_message(msg)
+    items = list(en.items())
+    chunks: list[dict[str, str]] = []
+    CHUNK = 100
+    for start in range(0, len(items), CHUNK):
+        chunks.append(dict(items[start:start + CHUNK]))
 
-    # Some models may wrap in ```json fences — strip.
-    text = resp.strip()
-    text = re.sub(r"^```(?:json)?\s*", "", text)
-    text = re.sub(r"\s*```$", "", text)
+    out_combined: dict[str, str] = {}
 
     def _parse_loose(s: str) -> dict[str, str]:
-        """Tolerant key/value extractor (same regex as EN parser)."""
         d: dict[str, str] = {}
         pat = re.compile(r'"([\w.\-]+)"\s*:\s*"((?:[^"\\]|\\.)*)"\s*,?')
         for mm in pat.finditer(s):
@@ -131,32 +125,46 @@ async def translate_one(lang_code: str, lang_label: str, en: dict[str, str]) -> 
                 d[mm.group(1)] = mm.group(2)
         return d
 
-    try:
-        data = json.loads(text)
-    except json.JSONDecodeError:
-        m = re.search(r"\{[\s\S]*\}", text)
-        if m:
-            try:
-                data = json.loads(m.group(0))
-            except json.JSONDecodeError:
-                data = _parse_loose(m.group(0))
-        else:
-            data = _parse_loose(text)
+    for idx, chunk in enumerate(chunks, 1):
+        chat = LlmChat(api_key=KEY, session_id=f"i18n-{lang_code}-{idx}", system_message=sys_msg)
+        chat.with_model("openai", "gpt-4o-mini")
+        chat.with_params(max_tokens=8000)
 
-    # Persist raw response for debugging if too few keys came back.
-    if not isinstance(data, dict) or len(data) < len(en) * 0.5:
-        dbg = Path(f"/tmp/i18n-debug-{lang_code}.txt")
-        dbg.write_text(text)
-        print(f"  ⚠ {lang_code}: only {len(data) if isinstance(data, dict) else 0}/{len(en)} keys; raw saved to {dbg}", file=sys.stderr)
+        payload = (
+            f"TARGET LANGUAGE: {lang_label}\n"
+            f"LANGUAGE CODE: {lang_code}\n"
+            f"BATCH {idx}/{len(chunks)}\n\n"
+            f"INPUT JSON (English):\n{json.dumps(chunk, ensure_ascii=False, indent=2)}\n\n"
+            "Return ONLY the translated JSON object."
+        )
+        resp = await chat.send_message(UserMessage(text=payload))
+        text = resp.strip()
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+        try:
+            data = json.loads(text)
+        except json.JSONDecodeError:
+            m = re.search(r"\{[\s\S]*\}", text)
+            if m:
+                try:
+                    data = json.loads(m.group(0))
+                except json.JSONDecodeError:
+                    data = _parse_loose(m.group(0))
+            else:
+                data = _parse_loose(text)
 
-    # Keep only known keys, fall back to English if a value is empty/missing.
-    out: dict[str, str] = {}
-    for k, en_v in en.items():
-        v = data.get(k)
-        if not isinstance(v, str) or not v.strip():
-            v = en_v
-        out[k] = v
-    return out
+        if not isinstance(data, dict) or len(data) < len(chunk) * 0.5:
+            dbg = Path(f"/tmp/i18n-debug-{lang_code}-{idx}.txt")
+            dbg.write_text(text)
+            print(f"  ⚠ {lang_code} batch {idx}: only {len(data) if isinstance(data, dict) else 0}/{len(chunk)} keys; raw saved", file=sys.stderr)
+
+        for k, en_v in chunk.items():
+            v = data.get(k) if isinstance(data, dict) else None
+            if not isinstance(v, str) or not v.strip():
+                v = en_v
+            out_combined[k] = v
+
+    return out_combined
 
 
 def render_block(lang_code: str, d: dict[str, str]) -> str:
@@ -198,10 +206,10 @@ async def main():
         print(f"→ translating {code} ({label})…", flush=True)
         try:
             translated = await asyncio.wait_for(
-                translate_one(code, label, en), timeout=90
+                translate_one(code, label, en), timeout=240
             )
         except asyncio.TimeoutError:
-            print(f"  ❌ {code} timed out (>90s) — skipping, can resume later", file=sys.stderr)
+            print(f"  ❌ {code} timed out (>240s) — skipping, can resume later", file=sys.stderr)
             continue
         except Exception as e:
             print(f"  ❌ {code} failed: {e}", file=sys.stderr)

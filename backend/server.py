@@ -695,7 +695,7 @@ class SeasonalPdfRequest(BaseModel):
 
 
 @api_router.post("/seasonal-pdf")
-async def seasonal_pdf(req: SeasonalPdfRequest):
+async def seasonal_pdf(req: SeasonalPdfRequest, request: Request):
     """Build a personalised A4 PDF of the current monthly guide. Paywalled."""
     token = (req.access_token or "").strip()
     if not token or not await db.access_grants.find_one({"token": token}):
@@ -718,12 +718,20 @@ async def seasonal_pdf(req: SeasonalPdfRequest):
     month_label = MONTHS[req.month]
     region_label = req.region.name + (f", {req.region.country}" if req.region.country else "")
 
+    # QR target — the public host the user actually sees (X-Forwarded-* set by
+    # Emergent's ingress reflects preview/production domain; base_url is the
+    # internal cluster name).
+    fwd_host = request.headers.get("x-forwarded-host") or request.url.hostname or "patchandpot.com"
+    fwd_proto = request.headers.get("x-forwarded-proto") or request.url.scheme or "https"
+    qr_url = f"{fwd_proto}://{fwd_host.split(',')[0].strip()}/calendar"
+
     pdf_bytes = build_seasonal_pdf(
         guidance=guidance,
         region_name=region_label,
         month_label=month_label,
         language=language,
         orientation=(req.orientation or "portrait").lower(),
+        qr_url=qr_url,
     )
 
     safe_region = re.sub(r"[^A-Za-z0-9_-]+", "-", req.region.name)[:40] or "region"

@@ -69,17 +69,30 @@ def _doc(buf, *, pagesize=A4):
     return doc
 
 
-def _para(text, style):
-    """Safe paragraph: escapes the few characters reportlab treats as markup."""
-    if not text:
-        return None
-    safe = (
-        str(text)
+def _esc(text) -> str:
+    """Escape the four chars reportlab's mini-XML treats as markup."""
+    return (
+        str(text or "")
         .replace("&", "&amp;")
         .replace("<", "&lt;")
         .replace(">", "&gt;")
     )
-    return Paragraph(safe, style)
+
+
+def _para(text, style):
+    """Plain-text paragraph — escapes any markup characters."""
+    if not text:
+        return None
+    return Paragraph(_esc(text), style)
+
+
+def _rich(markup, style):
+    """Paragraph that *renders* reportlab markup (<b>, <i>, <font>).
+    Caller MUST `_esc()` any user-provided interpolations themselves.
+    """
+    if not markup:
+        return None
+    return Paragraph(markup, style)
 
 
 def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
@@ -109,18 +122,18 @@ def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
     # ── Plant now ─────────────────────────────────────────────────────────
     plant_now = guidance.get("plant_now") or []
     if plant_now:
-        story.append(_para("Sow &amp; plant this month", s["h2"]))
+        story.append(_para("Sow & plant this month", s["h2"]))
         for p in plant_now:
             block = []
-            block.append(_para(
-                f"<b>{(p.get('name') or '').strip()}</b>"
-                + (f"  <font color='#5C6B57'>· {p.get('kind')}</font>" if p.get("kind") else ""),
+            block.append(_rich(
+                f"<b>{_esc((p.get('name') or '').strip())}</b>"
+                + (f"  <font color='#5C6B57'>· {_esc(p.get('kind'))}</font>" if p.get("kind") else ""),
                 s["h3"],
             ))
             if p.get("why"):
                 block.append(_para(p["why"], s["body"]))
             if p.get("how"):
-                block.append(_para(f"<i>How:</i> {p['how']}", s["small"]))
+                block.append(_rich(f"<i>How:</i> {_esc(p['how'])}", s["small"]))
             story.append(KeepTogether([b for b in block if b]))
 
     # ── Harvest ───────────────────────────────────────────────────────────
@@ -128,7 +141,7 @@ def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
     if harvest:
         story.append(_para("Harvest now", s["h2"]))
         for h in harvest:
-            block = [_para(f"<b>{(h.get('name') or '').strip()}</b>", s["h3"])]
+            block = [_rich(f"<b>{_esc((h.get('name') or '').strip())}</b>", s["h3"])]
             if h.get("tip"):
                 block.append(_para(h["tip"], s["body"]))
             story.append(KeepTogether(block))
@@ -140,7 +153,7 @@ def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
         story.append(_para("Tasks", s["h2"]))
         for t in tasks:
             block = [
-                _para(f"<b>☐ {(t.get('title') or '').strip()}</b>", s["h3"]),
+                _rich(f"<b>☐ {_esc((t.get('title') or '').strip())}</b>", s["h3"]),
             ]
             if t.get("detail"):
                 block.append(_para(t["detail"], s["body"]))
@@ -151,11 +164,11 @@ def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
     if pests:
         story.append(_para("Pest watch", s["h2"]))
         for pest in pests:
-            block = [_para(f"<b>{(pest.get('name') or '').strip()}</b>", s["h3"])]
+            block = [_rich(f"<b>{_esc((pest.get('name') or '').strip())}</b>", s["h3"])]
             if pest.get("signs"):
-                block.append(_para(f"<i>Signs:</i> {pest['signs']}", s["body"]))
+                block.append(_rich(f"<i>Signs:</i> {_esc(pest['signs'])}", s["body"]))
             if pest.get("control"):
-                block.append(_para(f"<i>Control:</i> {pest['control']}", s["body"]))
+                block.append(_rich(f"<i>Control:</i> {_esc(pest['control'])}", s["body"]))
             story.append(KeepTogether(block))
 
     story.append(Spacer(1, 6 * mm))

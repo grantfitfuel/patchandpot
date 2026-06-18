@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Sprout, X, Loader2 } from "lucide-react";
 import { useI18n } from "@/i18n";
 import { createCheckout, checkAccess } from "@/lib/api";
@@ -6,25 +6,37 @@ import { setStoredAccessToken } from "@/hooks/usePaywall";
 
 /**
  * Lifetime-access upgrade modal. £5 GBP one-time via Stripe Checkout.
- * `onClose` is only used if the user dismisses voluntarily — for soft-paywall
- * pages the parent decides whether dismissal lets them keep reading.
+ *
+ * Two-step flow (deliberate): tapping "Pay £5" creates the Stripe session
+ * server-side, then surfaces a real <a href> "Continue" button the user taps
+ * to redirect. We do NOT auto-navigate via window.location after an `await`
+ * because iOS Safari treats post-async cross-origin navigations as
+ * non-user-initiated and blocks them (= permanent blank screen). A native
+ * anchor click is always honoured.
  */
 export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true }) {
   const { t } = useI18n();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [checkoutUrl, setCheckoutUrl] = useState("");
   const [showRecovery, setShowRecovery] = useState(false);
   const [recoveryToken, setRecoveryToken] = useState("");
+  const continueRef = useRef(null);
 
   async function startCheckout() {
     setBusy(true);
     setError("");
+    setCheckoutUrl("");
     try {
       const { url } = await createCheckout(window.location.origin);
-      window.location.href = url;
+      setCheckoutUrl(url);
+      // Focus the link so users can press Enter on desktop, and so iOS
+      // announces it via VoiceOver.
+      requestAnimationFrame(() => continueRef.current?.focus());
     } catch (e) {
       console.error("checkout create failed", e);
       setError(t("paywall.error"));
+    } finally {
       setBusy(false);
     }
   }
@@ -92,16 +104,27 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
             <span className="text-sm text-moss">{t("paywall.once")}</span>
           </div>
 
-          <button
-            type="button"
-            data-testid="paywall-pay"
-            onClick={startCheckout}
-            disabled={busy}
-            className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2 disabled:opacity-60"
-          >
-            {busy ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" /> : null}
-            {t("paywall.cta")}
-          </button>
+          {checkoutUrl ? (
+            <a
+              ref={continueRef}
+              href={checkoutUrl}
+              data-testid="paywall-continue-link"
+              className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2"
+            >
+              {t("paywall.continue")} →
+            </a>
+          ) : (
+            <button
+              type="button"
+              data-testid="paywall-pay"
+              onClick={startCheckout}
+              disabled={busy}
+              className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2 disabled:opacity-60"
+            >
+              {busy ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" /> : null}
+              {t("paywall.cta")}
+            </button>
+          )}
 
           {!showRecovery ? (
             <button

@@ -337,6 +337,7 @@ const STRINGS = {
     "paywall.benefit.lifetime": "Pay once, forever — no auto-renewal",
     "paywall.once": "one-time, no renewals",
     "paywall.cta": "Pay £5 — unlock for life",
+    "paywall.continue": "Continue to secure checkout",
     "paywall.error": "Something went wrong. Please try again.",
     "paywall.recovery.cta": "I already paid — restore my access",
     "paywall.recovery.label": "Your access code (starts with cs_)",

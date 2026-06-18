@@ -57,9 +57,10 @@ export default function Home() {
           <div className="md:col-span-5">
             <div className="aspect-[4/5] overflow-hidden border border-border">
               <img
-                src="https://images.unsplash.com/photo-1745063537934-e6bf484d72eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85"
-                alt="Tending plants on a balcony"
+                src="/img/hero.jpg"
+                alt="Person tending plants on a balcony, planting into a terracotta pot"
                 className="object-cover w-full h-full"
+                loading="eager"
               />
             </div>
           </div>

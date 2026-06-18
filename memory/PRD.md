@@ -94,6 +94,12 @@
   - **Verified end-to-end with Playwright**: Arabic loads with `dir=rtl`, `lang=ar`, hero h1 "ازرع في أي مكان، بطريقتك" (= "Grow anywhere, your way."), nav fully Arabic, language-detected banner translated, no console errors. RTL layout intact.
 
 ## Prioritised Backlog
+
+> **🛑 RULE FOR THIS PROJECT (learned the hard way 2026-02-17):**
+> NEVER ask the user to test third-party redirect flows (Stripe Checkout, OAuth, Google Maps auth, anything that leaves our origin) **in the Emergent in-app preview pane**. iOS WKWebView strips third-party cookies → Stripe Checkout shows a blank screen, OAuth fails silently. Either:
+> 1. Test it yourself end-to-end with Playwright on a mobile-sized viewport, or
+> 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
+> Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 ### P1
 - Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
 - Real cron for monthly auto-refresh of guides.

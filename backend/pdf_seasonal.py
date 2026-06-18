@@ -13,7 +13,7 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import (
     BaseDocTemplate, Frame, KeepTogether, PageBreak, PageTemplate,
-    Paragraph, Spacer,
+    Paragraph, Spacer, Table, TableStyle,
 )
 
 FOREST = colors.HexColor("#21372A")
@@ -170,6 +170,42 @@ def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
             if pest.get("control"):
                 block.append(_rich(f"<i>Control:</i> {_esc(pest['control'])}", s["body"]))
             story.append(KeepTogether(block))
+
+    # ── My notes — blank grid the user pens in by hand ────────────────────
+    story.append(PageBreak())
+    story.append(_para(f"My notes — {month_label}, {region_name}", s["h2"]))
+    story.append(_para(
+        "Jot down what you actually planted, where, and how it grew. "
+        "Future you (and next year's PDF) will thank you.",
+        s["body"],
+    ))
+    story.append(Spacer(1, 3 * mm))
+
+    # Column widths sized to the active page (portrait or landscape).
+    content_w = pagesize[0] - 18 * mm * 2
+    col_widths = [
+        content_w * 0.14,  # Date
+        content_w * 0.26,  # Sown / planted
+        content_w * 0.22,  # Where
+        content_w * 0.38,  # Notes
+    ]
+    header = ["Date", "Sown / planted", "Where", "Notes / how it went"]
+    rows = [header] + [[""] * 4 for _ in range(18)]
+
+    notes_tbl = Table(rows, colWidths=col_widths, rowHeights=[8 * mm] + [11 * mm] * 18)
+    notes_tbl.setStyle(TableStyle([
+        ("FONT", (0, 0), (-1, 0), "Helvetica-Bold", 9),
+        ("TEXTCOLOR", (0, 0), (-1, 0), FOREST),
+        ("BACKGROUND", (0, 0), (-1, 0), SAND),
+        ("LINEBELOW", (0, 0), (-1, 0), 0.6, FOREST),
+        ("GRID", (0, 1), (-1, -1), 0.3, BORDER),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 4),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+        ("TOPPADDING", (0, 0), (-1, 0), 4),
+        ("BOTTOMPADDING", (0, 0), (-1, 0), 4),
+    ]))
+    story.append(notes_tbl)
 
     story.append(Spacer(1, 6 * mm))
     story.append(_para(

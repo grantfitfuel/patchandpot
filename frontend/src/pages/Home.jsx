@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, GraduationCap, Heart } from "lucide-react";
+import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, GraduationCap, Heart, Check } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
 import ThisMonthCard from "@/components/ThisMonthCard";
+import PaywallModal from "@/components/PaywallModal";
 import { usePaywall } from "@/hooks/usePaywall";
 import { useI18n, monthLabel } from "@/i18n";
 
@@ -12,6 +13,7 @@ export default function Home() {
   const { t } = useI18n();
   const { paid } = usePaywall();
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [paywallOpen, setPaywallOpen] = useState(false);
   const month = monthLabel(new Date().getMonth() + 1, t);
 
   return (
@@ -137,7 +139,79 @@ export default function Home() {
         </div>
       </section>
 
+      {!paid && (
+        <section className="border-t border-border" data-testid="home-bundle-cta">
+          <div className="container-narrow py-20 md:py-24 grid md:grid-cols-12 gap-10 items-center">
+            <div className="md:col-span-7">
+              <p className="overline">The full library</p>
+              <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
+                Every guide, course, AI tool and seasonal journal — in one place.
+              </h2>
+              <p className="mt-5 text-ink/75 leading-relaxed max-w-xl">
+                Unlock everything Patch & Pot does behind the paywall — for ever, with one £25 payment. Or try a single growing year for £5. Refund any time within 30 days, no questions.
+              </p>
+
+              <ul className="mt-8 space-y-3 text-ink/85">
+                {[
+                  ["4 Foundation masterclasses", "Propagation · Pest Control · Plant Care · Seasonal Planting"],
+                  ["6 Deep-dive courses", "Soil · Containers · Pollinators · Harvest · Cut Flowers · Reading the Sky"],
+                  ["Unlimited AI masterclasses", "Suggest any topic — full lesson set in 90 seconds"],
+                  ["Seasonal Growing Journal PDF", "A4 printable, region-aware, refreshed monthly"],
+                  ["Full plant database", "Care guides, companions, runtime translation to 58 languages"],
+                ].map(([title, sub]) => (
+                  <li key={title} className="flex items-start gap-3">
+                    <Check strokeWidth={2} className="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-forest">{title}</p>
+                      <p className="text-sm text-ink/65">{sub}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="md:col-span-5 md:col-start-8">
+              <div className="bg-sand border-2 border-terracotta p-7 relative">
+                <span className="absolute -top-3 left-7 bg-terracotta text-sand text-[10px] tracking-[0.18em] uppercase px-2 py-1">
+                  Best value
+                </span>
+                <p className="font-serif text-5xl text-forest leading-none">£25</p>
+                <p className="text-sm text-moss mt-1">Lifetime · pay once</p>
+                <p className="text-xs text-ink/65 mt-3 leading-relaxed">
+                  Roughly five years of annual at half the running cost. Pay now, garden in 2031 still unlocked.
+                </p>
+                <button
+                  type="button"
+                  data-testid="home-bundle-buy-lifetime"
+                  onClick={() => setPaywallOpen(true)}
+                  className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2"
+                >
+                  Unlock everything <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  data-testid="home-bundle-buy-annual"
+                  onClick={() => setPaywallOpen(true)}
+                  className="mt-3 w-full text-sm text-moss hover:text-forest underline-offset-4 hover:underline"
+                >
+                  Or just £5 for the next 12 months →
+                </button>
+                <p className="text-[11px] text-moss mt-4 text-center leading-snug">
+                  🛡️ 30-day money-back guarantee. No subscriptions, no auto-renewal, no email lists.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       <RegionPicker open={pickerOpen} onClose={() => setPickerOpen(false)} />
+      {paywallOpen && (
+        <PaywallModal
+          onClose={() => setPaywallOpen(false)}
+          onUnlocked={() => setPaywallOpen(false)}
+        />
+      )}
     </div>
   );
 }

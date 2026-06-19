@@ -36,21 +36,21 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="container-narrow py-5 flex flex-wrap items-center justify-between gap-4 text-xs text-moss">
           <p data-testid="footer-copyright">
-            © {COPYRIGHT_RANGE} Grant Cameron Anthony, trading as Patch &amp; Pot. All rights reserved.
+            © {COPYRIGHT_RANGE} Grant Cameron Anthony, {t("footer.trading_as")} Patch &amp; Pot. {t("footer.rights")}
           </p>
           <nav className="flex items-center gap-5">
             <Link to="/privacy" className="hover:text-terracotta transition-colors" data-testid="footer-privacy-link">
-              Privacy
+              {t("footer.legal.privacy")}
             </Link>
             <Link to="/terms" className="hover:text-terracotta transition-colors" data-testid="footer-terms-link">
-              Terms
+              {t("footer.legal.terms")}
             </Link>
             <a
               href="mailto:hello@patchandpot.com"
               className="hover:text-terracotta transition-colors"
               data-testid="footer-contact-link"
             >
-              Contact
+              {t("footer.legal.contact")}
             </a>
           </nav>
         </div>

@@ -41,7 +41,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
       );
       setData(result);
     } catch (e) {
-      setError(e?.response?.data?.detail || "Couldn't reach the arranger right now. Try again in a moment.");
+      setError(e?.response?.data?.detail || t("arr.error_default"));
     } finally {
       setLoading(false);
     }
@@ -51,15 +51,14 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
     <section className="border-t border-border pt-12 mt-12" data-testid="arrangement-suggester">
       <div className="flex items-end justify-between gap-4 mb-6 flex-wrap">
         <div>
-          <p className="overline">{t("arr.eyebrow") === "arr.eyebrow" ? "From your garden" : t("arr.eyebrow")}</p>
+          <p className="overline">{t("arr.eyebrow")}</p>
           <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 tracking-tight">
-            {t("arr.title") === "arr.title" ? "Today's arrangement" : t("arr.title")}
+            {t("arr.title")}
           </h2>
           <p className="mt-3 text-ink/75 max-w-2xl leading-relaxed">
-            One seasonal arrangement, built from only what's in your garden right now —
-            using the principles from{" "}
+            {t("arr.subtitle_prefix")}{" "}
             <Link to="/learn/flower-arranging" className="link">
-              The Art of Flower Arranging
+              {t("mc.title.flower-arranging")}
             </Link>
             .
           </p>
@@ -72,15 +71,15 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
           {tooFew ? (
             <>
               <Flower2 strokeWidth={1.3} className="w-7 h-7 text-moss mx-auto mb-3" />
-              <p className="text-ink/75">Add a few plants to your garden first, and we'll suggest an arrangement using only what you have.</p>
+              <p className="text-ink/75">{t("arr.empty")}</p>
             </>
           ) : !region ? (
-            <p className="text-ink/75">Set your region above so the arrangement is right for the season where you are.</p>
+            <p className="text-ink/75">{t("arr.no_region")}</p>
           ) : (
             <>
               <Sparkles strokeWidth={1.4} className="w-7 h-7 text-terracotta mx-auto mb-4" />
               <p className="text-ink/75 mb-6 max-w-md mx-auto">
-                We'll look at your {myGardenNames.length} plants, the climate where you are, and propose a recipe you can build today.
+                {t("arr.cta_intro", { count: myGardenNames.length })}
               </p>
               <button
                 type="button"
@@ -89,7 +88,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
                 className="btn-terracotta inline-flex items-center gap-2"
               >
                 <Sparkles strokeWidth={1.5} className="w-4 h-4" />
-                Suggest an arrangement
+                {t("arr.cta_button")}
               </button>
             </>
           )}
@@ -99,14 +98,14 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
       {loading && (
         <div className="card-flat p-8 text-center" data-testid="arrangement-loading">
           <Loader2 strokeWidth={1.5} className="w-6 h-6 text-terracotta animate-spin mx-auto mb-3" />
-          <p className="text-moss">Reading your garden and the season…</p>
+          <p className="text-moss">{t("arr.loading")}</p>
         </div>
       )}
 
       {error && !loading && (
         <div className="card-flat p-6 text-center border-terracotta/30" data-testid="arrangement-error">
           <p className="text-terracotta">{error}</p>
-          <button type="button" onClick={() => generate(false)} className="btn-ghost mt-4">Try again</button>
+          <button type="button" onClick={() => generate(false)} className="btn-ghost mt-4">{t("arr.try_again")}</button>
         </div>
       )}
 
@@ -121,13 +120,13 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
             <div className="mt-7 grid sm:grid-cols-2 gap-5">
               {data.vase && (
                 <div className="border-l-2 border-terracotta/40 pl-4">
-                  <p className="overline mb-1">Vase</p>
+                  <p className="overline mb-1">{t("arr.label_vase")}</p>
                   <p className="text-ink/80 leading-relaxed">{data.vase}</p>
                 </div>
               )}
               {data.mechanic && (
                 <div className="border-l-2 border-moss/40 pl-4">
-                  <p className="overline mb-1">Mechanic</p>
+                  <p className="overline mb-1">{t("arr.label_mechanic")}</p>
                   <p className="text-ink/80 leading-relaxed">{data.mechanic}</p>
                 </div>
               )}
@@ -136,7 +135,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
 
           {Array.isArray(data.stems) && data.stems.length > 0 && (
             <div className="mt-8" data-testid="arrangement-stems">
-              <p className="overline mb-3">Stems</p>
+              <p className="overline mb-3">{t("arr.label_stems")}</p>
               <ul className="space-y-3">
                 {data.stems.map((s, i) => (
                   <li key={i} className="flex flex-wrap items-start gap-3">
@@ -164,7 +163,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
 
           {Array.isArray(data.build_steps) && data.build_steps.length > 0 && (
             <div className="mt-8" data-testid="arrangement-steps">
-              <p className="overline mb-3">Build, in order</p>
+              <p className="overline mb-3">{t("arr.label_build")}</p>
               <ol className="space-y-2.5 list-decimal pl-5 marker:text-terracotta marker:font-semibold">
                 {data.build_steps.map((s, i) => (
                   <li key={i} className="text-ink/80 leading-relaxed pl-1">{s}</li>
@@ -175,7 +174,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
 
           {data.tip && (
             <div className="mt-8 p-5 bg-sand/60 border-l-2 border-terracotta">
-              <p className="overline text-terracotta mb-1.5">Tip</p>
+              <p className="overline text-terracotta mb-1.5">{t("arr.label_tip")}</p>
               <p className="text-ink/80 italic leading-relaxed">{data.tip}</p>
             </div>
           )}
@@ -188,10 +187,10 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
               className="btn-ghost inline-flex items-center gap-2 text-sm"
             >
               <RefreshCw strokeWidth={1.5} className="w-3.5 h-3.5" />
-              Suggest a different one
+              {t("arr.regenerate")}
             </button>
             <Link to="/learn/flower-arranging" className="text-sm text-moss hover:text-terracotta">
-              Read the arranging masterclass →
+              {t("arr.read_masterclass")}
             </Link>
           </div>
         </article>

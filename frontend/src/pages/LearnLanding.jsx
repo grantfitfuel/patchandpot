@@ -93,10 +93,10 @@ export default function LearnLandingPage() {
     return (
       <div className="container-narrow py-20 text-center">
         <p className="overline">Patch &amp; Pot · Learn</p>
-        <h1 className="font-serif text-4xl text-forest mt-2">This topic isn’t available yet.</h1>
-        <p className="text-ink/75 mt-3">It may not have been generated, or the link is mistyped.</p>
+        <h1 className="font-serif text-4xl text-forest mt-2">{t("learn.not_found_title")}</h1>
+        <p className="text-ink/75 mt-3">{t("learn.not_found_body")}</p>
         <Link to="/masterclasses" className="btn-ghost mt-6 inline-flex" data-testid="learn-not-found-back">
-          Browse all masterclasses
+          {t("learn.not_found_back")}
         </Link>
       </div>
     );
@@ -106,7 +106,7 @@ export default function LearnLandingPage() {
     return (
       <div className="container-narrow py-20 text-center">
         <Sparkles strokeWidth={1.4} className="w-6 h-6 text-terracotta inline mr-2 animate-pulse" />
-        <span className="text-ink/75">{remoteLoading ? "Loading…" : "Loading…"}</span>
+        <span className="text-ink/75">{t("learn.loading")}</span>
       </div>
     );
   }
@@ -150,7 +150,7 @@ export default function LearnLandingPage() {
 
       <div className="flex items-center gap-3 mb-3">
         <GraduationCap strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-        <span className="overline" data-testid="learn-eyebrow">Free intro lesson</span>
+        <span className="overline" data-testid="learn-eyebrow">{t("learn.eyebrow_free")}</span>
       </div>
 
       <h1 className="font-serif text-5xl md:text-6xl text-forest tracking-tight" data-testid="learn-title">
@@ -178,7 +178,7 @@ export default function LearnLandingPage() {
       <article className="mt-12 max-w-3xl" data-testid="learn-intro-body">
         {meta.introTitle && (
           <>
-            <p className="overline">Lesson 1</p>
+            <p className="overline">{t("learn.lesson_n", { n: 1 })}</p>
             <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 tracking-tight">
               {meta.introTitle}
             </h2>
@@ -214,12 +214,10 @@ export default function LearnLandingPage() {
           <div className="card-flat p-8 md:p-10 text-center">
             <Lock strokeWidth={1.4} className="w-6 h-6 text-terracotta mx-auto mb-4" />
             <h3 className="font-serif text-3xl text-forest">
-              Continue the full masterclass
+              {t("learn.unlock_title")}
             </h3>
             <p className="text-ink/75 mt-3 max-w-xl mx-auto">
-              You’ve read the free intro lesson. The remaining lessons — plus every
-              other masterclass, the climate-accurate growing journal PDF, and AI
-              region-tuned guides — unlock with a single Patch &amp; Pot membership.
+              {t("learn.unlock_body")}
             </p>
 
             {meta.lessonTitles.length > 1 && (
@@ -227,7 +225,7 @@ export default function LearnLandingPage() {
                 {meta.lessonTitles.slice(1).map((title, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm text-ink/70">
                     <Lock strokeWidth={1.5} className="w-3.5 h-3.5 text-moss flex-shrink-0" />
-                    <span className="overline shrink-0 text-moss">Lesson {i + 2}</span>
+                    <span className="overline shrink-0 text-moss">{t("learn.lesson_n", { n: i + 2 })}</span>
                     <span className="truncate">{title}</span>
                   </li>
                 ))}
@@ -240,10 +238,10 @@ export default function LearnLandingPage() {
               data-testid="learn-unlock-btn"
               className="btn-terracotta mt-8 inline-flex items-center gap-2"
             >
-              Unlock the full masterclass
+              {t("learn.unlock_button")}
               <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
             </button>
-            <p className="text-xs text-moss mt-4">£5 a year or £25 for life. 30-day guarantee.</p>
+            <p className="text-xs text-moss mt-4">{t("learn.pricing_note")}</p>
           </div>
         </section>
       )}
@@ -252,7 +250,7 @@ export default function LearnLandingPage() {
       {paid && (
         <div className="mt-14 max-w-3xl" data-testid="learn-paid-cta">
           <Link to={meta.fullPath} className="btn-forest inline-flex items-center gap-2">
-            Open the full masterclass
+            {t("learn.open_full")}
             <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
           </Link>
         </div>

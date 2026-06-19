@@ -1249,6 +1249,126 @@ async def list_generated_masterclasses(limit: int = 12):
     } for it in items]}
 
 
+# Hand-authored / curated masterclasses live in the frontend bundle so we keep
+# a parallel registry here for OG/SEO metadata only. This is intentionally tiny
+# (title + tagline + intro paragraph + cover-image subject). Lessons remain on
+# the frontend so we don't dual-maintain authored content.
+STATIC_MASTERCLASS_OG = {
+    "propagation": {
+        "title": "Propagation Masterclass",
+        "tagline": "Turn one plant into many — from cuttings, division, layering and seed.",
+        "intro": (
+            "Propagation is the quiet heart of gardening. It is how generations of "
+            "plants have travelled across windowsills, balconies and gardens — passed "
+            "hand to hand, free. Once you can propagate, you stop being a buyer of "
+            "plants and become a maker of them."
+        ),
+        "image_subject": "a hand holding three rooted basil cuttings in clear jars on cream linen, soft natural light",
+    },
+    "pest-control": {
+        "title": "Organic Pest Control Masterclass",
+        "tagline": "Identify, prevent, and treat the common pests of pots and small gardens — organic-first.",
+        "intro": (
+            "Pest control isn't about a final battle — it's about tipping the daily "
+            "balance away from pests and towards the predators and conditions that "
+            "keep them in check. Healthy plants in healthy compost, with airflow, "
+            "sun and pollinator-friendly companions, will deal with 90% of pest "
+            "pressure themselves."
+        ),
+        "image_subject": "a healthy basil plant with a ladybird on a leaf, soft natural daylight, cream backdrop",
+    },
+    "plant-care": {
+        "title": "Plant Care Masterclass",
+        "tagline": "Watering, feeding, light, repotting and the seasonal rhythm of caring for plants in pots.",
+        "intro": (
+            "If you can get watering right, you can grow almost anything. If you "
+            "can't, no other technique saves you. Most house plants and pot plants "
+            "die from over-watering, not under. This masterclass walks through every "
+            "core skill — watering, feeding, light, repotting, pruning — so the year "
+            "becomes a rhythm rather than a worry."
+        ),
+        "image_subject": "a row of healthy potted herbs on a sunlit windowsill, soft cream and terracotta palette",
+    },
+    "seasonal-planting": {
+        "title": "Seasonal Planting Masterclass",
+        "tagline": "Read the year like a gardener — sowing windows, succession, and stretching every season.",
+        "intro": (
+            "Generic gardening calendars fail because the year is not the same "
+            "everywhere. The trick is to read your own year by the three signals "
+            "that actually matter: last frost date, average daylight, and soil "
+            "temperature. This masterclass teaches you that rhythm — and how to "
+            "stretch the season at both ends."
+        ),
+        "image_subject": "seed packets, a notebook and a clay pot on a wooden bench in spring sunlight",
+    },
+}
+
+
+def _first_paragraph(text: str, max_chars: int = 280) -> str:
+    """Trim a paragraph to ~280 chars without breaking mid-word; suitable for og:description."""
+    t = (text or "").strip().replace("\n", " ")
+    if len(t) <= max_chars:
+        return t
+    cut = t[: max_chars].rsplit(" ", 1)[0]
+    return cut.rstrip(",.;:") + "…"
+
+
+@api_router.get("/og/learn/{topic}")
+async def og_learn_meta(topic: str, language: str = "en"):
+    """Return OpenGraph + intro metadata for a /learn/:topic landing page.
+
+    Resolves the topic from (a) the static-masterclass registry above, or
+    (b) the AI-generated masterclass cache. The frontend uses this to populate
+    `react-helmet-async` tags; a future edge worker could SSR these into the
+    document head for scrapers that don't execute JavaScript.
+    """
+    slug = (topic or "").strip().lower()
+    if not slug:
+        raise HTTPException(400, "Missing topic.")
+
+    # 1) Static / curated masterclass
+    if slug in STATIC_MASTERCLASS_OG:
+        m = STATIC_MASTERCLASS_OG[slug]
+        return {
+            "source": "static",
+            "slug": slug,
+            "title": m["title"],
+            "tagline": m["tagline"],
+            "description": _first_paragraph(m["intro"]),
+            "intro_paragraphs": [m["intro"]],
+            "image_subject": m["image_subject"],
+            "lesson_count": None,
+            "url_path": f"/learn/{slug}",
+        }
+
+    # 2) AI-generated masterclass — prefer requested language, fallback to en
+    cache_key = f"{slug}|{language.lower()}"
+    cached = await db.generated_masterclasses.find_one({"cache_key": cache_key}, {"_id": 0})
+    if not cached:
+        cached = await db.generated_masterclasses.find_one(
+            {"slug": slug, "language": "en"}, {"_id": 0}
+        )
+    if not cached:
+        raise HTTPException(404, "Topic not found.")
+
+    data = cached.get("data") or {}
+    lessons = data.get("lessons") or []
+    intro_body = []
+    if lessons and isinstance(lessons[0], dict):
+        intro_body = lessons[0].get("body") or []
+    return {
+        "source": "ai",
+        "slug": slug,
+        "title": data.get("title") or slug.replace("-", " ").title(),
+        "tagline": data.get("tagline") or "",
+        "description": _first_paragraph((intro_body[0] if intro_body else data.get("tagline")) or ""),
+        "intro_paragraphs": intro_body[:3],
+        "image_subject": data.get("imageSubject") or data.get("topic") or data.get("title"),
+        "lesson_count": len(lessons),
+        "url_path": f"/learn/{slug}",
+    }
+
+
 @api_router.post("/plant-image")
 async def generate_plant_image(req: PlantImageRequest):
     """Generate (or fetch cached) AI image of a plant. Returns data URL."""

@@ -77,3 +77,7 @@ export const fetchMyMasterclassLibrary = (accessToken, language = "en") =>
   api.get("/masterclass/library", {
     params: { access_token: accessToken, language },
   }).then((r) => r.data);
+
+// SEO landing pages — OpenGraph + intro paragraphs for /learn/:topic.
+export const fetchLearnOgMeta = (topic, language = "en") =>
+  api.get(`/og/learn/${topic}`, { params: { language } }).then((r) => r.data);

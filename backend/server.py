@@ -1325,6 +1325,19 @@ STATIC_MASTERCLASS_OG = {
         ),
         "image_subject": "seed packets, a notebook and a clay pot on a wooden bench in spring sunlight",
     },
+    "flower-arranging": {
+        "title": "The Art of Flower Arranging",
+        "tagline": "From a fistful of garden stems to a vase you'd be proud to put on any table — principles, mechanics, and seasonal recipes.",
+        "intro": (
+            "Flower arranging is not florist's work — it's domestic alchemy. "
+            "The flowers in a supermarket bunch are six days old before they "
+            "reach you; the flowers from your garden are six minutes old. "
+            "This masterclass teaches the everyday gesture of cutting what you "
+            "grew, conditioning it well, and putting it where you'll see it — "
+            "kitchen jug, hall table, bedside."
+        ),
+        "image_subject": "an unstudied loose hand-tied bouquet of garden roses, sweet peas, scabious and dill flower in a stoneware jug on cream linen, soft natural daylight",
+    },
 }
 
 

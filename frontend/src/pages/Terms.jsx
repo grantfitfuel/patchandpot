@@ -1,156 +1,76 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { Info } from "lucide-react";
+import { useI18n } from "@/i18n";
+import { TERMS_SECTIONS, LAST_UPDATED, TERMS_INTRO_HTML } from "@/data/legal-content";
 
 /**
- * Terms of Service for Patch & Pot. UK consumer law-aware: 14-day statutory
- * digital-content cooling-off + a generous 30-day "happily refund" promise on
- * top, AI-advice disclaimer, England & Wales governing law.
+ * Terms of Service. UK consumer-law-aware (14-day digital-content cooling-off
+ * + 30-day refund), AI-advice disclaimer, governed by Scots law. The English
+ * version is the authoritative one; translated views show a banner saying so.
  */
 export default function TermsPage() {
+  const { t, lang, setLang } = useI18n();
+  const isEnglish = (lang || "en").toLowerCase().startsWith("en");
+
   return (
     <div className="container-narrow py-14 md:py-20 max-w-3xl" data-testid="terms-page">
       <Helmet>
-        <title>Terms of Service — Patch &amp; Pot</title>
-        <meta name="description" content="The terms under which Patch & Pot is provided." />
+        <title>{t("legal.terms.page_title")}</title>
+        <meta name="description" content={t("legal.terms.page_description")} />
         <link rel="canonical" href="/terms" />
       </Helmet>
 
-      <p className="overline">Legal</p>
-      <h1 className="font-serif text-5xl text-forest mt-2 tracking-tight">Terms of Service</h1>
-      <p className="text-sm text-moss mt-3">Last updated: 19 June 2026</p>
-
-      <p className="mt-8 text-ink/80 leading-relaxed text-lg">
-        Welcome to Patch &amp; Pot. By using the site you agree to these terms. We have tried
-        to keep them short, fair, and in plain English.
+      <p className="overline">{t("legal.eyebrow")}</p>
+      <h1 className="font-serif text-5xl text-forest mt-2 tracking-tight">{t("legal.terms.heading")}</h1>
+      <p className="text-sm text-moss mt-3">
+        {t("legal.last_updated", { date: LAST_UPDATED })}
       </p>
 
-      <Section title="Who we are">
-        <p>
-          Patch &amp; Pot is a small independent gardening publisher operated from the
-          United Kingdom by <strong>Grant Cameron Anthony</strong>, trading as Patch &amp; Pot,
-          based in Barrhead, East Renfrewshire, Scotland (“we”, “us”, “our”). You can contact
-          us at <a className="link" href="mailto:hello@patchandpot.com">hello@patchandpot.com</a>.
-        </p>
-      </Section>
+      {!isEnglish && (
+        <div className="mt-6 p-4 bg-sand/70 border-l-2 border-terracotta text-sm text-ink/80 leading-relaxed" data-testid="legal-translation-banner">
+          <p className="flex gap-2.5">
+            <Info strokeWidth={1.5} className="w-4 h-4 mt-0.5 text-terracotta flex-shrink-0" />
+            <span>
+              {t("legal.banner.notice")}{" "}
+              <button
+                type="button"
+                onClick={() => setLang("en")}
+                className="link underline"
+                data-testid="legal-banner-en-link"
+              >
+                {t("legal.banner.read_en")}
+              </button>
+              .
+            </span>
+          </p>
+        </div>
+      )}
 
-      <Section title="What Patch &amp; Pot is">
-        <p>
-          Patch &amp; Pot provides region-specific, AI-assisted gardening guidance,
-          masterclasses, plant care information and a downloadable seasonal journal. Some
-          content is free; deeper content (full masterclasses, the printable PDF journal,
-          on-demand AI guides) is unlocked via a paid membership.
-        </p>
-      </Section>
+      <p
+        className="mt-8 text-ink/80 leading-relaxed text-lg legal-body"
+        dangerouslySetInnerHTML={{ __html: t("legal.terms.intro_html") }}
+      />
 
-      <Section title="Membership &amp; payment">
-        <ul className="list-disc pl-6 space-y-2 mt-3">
-          <li>
-            We offer two tiers: <strong>£5 per year</strong> (annual) and{" "}
-            <strong>£25 one-off</strong> (lifetime). Prices are inclusive of any UK VAT.
-          </li>
-          <li>
-            Payment is taken via Stripe. We never see your card details.
-          </li>
-          <li>
-            Annual memberships do <strong>not auto-renew</strong>. You must repurchase if
-            you want another year.
-          </li>
-          <li>
-            Lifetime means lifetime of the Service. If Patch &amp; Pot ever shuts down,
-            lifetime members will be given at least 60 days’ notice and a downloadable
-            archive of their saved content where technically possible.
-          </li>
-        </ul>
-      </Section>
-
-      <Section title="Refunds &amp; the 30-day guarantee">
-        <p>
-          You have a <strong>statutory 14-day right to cancel</strong> any digital-content
-          purchase under the Consumer Contracts Regulations 2013 — except that, by purchasing
-          membership and immediately accessing paid content, you may waive that right.
-        </p>
-        <p className="mt-3">
-          We add a <strong>30-day no-questions-asked refund</strong> on top of that. If
-          Patch &amp; Pot is not for you within the first 30 days, email{" "}
-          <a className="link" href="mailto:hello@patchandpot.com">hello@patchandpot.com</a>{" "}
-          and we will refund you in full.
-        </p>
-      </Section>
-
-      <Section title="AI-generated content disclaimer">
-        <p>
-          Patch &amp; Pot’s monthly guidance, masterclasses and plant images are generated by
-          AI on a region-specific basis. We work hard to keep the advice accurate, but:
-        </p>
-        <ul className="list-disc pl-6 space-y-2 mt-3">
-          <li>The guidance is <strong>informational, not professional horticultural advice</strong>.</li>
-          <li>Local conditions vary; always cross-check with local growers, seed packets, or your national gardening authority before sowing, pruning, foraging or eating anything.</li>
-          <li>Do <strong>not</strong> rely on Patch &amp; Pot to identify wild plants or fungi for consumption. Use a specialist guide.</li>
-          <li>Pest-control advice favours organic methods; follow product instructions for any commercial product you choose to use.</li>
-        </ul>
-      </Section>
-
-      <Section title="Acceptable use">
-        <p>You agree not to:</p>
-        <ul className="list-disc pl-6 space-y-2 mt-3">
-          <li>Scrape the site or its API at high volume.</li>
-          <li>Resell or redistribute paid content (PDF journals, masterclass courses) without permission.</li>
-          <li>Attempt to access paid content without a valid membership token.</li>
-          <li>Submit unlawful, abusive, or copyrighted material to the AI masterclass generator.</li>
-        </ul>
-      </Section>
-
-      <Section title="Intellectual property">
-        <p>
-          The Patch &amp; Pot name, logo, design, editorial copy, masterclass scripts and
-          curated plant database are © Grant Cameron Anthony, trading as Patch &amp; Pot,
-          2025–2026, and may not be reproduced without written permission.
-        </p>
-        <p className="mt-3">
-          AI-generated images and AI-generated lesson text are provided for your personal use
-          as a paying member. You may print the seasonal PDF for your own household.
-        </p>
-      </Section>
-
-      <Section title="Liability">
-        <p>
-          Patch &amp; Pot is provided “as is”. We exclude liability for indirect or
-          consequential loss to the maximum extent permitted by law. Our total liability
-          for any claim is capped at the amount you have paid to us in the preceding
-          12 months. Nothing in these terms limits our liability for fraud, death or
-          personal injury caused by our negligence, or anything else that cannot lawfully
-          be limited under Scots law.
-        </p>
-      </Section>
-
-      <Section title="Changes to the Service or these terms">
-        <p>
-          We may update the Service, prices, and these terms from time to time. Material
-          changes will be flagged on the site for at least 14 days before taking effect. If
-          you don’t agree with a change, you may request a pro-rata refund of any unused
-          annual membership.
-        </p>
-      </Section>
-
-      <Section title="Governing law">
-        <p>
-          These terms are governed by the laws of Scotland and any dispute is subject to
-          the exclusive jurisdiction of the Scottish courts.
-        </p>
-      </Section>
+      {TERMS_SECTIONS.map((s) => (
+        <Section key={s.titleKey} title={t(s.titleKey)} html={t(s.htmlKey)} />
+      ))}
 
       <div className="mt-14 pt-8 border-t border-border text-sm text-moss">
-        <Link to="/privacy" className="link" data-testid="terms-to-privacy">Read the Privacy Notice →</Link>
+        <Link to="/privacy" className="link" data-testid="terms-to-privacy">{t("legal.terms.read_privacy")}</Link>
       </div>
     </div>
   );
 }
 
-function Section({ title, children }) {
+function Section({ title, html }) {
   return (
     <section className="mt-10">
       <h2 className="font-serif text-2xl text-forest mb-3">{title}</h2>
-      <div className="text-ink/80 leading-relaxed">{children}</div>
+      <div
+        className="text-ink/80 leading-relaxed legal-body"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </section>
   );
 }

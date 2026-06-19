@@ -129,3 +129,16 @@ body::before {
 @layer base {
   [data-debug-wrapper="true"] { display: contents !important; }
 }
+
+/* Legal pages render via dangerouslySetInnerHTML — restore default list styles
+   that Tailwind's preflight strips out, and add a little vertical rhythm. */
+.legal-body p { margin-top: 0.85rem; }
+.legal-body p:first-child { margin-top: 0; }
+.legal-body ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-top: 0.75rem;
+}
+.legal-body ul li { margin-top: 0.5rem; line-height: 1.6; }
+.legal-body strong { font-weight: 600; color: #2D3A2A; }
+.legal-body em { font-style: italic; }

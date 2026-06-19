@@ -99,7 +99,15 @@
   - **New backend endpoint** `GET /api/og/learn/{topic}` (`server.py` ~L1252-1336) returns OG metadata as JSON for both static (via `STATIC_MASTERCLASS_OG` registry) and AI-cached (via `generated_masterclasses` collection) topics. 404 on unknown topics; language fallback to English if requested locale not cached. `_first_paragraph()` trims to ~280 chars for clean `og:description`.
   - **HelmetProvider** wired in `/app/frontend/src/index.js`; canonical, Twitter `summary_large_image`, and JSON-LD Article schema all populated client-side. Site-wide OG/Twitter card defaults added to `public/index.html` so even JS-disabled scrapers see something useful.
   - **Free intro + soft paywall**: Unpaid visitors read Lesson 1 in full, then meet a "Continue the full masterclass" CTA that opens the existing two-tier (£5 annual / £25 lifetime) `PaywallModal`. Paid users get a straight "Open the full masterclass" CTA.
-  - **Tests**: testing-agent iter 12 PASS 100% — 7/7 backend pytest (`/app/backend/tests/test_og_learn.py`: static topics, AI cache, 404, language fallback) + Playwright flows for static + AI + 404 + head meta + paywall modal launch.
+  - **Tests**: testing-agent iter 12 PASS 100% — 7/7 backend pytest + Playwright flows for static + AI + 404 + head meta + paywall modal launch.
+
+- **Iteration 18** (2026-02-19): ✅ **Monthly /api/guidance cache cron + Share-masterclass button**
+  - **Monthly cron** — APScheduler `AsyncIOScheduler` runs in-process; cron trigger `day=1, hour=2, minute=0, tz=UTC` on app startup. The job (`/app/backend/cache_refresh.py:refresh_monthly_guidance`) reads popular (region, language) pairs from `guidance_cache` (deduplicated via Mongo aggregation), generates the *current* month's guidance for each, and prunes rows older than ~18 months. `MAX_PAIRS_PER_RUN=40` caps the monthly LLM bill.
+  - **Refactored `/api/guidance`** to call a reusable `_generate_and_cache_guidance(req, force=False)` so the cron and the HTTP handler share one code path. Cache rows now also persist `region/month/language/my_garden/kind` for replay.
+  - **Admin endpoints** (token-gated by existing `ADMIN_TOKEN` env): `POST /api/admin/refresh-guidance` (manual trigger) and `GET /api/admin/cron-status` (last-run snapshot). Bad/missing token → 403.
+  - **Share-masterclass button** (`/app/frontend/src/components/ShareLessonButton.jsx`) added to both `MasterclassDetail.jsx` and `AIMasterclass.jsx`. Uses Web Share API on mobile + clipboard fallback on desktop. Writes the OG-rich `/learn/{slug}` URL so social cards unfurl into rich link previews. Shows brief "Link copied" confirmation.
+  - **i18n**: three new EN keys (`share.share_masterclass`, `share.link_copied`, `share.copy_prompt`); other locales fall back to EN.
+  - **Tests**: testing-agent iter 13 PASS 100% — 4/4 pytest in `tests/test_cache_refresh.py` (warm-pair dedup, current-month skip, status persistence, stale prune) + 6/6 live-HTTP regression in `tests/test_admin_cron.py` (auth, idempotency in <2s, /api/guidance row shape) + 3/3 Playwright (share button on static + AI + clipboard payload). No issues found.
 
 ## Prioritised Backlog
 

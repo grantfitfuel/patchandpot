@@ -67,19 +67,20 @@ def test_list_warm_pairs_dedupes_by_region_and_language(db, event_loop):
     from cache_refresh import _list_warm_pairs
 
     async def _run():
-        # Seed 4 rows: London/en for March + May (same pair), Madrid/es, Sydney/en
+        # Use sentinel city names so we don't collide with any pre-existing
+        # real /api/guidance cache rows (the aggregation scans the whole
+        # collection).
         rows = [
-            _seed_guidance_row(db, "London", "United Kingdom", "en", 3),
-            _seed_guidance_row(db, "London", "United Kingdom", "en", 5),
-            _seed_guidance_row(db, "Madrid", "Spain", "es", 4),
-            _seed_guidance_row(db, "Sydney", "Australia", "en", 7),
+            _seed_guidance_row(db, "Testville-A", "Cronland", "en", 3),
+            _seed_guidance_row(db, "Testville-A", "Cronland", "en", 5),
+            _seed_guidance_row(db, "Testville-B", "Cronland", "es", 4),
+            _seed_guidance_row(db, "Testville-C", "Cronland", "en", 7),
         ]
         await db.guidance_cache.insert_many(rows)
-        pairs = await _list_warm_pairs(db, limit=10)
-        pairs = [p for p in pairs if p["region"]["name"] in {"London", "Madrid", "Sydney"}]
-        # 3 distinct (region, language) pairs — the two London rows collapse
+        pairs = await _list_warm_pairs(db, limit=200)
+        pairs = [p for p in pairs if (p["region"]["country"] or "").lower() == "cronland"]
         names = sorted(f"{p['region']['name']}|{p['language']}" for p in pairs)
-        assert names == ["London|en", "Madrid|es", "Sydney|en"], names
+        assert names == ["Testville-A|en", "Testville-B|es", "Testville-C|en"], names
 
     event_loop.run_until_complete(_run())
 

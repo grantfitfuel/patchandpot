@@ -81,3 +81,7 @@ export const fetchMyMasterclassLibrary = (accessToken, language = "en") =>
 // SEO landing pages — OpenGraph + intro paragraphs for /learn/:topic.
 export const fetchLearnOgMeta = (topic, language = "en") =>
   api.get(`/og/learn/${topic}`, { params: { language } }).then((r) => r.data);
+
+// "What's in your garden right now" arrangement suggester.
+export const fetchArrangementSuggestion = (payload, regenerate = false) =>
+  api.post("/arrangement/suggest", payload, { params: { regenerate } }).then((r) => r.data);

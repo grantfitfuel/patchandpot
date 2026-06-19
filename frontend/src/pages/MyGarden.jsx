@@ -5,6 +5,7 @@ import { useRegion } from "@/hooks/useRegion";
 import PlantImage from "@/components/PlantImage";
 import GuidanceView from "@/components/GuidanceView";
 import MonthSelector from "@/components/MonthSelector";
+import ArrangementSuggester from "@/components/ArrangementSuggester";
 import { useMemo, useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
 import { useI18n } from "@/i18n";
@@ -12,7 +13,7 @@ import { useI18n } from "@/i18n";
 export default function MyGardenPage() {
   const { plants, removePlant } = useMyGarden();
   const { region } = useRegion();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [pickerOpen, setPickerOpen] = useState(false);
 
@@ -97,6 +98,13 @@ export default function MyGardenPage() {
           </div>
           <GuidanceView region={region} month={month} view="tasks" myGarden={plants.map((p) => p.name)} />
           </div>
+
+          <ArrangementSuggester
+            region={region}
+            month={month}
+            myGardenNames={plants.map((p) => p.name)}
+            lang={lang}
+          />
         </>
       )}
 

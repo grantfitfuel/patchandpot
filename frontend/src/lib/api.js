@@ -53,3 +53,25 @@ export const fetchVendorBlurbs = (plantName, vendors, region, language = "en") =
       language,
     })
     .then((r) => r.data);
+
+// ────────────────── AI-generated Masterclasses ──────────────────
+export const generateMasterclass = (topic, language, accessToken) =>
+  api.post("/masterclass/generate", {
+    topic, language, access_token: accessToken,
+  }).then((r) => r.data);
+
+export const pollMasterclassJob = (jobId) =>
+  api.get(`/masterclass/job/${jobId}`).then((r) => r.data);
+
+export const fetchGeneratedMasterclass = (slug, language = "en", accessToken = "") =>
+  api.get(`/masterclass/generated/${slug}`, {
+    params: { language, access_token: accessToken },
+  }).then((r) => r.data);
+
+export const fetchPopularMasterclasses = (limit = 12) =>
+  api.get("/masterclass/generated", { params: { limit } }).then((r) => r.data);
+
+export const fetchMyMasterclassLibrary = (accessToken, language = "en") =>
+  api.get("/masterclass/library", {
+    params: { access_token: accessToken, language },
+  }).then((r) => r.data);

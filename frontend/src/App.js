@@ -13,6 +13,7 @@ import GuidesPage from "@/pages/Guides";
 import PrintPage from "@/pages/Print";
 import MasterclassesPage from "@/pages/Masterclasses";
 import MasterclassDetailPage from "@/pages/MasterclassDetail";
+import AIMasterclassPage from "@/pages/AIMasterclass";
 import CheckoutSuccess from "@/pages/CheckoutSuccess";
 import LanguageDetectedBanner from "@/components/LanguageDetectedBanner";
 
@@ -33,6 +34,8 @@ export default function App() {
             <Route path="/guides" element={<GuidesPage />} />
             <Route path="/guides/:slug" element={<GuidesPage />} />
             <Route path="/masterclasses" element={<MasterclassesPage />} />
+            <Route path="/masterclasses/custom/:slug" element={<AIMasterclassPage />} />
+            <Route path="/masterclasses/custom/:slug/:lessonSlug" element={<AIMasterclassPage />} />
             <Route path="/masterclasses/:slug" element={<MasterclassDetailPage />} />
             <Route path="/masterclasses/:slug/:lessonSlug" element={<MasterclassDetailPage />} />
             <Route path="/print/:month" element={<PrintPage />} />

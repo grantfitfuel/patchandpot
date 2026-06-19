@@ -27,8 +27,9 @@ export default function TermsPage() {
       <Section title="Who we are">
         <p>
           Patch &amp; Pot is a small independent gardening publisher operated from the
-          United Kingdom (“we”, “us”, “our”). You can contact us at{" "}
-          <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>.
+          United Kingdom by <strong>Grant Cameron Anthony</strong>, trading as Patch &amp; Pot,
+          based in Barrhead, East Renfrewshire, Scotland (“we”, “us”, “our”). You can contact
+          us at <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>.
         </p>
       </Section>
 
@@ -102,8 +103,8 @@ export default function TermsPage() {
       <Section title="Intellectual property">
         <p>
           The Patch &amp; Pot name, logo, design, editorial copy, masterclass scripts and
-          curated plant database are © Patch &amp; Pot 2025–2026 and may not be reproduced
-          without written permission.
+          curated plant database are © Grant Cameron Anthony, trading as Patch &amp; Pot,
+          2025–2026, and may not be reproduced without written permission.
         </p>
         <p className="mt-3">
           AI-generated images and AI-generated lesson text are provided for your personal use
@@ -118,7 +119,7 @@ export default function TermsPage() {
           for any claim is capped at the amount you have paid to us in the preceding
           12 months. Nothing in these terms limits our liability for fraud, death or
           personal injury caused by our negligence, or anything else that cannot lawfully
-          be limited under English law.
+          be limited under Scots law.
         </p>
       </Section>
 
@@ -133,8 +134,8 @@ export default function TermsPage() {
 
       <Section title="Governing law">
         <p>
-          These terms are governed by the laws of England and Wales and any dispute is
-          subject to the exclusive jurisdiction of the English courts.
+          These terms are governed by the laws of Scotland and any dispute is subject to
+          the exclusive jurisdiction of the Scottish courts.
         </p>
       </Section>
 

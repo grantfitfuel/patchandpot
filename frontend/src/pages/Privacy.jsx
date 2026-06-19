@@ -30,8 +30,11 @@ export default function PrivacyPage() {
       <Section title="Who we are">
         <p>
           Patch &amp; Pot is a small independent gardening publisher (the “Service”) operated
-          from the United Kingdom. The data controller is the Patch &amp; Pot team. You can
-          reach us at <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>.
+          from the United Kingdom. The data controller is <strong>Grant Cameron Anthony</strong>,
+          trading as Patch &amp; Pot, based in Barrhead, East Renfrewshire, Scotland, UK.
+          You can reach us at{" "}
+          <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>;
+          a full correspondence address is available on request.
         </p>
       </Section>
 

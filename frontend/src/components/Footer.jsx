@@ -36,7 +36,7 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="container-narrow py-5 flex flex-wrap items-center justify-between gap-4 text-xs text-moss">
           <p data-testid="footer-copyright">
-            © {COPYRIGHT_RANGE} Patch &amp; Pot. All rights reserved.
+            © {COPYRIGHT_RANGE} Grant Cameron Anthony, trading as Patch &amp; Pot. All rights reserved.
           </p>
           <nav className="flex items-center gap-5">
             <Link to="/privacy" className="hover:text-terracotta transition-colors" data-testid="footer-privacy-link">

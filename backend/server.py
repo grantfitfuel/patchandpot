@@ -2307,6 +2307,7 @@ async def affiliate_stats(days: int = 30, token: Optional[str] = None):
 from cache_refresh import (  # noqa: E402
     refresh_monthly_guidance, get_cron_status, schedule_monthly_refresh,
 )
+from seed_deep_dives import seed_deep_dives  # noqa: E402
 
 
 scheduler = AsyncIOScheduler()
@@ -2334,6 +2335,19 @@ async def admin_cron_status(token: str):
     return await get_cron_status(db)
 
 
+@api_router.post("/admin/seed-deep-dives")
+async def admin_seed_deep_dives(token: str, overwrite: bool = False):
+    """Manually (re-)seed the 6 staff-authored deep-dive masterclasses from the
+    committed JSON fixture. Used to recover production after a Mongo wipe / fresh
+    deploy. `overwrite=true` replaces existing rows with the canonical copy."""
+    admin_token = os.environ.get("ADMIN_TOKEN", "")
+    if not admin_token:
+        raise HTTPException(503, "ADMIN_TOKEN not configured")
+    if token != admin_token:
+        raise HTTPException(403, "Invalid token")
+    return await seed_deep_dives(db, overwrite=overwrite)
+
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -2351,6 +2365,13 @@ async def start_scheduler():
     scheduler.start()
     logger.info("APScheduler started — next monthly guidance refresh: %s",
                 scheduler.get_job("guidance_monthly_refresh").next_run_time)
+    # Seed the 6 staff-authored deep dives idempotently on every boot, so a
+    # fresh production deploy never ships with an empty DeepDiveSection.
+    try:
+        result = await seed_deep_dives(db, overwrite=False)
+        logger.info("deep-dive auto-seed: %s", result)
+    except Exception as e:  # noqa: BLE001
+        logger.exception("deep-dive auto-seed failed: %s", e)
 
 
 @app.on_event("shutdown")

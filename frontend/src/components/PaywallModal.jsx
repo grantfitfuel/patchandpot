@@ -66,13 +66,13 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
       role="dialog"
       aria-modal="true"
       data-testid="paywall-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/55 backdrop-blur-sm animate-fade-up"
+      className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 pt-8 sm:pt-4 bg-ink/55 backdrop-blur-sm animate-fade-up overflow-y-auto"
     >
       <div className="bg-sand border border-border max-w-md w-full shadow-xl">
         <div className="flex items-start justify-between px-6 pt-6">
           <div className="flex items-center gap-2">
             <Sprout strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-            <span className="overline">{t("paywall.eyebrow")}</span>
+            <span className="overline">Unlock the library</span>
           </div>
           {allowDismiss && (
             <button
@@ -88,8 +88,10 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
         </div>
 
         <div className="px-6 pt-3 pb-6">
-          <h2 className="font-serif text-3xl text-forest leading-tight">{t("paywall.title")}</h2>
-          <p className="mt-3 text-ink/80 leading-relaxed">{t("paywall.body")}</p>
+          <h2 className="font-serif text-3xl text-forest leading-tight">Keep growing — pick your tier.</h2>
+          <p className="mt-3 text-ink/80 leading-relaxed">
+            Patch &amp; Pot stays mostly free. AI plant guides, masterclasses and printable downloads are paid — try a single growing year for £5, or unlock everything for life for £25. No subscriptions, no auto-renewal, no email lists.
+          </p>
 
           <ul className="mt-5 space-y-2 text-sm text-ink/80">
             <li className="flex gap-2"><span className="text-terracotta">✦</span> {t("paywall.benefit.plants")}</li>

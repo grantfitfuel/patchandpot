@@ -33,7 +33,7 @@ export default function PrivacyPage() {
           from the United Kingdom. The data controller is <strong>Grant Cameron Anthony</strong>,
           trading as Patch &amp; Pot, based in Barrhead, East Renfrewshire, Scotland, UK.
           You can reach us at{" "}
-          <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>;
+          <a className="link" href="mailto:hello@patchandpot.com">hello@patchandpot.com</a>;
           a full correspondence address is available on request.
         </p>
       </Section>
@@ -130,7 +130,7 @@ export default function PrivacyPage() {
           <li>Complain to the UK Information Commissioner’s Office (<a className="link" href="https://ico.org.uk" target="_blank" rel="noreferrer noopener">ico.org.uk</a>) if you believe we have mishandled your data.</li>
         </ul>
         <p className="mt-3">
-          To exercise any of these rights, email <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>.
+          To exercise any of these rights, email <a className="link" href="mailto:hello@patchandpot.com">hello@patchandpot.com</a>.
           We aim to respond within 14 days and must respond within 30.
         </p>
       </Section>

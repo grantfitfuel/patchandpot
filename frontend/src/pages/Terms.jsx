@@ -29,7 +29,7 @@ export default function TermsPage() {
           Patch &amp; Pot is a small independent gardening publisher operated from the
           United Kingdom by <strong>Grant Cameron Anthony</strong>, trading as Patch &amp; Pot,
           based in Barrhead, East Renfrewshire, Scotland (“we”, “us”, “our”). You can contact
-          us at <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>.
+          us at <a className="link" href="mailto:hello@patchandpot.com">hello@patchandpot.com</a>.
         </p>
       </Section>
 
@@ -72,7 +72,7 @@ export default function TermsPage() {
         <p className="mt-3">
           We add a <strong>30-day no-questions-asked refund</strong> on top of that. If
           Patch &amp; Pot is not for you within the first 30 days, email{" "}
-          <a className="link" href="mailto:hello@patchandpot.app">hello@patchandpot.app</a>{" "}
+          <a className="link" href="mailto:hello@patchandpot.com">hello@patchandpot.com</a>{" "}
           and we will refund you in full.
         </p>
       </Section>

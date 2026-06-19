@@ -46,7 +46,7 @@ export default function Footer() {
               Terms
             </Link>
             <a
-              href="mailto:hello@patchandpot.app"
+              href="mailto:hello@patchandpot.com"
               className="hover:text-terracotta transition-colors"
               data-testid="footer-contact-link"
             >

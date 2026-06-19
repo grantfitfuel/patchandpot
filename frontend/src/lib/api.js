@@ -20,8 +20,10 @@ export const fetchCompanions = (id, language = "en") =>
   api.get(`/plants/${id}/companions`, { params: { language } }).then((r) => r.data);
 
 // ────────────────── Paywall ──────────────────
-export const createCheckout = (originUrl, email) =>
-  api.post("/checkout/session", { origin_url: originUrl, email }).then((r) => r.data);
+export const createCheckout = (originUrl, email, packageId) =>
+  api.post("/checkout/session", {
+    origin_url: originUrl, email, package_id: packageId,
+  }).then((r) => r.data);
 export const getCheckoutStatus = (sessionId) =>
   api.get(`/checkout/status/${sessionId}`).then((r) => r.data);
 export const checkAccess = (token) =>

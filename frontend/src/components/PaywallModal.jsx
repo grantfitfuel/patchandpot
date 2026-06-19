@@ -19,6 +19,7 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [checkoutUrl, setCheckoutUrl] = useState("");
+  const [tier, setTier] = useState("lifetime");
   const [showRecovery, setShowRecovery] = useState(false);
   const [recoveryToken, setRecoveryToken] = useState("");
   const continueRef = useRef(null);
@@ -28,10 +29,8 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
     setError("");
     setCheckoutUrl("");
     try {
-      const { url } = await createCheckout(window.location.origin);
+      const { url } = await createCheckout(window.location.origin, undefined, tier);
       setCheckoutUrl(url);
-      // Focus the link so users can press Enter on desktop, and so iOS
-      // announces it via VoiceOver.
       requestAnimationFrame(() => continueRef.current?.focus());
     } catch (e) {
       console.error("checkout create failed", e);
@@ -99,9 +98,45 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
             <li className="flex gap-2"><span className="text-terracotta">✦</span> {t("paywall.benefit.lifetime")}</li>
           </ul>
 
-          <div className="mt-6 flex items-baseline gap-2">
-            <span className="font-serif text-4xl text-forest">£5</span>
-            <span className="text-sm text-moss">{t("paywall.once")}</span>
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              data-testid="paywall-tier-annual"
+              onClick={() => setTier("annual")}
+              disabled={!!checkoutUrl}
+              className={`text-left p-4 border-2 transition-colors ${
+                tier === "annual"
+                  ? "border-terracotta bg-sand"
+                  : "border-border bg-sand/60 hover:border-forest/40"
+              } disabled:opacity-60`}
+            >
+              <div className="flex items-baseline gap-1">
+                <span className="font-serif text-3xl text-forest">£5</span>
+                <span className="text-xs text-moss">/yr</span>
+              </div>
+              <p className="text-[11px] uppercase tracking-wider text-moss mt-1">12-month access</p>
+              <p className="text-xs text-ink/65 mt-1.5 leading-snug">Try a full growing cycle. Renews on you, not automatically.</p>
+            </button>
+
+            <button
+              type="button"
+              data-testid="paywall-tier-lifetime"
+              onClick={() => setTier("lifetime")}
+              disabled={!!checkoutUrl}
+              className={`text-left p-4 border-2 transition-colors relative ${
+                tier === "lifetime"
+                  ? "border-terracotta bg-sand"
+                  : "border-border bg-sand/60 hover:border-forest/40"
+              } disabled:opacity-60`}
+            >
+              <span className="absolute -top-2 right-2 bg-terracotta text-sand text-[9px] tracking-wider uppercase px-1.5 py-0.5">Best value</span>
+              <div className="flex items-baseline gap-1">
+                <span className="font-serif text-3xl text-forest">£25</span>
+                <span className="text-xs text-moss">once</span>
+              </div>
+              <p className="text-[11px] uppercase tracking-wider text-moss mt-1">Lifetime</p>
+              <p className="text-xs text-ink/65 mt-1.5 leading-snug">Pay once, keep it forever. Equivalent to 5 years annual.</p>
+            </button>
           </div>
 
           {checkoutUrl ? (
@@ -122,7 +157,7 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
               className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2 disabled:opacity-60"
             >
               {busy ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" /> : null}
-              {t("paywall.cta")}
+              {tier === "annual" ? "Pay £5 — 12-month access" : "Pay £25 — unlock for life"}
             </button>
           )}
 

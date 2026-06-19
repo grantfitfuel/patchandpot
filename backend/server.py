@@ -262,12 +262,23 @@ from emergentintegrations.payments.stripe.checkout import (  # noqa: E402
 STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY", "")
 
 # Single fixed package — amount lives server-side so the frontend can't manipulate price.
-PAYWALL_PACKAGE = {
-    "id": "lifetime",
-    "amount": 5.0,
-    "currency": "gbp",
-    "label": "Patch & Pot — lifetime access",
+PAYWALL_PACKAGES = {
+    "annual": {
+        "id": "annual",
+        "amount": 5.0,
+        "currency": "gbp",
+        "label": "Patch & Pot — 12-month access",
+        "duration_days": 365,
+    },
+    "lifetime": {
+        "id": "lifetime",
+        "amount": 25.0,
+        "currency": "gbp",
+        "label": "Patch & Pot — lifetime access",
+        "duration_days": None,  # never expires
+    },
 }
+DEFAULT_PACKAGE_ID = "lifetime"
 
 
 def _stripe_checkout(host_url: str) -> StripeCheckout:
@@ -280,40 +291,54 @@ def _stripe_checkout(host_url: str) -> StripeCheckout:
 class CheckoutRequest(BaseModel):
     origin_url: str  # frontend window.location.origin, used to build success/cancel URLs
     email: Optional[str] = None  # optional, captured for recovery
+    package_id: Optional[str] = None  # "annual" | "lifetime", defaults to lifetime
 
 
 @api_router.post("/checkout/session")
 async def create_checkout(payload: CheckoutRequest, request: Request):
-    """Create a Stripe Checkout session for the lifetime-access package."""
+    """Create a Stripe Checkout session for the chosen access tier."""
     sc = _stripe_checkout(str(request.base_url))
+    pkg_id = (payload.package_id or DEFAULT_PACKAGE_ID).strip()
+    pkg = PAYWALL_PACKAGES.get(pkg_id)
+    if not pkg:
+        raise HTTPException(400, "Unknown package_id")
+
     origin = payload.origin_url.rstrip("/")
     success_url = f"{origin}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
     cancel_url = f"{origin}/checkout/cancel"
-    metadata = {"package_id": PAYWALL_PACKAGE["id"], "source": "web"}
+    metadata = {"package_id": pkg["id"], "source": "web"}
     if payload.email:
         metadata["email"] = payload.email[:120]
 
     req = CheckoutSessionRequest(
-        amount=PAYWALL_PACKAGE["amount"],
-        currency=PAYWALL_PACKAGE["currency"],
+        amount=pkg["amount"],
+        currency=pkg["currency"],
         success_url=success_url,
         cancel_url=cancel_url,
         metadata=metadata,
     )
     session = await sc.create_checkout_session(req)
 
-    # Record the intent before redirecting the user away.
     await db.payment_transactions.insert_one({
         "session_id": session.session_id,
-        "amount": PAYWALL_PACKAGE["amount"],
-        "currency": PAYWALL_PACKAGE["currency"],
+        "amount": pkg["amount"],
+        "currency": pkg["currency"],
+        "package_id": pkg["id"],
         "payment_status": "pending",
         "status": "open",
         "metadata": metadata,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "access_granted": False,
     })
-    return {"url": session.url, "session_id": session.session_id}
+    return {"url": session.url, "session_id": session.session_id, "package_id": pkg["id"]}
+
+
+def _expiry_for(package_id: str) -> Optional[str]:
+    """Compute an ISO expires_at for a given package_id (None = lifetime)."""
+    pkg = PAYWALL_PACKAGES.get(package_id or DEFAULT_PACKAGE_ID)
+    if not pkg or not pkg.get("duration_days"):
+        return None
+    return (datetime.now(timezone.utc) + timedelta(days=int(pkg["duration_days"]))).isoformat()
 
 
 @api_router.get("/checkout/status/{session_id}")
@@ -342,12 +367,14 @@ async def get_checkout_status(session_id: str, request: Request):
             {"$set": {"access_granted": True}},
         )
         if flipped.modified_count == 1:
+            pkg_id = txn.get("package_id") or (status.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
             await db.access_grants.update_one(
                 {"token": session_id},
                 {"$set": {
                     "token": session_id,
                     "email": (status.metadata or {}).get("email"),
-                    "package_id": PAYWALL_PACKAGE["id"],
+                    "package_id": pkg_id,
+                    "expires_at": _expiry_for(pkg_id),
                     "granted_at": datetime.now(timezone.utc).isoformat(),
                 }},
                 upsert=True,
@@ -386,12 +413,14 @@ async def stripe_webhook(request: Request):
             return_document=True,
         )
         if txn:
+            pkg_id = txn.get("package_id") or (evt.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
             await db.access_grants.update_one(
                 {"token": evt.session_id},
                 {"$set": {
                     "token": evt.session_id,
                     "email": (evt.metadata or {}).get("email"),
-                    "package_id": PAYWALL_PACKAGE["id"],
+                    "package_id": pkg_id,
+                    "expires_at": _expiry_for(pkg_id),
                     "granted_at": datetime.now(timezone.utc).isoformat(),
                 }},
                 upsert=True,
@@ -405,12 +434,38 @@ class AccessCheckRequest(BaseModel):
 
 @api_router.post("/access/check")
 async def check_access(payload: AccessCheckRequest):
-    """Validate that a session_id has been granted lifetime access."""
+    """Validate that a session_id has been granted access AND that any expiry
+    has not yet passed. Lifetime grants have expires_at=None and never expire."""
     token = (payload.token or "").strip()
     if not token:
         return {"paid": False}
     grant = await db.access_grants.find_one({"token": token}, {"_id": 0})
-    return {"paid": bool(grant), "granted_at": grant.get("granted_at") if grant else None}
+    if not grant:
+        return {"paid": False}
+    expires_at = grant.get("expires_at")
+    now_iso = datetime.now(timezone.utc).isoformat()
+    expired = bool(expires_at) and now_iso > expires_at
+    return {
+        "paid": not expired,
+        "expired": expired,
+        "package_id": grant.get("package_id"),
+        "granted_at": grant.get("granted_at"),
+        "expires_at": expires_at,
+    }
+
+
+async def _grant_is_active(token: str) -> bool:
+    """Shared helper — server-side paywall guard for PDF/masterclass endpoints."""
+    token = (token or "").strip()
+    if not token:
+        return False
+    grant = await db.access_grants.find_one({"token": token})
+    if not grant:
+        return False
+    expires_at = grant.get("expires_at")
+    if not expires_at:
+        return True  # lifetime
+    return datetime.now(timezone.utc).isoformat() <= expires_at
 
 
 # ───────────────────────── AI helpers ─────────────────────────
@@ -591,6 +646,98 @@ Return JSON only, in the same shape.
     return out
 
 
+# ─────────────────── Climate / season computation ──────────────────────────
+# These are deterministic facts we pass to the LLM as hard constraints, so it
+# stops *guessing* seasonal context for a given lat/long/month.
+
+def _day_of_year_midmonth(month: int) -> int:
+    """Approximate mid-month day-of-year (15th of each month)."""
+    # cumulative days at start of each month (non-leap)
+    starts = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
+    return starts[max(1, min(12, month)) - 1] + 15
+
+
+def _daylight_hours(latitude: float, month: int) -> float:
+    """Mid-month sunrise-to-sunset duration at the given latitude.
+
+    Standard astronomy formula, clamped 0–24 h for polar latitudes.
+    """
+    import math
+    n = _day_of_year_midmonth(month)
+    decl = 23.45 * math.sin(math.radians(360.0 * (284 + n) / 365.0))
+    lat_r = math.radians(latitude)
+    decl_r = math.radians(decl)
+    cos_h = -math.tan(lat_r) * math.tan(decl_r)
+    if cos_h >= 1.0:   # polar night
+        return 0.0
+    if cos_h <= -1.0:  # midnight sun
+        return 24.0
+    h = math.degrees(math.acos(cos_h))
+    return round((2.0 * h) / 15.0, 1)
+
+
+def _climate_context(region: Region, month: int) -> dict:
+    """Compute concrete climate facts for the prompt: daylight, season bucket,
+    frost-window indicator, hemisphere-adjusted month label."""
+    lat = float(region.latitude or 0.0)
+    abs_lat = abs(lat)
+    is_southern = lat < 0
+    # Effective "season month" — flip the calendar so summer = peak day length
+    # in either hemisphere. This is the month the LLM should reason about
+    # for season-naming (e.g. southern-hem July → effective month 1 = January).
+    eff_month = ((month + 5) % 12 + 1) if is_southern else month
+
+    daylight = _daylight_hours(lat, month)
+
+    # Frost-likelihood band by absolute latitude + effective month.
+    # >55° lat: long frost season (Oct–Apr effective). 45-55°: Nov–Mar.
+    # 35-45°: Dec–Feb. 25-35°: only marginal in midwinter. <25°: no frost
+    # at low elevation, but flag uncertainty for upland tropical.
+    def _frost_band(am: int) -> str:
+        # am = effective month (1=Jan = peak winter for north hem reference)
+        if abs_lat >= 55:
+            return "very high — last spring frost typically mid-May, first autumn frost early October" \
+                if 4 <= am <= 10 else "extreme — frost expected most nights"
+        if abs_lat >= 45:
+            return "moderate — last spring frost late April to mid-May, first autumn frost mid-October" \
+                if 5 <= am <= 9 else "high — hard frost likely"
+        if abs_lat >= 35:
+            return "low to moderate — last spring frost mid-March, first autumn frost mid-November" \
+                if 4 <= am <= 10 else "moderate in midwinter only"
+        if abs_lat >= 25:
+            return "very rare — only in unusual cold snaps; ignore for most planning"
+        return "absent at low elevation; possible in upland tropical zones — verify locally"
+
+    frost_note = _frost_band(eff_month)
+
+    # Growing-season bucket (relative to effective month).
+    if eff_month in (12, 1, 2):
+        bucket = "deep winter / dormant" if abs_lat >= 35 else "cool season"
+    elif eff_month in (3, 4, 5):
+        bucket = "early spring → late spring" if abs_lat >= 25 else "warm dry/wet transition"
+    elif eff_month in (6, 7, 8):
+        bucket = "summer / peak growing" if abs_lat >= 25 else "hot/wet season"
+    else:  # 9-11
+        bucket = "autumn / harvest & wind-down" if abs_lat >= 25 else "cooling season"
+
+    # Hemisphere-adjusted month name for the LLM's seasonal reasoning.
+    eff_month_name = MONTHS[eff_month]
+
+    # Continental vs maritime heuristic (rough): high inland longitude span
+    # without ocean buffering → wider temp swings. We can't compute this
+    # cleanly without a map, so just expose lat/long and let the LLM
+    # contextualise from the place name.
+    return {
+        "latitude": round(lat, 2),
+        "is_southern_hemisphere": is_southern,
+        "effective_seasonal_month": eff_month,
+        "effective_seasonal_month_name": eff_month_name,
+        "daylight_hours_midmonth": daylight,
+        "season_bucket": bucket,
+        "frost_outlook": frost_note,
+    }
+
+
 @api_router.post("/guidance")
 async def get_guidance(req: GuidanceRequest):
     """Region + month + language -> AI-generated monthly gardening guidance, cached in Mongo."""
@@ -615,6 +762,21 @@ async def get_guidance(req: GuidanceRequest):
     plant_names = ", ".join(p["name"] for p in PLANTS)
     language_name = LANG_NAMES[language]
 
+    # Deterministic climate facts — passed as ground truth so the LLM can't
+    # hallucinate the season for this location.
+    cc = _climate_context(req.region, req.month)
+    season_facts = (
+        f"GROUND-TRUTH CLIMATE FACTS (computed, NOT guessed — respect them strictly):\n"
+        f"- Calendar month: {month_name} (#{req.month})\n"
+        f"- Hemisphere: {'southern' if cc['is_southern_hemisphere'] else 'northern'}\n"
+        f"- Effective seasonal month (the equivalent northern-hem month for "
+        f"reasoning about seasons): {cc['effective_seasonal_month_name']}\n"
+        f"- Latitude: {cc['latitude']}°\n"
+        f"- Daylight at mid-month: {cc['daylight_hours_midmonth']} hours\n"
+        f"- Growing-season phase: {cc['season_bucket']}\n"
+        f"- Frost outlook: {cc['frost_outlook']}\n"
+    )
+
     system = (
         "You are an expert kitchen gardener, flower grower and horticulturalist who advises "
         "home growers around the world on small-space, container, balcony and patio growing of "
@@ -630,11 +792,38 @@ Region: {region_label}
 Approximate climate: {climate}
 Hemisphere: {hemi}
 Month: {month_name} (month #{req.month})
+
+{season_facts}
+CLIMATE-RESPECT RULES (mandatory — violating any of these is a critical error):
+- Treat the Ground-Truth Climate Facts above as authoritative. If the frost
+  outlook says hard frost is likely, you must NOT recommend tender warm-season
+  crops (tomato, pepper, aubergine, basil, courgette, cucumber, French bean,
+  sweet corn, dahlia tubers, nasturtium, zinnia) for sowing direct or planting
+  out. They may still be sown indoors under heat if appropriate.
+- If daylight is under 10 hours, do not recommend long-day crops to mature
+  outdoors this month (onions from sets, bolting-prone lettuces, long-day
+  brassicas). Instead favour short-day-tolerant crops (overwintering garlic,
+  broad beans in mild zones, salad leaves under cover, hardy alliums).
+- If daylight is over 15 hours, factor in fast bolting risk for lettuce,
+  spinach, coriander/cilantro and rocket — recommend bolt-resistant varieties.
+- In the southern hemisphere ({'YES THIS REGION IS SOUTHERN' if cc['is_southern_hemisphere'] else 'this region is northern, so this rule does not apply'}),
+  flip ALL conventional seasonal advice. January = mid-summer, July = mid-winter.
+  Use the effective seasonal month ({cc['effective_seasonal_month_name']}) to
+  reason about season-typical tasks.
+- Pest pressure must match the season bucket: aphids surge in warm weather
+  (under 25°C), slugs and snails surge in cool-wet conditions, vine weevil
+  larvae chew roots autumn–spring, whitefly and red spider mite peak in dry
+  summer heat. Do NOT recommend hunting for slugs in 35°C dry heat or aphid
+  squashing on dormant winter plants.
+- Tasks must be possible this month: do not say 'plant the dahlias outside'
+  if frost is still likely; do not say 'harvest the squash' in mid-spring.
+- The 'season_label' you return must align with the effective seasonal month —
+  e.g. for southern-hem July return 'mid-winter', not 'mid-summer'.
+
 OUTPUT LANGUAGE: {language_name}. All text values in the JSON (summary, season_label, names,
 why, how, tip, signs, control, etc.) MUST be written in {language_name}. The JSON KEYS stay in English.
 Use locally common plant names in {language_name} where natural.
 
-Consider local seasonality (e.g. {month_name} is winter in the southern hemisphere if hemi is southern).
 Focus on home-scale, small-space and container growing. Mix food crops and flowers throughout —
 do not return flowers-only or food-only lists. You may reference these (English) plant names
 but feel free to mention other locally common edibles and flowers too:
@@ -649,10 +838,10 @@ but feel free to mention other locally common edibles and flowers too:
 
 Return STRICT JSON with this exact shape and keys (keys MUST stay in English):
 {{
-  "summary": "2-3 sentence overview of what {month_name} feels like for a grower in {region_label}.",
+  "summary": "2-3 sentence overview of what {month_name} feels like for a grower in {region_label}, grounded in the climate facts above.",
   "season_label": "Short label e.g. 'Late spring', 'Dry season', 'Monsoon', 'Mid-winter'.",
   "plant_now": [
-    {{ "name": "Plant name", "kind": "food | flower", "why": "1 sentence why this month suits it", "how": "1-2 sentence sowing/planting tip" }}
+    {{ "name": "Plant name", "kind": "food | flower", "why": "1 sentence why this month suits it (refer to daylight / frost / season where relevant)", "how": "1-2 sentence sowing/planting tip" }}
   ],
   "harvest_now": [
     {{ "name": "Plant name", "kind": "food | flower", "tip": "1 sentence harvest or cut-flower tip" }}
@@ -669,7 +858,7 @@ Return STRICT JSON with this exact shape and keys (keys MUST stay in English):
 The "kind" value MUST remain in English ("food" or "flower"). Everything else translates to {language_name}.
 For plant_now and harvest_now include a healthy mix: at least 2 food items AND at least 2 flowers
 (edible or ornamental). Provide 4-6 items each for plant_now, harvest_now, tasks, and pests.
-Keep advice realistic for {region_label} in {month_name}. Return JSON only."""
+Keep advice realistic for {region_label} in {month_name} — respect the climate facts above. Return JSON only."""
 
     data = await _llm_json(system, user, session_id=f"guidance-{cache_key}")
 
@@ -698,8 +887,8 @@ class SeasonalPdfRequest(BaseModel):
 async def seasonal_pdf(req: SeasonalPdfRequest, request: Request):
     """Build a personalised A4 PDF of the current monthly guide. Paywalled."""
     token = (req.access_token or "").strip()
-    if not token or not await db.access_grants.find_one({"token": token}):
-        raise HTTPException(402, "Access required — pay £5 once to unlock.")
+    if not await _grant_is_active(token):
+        raise HTTPException(402, "Access required — pay to unlock.")
 
     if not (1 <= req.month <= 12):
         raise HTTPException(400, "month must be 1–12")
@@ -812,8 +1001,8 @@ async def generate_masterclass(req: MasterclassGenRequest, background: Backgroun
     `{job_id, status, slug}` immediately. Frontend polls /masterclass/job/{job_id}
     until status='done', then GETs /masterclass/generated/{slug}. Paywalled."""
     token = (req.access_token or "").strip()
-    if not token or not await db.access_grants.find_one({"token": token}):
-        raise HTTPException(402, "Access required — pay £5 once to unlock.")
+    if not await _grant_is_active(token):
+        raise HTTPException(402, "Access required — pay to unlock.")
 
     topic = (req.topic or "").strip()
     if len(topic) < 3:

@@ -1,0 +1,38 @@
+{
+  "summary": "Iteration 13 — monthly /api/guidance cron + Share-masterclass button. Backend: pytest tests/test_cache_refresh.py → 4/4 PASS. New live-HTTP suite tests/test_admin_cron.py → 6/6 PASS (cron-status token guards, refresh-guidance shape + idempotency in <2s, /api/guidance regression + Mongo row carrying region+kind). Frontend: Share-masterclass button verified on /masterclasses/propagation, /masterclasses/pest-control and /masterclasses/custom/container-tomatoes — clipboard receives the exact /learn/<slug> URL, 'Link copied' confirmation renders. Mark-complete + Next-lesson regression OK on paid view. Unpaid preview-window view also renders the share button (PremiumGate preview unaffected).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_cache_refresh.py",
+    "/app/backend/tests/test_admin_cron.py",
+    "/app/test_reports/pytest/iter13_cache_refresh.xml",
+    "/app/test_reports/pytest/iter13_admin_cron.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "cache_refresh._prune_stale uses an ISO-string comparison on `created_at` ($lt cutoff_iso). Works as long as all rows are written with the same datetime.isoformat() format and tz suffix — currently true. If a future writer switches to BSON Date or a different tz-suffix, the lexicographic compare will silently break. Consider migrating cache rows to native BSON Date and querying with a real datetime.",
+    "server.py is 2350+ lines — recommend splitting admin/cron endpoints, guidance handlers, and PDF/Stripe handlers into separate routers per the >700-line guideline.",
+    "FastAPI startup/shutdown still uses deprecated @app.on_event — migrate to lifespan handlers (also keeps APScheduler shutdown cleaner).",
+    "schedule_monthly_refresh's _trampoline uses asyncio.get_running_loop().create_task — fine because AsyncIOScheduler runs in the event loop, but the fallback asyncio.run(_job()) will never execute and can be dropped."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_admin_cron.py (new live-HTTP regression suite)"
+  ],
+  "success_rate": {
+    "backend": "100% (10/10 — 4 pytest + 6 HTTP)",
+    "frontend": "100% (3/3 share flows + regression)"
+  },
+  "test_credentials": "ADMIN_TOKEN=patchpot-admin-d3f8a2b9c4 (backend/.env). Paid simulation: localStorage patchpot.access.v1='test-token-pdf-smoke' + patchpot.access.paid.v1='1'.",
+  "seed_data_creation": "test_cache_refresh.py seeds rows tagged with _test_tag='cron-suite' and cleans them up in fixture teardown. test_admin_cron.py writes one real London/en/January row via /api/guidance — left in Mongo (cache row, harmless).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Both new admin endpoints (POST /api/admin/refresh-guidance, GET /api/admin/cron-status) and the Share-masterclass button are production-ready. tests/test_admin_cron.py is a good fast regression for the admin endpoints + /api/guidance shape (run via `pytest tests/test_admin_cron.py -v`, ~46s end-to-end; first run hits the real LLM, subsequent runs are cache hits and finish in <2s). The Playwright tests must call page.context.grant_permissions(['clipboard-read','clipboard-write']) before clicking share-lesson-btn.",
+  "rca of the issue": "No issues found."
+}

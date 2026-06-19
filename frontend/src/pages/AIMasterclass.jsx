@@ -6,6 +6,7 @@ import { getStoredAccessToken } from "@/hooks/usePaywall";
 import { useI18n } from "@/i18n";
 import PremiumGate from "@/components/PremiumGate";
 import TopicImage from "@/components/TopicImage";
+import ShareLessonButton from "@/components/ShareLessonButton";
 
 /**
  * Renders an AI-generated masterclass fetched from /api/masterclass/generated/:slug.
@@ -182,7 +183,7 @@ export default function AIMasterclassPage() {
               </div>
             )}
 
-            <div className="mt-10 pt-6 border-t border-border flex items-center justify-between gap-4">
+            <div className="mt-10 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4">
               <button
                 type="button"
                 data-testid={`ai-mark-done-${current.slug}`}
@@ -196,15 +197,22 @@ export default function AIMasterclassPage() {
                 </span>
                 {done[current.slug] ? "Marked complete" : "Mark this lesson complete"}
               </button>
-              {currentIndex + 1 < total && (
-                <Link
-                  to={`/masterclasses/custom/${slug}/${lessons[currentIndex + 1].slug}`}
-                  data-testid="ai-next-lesson"
-                  className="text-sm text-terracotta hover:underline"
-                >
-                  Next lesson →
-                </Link>
-              )}
+              <div className="flex items-center gap-3 flex-wrap">
+                <ShareLessonButton
+                  topicSlug={slug}
+                  title={mc.title}
+                  tagline={mc.tagline}
+                />
+                {currentIndex + 1 < total && (
+                  <Link
+                    to={`/masterclasses/custom/${slug}/${lessons[currentIndex + 1].slug}`}
+                    data-testid="ai-next-lesson"
+                    className="text-sm text-terracotta hover:underline"
+                  >
+                    Next lesson →
+                  </Link>
+                )}
+              </div>
             </div>
           </article>
         </div>

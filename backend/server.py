@@ -31,6 +31,8 @@ from starlette.middleware.cors import CORSMiddleware
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
 
@@ -741,6 +743,15 @@ def _climate_context(region: Region, month: int) -> dict:
 @api_router.post("/guidance")
 async def get_guidance(req: GuidanceRequest):
     """Region + month + language -> AI-generated monthly gardening guidance, cached in Mongo."""
+    return await _generate_and_cache_guidance(req, force=False)
+
+
+async def _generate_and_cache_guidance(req: GuidanceRequest, force: bool = False) -> dict:
+    """Core guidance generator. Returns the cached entry if present (and `force=False`),
+    otherwise calls Claude, writes a fresh cache row, and returns the new data.
+
+    Extracted from the HTTP handler so the monthly-cron job can call the same
+    code path without re-implementing prompts / cache keys."""
     language = (req.language or "en").lower()
     if language not in LANG_NAMES:
         language = "en"
@@ -751,9 +762,10 @@ async def get_guidance(req: GuidanceRequest):
     garden_key = "garden:" + ",".join(p.lower() for p in garden) if garden else ""
 
     cache_key = _guidance_cache_key(req.region, req.month, language, garden_key)
-    cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
-    if cached:
-        return cached["data"]
+    if not force:
+        cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
+        if cached:
+            return cached["data"]
 
     month_name = MONTHS[req.month]
     region_label = req.region.name + (f", {req.region.country}" if req.region.country else "")
@@ -862,11 +874,23 @@ Keep advice realistic for {region_label} in {month_name} — respect the climate
 
     data = await _llm_json(system, user, session_id=f"guidance-{cache_key}")
 
-    await db.guidance_cache.insert_one({
-        "key": cache_key,
-        "data": data,
-        "created_at": datetime.now(timezone.utc).isoformat(),
-    })
+    # Replace any prior cache row for this key (idempotent re-run for the cron),
+    # and stash the source request so the monthly refresher can replay it
+    # without parsing the cache key string.
+    await db.guidance_cache.update_one(
+        {"key": cache_key},
+        {"$set": {
+            "key": cache_key,
+            "data": data,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "region": req.region.model_dump() if hasattr(req.region, "model_dump") else req.region.dict(),
+            "month": req.month,
+            "language": language,
+            "my_garden": list(garden),
+            "kind": "guidance",
+        }},
+        upsert=True,
+    )
     return data
 
 
@@ -2276,6 +2300,40 @@ async def affiliate_stats(days: int = 30, token: Optional[str] = None):
 
 
 # ───────────────────────── App wiring ─────────────────────────
+# Monthly cache refresh cron — pre-warms /api/guidance for popular
+# (region, language) pairs on the 1st of every month at 02:00 UTC. Runs
+# in-process via APScheduler — the container stays up under supervisor so no
+# external cron is needed.
+from cache_refresh import (  # noqa: E402
+    refresh_monthly_guidance, get_cron_status, schedule_monthly_refresh,
+)
+
+
+scheduler = AsyncIOScheduler()
+
+
+@api_router.post("/admin/refresh-guidance")
+async def admin_refresh_guidance(token: str):
+    """Manually trigger the monthly cache refresh. Requires ADMIN_TOKEN."""
+    admin_token = os.environ.get("ADMIN_TOKEN", "")
+    if not admin_token:
+        raise HTTPException(503, "ADMIN_TOKEN not configured")
+    if token != admin_token:
+        raise HTTPException(403, "Invalid token")
+    return await refresh_monthly_guidance(db, _generate_and_cache_guidance, Region)
+
+
+@api_router.get("/admin/cron-status")
+async def admin_cron_status(token: str):
+    """Inspect the last-run output of the monthly refresh."""
+    admin_token = os.environ.get("ADMIN_TOKEN", "")
+    if not admin_token:
+        raise HTTPException(503, "ADMIN_TOKEN not configured")
+    if token != admin_token:
+        raise HTTPException(403, "Invalid token")
+    return await get_cron_status(db)
+
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -2287,6 +2345,18 @@ app.add_middleware(
 )
 
 
+@app.on_event("startup")
+async def start_scheduler():
+    schedule_monthly_refresh(scheduler, db, _generate_and_cache_guidance, Region)
+    scheduler.start()
+    logger.info("APScheduler started — next monthly guidance refresh: %s",
+                scheduler.get_job("guidance_monthly_refresh").next_run_time)
+
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    try:
+        scheduler.shutdown(wait=False)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("scheduler shutdown failed: %s", e)
     client.close()

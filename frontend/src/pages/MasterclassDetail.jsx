@@ -10,6 +10,7 @@ import { useRegion } from "@/hooks/useRegion";
 import { useI18n } from "@/i18n";
 import TopicImage from "@/components/TopicImage";
 import ShareCard from "@/components/ShareCard";
+import ShareLessonButton from "@/components/ShareLessonButton";
 import PremiumGate from "@/components/PremiumGate";
 import { api } from "@/lib/api";
 
@@ -327,7 +328,12 @@ export default function MasterclassDetailPage() {
               {isDone(currentLesson.slug) ? t("mc.marked_complete") : next ? t("mc.mark_complete_continue") : t("mc.mark_complete")}
             </button>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
+              <ShareLessonButton
+                topicSlug={slug}
+                title={t(`mc.title.${slug}`)}
+                tagline={t(`mc.tagline.${slug}`)}
+              />
               {prev && (
                 <Link to={`/masterclasses/${slug}/${prev.slug}`} data-testid="lesson-prev" className="btn-ghost inline-flex items-center gap-2">
                   <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("mc.previous")}

@@ -93,6 +93,14 @@
   - File grew 12,655 → 21,751 lines (+9,096 lines of translations). Lint clean.
   - **Verified end-to-end with Playwright**: Arabic loads with `dir=rtl`, `lang=ar`, hero h1 "ازرع في أي مكان، بطريقتك" (= "Grow anywhere, your way."), nav fully Arabic, language-detected banner translated, no console errors. RTL layout intact.
 
+- **Iteration 17** (2026-02-18): ✅ **SEO landing pages — `/learn/:topic`** (hybrid Option C)
+  - **New route `/learn/:topic`** (`/app/frontend/src/pages/LearnLanding.jsx`) renders the free intro lesson with rich Open Graph + Twitter Card tags via `react-helmet-async` — turns every masterclass into an evergreen, shareable acquisition channel.
+  - **Static + AI sources unified**: Local registry (foundation + flower masterclasses already in the bundle) resolves instantly; AI-generated topics fall back to backend cache.
+  - **New backend endpoint** `GET /api/og/learn/{topic}` (`server.py` ~L1252-1336) returns OG metadata as JSON for both static (via `STATIC_MASTERCLASS_OG` registry) and AI-cached (via `generated_masterclasses` collection) topics. 404 on unknown topics; language fallback to English if requested locale not cached. `_first_paragraph()` trims to ~280 chars for clean `og:description`.
+  - **HelmetProvider** wired in `/app/frontend/src/index.js`; canonical, Twitter `summary_large_image`, and JSON-LD Article schema all populated client-side. Site-wide OG/Twitter card defaults added to `public/index.html` so even JS-disabled scrapers see something useful.
+  - **Free intro + soft paywall**: Unpaid visitors read Lesson 1 in full, then meet a "Continue the full masterclass" CTA that opens the existing two-tier (£5 annual / £25 lifetime) `PaywallModal`. Paid users get a straight "Open the full masterclass" CTA.
+  - **Tests**: testing-agent iter 12 PASS 100% — 7/7 backend pytest (`/app/backend/tests/test_og_learn.py`: static topics, AI cache, 404, language fallback) + Playwright flows for static + AI + 404 + head meta + paywall modal launch.
+
 ## Prioritised Backlog
 
 > **🛑 RULE FOR THIS PROJECT (learned the hard way 2026-02-17):**

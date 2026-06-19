@@ -7,7 +7,9 @@ import {
 import { getStoredAccessToken } from "@/hooks/usePaywall";
 import { useI18n } from "@/i18n";
 import PaywallModal from "@/components/PaywallModal";
+import { FEATURED_DEEP_DIVE_SLUGS } from "@/components/DeepDiveSection";
 
+const FEATURED_SET = new Set(FEATURED_DEEP_DIVE_SLUGS);
 const POLL_MS = 4000;
 const POLL_MAX = 45;  // ~3 minutes hard ceiling
 
@@ -30,10 +32,14 @@ export default function AIMasterclassSuggest() {
   useEffect(() => {
     if (fetchedOnce.current) return;
     fetchedOnce.current = true;
-    fetchPopularMasterclasses(12).then((d) => setPopular(d.items || [])).catch(() => {});
+    fetchPopularMasterclasses(20).then((d) =>
+      setPopular((d.items || []).filter((m) => !FEATURED_SET.has(m.slug)).slice(0, 12))
+    ).catch(() => {});
     const tok = getStoredAccessToken();
     if (tok) {
-      fetchMyMasterclassLibrary(tok, lang).then((d) => setMine(d.items || [])).catch(() => {});
+      fetchMyMasterclassLibrary(tok, lang).then((d) =>
+        setMine((d.items || []).filter((m) => !FEATURED_SET.has(m.slug)))
+      ).catch(() => {});
     }
   }, [lang]);
 

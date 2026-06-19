@@ -139,6 +139,10 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
             </button>
           </div>
 
+          <p className="mt-3 text-xs text-moss leading-snug">
+            🛡️ 30-day money-back guarantee, both tiers. Email and we refund — no questions.
+          </p>
+
           {checkoutUrl ? (
             <a
               ref={continueRef}

@@ -5,6 +5,7 @@ import { useAllMasterclassProgress } from "@/hooks/useMasterclassProgress";
 import { useI18n } from "@/i18n";
 import TopicImage from "@/components/TopicImage";
 import AIMasterclassSuggest from "@/components/AIMasterclassSuggest";
+import DeepDiveSection from "@/components/DeepDiveSection";
 
 function MasterclassCardImage({ masterclass, compact }) {
   // Foundation classes have a static `image` URL; flower classes use AI generation.
@@ -54,8 +55,6 @@ export default function MasterclassesPage() {
       <p className="mt-4 text-ink/75 max-w-2xl leading-relaxed text-lg">
         {t("mc.list_intro")}
       </p>
-
-      <AIMasterclassSuggest />
 
       {MASTERCLASS_SECTIONS.map((section, idx) => (
         <section key={section.key} className={idx === 0 ? "mt-14" : "mt-20"} data-testid={`section-${section.key}`}>
@@ -124,6 +123,10 @@ export default function MasterclassesPage() {
           </div>
         </section>
       ))}
+
+      <DeepDiveSection />
+
+      <AIMasterclassSuggest />
     </div>
   );
 }

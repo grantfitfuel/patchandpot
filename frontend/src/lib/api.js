@@ -46,9 +46,16 @@ const GUIDANCE_POLL_MAX_ATTEMPTS = 90;  // ~3 minutes — well past Claude's col
 
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const _pollGuidanceJob = async (jobId) => {
+const _pollGuidanceJob = async (jobId, onPhase) => {
   for (let attempt = 0; attempt < GUIDANCE_POLL_MAX_ATTEMPTS; attempt += 1) {
     await _sleep(GUIDANCE_POLL_INTERVAL_MS);
+    // Switch phase as the wait drags on so the UI can reassure the user
+    // instead of looking like a hang.
+    if (onPhase) {
+      const elapsedSec = (attempt + 1) * (GUIDANCE_POLL_INTERVAL_MS / 1000);
+      if (elapsedSec >= 25) onPhase("almost");
+      else if (elapsedSec >= 8) onPhase("generating");
+    }
     const { data } = await api.get(`/guidance/job/${jobId}`);
     if (data?.status === "done" && data?.data) return data.data;
     if (data?.status === "error") {
@@ -63,16 +70,25 @@ const _pollGuidanceJob = async (jobId) => {
   throw timeout;
 };
 
-export const fetchGuidance = async (region, month, language = "en", myGarden = null) => {
+/**
+ * Fetch monthly guidance with optional phase reporting.
+ * @param {Object} region
+ * @param {number} month
+ * @param {string} [language="en"]
+ * @param {string[]|null} [myGarden=null]
+ * @param {{ onPhase?: (phase: "pending"|"generating"|"almost") => void }} [opts]
+ */
+export const fetchGuidance = async (region, month, language = "en", myGarden = null, opts = {}) => {
+  const { onPhase } = opts;
   const res = await api.post(
     "/guidance",
     { region, month, language, my_garden: myGarden },
     { validateStatus: (s) => s === 200 || s === 202 },
   );
   const body = res.data;
-  // Cache miss → background job kicked off; poll until done.
   if (res.status === 202 && body?.status === "pending" && body?.job_id) {
-    return _pollGuidanceJob(body.job_id);
+    if (onPhase) onPhase("pending");
+    return _pollGuidanceJob(body.job_id, onPhase);
   }
   return body;
 };

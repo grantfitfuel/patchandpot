@@ -126,6 +126,13 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 19 (2026-02-22): ✅ — Graceful loading state for cold AI generation
+- **Problem reported live**: even after the async-polling fix shipped to prod, users on cold-cache regions saw the page hang on a generic spinner for 30-60s — close enough to "broken" to feel broken. (Plus during the initial deploy window users got Cloudflare errors from the cached-by-SW old bundle.)
+- **Fix 1 — Stage-aware loading**. `fetchGuidance(region, month, lang, garden, {onPhase})` now reports `pending → generating → almost` as the wait progresses. `GuidanceView` and `ThisMonthCard` render context-specific messages: *"Reading Quito's climate…"* → *"Choosing what to plant in February for Quito…"* + *"Fresh regions take ~30–60s the first time. Future visits are instant."* Cache hits never show any stage UI — the data appears instantly with no flicker.
+- **Fix 2 — Service worker version bump** (`patchpot-v3` → `patchpot-v4`). Forces all browsers to discard stale shell + runtime caches on next visit so the new bundle propagates fast.
+- **EN copy only for now**. The 4 new keys (`guidance.loading.starting/.generating/.almost/.cold_note`) live in EN; `t()` falls back to EN for the 57 other locales until I batch-translate via `/app/scripts/translate_new_keys.py`. Non-EN users will see English loading copy in the meantime — functional but not ideal. Translation run is a follow-up.
+- **Verified**: live browser smoke against a fresh Quito/Feb scenario — stage messages rotated correctly, content appeared at ~25s; same region clicked again returned instantly with no stage UI at all. Lint clean both sides.
+
 ### Iteration 18 (2026-02-22): ✅ — Cloudflare timeout fix
 - **`POST /api/guidance` is now async-with-cache-fastpath.** Cold AI generation routinely took 30-40s, blowing through Cloudflare/edge-proxy timeouts → users saw a Cloudflare error page until they refreshed (cache had filled in the meantime). Fix: cache hits keep their 1-call 200 contract; cache misses now return **HTTP 202 + `{status: "pending", job_id}`** immediately and a background task runs the Claude call. New `GET /api/guidance/job/{job_id}` returns `{status: "pending" | "done" | "error", data?, error?}`.
 - **Frontend wrapper** (`/app/frontend/src/lib/api.js → fetchGuidance`): polls the job endpoint every 2s (up to ~3min) and resolves with the final guidance dict. All 3 callers (`Home/ThisMonthCard`, `Calendar/GuidanceView`, `Print`) unchanged — they keep their `.then(data => …)` shape.

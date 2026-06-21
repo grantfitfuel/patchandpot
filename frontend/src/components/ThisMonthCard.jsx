@@ -32,14 +32,18 @@ export default function ThisMonthCard({ onSetRegion }) {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [phase, setPhase] = useState("idle");
   const [error, setError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(false);
+    setPhase("idle");
     const myGarden = (plants || []).map((p) => p.name);
-    fetchGuidance(activeRegion, month, lang, myGarden.length ? myGarden : null)
+    fetchGuidance(activeRegion, month, lang, myGarden.length ? myGarden : null, {
+      onPhase: (p) => { if (!cancelled) setPhase(p); },
+    })
       .then((d) => { if (!cancelled) setData(d); })
       .catch(() => { if (!cancelled) setError(true); })
       .finally(() => { if (!cancelled) setLoading(false); });
@@ -139,6 +143,14 @@ export default function ThisMonthCard({ onSetRegion }) {
               testid="home-thismonth-pests"
               items={pests.map((p) => ({ title: p.name, sub: p.signs }))}
             />
+            {loading && (phase === "generating" || phase === "almost") && (
+              <p
+                className="sm:col-span-3 text-xs text-moss/80 italic"
+                data-testid="home-thismonth-cold-note"
+              >
+                {t("guidance.loading.cold_note")}
+              </p>
+            )}
           </div>
         </div>
       </div>

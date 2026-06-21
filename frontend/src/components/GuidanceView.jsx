@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Sprout, Scissors, ListTodo, Bug, Quote, Loader2 } from "lucide-react";
 import { fetchGuidance } from "@/lib/api";
 import { useCompletedTasks } from "@/hooks/useMyGarden";
-import { useI18n } from "@/i18n";
+import { useI18n, monthLabel } from "@/i18n";
 import PestImage from "@/components/PestImage";
 
 function Section({ icon: Icon, eyebrow, title, children }) {
@@ -22,6 +22,7 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
   const { t, lang } = useI18n();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [phase, setPhase] = useState("idle");  // idle | pending | generating | almost
   const [error, setError] = useState("");
 
   const gardenKey = (myGarden || []).map((p) => p.toLowerCase()).sort().join(",");
@@ -33,7 +34,10 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
     setLoading(true);
     setError("");
     setData(null);
-    fetchGuidance(region, month, lang, myGarden && myGarden.length ? myGarden : null)
+    setPhase("idle");
+    fetchGuidance(region, month, lang, myGarden && myGarden.length ? myGarden : null, {
+      onPhase: setPhase,
+    })
       .then((d) => { setData(d); if (onData) onData(d); })
       .catch((e) => setError(e?.response?.data?.detail || t("guidance.error")))
       .finally(() => setLoading(false));
@@ -49,10 +53,30 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
   }
 
   if (loading) {
+    const monthName = monthLabel(month, t);
+    // Phase-aware stage copy. Cache hits resolve before phase ever leaves
+    // "idle", so the user only sees the cold-cache reassurance when they
+    // actually have to wait.
+    const stageKey =
+      phase === "almost" ? "guidance.loading.almost"
+      : phase === "generating" ? "guidance.loading.generating"
+      : phase === "pending" ? "guidance.loading.starting"
+      : "guidance.loading";
+    const stageText = t(stageKey, { region: region.name, month: monthName });
+    const showColdNote = phase === "generating" || phase === "almost";
     return (
-      <div className="card-flat p-10 flex items-center justify-center gap-3 text-moss" data-testid="guidance-loading">
-        <Loader2 className="w-4 h-4 animate-spin" />
-        <span>{t("guidance.loading")} {region.name}…</span>
+      <div className="card-flat p-10 flex flex-col items-center justify-center gap-3 text-moss text-center" data-testid="guidance-loading">
+        <div className="flex items-center gap-3">
+          <Loader2 className="w-4 h-4 animate-spin" />
+          <span data-testid="guidance-loading-stage">
+            {phase === "idle" ? <>{stageText} {region.name}…</> : stageText}
+          </span>
+        </div>
+        {showColdNote && (
+          <p className="text-xs text-moss/70 max-w-sm" data-testid="guidance-loading-note">
+            {t("guidance.loading.cold_note")}
+          </p>
+        )}
       </div>
     );
   }

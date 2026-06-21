@@ -36,8 +36,46 @@ export const fetchPlantGuide = (query, language = "en") =>
   api.post("/plant-guide", { query, language }).then((r) => r.data);
 export const fetchCachedPlantGuide = (slug, language = "en") =>
   api.get(`/plant-guide/${slug}`, { params: { language } }).then((r) => r.data);
-export const fetchGuidance = (region, month, language = "en", myGarden = null) =>
-  api.post("/guidance", { region, month, language, my_garden: myGarden }).then((r) => r.data);
+// Cold AI guidance generation can take 20-40s which exceeds Cloudflare's
+// timeout. The backend now returns 202 + {status: "pending", job_id} when it
+// schedules a background job; this wrapper polls transparently so the 3
+// callers keep their plain `.then(data => …)` shape. Cache hits still resolve
+// in one round-trip.
+const GUIDANCE_POLL_INTERVAL_MS = 2000;
+const GUIDANCE_POLL_MAX_ATTEMPTS = 90;  // ~3 minutes — well past Claude's cold ceiling.
+
+const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const _pollGuidanceJob = async (jobId) => {
+  for (let attempt = 0; attempt < GUIDANCE_POLL_MAX_ATTEMPTS; attempt += 1) {
+    await _sleep(GUIDANCE_POLL_INTERVAL_MS);
+    const { data } = await api.get(`/guidance/job/${jobId}`);
+    if (data?.status === "done" && data?.data) return data.data;
+    if (data?.status === "error") {
+      const err = new Error(data.error || "AI generation failed");
+      err.code = "guidance_job_failed";
+      throw err;
+    }
+    // status === "pending" → keep polling
+  }
+  const timeout = new Error("Guidance generation timed out — please try again.");
+  timeout.code = "guidance_job_timeout";
+  throw timeout;
+};
+
+export const fetchGuidance = async (region, month, language = "en", myGarden = null) => {
+  const res = await api.post(
+    "/guidance",
+    { region, month, language, my_garden: myGarden },
+    { validateStatus: (s) => s === 200 || s === 202 },
+  );
+  const body = res.data;
+  // Cache miss → background job kicked off; poll until done.
+  if (res.status === 202 && body?.status === "pending" && body?.job_id) {
+    return _pollGuidanceJob(body.job_id);
+  }
+  return body;
+};
 export const fetchPlantImage = (plant) =>
   api.post("/plant-image", { plant_id: plant.id, plant_name: plant.name }).then((r) => r.data);
 export const fetchPestImage = (name) =>

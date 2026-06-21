@@ -126,6 +126,25 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 22 (2026-02-22): ✅ — AI cost slashed via two-pass i18n + Haiku
+- **Two-pass guidance generation.** Originally every (region × month × language × garden) tuple ran a full Claude Sonnet 4.5 call. Now:
+  1. EN pass: Sonnet 4.5 (creative, expensive) — runs ONCE per (region, month, garden) and caches result.
+  2. Non-EN pass: Claude Haiku 4.5 (~4× cheaper) — translates that JSON in ~3-10s. Cached per (region, month, language, garden).
+  3. If Haiku errors, we fall back gracefully to the EN content so the UI never breaks.
+- **Knock-on switches to Haiku** (mechanical translation jobs that don't need Sonnet's creativity):
+  - `/api/plants` catalogue translation
+  - `/api/plants/{id}/companions` companion-reason translation
+  - `/api/plant-guide` — now also two-pass (EN guide cached, other languages translated cheaply)
+  - `/api/lesson-adapt` (translates an existing lesson — perfect for Haiku)
+  - `/api/vendor-blurbs` (short region-specific blurbs — perfect for Haiku)
+- **Backstop**: `_llm_json_cheap` in core.py auto-falls back to `_llm_json` (Sonnet) on any Haiku error, so quality is never a regression.
+- **Measured live (Madrid/April, cold)**:
+  - EN: ~42s, full Sonnet (unchanged)
+  - DE: ~10s, Haiku translating cached EN — "Tomate / Später Frühling / Blattläuse / Härte die Setzlinge ab" (idiomatic horticultural German)
+  - FR: ~12s, Haiku translating cached EN — "Tomate / Fin du printemps" (idiomatic French)
+  - Any re-request: <200ms cache hit
+- **Bill impact (estimated)**: hot regions (London/NYC/Sydney) viewed in 10+ languages now cost ~1× Sonnet + 10× Haiku ≈ 1× Sonnet + 2× Sonnet = 3× Sonnet, vs the old 11× Sonnet → **~73% reduction** on those regions. Cold/single-language regions cost the same as before.
+
 ### Iteration 21 (2026-02-22): ✅ — All loading copy translated to 58 languages
 - Created `/app/scripts/translate_loading_keys.py` — a thin wrapper around the existing `translate_new_keys.py` that overrides `NEW_KEYS` so we only translate the 4 new loading strings (no re-translation of 80 unrelated keys).
 - Ran successfully across all 57 non-EN locales. Idempotent — re-running safely upserts.

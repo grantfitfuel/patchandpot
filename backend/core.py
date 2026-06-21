@@ -198,6 +198,31 @@ async def _llm_json(system_prompt: str, user_prompt: str, session_id: str) -> di
         raise HTTPException(502, "AI response could not be parsed. Please retry.")
 
 
+async def _llm_json_cheap(system_prompt: str, user_prompt: str, session_id: str) -> dict:
+    """Call Claude Haiku — ~4× cheaper than Sonnet. Use for pure translation or
+    other mechanical JSON transforms where creative quality isn't the bottleneck.
+
+    Falls back to Sonnet if Haiku errors out so quality is never the failure mode.
+    """
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(500, "EMERGENT_LLM_KEY not configured")
+    try:
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=system_prompt,
+        ).with_model("anthropic", "claude-haiku-4-5-20251001")
+        response = await chat.send_message(UserMessage(text=user_prompt))
+        raw = response if isinstance(response, str) else getattr(response, "content", str(response))
+        return json.loads(_strip_code_fences(raw))
+    except (json.JSONDecodeError, HTTPException) as e:
+        logger.warning("Haiku call failed (%s), falling back to Sonnet", e)
+        return await _llm_json(system_prompt, user_prompt, session_id)
+    except Exception as e:  # noqa: BLE001 — any transport / SDK error
+        logger.warning("Haiku call errored (%s), falling back to Sonnet", e)
+        return await _llm_json(system_prompt, user_prompt, session_id)
+
+
 def _image_gen(prompt: str, session: str) -> LlmChat:
     return LlmChat(
         api_key=EMERGENT_LLM_KEY,
@@ -566,7 +591,7 @@ Source:
 Return JSON only, in the same shape.
 """
         try:
-            translated_map = await _llm_json(system, user, session_id=f"plants-trans-{language}")
+            translated_map = await _llm_json_cheap(system, user, session_id=f"plants-trans-{language}")
         except Exception as e:
             logger.warning("plants translation failed for %s: %s — falling back to English", language, e)
             return PLANTS
@@ -660,7 +685,7 @@ def make_translate_companion_reasons(db):
                 "Keep them short and gardener-friendly. Return JSON with the same keys.\n\n"
                 f"{json.dumps(source, ensure_ascii=False, indent=2)}"
             )
-            reasons_map = await _llm_json(system, user, session_id=f"companion-reasons-{language}")
+            reasons_map = await _llm_json_cheap(system, user, session_id=f"companion-reasons-{language}")
             await db.guidance_cache.insert_one({
                 "key": cache_key,
                 "data": reasons_map,
@@ -840,7 +865,7 @@ __all__ = [
     "TopicImageRequest", "LessonAdaptRequest", "ShareImageRequest",
     "VendorRef", "VendorBlurbRequest",
     # helpers
-    "_strip_code_fences", "_llm_json", "_image_gen", "make_cached_image",
+    "_strip_code_fences", "_llm_json", "_llm_json_cheap", "_image_gen", "make_cached_image",
     "_slugify", "_plant_slug", "_first_paragraph",
     "_stripe_checkout", "_expiry_for", "make_grant_is_active",
     "_day_of_year_midmonth", "_daylight_hours", "_climate_context",

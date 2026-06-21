@@ -9,7 +9,7 @@ from fastapi import APIRouter
 from core import (
     EMERGENT_LLM_KEY, LANG_NAMES,
     LessonAdaptRequest, VendorBlurbRequest,
-    _llm_json,
+    _llm_json_cheap,
 )
 
 logger = logging.getLogger(__name__)
@@ -102,7 +102,7 @@ Original tip:
 
 Return JSON only."""
 
-        data = await _llm_json(system, user_prompt, session_id=f"lesson-adapt-{key}")
+        data = await _llm_json_cheap(system, user_prompt, session_id=f"lesson-adapt-{key}")
         data.setdefault("body", req.body)
         data.setdefault("steps_items", req.steps_items)
         data.setdefault("box_items", req.box_items)
@@ -184,7 +184,7 @@ Return STRICT JSON with this exact shape:
 Use the exact `id` strings as keys. Return JSON only."""
 
         try:
-            data = await _llm_json(system, user_prompt, session_id=f"vendor-blurbs-{key}")
+            data = await _llm_json_cheap(system, user_prompt, session_id=f"vendor-blurbs-{key}")
         except Exception:
             return {"blurbs": {}, "cached": False}
 

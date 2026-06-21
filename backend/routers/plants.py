@@ -1,6 +1,7 @@
 """Plant catalogue, single-plant lookup, companion plants, and the
 AI-driven plant-image / pest-image endpoints. Also exposes the AI-generated
 'any plant' guide endpoints (`/plant-guide`, `/recent-plants`)."""
+import json
 import logging
 import re
 import uuid
@@ -11,11 +12,39 @@ from fastapi import APIRouter, HTTPException
 from core import (
     LANG_NAMES, PLANTS, PLANT_INDEX, COMPANIONS, COMPANION_REASONS,
     PlantImageRequest, PestImageRequest, PlantGuideRequest,
-    _llm_json, _plant_slug,
+    _llm_json, _llm_json_cheap, _plant_slug,
     make_cached_image, make_plants_in_language, make_translate_companion_reasons,
 )
 
 logger = logging.getLogger(__name__)
+
+
+async def _translate_plant_guide(en_data: dict, language: str) -> dict:
+    """Cheap Haiku translation of a cached EN plant guide. Preserves JSON shape;
+    falls back to the EN content on any error so the UI never crashes."""
+    if language == "en" or language not in LANG_NAMES:
+        return en_data
+    language_name = LANG_NAMES[language]
+    system = (
+        "You translate plant care guide JSON. Keep keys in English. Translate every string "
+        "value to the target language using natural, idiomatic phrasing. Use locally-common "
+        "plant names. Preserve numbers, units (cm, °C, L) and the JSON shape. Return JSON only."
+    )
+    user = (
+        f"Translate every string value in this plant care guide into {language_name}. "
+        f"Keep the JSON shape exactly the same. Return JSON only.\n\n"
+        f"Source (English):\n{json.dumps(en_data, ensure_ascii=False, indent=2)}"
+    )
+    try:
+        translated = await _llm_json_cheap(system, user, session_id=f"plant-guide-trans-{language}")
+        # Preserve fields that must NOT change between languages
+        for k in ("id", "container", "ai_generated", "curated"):
+            if k in en_data:
+                translated[k] = en_data[k]
+        return translated
+    except Exception as e:  # noqa: BLE001
+        logger.warning("plant-guide translation to %s failed (%s) — using EN fallback", language, e)
+        return en_data
 
 
 def make_router(db) -> APIRouter:
@@ -120,17 +149,30 @@ def make_router(db) -> APIRouter:
             if p["name"].lower() == name.lower():
                 return {**p, "ai_generated": False, "curated": True}
 
-        language_name = LANG_NAMES[language]
-        system = (
-            "You are a careful horticulturalist creating concise, accurate plant care guides "
-            "for small-space gardeners. Stick to widely-accepted advice. If asked about a plant "
-            "you're unsure exists, set 'unknown' to true and return minimal fields. "
-            "ALWAYS respond as valid JSON only — no markdown fences, no extra prose."
-        )
+        # Two-pass i18n: generate the EN guide once via Sonnet, translate
+        # the JSON cheaply via Haiku for the other 57 languages. Saves ~75%
+        # on AI bills for the same plant viewed in multiple languages.
+        en_key = f"plant-guide:{slug}:en"
+        en_cached = await db.guidance_cache.find_one({"key": en_key}, {"_id": 0})
 
-        user_prompt = f"""Generate a plant care guide for: "{name}"
+        if language == "en" or not en_cached:
+            language_name = LANG_NAMES[language]
+            system = (
+                "You are a careful horticulturalist creating concise, accurate plant care guides "
+                "for small-space gardeners. Stick to widely-accepted advice. If asked about a plant "
+                "you're unsure exists, set 'unknown' to true and return minimal fields. "
+                "ALWAYS respond as valid JSON only — no markdown fences, no extra prose."
+            )
 
-OUTPUT LANGUAGE: {language_name}. All string values must be in {language_name}.
+            # Always generate the source in English first when we don't have
+            # an EN cache hit, so the cheap translation pass has something to
+            # work from for ALL future languages.
+            gen_language = language if language == "en" else "en"
+            gen_language_name = LANG_NAMES[gen_language]
+
+            user_prompt = f"""Generate a plant care guide for: "{name}"
+
+OUTPUT LANGUAGE: {gen_language_name}. All string values must be in {gen_language_name}.
 
 Return STRICT JSON with this exact shape (keys stay in English):
 {{
@@ -161,10 +203,28 @@ If the plant is not a real plant or you cannot give a confident answer, return:
 
 Return JSON only."""
 
-        data = await _llm_json(system, user_prompt, session_id=f"plant-guide-{slug}-{language}")
+            generated = await _llm_json(system, user_prompt, session_id=f"plant-guide-{slug}-{gen_language}")
+            if generated.get("unknown"):
+                raise HTTPException(
+                    404,
+                    f"Couldn't find reliable information on '{name}'. Try a more common name.",
+                )
+            # Cache the EN source so future languages can translate cheaply.
+            if gen_language == "en":
+                await db.guidance_cache.insert_one({
+                    "key": en_key, "data": generated,
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                })
+                en_cached = {"data": generated}
 
-        if data.get("unknown"):
-            raise HTTPException(404, f"Couldn't find reliable information on '{name}'. Try a more common name.")
+            if language == "en":
+                data = generated
+            else:
+                # We just generated EN — now translate it for the requested language.
+                data = await _translate_plant_guide(generated, language)
+        else:
+            # EN already cached → cheap Haiku translation only.
+            data = await _translate_plant_guide(en_cached["data"], language)
 
         data["id"] = slug
         data["ai_generated"] = True

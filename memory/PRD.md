@@ -126,6 +126,12 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 21 (2026-02-22): ✅ — All loading copy translated to 58 languages
+- Created `/app/scripts/translate_loading_keys.py` — a thin wrapper around the existing `translate_new_keys.py` that overrides `NEW_KEYS` so we only translate the 4 new loading strings (no re-translation of 80 unrelated keys).
+- Ran successfully across all 57 non-EN locales. Idempotent — re-running safely upserts.
+- **Verified live in German UI**: stage *"Wähle, was im März für Bonn gepflanzt werden soll…"* + reassurance *"Frische Regionen benötigen beim ersten Mal etwa 30–60 Sekunden. Zukünftige Besuche sind sofort."* {month}/{region} interpolation works correctly.
+- All 58 locales (EN + 57) now carry `guidance.loading.starting/.generating/.almost/.cold_note`.
+
 ### Iteration 20 (2026-02-22): ✅ — Geo-detect actually works + cache prewarm
 - **Real reason geo-detect was flaky for the user**: 8s timeout, no IP fallback, plus `enableHighAccuracy` default (slow on mobile, useless for city-level region lookup). Fixed: timeout 8s → 15s; `enableHighAccuracy: false`, `maximumAge: 600000` (cached coords up to 10min ok). When GPS denied/timeout/unavailable, we now silently try the new backend endpoint instead of showing an error.
 - **New endpoint `GET /api/regions/ip-detect`**: uses Cloudflare edge headers (`cf-iplatitude/longitude/country`) when available, falls back to ipapi.co (free, no key, 1000/day) using the request's `x-forwarded-for` IP. Returns the same shape as `/regions/reverse` so the UI is interchangeable. Confirmed live — IP detect from preview origin correctly returned "Council Bluffs, Iowa, United States".

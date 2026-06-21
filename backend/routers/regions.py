@@ -1,17 +1,59 @@
-"""Region search + reverse geocode endpoints.
+"""Region search + reverse geocode + IP-based detect endpoints.
 
-Backed by the free Open-Meteo geocoding API (no key required). Used by the
-RegionPicker UI to let visitors auto-detect their location OR search any
-place on Earth.
+Backed by:
+  - Open-Meteo geocoding (free, no key) for search + reverse-from-lat/lon
+  - Cloudflare edge headers (`cf-iplatitude`, `cf-iplongitude`, `cf-ipcountry`)
+    for IP-based lat/lon when the browser's Geolocation API fails or is denied
+  - ipapi.co (free 1000/day, no key) as a last-resort fallback when the request
+    didn't come through Cloudflare or the CF headers are absent.
+
+The whole detect/ip-detect path is best-effort: if everything fails, we return
+a 503 and the UI falls back to manual search.
 """
 import logging
 from typing import Optional
 
 import httpx
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, Request
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+
+def _climate_for(lat: float) -> str:
+    a = abs(lat)
+    if a < 23.5:
+        return "Tropical"
+    if a < 35:
+        return "Subtropical"
+    if a < 55:
+        return "Temperate"
+    if a < 66.5:
+        return "Cool temperate / Subpolar"
+    return "Polar"
+
+
+async def _reverse_name(http: httpx.AsyncClient, lat: float, lon: float) -> dict:
+    """Best-effort: ask Open-Meteo for a city/country name for these coords."""
+    place: dict[str, Optional[str]] = {"name": None, "country": None, "admin": None}
+    try:
+        r = await http.get(
+            "https://geocoding-api.open-meteo.com/v1/reverse",
+            params={"latitude": lat, "longitude": lon, "language": "en", "count": 1, "format": "json"},
+        )
+        if r.status_code == 200:
+            items = r.json().get("results") or []
+            if items:
+                it = items[0]
+                place = {
+                    "name": it.get("name"),
+                    "country": it.get("country"),
+                    "admin": it.get("admin1"),
+                    "timezone": it.get("timezone"),
+                }
+    except Exception as e:  # noqa: BLE001
+        logger.warning("reverse name lookup failed: %s", e)
+    return place
 
 
 @router.get("/regions/search")
@@ -45,34 +87,9 @@ async def search_regions(q: str):
 @router.get("/regions/reverse")
 async def reverse_geocode(lat: float, lon: float):
     """Reverse geocode coordinates and infer hemisphere + a rough climate label."""
-    url = "https://geocoding-api.open-meteo.com/v1/reverse"
-    params = {"latitude": lat, "longitude": lon, "language": "en", "count": 1, "format": "json"}
-    place: dict[str, Optional[str]] = {"name": None, "country": None}
-    try:
-        async with httpx.AsyncClient(timeout=10) as http:
-            r = await http.get(url, params=params)
-            if r.status_code == 200:
-                items = r.json().get("results") or []
-                if items:
-                    it = items[0]
-                    place = {"name": it.get("name"), "country": it.get("country"),
-                             "admin": it.get("admin1"), "timezone": it.get("timezone")}
-    except Exception as e:  # noqa: BLE001
-        logger.warning("Reverse geocode failed: %s", e)
-
+    async with httpx.AsyncClient(timeout=10) as http:
+        place = await _reverse_name(http, lat, lon)
     hemisphere = "southern" if lat < 0 else "northern"
-    abs_lat = abs(lat)
-    if abs_lat < 23.5:
-        climate = "Tropical"
-    elif abs_lat < 35:
-        climate = "Subtropical"
-    elif abs_lat < 55:
-        climate = "Temperate"
-    elif abs_lat < 66.5:
-        climate = "Cool temperate / Subpolar"
-    else:
-        climate = "Polar"
-
     return {
         "name": place.get("name") or "Your location",
         "country": place.get("country"),
@@ -80,5 +97,85 @@ async def reverse_geocode(lat: float, lon: float):
         "latitude": lat,
         "longitude": lon,
         "hemisphere": hemisphere,
-        "climate_zone": climate,
+        "climate_zone": _climate_for(lat),
+    }
+
+
+@router.get("/regions/ip-detect")
+async def ip_detect(request: Request):
+    """Last-resort geo-detect using the request's IP / Cloudflare edge headers.
+
+    Strategy:
+      1. If the request came through Cloudflare AND `cf-iplatitude` / `cf-iplongitude`
+         are present (IP Geolocation enabled in CF dashboard), use those.
+      2. Else, look up the request IP against ipapi.co (free, no key, 1000/day).
+      3. Either way, reverse-geocode the resulting lat/lon for a friendly city name.
+
+    Returns the same shape as `/regions/reverse` so the frontend can use it
+    interchangeably.
+    """
+    cf_lat = request.headers.get("cf-iplatitude")
+    cf_lon = request.headers.get("cf-iplongitude")
+    cf_country = request.headers.get("cf-ipcountry")
+
+    lat: Optional[float] = None
+    lon: Optional[float] = None
+    country_hint: Optional[str] = None
+    name_hint: Optional[str] = None
+    admin_hint: Optional[str] = None
+    source = "unknown"
+
+    if cf_lat and cf_lon:
+        try:
+            lat, lon = float(cf_lat), float(cf_lon)
+            country_hint = cf_country
+            source = "cloudflare"
+        except (TypeError, ValueError):
+            lat = lon = None
+
+    if lat is None or lon is None:
+        # Find a usable request IP: prefer x-forwarded-for (first hop), fall back to
+        # the socket peer. Skip private/loopback ranges — ipapi.co rejects them.
+        xff = request.headers.get("x-forwarded-for", "")
+        client_ip = (xff.split(",")[0].strip() if xff else None) or (
+            request.client.host if request.client else None
+        )
+        if client_ip and not (
+            client_ip.startswith(("10.", "192.168.", "127.", "169.254.", "172.16."))
+            or client_ip == "::1"
+        ):
+            try:
+                async with httpx.AsyncClient(timeout=6) as http:
+                    r = await http.get(f"https://ipapi.co/{client_ip}/json/")
+                    if r.status_code == 200:
+                        d = r.json()
+                        lat = d.get("latitude")
+                        lon = d.get("longitude")
+                        country_hint = d.get("country_name") or d.get("country")
+                        # ipapi already gives us a city and region — use them
+                        # so we don't need a secondary reverse-geocode that
+                        # often returns nothing for IP-centroid coordinates.
+                        name_hint = d.get("city")
+                        admin_hint = d.get("region")
+                        source = "ipapi"
+            except Exception as e:  # noqa: BLE001
+                logger.warning("ipapi lookup failed for %s: %s", client_ip, e)
+
+    if lat is None or lon is None:
+        raise HTTPException(503, "Could not detect your location from your network.")
+
+    # Try to enrich the name with Open-Meteo (gives nicer city names than ipapi
+    # in some regions). Fall back to whatever the IP service gave us.
+    async with httpx.AsyncClient(timeout=8) as http:
+        place = await _reverse_name(http, float(lat), float(lon))
+
+    return {
+        "name": place.get("name") or name_hint or "Your location",
+        "country": place.get("country") or country_hint,
+        "admin": place.get("admin") or admin_hint,
+        "latitude": float(lat),
+        "longitude": float(lon),
+        "hemisphere": "southern" if lat < 0 else "northern",
+        "climate_zone": _climate_for(float(lat)),
+        "detect_source": source,
     }

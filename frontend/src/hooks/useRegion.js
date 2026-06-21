@@ -1,4 +1,5 @@
 import { useCallback, useSyncExternalStore } from "react";
+import { prewarmGuidance } from "@/lib/api";
 
 const KEY = "patchpot.region.v1";
 
@@ -52,6 +53,18 @@ export function useRegion() {
       console.warn("useRegion: persist failed", e);
     }
     emit();
+    // Fire-and-forget: warm the AI guidance cache for this region's current
+    // month so when the user navigates to /calendar (or refreshes home) the
+    // data is already there. Silent on failure.
+    if (next) {
+      try {
+        const month = new Date().getMonth() + 1;
+        const lang = (typeof localStorage !== "undefined"
+          && localStorage.getItem("patchpot.lang.v1"))
+          || "en";
+        prewarmGuidance(next, month, lang);
+      } catch (e) { /* never block region-set on prewarm */ }
+    }
   }, []);
 
   const clearRegion = useCallback(() => {

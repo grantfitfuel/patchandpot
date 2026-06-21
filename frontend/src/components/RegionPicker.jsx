@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Crosshair, Search, X, Loader2 } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
-import { searchRegions, reverseGeocode } from "@/lib/api";
+import { searchRegions, reverseGeocode, ipDetectRegion } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
 export default function RegionPicker({ open, onClose }) {
@@ -63,12 +63,30 @@ export default function RegionPicker({ open, onClose }) {
   };
 
   const detect = () => {
-    if (!("geolocation" in navigator)) {
-      setError(t("region.geo_not_supported"));
-      return;
-    }
     setLocating(true);
     setError("");
+
+    // Fallback path: hit the backend's IP-detect endpoint when the browser
+    // Geolocation API isn't available, is denied, or times out. This is
+    // what makes geo-detect actually work for desktops without GPS, users
+    // who once dismissed the permission prompt, and shared-IP networks.
+    const ipFallback = async () => {
+      try {
+        const data = await ipDetectRegion();
+        setRegion(data);
+        onClose();
+      } catch (e) {
+        setError(t("region.detect_failed"));
+      } finally {
+        setLocating(false);
+      }
+    };
+
+    if (!("geolocation" in navigator)) {
+      ipFallback();
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         try {
@@ -76,16 +94,19 @@ export default function RegionPicker({ open, onClose }) {
           setRegion(data);
           onClose();
         } catch (e) {
-          setError(t("region.detect_failed"));
-        } finally {
-          setLocating(false);
+          // Reverse-geocode failed even though GPS worked — try IP route.
+          await ipFallback();
+          return;
         }
-      },
-      (err) => {
         setLocating(false);
-        setError(err.code === 1 ? t("region.permission_denied") : t("region.get_location_failed"));
       },
-      { timeout: 8000 }
+      async () => {
+        // GPS denied / timed out / unavailable — silently try IP-based.
+        await ipFallback();
+      },
+      // enableHighAccuracy=false + a 10-minute maximumAge make this *much*
+      // faster on mobile (no GPS warm-up) and tolerate slower networks.
+      { timeout: 15000, maximumAge: 600000, enableHighAccuracy: false },
     );
   };
 

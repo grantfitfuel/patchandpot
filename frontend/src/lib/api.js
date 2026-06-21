@@ -100,6 +100,23 @@ export const searchRegions = (q) =>
   api.get("/regions/search", { params: { q } }).then((r) => r.data);
 export const reverseGeocode = (lat, lon) =>
   api.get("/regions/reverse", { params: { lat, lon } }).then((r) => r.data);
+// IP-based fallback for when navigator.geolocation isn't available, was
+// denied, timed out, or — common on desktops with no GPS — returns nothing.
+export const ipDetectRegion = () =>
+  api.get("/regions/ip-detect").then((r) => r.data);
+// Fire-and-forget cache prewarm. Returns a Promise but callers don't need to
+// await it — any errors are swallowed so a flaky prewarm never crashes the UI.
+export const prewarmGuidance = (region, month, language = "en") => {
+  if (!region) return Promise.resolve(null);
+  return api
+    .post(
+      "/guidance",
+      { region, month, language, my_garden: null },
+      { validateStatus: (s) => s === 200 || s === 202 },
+    )
+    .then((r) => r.data)
+    .catch(() => null);
+};
 export const fetchVendorBlurbs = (plantName, vendors, region, language = "en") =>
   api
     .post("/vendor-blurbs", {

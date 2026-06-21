@@ -125,18 +125,23 @@
 > 1. Test it yourself end-to-end with Playwright on a mobile-sized viewport, or
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
+
+### Iteration 17 (2026-02-21): ✅
+- **Backend refactor — server.py 2,337 → 118 lines.** Extracted shared models, helpers, plant data, climate maths, paywall guards and LLM helpers into `/app/backend/core.py`. Pulled the guidance generator into `/app/backend/services_guidance.py`. Split every endpoint into per-feature routers under `/app/backend/routers/` (checkout, plants, guidance, arrangement, pdf, masterclass, images, lesson, admin — alongside the existing regions / feedback / affiliate). server.py is now a thin app-assembly file with mongo + middleware + scheduler + router includes.
+- **Sentry error logging — silent no-op default.** New `/app/backend/sentry_init.py` and `/app/frontend/src/sentry.js`. Both initialise only if `SENTRY_DSN` / `REACT_APP_SENTRY_DSN` is set; otherwise the app boots and renders normally with zero overhead. Frontend wraps the app tree in `Sentry.ErrorBoundary` (no-op when init is skipped). Backend uses Starlette + FastAPI integrations. Tunables: `SENTRY_TRACES_SAMPLE_RATE`, `SENTRY_ENVIRONMENT`, `SENTRY_RELEASE` (all optional).
+- **Verified**: 73/73 pytest passing + 31/31 router-refactor regression suite (`/app/backend/tests/test_router_refactor.py`) green on warm cache (3s) and cold (90s). Every endpoint reachable at its original `/api/...` path with the original response shape. Frontend smoke OK.
+
 ### P1
 - Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
-- Real cron for monthly auto-refresh of guides.
-- Lazy-load plant images on grid (defer LLM cost until card focused).
+- Paste real Sentry DSNs into `backend/.env` (`SENTRY_DSN=...`) and `frontend/.env` (`REACT_APP_SENTRY_DSN=...`) when ready. Rebuild frontend.
 - Save multiple "patches" (home + holiday cottage).
 
 ### P2
 - Optional email subscription via Resend (when user supplies API key).
 - Community / journal entries (would need auth).
-- Refactor: consider splitting `/app/frontend/src/i18n/index.jsx` (now ~10,400 lines) into `i18n/en.js`, `i18n/de.js`, … with a `langLoader` per locale to keep diffs reviewable.
+- Refactor: consider splitting `/app/frontend/src/i18n/index.jsx` (>22,000 lines) into `i18n/en.js`, `i18n/de.js`, … with a `langLoader` per locale to keep diffs reviewable.
 - Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` (near-duplicates).
+- Migrate FastAPI `@app.on_event(...)` to the modern `lifespan` context manager (deprecation warning).
 
 ## Smart Next Action
-Region-aware **affiliate links** on the plant database (seeds, compost, pots) — genuinely helpful
-*and* a clean revenue layer that turns AI cost back into income.
+Now that errors are wired for visibility, capture the **first 30 days of real user errors** in Sentry — pick the top 1–2 recurring browser exceptions and harden those flows before iterating on new features.

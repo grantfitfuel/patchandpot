@@ -89,7 +89,7 @@ def test_refresh_skips_when_current_month_cached(db, event_loop, monkeypatch):
     """If a (region, lang) pair already has the current-month row cached, the
     generate fn must NOT be called (`force=False` short-circuits)."""
     from cache_refresh import refresh_monthly_guidance
-    from server import Region
+    from core import Region
 
     calls = []
 
@@ -115,7 +115,7 @@ def test_refresh_skips_when_current_month_cached(db, event_loop, monkeypatch):
 
 def test_refresh_records_status_in_cron_collection(db, event_loop):
     from cache_refresh import refresh_monthly_guidance, get_cron_status
-    from server import Region
+    from core import Region
 
     async def fake_generate(req, force=False):
         return {"ok": True}

@@ -105,9 +105,8 @@ async def refresh_monthly_guidance(db, generate_fn, region_model) -> dict:
     skipped: list[str] = []
     errors: list[dict] = []
 
-    # Import lazily — we need the GuidanceRequest schema from server.py at call
-    # time so the module stays cycle-free at import.
-    from server import GuidanceRequest  # type: ignore
+    # Import lazily — keeps this module cycle-free at import time.
+    from core import GuidanceRequest  # type: ignore
 
     for pair in pairs:
         region = region_model(**pair["region"])

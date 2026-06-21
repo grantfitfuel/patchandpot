@@ -1,0 +1,168 @@
+"""Stripe checkout + webhook + access verification.
+
+The Stripe `session_id` IS the passwordless access token — we store it in
+`access_grants` once payment is confirmed, then the frontend keeps it in
+localStorage and sends it to `POST /api/access/check` to gate premium features.
+"""
+import logging
+from datetime import datetime, timezone
+
+from fastapi import APIRouter, HTTPException, Request
+
+from emergentintegrations.payments.stripe.checkout import CheckoutSessionRequest
+
+from core import (
+    AccessCheckRequest, CheckoutRequest,
+    DEFAULT_PACKAGE_ID, PAYWALL_PACKAGES,
+    _expiry_for, _stripe_checkout,
+)
+
+logger = logging.getLogger(__name__)
+
+
+def make_router(db) -> APIRouter:
+    router = APIRouter()
+
+    @router.post("/checkout/session")
+    async def create_checkout(payload: CheckoutRequest, request: Request):
+        """Create a Stripe Checkout session for the chosen access tier."""
+        sc = _stripe_checkout(str(request.base_url))
+        pkg_id = (payload.package_id or DEFAULT_PACKAGE_ID).strip()
+        pkg = PAYWALL_PACKAGES.get(pkg_id)
+        if not pkg:
+            raise HTTPException(400, "Unknown package_id")
+
+        origin = payload.origin_url.rstrip("/")
+        success_url = f"{origin}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
+        cancel_url = f"{origin}/checkout/cancel"
+        metadata = {"package_id": pkg["id"], "source": "web"}
+        if payload.email:
+            metadata["email"] = payload.email[:120]
+
+        req = CheckoutSessionRequest(
+            amount=pkg["amount"],
+            currency=pkg["currency"],
+            success_url=success_url,
+            cancel_url=cancel_url,
+            metadata=metadata,
+        )
+        session = await sc.create_checkout_session(req)
+
+        await db.payment_transactions.insert_one({
+            "session_id": session.session_id,
+            "amount": pkg["amount"],
+            "currency": pkg["currency"],
+            "package_id": pkg["id"],
+            "payment_status": "pending",
+            "status": "open",
+            "metadata": metadata,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "access_granted": False,
+        })
+        return {"url": session.url, "session_id": session.session_id, "package_id": pkg["id"]}
+
+    @router.get("/checkout/status/{session_id}")
+    async def get_checkout_status(session_id: str, request: Request):
+        """Poll Stripe, update our record, and grant access on first 'paid' result."""
+        sc = _stripe_checkout(str(request.base_url))
+        status = await sc.get_checkout_status(session_id)
+
+        update = {
+            "status": status.status,
+            "payment_status": status.payment_status,
+            "checked_at": datetime.now(timezone.utc).isoformat(),
+        }
+        txn = await db.payment_transactions.find_one_and_update(
+            {"session_id": session_id},
+            {"$set": update},
+            return_document=True,
+        )
+
+        paid = status.payment_status == "paid"
+        if paid and txn and not txn.get("access_granted"):
+            flipped = await db.payment_transactions.update_one(
+                {"session_id": session_id, "access_granted": {"$ne": True}},
+                {"$set": {"access_granted": True}},
+            )
+            if flipped.modified_count == 1:
+                pkg_id = txn.get("package_id") or (status.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
+                await db.access_grants.update_one(
+                    {"token": session_id},
+                    {"$set": {
+                        "token": session_id,
+                        "email": (status.metadata or {}).get("email"),
+                        "package_id": pkg_id,
+                        "expires_at": _expiry_for(pkg_id),
+                        "granted_at": datetime.now(timezone.utc).isoformat(),
+                    }},
+                    upsert=True,
+                )
+
+        return {
+            "session_id": session_id,
+            "status": status.status,
+            "payment_status": status.payment_status,
+            "amount_total": status.amount_total,
+            "currency": status.currency,
+            "paid": paid,
+        }
+
+    @router.post("/webhook/stripe")
+    async def stripe_webhook(request: Request):
+        """Idempotent webhook — backstop for cases where the user closes the success tab."""
+        sc = _stripe_checkout(str(request.base_url))
+        body = await request.body()
+        signature = request.headers.get("Stripe-Signature", "")
+        try:
+            evt = await sc.handle_webhook(body, signature)
+        except Exception as e:  # noqa: BLE001
+            logger.warning("stripe webhook verification failed: %s", e)
+            raise HTTPException(400, "Invalid webhook")
+
+        if evt.payment_status == "paid" and evt.session_id:
+            txn = await db.payment_transactions.find_one_and_update(
+                {"session_id": evt.session_id, "access_granted": {"$ne": True}},
+                {"$set": {
+                    "payment_status": "paid",
+                    "access_granted": True,
+                    "webhook_at": datetime.now(timezone.utc).isoformat(),
+                }},
+                return_document=True,
+            )
+            if txn:
+                pkg_id = txn.get("package_id") or (evt.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
+                await db.access_grants.update_one(
+                    {"token": evt.session_id},
+                    {"$set": {
+                        "token": evt.session_id,
+                        "email": (evt.metadata or {}).get("email"),
+                        "package_id": pkg_id,
+                        "expires_at": _expiry_for(pkg_id),
+                        "granted_at": datetime.now(timezone.utc).isoformat(),
+                    }},
+                    upsert=True,
+                )
+        return {"ok": True}
+
+    @router.post("/access/check")
+    async def check_access(payload: AccessCheckRequest):
+        """Validate that a session_id has been granted access AND that any expiry
+        has not yet passed. Lifetime grants have expires_at=None and never expire."""
+        token = (payload.token or "").strip()
+        if not token:
+            return {"paid": False}
+        grant = await db.access_grants.find_one({"token": token}, {"_id": 0})
+        if not grant:
+            return {"paid": False}
+        expires_at = grant.get("expires_at")
+        now_iso = datetime.now(timezone.utc).isoformat()
+        expired = bool(expires_at) and now_iso > expires_at
+        return {
+            "paid": not expired,
+            "expired": expired,
+            "package_id": grant.get("package_id"),
+            "granted_at": grant.get("granted_at"),
+            "expires_at": expires_at,
+        }
+
+    return router

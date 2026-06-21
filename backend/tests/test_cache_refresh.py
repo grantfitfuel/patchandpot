@@ -109,7 +109,9 @@ def test_refresh_skips_when_current_month_cached(db, event_loop, monkeypatch):
     status, made_calls = event_loop.run_until_complete(_run())
     assert status["month"] == datetime.now(timezone.utc).month
     assert status["pairs_considered"] >= 1
-    assert isinstance(status["pruned_stale_rows"], int)
+    assert isinstance(status["pruned"], dict)
+    assert "guidance_cache" in status["pruned"]
+    assert "image_cache" in status["pruned"]
     assert "errors" in status
 
 
@@ -152,6 +154,6 @@ def test_prune_stale_removes_very_old_rows(db, event_loop):
         return pruned, names
 
     pruned, names = event_loop.run_until_complete(_run())
-    assert pruned >= 1
+    assert pruned["guidance_cache"] >= 1
     assert "OldTown" not in names
     assert "NewTown" in names

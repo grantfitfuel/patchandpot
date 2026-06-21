@@ -57,7 +57,7 @@ def test_refresh_guidance_returns_shape_and_is_idempotent():
     d1 = r1.json()
     for key in [
         "started_at", "finished_at", "duration_seconds", "month",
-        "pairs_considered", "refreshed", "errors", "pruned_stale_rows",
+        "pairs_considered", "refreshed", "errors", "pruned",
     ]:
         assert key in d1, f"missing {key} in {d1}"
     assert isinstance(d1["errors"], list)

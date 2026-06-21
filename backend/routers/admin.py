@@ -51,6 +51,13 @@ def make_router(db) -> APIRouter:
         _require_admin(token)
         return await seed_deep_dives(db, overwrite=overwrite)
 
+    @router.post("/admin/prune")
+    async def admin_prune(token: str):
+        """Manually trigger the stale-row pruner. Same logic the monthly cron runs."""
+        from cache_refresh import _prune_stale
+        _require_admin(token)
+        return await _prune_stale(db)
+
     @router.post("/admin/prewarm")
     async def prewarm_image_cache():
         """One-shot endpoint: generate every flower-card image that isn't already cached."""
@@ -75,5 +82,88 @@ def make_router(db) -> APIRouter:
                 failed.append(slug)
         return {"generated": generated, "skipped_cached": skipped, "failed": failed,
                 "total": len(FLOWER_PORTRAITS)}
+
+    @router.get("/admin/ai-usage")
+    async def admin_ai_usage(token: str, days: int = 30):
+        """Estimate AI spend over the last `days`. We don't bill per token here —
+        instead we count rows in each cache and apply rough cost factors per row
+        (Sonnet base = 1 unit, Haiku translation = 0.25 unit, image = 0.15 unit).
+        Use it as a relative budget signal, not a literal pound figure."""
+        from datetime import datetime, timedelta, timezone
+
+        _require_admin(token)
+        days = max(1, min(int(days), 365))
+        since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+
+        # Rough cost factors — proportional units, not currency.
+        WEIGHT_SONNET = 1.0      # full guidance / plant-guide EN generation
+        WEIGHT_HAIKU = 0.25      # ~4× cheaper per call
+        WEIGHT_IMAGE = 0.15      # Nano Banana per image
+
+        # `guidance-base` rows with language='en' are the expensive Sonnet calls.
+        sonnet_base = await db.guidance_cache.count_documents({
+            "kind": "guidance-base", "language": "en", "created_at": {"$gte": since},
+        })
+        # Non-EN `guidance-base` rows are Haiku translations.
+        haiku_base_trans = await db.guidance_cache.count_documents({
+            "kind": "guidance-base", "language": {"$ne": "en"}, "created_at": {"$gte": since},
+        })
+        # `guidance` rows with garden = small Haiku personalisation call.
+        garden_personalised = await db.guidance_cache.count_documents({
+            "kind": "guidance",
+            "my_garden": {"$exists": True, "$not": {"$size": 0}},
+            "created_at": {"$gte": since},
+        })
+        # Plant-guide AI rows: EN are Sonnet, others are Haiku translations.
+        plant_guide_total = await db.guidance_cache.count_documents({
+            "key": {"$regex": "^plant-guide:ai-"}, "created_at": {"$gte": since},
+        })
+        plant_guide_en = await db.guidance_cache.count_documents({
+            "key": {"$regex": "^plant-guide:ai-.*:en$"}, "created_at": {"$gte": since},
+        })
+        plant_guide_other = plant_guide_total - plant_guide_en
+        # Arrangement suggestions — Sonnet.
+        arrangements = await db.arrangement_cache.count_documents({"created_at": {"$gte": since}})
+        # Masterclasses — Sonnet (single big call each).
+        masterclasses = await db.generated_masterclasses.count_documents({"created_at": {"$gte": since}})
+        # Images — Nano Banana.
+        images = await db.image_cache.count_documents({"created_at": {"$gte": since}})
+
+        sonnet_calls = sonnet_base + plant_guide_en + arrangements + masterclasses
+        haiku_calls = haiku_base_trans + garden_personalised + plant_guide_other
+        units = round(
+            sonnet_calls * WEIGHT_SONNET
+            + haiku_calls * WEIGHT_HAIKU
+            + images * WEIGHT_IMAGE,
+            1,
+        )
+
+        return {
+            "window_days": days,
+            "since": since,
+            "calls": {
+                "sonnet": {
+                    "guidance_base_en": sonnet_base,
+                    "plant_guide_en": plant_guide_en,
+                    "arrangements": arrangements,
+                    "masterclasses": masterclasses,
+                    "total": sonnet_calls,
+                },
+                "haiku": {
+                    "guidance_base_translations": haiku_base_trans,
+                    "garden_personalisations": garden_personalised,
+                    "plant_guide_translations": plant_guide_other,
+                    "total": haiku_calls,
+                },
+                "images": images,
+            },
+            "relative_cost_units": units,
+            "weights": {"sonnet": WEIGHT_SONNET, "haiku": WEIGHT_HAIKU, "image": WEIGHT_IMAGE},
+            "note": (
+                "Units are proportional, not currency. Sonnet ≈ 4× Haiku per call. "
+                "Compare month-over-month to spot regressions; multiply by your own "
+                "per-token Anthropic price to get a rough money figure."
+            ),
+        }
 
     return router

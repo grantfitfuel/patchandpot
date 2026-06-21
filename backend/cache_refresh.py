@@ -76,15 +76,36 @@ async def _list_warm_pairs(db, limit: int = MAX_PAIRS_PER_RUN) -> list[dict]:
     return out
 
 
-async def _prune_stale(db) -> int:
-    """Delete guidance rows older than STALE_DAYS. Returns the number removed."""
+async def _prune_stale(db) -> dict:
+    """Delete guidance + image rows older than STALE_DAYS. Returns counts so the
+    admin endpoint can show what got cleaned up."""
     cutoff = datetime.now(timezone.utc).timestamp() - STALE_DAYS * 86400
     cutoff_iso = datetime.fromtimestamp(cutoff, tz=timezone.utc).isoformat()
-    res = await db.guidance_cache.delete_many({
+
+    guidance_res = await db.guidance_cache.delete_many({
         "kind": "guidance",
         "created_at": {"$lt": cutoff_iso},
     })
-    return int(res.deleted_count)
+    # Image cache rows have no `kind` discriminator; key by created_at only.
+    image_res = await db.image_cache.delete_many({"created_at": {"$lt": cutoff_iso}})
+    # Completed/errored job rows older than 7 days — cheap housekeeping.
+    job_cutoff = datetime.fromtimestamp(
+        datetime.now(timezone.utc).timestamp() - 7 * 86400, tz=timezone.utc,
+    ).isoformat()
+    guidance_jobs_res = await db.guidance_jobs.delete_many({
+        "status": {"$in": ["done", "error"]},
+        "completed_at": {"$lt": job_cutoff},
+    })
+    masterclass_jobs_res = await db.masterclass_jobs.delete_many({
+        "status": {"$in": ["done", "error"]},
+        "completed_at": {"$lt": job_cutoff},
+    })
+    return {
+        "guidance_cache": int(guidance_res.deleted_count),
+        "image_cache": int(image_res.deleted_count),
+        "guidance_jobs": int(guidance_jobs_res.deleted_count),
+        "masterclass_jobs": int(masterclass_jobs_res.deleted_count),
+    }
 
 
 async def refresh_monthly_guidance(db, generate_fn, region_model) -> dict:
@@ -135,7 +156,7 @@ async def refresh_monthly_guidance(db, generate_fn, region_model) -> dict:
         "refreshed": len(refreshed),
         "skipped": len(skipped),
         "errors": errors,
-        "pruned_stale_rows": pruned,
+        "pruned": pruned,
     }
     await db.cron_status.update_one(
         {"job": "guidance_monthly_refresh"},

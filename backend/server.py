@@ -12,11 +12,15 @@ Wiring order:
 """
 import logging
 import os
+import traceback
+from collections import deque
+from datetime import datetime, timezone
 from pathlib import Path
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from dotenv import load_dotenv
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, FastAPI, Request
+from fastapi.responses import JSONResponse
 from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.cors import CORSMiddleware
 
@@ -93,6 +97,55 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ─────────────────── Recent-errors ring buffer ───────────────────
+# Captures the last 50 unhandled backend exceptions so the admin can curl
+# /api/admin/recent-errors from anywhere (their phone, a screenshot) and
+# see exactly what failed on a request — without needing log access.
+# Lives in-process; lost on restart, which is fine for ad-hoc debugging.
+RECENT_ERRORS = deque(maxlen=50)
+
+
+@app.exception_handler(Exception)
+async def _capture_unhandled(request: Request, exc: Exception):
+    """Catch anything our route-level try/except missed (CORS edge cases,
+    Pydantic surprises, dependency failures) and record the full type +
+    traceback + request context for later inspection."""
+    entry = {
+        "at": datetime.now(timezone.utc).isoformat(),
+        "method": request.method,
+        "path": str(request.url.path),
+        "type": type(exc).__name__,
+        "message": str(exc)[:500],
+        "ua": request.headers.get("user-agent", "")[:200],
+        "origin": request.headers.get("origin", ""),
+        "traceback": traceback.format_exc()[-2000:],  # tail to keep payload small
+    }
+    RECENT_ERRORS.appendleft(entry)
+    logger.exception("Unhandled %s on %s %s", entry["type"], request.method, request.url.path)
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": f"Server error: {entry['type']}",
+            "type": entry["type"],
+        },
+    )
+
+
+@app.get("/api/admin/recent-errors")
+async def recent_errors(token: str, limit: int = 20):
+    """Token-gated curl-friendly view of the most recent unhandled errors.
+    Curl from anywhere: `curl '<host>/api/admin/recent-errors?token=…'`."""
+    expected = os.environ.get("ADMIN_TOKEN")
+    if not expected:
+        from fastapi import HTTPException
+        raise HTTPException(503, "ADMIN_TOKEN not configured")
+    if token != expected:
+        from fastapi import HTTPException
+        raise HTTPException(403, "Forbidden")
+    limit = max(1, min(int(limit), 50))
+    return {"count": len(RECENT_ERRORS), "errors": list(RECENT_ERRORS)[:limit]}
+
 
 # ───────────────────────── Background tasks ─────────────────────────
 scheduler = AsyncIOScheduler()

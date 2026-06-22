@@ -212,6 +212,67 @@ async def config_check(token: str):
     }
 
 
+@app.get("/api/admin/test-stripe")
+async def test_stripe(token: str):
+    """Attempt to create a minimal Stripe Checkout session and return the
+    raw outcome — successful URL on happy path, otherwise the FULL Stripe
+    error message + class + traceback tail. Lets us diagnose live-key /
+    account-activation problems in one URL visit, without going through
+    the modal flow."""
+    expected = os.environ.get("ADMIN_TOKEN")
+    if not expected:
+        from fastapi import HTTPException
+        raise HTTPException(503, "ADMIN_TOKEN not configured")
+    if token != expected:
+        from fastapi import HTTPException
+        raise HTTPException(403, "Forbidden")
+
+    # Import lazily so a broken Stripe client doesn't crash this endpoint
+    # itself — we want it to ALWAYS return diagnostic info.
+    from emergentintegrations.payments.stripe.checkout import (
+        CheckoutSessionRequest, StripeCheckout,
+    )
+    from core import STRIPE_API_KEY
+
+    result = {
+        "stripe_key_set": bool(STRIPE_API_KEY),
+        "stripe_key_prefix": (STRIPE_API_KEY[:8] if STRIPE_API_KEY else None),
+        "stripe_key_len": (len(STRIPE_API_KEY) if STRIPE_API_KEY else 0),
+    }
+    try:
+        sc = StripeCheckout(
+            api_key=STRIPE_API_KEY,
+            webhook_url="https://patchandpot.app/api/webhook/stripe",
+        )
+    except Exception as e:  # noqa: BLE001
+        result["step"] = "StripeCheckout init"
+        result["error_type"] = type(e).__name__
+        result["error_message"] = str(e)[:1000]
+        result["traceback"] = traceback.format_exc()[-1500:]
+        return result
+
+    try:
+        session = await sc.create_checkout_session(CheckoutSessionRequest(
+            amount=35.0,
+            currency="gbp",
+            success_url="https://patchandpot.app/checkout/success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url="https://patchandpot.app/checkout/cancel",
+            metadata={"package_id": "lifetime_founding", "source": "admin_test"},
+        ))
+        result["step"] = "create_checkout_session"
+        result["ok"] = True
+        result["session_id"] = session.session_id
+        result["url_prefix"] = (session.url or "")[:50]
+        return result
+    except Exception as e:  # noqa: BLE001
+        result["step"] = "create_checkout_session"
+        result["ok"] = False
+        result["error_type"] = type(e).__name__
+        result["error_message"] = str(e)[:1500]
+        result["traceback"] = traceback.format_exc()[-1500:]
+        return result
+
+
 # ───────────────────────── Background tasks ─────────────────────────
 scheduler = AsyncIOScheduler()
 _generate_and_cache_guidance = make_generate_and_cache_guidance(db)

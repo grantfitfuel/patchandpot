@@ -79,6 +79,21 @@ async function getOrCreateCheckout(packageId) {
       writeCheckoutCache(packageId, url);
       return url;
     })
+    .catch((err) => {
+      // Surface diagnostic detail so the modal's error state can show the
+      // user (and us, in support emails) what actually went wrong instead
+      // of a generic "couldn't reach Stripe" — invaluable when debugging
+      // iOS Private Browsing / network / backend-Stripe issues without
+      // DevTools access.
+      const status = err?.response?.status;
+      const detail = err?.response?.data?.detail;
+      const tag = status ? `HTTP ${status}` : (err?.code || "NETWORK");
+      const enriched = new Error(detail ? `${tag}: ${detail}` : tag);
+      enriched.original = err;
+      enriched.status = status;
+      enriched.tag = tag;
+      throw enriched;
+    })
     .finally(() => { inFlight.delete(packageId); });
   inFlight.set(packageId, p);
   return p;
@@ -87,17 +102,15 @@ async function getOrCreateCheckout(packageId) {
 export default function FoundingClaimModal({ remaining, total, onClose }) {
   const [phase, setPhase] = useState("preparing"); // preparing | ready | error
   const [checkoutUrl, setCheckoutUrl] = useState("");
+  const [errorTag, setErrorTag] = useState("");
   const [attempt, setAttempt] = useState(0);
   const continueRef = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
     setPhase("preparing");
+    setErrorTag("");
 
-    // getOrCreateCheckout handles 3 cases in one call:
-    //   1) Cache hit → resolves synchronously-ish with the cached URL.
-    //   2) Request already in-flight → both effects await the same promise.
-    //   3) Cold path → POST /api/checkout/session, cache the URL, resolve.
     getOrCreateCheckout("lifetime_founding")
       .then((url) => {
         if (cancelled) return;
@@ -107,7 +120,9 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
       })
       .catch((e) => {
         console.error("founding checkout failed", e);
-        if (!cancelled) setPhase("error");
+        if (cancelled) return;
+        setErrorTag(e?.tag || "NETWORK");
+        setPhase("error");
       });
 
     return () => { cancelled = true; };
@@ -195,6 +210,8 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
               <a
                 ref={continueRef}
                 href={checkoutUrl}
+                target="_top"
+                rel="noopener"
                 data-testid="founding-claim-continue"
                 className="btn-terracotta w-full inline-flex items-center justify-center gap-2"
               >
@@ -210,6 +227,14 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
                 <AlertCircle strokeWidth={1.5} className="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" />
                 <div className="text-sm text-ink/80 leading-relaxed flex-1">
                   <p>We couldn&apos;t reach Stripe just now. Please check your connection and try again — or come back in a minute.</p>
+                  {errorTag && (
+                    <p
+                      className="mt-2 font-mono text-[10px] text-ink/50"
+                      data-testid="founding-claim-error-tag"
+                    >
+                      Diagnostic: {errorTag}
+                    </p>
+                  )}
                   <div className="mt-3 flex items-center gap-4">
                     <button
                       type="button"

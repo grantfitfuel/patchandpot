@@ -126,6 +126,19 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 28 (2026-02-22): ✅ — Founding checkout-URL cache + in-flight dedup
+- **Problem**: every modal open fired a fresh `POST /api/checkout/session` — a curious visitor opening the modal 5× before paying meant 5 abandoned Stripe sessions + 5 ref-tagged `payment_transactions` rows polluting `/admin/referrals`.
+- **Fix in `FoundingClaimModal.jsx`**:
+  - **sessionStorage cache** (`pp-checkout-url:<package_id>`) with a 10-min TTL stores the Stripe URL after first creation. Reopens within the same tab serve from cache → zero API calls. Cache dies with the tab so stale URLs don't survive browser sessions.
+  - **In-flight Map dedup**: if two effects fire concurrently (React 18 Strict Mode in dev, or a user double-tapping), both await the same promise instead of firing parallel POSTs. The single resolved URL is shared and written to cache.
+  - **Retry clears cache** so a genuine network-failure retry actually gets a fresh session, not the stale cached one (which would also be failed).
+- **Verified end-to-end**: cold open = 1 call · reopen = 0 calls · expired cache = 1 call (verified by forcing `exp` to the past in sessionStorage).
+
+### Iteration 27.5 (2026-02-22): ✅ — Embed deep-link auto-opens FoundingClaimModal
+- Visitors arriving at `/?founding=1` (the embed widget's CTA target) now have the FoundingClaimModal auto-open on page load — no second tap needed.
+- `?founding=1` is stripped from the URL via `history.replaceState` after open, so refresh doesn't re-open and the cleaned URL is shareable without forcing the modal on others.
+- `?ref=embed-…` is preserved through the strip → referral attribution still works.
+
 ### Iteration 27 (2026-02-22): 🐞→✅ — iOS Safari "Claim my spot" silent fail + Founding paywall confirmation
 - **Bug reported** (user on iPhone Safari Private Browsing): tapping "Claim my spot" on FoundingBanner did nothing. **Root cause**: the handler did `await createCheckout(...); window.location.href = url;` — iOS Safari treats a cross-origin navigation assigned AFTER an `await` as not user-initiated and silently blocks it. PaywallModal already documented this exact iOS quirk (line 7-11 comment) and used a real `<a href>`; FoundingBanner had not been updated.
 - **Fix**: new `FoundingClaimModal.jsx` opens synchronously on tap (preserves user gesture chain), kicks off `createCheckout` in the background, and renders the result as a real `<a href={checkoutUrl}>Continue to Stripe →</a>`. The user's second tap on that anchor IS a fresh user gesture so iOS happily honours it. Modal shows £35 vs £50 price, 5-item feature list, 30-day refund line, Retry button on network failure. ESC + backdrop click + X close.

@@ -18,6 +18,72 @@ import { createCheckout } from "@/lib/api";
  * Side benefit: the user sees what they're buying (price, what's included,
  * 30-day refund) before being dropped on stripe.com.
  */
+/**
+ * Cached Stripe session URL helpers.
+ *
+ * A curious visitor might open the Founding modal several times before
+ * paying — each open used to fire a fresh /api/checkout/session and bloat
+ * payment_transactions with abandoned sessions tagged with the same ref.
+ * We memoise the URL in sessionStorage for ~10 minutes. Stripe sessions
+ * are reusable for ~24h, so 10min is comfortably conservative; the cache
+ * also dies when the tab closes (sessionStorage semantics) which prevents
+ * stale URLs lingering across browser sessions.
+ *
+ * The cache is keyed per-package — a tip jar checkout shouldn't get
+ * served the lifetime session and vice versa.
+ *
+ * `inFlight` is a module-scoped dedup map: if two effects fire concurrently
+ * (e.g. React 18 Strict Mode in dev, or a user double-tapping the trigger),
+ * both await the same promise instead of firing two parallel POSTs.
+ */
+const CHECKOUT_CACHE_PREFIX = "pp-checkout-url:";
+const CHECKOUT_CACHE_TTL_MS = 10 * 60 * 1000;
+const inFlight = new Map();
+
+function readCheckoutCache(packageId) {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(CHECKOUT_CACHE_PREFIX + packageId);
+    if (!raw) return null;
+    const { url, exp } = JSON.parse(raw);
+    if (!url || !exp || Date.now() > exp) return null;
+    return url;
+  } catch {
+    return null;
+  }
+}
+
+function writeCheckoutCache(packageId, url) {
+  if (typeof window === "undefined" || !url) return;
+  try {
+    sessionStorage.setItem(
+      CHECKOUT_CACHE_PREFIX + packageId,
+      JSON.stringify({ url, exp: Date.now() + CHECKOUT_CACHE_TTL_MS }),
+    );
+  } catch {
+    // Quota / privacy mode — silently skip; we just lose the optimisation.
+  }
+}
+
+function clearCheckoutCache(packageId) {
+  if (typeof window === "undefined") return;
+  try { sessionStorage.removeItem(CHECKOUT_CACHE_PREFIX + packageId); } catch { /* noop */ }
+}
+
+async function getOrCreateCheckout(packageId) {
+  const cached = readCheckoutCache(packageId);
+  if (cached) return cached;
+  if (inFlight.has(packageId)) return inFlight.get(packageId);
+  const p = createCheckout(window.location.origin, undefined, packageId)
+    .then(({ url }) => {
+      writeCheckoutCache(packageId, url);
+      return url;
+    })
+    .finally(() => { inFlight.delete(packageId); });
+  inFlight.set(packageId, p);
+  return p;
+}
+
 export default function FoundingClaimModal({ remaining, total, onClose }) {
   const [phase, setPhase] = useState("preparing"); // preparing | ready | error
   const [checkoutUrl, setCheckoutUrl] = useState("");
@@ -27,22 +93,23 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
   useEffect(() => {
     let cancelled = false;
     setPhase("preparing");
-    (async () => {
-      try {
-        const { url } = await createCheckout(
-          window.location.origin,
-          undefined,
-          "lifetime_founding",
-        );
+
+    // getOrCreateCheckout handles 3 cases in one call:
+    //   1) Cache hit → resolves synchronously-ish with the cached URL.
+    //   2) Request already in-flight → both effects await the same promise.
+    //   3) Cold path → POST /api/checkout/session, cache the URL, resolve.
+    getOrCreateCheckout("lifetime_founding")
+      .then((url) => {
         if (cancelled) return;
         setCheckoutUrl(url);
         setPhase("ready");
         requestAnimationFrame(() => continueRef.current?.focus());
-      } catch (e) {
+      })
+      .catch((e) => {
         console.error("founding checkout failed", e);
         if (!cancelled) setPhase("error");
-      }
-    })();
+      });
+
     return () => { cancelled = true; };
   }, [attempt]);
 
@@ -146,7 +213,10 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
                   <div className="mt-3 flex items-center gap-4">
                     <button
                       type="button"
-                      onClick={() => setAttempt((n) => n + 1)}
+                      onClick={() => {
+                        clearCheckoutCache("lifetime_founding");
+                        setAttempt((n) => n + 1);
+                      }}
                       data-testid="founding-claim-retry"
                       className="text-forest font-medium underline-offset-4 hover:underline text-xs"
                     >

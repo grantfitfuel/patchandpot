@@ -6,6 +6,7 @@ import RegionPicker from "@/components/RegionPicker";
 import ThisMonthCard from "@/components/ThisMonthCard";
 import PaywallModal from "@/components/PaywallModal";
 import FoundingBanner from "@/components/FoundingBanner";
+import EmbedFoundingSnippet from "@/components/EmbedFoundingSnippet";
 import { usePaywall } from "@/hooks/usePaywall";
 import { useI18n, monthLabel } from "@/i18n";
 
@@ -140,6 +141,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      {!paid && <EmbedFoundingSnippet />}
 
       {!paid && (
         <section className="border-t border-border" data-testid="home-bundle-cta">

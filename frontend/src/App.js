@@ -16,6 +16,7 @@ import MasterclassDetailPage from "@/pages/MasterclassDetail";
 import AIMasterclassPage from "@/pages/AIMasterclass";
 import LearnLandingPage from "@/pages/LearnLanding";
 import CheckoutSuccess from "@/pages/CheckoutSuccess";
+import AdminAiUsagePage from "@/pages/AdminAiUsage";
 import PrivacyPage from "@/pages/Privacy";
 import TermsPage from "@/pages/Terms";
 import LanguageDetectedBanner from "@/components/LanguageDetectedBanner";
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="/print/:month" element={<PrintPage />} />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/checkout/cancel" element={<Home />} />
+            <Route path="/admin/ai-usage" element={<AdminAiUsagePage />} />
           </Routes>
         </main>
         <Footer />

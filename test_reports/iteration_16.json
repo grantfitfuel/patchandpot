@@ -1,0 +1,23 @@
+{
+  "summary": "Iteration 16: Tested (1) homepage 'Copy embed code' snippet for non-paid visitors and (2) /admin/ai-usage token-gated dashboard. All backend endpoints (3 windows + 422/403) pass; all frontend flows (gate, invalid token error, valid-token dashboard mount, all 7 required data-testid cards present, 7/30/90 window refetch, sign-out clearing localStorage) pass. No issues found.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_admin_ai_usage_iter16.py",
+    "/app/test_reports/pytest/iter16_admin_ai_usage.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "EmbedFoundingSnippet hides textarea fallback via absolute positioning inside a non-relative parent — the `absolute -left-[9999px]` classes still work in practice but could be moved into a `position:relative` wrapper for clarity.",
+    "AdminAiUsage stores token in plain localStorage which is fine since real auth is backend-side, as the inline comment notes — no concern.",
+    "fetchAdminAiUsage passes the token in the query string; backend logs may capture it. Acceptable for an internal admin tool but worth migrating to a header in a future iteration."
+  ],
+  "updated_files": ["/app/backend/tests/test_admin_ai_usage_iter16.py"],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "ADMIN_TOKEN=patchpot-admin-d3f8a2b9c4 (from /app/backend/.env)",
+  "seed_data_creation": "None — used existing telemetry data.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Both new surfaces from iter_16 are stable: homepage embed snippet (data-testid=embed-founding-snippet only renders while founding cohort active) and /admin/ai-usage dashboard (token persisted under localStorage['pp-admin-token']). Backend GET /api/admin/ai-usage shape verified against iter_16 fixtures. Budget currently £3.53/£15 = Healthy. When testing admin page, remember dashboard renders only after first /api/admin/ai-usage 200 — wait_for_selector('[data-testid=admin-budget-card]') after submit.",
+  "rca of the issue": "No issues encountered."
+}

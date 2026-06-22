@@ -107,6 +107,13 @@ export const ipDetectRegion = () =>
 
 export const fetchFoundingStatus = () =>
   api.get("/founding-status").then((r) => r.data);
+// Admin: AI usage telemetry. Token is passed via query string per existing
+// router contract; we don't store it on the axios instance because the token
+// is per-request and gated by an explicit text input on the admin page.
+export const fetchAdminAiUsage = (token, days = 30) =>
+  api
+    .get("/admin/ai-usage", { params: { token, days } })
+    .then((r) => r.data);
 // Fire-and-forget cache prewarm. Returns a Promise but callers don't need to
 // await it — any errors are swallowed so a flaky prewarm never crashes the UI.
 export const prewarmGuidance = (region, month, language = "en") => {

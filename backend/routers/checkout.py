@@ -175,7 +175,15 @@ def make_router(db) -> APIRouter:
     @router.post("/checkout/session")
     async def create_checkout(payload: CheckoutRequest, request: Request):
         """Create a Stripe Checkout session for the chosen access tier."""
-        sc = _stripe_checkout(str(request.base_url))
+        try:
+            sc = _stripe_checkout(str(request.base_url))
+        except Exception as e:  # noqa: BLE001
+            # Most likely: STRIPE_API_KEY env var missing or malformed.
+            # Surface it as 503 so the frontend's diagnostic tag shows
+            # something human-readable instead of a generic 500.
+            logger.error("checkout._stripe_checkout failed: %s", e, exc_info=True)
+            raise HTTPException(503, f"Stripe client init failed: {type(e).__name__}")
+
         pkg_id = (payload.package_id or DEFAULT_PACKAGE_ID).strip()
 
         # Founding Member redirect: if cohort is full, silently downgrade the
@@ -208,20 +216,35 @@ def make_router(db) -> APIRouter:
             cancel_url=cancel_url,
             metadata=metadata,
         )
-        session = await sc.create_checkout_session(req)
+        try:
+            session = await sc.create_checkout_session(req)
+        except Exception as e:  # noqa: BLE001
+            # Real Stripe failures (rate limit, invalid key, network) bubble
+            # here. We log the full traceback for prod log inspection and
+            # return a clean 502 with the exception class so the modal's
+            # diagnostic tag shows e.g. "HTTP 502: StripeAuthenticationError".
+            logger.error("Stripe create_checkout_session failed: %s", e, exc_info=True)
+            raise HTTPException(502, f"Stripe API error: {type(e).__name__}")
 
-        await db.payment_transactions.insert_one({
-            "session_id": session.session_id,
-            "amount": pkg["amount"],
-            "currency": pkg["currency"],
-            "package_id": pkg["id"],
-            "payment_status": "pending",
-            "status": "open",
-            "metadata": metadata,
-            "ref": ref_token,
-            "created_at": datetime.now(timezone.utc).isoformat(),
-            "access_granted": False,
-        })
+        try:
+            await db.payment_transactions.insert_one({
+                "session_id": session.session_id,
+                "amount": pkg["amount"],
+                "currency": pkg["currency"],
+                "package_id": pkg["id"],
+                "payment_status": "pending",
+                "status": "open",
+                "metadata": metadata,
+                "ref": ref_token,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "access_granted": False,
+            })
+        except Exception as e:  # noqa: BLE001
+            # DB write fails are non-fatal — the Stripe session is still
+            # live and the webhook will re-create the txn row when paid.
+            # Log loudly but don't break the user's checkout flow.
+            logger.error("payment_transactions.insert_one failed: %s", e, exc_info=True)
+
         return {"url": session.url, "session_id": session.session_id, "package_id": pkg["id"]}
 
     @router.get("/checkout/status/{session_id}")

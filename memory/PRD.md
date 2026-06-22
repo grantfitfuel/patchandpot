@@ -126,6 +126,16 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 32 (2026-02-22): 🐞→✅ — iframe target=_top + structured backend errors
+- **Bug 1 (preview)**: clicking "Continue to Stripe" inside Emergent's preview wrapper iframe loaded Stripe inside the wrapper iframe → Stripe refuses to render inside iframes (X-Frame-Options DENY) → blank skeleton page. **Fix**: added `target="_top"` to the `<a>` element in `FoundingClaimModal.jsx` so the link always escapes ANY wrapping iframe (preview wrapper, future external embed, etc.) and navigates the top-level browser context.
+- **Bug 2 (production iOS Safari Private)**: `POST /api/checkout/session` was failing silently with no actionable signal. **Fixes**:
+  - Frontend `FoundingClaimModal` now extracts the HTTP status + backend detail from the error and renders a small `Diagnostic: HTTP 502: StripeAuthenticationError` line under the error message. Lets the user (or me from a screenshot) see exactly what failed.
+  - Backend `POST /api/checkout/session` now wraps `_stripe_checkout()`, `create_checkout_session()`, and the Mongo insert in try/except. Each failure is logged with `exc_info=True` and returns a structured `HTTPException`:
+    - 503 `Stripe client init failed: <ExceptionType>` (likely STRIPE_API_KEY env issue)
+    - 502 `Stripe API error: <ExceptionType>` (likely auth/network/rate-limit from Stripe)
+    - DB write failures are logged but don't break the user's checkout (Stripe session is still valid; webhook will re-create the txn row).
+- **Verified**: happy path returns Stripe URL on preview; unknown package returns 400 as expected.
+
 ### Iteration 31 (2026-02-22): ✅ — FoundingBanner moved to top of `/learn/:topic`
 - **User feedback (preview)**: the Founding offer was rendering at the bottom of SEO landing pages, far below the fold — visitors had to scroll past the entire intro lesson, image and lessons grid before seeing it.
 - **Fix in `LearnLanding.jsx`**: render `<FoundingBanner />` above the `container-narrow` wrapper so it's full-bleed and immediately visible (now at y≈79px on iPhone, right below the nav). Removed the old bottom mount that was inside the negative-margin trick.

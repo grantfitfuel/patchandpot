@@ -126,6 +126,21 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 29 (2026-02-22): ✅ — Patrons page (opt-in supporter wall)
+- **New public page** at `/patrons` — gratitude wall listing supporters who explicitly opted in. Grouped by tier (Founding Members → Lifetime → Annual → 6-month → 3-month → Monthly → Tippers). Founding Members get prominent serif typography; lower tiers a tighter grid. Empty state shows a "Be the first" CTA back to the Founding offer.
+- **Opt-in surface**: `PatronOptInCard` mounted on `/checkout/success` for both `success` and `tip_success` phases. Collapsed-by-default soft invite ("Want a thank-you mention on our Patrons page?"). Expands to a form with a 30-char name input + explicit consent checkbox. Submit disabled until both filled. Success state shows the listed name + a one-click "Remove my listing" button.
+- **Backend** (`/app/backend/routers/patrons.py`):
+  - `POST /api/patrons/opt-in` — requires consent=true, validates name (1-30 chars, allowed charset, word-start profanity filter so "Scunthorpe"/"Fuchsia" pass while "fuckface"/"shit happens" are blocked), verifies the session_id is a paid transaction.
+  - `POST /api/patrons/opt-out` — idempotent 200 (friendly UX, doesn't leak session existence).
+  - `GET /api/patrons` — public, returns `{total, groups:[{tier,label,count,names}]}` sorted alphabetically within tier. Dedupes names, hides empty tiers.
+- **GDPR posture**:
+  - Default OFF (no listing without explicit ticked consent box on the success screen).
+  - Display name only — never email, country, amount, session_id.
+  - One-click removal from the success page; email fallback.
+  - Consent timestamp logged for audit trail.
+  - Privacy policy updated with a dedicated "Patrons page" section (Article 6(1)(a) explicit consent as lawful basis).
+- **Verified**: testing agent iteration_18 reports 100% pass — 8/8 backend pytest cases + frontend opt-in/opt-out flow + footer link + empty state CTA. Profanity filter fix verified against gardening-relevant false positives ("Scunthorpe", "Fuchsia", "Mitsushita" all pass).
+
 ### Iteration 28 (2026-02-22): ✅ — Founding checkout-URL cache + in-flight dedup
 - **Problem**: every modal open fired a fresh `POST /api/checkout/session` — a curious visitor opening the modal 5× before paying meant 5 abandoned Stripe sessions + 5 ref-tagged `payment_transactions` rows polluting `/admin/referrals`.
 - **Fix in `FoundingClaimModal.jsx`**:

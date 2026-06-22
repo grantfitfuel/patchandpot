@@ -23,10 +23,19 @@ from pydantic import BaseModel, Field
 # to win a censorship war — just block the obvious offenders before they
 # land on a public page. A determined troll will get past it; that's why
 # we also expose a one-click remove endpoint and check the page manually.
-_PROFANITY = {
+#
+# Matched at *word-start* (\b<word>) — this still catches "fuck", "fuckface",
+# "fuckboy" but lets through legitimate names like "Scunthorpe" (UK town
+# containing 'cunt' mid-word) and "Mitsushita" (contains 'shit' mid-word).
+# Important for a gardening site with international supporters.
+_PROFANITY = [
     "fuck", "shit", "cunt", "bitch", "bastard", "asshole", "dick",
     "nazi", "hitler", "kkk", "slut", "whore", "faggot", "retard",
-}
+]
+_PROFANITY_RE = re.compile(
+    r"\b(?:" + "|".join(re.escape(w) for w in _PROFANITY) + r")",
+    flags=re.IGNORECASE,
+)
 _NAME_RE = re.compile(r"^[A-Za-zÀ-ÿ0-9 .,'\-&]+$")
 _MAX_NAME_LEN = 30
 
@@ -67,11 +76,8 @@ def _sanitize_display_name(raw):
         raise HTTPException(422, f"display_name must be {_MAX_NAME_LEN} characters or fewer.")
     if not _NAME_RE.match(name):
         raise HTTPException(422, "display_name contains unsupported characters.")
-    lower = name.lower()
-    for bad in _PROFANITY:
-        # Match as a whole word OR substring (catches "fuckboy" too).
-        if bad in lower:
-            raise HTTPException(422, "Please choose a different display name.")
+    if _PROFANITY_RE.search(name):
+        raise HTTPException(422, "Please choose a different display name.")
     return name
 
 

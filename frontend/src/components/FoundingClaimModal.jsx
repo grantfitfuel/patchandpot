@@ -140,10 +140,10 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
       aria-modal="true"
       aria-labelledby="founding-claim-title"
       data-testid="founding-claim-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 px-4 py-8 animate-fade-up"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-ink/60 px-4 pt-4 pb-8 overflow-y-auto animate-fade-up"
       onClick={(e) => { if (e.target === e.currentTarget) onClose?.(); }}
     >
-      <div className="relative bg-surface border border-border max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-surface border border-border max-w-md w-full my-0 sm:my-4">
         <button
           type="button"
           onClick={onClose}
@@ -154,7 +154,7 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
           <X strokeWidth={1.6} className="w-5 h-5" />
         </button>
 
-        <div className="p-8">
+        <div className="p-6 sm:p-8">
           <div className="flex items-center gap-2 mb-3">
             <Sparkles strokeWidth={1.5} className="w-5 h-5 text-terracotta" />
             <span className="overline">Founding Member offer</span>

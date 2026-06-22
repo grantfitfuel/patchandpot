@@ -20,28 +20,9 @@ export const fetchCompanions = (id, language = "en") =>
   api.get(`/plants/${id}/companions`, { params: { language } }).then((r) => r.data);
 
 // ────────────────── Paywall ──────────────────
-const REF_STORAGE_KEY = "pp-ref";
-const REF_MAX_LENGTH = 64;
-const REF_ALLOWED_RE = /^[a-z0-9._-]+$/;
-
-// Read the persisted ref token (set by useReferralCapture). Re-validated on
-// every read so a manually-edited localStorage value can't poison checkout.
-function getStoredRef() {
-  if (typeof window === "undefined") return undefined;
-  try {
-    const raw = localStorage.getItem(REF_STORAGE_KEY);
-    if (!raw) return undefined;
-    const cleaned = raw.trim().toLowerCase().slice(0, REF_MAX_LENGTH);
-    return REF_ALLOWED_RE.test(cleaned) ? cleaned : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
 export const createCheckout = (originUrl, email, packageId) =>
   api.post("/checkout/session", {
     origin_url: originUrl, email, package_id: packageId,
-    ref: getStoredRef(),
   }).then((r) => r.data);
 export const getCheckoutStatus = (sessionId) =>
   api.get(`/checkout/status/${sessionId}`).then((r) => r.data);

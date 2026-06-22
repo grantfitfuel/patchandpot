@@ -127,10 +127,6 @@ class CheckoutRequest(BaseModel):
     origin_url: str
     email: Optional[str] = None
     package_id: Optional[str] = None
-    # Optional attribution token, e.g. "embed-mygardenblog.com" — set by the
-    # frontend from a captured ?ref= query param (see useReferralCapture).
-    # Sanitised server-side; safe to ignore if unknown.
-    ref: Optional[str] = None
 
 
 class SeasonalPdfRequest(BaseModel):

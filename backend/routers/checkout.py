@@ -174,78 +174,100 @@ def make_router(db) -> APIRouter:
 
     @router.post("/checkout/session")
     async def create_checkout(payload: CheckoutRequest, request: Request):
-        """Create a Stripe Checkout session for the chosen access tier."""
+        """Create a Stripe Checkout session for the chosen access tier.
+
+        EVERY external dependency is wrapped in try/except — Stripe client init,
+        Stripe session create, MongoDB reads/writes — so the modal's
+        diagnostic tag tells us the exact failing step instead of bubbling
+        a generic 500. Order matters: anything outside the wrapping try
+        below will short-circuit diagnosis.
+        """
         try:
-            sc = _stripe_checkout(str(request.base_url))
+            try:
+                sc = _stripe_checkout(str(request.base_url))
+            except Exception as e:  # noqa: BLE001
+                logger.error("checkout._stripe_checkout failed: %s", e, exc_info=True)
+                raise HTTPException(503, f"Stripe client init failed: {type(e).__name__}")
+
+            pkg_id = (payload.package_id or DEFAULT_PACKAGE_ID).strip()
+
+            # Founding cohort check — Mongo call. If the DB is unreachable
+            # we silently fall through (don't downgrade) so the user can
+            # still attempt checkout instead of failing the whole flow.
+            if pkg_id == "lifetime_founding":
+                try:
+                    sold = await db.access_grants.count_documents(
+                        {"package_id": "lifetime_founding"}
+                    )
+                    if sold >= FOUNDING_TOTAL:
+                        pkg_id = "lifetime"
+                except Exception as e:  # noqa: BLE001
+                    logger.warning(
+                        "Founding cohort count failed (continuing without downgrade): %s",
+                        e, exc_info=True,
+                    )
+
+            pkg = PAYWALL_PACKAGES.get(pkg_id)
+            if not pkg:
+                raise HTTPException(400, "Unknown package_id")
+
+            origin = payload.origin_url.rstrip("/")
+            success_url = f"{origin}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
+            cancel_url = f"{origin}/checkout/cancel"
+            metadata = {"package_id": pkg["id"], "source": "web"}
+            if payload.email:
+                metadata["email"] = payload.email[:120]
+            try:
+                ref_token = _sanitize_ref(payload.ref)
+            except Exception as e:  # noqa: BLE001
+                # Bad ref input should NEVER block checkout — just drop it.
+                logger.warning("ref sanitization failed (dropping): %s", e)
+                ref_token = None
+            if ref_token:
+                metadata["ref"] = ref_token
+
+            req = CheckoutSessionRequest(
+                amount=pkg["amount"],
+                currency=pkg["currency"],
+                success_url=success_url,
+                cancel_url=cancel_url,
+                metadata=metadata,
+            )
+            try:
+                session = await sc.create_checkout_session(req)
+            except Exception as e:  # noqa: BLE001
+                logger.error("Stripe create_checkout_session failed: %s", e, exc_info=True)
+                raise HTTPException(502, f"Stripe API error: {type(e).__name__}")
+
+            try:
+                await db.payment_transactions.insert_one({
+                    "session_id": session.session_id,
+                    "amount": pkg["amount"],
+                    "currency": pkg["currency"],
+                    "package_id": pkg["id"],
+                    "payment_status": "pending",
+                    "status": "open",
+                    "metadata": metadata,
+                    "ref": ref_token,
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                    "access_granted": False,
+                })
+            except Exception as e:  # noqa: BLE001
+                # DB write fails are non-fatal — Stripe session is still
+                # live and the webhook will reconstruct the txn row when paid.
+                logger.error("payment_transactions.insert_one failed: %s", e, exc_info=True)
+
+            return {"url": session.url, "session_id": session.session_id, "package_id": pkg["id"]}
+
+        except HTTPException:
+            # Structured errors we deliberately raised — pass through.
+            raise
         except Exception as e:  # noqa: BLE001
-            # Most likely: STRIPE_API_KEY env var missing or malformed.
-            # Surface it as 503 so the frontend's diagnostic tag shows
-            # something human-readable instead of a generic 500.
-            logger.error("checkout._stripe_checkout failed: %s", e, exc_info=True)
-            raise HTTPException(503, f"Stripe client init failed: {type(e).__name__}")
-
-        pkg_id = (payload.package_id or DEFAULT_PACKAGE_ID).strip()
-
-        # Founding Member redirect: if cohort is full, silently downgrade the
-        # buyer to regular lifetime so the link in a stale tab still works.
-        if pkg_id == "lifetime_founding":
-            sold = await db.access_grants.count_documents({"package_id": "lifetime_founding"})
-            if sold >= FOUNDING_TOTAL:
-                pkg_id = "lifetime"
-
-        pkg = PAYWALL_PACKAGES.get(pkg_id)
-        if not pkg:
-            raise HTTPException(400, "Unknown package_id")
-
-        origin = payload.origin_url.rstrip("/")
-        success_url = f"{origin}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
-        cancel_url = f"{origin}/checkout/cancel"
-        metadata = {"package_id": pkg["id"], "source": "web"}
-        if payload.email:
-            metadata["email"] = payload.email[:120]
-        ref_token = _sanitize_ref(payload.ref)
-        if ref_token:
-            # Stripe metadata is the durable source of truth — webhook event
-            # carries it back even if our DB row is missing for any reason.
-            metadata["ref"] = ref_token
-
-        req = CheckoutSessionRequest(
-            amount=pkg["amount"],
-            currency=pkg["currency"],
-            success_url=success_url,
-            cancel_url=cancel_url,
-            metadata=metadata,
-        )
-        try:
-            session = await sc.create_checkout_session(req)
-        except Exception as e:  # noqa: BLE001
-            # Real Stripe failures (rate limit, invalid key, network) bubble
-            # here. We log the full traceback for prod log inspection and
-            # return a clean 502 with the exception class so the modal's
-            # diagnostic tag shows e.g. "HTTP 502: StripeAuthenticationError".
-            logger.error("Stripe create_checkout_session failed: %s", e, exc_info=True)
-            raise HTTPException(502, f"Stripe API error: {type(e).__name__}")
-
-        try:
-            await db.payment_transactions.insert_one({
-                "session_id": session.session_id,
-                "amount": pkg["amount"],
-                "currency": pkg["currency"],
-                "package_id": pkg["id"],
-                "payment_status": "pending",
-                "status": "open",
-                "metadata": metadata,
-                "ref": ref_token,
-                "created_at": datetime.now(timezone.utc).isoformat(),
-                "access_granted": False,
-            })
-        except Exception as e:  # noqa: BLE001
-            # DB write fails are non-fatal — the Stripe session is still
-            # live and the webhook will re-create the txn row when paid.
-            # Log loudly but don't break the user's checkout flow.
-            logger.error("payment_transactions.insert_one failed: %s", e, exc_info=True)
-
-        return {"url": session.url, "session_id": session.session_id, "package_id": pkg["id"]}
+            # Catch-all for anything unexpected (Pydantic edge cases, asyncio
+            # cancellation, surprise import errors). Surface the type so the
+            # frontend's diagnostic tag has something useful to display.
+            logger.exception("create_checkout unexpected failure: %s", e)
+            raise HTTPException(500, f"Unexpected: {type(e).__name__}")
 
     @router.get("/checkout/status/{session_id}")
     async def get_checkout_status(session_id: str, request: Request):

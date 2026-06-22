@@ -127,7 +127,8 @@
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
 ### Iteration 30 (2026-02-22): ✅ — Self-service `/patrons/manage` page
-- **Why**: privacy policy promised one-click removal, but the only path was emailing `hello@patchandpot.com` and the inbound mailbox isn't wired yet. New self-service surface lets patrons edit/remove their listing themselves using the Stripe session_id from their receipt.
+- **Why**: privacy policy promised one-click removal; new self-service surface lets patrons edit/remove their listing using the Stripe session_id from their on-screen receipt. No inbound email needed.
+- **Product decision (user, 2026-02-22)**: no transactional email service will be wired. Token persistence relies on the on-screen copy + localStorage `patchpot.access.v1`. Losing the tab on a fresh device = losing self-service access; that tradeoff is accepted.
 - **Backend**: `GET /api/patrons/me?session_id=…` returns `{listed, display_name, package_id, tier_label}`. 404 for unknown sessions. Session_id is the bearer credential (same as access token), so no separate login is needed.
 - **Frontend** (`/patrons/manage`):
   - No `?session_id` → friendly gate with input + lookup button.

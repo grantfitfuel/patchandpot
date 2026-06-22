@@ -8,6 +8,7 @@ import logging
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import HTMLResponse, Response
 
 from emergentintegrations.payments.stripe.checkout import CheckoutSessionRequest
 
@@ -37,6 +38,102 @@ def make_router(db) -> APIRouter:
             "available": available,
             "active": available > 0,
         }
+
+    @router.get("/founding-status/widget", response_class=HTMLResponse)
+    async def founding_status_widget(request: Request):
+        """Self-contained HTML snippet that any external site can embed via
+        `<iframe src="https://patchandpot.app/api/founding-status/widget">`.
+        Renders the live spots-remaining count with a single-click CTA that
+        deep-links into the Founding checkout flow. Returns 204 when the
+        cohort is sold out so embedders can hide the iframe gracefully."""
+        sold = await db.access_grants.count_documents({"package_id": "lifetime_founding"})
+        available = max(0, FOUNDING_TOTAL - int(sold))
+        if available <= 0:
+            return Response(status_code=204)
+
+        # Resolve the public site origin from the request — falls back to the
+        # configured production domain if the proxy strips Host.
+        host = request.headers.get("host", "patchandpot.app")
+        scheme = request.headers.get("x-forwarded-proto", "https")
+        site_url = f"{scheme}://{host}".rstrip("/")
+        # Strip the /api host suffix if the request came in through the API
+        # ingress — embedders care about the user-facing domain.
+        cta_url = f"{site_url}/?founding=1"
+
+        html = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Patch &amp; Pot — Founding Member</title>
+<style>
+  :root {{ color-scheme: light; }}
+  html, body {{ margin: 0; padding: 0; background: transparent; }}
+  body {{
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #2a2a26;
+  }}
+  .pp-card {{
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 18px 20px;
+    background: #3A4A3A;
+    color: #E8DDC9;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }}
+  .pp-eyebrow {{
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }}
+  .pp-title {{
+    font-size: 15px;
+    line-height: 1.45;
+    margin: 0;
+  }}
+  .pp-title b {{ font-weight: 600; }}
+  .pp-spots {{ color: #E8B07A; font-weight: 600; }}
+  .pp-cta {{
+    display: inline-block;
+    background: #C57B57;
+    color: #E8DDC9;
+    text-decoration: none;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 2px;
+    align-self: flex-start;
+  }}
+  .pp-cta:hover {{ background: #b66e4b; }}
+  .pp-footnote {{ font-size: 10px; opacity: 0.6; margin: 0; }}
+</style>
+</head>
+<body>
+<div class="pp-card" role="region" aria-label="Patch and Pot Founding Member offer">
+  <span class="pp-eyebrow">Patch &amp; Pot · Founding Member</span>
+  <p class="pp-title">
+    Lifetime access for <b>£35</b> (normally £50) —
+    <span class="pp-spots">{available} of {FOUNDING_TOTAL} spots left</span>.
+  </p>
+  <a class="pp-cta" href="{cta_url}" target="_top" rel="noopener">Claim my spot →</a>
+  <p class="pp-footnote">One-time payment. No subscription. No login.</p>
+</div>
+</body>
+</html>"""
+        return HTMLResponse(
+            content=html,
+            headers={
+                "Cache-Control": "public, max-age=60",
+                # Embeddable from anywhere — that's the whole point.
+                "Content-Security-Policy": "frame-ancestors *",
+            },
+        )
 
     @router.post("/checkout/session")
     async def create_checkout(payload: CheckoutRequest, request: Request):

@@ -8,6 +8,7 @@ import { usePaywall } from "@/hooks/usePaywall";
 import { useI18n } from "@/i18n";
 import TopicImage from "@/components/TopicImage";
 import PaywallModal from "@/components/PaywallModal";
+import FoundingBanner from "@/components/FoundingBanner";
 
 /**
  * SEO landing page for a masterclass topic.

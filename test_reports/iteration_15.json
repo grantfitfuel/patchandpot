@@ -1,0 +1,48 @@
+{
+  "summary": "Iteration 15 — verified (1) /learn/:topic blank-screen fix (FoundingBanner import) and (2) new GET /api/founding-status/widget HTML embed endpoint + TIP checkout package_id surfacing. Backend: 4/4 pytest pass in /app/backend/tests/test_founding_widget.py (founding-status JSON shape, widget HTML body with branding+spots+CTA, widget headers for iframe embedding, TIP checkout session creates with package_id='tip' that flows through to /checkout/status/{session_id}). Frontend: /learn/propagation renders title 'Propagation', intro body, paywall CTA, FoundingBanner ('30 of 30 spots left'). /learn/pest-control (substituted for non-existent 'companion-planting' slug) also renders cleanly with banner. Clicking learn-unlock-btn opens PaywallModal ([data-testid=paywall-modal] confirmed visible with 'Keep growing — pick your tier' content). No React stack traces, no console errors on the working routes.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "GET /api/founding-status/widget",
+        "issue": "Backend correctly sends `Cache-Control: public, max-age=60` (verified at origin localhost:8001) but the Cloudflare/preview ingress rewrites it to `no-store, no-cache, must-revalidate` before reaching external iframe embedders. Cross-origin iframe still works because `Content-Security-Policy: frame-ancestors *` IS preserved through the proxy. Net effect: embed functions but loses the 60s edge-cache benefit on this preview host (likely fine on production patchandpot.app)."
+      },
+      {
+        "endpoint": "GET /api/founding-status/widget",
+        "issue": "The CTA host is resolved from `request.headers['host']` which yields the internal cluster URL (e.g. `grow-by-season-1.cluster-12.preview.emergentcf.cloud/?founding=1`) instead of the user-facing domain (`grow-by-season-1.preview.emergentagent.com`). Path/query (`/?founding=1`) is correct. Embedded users on third-party sites would be redirected to the cluster URL. Consider using `request.headers.get('x-forwarded-host')` first, or pin to a configured PUBLIC_SITE_ORIGIN env var."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_founding_widget.py",
+    "/app/test_reports/pytest/iter15_founding_widget.xml"
+  ],
+  "action_items": [
+    "(Optional) Use x-forwarded-host or a PUBLIC_SITE_ORIGIN env var to build the widget CTA URL so iframe-embedded clicks land on the public domain instead of the internal cluster host.",
+    "(Informational) The review request mentioned slug 'companion-planting' as a second static masterclass — that slug does not exist in ALL_MASTERCLASSES (valid static slugs: propagation, pest-control, plant-care, seasonal-planting). Test was run against /learn/pest-control instead and passed identically. Not a code bug; just a slug mismatch in the request."
+  ],
+  "critical_code_review_comments": [
+    "routers/checkout.py:42-136 — the widget endpoint is clean, self-contained, and correctly returns 204 when sold out so embedders can hide the iframe. CSP frame-ancestors:* is the correct embed contract.",
+    "LearnLanding.jsx:11,272 — FoundingBanner import + bottom-of-page mount fix is correct. Banner is appropriately gated on `!paid` so paid visitors don't see redundant urgency.",
+    "FoundingBanner.jsx — clean fail-closed pattern: returns null if status fetch fails or cohort is full. No retry storm on the home page.",
+    "Widget HTML's CTA URL derivation uses Host header without checking X-Forwarded-Host first — fine on production direct hosting, surfaces the internal cluster hostname behind the preview ingress. Low impact (path is still correct)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_founding_widget.py (new — 4 tests, all pass)"
+  ],
+  "success_rate": {
+    "backend": "100% (4/4)",
+    "frontend": "100% (all asserted elements found across /learn/propagation, /learn/pest-control, and PaywallModal click flow)"
+  },
+  "test_credentials": "Not required for this iteration. ADMIN_TOKEN unused. STRIPE_API_KEY=sk_test_emergent still in env from iter14 (TIP checkout creates a real Stripe test session).",
+  "seed_data_creation": "Each TIP-checkout test creates one new row in db.payment_transactions (status=open, access_granted=false). No access_grant is created until Stripe marks the session paid, so the cohort count is undisturbed and /founding-status still shows 30 of 30. Harmless test residue.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Run `pytest /app/backend/tests/test_founding_widget.py -v` for the iteration-15 regression. Combine with /app/backend/tests/test_router_refactor.py for full router coverage. If a future iteration changes the widget CTA host strategy or adds a PUBLIC_SITE_ORIGIN env var, update TestFoundingWidget.test_widget_returns_html_when_active accordingly. The Cache-Control assertion has an origin-fallback to localhost:8001 to tolerate ingress rewriting.",
+  "rca of the issue": "Iteration-14 broke /learn/:topic by removing or never adding the FoundingBanner import while keeping `<FoundingBanner />` in the JSX (line 272). React would throw 'FoundingBanner is not defined' on first render, blanking the page. Fix in this iteration adds the import at line 11 of LearnLanding.jsx — verified live, /learn/propagation now renders fully with the banner at bottom. The new widget endpoint is the second deliverable: it's an HTMLResponse with embed-friendly headers (CSP frame-ancestors *, public cache for 60s) and a graceful 204 sold-out path. Both deliverables work end-to-end."
+}

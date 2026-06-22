@@ -51,13 +51,16 @@ def make_router(db) -> APIRouter:
         if available <= 0:
             return Response(status_code=204)
 
-        # Resolve the public site origin from the request — falls back to the
-        # configured production domain if the proxy strips Host.
-        host = request.headers.get("host", "patchandpot.app")
-        scheme = request.headers.get("x-forwarded-proto", "https")
+        # Resolve the public site origin from the request — prefer the
+        # X-Forwarded-Host header (set by user-facing ingress) over the
+        # raw Host (which can be the internal cluster name behind a proxy).
+        host = (
+            request.headers.get("x-forwarded-host")
+            or request.headers.get("host")
+            or "patchandpot.app"
+        ).split(",")[0].strip()
+        scheme = request.headers.get("x-forwarded-proto", "https").split(",")[0].strip()
         site_url = f"{scheme}://{host}".rstrip("/")
-        # Strip the /api host suffix if the request came in through the API
-        # ingress — embedders care about the user-facing domain.
         cta_url = f"{site_url}/?founding=1"
 
         html = f"""<!doctype html>

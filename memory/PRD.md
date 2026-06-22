@@ -203,5 +203,8 @@
 - Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` (near-duplicates).
 - Migrate FastAPI `@app.on_event(...)` to the modern `lifespan` context manager (deprecation warning).
 
-## Smart Next Action
-Now that errors are wired for visibility, capture the **first 30 days of real user errors** in Sentry — pick the top 1–2 recurring browser exceptions and harden those flows before iterating on new features.
+### Iteration 19 (2026-02-22): ✅ — `/learn/:topic` blank-screen fix + embeddable Founding widget
+- **P0 fix — `LearnLanding.jsx` crash.** Iteration 18 (or a recent merge) referenced `<FoundingBanner />` in the JSX without importing the component, so React threw `FoundingBanner is not defined` on first render and blanked the page. Added the missing import; `/learn/propagation`, `/learn/pest-control`, etc. now render H1 + intro lesson + paywall CTA + Founding banner cleanly. Lint clean, no console errors.
+- **P1 — Embeddable Founding widget at `GET /api/founding-status/widget`.** Self-contained HTMLResponse external sites can drop into an `<iframe>`: branded card, live "X of 30 spots left" count, single-click CTA deep-linking into `/?founding=1` on the public domain. Returns **204** when sold out so embedders hide the iframe gracefully. Headers: `Content-Security-Policy: frame-ancestors *` for cross-origin embedding, `Cache-Control: public,max-age=60`. CTA host resolved from `X-Forwarded-Host` (falls back to `Host`, then `patchandpot.app`) so behind-proxy hosts still point at the user-facing domain.
+- **Verified**: testing agent iteration_15 reports 100% pass — 4/4 backend pytest (`/app/backend/tests/test_founding_widget.py`), `/learn/propagation` + `/learn/pest-control` + PaywallModal click flow all green. Live curl on preview confirms widget CTA now points at `grow-by-season-1.preview.emergentagent.com/?founding=1` (was the internal cluster host pre-fix).
+

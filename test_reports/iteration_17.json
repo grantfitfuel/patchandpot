@@ -1,0 +1,20 @@
+{
+  "summary": "Iteration 17: Verified the iOS Safari fix for FoundingBanner 'Claim my spot'. Click now opens FoundingClaimModal (no navigation) and renders a real <a href> to checkout.stripe.com once the session is fetched. All assertions PASS on 1920x1080 desktop, 390x844 iPhone-sized viewport, and on /learn/propagation (banner mounted at bottom of LearnLanding). No console/page JS errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "FoundingClaimModal kicks off createCheckout on mount with no debounce/retry — fine for the happy path. The error phase has a Close button but no Retry; if the first /api/checkout/session call fails, the user must close and re-click 'Claim my spot' to retry. Consider a Retry button in the error block.",
+    "createCheckout is called every time the modal is opened (even if just closed and reopened with same data). Cheap to fix by caching the URL on the FoundingBanner side, but harmless given the modal usually leads straight to Stripe.",
+    "Background click-to-close uses e.target === e.currentTarget, which correctly ignores clicks on the inner card. Good pattern."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (frontend-only request)", "frontend": "100%"},
+  "test_credentials": "Not required for this test — verified only that <a href> points to checkout.stripe.com, did not submit the Stripe form.",
+  "seed_data_creation": "None.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "FoundingClaimModal contract: data-testid='founding-claim-modal' is the outer backdrop (click outside the inner card closes); founding-claim-preparing is a disabled <button> shown while fetching; founding-claim-continue is a real <a href> to https://checkout.stripe.com/c/pay/cs_test_... (verified via tagName==='A' and get_attribute('href')); founding-claim-close is the X. Escape key also closes. Banner mounts on Home (top) and LearnLanding (bottom of every /learn/:topic page). Founding cohort is currently active with 30/30 spots remaining.",
+  "rca of the issue": "Reported bug (iOS Safari swallowing 'Claim my spot' click) was caused by `await createCheckout(...); window.location.href = url;` — iOS treats the post-await assignment as not user-initiated and silently blocks the cross-origin nav, especially in Private Browsing. The fix opens FoundingClaimModal synchronously on click (preserving the user gesture chain just to mount the modal), then in the modal the createCheckout result is rendered as <a href={url}>, so the user's SECOND tap on that anchor is itself a fresh user gesture that iOS happily honours. Verified by inspecting the rendered tagName ('A') and href attribute starts with 'https://checkout.stripe.com/c/pay/cs_test_'."
+}

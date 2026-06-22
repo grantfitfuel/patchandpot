@@ -126,6 +126,11 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 31 (2026-02-22): ✅ — FoundingBanner moved to top of `/learn/:topic`
+- **User feedback (preview)**: the Founding offer was rendering at the bottom of SEO landing pages, far below the fold — visitors had to scroll past the entire intro lesson, image and lessons grid before seeing it.
+- **Fix in `LearnLanding.jsx`**: render `<FoundingBanner />` above the `container-narrow` wrapper so it's full-bleed and immediately visible (now at y≈79px on iPhone, right below the nav). Removed the old bottom mount that was inside the negative-margin trick.
+- **Verified**: smoke test on iPhone-sized viewport — banner is at the top, "Claim my spot" CTA above the fold, page content renders cleanly below.
+
 ### Iteration 30 (2026-02-22): ✅ — Self-service `/patrons/manage` page
 - **Why**: privacy policy promised one-click removal; new self-service surface lets patrons edit/remove their listing using the Stripe session_id from their on-screen receipt. No inbound email needed.
 - **Product decision (user, 2026-02-22)**: no transactional email service will be wired. Token persistence relies on the on-screen copy + localStorage `patchpot.access.v1`. Losing the tab on a fresh device = losing self-service access; that tradeoff is accepted.

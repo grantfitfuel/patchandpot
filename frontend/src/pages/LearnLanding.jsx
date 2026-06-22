@@ -116,7 +116,13 @@ export default function LearnLandingPage() {
   const ogDescription = meta.description || meta.tagline;
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid={`learn-landing-${topic}`}>
+    <>
+      {/* Full-bleed Founding-cohort hook pinned to the top of the page so
+          the £35 offer is visible above the fold for cold organic traffic,
+          consistent with Home. Non-paid visitors only; disappears when the
+          cohort sells out. */}
+      {!paid && <FoundingBanner />}
+      <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid={`learn-landing-${topic}`}>
       <Helmet prioritizeSeoTags>
         <title>{ogTitle}</title>
         <link rel="canonical" href={canonical} />
@@ -264,15 +270,7 @@ export default function LearnLandingPage() {
           allowDismiss
         />
       )}
-
-      {/* Founding-cohort hook — only shown for non-paid visitors. Renders the
-          same banner that lives at the top of Home so the urgency is consistent
-          wherever organic traffic lands. Disappears once the cohort sells out. */}
-      {!paid && (
-        <div className="mt-16 -mx-4 sm:mx-0">
-          <FoundingBanner />
-        </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }

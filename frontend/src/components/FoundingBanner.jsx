@@ -26,6 +26,30 @@ export default function FoundingBanner() {
     return () => { cancelled = true; };
   }, []);
 
+  // Deep-link: visitors arriving via the embed widget land on /?founding=1.
+  // Auto-open the claim modal so they don't have to find the banner and tap
+  // a second time — this is the difference between "interested" and
+  // "checkout reached" for cold embed traffic.
+  useEffect(() => {
+    if (!status || !status.active) return;
+    if (typeof window === "undefined") return;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("founding") === "1") {
+        setShowModal(true);
+        // Clean up the URL so a refresh doesn't keep reopening the modal
+        // (and so the user can share the same URL with friends without
+        // forcing the modal on them too).
+        params.delete("founding");
+        const qs = params.toString();
+        const newUrl = window.location.pathname + (qs ? `?${qs}` : "") + window.location.hash;
+        window.history.replaceState({}, "", newUrl);
+      }
+    } catch {
+      // URL parsing / replaceState may throw in exotic sandboxes — safe to ignore.
+    }
+  }, [status]);
+
   if (!status || !status.active) return null;
 
   return (

@@ -148,7 +148,7 @@ export default function Home() {
                 Every guide, course, AI tool and seasonal journal — in one place.
               </h2>
               <p className="mt-5 text-ink/75 leading-relaxed max-w-xl">
-                Unlock everything Patch & Pot does behind the paywall — for ever, with one £25 payment. Or try a single growing year for £5. Refund any time within 30 days, no questions.
+                Five flexible tiers — from a single month for £2.99 to lifetime for £50. No auto-renewals, no email lists, 30-day refund on every tier.
               </p>
 
               <ul className="mt-8 space-y-3 text-ink/85">
@@ -175,10 +175,10 @@ export default function Home() {
                 <span className="absolute -top-3 left-7 bg-terracotta text-sand text-[10px] tracking-[0.18em] uppercase px-2 py-1">
                   Best value
                 </span>
-                <p className="font-serif text-5xl text-forest leading-none">£25</p>
+                <p className="font-serif text-5xl text-forest leading-none">£50</p>
                 <p className="text-sm text-moss mt-1">Lifetime · pay once</p>
                 <p className="text-xs text-ink/65 mt-3 leading-relaxed">
-                  Roughly five years of annual at half the running cost. Pay now, garden in 2031 still unlocked.
+                  Breaks even with annual at year three. After that, every season is free — your 2031 garden still unlocked.
                 </p>
                 <button
                   type="button"
@@ -186,7 +186,7 @@ export default function Home() {
                   onClick={() => setPaywallOpen(true)}
                   className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2"
                 >
-                  Unlock everything <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+                  Unlock for life <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
@@ -194,7 +194,7 @@ export default function Home() {
                   onClick={() => setPaywallOpen(true)}
                   className="mt-3 w-full text-sm text-moss hover:text-forest underline-offset-4 hover:underline"
                 >
-                  Or just £5 for the next 12 months →
+                  Or from £2.99 / month →
                 </button>
                 <p className="text-[11px] text-moss mt-4 text-center leading-snug">
                   🛡️ 30-day money-back guarantee. No subscriptions, no auto-renewal, no email lists.

@@ -126,6 +126,16 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 23 (2026-02-22): ✅ — Five-tier pricing live
+- **New ladder**: £2.99/month · £5/3-months · £9/6-months · £15/12-months · £50/lifetime. Old tiers (£5/yr, £25/lifetime) replaced everywhere.
+- **Why these prices**: per-month curve drops cleanly with commitment (£2.00 → £1.67 → £1.50 → £1.25); lifetime breaks even with annual at 3.3 years (good for both sides); £2.99 sets the monthly fee above the Stripe-fee pain threshold (10% net vs 13.5% at £2).
+- **Backend** — `core.py PAYWALL_PACKAGES` now has 5 entries with duration_days each (31 / 92 / 183 / 365 / None). `DEFAULT_PACKAGE_ID` switched to `"annual"` (the headline tier). All 5 verified live writing the right amount to Stripe sessions.
+- **Frontend** — `PaywallModal.jsx` redesigned: vertical 5-row tier picker (better than 5-col grid on mobile) with radio-button affordance, per-month maths in muted text, "Most Popular" badge on annual, "Best Value" on lifetime. Pay button label updates as user picks ("Pay £9 — 6 months"). All 5 testids exposed: `paywall-tier-monthly|quarterly|biannual|annual|lifetime`.
+- **Home.jsx pricing card** updated to lead with £50 lifetime, "from £2.99/month" subline.
+- **Terms / Privacy pages** updated to list all 5 tiers (£2.99/mo to £50/lifetime). "Annual" language softened to "time-limited memberships" so future re-pricing doesn't trigger a Terms rewrite.
+- **AIMasterclassSuggest** micro-copy: "from £2.99/month" instead of "£5 once".
+- Tests all 31/31 router-refactor passing.
+
 ### Iteration 22 (2026-02-22): ✅ — AI cost slashed via two-pass i18n + Haiku
 - **Two-pass guidance generation.** Originally every (region × month × language × garden) tuple ran a full Claude Sonnet 4.5 call. Now:
   1. EN pass: Sonnet 4.5 (creative, expensive) — runs ONCE per (region, month, garden) and caches result.

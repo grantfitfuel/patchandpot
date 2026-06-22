@@ -29,7 +29,7 @@ export const PRIVACY_SECTIONS = [
     title: "What we collect, and why",
     htmlKey: "legal.privacy.collect.html",
     html:
-      "<p>We try to collect as little as possible. In practice:</p><ul><li><strong>Location preference.</strong> When you allow location access, your browser shares an approximate latitude / longitude with us once, which we use to look up your region and climate zone for monthly guidance. We do not store your raw coordinates against an identifier; we store the resolved <em>region name</em> in your browser only.</li><li><strong>Region, language &amp; “My Garden” list.</strong> Stored in your browser’s local storage so the app remembers your settings between visits. None of this is sent to a server in a way that identifies you.</li><li><strong>Payment data.</strong> When you take out a Patch &amp; Pot membership (£5 / year or £25 / lifetime) we use <strong>Stripe</strong> to process the payment. Card details are entered into Stripe’s servers — we never see them. We receive back your email address, the amount paid, and a Stripe session identifier so we can issue your access token.</li><li><strong>Access token.</strong> A random, passwordless token tied to your purchase. Stored in your browser to unlock paid content. If you lose it, your purchase email is the recovery mechanism.</li><li><strong>Search / generation topics.</strong> When you ask our AI to author a masterclass on a topic, that topic string is sent to our servers (and to our AI providers — see below) so we can generate and cache the lesson. Topics are not tied to your identity.</li><li><strong>Basic technical logs.</strong> Standard web-server logs (IP, user-agent, requested URL, timestamp) kept for a maximum of 30 days for abuse-prevention and debugging.</li></ul>",
+      "<p>We try to collect as little as possible. In practice:</p><ul><li><strong>Location preference.</strong> When you allow location access, your browser shares an approximate latitude / longitude with us once, which we use to look up your region and climate zone for monthly guidance. We do not store your raw coordinates against an identifier; we store the resolved <em>region name</em> in your browser only.</li><li><strong>Region, language &amp; “My Garden” list.</strong> Stored in your browser’s local storage so the app remembers your settings between visits. None of this is sent to a server in a way that identifies you.</li><li><strong>Payment data.</strong> When you take out a Patch &amp; Pot membership (£2.99 / month up to £50 / lifetime) we use <strong>Stripe</strong> to process the payment. Card details are entered into Stripe’s servers — we never see them. We receive back your email address, the amount paid, and a Stripe session identifier so we can issue your access token.</li><li><strong>Access token.</strong> A random, passwordless token tied to your purchase. Stored in your browser to unlock paid content. If you lose it, your purchase email is the recovery mechanism.</li><li><strong>Search / generation topics.</strong> When you ask our AI to author a masterclass on a topic, that topic string is sent to our servers (and to our AI providers — see below) so we can generate and cache the lesson. Topics are not tied to your identity.</li><li><strong>Basic technical logs.</strong> Standard web-server logs (IP, user-agent, requested URL, timestamp) kept for a maximum of 30 days for abuse-prevention and debugging.</li></ul>",
   },
   {
     titleKey: "legal.privacy.lawful.title",
@@ -57,7 +57,7 @@ export const PRIVACY_SECTIONS = [
     title: "How long we keep things",
     htmlKey: "legal.privacy.retention.html",
     html:
-      "<ul><li>Payment records: <strong>7 years</strong> (HMRC requirement).</li><li>Access tokens linked to a lifetime membership: kept indefinitely so your access keeps working.</li><li>Access tokens for annual membership: kept until 12 months after expiry, then deleted.</li><li>Server logs: 30 days.</li><li>AI-generated content cache: kept indefinitely (it is shared content, not personal data) but you can request a slug be regenerated or removed.</li></ul>",
+      "<ul><li>Payment records: <strong>7 years</strong> (HMRC requirement).</li><li>Access tokens linked to a lifetime membership: kept indefinitely so your access keeps working.</li><li>Access tokens for time-limited memberships: kept until 12 months after expiry, then deleted.</li><li>Server logs: 30 days.</li><li>AI-generated content cache: kept indefinitely (it is shared content, not personal data) but you can request a slug be regenerated or removed.</li></ul>",
   },
   {
     titleKey: "legal.privacy.rights.title",
@@ -105,7 +105,7 @@ export const TERMS_SECTIONS = [
     title: "Membership & payment",
     htmlKey: "legal.terms.membership.html",
     html:
-      "<ul><li>We offer two tiers: <strong>£5 per year</strong> (annual) and <strong>£25 one-off</strong> (lifetime). Prices are inclusive of any UK VAT.</li><li>Payment is taken via Stripe. We never see your card details.</li><li>Annual memberships do <strong>not auto-renew</strong>. You must repurchase if you want another year.</li><li>Lifetime means lifetime of the Service. If Patch &amp; Pot ever shuts down, lifetime members will be given at least 60 days’ notice and a downloadable archive of their saved content where technically possible.</li></ul>",
+      "<ul><li>We offer five tiers: <strong>£2.99 / month</strong>, <strong>£5 / 3 months</strong>, <strong>£9 / 6 months</strong>, <strong>£15 / 12 months</strong>, or <strong>£50 one-off</strong> (lifetime). Prices are inclusive of any UK VAT.</li><li>Payment is taken via Stripe. We never see your card details.</li><li>None of the time-limited memberships auto-renew. You must repurchase if you want another term.</li><li>Lifetime means lifetime of the Service. If Patch &amp; Pot ever shuts down, lifetime members will be given at least 60 days’ notice and a downloadable archive of their saved content where technically possible.</li></ul>",
   },
   {
     titleKey: "legal.terms.refunds.title",
@@ -147,7 +147,7 @@ export const TERMS_SECTIONS = [
     title: "Changes to the Service or these terms",
     htmlKey: "legal.terms.changes.html",
     html:
-      "<p>We may update the Service, prices, and these terms from time to time. Material changes will be flagged on the site for at least 14 days before taking effect. If you don’t agree with a change, you may request a pro-rata refund of any unused annual membership.</p>",
+      "<p>We may update the Service, prices, and these terms from time to time. Material changes will be flagged on the site for at least 14 days before taking effect. If you don’t agree with a change, you may request a pro-rata refund of any unused time-limited membership.</p>",
   },
   {
     titleKey: "legal.terms.law.title",

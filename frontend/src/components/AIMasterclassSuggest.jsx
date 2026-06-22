@@ -92,7 +92,7 @@ export default function AIMasterclassSuggest() {
       console.error("masterclass generation failed", e);
       setError(
         e?.response?.status === 402
-          ? "Pay £5 once to unlock AI masterclass generation."
+          ? "Unlock AI masterclass generation — from £2.99/month."
           : (e?.message || "Generation failed — please try again.")
       );
     } finally {

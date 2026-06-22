@@ -5,24 +5,32 @@ import { createCheckout, checkAccess } from "@/lib/api";
 import { setStoredAccessToken } from "@/hooks/usePaywall";
 
 /**
- * Lifetime-access upgrade modal. £5 GBP one-time via Stripe Checkout.
- *
- * Two-step flow (deliberate): tapping "Pay £5" creates the Stripe session
- * server-side, then surfaces a real <a href> "Continue" button the user taps
- * to redirect. We do NOT auto-navigate via window.location after an `await`
- * because iOS Safari treats post-async cross-origin navigations as
- * non-user-initiated and blocks them (= permanent blank screen). A native
- * anchor click is always honoured.
+ * Five-tier paywall modal. Stripe Checkout opens via a real <a href> click
+ * (not window.location after an await) because iOS Safari treats post-async
+ * cross-origin navigations as non-user-initiated and silently blocks them.
  */
+
+// Single source of truth for the tier cards. `id` must match a key in
+// backend/core.py PAYWALL_PACKAGES.
+const TIERS = [
+  { id: "monthly",   label: "1 month",   price: "£2.99", suffix: "/mo",  per_month: null,   blurb: "Try it for a single month — no commitment." },
+  { id: "quarterly", label: "3 months",  price: "£5",    suffix: "",     per_month: "£1.67/mo", blurb: "A full growing season for the price of a sandwich." },
+  { id: "biannual",  label: "6 months",  price: "£9",    suffix: "",     per_month: "£1.50/mo", blurb: "Half a year — covers spring through summer." },
+  { id: "annual",    label: "12 months", price: "£15",   suffix: "",     per_month: "£1.25/mo", blurb: "A full growing cycle, every month covered.", badge: "Most popular" },
+  { id: "lifetime",  label: "Lifetime",  price: "£50",   suffix: "once", per_month: null,   blurb: "Pay once, keep it forever. Breaks even at year 3.", badge: "Best value" },
+];
+
 export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true }) {
   const { t } = useI18n();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [checkoutUrl, setCheckoutUrl] = useState("");
-  const [tier, setTier] = useState("lifetime");
+  const [tier, setTier] = useState("annual");  // default to the headline tier
   const [showRecovery, setShowRecovery] = useState(false);
   const [recoveryToken, setRecoveryToken] = useState("");
   const continueRef = useRef(null);
+
+  const selected = TIERS.find((it) => it.id === tier) || TIERS[3];
 
   async function startCheckout() {
     setBusy(true);
@@ -90,7 +98,7 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
         <div className="px-6 pt-3 pb-6">
           <h2 className="font-serif text-3xl text-forest leading-tight">Keep growing — pick your tier.</h2>
           <p className="mt-3 text-ink/80 leading-relaxed">
-            Patch &amp; Pot stays mostly free. AI plant guides, masterclasses and printable downloads are paid — try a single growing year for £5, or unlock everything for life for £25. No subscriptions, no auto-renewal, no email lists.
+            Patch &amp; Pot stays mostly free. AI plant guides, masterclasses and printable downloads are paid. No subscriptions, no auto-renewal, no email lists.
           </p>
 
           <ul className="mt-5 space-y-2 text-sm text-ink/80">
@@ -100,49 +108,56 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
             <li className="flex gap-2"><span className="text-terracotta">✦</span> {t("paywall.benefit.lifetime")}</li>
           </ul>
 
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              data-testid="paywall-tier-annual"
-              onClick={() => setTier("annual")}
-              disabled={!!checkoutUrl}
-              className={`text-left p-4 border-2 transition-colors ${
-                tier === "annual"
-                  ? "border-terracotta bg-sand"
-                  : "border-border bg-sand/60 hover:border-forest/40"
-              } disabled:opacity-60`}
-            >
-              <div className="flex items-baseline gap-1">
-                <span className="font-serif text-3xl text-forest">£5</span>
-                <span className="text-xs text-moss">/yr</span>
-              </div>
-              <p className="text-[11px] uppercase tracking-wider text-moss mt-1">12-month access</p>
-              <p className="text-xs text-ink/65 mt-1.5 leading-snug">Try a full growing cycle. Renews on you, not automatically.</p>
-            </button>
-
-            <button
-              type="button"
-              data-testid="paywall-tier-lifetime"
-              onClick={() => setTier("lifetime")}
-              disabled={!!checkoutUrl}
-              className={`text-left p-4 border-2 transition-colors relative ${
-                tier === "lifetime"
-                  ? "border-terracotta bg-sand"
-                  : "border-border bg-sand/60 hover:border-forest/40"
-              } disabled:opacity-60`}
-            >
-              <span className="absolute -top-2 right-2 bg-terracotta text-sand text-[9px] tracking-wider uppercase px-1.5 py-0.5">Best value</span>
-              <div className="flex items-baseline gap-1">
-                <span className="font-serif text-3xl text-forest">£25</span>
-                <span className="text-xs text-moss">once</span>
-              </div>
-              <p className="text-[11px] uppercase tracking-wider text-moss mt-1">Lifetime</p>
-              <p className="text-xs text-ink/65 mt-1.5 leading-snug">Pay once, keep it forever. Equivalent to 5 years annual.</p>
-            </button>
+          {/* Five-tier picker. Vertical rows scale better on mobile than a 5-col grid. */}
+          <div className="mt-6 space-y-2" role="radiogroup" aria-label="Pick a tier">
+            {TIERS.map((it) => {
+              const isSelected = tier === it.id;
+              return (
+                <button
+                  key={it.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={isSelected}
+                  data-testid={`paywall-tier-${it.id}`}
+                  onClick={() => setTier(it.id)}
+                  disabled={!!checkoutUrl}
+                  className={`w-full text-left px-4 py-3 border-2 transition-colors flex items-center gap-3 relative ${
+                    isSelected
+                      ? "border-terracotta bg-sand"
+                      : "border-border bg-sand/60 hover:border-forest/40"
+                  } disabled:opacity-60`}
+                >
+                  {it.badge && (
+                    <span className="absolute -top-2 right-3 bg-terracotta text-sand text-[9px] tracking-wider uppercase px-1.5 py-0.5">
+                      {it.badge}
+                    </span>
+                  )}
+                  <div
+                    aria-hidden="true"
+                    className={`flex-shrink-0 w-4 h-4 rounded-full border-2 ${
+                      isSelected ? "border-terracotta bg-terracotta/30" : "border-moss/50"
+                    }`}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span className="text-sm font-medium text-forest">{it.label}</span>
+                      <span className="font-serif text-xl text-forest whitespace-nowrap">
+                        {it.price}
+                        {it.suffix && <span className="text-xs text-moss font-sans ml-0.5">{it.suffix}</span>}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-ink/60 leading-snug mt-0.5">
+                      {it.blurb}
+                      {it.per_month && <span className="ml-1 text-moss">({it.per_month})</span>}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
           <p className="mt-3 text-xs text-moss leading-snug">
-            🛡️ 30-day money-back guarantee, both tiers. Email and we refund — no questions.
+            🛡️ 30-day money-back guarantee on every tier. Email and we refund — no questions.
           </p>
 
           {checkoutUrl ? (
@@ -163,7 +178,7 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
               className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2 disabled:opacity-60"
             >
               {busy ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" /> : null}
-              {tier === "annual" ? "Pay £5 — 12-month access" : "Pay £25 — unlock for life"}
+              {`Pay ${selected.price} — ${selected.label.toLowerCase()}`}
             </button>
           )}
 

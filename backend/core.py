@@ -280,16 +280,28 @@ def _first_paragraph(text: str, max_chars: int = 280) -> str:
 
 # ───────────────────────── Paywall ─────────────────────────
 PAYWALL_PACKAGES = {
+    "monthly": {
+        "id": "monthly", "amount": 2.99, "currency": "gbp",
+        "label": "Patch & Pot — 1 month access", "duration_days": 31,
+    },
+    "quarterly": {
+        "id": "quarterly", "amount": 5.0, "currency": "gbp",
+        "label": "Patch & Pot — 3 month access", "duration_days": 92,
+    },
+    "biannual": {
+        "id": "biannual", "amount": 9.0, "currency": "gbp",
+        "label": "Patch & Pot — 6 month access", "duration_days": 183,
+    },
     "annual": {
-        "id": "annual", "amount": 5.0, "currency": "gbp",
-        "label": "Patch & Pot — 12-month access", "duration_days": 365,
+        "id": "annual", "amount": 15.0, "currency": "gbp",
+        "label": "Patch & Pot — 12 month access", "duration_days": 365,
     },
     "lifetime": {
-        "id": "lifetime", "amount": 25.0, "currency": "gbp",
+        "id": "lifetime", "amount": 50.0, "currency": "gbp",
         "label": "Patch & Pot — lifetime access", "duration_days": None,
     },
 }
-DEFAULT_PACKAGE_ID = "lifetime"
+DEFAULT_PACKAGE_ID = "annual"
 
 
 def _stripe_checkout(host_url: str) -> StripeCheckout:

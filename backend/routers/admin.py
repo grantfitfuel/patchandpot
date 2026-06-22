@@ -90,6 +90,7 @@ def make_router(db) -> APIRouter:
         (Sonnet base = 1 unit, Haiku translation = 0.25 unit, image = 0.15 unit).
         Use it as a relative budget signal, not a literal pound figure."""
         from datetime import datetime, timedelta, timezone
+        from core import refresh_ai_budget_state, AI_MONTHLY_BUDGET_GBP
 
         _require_admin(token)
         days = max(1, min(int(days), 365))
@@ -138,6 +139,11 @@ def make_router(db) -> APIRouter:
             1,
         )
 
+        # Side-effect: refresh the budget circuit-breaker state from the same
+        # data we just counted. Means hitting this endpoint also keeps the
+        # cap accurate for any in-flight LLM calls.
+        budget_state = await refresh_ai_budget_state(db)
+
         return {
             "window_days": days,
             "since": since,
@@ -159,10 +165,16 @@ def make_router(db) -> APIRouter:
             },
             "relative_cost_units": units,
             "weights": {"sonnet": WEIGHT_SONNET, "haiku": WEIGHT_HAIKU, "image": WEIGHT_IMAGE},
+            "budget": {
+                "monthly_cap_gbp": AI_MONTHLY_BUDGET_GBP,
+                "estimated_30d_gbp": budget_state.get("estimated_gbp"),
+                "over_budget": budget_state.get("over_budget"),
+                "enabled": AI_MONTHLY_BUDGET_GBP > 0,
+            },
             "note": (
                 "Units are proportional, not currency. Sonnet ≈ 4× Haiku per call. "
-                "Compare month-over-month to spot regressions; multiply by your own "
-                "per-token Anthropic price to get a rough money figure."
+                "When `over_budget` is true, all new AI generation returns 503; "
+                "cache hits still serve normally."
             ),
         }
 

@@ -5,6 +5,7 @@ import { useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
 import ThisMonthCard from "@/components/ThisMonthCard";
 import PaywallModal from "@/components/PaywallModal";
+import FoundingBanner from "@/components/FoundingBanner";
 import { usePaywall } from "@/hooks/usePaywall";
 import { useI18n, monthLabel } from "@/i18n";
 
@@ -18,6 +19,7 @@ export default function Home() {
 
   return (
     <div className="animate-fade-up">
+      {!paid && <FoundingBanner />}
       {paid && (
         <div
           data-testid="supporter-ribbon"

@@ -104,6 +104,9 @@ export const reverseGeocode = (lat, lon) =>
 // denied, timed out, or — common on desktops with no GPS — returns nothing.
 export const ipDetectRegion = () =>
   api.get("/regions/ip-detect").then((r) => r.data);
+
+export const fetchFoundingStatus = () =>
+  api.get("/founding-status").then((r) => r.data);
 // Fire-and-forget cache prewarm. Returns a Promise but callers don't need to
 // await it — any errors are swallowed so a flaky prewarm never crashes the UI.
 export const prewarmGuidance = (region, month, language = "en") => {

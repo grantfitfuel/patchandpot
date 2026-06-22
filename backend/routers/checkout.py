@@ -13,7 +13,7 @@ from emergentintegrations.payments.stripe.checkout import CheckoutSessionRequest
 
 from core import (
     AccessCheckRequest, CheckoutRequest,
-    DEFAULT_PACKAGE_ID, PAYWALL_PACKAGES,
+    DEFAULT_PACKAGE_ID, FOUNDING_TOTAL, PAYWALL_PACKAGES,
     _expiry_for, _stripe_checkout,
 )
 
@@ -23,11 +23,34 @@ logger = logging.getLogger(__name__)
 def make_router(db) -> APIRouter:
     router = APIRouter()
 
+    @router.get("/founding-status")
+    async def founding_status():
+        """How many of the limited Founding Member lifetime spots remain.
+        Counts paid `lifetime_founding` rows in `access_grants` (one grant per
+        successful checkout). When `available == 0`, the homepage banner
+        switches to a thank-you state and checkout routes to regular lifetime."""
+        sold = await db.access_grants.count_documents({"package_id": "lifetime_founding"})
+        available = max(0, FOUNDING_TOTAL - int(sold))
+        return {
+            "total": FOUNDING_TOTAL,
+            "sold": int(sold),
+            "available": available,
+            "active": available > 0,
+        }
+
     @router.post("/checkout/session")
     async def create_checkout(payload: CheckoutRequest, request: Request):
         """Create a Stripe Checkout session for the chosen access tier."""
         sc = _stripe_checkout(str(request.base_url))
         pkg_id = (payload.package_id or DEFAULT_PACKAGE_ID).strip()
+
+        # Founding Member redirect: if cohort is full, silently downgrade the
+        # buyer to regular lifetime so the link in a stale tab still works.
+        if pkg_id == "lifetime_founding":
+            sold = await db.access_grants.count_documents({"package_id": "lifetime_founding"})
+            if sold >= FOUNDING_TOTAL:
+                pkg_id = "lifetime"
+
         pkg = PAYWALL_PACKAGES.get(pkg_id)
         if not pkg:
             raise HTTPException(400, "Unknown package_id")
@@ -86,17 +109,19 @@ def make_router(db) -> APIRouter:
             )
             if flipped.modified_count == 1:
                 pkg_id = txn.get("package_id") or (status.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
-                await db.access_grants.update_one(
-                    {"token": session_id},
-                    {"$set": {
-                        "token": session_id,
-                        "email": (status.metadata or {}).get("email"),
-                        "package_id": pkg_id,
-                        "expires_at": _expiry_for(pkg_id),
-                        "granted_at": datetime.now(timezone.utc).isoformat(),
-                    }},
-                    upsert=True,
-                )
+                # Tip purchases are pure gratitude — no access grant created.
+                if pkg_id != "tip":
+                    await db.access_grants.update_one(
+                        {"token": session_id},
+                        {"$set": {
+                            "token": session_id,
+                            "email": (status.metadata or {}).get("email"),
+                            "package_id": pkg_id,
+                            "expires_at": _expiry_for(pkg_id),
+                            "granted_at": datetime.now(timezone.utc).isoformat(),
+                        }},
+                        upsert=True,
+                    )
 
         return {
             "session_id": session_id,
@@ -131,17 +156,19 @@ def make_router(db) -> APIRouter:
             )
             if txn:
                 pkg_id = txn.get("package_id") or (evt.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
-                await db.access_grants.update_one(
-                    {"token": evt.session_id},
-                    {"$set": {
-                        "token": evt.session_id,
-                        "email": (evt.metadata or {}).get("email"),
-                        "package_id": pkg_id,
-                        "expires_at": _expiry_for(pkg_id),
-                        "granted_at": datetime.now(timezone.utc).isoformat(),
-                    }},
-                    upsert=True,
-                )
+                # Tip purchases are pure gratitude — no access grant created.
+                if pkg_id != "tip":
+                    await db.access_grants.update_one(
+                        {"token": evt.session_id},
+                        {"$set": {
+                            "token": evt.session_id,
+                            "email": (evt.metadata or {}).get("email"),
+                            "package_id": pkg_id,
+                            "expires_at": _expiry_for(pkg_id),
+                            "granted_at": datetime.now(timezone.utc).isoformat(),
+                        }},
+                        upsert=True,
+                    )
         return {"ok": True}
 
     @router.post("/access/check")

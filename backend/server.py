@@ -21,7 +21,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.cors import CORSMiddleware
 
 from cache_refresh import schedule_monthly_refresh
-from core import Region
+from core import Region, refresh_ai_budget_state
 from seed_deep_dives import seed_deep_dives
 from sentry_init import init_sentry
 from services_guidance import make_generate_and_cache_guidance
@@ -112,6 +112,11 @@ async def start_scheduler():
         logger.info("deep-dive auto-seed: %s", result)
     except Exception as e:  # noqa: BLE001
         logger.exception("deep-dive auto-seed failed: %s", e)
+    try:
+        state = await refresh_ai_budget_state(db)
+        logger.info("AI budget initial state: %s", state)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("AI budget refresh failed at startup: %s", e)
 
 
 @app.on_event("shutdown")

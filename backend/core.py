@@ -38,6 +38,21 @@ load_dotenv(Path(__file__).parent / ".env")
 EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY", "")
 STRIPE_API_KEY = os.environ.get("STRIPE_API_KEY", "")
 
+# Hard cap on monthly AI spend. When the rolling 30-day cost (estimated from
+# row counts in our caches) exceeds this, all AI endpoints return 503 instead
+# of running fresh generation. Cache hits still serve normally. Set to 0 or
+# leave unset to disable the cap (production default).
+try:
+    AI_MONTHLY_BUDGET_GBP = float(os.environ.get("AI_MONTHLY_BUDGET_GBP", "0") or 0)
+except (TypeError, ValueError):
+    AI_MONTHLY_BUDGET_GBP = 0.0
+
+# Cost factors used to convert call counts → estimated GBP spend. These are
+# rough order-of-magnitude — tune against your actual Anthropic invoice.
+AI_COST_SONNET_GBP = 0.03   # ~£0.03 per Sonnet generation (1500 in + 2000 out tokens)
+AI_COST_HAIKU_GBP = 0.008   # ~£0.008 per Haiku call
+AI_COST_IMAGE_GBP = 0.03    # ~£0.03 per Nano Banana image
+
 
 LANG_NAMES = {
     "en": "English", "de": "German", "fr": "French", "ja": "Japanese", "zh": "Simplified Chinese",
@@ -180,10 +195,80 @@ def _strip_code_fences(text: str) -> str:
     return m.group(0) if m else text
 
 
+# Budget circuit-breaker state. Refreshed at most once a minute to keep the
+# per-request cost negligible. When `over_budget` is True every fresh LLM
+# call short-circuits with 503; cache hits still serve normally.
+import time as _time
+_BUDGET_STATE = {"over_budget": False, "checked_at": 0.0, "estimated_gbp": 0.0}
+
+
+async def refresh_ai_budget_state(db) -> dict:
+    """Recompute monthly AI spend from cache row counts and update the in-memory
+    flag. Called by the monthly cron + on demand by /admin/ai-usage; safe to
+    call from anywhere."""
+    if AI_MONTHLY_BUDGET_GBP <= 0:
+        _BUDGET_STATE["over_budget"] = False
+        _BUDGET_STATE["estimated_gbp"] = 0.0
+        _BUDGET_STATE["checked_at"] = _time.time()
+        return dict(_BUDGET_STATE)
+
+    since = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+    sonnet_count = await db.guidance_cache.count_documents({
+        "$or": [
+            {"kind": "guidance-base", "language": "en", "created_at": {"$gte": since}},
+            {"key": {"$regex": "^plant-guide:ai-.*:en$"}, "created_at": {"$gte": since}},
+        ],
+    })
+    sonnet_count += await db.arrangement_cache.count_documents({"created_at": {"$gte": since}})
+    sonnet_count += await db.generated_masterclasses.count_documents({"created_at": {"$gte": since}})
+
+    haiku_count = await db.guidance_cache.count_documents({
+        "$or": [
+            {"kind": "guidance-base", "language": {"$ne": "en"}, "created_at": {"$gte": since}},
+            {"kind": "guidance", "my_garden": {"$exists": True, "$not": {"$size": 0}},
+             "created_at": {"$gte": since}},
+            {"key": {"$regex": "^plant-guide:ai-"}, "created_at": {"$gte": since}},
+        ],
+    })
+
+    image_count = await db.image_cache.count_documents({"created_at": {"$gte": since}})
+
+    estimated = round(
+        sonnet_count * AI_COST_SONNET_GBP
+        + haiku_count * AI_COST_HAIKU_GBP
+        + image_count * AI_COST_IMAGE_GBP,
+        2,
+    )
+    _BUDGET_STATE["estimated_gbp"] = estimated
+    _BUDGET_STATE["over_budget"] = estimated >= AI_MONTHLY_BUDGET_GBP
+    _BUDGET_STATE["checked_at"] = _time.time()
+    if _BUDGET_STATE["over_budget"]:
+        logger.warning(
+            "AI budget exceeded: estimated £%.2f >= cap £%.2f — new generations will 503",
+            estimated, AI_MONTHLY_BUDGET_GBP,
+        )
+    return dict(_BUDGET_STATE)
+
+
+def _enforce_budget_or_503():
+    """Cheap synchronous check before every LLM call. Reads the cached
+    `_BUDGET_STATE`; refreshes happen on cron + admin endpoints."""
+    if AI_MONTHLY_BUDGET_GBP <= 0:
+        return
+    if _BUDGET_STATE.get("over_budget"):
+        raise HTTPException(
+            503,
+            "Our AI quota for the month is full — cached guides still load. "
+            "Please try again next month.",
+        )
+
+
+
 async def _llm_json(system_prompt: str, user_prompt: str, session_id: str) -> dict:
     """Call Claude Sonnet 4.5 and parse the JSON response."""
     if not EMERGENT_LLM_KEY:
         raise HTTPException(500, "EMERGENT_LLM_KEY not configured")
+    _enforce_budget_or_503()
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
         session_id=session_id,
@@ -206,6 +291,7 @@ async def _llm_json_cheap(system_prompt: str, user_prompt: str, session_id: str)
     """
     if not EMERGENT_LLM_KEY:
         raise HTTPException(500, "EMERGENT_LLM_KEY not configured")
+    _enforce_budget_or_503()
     try:
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
@@ -300,8 +386,23 @@ PAYWALL_PACKAGES = {
         "id": "lifetime", "amount": 50.0, "currency": "gbp",
         "label": "Patch & Pot — lifetime access", "duration_days": None,
     },
+    # Founding-member cohort. Limited to FOUNDING_TOTAL sales — once sold out,
+    # the checkout endpoint redirects buyers to regular `lifetime` at £50.
+    "lifetime_founding": {
+        "id": "lifetime_founding", "amount": 35.0, "currency": "gbp",
+        "label": "Patch & Pot — Founding Member (lifetime)", "duration_days": None,
+    },
+    # Tip-jar — does NOT grant any access; pure thank-you.
+    "tip": {
+        "id": "tip", "amount": 3.0, "currency": "gbp",
+        "label": "Patch & Pot — support the gardener", "duration_days": 0,
+    },
 }
 DEFAULT_PACKAGE_ID = "annual"
+
+# Cap on Founding Member lifetime sales. After this many succeed, the offer
+# closes and the home-page banner switches to "Thank you, sold out".
+FOUNDING_TOTAL = 30
 
 
 def _stripe_checkout(host_url: str) -> StripeCheckout:
@@ -867,6 +968,7 @@ __all__ = [
     # constants
     "LANG_NAMES", "MONTHS", "EMERGENT_LLM_KEY", "STRIPE_API_KEY",
     "PAYWALL_PACKAGES", "DEFAULT_PACKAGE_ID",
+    "FOUNDING_TOTAL", "AI_MONTHLY_BUDGET_GBP",
     "PLANTS", "PLANT_INDEX", "COMPANIONS", "COMPANION_REASONS",
     "FLOWER_PORTRAITS", "SHARE_MOTIFS", "STATIC_MASTERCLASS_OG",
     "MASTERCLASS_VOICE_SAMPLE", "_GUIDE_PDFS",
@@ -878,6 +980,7 @@ __all__ = [
     "VendorRef", "VendorBlurbRequest",
     # helpers
     "_strip_code_fences", "_llm_json", "_llm_json_cheap", "_image_gen", "make_cached_image",
+    "_enforce_budget_or_503", "refresh_ai_budget_state",
     "_slugify", "_plant_slug", "_first_paragraph",
     "_stripe_checkout", "_expiry_for", "make_grant_is_active",
     "_day_of_year_midmonth", "_daylight_hours", "_climate_context",

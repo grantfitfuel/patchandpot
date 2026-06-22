@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Sprout } from "lucide-react";
 import { useI18n } from "@/i18n";
+import TipJar from "@/components/TipJar";
 
 const CURRENT_YEAR = new Date().getFullYear();
 const COPYRIGHT_RANGE = CURRENT_YEAR > 2025 ? `2025–${CURRENT_YEAR}` : "2025";
@@ -39,6 +40,7 @@ export default function Footer() {
             © {COPYRIGHT_RANGE} Grant Cameron Anthony, {t("footer.trading_as")} Patch &amp; Pot. {t("footer.rights")}
           </p>
           <nav className="flex items-center gap-5">
+            <TipJar />
             <Link to="/privacy" className="hover:text-terracotta transition-colors" data-testid="footer-privacy-link">
               {t("footer.legal.privacy")}
             </Link>

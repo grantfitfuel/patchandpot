@@ -25,7 +25,7 @@ import PaywallModal from "@/components/PaywallModal";
  */
 export default function LearnLandingPage() {
   const { topic } = useParams();
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const { paid } = usePaywall();
   const [remote, setRemote] = useState(null);
   const [remoteLoading, setRemoteLoading] = useState(false);
@@ -262,6 +262,15 @@ export default function LearnLandingPage() {
           onUnlocked={() => setShowPaywall(false)}
           allowDismiss
         />
+      )}
+
+      {/* Founding-cohort hook — only shown for non-paid visitors. Renders the
+          same banner that lives at the top of Home so the urgency is consistent
+          wherever organic traffic lands. Disappears once the cohort sells out. */}
+      {!paid && (
+        <div className="mt-16 -mx-4 sm:mx-0">
+          <FoundingBanner />
+        </div>
       )}
     </div>
   );

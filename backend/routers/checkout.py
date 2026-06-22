@@ -130,6 +130,7 @@ def make_router(db) -> APIRouter:
             "amount_total": status.amount_total,
             "currency": status.currency,
             "paid": paid,
+            "package_id": (txn or {}).get("package_id"),
         }
 
     @router.post("/webhook/stripe")

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { CheckCircle2, Loader2, AlertCircle, Copy } from "lucide-react";
+import { CheckCircle2, Loader2, AlertCircle, Copy, Heart } from "lucide-react";
+import confetti from "canvas-confetti";
 import { getCheckoutStatus } from "@/lib/api";
 import { setStoredAccessToken } from "@/hooks/usePaywall";
 import { useI18n } from "@/i18n";
@@ -8,13 +9,41 @@ import { useI18n } from "@/i18n";
 const MAX_POLL_ATTEMPTS = 8;
 const POLL_INTERVAL_MS = 2000;
 
+// Three short confetti bursts on entry, themed to Patch & Pot's palette.
+// Tip-jar specific so we don't blast confetti on every paywall completion.
+function fireTipConfetti() {
+  const duration = 2000;
+  const end = Date.now() + duration;
+  const colors = ["#C57B57", "#3A4A3A", "#E8DDC9", "#8FA68E"]; // terracotta, forest, sand, moss
+  (function frame() {
+    confetti({
+      particleCount: 4,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0, y: 0.6 },
+      colors,
+      disableForReducedMotion: true,
+    });
+    confetti({
+      particleCount: 4,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1, y: 0.6 },
+      colors,
+      disableForReducedMotion: true,
+    });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+}
+
 export default function CheckoutSuccess() {
   const { t } = useI18n();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const sessionId = params.get("session_id");
-  const [phase, setPhase] = useState("polling"); // polling | success | failure | expired
+  const [phase, setPhase] = useState("polling"); // polling | success | tip_success | failure | expired
   const [copied, setCopied] = useState(false);
+  const confettiFired = useRef(false);
 
   useEffect(() => {
     if (!sessionId) {
@@ -29,8 +58,14 @@ export default function CheckoutSuccess() {
         const status = await getCheckoutStatus(sessionId);
         if (cancelled) return;
         if (status.paid) {
-          setStoredAccessToken(sessionId);
-          setPhase("success");
+          // Tips don't grant access — show a dedicated thank-you instead of
+          // writing a token into localStorage that does nothing.
+          if (status.package_id === "tip") {
+            setPhase("tip_success");
+          } else {
+            setStoredAccessToken(sessionId);
+            setPhase("success");
+          }
           return;
         }
         if (status.status === "expired") {
@@ -52,6 +87,14 @@ export default function CheckoutSuccess() {
     return () => { cancelled = true; };
   }, [sessionId]);
 
+  // Fire confetti exactly once when the tip-success phase is reached.
+  useEffect(() => {
+    if (phase === "tip_success" && !confettiFired.current) {
+      confettiFired.current = true;
+      fireTipConfetti();
+    }
+  }, [phase]);
+
   async function copyToken() {
     try {
       await navigator.clipboard.writeText(sessionId);
@@ -70,6 +113,53 @@ export default function CheckoutSuccess() {
           <h1 className="font-serif text-3xl text-forest mt-6">{t("checkout.polling.title")}</h1>
           <p className="mt-3 text-ink/75">{t("checkout.polling.body")}</p>
         </>
+      )}
+
+      {phase === "tip_success" && (
+        <div data-testid="checkout-tip-success">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-terracotta/15 mx-auto">
+            <Heart strokeWidth={1.4} className="w-8 h-8 text-terracotta fill-terracotta/30" />
+          </div>
+          <p className="overline mt-5">Thank you</p>
+          <h1 className="font-serif text-4xl text-forest mt-2">
+            That genuinely means a lot.
+          </h1>
+          <p className="mt-4 text-ink/80 leading-relaxed">
+            Your £3 keeps the watering can full, the AI calls flowing, and a small independent
+            garden project alive. No login, no email follow-up — just a real thank-you from one
+            gardener to another.
+          </p>
+          <p className="mt-2 text-sm text-moss leading-relaxed">
+            🌱 If you'd like to support more, the Founding Member tier (£35 lifetime) is still
+            open — same one-time spirit, but it unlocks everything for life.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3 justify-center">
+            <button
+              type="button"
+              data-testid="checkout-tip-continue"
+              onClick={() => navigate("/")}
+              className="btn-terracotta inline-flex"
+            >
+              Back to the garden
+            </button>
+            <button
+              type="button"
+              data-testid="checkout-tip-share"
+              onClick={() => {
+                const text = "I just supported @patchandpot — a gentle gardening app that actually understands my climate. 🌱";
+                const url = "https://patchandpot.app";
+                window.open(
+                  `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+                  "_blank",
+                  "noopener,noreferrer,width=550,height=420",
+                );
+              }}
+              className="btn-ghost inline-flex"
+            >
+              Share so others find it
+            </button>
+          </div>
+        </div>
       )}
 
       {phase === "success" && (

@@ -147,6 +147,51 @@ async def recent_errors(token: str, limit: int = 20):
     return {"count": len(RECENT_ERRORS), "errors": list(RECENT_ERRORS)[:limit]}
 
 
+@app.get("/api/admin/config-check")
+async def config_check(token: str):
+    """Confirm which env vars are configured on this deployment (redacted).
+    Helps diagnose 'why is checkout failing' without exposing secrets —
+    each value is shown only as 'missing', 'set (len=N, …last4=XXXX)'
+    or 'set (len=N)'.
+
+    Safe to share screenshots of: no full secrets ever surface here.
+    """
+    expected = os.environ.get("ADMIN_TOKEN")
+    if not expected:
+        from fastapi import HTTPException
+        raise HTTPException(503, "ADMIN_TOKEN not configured")
+    if token != expected:
+        from fastapi import HTTPException
+        raise HTTPException(403, "Forbidden")
+
+    def fingerprint(val, key):
+        if not val:
+            return "MISSING"
+        last4 = val[-4:] if len(val) >= 8 else "(short)"
+        # For Stripe keys also reveal the prefix (sk_live_ vs sk_test_) since
+        # that's the most common misconfiguration — and the prefix itself
+        # is not a secret.
+        if key.startswith("STRIPE"):
+            prefix = val[:8] if len(val) > 8 else val[:4]
+            return f"set (len={len(val)} prefix={prefix!r} last4={last4!r})"
+        return f"set (len={len(val)} last4={last4!r})"
+
+    keys_to_check = [
+        "STRIPE_API_KEY",
+        "MONGO_URL",
+        "DB_NAME",
+        "EMERGENT_LLM_KEY",
+        "ADMIN_TOKEN",
+        "CORS_ORIGINS",
+        "SENTRY_DSN",
+        "AI_MONTHLY_BUDGET_GBP",
+    ]
+    return {
+        "vars": {k: fingerprint(os.environ.get(k), k) for k in keys_to_check},
+        "note": "Prefixes/last4 are intentionally exposed; no full values leak.",
+    }
+
+
 # ───────────────────────── Background tasks ─────────────────────────
 scheduler = AsyncIOScheduler()
 _generate_and_cache_guidance = make_generate_and_cache_guidance(db)

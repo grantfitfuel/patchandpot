@@ -179,21 +179,27 @@ def make_router(db) -> APIRouter:
         EVERY external dependency is wrapped in try/except — Stripe client init,
         Stripe session create, MongoDB reads/writes — so the modal's
         diagnostic tag tells us the exact failing step instead of bubbling
-        a generic 500. Order matters: anything outside the wrapping try
-        below will short-circuit diagnosis.
+        a generic 500. Caught 5xx failures are also recorded to the global
+        RECENT_ERRORS ring buffer so `/api/admin/recent-errors` shows them
+        even though we returned clean HTTPExceptions.
         """
+        # Late-bound import: server.py wires `record_error` onto `core` at
+        # startup. Falls back to a no-op so unit tests that don't go through
+        # the full app don't crash.
+        import core as _c
+        _record = getattr(_c, "record_error", lambda **_kw: None)
+
         try:
             try:
                 sc = _stripe_checkout(str(request.base_url))
             except Exception as e:  # noqa: BLE001
                 logger.error("checkout._stripe_checkout failed: %s", e, exc_info=True)
+                _record(request=request, status=503,
+                        type_name=type(e).__name__, message=str(e), exc=e)
                 raise HTTPException(503, f"Stripe client init failed: {type(e).__name__}")
 
             pkg_id = (payload.package_id or DEFAULT_PACKAGE_ID).strip()
 
-            # Founding cohort check — Mongo call. If the DB is unreachable
-            # we silently fall through (don't downgrade) so the user can
-            # still attempt checkout instead of failing the whole flow.
             if pkg_id == "lifetime_founding":
                 try:
                     sold = await db.access_grants.count_documents(
@@ -220,7 +226,6 @@ def make_router(db) -> APIRouter:
             try:
                 ref_token = _sanitize_ref(payload.ref)
             except Exception as e:  # noqa: BLE001
-                # Bad ref input should NEVER block checkout — just drop it.
                 logger.warning("ref sanitization failed (dropping): %s", e)
                 ref_token = None
             if ref_token:
@@ -237,7 +242,9 @@ def make_router(db) -> APIRouter:
                 session = await sc.create_checkout_session(req)
             except Exception as e:  # noqa: BLE001
                 logger.error("Stripe create_checkout_session failed: %s", e, exc_info=True)
-                raise HTTPException(502, f"Stripe API error: {type(e).__name__}")
+                _record(request=request, status=502,
+                        type_name=type(e).__name__, message=str(e), exc=e)
+                raise HTTPException(502, f"Stripe API error: {type(e).__name__}: {str(e)[:200]}")
 
             try:
                 await db.payment_transactions.insert_one({
@@ -253,20 +260,16 @@ def make_router(db) -> APIRouter:
                     "access_granted": False,
                 })
             except Exception as e:  # noqa: BLE001
-                # DB write fails are non-fatal — Stripe session is still
-                # live and the webhook will reconstruct the txn row when paid.
                 logger.error("payment_transactions.insert_one failed: %s", e, exc_info=True)
 
             return {"url": session.url, "session_id": session.session_id, "package_id": pkg["id"]}
 
         except HTTPException:
-            # Structured errors we deliberately raised — pass through.
             raise
         except Exception as e:  # noqa: BLE001
-            # Catch-all for anything unexpected (Pydantic edge cases, asyncio
-            # cancellation, surprise import errors). Surface the type so the
-            # frontend's diagnostic tag has something useful to display.
             logger.exception("create_checkout unexpected failure: %s", e)
+            _record(request=request, status=500,
+                    type_name=type(e).__name__, message=str(e), exc=e)
             raise HTTPException(500, f"Unexpected: {type(e).__name__}")
 
     @router.get("/checkout/status/{session_id}")

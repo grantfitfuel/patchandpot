@@ -106,28 +106,48 @@ app.add_middleware(
 RECENT_ERRORS = deque(maxlen=50)
 
 
+def _record_error(*, request, status, type_name, message, exc=None):
+    """Shared helper so route handlers can record structured 5xx failures
+    into the same ring buffer as unhandled exceptions. Without this, our
+    own try/except routes would swallow Stripe/Mongo failures into clean
+    HTTPExceptions but never leave a debugging trace."""
+    entry = {
+        "at": datetime.now(timezone.utc).isoformat(),
+        "method": getattr(request, "method", "?"),
+        "path": str(getattr(getattr(request, "url", None), "path", "?")),
+        "status": status,
+        "type": type_name,
+        "message": (message or "")[:500],
+        "ua": (request.headers.get("user-agent", "") if request else "")[:200],
+        "origin": request.headers.get("origin", "") if request else "",
+        "traceback": (traceback.format_exc()[-2000:] if exc else ""),
+    }
+    RECENT_ERRORS.appendleft(entry)
+
+
+# Make the helper importable from routers without circular-import gymnastics.
+import core as _core  # noqa: E402
+_core.record_error = _record_error  # type: ignore[attr-defined]
+
+
 @app.exception_handler(Exception)
 async def _capture_unhandled(request: Request, exc: Exception):
     """Catch anything our route-level try/except missed (CORS edge cases,
     Pydantic surprises, dependency failures) and record the full type +
     traceback + request context for later inspection."""
-    entry = {
-        "at": datetime.now(timezone.utc).isoformat(),
-        "method": request.method,
-        "path": str(request.url.path),
-        "type": type(exc).__name__,
-        "message": str(exc)[:500],
-        "ua": request.headers.get("user-agent", "")[:200],
-        "origin": request.headers.get("origin", ""),
-        "traceback": traceback.format_exc()[-2000:],  # tail to keep payload small
-    }
-    RECENT_ERRORS.appendleft(entry)
-    logger.exception("Unhandled %s on %s %s", entry["type"], request.method, request.url.path)
+    _record_error(
+        request=request,
+        status=500,
+        type_name=type(exc).__name__,
+        message=str(exc),
+        exc=exc,
+    )
+    logger.exception("Unhandled %s on %s %s", type(exc).__name__, request.method, request.url.path)
     return JSONResponse(
         status_code=500,
         content={
-            "detail": f"Server error: {entry['type']}",
-            "type": entry["type"],
+            "detail": f"Server error: {type(exc).__name__}",
+            "type": type(exc).__name__,
         },
     )
 

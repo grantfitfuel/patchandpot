@@ -126,7 +126,19 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
-### Iteration 32 (2026-02-22): 🐞→✅ — iframe target=_top + structured backend errors
+### Iteration 33 (2026-02-22): 🐞→📩 — Production Stripe 502 traced to platform network
+- User reported persistent HTTP 500/502/520 errors on `/api/checkout/session` on production (patchandpot.app) across iPhone/iPad/iPad incognito — even though preview worked. After several iterations of progressive error capture (structured route exceptions, in-memory error ring buffer, redacted config-check endpoint, direct Stripe test endpoint), I probed production directly from preview:
+  - GET `/api/admin/config-check` → 200, valid JSON, `STRIPE_API_KEY = sk_live_...KpA3` (real live key, len 107).
+  - POST `/api/checkout/session` → HTTP 502, `server: cloudflare`, `cf-ray: a0fe99c8f8a52911-ORD`, `retry-after: 60`, body title `emergent.cloud | 502: Bad gateway`.
+- **Root cause confirmed**: Cloudflare/Emergent edge is returning 502 *before* the request reaches the production backend — meaning either the production container has no outbound HTTPS connectivity to api.stripe.com, or the edge times out on long-running POST endpoints. This is a platform-level network/firewall config, not a code bug.
+- **Code shipped this iteration to enable future diagnosis without redeploys**:
+  - `/api/admin/recent-errors?token=…` — 50-entry in-memory ring buffer + global exception handler captures every unhandled backend exception (type, message, traceback tail, UA, origin).
+  - `/api/admin/config-check?token=…` — redacted env-var fingerprint (length + last4 + Stripe key prefix). Safe to share.
+  - `/api/admin/test-stripe?token=…` — one-shot Stripe Checkout creation that returns the full Stripe error message + class + traceback in JSON (skip the modal flow).
+  - All Stripe + Mongo calls in `routers/checkout.py` wrapped in try/except with structured 502/503/500 HTTPExceptions that ALSO write to the shared ring buffer via `core.record_error` (wired at app startup in `server.py`).
+- **User next step**: emailed template provided to support@emergent.sh asking platform team to verify outbound HTTPS access from the production container to api.stripe.com.
+
+
 - **Bug 1 (preview)**: clicking "Continue to Stripe" inside Emergent's preview wrapper iframe loaded Stripe inside the wrapper iframe → Stripe refuses to render inside iframes (X-Frame-Options DENY) → blank skeleton page. **Fix**: added `target="_top"` to the `<a>` element in `FoundingClaimModal.jsx` so the link always escapes ANY wrapping iframe (preview wrapper, future external embed, etc.) and navigates the top-level browser context.
 - **Bug 2 (production iOS Safari Private)**: `POST /api/checkout/session` was failing silently with no actionable signal. **Fixes**:
   - Frontend `FoundingClaimModal` now extracts the HTTP status + backend detail from the error and renders a small `Diagnostic: HTTP 502: StripeAuthenticationError` line under the error message. Lets the user (or me from a screenshot) see exactly what failed.

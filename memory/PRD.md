@@ -126,6 +126,18 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 30 (2026-02-22): ✅ — Self-service `/patrons/manage` page
+- **Why**: privacy policy promised one-click removal, but the only path was emailing `hello@patchandpot.com` and the inbound mailbox isn't wired yet. New self-service surface lets patrons edit/remove their listing themselves using the Stripe session_id from their receipt.
+- **Backend**: `GET /api/patrons/me?session_id=…` returns `{listed, display_name, package_id, tier_label}`. 404 for unknown sessions. Session_id is the bearer credential (same as access token), so no separate login is needed.
+- **Frontend** (`/patrons/manage`):
+  - No `?session_id` → friendly gate with input + lookup button.
+  - Found, not opted-in → add form (reuses the same opt-in pattern as PatronOptInCard).
+  - Found, opted-in → shows listed name in big serif type with "Change name" + "Remove me" buttons. Edit opens the form prefilled. Remove confirms inline.
+  - All errors surface in dedicated test-id blocks.
+  - `noindex` meta tag set on the managed view.
+- **Patrons page footer** and **privacy policy section** both updated to link to the new self-service URL.
+- **Verified end-to-end via screenshot tool**: gate → lookup → opt-in → edit → remove all green; tier label is correctly resolved server-side.
+
 ### Iteration 29 (2026-02-22): ✅ — Patrons page (opt-in supporter wall)
 - **New public page** at `/patrons` — gratitude wall listing supporters who explicitly opted in. Grouped by tier (Founding Members → Lifetime → Annual → 6-month → 3-month → Monthly → Tippers). Founding Members get prominent serif typography; lower tiers a tighter grid. Empty state shows a "Be the first" CTA back to the Founding offer.
 - **Opt-in surface**: `PatronOptInCard` mounted on `/checkout/success` for both `success` and `tip_success` phases. Collapsed-by-default soft invite ("Want a thank-you mention on our Patrons page?"). Expands to a form with a 30-char name input + explicit consent checkbox. Submit disabled until both filled. Success state shows the listed name + a one-click "Remove my listing" button.

@@ -136,11 +136,20 @@ export default function PatronsPage() {
 
       <footer className="mt-20 pt-8 border-t border-border text-center">
         <p className="text-xs text-moss leading-relaxed max-w-xl mx-auto">
-          Listed with explicit consent. Patrons can remove their listing
-          anytime from the receipt they got at checkout, or by emailing{" "}
+          Listed with explicit consent. Patrons can{" "}
+          <Link
+            to="/patrons/manage"
+            className="underline-offset-4 hover:underline text-forest"
+            data-testid="patrons-page-manage-link"
+          >
+            edit or remove their listing
+          </Link>
+          {" "}any time using the checkout token from their receipt — no
+          login required. Email{" "}
           <a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">
             hello@patchandpot.com
-          </a>.
+          </a>
+          {" "}if you&apos;ve lost yours.
         </p>
       </footer>
     </div>

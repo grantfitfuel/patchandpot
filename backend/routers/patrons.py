@@ -93,8 +93,38 @@ class PatronOptOutRequest(BaseModel):
     session_id: str = Field(..., min_length=4, max_length=200)
 
 
+def _tier_label(pkg_id):
+    """Friendly label for a package id, or None if unknown."""
+    return _TIER_LABELS.get(pkg_id)
+
+
 def make_router(db):
     router = APIRouter(prefix="/api", tags=["patrons"])
+
+    @router.get("/patrons/me")
+    async def patron_me(session_id: str):
+        """Look up the current Patrons-page state for a given session_id.
+        Used by /patrons/manage so a returning patron can see what (if
+        anything) is currently listed before editing or removing it.
+
+        The session_id is itself the secret bearer token — anyone who knows
+        it owns the listing — so no separate auth layer is needed.
+        """
+        if not session_id or len(session_id) < 4:
+            raise HTTPException(422, "Invalid session_id.")
+        txn = await db.payment_transactions.find_one(
+            {"session_id": session_id, "payment_status": "paid"},
+            {"_id": 0, "package_id": 1, "display_name": 1, "display_consent": 1},
+        )
+        if not txn:
+            raise HTTPException(404, "No paid session found for that id.")
+        listed = bool(txn.get("display_consent")) and bool(txn.get("display_name"))
+        return {
+            "listed": listed,
+            "display_name": txn.get("display_name") if listed else None,
+            "package_id": txn.get("package_id"),
+            "tier_label": _tier_label(txn.get("package_id")),
+        }
 
     @router.post("/patrons/opt-in")
     async def opt_in(payload: PatronOptInRequest):

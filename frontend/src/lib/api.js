@@ -140,6 +140,8 @@ export const fetchAdminReferrals = (token, days = 30) =>
 // Patrons (public opt-in display)
 export const fetchPatrons = () =>
   api.get("/patrons").then((r) => r.data);
+export const fetchPatronMe = (sessionId) =>
+  api.get("/patrons/me", { params: { session_id: sessionId } }).then((r) => r.data);
 export const patronOptIn = (sessionId, displayName) =>
   api.post("/patrons/opt-in", {
     session_id: sessionId,

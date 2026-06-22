@@ -21,10 +21,12 @@ import { createCheckout } from "@/lib/api";
 export default function FoundingClaimModal({ remaining, total, onClose }) {
   const [phase, setPhase] = useState("preparing"); // preparing | ready | error
   const [checkoutUrl, setCheckoutUrl] = useState("");
+  const [attempt, setAttempt] = useState(0);
   const continueRef = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
+    setPhase("preparing");
     (async () => {
       try {
         const { url } = await createCheckout(
@@ -42,7 +44,7 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
       }
     })();
     return () => { cancelled = true; };
-  }, []);
+  }, [attempt]);
 
   useEffect(() => {
     function onKey(e) { if (e.key === "Escape") onClose?.(); }
@@ -104,7 +106,7 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
               <p className="text-xs text-moss mt-1">Normally £50 · save £15</p>
             </div>
             <p className="text-xs text-ink/55 max-w-[180px] text-right leading-relaxed">
-              You'll pay on Stripe — we never see your card.
+              You&apos;ll pay on Stripe — we never see your card.
             </p>
           </div>
 
@@ -139,15 +141,25 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
                 className="border border-terracotta/40 bg-terracotta/10 p-4 flex items-start gap-3"
               >
                 <AlertCircle strokeWidth={1.5} className="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-ink/80 leading-relaxed">
-                  <p>We couldn't reach Stripe just now. Please check your connection and try again — or come back in a minute.</p>
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="mt-3 text-forest underline-offset-4 hover:underline text-xs"
-                  >
-                    Close
-                  </button>
+                <div className="text-sm text-ink/80 leading-relaxed flex-1">
+                  <p>We couldn&apos;t reach Stripe just now. Please check your connection and try again — or come back in a minute.</p>
+                  <div className="mt-3 flex items-center gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setAttempt((n) => n + 1)}
+                      data-testid="founding-claim-retry"
+                      className="text-forest font-medium underline-offset-4 hover:underline text-xs"
+                    >
+                      Try again
+                    </button>
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="text-ink/60 underline-offset-4 hover:underline text-xs"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

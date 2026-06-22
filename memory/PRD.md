@@ -126,6 +126,20 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
+### Iteration 27 (2026-02-22): 🐞→✅ — iOS Safari "Claim my spot" silent fail + Founding paywall confirmation
+- **Bug reported** (user on iPhone Safari Private Browsing): tapping "Claim my spot" on FoundingBanner did nothing. **Root cause**: the handler did `await createCheckout(...); window.location.href = url;` — iOS Safari treats a cross-origin navigation assigned AFTER an `await` as not user-initiated and silently blocks it. PaywallModal already documented this exact iOS quirk (line 7-11 comment) and used a real `<a href>`; FoundingBanner had not been updated.
+- **Fix**: new `FoundingClaimModal.jsx` opens synchronously on tap (preserves user gesture chain), kicks off `createCheckout` in the background, and renders the result as a real `<a href={checkoutUrl}>Continue to Stripe →</a>`. The user's second tap on that anchor IS a fresh user gesture so iOS happily honours it. Modal shows £35 vs £50 price, 5-item feature list, 30-day refund line, Retry button on network failure. ESC + backdrop click + X close.
+- **Bonus UX**: also delivers the "paywall confirmation" the user wanted — visitors now see what they're buying (price, features, refund) before being dropped on stripe.com.
+- **Verified**: testing agent iteration_17 reports 100% pass on desktop AND 390×844 iPhone-sized viewport. Confirmed via `tagName==='A'` + `getAttribute('href')` that the Continue button is a real anchor pointing at `https://checkout.stripe.com/c/pay/cs_test_*`.
+
+### Iteration 26.5 (2026-02-22): ✅ — Embed referral attribution pipeline
+- **Widget CTA** (`GET /api/founding-status/widget`) now appends `?ref=embed-<embedder-host>` derived from the iframe's `Referer` header (sanitised; our own host stripped).
+- **Frontend capture** (`useReferralCapture` hook in App.js): persists `?ref=` to `localStorage['pp-ref']`. First-touch wins.
+- **Checkout pipe-through**: `createCheckout` auto-includes the stored ref. Backend stores it on `payment_transactions.ref` AND in Stripe `metadata.ref`. On grant (poll OR webhook) the ref is copied to `access_grants.ref`.
+- **New endpoint** `GET /api/admin/referrals?token=...&days=30`: aggregates paid checkouts by ref, returns total purchases, total revenue £, per-source ranked table (purchases, revenue £, top tier, last-sale date). `(direct)` bucket for ref-less traffic.
+- **New admin dashboard** at `/admin/referrals` — top sources by revenue, ranked table, links across to /admin/ai-usage. Shared `AdminTokenGate` component used by both admin pages.
+- Verified end-to-end via curl + seeded mongo data.
+
 ### Iteration 26 (2026-02-22): ✅ — Homepage embed snippet + Admin AI usage UI
 - **Homepage embed snippet** (`/app/frontend/src/components/EmbedFoundingSnippet.jsx`). New section on `/` for non-paid visitors, mounted only while the Founding cohort is active. Shows the iframe code block (`<iframe src=".../api/founding-status/widget" …>`) and a one-click "Copy embed code" button (clipboard API + execCommand fallback). Includes a "Preview the embed" deep-link. Disappears with the cohort the moment spots sell out — same gating as the banner.
 - **Admin AI usage dashboard** (`/app/frontend/src/pages/AdminAiUsage.jsx`, mounted at `/admin/ai-usage`). Token-gated UI for the existing `GET /api/admin/ai-usage` endpoint: budget card with progress bar (£X / £cap with status pill — Healthy / Approaching cap / Circuit breaker tripped / Cap disabled), per-engine cards (Sonnet · Haiku · Images) with sub-breakdowns, total LLM calls + relative cost units, 7d/30d/90d window switcher, refresh, sign-out. Token persists in `localStorage['pp-admin-token']`. Not linked from public nav; `noindex` meta tag set.

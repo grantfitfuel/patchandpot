@@ -18,6 +18,22 @@ from core import (
     _expiry_for, _stripe_checkout,
 )
 
+# Whitelist: lowercase letters, digits, dot, hyphen, underscore. Anything
+# else (control chars, slashes, scripts) is silently dropped. Capped at 64
+# chars so a malicious blog can't fill our Mongo with garbage.
+_REF_ALLOWED = set("abcdefghijklmnopqrstuvwxyz0123456789.-_")
+
+
+def _sanitize_ref(raw):
+    """Coerce an arbitrary `ref` value to a safe attribution token.
+    Returns None for empty/None/garbage inputs."""
+    if not raw or not isinstance(raw, str):
+        return None
+    cleaned = "".join(c for c in raw.strip().lower() if c in _REF_ALLOWED)
+    if not cleaned:
+        return None
+    return cleaned[:64]
+
 logger = logging.getLogger(__name__)
 
 
@@ -61,7 +77,25 @@ def make_router(db) -> APIRouter:
         ).split(",")[0].strip()
         scheme = request.headers.get("x-forwarded-proto", "https").split(",")[0].strip()
         site_url = f"{scheme}://{host}".rstrip("/")
+
+        # Attribution: derive a `ref` token from the embedding page's host
+        # (the Referer header is the URL of the page that loaded this iframe).
+        # Falls back gracefully — a missing Referer just means the visitor
+        # bookmarked the widget URL directly.
+        referer = request.headers.get("referer") or ""
+        ref_token = None
+        if referer:
+            try:
+                from urllib.parse import urlparse
+                ref_host = (urlparse(referer).hostname or "").lower()
+                # Drop our own host so on-site previews don't count as embeds.
+                if ref_host and ref_host != host.lower().split(":")[0]:
+                    ref_token = _sanitize_ref(f"embed-{ref_host}")
+            except Exception:  # noqa: BLE001
+                ref_token = None
         cta_url = f"{site_url}/?founding=1"
+        if ref_token:
+            cta_url += f"&ref={ref_token}"
 
         html = f"""<!doctype html>
 <html lang="en">
@@ -161,6 +195,11 @@ def make_router(db) -> APIRouter:
         metadata = {"package_id": pkg["id"], "source": "web"}
         if payload.email:
             metadata["email"] = payload.email[:120]
+        ref_token = _sanitize_ref(payload.ref)
+        if ref_token:
+            # Stripe metadata is the durable source of truth — webhook event
+            # carries it back even if our DB row is missing for any reason.
+            metadata["ref"] = ref_token
 
         req = CheckoutSessionRequest(
             amount=pkg["amount"],
@@ -179,6 +218,7 @@ def make_router(db) -> APIRouter:
             "payment_status": "pending",
             "status": "open",
             "metadata": metadata,
+            "ref": ref_token,
             "created_at": datetime.now(timezone.utc).isoformat(),
             "access_granted": False,
         })
@@ -209,6 +249,7 @@ def make_router(db) -> APIRouter:
             )
             if flipped.modified_count == 1:
                 pkg_id = txn.get("package_id") or (status.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
+                ref_token = txn.get("ref") or _sanitize_ref((status.metadata or {}).get("ref"))
                 # Tip purchases are pure gratitude — no access grant created.
                 if pkg_id != "tip":
                     await db.access_grants.update_one(
@@ -219,6 +260,7 @@ def make_router(db) -> APIRouter:
                             "package_id": pkg_id,
                             "expires_at": _expiry_for(pkg_id),
                             "granted_at": datetime.now(timezone.utc).isoformat(),
+                            "ref": ref_token,
                         }},
                         upsert=True,
                     )
@@ -257,6 +299,7 @@ def make_router(db) -> APIRouter:
             )
             if txn:
                 pkg_id = txn.get("package_id") or (evt.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
+                ref_token = txn.get("ref") or _sanitize_ref((evt.metadata or {}).get("ref"))
                 # Tip purchases are pure gratitude — no access grant created.
                 if pkg_id != "tip":
                     await db.access_grants.update_one(
@@ -267,6 +310,7 @@ def make_router(db) -> APIRouter:
                             "package_id": pkg_id,
                             "expires_at": _expiry_for(pkg_id),
                             "granted_at": datetime.now(timezone.utc).isoformat(),
+                            "ref": ref_token,
                         }},
                         upsert=True,
                     )

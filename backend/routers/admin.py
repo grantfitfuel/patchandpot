@@ -178,4 +178,59 @@ def make_router(db) -> APIRouter:
             ),
         }
 
+    @router.get("/admin/referrals")
+    async def admin_referrals(token: str, days: int = 30):
+        """Aggregate paid checkouts by `ref` attribution token over the last
+        `days`. Drives the /admin/referrals dashboard so you can see which
+        embed/blog actually converted, not just which one drove pageviews."""
+        from datetime import datetime, timedelta, timezone
+
+        _require_admin(token)
+        days = max(1, min(int(days), 365))
+        since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+
+        # Pull paid txns in the window. We aggregate in Python (volumes are
+        # tiny — at most a few thousand rows) so the shape is easy to evolve.
+        cursor = db.payment_transactions.find(
+            {
+                "created_at": {"$gte": since},
+                "payment_status": "paid",
+                "access_granted": True,
+            },
+            {"_id": 0, "ref": 1, "amount": 1, "currency": 1, "package_id": 1, "created_at": 1},
+        )
+        rows = await cursor.to_list(length=5000)
+
+        buckets = {}
+        total_revenue = 0.0
+        for r in rows:
+            ref = (r.get("ref") or "").strip() or "(direct)"
+            amount = float(r.get("amount") or 0)
+            total_revenue += amount
+            b = buckets.setdefault(ref, {
+                "ref": ref,
+                "purchases": 0,
+                "revenue_gbp": 0.0,
+                "by_package": {},
+                "last_purchase_at": None,
+            })
+            b["purchases"] += 1
+            b["revenue_gbp"] = round(b["revenue_gbp"] + amount, 2)
+            pkg = r.get("package_id") or "unknown"
+            b["by_package"][pkg] = b["by_package"].get(pkg, 0) + 1
+            created = r.get("created_at")
+            if created and (not b["last_purchase_at"] or created > b["last_purchase_at"]):
+                b["last_purchase_at"] = created
+
+        # Sort by revenue descending — most valuable sources surface first.
+        ranked = sorted(buckets.values(), key=lambda x: (-x["revenue_gbp"], -x["purchases"]))
+
+        return {
+            "window_days": days,
+            "since": since,
+            "total_purchases": len(rows),
+            "total_revenue_gbp": round(total_revenue, 2),
+            "sources": ranked,
+        }
+
     return router

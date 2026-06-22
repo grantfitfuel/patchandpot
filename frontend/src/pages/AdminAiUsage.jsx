@@ -5,6 +5,7 @@ import {
   RefreshCw, LogOut, Lock,
 } from "lucide-react";
 import { fetchAdminAiUsage } from "@/lib/api";
+import { Link } from "react-router-dom";
 
 /**
  * Internal-only dashboard for the AI usage telemetry the backend already
@@ -107,6 +108,13 @@ export default function AdminAiUsagePage() {
         <div>
           <p className="overline">Admin · Internal</p>
           <h1 className="font-serif text-4xl md:text-5xl text-forest mt-2">AI usage</h1>
+          <Link
+            to="/admin/referrals"
+            data-testid="admin-link-referrals"
+            className="text-sm text-moss hover:text-terracotta underline-offset-4 hover:underline mt-2 inline-block"
+          >
+            → See referral attribution
+          </Link>
         </div>
         <div className="flex items-center gap-2">
           <div className="inline-flex border border-border bg-surface" role="tablist">

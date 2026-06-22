@@ -137,6 +137,17 @@ export const fetchAdminReferrals = (token, days = 30) =>
   api
     .get("/admin/referrals", { params: { token, days } })
     .then((r) => r.data);
+// Patrons (public opt-in display)
+export const fetchPatrons = () =>
+  api.get("/patrons").then((r) => r.data);
+export const patronOptIn = (sessionId, displayName) =>
+  api.post("/patrons/opt-in", {
+    session_id: sessionId,
+    display_name: displayName,
+    consent: true,
+  }).then((r) => r.data);
+export const patronOptOut = (sessionId) =>
+  api.post("/patrons/opt-out", { session_id: sessionId }).then((r) => r.data);
 // Fire-and-forget cache prewarm. Returns a Promise but callers don't need to
 // await it — any errors are swallowed so a flaky prewarm never crashes the UI.
 export const prewarmGuidance = (region, month, language = "en") => {

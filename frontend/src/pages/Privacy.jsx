@@ -53,9 +53,20 @@ export default function PrivacyPage() {
         dangerouslySetInnerHTML={{ __html: t("legal.privacy.intro_html") }}
       />
 
-      {PRIVACY_SECTIONS.map((s) => (
-        <Section key={s.titleKey} title={t(s.titleKey)} html={t(s.htmlKey)} />
-      ))}
+      {PRIVACY_SECTIONS.map((s) => {
+        // Prefer translated copy; fall back to the canonical English `title`/`html`
+        // already defined alongside the key so missing translations never render
+        // as raw i18n keys.
+        const title = (() => {
+          const v = t(s.titleKey);
+          return v === s.titleKey ? s.title : v;
+        })();
+        const html = (() => {
+          const v = t(s.htmlKey);
+          return v === s.htmlKey ? s.html : v;
+        })();
+        return <Section key={s.titleKey} title={title} html={html} />;
+      })}
 
       <div className="mt-14 pt-8 border-t border-border text-sm text-moss">
         <Link to="/terms" className="link" data-testid="privacy-to-terms">{t("legal.privacy.read_terms")}</Link>

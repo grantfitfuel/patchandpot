@@ -5,6 +5,7 @@ import confetti from "canvas-confetti";
 import { getCheckoutStatus } from "@/lib/api";
 import { setStoredAccessToken } from "@/hooks/usePaywall";
 import { useI18n } from "@/i18n";
+import PatronOptInCard from "@/components/PatronOptInCard";
 
 const MAX_POLL_ATTEMPTS = 8;
 const POLL_INTERVAL_MS = 2000;
@@ -159,6 +160,7 @@ export default function CheckoutSuccess() {
               Share so others find it
             </button>
           </div>
+          <PatronOptInCard sessionId={sessionId} />
         </div>
       )}
 
@@ -193,6 +195,7 @@ export default function CheckoutSuccess() {
           >
             {t("checkout.success.cta")}
           </button>
+          <PatronOptInCard sessionId={sessionId} />
         </>
       )}
 

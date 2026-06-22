@@ -67,6 +67,13 @@ export const PRIVACY_SECTIONS = [
       "<p>Under UK GDPR you have the right to:</p><ul><li>Access the personal data we hold about you.</li><li>Have inaccurate data corrected.</li><li>Have your data erased (subject to our HMRC obligations on payment records).</li><li>Restrict or object to processing.</li><li>Receive a copy of your data in a portable format.</li><li>Withdraw consent where consent is the lawful basis.</li><li>Complain to the UK Information Commissioner’s Office (<a class=\"link\" href=\"https://ico.org.uk\" target=\"_blank\" rel=\"noreferrer noopener\">ico.org.uk</a>) if you believe we have mishandled your data.</li></ul><p>To exercise any of these rights, email <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a>. We aim to respond within 14 days and must respond within 30.</p>",
   },
   {
+    titleKey: "legal.privacy.patrons.title",
+    title: "Patrons page (optional public listing)",
+    htmlKey: "legal.privacy.patrons.html",
+    html:
+      "<p>On the post-payment receipt screen, you can choose to be listed publicly on our <a class=\"link\" href=\"/patrons\">Patrons page</a>. This is strictly opt-in:</p><ul><li>We only ever display the <strong>display name you chose yourself</strong> — never your email, country, exact amount, or any other identifying information.</li><li>Nothing is published unless you ticked the explicit consent checkbox.</li><li>You can remove your listing with one click from the same checkout receipt, or by emailing <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a>. Removal is immediate.</li><li>The lawful basis is your <strong>explicit consent</strong> (UK GDPR Article 6(1)(a)), which you can withdraw at any time.</li></ul>",
+  },
+  {
     titleKey: "legal.privacy.cookies.title",
     title: "Cookies & local storage",
     htmlKey: "legal.privacy.cookies.html",

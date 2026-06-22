@@ -41,6 +41,9 @@ export default function Footer() {
           </p>
           <nav className="flex items-center gap-5">
             <TipJar />
+            <Link to="/patrons" className="hover:text-terracotta transition-colors" data-testid="footer-patrons-link">
+              Patrons
+            </Link>
             <Link to="/privacy" className="hover:text-terracotta transition-colors" data-testid="footer-privacy-link">
               {t("footer.legal.privacy")}
             </Link>

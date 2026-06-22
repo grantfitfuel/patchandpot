@@ -1,0 +1,27 @@
+{
+  "summary": "Iteration 18: Full backend + frontend testing of new Patrons (opt-in supporter wall) feature. Backend: 8 pytest cases (validation + happy path + idempotent opt-out + DB persistence) all PASS. Frontend: /patrons empty state, footer link from Home, and the full opt-in → opt-out flow on /checkout/success (with mocked Stripe poll + real seeded paid txn) all PASS. Seed data fully cleaned up; GET /api/patrons returns {total:0, groups:[]} after testing.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_patrons.py",
+    "/app/test_reports/pytest/iter18_patrons.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Profanity substring check: 'fuck' in lower also blocks 'Fuchsia' (the flower), 'shit' blocks 'Mitsushita', etc. Word-boundary regex would be safer for a gardening site. Consider re.search(rf'\\\\b{w}\\\\b', lower) — but the request explicitly chose substring match, so this is by design.",
+    "patrons.py line 67 raises 422 'display_name must be 30 characters or fewer.' — but pydantic Field already allows up to max_length=60. Internal sanitiser enforces 30 — works, but a min/max mismatch between Pydantic schema and sanitiser is a smell. Single source of truth would be cleaner.",
+    "POST /api/patrons/opt-out is fully unauthenticated and accepts any session_id. Combined with the idempotent 200 response, an attacker who learns a session_id can opt that patron out. Low-impact (no PII leaked, just a missing name on a public wall) — but worth documenting in privacy notice.",
+    "PatronOptInCard renders for EVERY /checkout/success and /tip_success phase even if the user already opted-in earlier (e.g. revisited the link). Backend will happily overwrite the name. Consider GET-checking display_consent on mount to render the 'remove' state directly if already opted-in.",
+    "Frontend PatronOptInCard.jsx does not surface server-side 422 errors distinctly — they appear in a generic terracotta block via e.response.data.detail. Works, but no inline field-level validation hints (e.g. 'too long' next to the input)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_patrons.py (created)"
+  ],
+  "success_rate": {"backend": "100% (8/8)", "frontend": "100% (all opt-in/opt-out flows + /patrons + footer link)"},
+  "test_credentials": "Not required.",
+  "seed_data_creation": "Seeded 4 paid payment_transactions with session_ids prefixed 'TEST_patron_' across tiers (lifetime_founding, annual, one_month, tip) for pytest, plus 1 separate 'TEST_patron_uitest_abc123def4' (tip) for the UI flow. ALL CLEANED UP at end — verified GET /api/patrons returns {total:0, groups:[]}.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Patrons endpoints live under /api/patrons (router has its own prefix='/api', included without extra prefix in server.py line 86 — intentional, do not 'fix'). Display name regex allows A-Z a-z À-ÿ 0-9 space and .,'-& (NO underscores — test names must use spaces). Profanity is substring-match (case-insensitive). Opt-out is always 200 (idempotent). DB is currently empty (no paid txns).",
+  "rca of the issue": "N/A — feature shipped working. Initial test failure was due to test-data (used underscores in display names which fail the regex); fixed test data to use spaces and all 8 backend tests pass."
+}

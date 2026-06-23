@@ -126,7 +126,17 @@
 > 2. Direct the user to **open the preview URL in real Mobile Safari** (paste into Safari address bar) rather than the Emergent app's preview tool.
 > Tests inside the in-app preview are valid for *our own* UI only, not for anything that loads `checkout.stripe.com`, `accounts.google.com`, etc.
 
-### Iteration 33 (2026-02-22): 🐞→📩 — Production Stripe 502 traced to platform network
+### Iteration 34 (2026-02-23): ✅ — Stripe live key rotation + paywall modals pinned to top
+- **Root cause of production checkout 502s**: Stripe rotated/expired the user's live secret API key (`sk_live_…bzKpA3`). The `/api/admin/test-stripe` diagnostic endpoint surfaced the exact Stripe error (`AuthenticationError: Expired API Key provided`) which let the user generate a new live key in their Stripe dashboard and update `STRIPE_API_KEY` env var on production. Checkout now works on preview + live.
+- **Reverted noisy in-flight changes** that were complicating debugging:
+  - `routers/checkout.py` and `server.py` rolled back to commit `4e2af37` — removes the structured try/except wrapping, `_sanitize_ref`, ring-buffer + global exception handler, `/api/admin/test-stripe`, `/api/admin/config-check`, `/api/admin/recent-errors`. (These diagnostic endpoints earned their keep tonight; can be re-added cleanly later if needed.)
+  - `core.py` `CheckoutRequest` reverted (no more `ref` field).
+  - `frontend/src/lib/api.js` `createCheckout` reverted (no longer pipes `ref` from localStorage).
+  - **Kept intact**: `useReferralCapture` hook still captures `?ref=` to localStorage; `/admin/referrals`, `/admin/ai-usage`, Patrons page, embed widget, FoundingClaimModal, FoundingBanner — all stable.
+- **Both paywall modals now pin to top** of viewport on every screen size (iPhone → desktop): `PaywallModal.jsx` changed from `items-start sm:items-center` to `items-start` only. `FoundingClaimModal.jsx` already top-pinned. Verified the change applies to every page that uses the components (Home, Calendar, Guides, LearnLanding, PremiumGate, AIMasterclassSuggest).
+- **Found while debugging** (not fixed, just noted): Emergent's managed Stripe integration routes API calls through `integrations.emergentagent.com/stripe/v1/...` rather than `api.stripe.com` directly. If that proxy ever becomes unreachable, all checkout fails with no obvious clue. Worth keeping in mind for future outages.
+
+### Iteration 33 (2026-02-22): 🐞→📩 — Production Stripe 502 traced to expired API key
 - User reported persistent HTTP 500/502/520 errors on `/api/checkout/session` on production (patchandpot.app) across iPhone/iPad/iPad incognito — even though preview worked. After several iterations of progressive error capture (structured route exceptions, in-memory error ring buffer, redacted config-check endpoint, direct Stripe test endpoint), I probed production directly from preview:
   - GET `/api/admin/config-check` → 200, valid JSON, `STRIPE_API_KEY = sk_live_...KpA3` (real live key, len 107).
   - POST `/api/checkout/session` → HTTP 502, `server: cloudflare`, `cf-ray: a0fe99c8f8a52911-ORD`, `retry-after: 60`, body title `emergent.cloud | 502: Bad gateway`.

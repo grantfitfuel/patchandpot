@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Heart, Sparkles, ArrowRight, Users } from "lucide-react";
 import { fetchPatrons } from "@/lib/api";
+import { useI18n } from "@/i18n";
 
 /**
  * Public Patrons page — opt-in display of supporters grouped by tier.
@@ -18,6 +19,7 @@ import { fetchPatrons } from "@/lib/api";
 export default function PatronsPage() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
+  const { t } = useI18n();
 
   useEffect(() => {
     let cancelled = false;
@@ -134,47 +136,40 @@ export default function PatronsPage() {
         </div>
       )}
 
-      {/* Retrospective patron CTA — for paid customers who didn't tick the
-          opt-in box at checkout but want to be listed now. Rendered
-          unconditionally (even if /api/patrons fails to load) so users
-          always have a path to the self-serve manage page. */}
       <section
         className="mt-16 border-y border-border bg-sand/40 py-8 px-6 text-center"
         data-testid="patrons-retro-cta"
       >
-          <p className="overline">Already supported but not listed?</p>
-          <h2 className="font-serif text-2xl text-forest mt-2">Add yourself any time.</h2>
-          <p className="mt-2 text-sm text-ink/70 max-w-md mx-auto leading-relaxed">
-            If you paid but didn&apos;t tick the opt-in box on the success page,
-            you can add yourself here using the checkout token from your receipt.
-            One click to edit or remove later.
-          </p>
-          <Link
-            to="/patrons/manage"
-            data-testid="patrons-retro-cta-link"
-            className="mt-5 btn-terracotta inline-flex items-center gap-2"
-          >
-            Add me to the Patrons page
-            <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
-          </Link>
-        </section>
+        <p className="overline">{t("patrons.retro.eyebrow")}</p>
+        <h2 className="font-serif text-2xl text-forest mt-2">{t("patrons.retro.title")}</h2>
+        <p className="mt-2 text-sm text-ink/70 max-w-md mx-auto leading-relaxed">
+          {t("patrons.retro.body")}
+        </p>
+        <Link
+          to="/patrons/manage"
+          data-testid="patrons-retro-cta-link"
+          className="mt-5 btn-terracotta inline-flex items-center gap-2"
+        >
+          {t("patrons.retro.cta")}
+          <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+        </Link>
+      </section>
 
       <footer className="mt-12 pt-8 border-t border-border text-center">
         <p className="text-xs text-moss leading-relaxed max-w-xl mx-auto">
-          Listed with explicit consent. Patrons can{" "}
+          {t("patrons.footer.prefix")}{" "}
           <Link
             to="/patrons/manage"
             className="underline-offset-4 hover:underline text-forest"
             data-testid="patrons-page-manage-link"
           >
-            add, edit or remove their listing
+            {t("patrons.footer.link")}
           </Link>
-          {" "}any time using the checkout token from their receipt — no
-          login required. Email{" "}
+          {" "}{t("patrons.footer.suffix")}{" "}
           <a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">
             hello@patchandpot.com
           </a>
-          {" "}if you&apos;ve lost yours.
+          {" "}{t("patrons.footer.email_suffix")}
         </p>
       </footer>
     </div>

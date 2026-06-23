@@ -59,16 +59,14 @@ export default function CalendarComparePage() {
         <Header month={month} setMonth={setMonth} t={t} />
         <div className="card-flat p-10 text-center" data-testid="compare-empty">
           <p className="text-moss">
-            You only have one patch right now. Add a second patch — say a holiday
-            cottage or an allotment — and come back here to see this month side
-            by side.
+            {t("compare.empty")}
           </p>
           <Link
             to="/garden"
             data-testid="compare-empty-cta"
             className="mt-6 inline-flex items-center gap-2 btn-terracotta"
           >
-            Add another patch
+            {t("compare.empty_cta")}
           </Link>
         </div>
       </div>
@@ -88,8 +86,8 @@ export default function CalendarComparePage() {
           region={aRegion}
           month={month}
           excludeId={bId}
-          // Column A always renders real guidance.
           paywalled={false}
+          t={t}
         />
 
         {/* Swap pill — sits on the divider on desktop, between the columns
@@ -100,10 +98,10 @@ export default function CalendarComparePage() {
           onClick={swap}
           data-testid="compare-swap"
           className="md:absolute md:left-1/2 md:top-20 md:-translate-x-1/2 mx-auto md:mx-0 inline-flex items-center gap-1.5 text-xs text-forest border border-forest/30 bg-sand px-3 py-1.5 hover:bg-forest/5 z-10"
-          aria-label="Swap patches"
+          aria-label={t("compare.swap")}
         >
           <ArrowLeftRight strokeWidth={1.5} className="w-3.5 h-3.5" />
-          Swap
+          {t("compare.swap")}
         </button>
 
         <div className="relative">
@@ -115,13 +113,11 @@ export default function CalendarComparePage() {
             region={bRegion}
             month={month}
             excludeId={aId}
-            // For unpaid users we render a skeleton instead of firing a real
-            // /api/guidance call — the visual tease is identical (blur over
-            // content) but with zero LLM cost per free-user visit.
             paywalled={!paid}
+            t={t}
           />
           {!paid && (
-            <UpgradeOverlay onClick={() => setPaywallOpen(true)} />
+            <UpgradeOverlay onClick={() => setPaywallOpen(true)} t={t} />
           )}
         </div>
       </div>
@@ -140,13 +136,12 @@ function Header({ month, setMonth, t }) {
   return (
     <>
       <div className="mb-10">
-        <p className="overline">{t("calendar.eyebrow")} · Compare</p>
+        <p className="overline">{t("calendar.eyebrow")} · {t("compare.eyebrow_suffix")}</p>
         <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          Two patches, one month.
+          {t("compare.title")}
         </h1>
         <p className="mt-3 text-ink/75 max-w-xl">
-          See exactly how each garden differs this month — what to sow, what to
-          harvest, which pests to watch for — at a glance.
+          {t("compare.subtitle")}
         </p>
       </div>
       <div className="mb-10">
@@ -156,12 +151,7 @@ function Header({ month, setMonth, t }) {
   );
 }
 
-function Column({ label, patches, selectedId, onSelect, region, month, excludeId, paywalled }) {
-  // The dropdown should always include the patch this column is currently
-  // showing (so the user can re-pick it later), and exclude only the
-  // patch that the *other* column is showing. Reads "weird" because the
-  // first clause keeps the currently-selected one in even if it equals
-  // excludeId — which only happens transiently during a swap.
+function Column({ label, patches, selectedId, onSelect, region, month, excludeId, paywalled, t }) {
   const dropdownPatches = patches.filter(
     (p) => p.id === selectedId || p.id !== excludeId,
   );
@@ -169,7 +159,7 @@ function Column({ label, patches, selectedId, onSelect, region, month, excludeId
   return (
     <div className="space-y-6" data-testid={`compare-col-${label}`}>
       <div className="flex items-center justify-between gap-3 pb-4 border-b border-border">
-        <span className="overline">Patch {label}</span>
+        <span className="overline">{label === "A" ? t("compare.patch_a") : t("compare.patch_b")}</span>
         <select
           value={selectedId}
           onChange={(e) => onSelect(e.target.value)}
@@ -193,10 +183,10 @@ function Column({ label, patches, selectedId, onSelect, region, month, excludeId
       ) : (
         <div className="card-flat p-10 text-center" data-testid={`compare-no-region-${label}`}>
           <p className="text-moss">
-            This patch doesn&apos;t have a region yet.{" "}
+            {t("compare.no_region")}{" "}
             <Link to="/garden" className="underline-offset-4 underline text-forest">
-              Set one
-            </Link>{" "}to compare it here.
+              {t("compare.no_region_set_one")}
+            </Link>{" "}{t("compare.no_region_suffix")}
           </p>
         </div>
       )}

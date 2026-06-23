@@ -132,7 +132,7 @@ export default function PatchSwitcher() {
           className="absolute right-0 mt-2 w-72 bg-surface border border-border shadow-xl z-50"
         >
           <div className="px-4 pt-4 pb-2">
-            <p className="overline">Your patches · {patches.length} of {limit}</p>
+            <p className="overline">{t("patch.your_patches")} · {patches.length} {t("patch.of")} {limit}</p>
           </div>
           <ul className="py-1">
             {patches.map((p) => {
@@ -166,7 +166,9 @@ export default function PatchSwitcher() {
             className="w-full text-left px-4 py-2.5 text-sm text-ink/80 hover:bg-sand/60 flex items-center gap-2"
           >
             <MapPin strokeWidth={1.5} className="w-4 h-4 text-moss" />
-            {region ? `Change region for "${activePatch?.name}"` : "Set this patch's region"}
+            {region
+              ? t("patch.change_region_for", { name: activePatch?.name || "" })
+              : t("patch.set_region_for")}
           </button>
           {canAdd ? (
             <button
@@ -176,7 +178,7 @@ export default function PatchSwitcher() {
               className="w-full text-left px-4 py-2.5 text-sm text-forest hover:bg-sand/60 flex items-center gap-2 font-medium"
             >
               <Plus strokeWidth={1.7} className="w-4 h-4 text-terracotta" />
-              Add another patch
+              {t("patch.add_another")}
             </button>
           ) : !paid ? (
             <button
@@ -187,9 +189,9 @@ export default function PatchSwitcher() {
             >
               <Lock strokeWidth={1.6} className="w-4 h-4 text-terracotta mt-0.5 flex-shrink-0" />
               <span className="leading-snug">
-                Unlock up to 25 patches
+                {t("patch.unlock_title")}
                 <span className="block text-[11px] text-moss font-normal mt-0.5">
-                  Included with any Patch &amp; Pot membership
+                  {t("patch.unlock_subtitle")}
                 </span>
               </span>
             </button>
@@ -198,9 +200,7 @@ export default function PatchSwitcher() {
               data-testid="patch-switcher-limit"
               className="px-4 py-2.5 text-xs text-moss leading-relaxed"
             >
-              You&apos;ve reached the {limit}-patch limit. Email
-              {" "}<a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">hello@patchandpot.com</a>
-              {" "}if you need more.
+              {t("patch.limit_paid", { limit, email: "hello@patchandpot.com" })}
             </div>
           )}
           <Link
@@ -211,7 +211,7 @@ export default function PatchSwitcher() {
           >
             <span className="inline-flex items-center gap-1.5">
               <Settings strokeWidth={1.4} className="w-3.5 h-3.5" />
-              Manage patches (rename, delete)
+              {t("patch.manage")}
             </span>
           </Link>
         </div>

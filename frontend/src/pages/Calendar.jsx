@@ -72,7 +72,7 @@ export default function CalendarPage() {
             className="btn-ghost inline-flex items-center gap-2"
           >
             <Columns2 className="w-4 h-4" strokeWidth={1.5} />
-            Compare patches
+            {t("compare.calendar_link")}
           </Link>
           <button
             type="button"

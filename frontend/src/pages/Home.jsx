@@ -142,6 +142,51 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Wellbeing band — three principles + a soft CTA into /wellbeing.
+          Sits below the editorial quote so it reads as the natural next
+          beat: "growing tends you back". */}
+      <section
+        className="border-t border-border bg-sand/40"
+        data-testid="home-wellbeing-band"
+      >
+        <div className="container-narrow py-20 md:py-24">
+          <div className="max-w-2xl mb-12">
+            <p className="overline">{t("home.wellbeing.eyebrow")}</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
+              {t("home.wellbeing.title")}
+            </h2>
+            <p className="mt-5 text-ink/75 leading-relaxed">
+              {t("home.wellbeing.body")}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {[
+              { k: "notice",  Icon: Sprout },
+              { k: "slow",    Icon: Heart },
+              { k: "nourish", Icon: Flower2 },
+            ].map(({ k, Icon }) => (
+              <article key={k} className="card-flat p-6 md:p-7">
+                <Icon strokeWidth={1.4} className="w-5 h-5 text-terracotta mb-4" />
+                <h3 className="font-serif text-xl text-forest mb-2">
+                  {t(`wellbeing.principle.${k}.title`)}
+                </h3>
+                <p className="text-sm text-ink/75 leading-relaxed">
+                  {t(`wellbeing.principle.${k}.body`)}
+                </p>
+              </article>
+            ))}
+          </div>
+          <Link
+            to="/wellbeing"
+            data-testid="home-wellbeing-cta"
+            className="mt-10 inline-flex items-center gap-2 text-forest underline-offset-4 hover:underline"
+          >
+            {t("home.wellbeing.cta")}
+            <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
       {!paid && <EmbedFoundingSnippet />}
 
       {!paid && (

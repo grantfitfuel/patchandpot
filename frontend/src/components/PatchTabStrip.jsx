@@ -5,6 +5,7 @@ import { useRegion } from "@/hooks/useRegion";
 import { usePaywall } from "@/hooks/usePaywall";
 import RegionPicker from "@/components/RegionPicker";
 import PaywallModal from "@/components/PaywallModal";
+import { useI18n } from "@/i18n";
 
 /**
  * Tab strip + management bar for the user's gardening "patches".
@@ -15,6 +16,7 @@ import PaywallModal from "@/components/PaywallModal";
  */
 export default function PatchTabStrip() {
   const { paid, patchLimit, refresh: refreshPaywall } = usePaywall();
+  const { t } = useI18n();
   const {
     patches, activePatchId, activePatch, setActivePatch,
     addPatch, renamePatch, removePatch, canAdd, limit,
@@ -99,7 +101,7 @@ export default function PatchTabStrip() {
             className="px-3 py-2.5 text-sm text-forest hover:bg-sand/60 border-b-2 border-transparent inline-flex items-center gap-1.5"
           >
             <Plus strokeWidth={1.7} className="w-4 h-4 text-terracotta" />
-            Add patch
+            {t("patch.add")}
           </button>
         ) : !paid ? (
           <button
@@ -109,7 +111,7 @@ export default function PatchTabStrip() {
             className="px-3 py-2.5 text-sm text-forest hover:bg-sand/60 border-b-2 border-transparent inline-flex items-center gap-1.5 font-medium"
           >
             <Lock strokeWidth={1.6} className="w-4 h-4 text-terracotta" />
-            Unlock more patches
+            {t("patch.unlock_short")}
           </button>
         ) : null}
       </div>
@@ -124,7 +126,7 @@ export default function PatchTabStrip() {
             className="text-xs text-moss hover:text-forest underline-offset-4 hover:underline inline-flex items-center gap-1.5"
           >
             <Edit3 strokeWidth={1.5} className="w-3.5 h-3.5" />
-            Rename
+            {t("patch.rename")}
           </button>
         ) : (
           <form onSubmit={commitRename} className="inline-flex items-center gap-2" data-testid="patch-rename-form">
@@ -141,7 +143,7 @@ export default function PatchTabStrip() {
               type="submit"
               data-testid="patch-rename-save"
               className="text-forest hover:text-terracotta"
-              aria-label="Save"
+              aria-label={t("patch.save")}
             >
               <Check strokeWidth={1.8} className="w-4 h-4" />
             </button>
@@ -149,7 +151,7 @@ export default function PatchTabStrip() {
               type="button"
               onClick={cancelRename}
               className="text-ink/60 hover:text-forest"
-              aria-label="Cancel"
+              aria-label={t("patch.cancel")}
             >
               <X strokeWidth={1.5} className="w-4 h-4" />
             </button>
@@ -163,7 +165,7 @@ export default function PatchTabStrip() {
           className="text-xs text-moss hover:text-forest underline-offset-4 hover:underline inline-flex items-center gap-1.5"
         >
           <MapPin strokeWidth={1.5} className="w-3.5 h-3.5" />
-          {region ? `Region: ${region.name}` : "Set region"}
+          {region ? t("patch.region_label", { name: region.name }) : t("patch.set_region")}
         </button>
 
         {patches.length > 1 && !confirmDelete && (
@@ -174,7 +176,7 @@ export default function PatchTabStrip() {
             className="text-xs text-terracotta hover:text-terracotta/80 underline-offset-4 hover:underline inline-flex items-center gap-1.5 ml-auto"
           >
             <Trash2 strokeWidth={1.5} className="w-3.5 h-3.5" />
-            Delete this patch
+            {t("patch.delete")}
           </button>
         )}
         {confirmDelete && (
@@ -183,14 +185,14 @@ export default function PatchTabStrip() {
             data-testid="patch-delete-confirm"
           >
             <AlertCircle strokeWidth={1.5} className="w-3.5 h-3.5" />
-            Delete &ldquo;{activePatch?.name}&rdquo; and its plants/tasks?
+            {t("patch.delete_confirm", { name: activePatch?.name || "" })}
             <button
               type="button"
               onClick={doDelete}
               data-testid="patch-delete-confirm-yes"
               className="font-medium underline-offset-4 hover:underline"
             >
-              Yes, delete
+              {t("patch.delete_yes")}
             </button>
             <button
               type="button"
@@ -198,31 +200,27 @@ export default function PatchTabStrip() {
               data-testid="patch-delete-confirm-no"
               className="text-ink/60 hover:text-forest"
             >
-              Cancel
+              {t("patch.cancel")}
             </button>
           </div>
         )}
 
         {!canAdd && !paid && (
           <p className="text-[11px] text-moss leading-relaxed w-full" data-testid="patch-limit-note">
-            You&apos;ve reached the free {FREE_PATCH_LIMIT}-patch limit.
+            {t("patch.limit_free_prefix", { limit: FREE_PATCH_LIMIT })}
             <button
               type="button"
               onClick={() => setPaywallOpen(true)}
               data-testid="patch-limit-upgrade-link"
               className="ml-1 underline-offset-4 underline text-forest hover:text-terracotta"
             >
-              Upgrade to track up to 25 patches.
+              {t("patch.limit_free_link")}
             </button>
           </p>
         )}
         {!canAdd && paid && (
           <p className="text-[11px] text-moss leading-relaxed w-full" data-testid="patch-limit-note">
-            You&apos;ve reached the {limit}-patch limit. Email{" "}
-            <a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">
-              hello@patchandpot.com
-            </a>{" "}
-            if you need more.
+            {t("patch.limit_paid", { limit, email: "hello@patchandpot.com" })}
           </p>
         )}
       </div>

@@ -13,6 +13,7 @@ export default function Header() {
     { to: "/plants", label: t("nav.plants"), key: "plants" },
     { to: "/masterclasses", label: t("nav.masterclasses"), key: "masterclasses" },
     { to: "/garden", label: t("nav.garden"), key: "garden" },
+    { to: "/wellbeing", label: t("nav.wellbeing"), key: "wellbeing" },
     { to: "/guides", label: t("nav.guides"), key: "guides" },
   ];
 

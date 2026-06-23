@@ -32,7 +32,19 @@ function readActiveRegion() {
   if (!key) return null;
   try {
     const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    // One-shot migration: an older version of the geo-detect endpoint wrote
+    // the literal string "Your location" into the region name when no city
+    // could be resolved. That string then leaked into PDF titles, headers,
+    // and even the AI prompt. Strip those bad entries on read so existing
+    // users automatically get re-prompted to pick a real region.
+    if (parsed && typeof parsed.name === "string"
+        && parsed.name.trim().toLowerCase() === "your location") {
+      try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+      return null;
+    }
+    return parsed;
   } catch {
     return null;
   }

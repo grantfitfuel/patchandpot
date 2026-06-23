@@ -116,6 +116,15 @@ def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
     doc = _doc(buf, pagesize=pagesize)
     s = _styles()
 
+    # Defensive scrub: an older version of the geo-detect endpoints used to
+    # write the literal string "Your location" into region.name when no city
+    # could be resolved. That string then leaked into the PDF cover ("June —
+    # Your location") and was rightly called out. We now block that string
+    # at every layer; this last belt-and-braces check ensures even a stale
+    # localStorage entry never produces an embarrassing PDF.
+    if not region_name or region_name.strip().lower() in {"your location", "unknown location", ""}:
+        region_name = "your garden"
+
     story = []
     # Cover-page seasonal vignette — small, sits above the eyebrow so the
     # printed page reads like a magazine plate rather than a generated form.

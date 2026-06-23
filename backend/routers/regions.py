@@ -33,8 +33,38 @@ def _climate_for(lat: float) -> str:
     return "Polar"
 
 
+def _resolve_name(*, name, admin, country, lat, lon):
+    """Pick the best human-readable name for a region.
+
+    Cascade: city name → admin/region → country → a coord stub. We deliberately
+    NEVER return the literal phrase "Your location" — that string used to leak
+    all the way into PDF titles and AI prompts when reverse-geocode came back
+    empty. A coord stub like "Near 51.5°N, 0.1°W" is uglier but at least carries
+    real information the user can recognise.
+    """
+    for candidate in (name, admin, country):
+        if candidate and isinstance(candidate, str) and candidate.strip():
+            return candidate.strip()
+    if lat is not None and lon is not None:
+        try:
+            lat_f = float(lat)
+            lon_f = float(lon)
+            ns = "N" if lat_f >= 0 else "S"
+            ew = "E" if lon_f >= 0 else "W"
+            return f"Near {abs(lat_f):.1f}°{ns}, {abs(lon_f):.1f}°{ew}"
+        except (TypeError, ValueError):
+            pass
+    return "Unknown location"
+
+
 async def _reverse_name(http: httpx.AsyncClient, lat: float, lon: float) -> dict:
-    """Best-effort: ask Open-Meteo for a city/country name for these coords."""
+    """Best-effort: ask Open-Meteo for a city/country name for these coords.
+
+    Falls back to OpenStreetMap's Nominatim when Open-Meteo returns nothing —
+    we found Open-Meteo's /v1/reverse endpoint silently 404s for a lot of
+    valid coords (incl. central London) which used to leak the "Your location"
+    fallback all the way into PDF titles.
+    """
     place: dict[str, Optional[str]] = {"name": None, "country": None, "admin": None}
     try:
         r = await http.get(
@@ -52,7 +82,37 @@ async def _reverse_name(http: httpx.AsyncClient, lat: float, lon: float) -> dict
                     "timezone": it.get("timezone"),
                 }
     except Exception as e:  # noqa: BLE001
-        logger.warning("reverse name lookup failed: %s", e)
+        logger.warning("reverse name lookup (open-meteo) failed: %s", e)
+
+    # Open-Meteo unavailable or empty → try Nominatim (OSM). Their usage policy
+    # requires a meaningful User-Agent and ≤1 req/sec; both are easy here.
+    if not place.get("name"):
+        try:
+            r = await http.get(
+                "https://nominatim.openstreetmap.org/reverse",
+                params={
+                    "lat": lat, "lon": lon, "format": "json",
+                    "zoom": 10, "accept-language": "en",
+                },
+                headers={"User-Agent": "PatchAndPot/1.0 (gardening app; hello@patchandpot.com)"},
+            )
+            if r.status_code == 200:
+                data = r.json() or {}
+                addr = data.get("address") or {}
+                # Prefer the smallest sensible locality. Some of these are
+                # mutually exclusive depending on country: 'city' / 'town' /
+                # 'village' / 'municipality' / 'suburb' / 'county'.
+                locality = (
+                    addr.get("city") or addr.get("town") or addr.get("village")
+                    or addr.get("municipality") or addr.get("suburb")
+                    or addr.get("county") or data.get("name")
+                )
+                place["name"] = place.get("name") or locality
+                place["country"] = place.get("country") or addr.get("country")
+                place["admin"] = place.get("admin") or addr.get("state") or addr.get("region")
+        except Exception as e:  # noqa: BLE001
+            logger.warning("reverse name lookup (nominatim) failed: %s", e)
+
     return place
 
 
@@ -91,7 +151,12 @@ async def reverse_geocode(lat: float, lon: float):
         place = await _reverse_name(http, lat, lon)
     hemisphere = "southern" if lat < 0 else "northern"
     return {
-        "name": place.get("name") or "Your location",
+        "name": _resolve_name(
+            name=place.get("name"),
+            admin=place.get("admin"),
+            country=place.get("country"),
+            lat=lat, lon=lon,
+        ),
         "country": place.get("country"),
         "admin": place.get("admin"),
         "latitude": lat,
@@ -170,7 +235,12 @@ async def ip_detect(request: Request):
         place = await _reverse_name(http, float(lat), float(lon))
 
     return {
-        "name": place.get("name") or name_hint or "Your location",
+        "name": _resolve_name(
+            name=place.get("name") or name_hint,
+            admin=place.get("admin") or admin_hint,
+            country=place.get("country") or country_hint,
+            lat=lat, lon=lon,
+        ),
         "country": place.get("country") or country_hint,
         "admin": place.get("admin") or admin_hint,
         "latitude": float(lat),

@@ -6,6 +6,7 @@ import { usePaywall } from "@/hooks/usePaywall";
 import GuidanceView from "@/components/GuidanceView";
 import MonthSelector from "@/components/MonthSelector";
 import PaywallModal from "@/components/PaywallModal";
+import { monthlyIllustration } from "@/components/illustrations/MonthlyIllustrations";
 import { useI18n } from "@/i18n";
 
 /**
@@ -133,16 +134,22 @@ export default function CalendarComparePage() {
 }
 
 function Header({ month, setMonth, t }) {
+  const MonthlyIllo = monthlyIllustration(month);
   return (
     <>
-      <div className="mb-10">
-        <p className="overline">{t("calendar.eyebrow")} · {t("compare.eyebrow_suffix")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          {t("compare.title")}
-        </h1>
-        <p className="mt-3 text-ink/75 max-w-xl">
-          {t("compare.subtitle")}
-        </p>
+      <div className="mb-10 flex items-start gap-5">
+        <div className="hidden sm:block w-16 h-16 md:w-20 md:h-20 text-terracotta flex-shrink-0 mt-1">
+          <MonthlyIllo />
+        </div>
+        <div className="min-w-0">
+          <p className="overline">{t("calendar.eyebrow")} · {t("compare.eyebrow_suffix")}</p>
+          <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
+            {t("compare.title")}
+          </h1>
+          <p className="mt-3 text-ink/75 max-w-xl">
+            {t("compare.subtitle")}
+          </p>
+        </div>
       </div>
       <div className="mb-10">
         <MonthSelector month={month} onChange={setMonth} />

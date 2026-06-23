@@ -6,6 +6,7 @@ import GuidanceView from "@/components/GuidanceView";
 import RegionPicker from "@/components/RegionPicker";
 import PaywallModal from "@/components/PaywallModal";
 import { MapPin, Download, Lock, Loader2, Columns2 } from "lucide-react";
+import { monthlyIllustration } from "@/components/illustrations/MonthlyIllustrations";
 import { useI18n } from "@/i18n";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
@@ -21,6 +22,7 @@ export default function CalendarPage() {
   const [paywallOpen, setPaywallOpen] = useState(false);
   const [pdfBusy, setPdfBusy] = useState(false);
   const [pdfError, setPdfError] = useState("");
+  const MonthlyIllo = monthlyIllustration(month);
 
   async function downloadSeasonalPdf() {
     if (!region) { setPickerOpen(true); return; }
@@ -58,12 +60,17 @@ export default function CalendarPage() {
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
-        <div>
-          <p className="overline">{t("calendar.eyebrow")}</p>
-          <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-            {t("calendar.title")}
-          </h1>
-          <p className="mt-3 text-ink/75 max-w-xl">{t("calendar.subtitle")}</p>
+        <div className="flex items-start gap-5 min-w-0">
+          <div className="hidden sm:block w-16 h-16 md:w-20 md:h-20 text-terracotta flex-shrink-0 mt-1">
+            <MonthlyIllo />
+          </div>
+          <div className="min-w-0">
+            <p className="overline">{t("calendar.eyebrow")}</p>
+            <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
+              {t("calendar.title")}
+            </h1>
+            <p className="mt-3 text-ink/75 max-w-xl">{t("calendar.subtitle")}</p>
+          </div>
         </div>
         <div className="flex flex-wrap gap-3">
           <Link

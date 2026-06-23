@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "લિંગ નકલ કરો",
   "share_view.social.copied": "લિંગ નકલ કરવામાં આવ્યો",
   "share_view.social.tagline": "{name} Patch & Pot પર — momentan શું ઉગે છે તે જુઓ.",
-  "share_view.social.tagline_region": "{name} {region} માં — Patch & Pot પર શું ઉગે છે તે જુઓ.",
+  "share_view.social.tagline_region": "{name} {region} માં — Patch & Pot પર શું ઉગે છે તે જુઓ.",  "share_view.views": "{n} આ સપ્તાહે મુલાકાતો",
+  "share_view.views_one": "1 આ સપ્તાહે મુલાકાત",
+  "share_patch.embed.open": "એમ્બેડ કોડ મેળવો",
+  "share_patch.embed.label": "બ્લોગ અથવા ક્લબ પેજ પર એમ્બેડ કરો",
+  "share_patch.embed.help": "તમારા સાઇટમાં આ સ્નિપ્પેટ પેસ્ટ કરો જેથી તમારા પેચનું સુંદર તાજગી પૂર્વદર્શન જોવા મળે.",
+  "share_patch.embed.copy": "એમ્બેડ કોડ કોપી કરો",
+  "share_patch.embed.preview": "એમ્બેડનું પૂર્વદર્શન",
+  "share_patch.qr.download": "નિકા-ગેટ QR સ્ટિકર (PDF) ડાઉનલોડ કરો",
+  "share_patch.list_publicly.title": "હોમપેજ પર \"સૌથી પ્રિય પેચ\" ભીત્તિ પર દર્શાવો",
+  "share_patch.list_publicly.help": "ડિફોલ્ટ અનુસાર બંધ. જ્યારે ચાલુ હોય, ત્યારે આ પેચ મુલાકાતો મુજબ Patch & Pot હોમપેજ પર દેખાઇ શકે છે. તમે તે ફરીથી બંધ કરી શકો છો.",
+  "home.most_loved.eyebrow": "પેચની આસપાસ",
+  "home.most_loved.title": "આ સપ્તાહે સૌથી વધુ મોભવચ્ચે પેચ",
+  "home.most_loved.body": "યથાર્થ બાગો, તેમના બાગબાન દ્વારા પસંદ કરવામાં આવેલ. જે કંઈક પર ક્લિક કરો તે જુઓ શું ઉગે છે — અને કેવી રીતે Patch & Pot રોજીના માર્ગદર્શનને તેમના નિવાસ સ્થળને અનુરૂપ બનાવવા માટે સંગઠિત કરે છે.",
+  "home.most_loved.plant_count": "{n} છોડ",
+
 };
 
 export default dict;

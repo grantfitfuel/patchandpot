@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Копіювати посилання",
   "share_view.social.copied": "Посилання скопійовано",
   "share_view.social.tagline": "{name} на Patch & Pot — дивіться, що зараз росте.",
-  "share_view.social.tagline_region": "{name} в {region} — дивіться, що росте на Patch & Pot.",
+  "share_view.social.tagline_region": "{name} в {region} — дивіться, що росте на Patch & Pot.",  "share_view.views": "{n} візитів цього тижня",
+  "share_view.views_one": "1 візит цього тижня",
+  "share_patch.embed.open": "Отримати код для вставки",
+  "share_patch.embed.label": "Вставити на сторінку блогу або клубу",
+  "share_patch.embed.help": "Вставте цей фрагмент у ваш сайт, щоб показати охайний живий попередній перегляд вашого Patch.",
+  "share_patch.embed.copy": "Скопіювати код для вставки",
+  "share_patch.embed.preview": "Попередній перегляд вставки",
+  "share_patch.qr.download": "ЗавантажитиQR-стicker для садових воріт (PDF)",
+  "share_patch.list_publicly.title": "Показати на головній сторінці \"Найбільш улюблені Patch\" стіну",
+  "share_patch.list_publicly.help": "Вимкнено за замовчуванням. Коли увімкнено, цей Patch може з'явитися на головній сторінці Patch & Pot на основі візитів. Ви можете вимкнути його в будь-який час.",
+  "home.most_loved.eyebrow": "Навколо Patch",
+  "home.most_loved.title": "Найбільш улюблені Patch цього тижня",
+  "home.most_loved.body": "Справжні сади, які вибрали їхні садівники. Натисніть будь-який, щоб побачити, що росте — і як Patch & Pot налаштовує свої щомісячні рекомендації відповідно до місця їх проживання.",
+  "home.most_loved.plant_count": "{n} рослин",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "ಲಿಂківನ್ನು ನಕಲಿಸಿ",
   "share_view.social.copied": "ಲಿಂಕ್ ನಕಲಾಗಿದೆ",
   "share_view.social.tagline": "{name} Patch & Pot ನಲ್ಲಿ — ಈಗ ಏನು ಬೆಳೆಯುತ್ತಿದೆ ನೋಡಿರಿ.",
-  "share_view.social.tagline_region": "{name} {region} ನಲ್ಲಿ — Patch & Pot ನಲ್ಲಿ ಏನು ಬೆಳೆಯುತ್ತಿದೆ ನೋಡಿರಿ.",
+  "share_view.social.tagline_region": "{name} {region} ನಲ್ಲಿ — Patch & Pot ನಲ್ಲಿ ಏನು ಬೆಳೆಯುತ್ತಿದೆ ನೋಡಿರಿ.",  "share_view.views": "{n} ಈ ವಾರ ಭೇಟಿಗಳು",
+  "share_view.views_one": "1 ಈ ವಾರ ಭೇಟಿಯು",
+  "share_patch.embed.open": "ಎಂಬೆಡ್ ಕೋಡ್ ಅನ್ನು ಪಡೆಯಿರಿ",
+  "share_patch.embed.label": "ಬ್ಲಾಗ್ ಅಥವಾ ಕ್ಲಬ್ ಪುಟದಲ್ಲಿ ಐEmbedding",
+  "share_patch.embed.help": "ನಿಮ್ಮ ಸೈಟಿನಲ್ಲಿ ಪ್ರತ್ಯಕ್ಷ ತೆಗೆದುಕೊಂಡಿರುವ ಸುಂದರ ಲೈವ್ ಪ್ರೀವ್ಯೂವನ್ನು ತೋರಿಸಲು ಈ ಕೀಳ್ಕೋಲು ಸೇರಿಸಿ.",
+  "share_patch.embed.copy": "ಎಂಬೆಡ್ ಕೋಡ್ ಅನ್ನು ಆಯ್ಕೆ ಮಾಡಿ",
+  "share_patch.embed.preview": "ಎಂಬೆಡ್ ಪೈಕಿ",
+  "share_patch.qr.download": "ತೋಟದ ಬಾಗಿಲು QR ಸ್ಟಿಕ್ಕರ್ (PDF) ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+  "share_patch.list_publicly.title": "ಹೆಚ್ಚಿನಚೇತನ ಕಂಡು\"ತಾಜಾ ತುಂಡುಗಳು\" ಭಾನುವಾರದಿಂ",
+  "share_patch.list_publicly.help": "ತೆರೆದಿಲ್ಲ. ಓಡಿದಾಗ, ಈ ತುಂಡು Patch & Pot ಮನೆ ಪುಟದಲ್ಲಿ ಭೇಟಿಗಳನ್ನು ಆಧರಿಸಿ ಕಾಣಿಸಬಹುದು. ನೀವು ಇದನ್ನು ಮತ್ತೆ ಯಾವಾಗ ಬೇಕಾದರೂ ತಲೆಗೆ ಬದಲಾಯಿಸಬಹುದು.",
+  "home.most_loved.eyebrow": "ತುಂಡಿನ ಸುತ್ತ",
+  "home.most_loved.title": "ಈ ವಾರದ ಹೆಚ್ಚುಪ್ರಿಯ ತುಂಡುಗಳು",
+  "home.most_loved.body": "ವಾಸ್ತವಿಕ ತೋಟಗಳು, ತಮ್ಮ ತೋಟಗಾರಿಕರ ಅನುಮೋದನೆಗಾಗಿ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ. ಏನೇನಾದರೂ ಕ್ಲಿಕ್ ಮಾಡಿ ಏನೆಲ್ಲ ಬೆಳೆಯುತ್ತಿದೆ ಎಂಬುದನ್ನು ನೋಡಿ — ಮತ್ತು Patch & Pot ತನ್ನ ಮಾಸದಲ್ಲಿ ಅವರು ನಿವಾಸಿಸುವ ಸ್ಥಳಕ್ಕೆ ಹೇಗೆ ಮಾರ್ಗದರ್ಶನವನ್ನು ಹೊಂದಿಸುತ್ತದೆ.",
+  "home.most_loved.plant_count": "{n} ಸೊಪ್ಪುಗಳು",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "ਲਿੰਕ ਚੋਣੋ",
   "share_view.social.copied": "ਲਿੰਕ ਚੁੱਕ ਲਿਆ ਗਿਆ",
   "share_view.social.tagline": "{name} Patch & Pot 'ਤੇ — ਵੇਖੋ ਹੁਣ ਕੀ ਵਧ ਰਿਹਾ ਹੈ।",
-  "share_view.social.tagline_region": "{name} ਵਿੱਚ {region} — ਵੇਖੋ Patch & Pot 'ਤੇ ਕੀ ਵਧ ਰਿਹਾ ਹੈ।",
+  "share_view.social.tagline_region": "{name} ਵਿੱਚ {region} — ਵੇਖੋ Patch & Pot 'ਤੇ ਕੀ ਵਧ ਰਿਹਾ ਹੈ।",  "share_view.views": "{n} ਇਸ ਹਫਤੇ ਦੌਰੇ",
+  "share_view.views_one": "1 ਇਸ ਹਫਤੇ ਦੌਰਾ",
+  "share_patch.embed.open": "ਐਂਬੈਡ ਕੋਡ ਪ੍ਰਾਪਤ ਕਰੋ",
+  "share_patch.embed.label": "ਬਲੌਗ ਜਾਂ ਕਲੱਬ ਪੇਜ਼ 'ਤੇ ਐਂਬੈਡ ਕਰੋ",
+  "share_patch.embed.help": "ਆਪਣੇ ਸਾਈਟ 'ਤੇ ਇਹ ਸਨਿੱਪੇਟ ਪੇਸਟ ਕਰੋ ਤਾਂ ਕਿ ਤੁਹਾਡੇ ਪੈਚ ਦਾ ਸਾਫ਼ ਤਿੱਤਕ ਥੜਾ ਪ੍ਰਦਰਸ਼ਿਤ ਕੀਤਾ ਜਾ ਸਕੇ.",
+  "share_patch.embed.copy": "ਐਂਬੈਡ ਕੋਡ ਕਾਪੀ ਕਰੋ",
+  "share_patch.embed.preview": "ਐਂਬੈਡ ਦੀ ਪ੍ਰੀਵਿਯੂ",
+  "share_patch.qr.download": "ਗਾਰਡਨ-ਗੇਟ ਟੀਕਰ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰੋ (PDF)",
+  "share_patch.list_publicly.title": "ਹੋਮਪੇਜ 'ਤੇ \" ਸਭ ਤੋਂ ਪਸੰਦੀਦਾਪੈਚ\" ਦੀ ਚਿੱਤਰਕਾਰੀ ਦਿਖਾਓ",
+  "share_patch.list_publicly.help": "ਬਿਜਲੀ ਤੋਂ ਬੰਦ ਹੈ. ਜਦੋਂ ਚਾਲੂ ਹੁੰਦਾ ਹੈ, ਇਹ ਪੈਚ Patch & Pot ਦੇ ਹੋਮਪੇਜ 'ਤੇ ਦੌਰਿਆਂ ਦੇ ਆਧਾਰ 'ਤੇ ਪ੍ਰਗਟ ਹੋ ਸਕਦਾ ਹੈ. ਤੁਸੀਂ ਇਸਨੂੰ ਕਿਸੇ ਵੀ ਸਮੇਂ ਮੁੜ ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ.",
+  "home.most_loved.eyebrow": "ਪੈਚ ਦੇ ਆਸ-ਪਾਸ",
+  "home.most_loved.title": "ਇਸ ਹਫਤੇ ਦੇ ਸਭ ਤੋਂ ਪਸੰਦੀਦਾਪੈਚ",
+  "home.most_loved.body": "ਅਸਲੀ ਬਾਗ, ਆਪਣੇ ਮਾਲਕਾਂ ਦੁਆਰਾ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ. ਦੇਖਣ ਲਈ ਕਿਸੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ ਕਿ ਕੀ ਵਧ ਰਿਹਾ ਹੈ — ਅਤੇ Patch & Pot ਜਦੋਂ ਮਾਸਿਕ ਮਦਦ ਨੂੰ ਉਨਾਂ ਦੇ ਰਹਿਣ ਦੇ ਸਥਾਨ ਦੇ ਨਾਲ ਕਿਵੇਂ ਅਨੁਕੂਲ ਬਣਾਉਂਦਾ ਹੈ.",
+  "home.most_loved.plant_count": "{n} ਪੌਧੇ",
+
 };
 
 export default dict;

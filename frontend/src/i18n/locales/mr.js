@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "लिंक कॉपी करा",
   "share_view.social.copied": "लिंक कॉपी करण्यात आली",
   "share_view.social.tagline": "{name} on Patch & Pot — आताच काय वाढत आहे ते पहा.",
-  "share_view.social.tagline_region": "{name} in {region} — Patch & Pot वर काय वाढत आहे ते पहा.",
+  "share_view.social.tagline_region": "{name} in {region} — Patch & Pot वर काय वाढत आहे ते पहा.",  "share_view.views": "{n} भेटी या आठवड्यात",
+  "share_view.views_one": "1 भेट या आठवड्यात",
+  "share_patch.embed.open": "इंबेड कोड मिळवा",
+  "share_patch.embed.label": "ब्लॉग किंवा क्लब पृष्ठावर इंबेड करा",
+  "share_patch.embed.help": "आपल्या साइटवर हा स्निप्पेट पेस्ट करा जेणेकरून आपल्या पॅचचा एक स्वच्छ थेट पूर्वावलोकन प्रदर्शित होईल.",
+  "share_patch.embed.copy": "इंबेड कोड कॉपी करा",
+  "share_patch.embed.preview": "इंबेड पूर्वावलोकन",
+  "share_patch.qr.download": "गार्डन-गेट QR स्टिकर डाउनलोड करा (PDF)",
+  "share_patch.list_publicly.title": "गृहपृष्ठावर \"जास्त आवडणारे पॅच\" भित्तीवर दर्शवा",
+  "share_patch.list_publicly.help": "डीफॉल्टनुसार बंद. चालू असल्यास, हे पॅच भेटींवर आधारित Patch & Pot गृहपृष्ठावर दिसू शकते. आपण हे पुन्हा कोणत्याही वेळी बंद करू शकता.",
+  "home.most_loved.eyebrow": "पॅचच्या सभोवती",
+  "home.most_loved.title": "या आठवड्यात जास्त आवडणारे पॅच",
+  "home.most_loved.body": "खरे बागकाम, त्यांच्या बागवानांनी समाविष्‍ट केलेले. काय वाढत आहे ते पाहण्यासाठी कोणत्याहीवर क्लिक करा - आणि Patch & Pot कसे त्यांच्या राहण्याच्या ठिकाणानुसार त्याच्या मासिक मार्गदर्शनास समायोजित करते.",
+  "home.most_loved.plant_count": "{n} वनस्पती",
+
 };
 
 export default dict;

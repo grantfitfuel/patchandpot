@@ -670,6 +670,7 @@ const dict = {
   "share_view.social.tagline": "{name} on Patch & Pot — see what's growing right now.",
   "share_view.social.tagline_region": "{name} in {region} — see what's growing on Patch & Pot.",
   "share_view.views": "{n} visits this week",
+  "share_view.views_one": "1 visit this week",
   "home.most_loved.eyebrow": "Around the patch",
   "home.most_loved.title": "Most-loved patches this week",
   "home.most_loved.body": "Real gardens, opted in by their gardeners. Click any to see what's growing — and how Patch & Pot tunes its monthly guidance to where they live.",

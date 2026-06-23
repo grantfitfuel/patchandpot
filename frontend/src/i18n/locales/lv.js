@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopēt saiti",
   "share_view.social.copied": "Saiti kopēta",
   "share_view.social.tagline": "{name} pie Patch & Pot — skatiet, kas šobrīd aug.",
-  "share_view.social.tagline_region": "{name} {region} — skatiet, kas aug pie Patch & Pot.",
+  "share_view.social.tagline_region": "{name} {region} — skatiet, kas aug pie Patch & Pot.",  "share_view.views": "{n} apmeklējumi šajā nedēļā",
+  "share_view.views_one": "1 apmeklējums šajā nedēļā",
+  "share_patch.embed.open": "Iegūt iebūvēšanas kodu",
+  "share_patch.embed.label": "Iebūvēt emuārā vai kluba lapā",
+  "share_patch.embed.help": "Ielīmējiet šo fragmentu savā vietnē, lai parādītu sakopotu tiešo priekšskatījumu par savu dārzu.",
+  "share_patch.embed.copy": "Kopēt iebūvēšanas kodu",
+  "share_patch.embed.preview": "Priekšskatīt iebūvēšanu",
+  "share_patch.qr.download": "Lejupielādēt dārza vārtiņu QR uzlīmi (PDF)",
+  "share_patch.list_publicly.title": "Rādīt pirmajā lapā \"Vismīļākie dārzi\" sienā",
+  "share_patch.list_publicly.help": "Noklusējuma stāvoklis: izslēgts. Kad ieslēgts, šis dārzs var parādīties Patch & Pot sākumlapa, pamatojoties uz apmeklējumiem. Jūs varat to jebkurā laikā izslēgt.",
+  "home.most_loved.eyebrow": "Ap dārzu",
+  "home.most_loved.title": "Vismīļākie dārzi šajā nedēļā",
+  "home.most_loved.body": "Reāli dārzi, kurus ir izvēlējušies to dārznieki. Noklikšķiniet uz jebkura, lai redzētu, kas aug — un kā Patch & Pot pielāgo savu mēneša vadību tam, kur viņi dzīvo.",
+  "home.most_loved.plant_count": "{n} augi",
+
 };
 
 export default dict;

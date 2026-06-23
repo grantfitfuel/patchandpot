@@ -10,22 +10,36 @@
 ## Growth & Backlog (prioritised)
 
 ### Growth ideas (sharing surfaces)
-- **P1: Plant-level OG cards** — extend the OG renderer to every `/plants/:id` so search-driven discovery ("how to grow tomatoes in London") drives long-tail SEO traffic. Reuses the existing renderer; ~1 day.
-- **P1: Embeddable widget** — `<iframe src="patchandpot.app/embed/p/{id}">` so users can put their patch on blogs / garden-club sites / school newsletters. Every embed = a permanent backlink + referral path; ~1 day.
-- **P2: Garden QR sticker** — generate a printable PDF QR code per `/p/:shareId` so users can stick it on their actual garden gate; physical → digital traffic; ~2 hours.
-- **P2: View counter + Most-loved patches wall** — track non-PII visit counts per snapshot ("N visits this week" in moss-grey on `/p/:shareId`) + a homepage wall showing the top public patches this week. Social proof for new visitors. Pairs naturally with a "Patron of the Week" slot once Stripe is live; ~half a day.
-- **P3: Email-a-friend** — add a `mailto:` button to the existing social row. Pre-fills subject + body. No infra needed; ~30 min.
+- ✅ **Plant-level OG cards** (iter 28) — `/api/plants/{id}/og.png` + HTML wrapper + SPA meta tag injection.
+- ✅ **Embeddable widget** (iter 28) — `/embed/p/:shareId` + iframe snippet in SharePatchModal.
+- ✅ **Garden QR sticker** (iter 28) — `/api/share/patch/{id}/qr.pdf`.
+- ✅ **View counter + Most-loved patches wall** (iter 28) — opt-in homepage discovery with weekly decay.
+- **P3: Email-a-friend** — add a `mailto:` button to the social row on `/p/:shareId`. No infra needed; ~30 min.
 - **P4: Weekly digest emails** — needs Resend/Postmark integration + unsubscribe handling. Defer until user demand is proven.
 - **P4: Harvest-photo brag cards** — needs photo uploads, storage, moderation. Defer.
 
 ### Refactor backlog
+- ✅ **Modularise `/app/frontend/src/i18n/index.jsx`** (iter 28) — split into 58 per-locale files lazy-loaded via dynamic imports. 38,082 lines → 244 lines.
 - **P3: React-key anti-pattern in `LearnLanding.jsx` + `AIMasterclass.jsx`** — currently uses `key={index}`. Only matters if those pages ever gain filtering/sorting. Pure hygiene right now.
-- **P3: Modularise `/app/frontend/src/i18n/index.jsx`** (~37.6k lines, ~2MB shipped to every visitor). Per-locale split would (a) cut first-paint payload to ~35KB per user — meaningful on 4G, (b) make bulk translation scripts safer, (c) cleaner git diffs.
 - **P4: FastAPI `@app.on_event` → modern `lifespan` context manager.**
 - **P4: Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` into one component.**
 
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
+
+### Iteration 28 (2026-02-23): ✅ — Five growth/quality items shipped in order
+
+**(a) Plant-level OG cards.** Generalised `share_og.py` into a `_compose_card()` helper now powering both shared-patch and plant cards. New `render_plant_og_png(name, category, difficulty, sun, water)` produces a 1200×630 letterpress card per plant — visually rated 9/10 by analyze_file_tool. Backend endpoints `GET /api/plants/{id}/og.png` and `GET /api/plants/preview/{id}` (HTML wrapper with og:title="How to grow {name}", canonical SPA URL, redirect for humans). `PlantDetail.jsx` injects matching og:image / twitter:card meta tags for JS-executing crawlers. Works for both curated PLANT_INDEX entries and AI-generated `ai-*` slugs from guidance_cache.
+
+**(b) Embeddable widget.** New `/embed/p/:shareId` route at `/app/frontend/src/pages/EmbedPatch.jsx` — compact card sized for ≤640px iframes, brand-on, no header/footer chrome. `App.js` now uses `AppShell()` inside `<BrowserRouter>` to drop the chrome for any `/embed/*` path. All links target=_top so clicks escape the iframe. `SharePatchModal` adds a collapsed "Get the embed code" section with a copyable `<iframe>` snippet (HTML-escaped via new `escapeAttr` helper) and a "Preview embed" link.
+
+**(c) Garden QR sticker.** `/app/backend/share_qr.py` — new Pillow + reportlab module. `GET /api/share/patch/{id}/qr.pdf` returns a printable A6 PDF (105×148 mm) with the brand frame, italic-serif patch name auto-ellipsised, region line, 50×50mm QR code (`ERROR_CORRECT_H` for 30% redundancy — survives print smudges), human-readable URL underneath, and a terracotta "SCAN TO SEE WHAT'S GROWING →" CTA. The QR encodes the clean `/p/{id}` URL (direct SPA nav from a phone scan, no wrapper redirect blip). Surfaced in SharePatchModal via a new "Download garden-gate QR sticker (PDF)" link.
+
+**(d) View counter + Most-loved patches wall.** `routers/share.py` now increments `view_count` (and `view_count_7d`) on each public GET, with 24h debounce per (IP, UA) fingerprint via a new `shared_patch_views` collection that has a Mongo TTL index on `expires_at`. Bot UAs (facebookexternalhit, twitterbot, whatsapp, slackbot, googlebot, etc.) are skipped entirely. New opt-in `list_publicly` field on the snapshot model, auto-saved on toggle via the modal. `GET /api/share/patches/popular` returns top OPT-IN snapshots sorted by `view_count_7d`. New homepage `MostLovedPatches.jsx` renders a 3-up card grid (silently returns null when empty). New APScheduler job `shared_patch_weekly_view_decay` resets `view_count_7d` every Monday 03:00 UTC so the wall actually reflects "this week" rather than all-time.
+
+**(e) i18n bundle-splitting refactor.** `/app/frontend/src/i18n/index.jsx` went from **38,082 lines (~3.3 MB)** to **244 lines (~7.7 KB)**. The 58 per-locale dictionaries are now under `/app/frontend/src/i18n/locales/{code}.js` — English is statically imported as the fallback so the UI never flashes raw keys, every other locale is dynamically `import('@/i18n/locales/<code>.js')`'d on demand. Webpack code-splits each into its own chunk (`i18n-de-js.chunk.js` etc.). Used a one-shot splitter script `/app/scripts/split_i18n_locales.py` to extract the locales cleanly. New iter28 translation script translated 14 new UI keys across all 57 non-EN locales (57/57 pass).
+
+**Bonus polish from testing-agent code review.** Pluralisation fix for "1 visit this week" vs "{n} visits this week". Popular-wall sort now actually uses `view_count_7d` to match the "this week" title.
 
 ### Iteration 27 (2026-02-23): ✅ — Social-share row on `/p/:shareId`
 - **New `SocialShareRow.jsx`** under the patch header on every shared-patch preview. One-tap buttons for **X**, **WhatsApp**, **Pinterest** (with `media` param pointing at the OG card so pins include the visual), plus a **Copy link** button. Each propagates the bot-friendly `/api/share/preview/{id}` URL — so re-shares from the public preview unfurl rich cards in chats too. Subtle styling (9×9 outlined icon buttons with brand-specific hover colours: X turns ink, WhatsApp #25D366, Pinterest #E60023). Pre-filled `tagline` text: "{patch_name} in {region} — see what's growing on Patch & Pot." Brand glyphs inlined as SVG because lucide-react dropped brand icons in 2024.

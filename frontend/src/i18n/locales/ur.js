@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "لنک کاپی کریں",
   "share_view.social.copied": "لنک کاپی کر لیا گیا",
   "share_view.social.tagline": "{name} on Patch & Pot — دیکھیں کہ ابھی کیا اگ رہا ہے۔",
-  "share_view.social.tagline_region": "{name} in {region} — دیکھیں کہ Patch & Pot پر کیا اگ رہا ہے۔",
+  "share_view.social.tagline_region": "{name} in {region} — دیکھیں کہ Patch & Pot پر کیا اگ رہا ہے۔",  "share_view.views": "اس ہفتے {n} دورے",
+  "share_view.views_one": "اس ہفتے 1 دورہ",
+  "share_patch.embed.open": "انضمام کوڈ حاصل کریں",
+  "share_patch.embed.label": "بلاگ یا کلب کے صفحے پر ضم کریں",
+  "share_patch.embed.help": "اپنی سائٹ میں یہ کوڈ ڈالیں تاکہ آپ کے patch کے لیے ایک صاف لائیو پیش منظر دکھائی دے سکے۔",
+  "share_patch.embed.copy": "انضمام کوڈ کاپی کریں",
+  "share_patch.embed.preview": "پیش منظر انضمام",
+  "share_patch.qr.download": "گھر کے دروازے کا QR اسٹکر ڈاؤن لوڈ کریں (PDF)",
+  "share_patch.list_publicly.title": "ہوم پیج پر \"بہت پسند کیے جانے والے patches\" کی دیوار دکھائیں",
+  "share_patch.list_publicly.help": "پہلے سے بند ہے۔ جب آن ہو تو، یہ patch Patch & Pot ہوم پیج پر دوروں کی بنیاد پر دکھائی دے سکتا ہے۔ آپ اسے کسی بھی وقت دوبارہ بند کر سکتے ہیں۔",
+  "home.most_loved.eyebrow": "پیش منظر کے ارد گرد",
+  "home.most_loved.title": "اس ہفتے بہت پسند کیے جانے والے patches",
+  "home.most_loved.body": "حقیقی باغات، جن میں ان کے باغبان شامل ہیں۔ دیکھنے کے لیے کسی پر بھی کلک کریں کہ کیا اگ رہا ہے — اور Patch & Pot اپنے ماہانہ رہنمائی کو کس طرح ان کے رہنے کی جگہ کے مطابق مرتب کرتا ہے۔",
+  "home.most_loved.plant_count": "{n} پودے",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Havolani nusxalash",
   "share_view.social.copied": "Havola nusxalanib olindi",
   "share_view.social.tagline": "{name} Patch & Pot da — hozir nima o'sayotganini ko'r.",
-  "share_view.social.tagline_region": "{name} {region} da — Patch & Pot da nima o'sayotganini ko'r.",
+  "share_view.social.tagline_region": "{name} {region} da — Patch & Pot da nima o'sayotganini ko'r.",  "share_view.views": "{n} tashriflar bu haftada",
+  "share_view.views_one": "1 tashrif bu haftada",
+  "share_patch.embed.open": "Joylashtirish kodini oling",
+  "share_patch.embed.label": "Blog yoki klub sahifasiga joylashtirish",
+  "share_patch.embed.help": "Patchingizning toza jonli oldindan ko'rinishini ko'rsatish uchun ushbu kodni saytingizga joylashtiring.",
+  "share_patch.embed.copy": "Joylashtirish kodini nusxalash",
+  "share_patch.embed.preview": "Joylashtirishni oldindan ko'rish",
+  "share_patch.qr.download": "Bog'dan eshik QR stikerini yuklab oling (PDF)",
+  "share_patch.list_publicly.title": "Bosh sahifada \"Eng sevilgan patchlar\" devori",
+  "share_patch.list_publicly.help": "Standart holatda o'chirib qo'yilgan. Agar yoqilsa, ushbu patch Patch & Pot bosh sahifasida tashriflarga asoslanib ko'rinishi mumkin. Har qanday vaqtda o'chirib qo'yishingiz mumkin.",
+  "home.most_loved.eyebrow": "Patch atrofida",
+  "home.most_loved.title": "Bu haftada eng sevilgan patchlar",
+  "home.most_loved.body": "Haqiqiy bog'lar, ularning bog'bonlari tomonidan ro'yxatdan o'tkazilgan. Qanday o'sayotganini ko'rish uchun biron biriga bosing - va Patch & Pot oylik yo'l-yo'riqlarini ular yashaydigan joyga qanday moslashtirishi haqida.",
+  "home.most_loved.plant_count": "{n} o'simliklar",
+
 };
 
 export default dict;

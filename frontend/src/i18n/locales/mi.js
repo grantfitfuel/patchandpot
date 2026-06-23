@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kōpī i te hono",
   "share_view.social.copied": "Kōpīhia te hono",
   "share_view.social.tagline": "{name} i Patch & Pot — tirohia ngā mea e tupu ana i tēnei wa.",
-  "share_view.social.tagline_region": "{name} i {region} — tirohia ngā mea e tupu ana i Patch & Pot.",
+  "share_view.social.tagline_region": "{name} i {region} — tirohia ngā mea e tupu ana i Patch & Pot.",  "share_view.views": "{n} tirohia i tēnei wiki",
+  "share_view.views_one": "1 tirohia i tēnei wiki",
+  "share_patch.embed.open": "Tona waehere whakauru",
+  "share_patch.embed.label": "Whakanoho ki runga i te blog, i te whārangi karanga",
+  "share_patch.embed.help": "Whakanohohia tēnei pūoko ki tō paetukutuku hei whakaatu i tētahi tirohanga mātūtū mo tō patch.",
+  "share_patch.embed.copy": "Kōhape waehere whakauru",
+  "share_patch.embed.preview": "Tirohanga whakauru",
+  "share_patch.qr.download": "Tārua rākau gāte QR whakakāhaki (PDF)",
+  "share_patch.list_publicly.title": "Whakaatu i runga i te whārangi kāinga \"Pātuhi rongonui\" ātea",
+  "share_patch.list_publicly.help": "Kua wetekina i te kāwana. I te wā e tunuhia ana, ka taea e tēnei patch te puta i runga i te whārangi kāinga o Patch & Pot e ai ki ngā tirohanga. Ka taea e koe te wetekina anō i ngā wā katoa.",
+  "home.most_loved.eyebrow": "Tuarā te patch",
+  "home.most_loved.title": "Ngā patch rongonui i tēnei wiki",
+  "home.most_loved.body": "Ngā māra pono, kua pānuitia e ā rātou kai māra. Pāwhiritia tetahi hei kitea ko te aha kei te tupu — me pēhea te whakatika a Patch & Pot i tāna aratohu marama ki te wahi e noho ana rātou.",
+  "home.most_loved.plant_count": "{n} nāhukahuka",
+
 };
 
 export default dict;

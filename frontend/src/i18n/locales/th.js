@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "คัดลอกลิงก์",
   "share_view.social.copied": "ลิงก์ถูกคัดลอก",
   "share_view.social.tagline": "{name} บน Patch & Pot — ดูสิ่งที่กำลังเติบโตในขณะนี้.",
-  "share_view.social.tagline_region": "{name} ใน {region} — ดูสิ่งที่กำลังเติบโตบน Patch & Pot.",
+  "share_view.social.tagline_region": "{name} ใน {region} — ดูสิ่งที่กำลังเติบโตบน Patch & Pot.",  "share_view.views": "{n} เยี่ยมชมในสัปดาห์นี้",
+  "share_view.views_one": "1 เยี่ยมชมในสัปดาห์นี้",
+  "share_patch.embed.open": "รับรหัสฝัง",
+  "share_patch.embed.label": "ฝังในบล็อกหรือหน้าเพจชมรม",
+  "share_patch.embed.help": "วางส่วนนี้ลงในไซต์ของคุณเพื่อแสดงตัวอย่างสดที่เรียบร้อยของ Patch ของคุณ.",
+  "share_patch.embed.copy": "คัดลอกรหัสฝัง",
+  "share_patch.embed.preview": "ตัวอย่างการฝัง",
+  "share_patch.qr.download": "ดาวน์โหลดสติกเกอร์ QR ประตูสวน (PDF)",
+  "share_patch.list_publicly.title": "แสดงบนหน้าแรก \"Patch ที่รักที่สุด\"",
+  "share_patch.list_publicly.help": "ปิดโดยค่าเริ่มต้น เมื่อเปิด, Patch นี้อาจปรากฏในหน้าแรกของ Patch & Pot ตามการเยี่ยมชม คุณสามารถปิดมันอีกครั้งได้ทุกเมื่อ.",
+  "home.most_loved.eyebrow": "รอบๆ Patch",
+  "home.most_loved.title": "Patch ที่รักที่สุดในสัปดาห์นี้",
+  "home.most_loved.body": "สวนจริงที่ได้รับความเห็นชอบจากสวนของพวกเขา คลิกที่ใดก็ได้เพื่อดูว่าอะไรเติบโต — และ Patch & Pot ปรับแนวทางรายเดือนของตนให้เข้ากับที่ที่พวกเขาอยู่ได้อย่างไร.",
+  "home.most_loved.plant_count": "{n} พืช",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "დაკოპირეთ ბმული",
   "share_view.social.copied": "ბმული დაკოპირებულია",
   "share_view.social.tagline": "{name} Patch & Pot-ზე — იხილეთ როგორ იზრდება ახლახანს.",
-  "share_view.social.tagline_region": "{name} {region}-ში — იხილეთ როგორ იზრდება Patch & Pot-ზე.",
+  "share_view.social.tagline_region": "{name} {region}-ში — იხილეთ როგორ იზრდება Patch & Pot-ზე.",  "share_view.views": "{n} ვიზიტი ამ კვირაში",
+  "share_view.views_one": "1 ვიზიტი ამ კვირაში",
+  "share_patch.embed.open": "მიიღეთ ჩასახუტებელი კოდის",
+  "share_patch.embed.label": "ჩასახუტება ბლოგში ან კლუბის გვერდზე",
+  "share_patch.embed.help": "ბლოგზე ამ ბლოკის დაფიქსირება დაგეხმარებათ თქვენი patch-ის სუფთა ცოცხალი წინასწარ ნახვაში.",
+  "share_patch.embed.copy": "კოდის ჩასახუტება",
+  "share_patch.embed.preview": "წინასწარი ჩვენება",
+  "share_patch.qr.download": "გადმოწერეთ ბაღ-სასახური QR სტიკერი (PDF)",
+  "share_patch.list_publicly.title": "გაჩვენება მთავარი გვერდზე \"ყველაზე საყვარელი patches\" კედელი",
+  "share_patch.list_publicly.help": "საწყის მდგომარეობაში გამორთული. როცა ჩართულია, ეს patch გამოჩნდება Patch & Pot-ის მთავარი გვერდზე ვიზიტების საფუძველზე. ნებისმიერ დროს შეგიძლიათ გამორთოთ.",
+  "home.most_loved.eyebrow": "პატჩის ირგვლივ",
+  "home.most_loved.title": "ამ კვირის ყველაზე საყვარელი patches",
+  "home.most_loved.body": "ნამდვილ ბაღები, რომლებიც მათი მებაღეების მიერ იყვნენ ჩართული. დააჭირეთ ნებისმიერ მათგანს რათა იხილოთ რა იზრდება - და როგორ დააწყვილებს Patch & Pot თავის თვისებრივ გაწვდას იქ, სადაც ისინი ცხოვრობენ.",
+  "home.most_loved.plant_count": "{n} მცენარე",
+
 };
 
 export default dict;

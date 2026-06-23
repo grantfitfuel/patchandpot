@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "లింక్ నకలు చేయండి",
   "share_view.social.copied": "లింక్ నకలు చేయబడింది",
   "share_view.social.tagline": "{name} Patch & Potలో — ప్రస్తుతం ఏమి పెరుగుతోంది ప్రస్థావించండి.",
-  "share_view.social.tagline_region": "{name} {region}లో — Patch & Potలో ఏమి పెరుగుతోంది ప్రస్థావించండి.",
+  "share_view.social.tagline_region": "{name} {region}లో — Patch & Potలో ఏమి పెరుగుతోంది ప్రస్థావించండి.",  "share_view.views": "{n} సందర్శనలు ఈ వారం",
+  "share_view.views_one": "1 సందర్శన ఈ వారం",
+  "share_patch.embed.open": "ఎంబెడ్ కోడ్‌ను పొందండి",
+  "share_patch.embed.label": "బ్లాగ్ లేదా క్లబ్ పేజీలో ఎంబెడ్ చేయండి",
+  "share_patch.embed.help": "మీ వెబ్‌సైట్‌లో ఈ స్నిప్పెట్‌ను పేస్ట్ చేసి, మీ ప్యాచ్ యొక్క శుభ్రమైన ప్రత్యక్ష ప్రివ్యూ చూపించండి.",
+  "share_patch.embed.copy": "ఎంబెడ్ కోడ్‌ను కాపీ చేయండి",
+  "share_patch.embed.preview": "ఎంబెడ్ ప్రివ్యూ",
+  "share_patch.qr.download": "గార్డెన్-గేట్ QR స్టిక్కర్‌ను డౌన్‌లోడ్ చేయండి (PDF)",
+  "share_patch.list_publicly.title": "\"అత్యంత ప్రియమైన ప్యాచ్లు\" గోడను ప్రారంభ పుటపై చూపించండి",
+  "share_patch.list_publicly.help": "మూలంగా ఆఫ్‌లో ఉంటది. ప్రారంభించినప్పుడు, ఈ ప్యాచ్ సందర్శనల ఆధారంగా Patch & Pot ప్రారంభ పుటపై కనిపించవచ్చు. మీరు ఎప్పుడైనా దీన్ని మళ్లీ ఆఫ్ చేసుకోవచ్చు.",
+  "home.most_loved.eyebrow": "ప్యాచ్ చుట్టూ",
+  "home.most_loved.title": "ఈ వారం అత్యంత ప్రియమైన ప్యాచ్లు",
+  "home.most_loved.body": "సాచాల ధరించిన నిజమైన తోటలు. ఏదైతే పెరుగుతుందో చూడడానికి క్లిక్ చేయండి — మరియు Patch & Pot ఎలా నెలవారీ మార్గనిర్దేశం ఇక్కడ నివసిస్తుందో.",
+  "home.most_loved.plant_count": "{n} పెండ్లాలు",
+
 };
 
 export default dict;

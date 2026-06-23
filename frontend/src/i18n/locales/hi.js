@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "लिंक कॉपी करें",
   "share_view.social.copied": "लिंक कॉपी हो गया",
   "share_view.social.tagline": "{name} पर Patch & Pot — देखिए अभी क्या उग रहा है।",
-  "share_view.social.tagline_region": "{name} में {region} — देखिए Patch & Pot पर क्या उग रहा है।",
+  "share_view.social.tagline_region": "{name} में {region} — देखिए Patch & Pot पर क्या उग रहा है।",  "share_view.views": "{n} इस सप्ताह दौरे",
+  "share_view.views_one": "1 इस सप्ताह दौरा",
+  "share_patch.embed.open": "एंबेड कोड प्राप्त करें",
+  "share_patch.embed.label": "ब्लॉग या क्लब पेज पर एंबेड करें",
+  "share_patch.embed.help": "अपने साइट में इस स्निपेट को पेस्ट करें ताकि आपके पैच का एक साफ लाइव पूर्वावलोकन दिख सके।",
+  "share_patch.embed.copy": "एंबेड कोड कॉपी करें",
+  "share_patch.embed.preview": "एंबेड पूर्वावलोकन",
+  "share_patch.qr.download": "बाग-गेट QR स्टिकर डाउनलोड करें (PDF)",
+  "share_patch.list_publicly.title": "\"सबसे प्रिय पैच\" दीवार पर होमपेज पर दिखाएँ",
+  "share_patch.list_publicly.help": "डिफ़ॉल्ट रूप से बंद। जब चालू होता है, तो यह पैच पैच & पॉट होमपेज पर दौरों के आधार पर प्रकट हो सकता है। आप इसे फिर से किसी भी समय बंद कर सकते हैं।",
+  "home.most_loved.eyebrow": "पैच के चारों ओर",
+  "home.most_loved.title": "इस सप्ताह के सबसे प्रिय पैच",
+  "home.most_loved.body": "वास्तविक बाग़, अपने माली द्वारा चुने गए। यह देखने के लिए किसी पर भी क्लिक करें कि क्या उग रहा है - और पैच & पॉट कैसे अपने मासिक मार्गदर्शन को उनके रहने के स्थान के अनुसार अनुकूलित करता है।",
+  "home.most_loved.plant_count": "{n} पौधे",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Sao chép liên kết",
   "share_view.social.copied": "Liên kết đã được sao chép",
   "share_view.social.tagline": "{name} trên Patch & Pot — xem những gì đang phát triển ngay bây giờ.",
-  "share_view.social.tagline_region": "{name} tại {region} — xem những gì đang phát triển trên Patch & Pot.",
+  "share_view.social.tagline_region": "{name} tại {region} — xem những gì đang phát triển trên Patch & Pot.",  "share_view.views": "{n} lượt truy cập trong tuần này",
+  "share_view.views_one": "1 lượt truy cập trong tuần này",
+  "share_patch.embed.open": "Lấy mã nhúng",
+  "share_patch.embed.label": "Nhúng vào trang blog hoặc câu lạc bộ",
+  "share_patch.embed.help": "Dán đoạn mã này vào trang của bạn để hiển thị một bản xem trước gọn gàng của khu vườn.",
+  "share_patch.embed.copy": "Sao chép mã nhúng",
+  "share_patch.embed.preview": "Xem trước mã nhúng",
+  "share_patch.qr.download": "Tải xuống nhãn QR cổng vườn (PDF)",
+  "share_patch.list_publicly.title": "Hiển thị trên trang chính \"Những khu vườn được yêu thích nhất\"",
+  "share_patch.list_publicly.help": "Mặc định là tắt. Khi bật, khu vườn này có thể xuất hiện trên trang chính của Patch & Pot dựa trên lượt truy cập. Bạn có thể tắt nó bất cứ lúc nào.",
+  "home.most_loved.eyebrow": "Xung quanh khu vườn",
+  "home.most_loved.title": "Những khu vườn được yêu thích nhất trong tuần này",
+  "home.most_loved.body": "Những khu vườn thực, được đăng ký bởi các người làm vườn của họ. Nhấp vào bất kỳ để xem những gì đang phát triển — và cách Patch & Pot điều chỉnh hướng dẫn hàng tháng của mình theo nơi họ sống.",
+  "home.most_loved.plant_count": "{n} cây",
+
 };
 
 export default dict;

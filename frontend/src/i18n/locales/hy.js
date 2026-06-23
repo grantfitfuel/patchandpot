@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Copy link",
   "share_view.social.copied": "Հղումը պատճենված է",
   "share_view.social.tagline": "{name} Patch & Pot-ում — տեսեք, ինչ է աճում հիմա:",
-  "share_view.social.tagline_region": "{name} {region}-ում — տեսեք, ինչ է աճում Patch & Pot-ում:",
+  "share_view.social.tagline_region": "{name} {region}-ում — տեսեք, ինչ է աճում Patch & Pot-ում:",  "share_view.views": "{n} այց այս շաբաթ",
+  "share_view.views_one": "1 այց այս շաբաթ",
+  "share_patch.embed.open": "Ստացեք ներդրման կոդը",
+  "share_patch.embed.label": "Ներդրեք բլոգի կամ ակումբի էջում",
+  "share_patch.embed.help": "Այս հատվածը պեսեք ձեր կայքում, որպեսզի ցույց տաք ձեր patches-ի կարգավորած կենդանի նախապատվությունը:",
+  "share_patch.embed.copy": "Պ copiar  ներդրման կոդը",
+  "share_patch.embed.preview": "Ներբեռնեք ներդրման նախադիտումը",
+  "share_patch.qr.download": "Բեռնել այգու դուռ QR կպչուն (PDF)",
+  "share_patch.list_publicly.title": "Ցույց տալ գլխավոր էջի \"Սիրելի patches\" պատին",
+  "share_patch.list_publicly.help": "Դուք կարող եք անջատել այն ցանկացած պահի:",
+  "home.most_loved.eyebrow": "Պատճենում շուրջ",
+  "home.most_loved.title": "Սիրելի patches այս շաբաթ",
+  "home.most_loved.body": "Աληուն այգեր, իրենց այգեպանների կողմից ընտրված: Ոլորեք ցանկացածը տեսնելու համար, թե ինչ է աճում՝ ինչպես է Patch & Pot-ն ամսական տրամվացները հարմարեցնում աշխարում:",
+  "home.most_loved.plant_count": "{n} բույսեր",
+
 };
 
 export default dict;

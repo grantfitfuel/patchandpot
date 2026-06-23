@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Bağlantını kopyala",
   "share_view.social.copied": "Bağlantı kopyalandı",
   "share_view.social.tagline": "{name} Patch & Pot-da — hal-hazırda nə bitir, bax.",
-  "share_view.social.tagline_region": "{name} {region}-də — Patch & Pot-da nə bitir, bax.",
+  "share_view.social.tagline_region": "{name} {region}-də — Patch & Pot-da nə bitir, bax.",  "share_view.views": "{n} bu həftə ziyarət",
+  "share_view.views_one": "1 bu həftə ziyarət",
+  "share_patch.embed.open": "Kodunu əldə et",
+  "share_patch.embed.label": "Bir bloqda və ya klub səhifəsində yerləşdir",
+  "share_patch.embed.help": "Təmiz canlı önizdini göstərmək üçün bu parçanı saytınıza yapışdırın.",
+  "share_patch.embed.copy": "Yerləşdirmə kodunu kopyala",
+  "share_patch.embed.preview": "Yerləşdirməni önizlə",
+  "share_patch.qr.download": "Bağça qapısı QR yapışqanını yüklə (PDF)",
+  "share_patch.list_publicly.title": "\"Ən sevilən patchlər\" divarını ana səhifədə göstər",
+  "share_patch.list_publicly.help": "Default olaraq söndürüldü. Açıq olduqda, bu patch ziyarətlər əsasında Patch & Pot ana səhifəsində görünə bilər. İstənilən vaxt yenidən söndürü bilərsiniz.",
+  "home.most_loved.eyebrow": "Patchdə",
+  "home.most_loved.title": "Bu həftə ən sevilən patchlər",
+  "home.most_loved.body": "Gerçək bağçalar, bağbanları tərəfindən seçilmişdir. Nə yetişdiyinə baxmaq üçün hər hansı birinə vurun - və Patch & Pot-un aylıq rəhbərliyini onların yaşadığı yerə necə uyğunlaşdırdığını görün.",
+  "home.most_loved.plant_count": "{n} bitki",
+
 };
 
 export default dict;

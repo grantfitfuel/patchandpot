@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopyahin ang link",
   "share_view.social.copied": "Nakopyang link",
   "share_view.social.tagline": "{name} sa Patch & Pot — tingnan kung ano ang tumutubo ngayon.",
-  "share_view.social.tagline_region": "{name} sa {region} — tingnan kung ano ang tumutubo sa Patch & Pot.",
+  "share_view.social.tagline_region": "{name} sa {region} — tingnan kung ano ang tumutubo sa Patch & Pot.",  "share_view.views": "{n} pagbisita sa linggong ito",
+  "share_view.views_one": "1 pagbisita sa linggong ito",
+  "share_patch.embed.open": "Kunin ang embed code",
+  "share_patch.embed.label": "I-embed sa isang blog o pahina ng club",
+  "share_patch.embed.help": "I-paste ang snippet na ito sa iyong site upang ipakita ang malinis na live preview ng iyong patch.",
+  "share_patch.embed.copy": "Kopyahin ang embed code",
+  "share_patch.embed.preview": "Preview ng embed",
+  "share_patch.qr.download": "I-download ang QR sticker ng garden-gate (PDF)",
+  "share_patch.list_publicly.title": "Ipakita sa homepage ang \"Most-loved patches\" na pader",
+  "share_patch.list_publicly.help": "Naka-off sa default. Kapag naka-on, maaaring lumitaw ang patch na ito sa homepage ng Patch & Pot batay sa mga pagbisita. Maaari mo itong i-switch off muli anumang oras.",
+  "home.most_loved.eyebrow": "Sa paligid ng patch",
+  "home.most_loved.title": "Most-loved patches sa linggong ito",
+  "home.most_loved.body": "Tunay na mga hardin, pinili ng kanilang mga hardinero. I-click ang kahit anong isa upang makita kung ano ang tumutubo — at kung paano inaangkop ng Patch & Pot ang buwanang patnubay nito sa kung saan sila nakatira.",
+  "home.most_loved.plant_count": "{n} mga halaman",
+
 };
 
 export default dict;

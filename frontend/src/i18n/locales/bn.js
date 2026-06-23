@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "লিংক কপি করুন",
   "share_view.social.copied": "লিংক কপি হয়েছে",
   "share_view.social.tagline": "{name} on Patch & Pot — দেখুন এখন কী ফলছে।",
-  "share_view.social.tagline_region": "{name} in {region} — দেখুন Patch & Pot-এ কী ফলছে।",
+  "share_view.social.tagline_region": "{name} in {region} — দেখুন Patch & Pot-এ কী ফলছে।",  "share_view.views": "{n} এই সপ্তাহে ভিজিট",
+  "share_view.views_one": "1 এই সপ্তাহে ভিজিট",
+  "share_patch.embed.open": "এম্বেড কোড পান",
+  "share_patch.embed.label": "ব্লগ বা ক্লাব পৃষ্ঠায় এম্বেড করুন",
+  "share_patch.embed.help": "আপনার সাইটে এই স্নিপেটটি পেস্ট করুন আপনার প্যাচের একটি পরিষ্কার লাইভ প্রিভিউ দেখানোর জন্য।",
+  "share_patch.embed.copy": "এম্বেড কোড কপি করুন",
+  "share_patch.embed.preview": "এম্বেড প্রিভিউ",
+  "share_patch.qr.download": "গার্ডেন-গেট QR স্টিকার ডাউনলোড করুন (PDF)",
+  "share_patch.list_publicly.title": "হোমপেজে \"সবচেয়ে পছন্দের প্যাচ\" ওয়াল দেখান",
+  "share_patch.list_publicly.help": "ডিফল্টভাবে বন্ধ থাকে। চালু হলে, এই প্যাচটি ভিজিটের ভিত্তিতে Patch & Pot হোমপেজে প্রদর্শিত হতে পারে। আপনি যেকোন সময় এটি আবার বন্ধ করতে পারেন।",
+  "home.most_loved.eyebrow": "প্যাচের আশেপাশে",
+  "home.most_loved.title": "এই সপ্তাহে সবচেয়ে পছন্দের প্যাচগুলি",
+  "home.most_loved.body": "বাস্তব উদ্যান, তাদের উদ্যানকর্মীদের দ্বারা নির্বাচিত। দেখতে ক্লিক করুন কি বেড়ে উঠছে — এবং কিভাবে Patch & Pot তাদের বসবাসের স্থান অনুযায়ী মাসিক নির্দেশনা সামঞ্জস্য করে।",
+  "home.most_loved.plant_count": "{n} গাছ",
+
 };
 
 export default dict;

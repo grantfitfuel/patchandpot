@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "リンクをコピー",
   "share_view.social.copied": "リンクがコピーされました",
   "share_view.social.tagline": "{name}のPatch & Pot — 現在育っているものを見てみましょう。",
-  "share_view.social.tagline_region": "{name}の{region} — Patch & Potで育っているものを見てみましょう。",
+  "share_view.social.tagline_region": "{name}の{region} — Patch & Potで育っているものを見てみましょう。",  "share_view.views": "{n} 今週の訪問",
+  "share_view.views_one": "1 今週の訪問",
+  "share_patch.embed.open": "埋め込みコードを取得",
+  "share_patch.embed.label": "ブログやクラブページに埋め込む",
+  "share_patch.embed.help": "このスニペットをあなたのサイトに貼り付けて、パッチの整然としたライブプレビューを表示します。",
+  "share_patch.embed.copy": "埋め込みコードをコピー",
+  "share_patch.embed.preview": "埋め込みプレビュー",
+  "share_patch.qr.download": "ガーデンゲートQRステッカーをダウンロード（PDF）",
+  "share_patch.list_publicly.title": "ホームページに「最も愛されたパッチ」ウォールを表示",
+  "share_patch.list_publicly.help": "デフォルトではオフです。オンにすると、このパッチは訪問数に基づいてPatch & Potのホームページに表示される場合があります。いつでもオフに戻すことができます。",
+  "home.most_loved.eyebrow": "パッチの周り",
+  "home.most_loved.title": "今週の最も愛されたパッチ",
+  "home.most_loved.body": "本物の庭、庭師によってオプトインされたもの。クリックして、何が育っているか、そしてPatch & Potがどのように彼らの住んでいる場所に合わせて毎月のガイダンスを調整しているかを確認してください。",
+  "home.most_loved.plant_count": "{n} 植物",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Oir iad an ceangal",
   "share_view.social.copied": "Ceangal air a ghabhail",
   "share_view.social.tagline": "{name} air Patch & Pot — faic dè tha a' fàs a-nis.",
-  "share_view.social.tagline_region": "{name} ann an {region} — faic dè tha a' fàs air Patch & Pot.",
+  "share_view.social.tagline_region": "{name} ann an {region} — faic dè tha a' fàs air Patch & Pot.",  "share_view.views": "{n} tadhal a' seachdain seo",
+  "share_view.views_one": "1 tadhal a' seachdain seo",
+  "share_patch.embed.open": "Faigh an cód embed",
+  "share_patch.embed.label": "Embed air duilleag blog no club",
+  "share_patch.embed.help": "Cuir an snippet seo a-steach don làrach agad gus sealladh beò glan de do phàirc a thaisbeanadh.",
+  "share_patch.embed.copy": "Copy an cód embed",
+  "share_patch.embed.preview": "Sealladh roimhe an embed",
+  "share_patch.qr.download": "Luchdaich sìos stocair QR gàrraid-gate (PDF)",
+  "share_patch.list_publicly.title": "Seall air an duilleag-dachaigh \"Pàircean as fheàrr\"",
+  "share_patch.list_publicly.help": "Off mar bunaiteach. Nuair a thèid air, dh'fhaodadh an phàirc seo a bhith air duilleag-dachaigh Patch & Pot stèidhichte air tadhal. Faodaidh tu a chasadh dheth a-rithist aig àm sam bith.",
+  "home.most_loved.eyebrow": "Timcheall air a' phàirc",
+  "home.most_loved.title": "Pàircean as fheàrr a' seachdain seo",
+  "home.most_loved.body": "Gàrridhean fìor, a thagh iad leis na gàrradairean aca. Clic guth sam bith gus fhaicinn dè a tha a' fàs — agus mar a bhios Patch & Pot a' freagair a stiùireadh mìosail ris an àite far a bheil iad a' fuireach.",
+  "home.most_loved.plant_count": "{n} planntaichean",
+
 };
 
 export default dict;

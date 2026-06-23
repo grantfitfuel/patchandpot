@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Скопировать ссылку",
   "share_view.social.copied": "Ссылка скопирована",
   "share_view.social.tagline": "{name} на Patch & Pot — посмотрите, что растет прямо сейчас.",
-  "share_view.social.tagline_region": "{name} в {region} — посмотрите, что растет на Patch & Pot.",
+  "share_view.social.tagline_region": "{name} в {region} — посмотрите, что растет на Patch & Pot.",  "share_view.views": "{n} визитов на этой неделе",
+  "share_view.views_one": "1 визит на этой неделе",
+  "share_patch.embed.open": "Получить код для встраивания",
+  "share_patch.embed.label": "Встроить на страницу блога или клуба",
+  "share_patch.embed.help": "Вставьте этот фрагмент на свой сайт, чтобы показать аккуратный живой предварительный просмотр вашего участка.",
+  "share_patch.embed.copy": "Скопировать код для встраивания",
+  "share_patch.embed.preview": "Предварительный просмотр встраивания",
+  "share_patch.qr.download": "Скачать наклейку QR для садовой калитки (PDF)",
+  "share_patch.list_publicly.title": "Показать на главной странице \"Самые любимые участки\"",
+  "share_patch.list_publicly.help": "По умолчанию выключено. Когда включено, этот участок может появиться на главной странице Patch & Pot на основе визитов. Вы можете снова выключить его в любое время.",
+  "home.most_loved.eyebrow": "Ваш участок",
+  "home.most_loved.title": "Самые любимые участки на этой неделе",
+  "home.most_loved.body": "Настоящие сады, согласованные их садоводами. Нажмите любой, чтобы увидеть, что растет — и как Patch & Pot настраивает свои ежемесячные рекомендации в зависимости от их местоположения.",
+  "home.most_loved.plant_count": "{n} растений",
+
 };
 
 export default dict;

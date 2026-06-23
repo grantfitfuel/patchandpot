@@ -293,7 +293,7 @@ def make_router(db) -> APIRouter:
                       "_id": 0, "owner_secret": 0, "view_count_7d": 0,
                   },
               )
-              .sort([("view_count", -1), ("updated_at", -1)])
+              .sort([("view_count_7d", -1), ("view_count", -1), ("updated_at", -1)])
               .limit(limit)
         )
         items = []

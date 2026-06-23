@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Copiwch y ddolen",
   "share_view.social.copied": "Dolen wedi'i chopïo",
   "share_view.social.tagline": "{name} ar Patch & Pot — gweler beth sy'n tyfu'n awr.",
-  "share_view.social.tagline_region": "{name} yn {region} — gweler beth sy'n tyfu ar Patch & Pot.",
+  "share_view.social.tagline_region": "{name} yn {region} — gweler beth sy'n tyfu ar Patch & Pot.",  "share_view.views": "{n} ymweliadau yr wythnos hon",
+  "share_view.views_one": "1 ymweliad yr wythnos hon",
+  "share_patch.embed.open": "Cael y cod cynnwys",
+  "share_patch.embed.label": "Cynnwys ar dudalen blog neu glwb",
+  "share_patch.embed.help": "Gosodwch y darn hwn yn eich safle i ddangos rhagolwg byw tidy o'ch patch.",
+  "share_patch.embed.copy": "Copi cod cynnwys",
+  "share_patch.embed.preview": "Rhagolwg cynnwys",
+  "share_patch.qr.download": "Lawrlwytho sticera QR ar gyfer giât ardd (PDF)",
+  "share_patch.list_publicly.title": "Dangos ar wal \"Patchiau mwyaf carwr\" ar y dudalen gartref",
+  "share_patch.list_publicly.help": "Ar gau yn y gychwyn. Pan fydd ar agor, gall y patch hwn ymddangos ar dudalen gartref Patch & Pot yn seiliedig ar ymweliadau. Gallwch ei gynnau eto unrhyw bryd.",
+  "home.most_loved.eyebrow": "O gwmpas y patch",
+  "home.most_loved.title": "Patchiau mwyaf carwr yr wythnos hon",
+  "home.most_loved.body": "Gardd real, a ddewiswyd gan eu garddwriaid. Cliciwch ar un i weld beth sy'n tyfu — a sut mae Patch & Pot yn addasu ei arweiniad misol yn seiliedig ar ble maen nhw'n byw.",
+  "home.most_loved.plant_count": "{n} planhigion",
+
 };
 
 export default dict;

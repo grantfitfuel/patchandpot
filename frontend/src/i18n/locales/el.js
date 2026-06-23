@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Αντίγραψε τον σύνδεσμο",
   "share_view.social.copied": "Ο σύνδεσμος αντιγράφηκε",
   "share_view.social.tagline": "{name} στο Patch & Pot — δείτε τι φυτρώνει αυτή τη στιγμή.",
-  "share_view.social.tagline_region": "{name} στην {region} — δείτε τι φυτρώνει στο Patch & Pot.",
+  "share_view.social.tagline_region": "{name} στην {region} — δείτε τι φυτρώνει στο Patch & Pot.",  "share_view.views": "{n} επισκέψεις αυτή την εβδομάδα",
+  "share_view.views_one": "1 επίσκεψη αυτή την εβδομάδα",
+  "share_patch.embed.open": "Πάρτε τον κωδικό ενσωμάτωσης",
+  "share_patch.embed.label": "Ενσωμάτωσε σε μια ιστοσελίδα ή σελίδα συλλόγου",
+  "share_patch.embed.help": "Επικολλήστε αυτό το απόσπασμα στον ιστότοπό σας για να δείξετε μια καθαρή ζωντανή προεπισκόπηση του patch σας.",
+  "share_patch.embed.copy": "Αντίγραψε τον κωδικό ενσωμάτωσης",
+  "share_patch.embed.preview": "Προεπισκόπηση ενσωμάτωσης",
+  "share_patch.qr.download": "Κατεβάστε το αυτοκόλλητο QR κήπου (PDF)",
+  "share_patch.list_publicly.title": "Εμφάνιση στον κεντρικό ιοστό \"Τα πιο αγαπημένα patches\"",
+  "share_patch.list_publicly.help": "Απενεργοποιημένο προεπιλεγμένα. Αφού ενεργοποιηθεί, αυτό το patch ενδέχεται να εμφανιστεί στη σελίδα Patch & Pot ανάλογα με τις επισκέψεις. Μπορείτε να το απενεργοποιήσετε ξανά οποιαδήποτε στιγμή.",
+  "home.most_loved.eyebrow": "Γύρω από το patch",
+  "home.most_loved.title": "Τα πιο αγαπημένα patches αυτή την εβδομάδα",
+  "home.most_loved.body": "Πραγματικοί κήποι, που επιλέχθηκαν από τους κηπουρούς τους. Κάντε κλικ σε οποιοδήποτε για να δείτε τι φυτρώνει — και πώς το Patch & Pot προσαρμόζει την μηνιαία καθοδήγησή του ανάλογα με το πού ζουν.",
+  "home.most_loved.plant_count": "{n} φυτά",
+
 };
 
 export default dict;

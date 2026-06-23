@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopieer link",
   "share_view.social.copied": "Link gekopieerd",
   "share_view.social.tagline": "{name} op Patch & Pot — zie wat er nu groeit.",
-  "share_view.social.tagline_region": "{name} in {region} — zie wat er groeit op Patch & Pot.",
+  "share_view.social.tagline_region": "{name} in {region} — zie wat er groeit op Patch & Pot.",  "share_view.views": "{n} bezoeken deze week",
+  "share_view.views_one": "1 bezoek deze week",
+  "share_patch.embed.open": "Krijg de embedcode",
+  "share_patch.embed.label": "Invoegen op een blog of clubpagina",
+  "share_patch.embed.help": "Plak deze snippet in uw site om een nette live preview van uw patch weer te geven.",
+  "share_patch.embed.copy": "Kopieer embedcode",
+  "share_patch.embed.preview": "Voorbeeld embed",
+  "share_patch.qr.download": "Download tuinpoort QR-sticker (PDF)",
+  "share_patch.list_publicly.title": "Weergeven op de homepage \"Meest geliefde patches\" muur",
+  "share_patch.list_publicly.help": "Standaard uit. Wanneer aan, kan deze patch op de Patch & Pot homepage verschijnen op basis van bezoeken. U kunt het op elk moment weer uitschakelen.",
+  "home.most_loved.eyebrow": "Rondom de patch",
+  "home.most_loved.title": "Meest geliefde patches deze week",
+  "home.most_loved.body": "Echte tuinen, gekozen door hun tuinders. Klik op een om te zien wat er groeit — en hoe Patch & Pot zijn maandelijkse begeleiding afstemt op waar ze wonen.",
+  "home.most_loved.plant_count": "{n} planten",
+
 };
 
 export default dict;

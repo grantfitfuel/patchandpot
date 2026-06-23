@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopier link",
   "share_view.social.copied": "Link kopieret",
   "share_view.social.tagline": "{name} på Patch & Pot — se hvad der vokser lige nu.",
-  "share_view.social.tagline_region": "{name} i {region} — se hvad der vokser på Patch & Pot.",
+  "share_view.social.tagline_region": "{name} i {region} — se hvad der vokser på Patch & Pot.",  "share_view.views": "{n} besøg i denne uge",
+  "share_view.views_one": "1 besøg i denne uge",
+  "share_patch.embed.open": "Få indlejringskoden",
+  "share_patch.embed.label": "Indlejr på en blog eller klubside",
+  "share_patch.embed.help": "Indsæt denne snippet på dit site for at vise et ryddeligt live preview af din patch.",
+  "share_patch.embed.copy": "Kopier indlejringskode",
+  "share_patch.embed.preview": "Forhåndsvis indlejringen",
+  "share_patch.qr.download": "Download QR-klistermærke til haveporten (PDF)",
+  "share_patch.list_publicly.title": "Vis på startsiden \"Mest elskede patches\" væg",
+  "share_patch.list_publicly.help": "Deaktiveret som standard. Når den er aktiveret, kan denne patch vises på Patch & Pot's hjemmeside baseret på besøgende. Du kan deaktivere den igen når som helst.",
+  "home.most_loved.eyebrow": "Omkring patchen",
+  "home.most_loved.title": "Mest elskede patches i denne uge",
+  "home.most_loved.body": "Virkelige haver, tilmeldt af deres gartnere. Klik på nogen for at se, hvad der vokser – og hvordan Patch & Pot tilpasser sin månedlige vejledning til, hvor de bor.",
+  "home.most_loved.plant_count": "{n} planter",
+
 };
 
 export default dict;

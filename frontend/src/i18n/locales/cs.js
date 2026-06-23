@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Zkopírovat odkaz",
   "share_view.social.copied": "Odkaz zkopírován",
   "share_view.social.tagline": "{name} na Patch & Pot — podívejte se, co právě roste.",
-  "share_view.social.tagline_region": "{name} v {region} — podívejte se, co roste na Patch & Pot.",
+  "share_view.social.tagline_region": "{name} v {region} — podívejte se, co roste na Patch & Pot.",  "share_view.views": "{n} návštěv tento týden",
+  "share_view.views_one": "1 návštěva tento týden",
+  "share_patch.embed.open": "Získejte kód pro vložení",
+  "share_patch.embed.label": "Vložit na blog nebo stránku klubu",
+  "share_patch.embed.help": "Vložte tento úryvek do svého webu pro zobrazení úhledného živého náhledu vaší zahrady.",
+  "share_patch.embed.copy": "Kopírovat kód pro vložení",
+  "share_patch.embed.preview": "Náhled vkladu",
+  "share_patch.qr.download": "Stáhněte si QR nálepku zahradní brány (PDF)",
+  "share_patch.list_publicly.title": "Zobrazit na domovské stránce \"Nejoblíbenější zahrady\"",
+  "share_patch.list_publicly.help": "Ve výchozím nastavení je vypnuto. Pokud je zapnuto, tato zahrada se může objevit na domovské stránce Patch & Pot na základě návštěv. Můžete to kdykoli znovu vypnout.",
+  "home.most_loved.eyebrow": "Kolem zahrady",
+  "home.most_loved.title": "Nejoblíbenější zahrady tento týden",
+  "home.most_loved.body": "Skutečné zahrady, přihlášené jejich zahradníky. Klikněte na jakoukoli zahradu a podívejte se, co roste — a jak Patch & Pot přizpůsobuje své měsíční rady tomu, kde bydlí.",
+  "home.most_loved.plant_count": "{n} rostlin",
+
 };
 
 export default dict;

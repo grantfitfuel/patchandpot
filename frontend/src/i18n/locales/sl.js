@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopiraj povezavo",
   "share_view.social.copied": "Povezava kopirana",
   "share_view.social.tagline": "{name} na Patch & Pot — poglej, kaj zdaj raste.",
-  "share_view.social.tagline_region": "{name} v {region} — poglej, kaj raste na Patch & Pot.",
+  "share_view.social.tagline_region": "{name} v {region} — poglej, kaj raste na Patch & Pot.",  "share_view.views": "{n} obiskov ta teden",
+  "share_view.views_one": "1 obisk ta teden",
+  "share_patch.embed.open": "Pridobite kodo za vnos",
+  "share_patch.embed.label": "Vstavi na blog ali stran kluba",
+  "share_patch.embed.help": "Prilepite to kodo na svojo spletno stran, da prikažete urejen predogled vašega vrta.",
+  "share_patch.embed.copy": "Kopiraj kodo za vnos",
+  "share_patch.embed.preview": "Predogled vnosa",
+  "share_patch.qr.download": "Prenesi QR nalepko vrtnarne ograje (PDF)",
+  "share_patch.list_publicly.title": "Prikaži na domači strani \"Najljubši vrtovi\" zid",
+  "share_patch.list_publicly.help": "Privzeto izklopljeno. Ko je vključeno, se ta vrt lahko prikaže na domači strani Patch & Pot glede na obiske. Kadarkoli ga lahko znova izklopite.",
+  "home.most_loved.eyebrow": "Okoli vrta",
+  "home.most_loved.title": "Najljubši vrtovi ta teden",
+  "home.most_loved.body": "Pravi vrtovi, ki so se jih odločili njihovi vrtnarji. Kliknite kateri koli, da vidite, kaj raste — in kako Patch & Pot prilagaja svoje mesečne nasvete glede na to, kje živijo.",
+  "home.most_loved.plant_count": "{n} rastlin",
+
 };
 
 export default dict;

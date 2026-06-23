@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Copia link",
   "share_view.social.copied": "Link copiato",
   "share_view.social.tagline": "{name} su Patch & Pot — guarda cosa sta crescendo in questo momento.",
-  "share_view.social.tagline_region": "{name} in {region} — guarda cosa sta crescendo su Patch & Pot.",
+  "share_view.social.tagline_region": "{name} in {region} — guarda cosa sta crescendo su Patch & Pot.",  "share_view.views": "{n} visite questa settimana",
+  "share_view.views_one": "1 visita questa settimana",
+  "share_patch.embed.open": "Ottieni il codice di incorporamento",
+  "share_patch.embed.label": "Incorpora in un blog o pagina di club",
+  "share_patch.embed.help": "Incolla questo frammento nel tuo sito per mostrare un'anteprima pulita e dal vivo del tuo patch.",
+  "share_patch.embed.copy": "Copia codice di incorporamento",
+  "share_patch.embed.preview": "Anteprima incorporamento",
+  "share_patch.qr.download": "Scarica l'adesivo QR del giardino (PDF)",
+  "share_patch.list_publicly.title": "Mostra sulla homepage il muro dei \"Patch più amati\"",
+  "share_patch.list_publicly.help": "Disattivato per impostazione predefinita. Quando attivo, questo patch può apparire sulla homepage di Patch & Pot in base alle visite. Puoi disattivarlo di nuovo in qualsiasi momento.",
+  "home.most_loved.eyebrow": "Attorno al patch",
+  "home.most_loved.title": "Patch più amati di questa settimana",
+  "home.most_loved.body": "Giardini reali, scelti dai loro giardinieri. Clicca su qualsiasi per vedere cosa sta crescendo — e come Patch & Pot adatta il suo supporto mensile a dove vivono.",
+  "home.most_loved.plant_count": "{n} piante",
+
 };
 
 export default dict;

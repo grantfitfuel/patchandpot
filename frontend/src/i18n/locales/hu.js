@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Link másolása",
   "share_view.social.copied": "Link másolva",
   "share_view.social.tagline": "{name} a Patch & Pot-on — nézd meg, mi nő éppen.",
-  "share_view.social.tagline_region": "{name} a(z) {region} területén — nézd meg, mi nő a Patch & Pot-on.",
+  "share_view.social.tagline_region": "{name} a(z) {region} területén — nézd meg, mi nő a Patch & Pot-on.",  "share_view.views": "{n} látogatás ezen a héten",
+  "share_view.views_one": "1 látogatás ezen a héten",
+  "share_patch.embed.open": "Szerezd meg az embed kódot",
+  "share_patch.embed.label": "Beágyazás egy blogra vagy kluboldalra",
+  "share_patch.embed.help": "Illeszd be ezt a részletet a webhelyedre, hogy rendezett élő előnézetet mutass a patch-edről.",
+  "share_patch.embed.copy": "Másold a beágyazási kódot",
+  "share_patch.embed.preview": "Beágyazás előnézete",
+  "share_patch.qr.download": "Letöltés kertkapu QR matricával (PDF)",
+  "share_patch.list_publicly.title": "Megjelenítés a főoldalon \"Legnépszerűbb patch-ek\" falon",
+  "share_patch.list_publicly.help": "Alapértelmezés szerint ki van kapcsolva. Amikor be van kapcsolva, ez a patch megjelenhet a Patch & Pot főoldalán a látogatások alapján. Bármikor kikapcsolhatod.",
+  "home.most_loved.eyebrow": "A patch körül",
+  "home.most_loved.title": "Legnépszerűbb patch-ek ezen a héten",
+  "home.most_loved.body": "Valódi kertek, amelyek a kertészeik által választottak. Kattints bármelyikre, hogy lásd, mi nő — és hogyan hangolja a Patch & Pot a havi útmutatását a lakóhelyükhöz.",
+  "home.most_loved.plant_count": "{n} növény",
+
 };
 
 export default dict;

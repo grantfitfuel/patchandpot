@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Salin tautan",
   "share_view.social.copied": "Tautan disalin",
   "share_view.social.tagline": "{name} di Patch & Pot — lihat apa yang sedang tumbuh saat ini.",
-  "share_view.social.tagline_region": "{name} di {region} — lihat apa yang sedang tumbuh di Patch & Pot.",
+  "share_view.social.tagline_region": "{name} di {region} — lihat apa yang sedang tumbuh di Patch & Pot.",  "share_view.views": "{n} kunjungan minggu ini",
+  "share_view.views_one": "1 kunjungan minggu ini",
+  "share_patch.embed.open": "Dapatkan kode embed",
+  "share_patch.embed.label": "Sisipkan di halaman blog atau klub",
+  "share_patch.embed.help": "Tempelkan potongan ini ke situs Anda untuk menampilkan pratinjau langsung yang rapi dari patch Anda.",
+  "share_patch.embed.copy": "Salin kode embed",
+  "share_patch.embed.preview": "Pratinjau embed",
+  "share_patch.qr.download": "Unduh stiker QR gerbang kebun (PDF)",
+  "share_patch.list_publicly.title": "Tampilkan di halaman utama \"Patch terpopuler\"",
+  "share_patch.list_publicly.help": "Secara default dimatikan. Ketika dihidupkan, patch ini mungkin muncul di halaman utama Patch & Pot berdasarkan kunjungan. Anda dapat mematikannya lagi kapan saja.",
+  "home.most_loved.eyebrow": "Di sekitar patch",
+  "home.most_loved.title": "Patch terpopuler minggu ini",
+  "home.most_loved.body": "Kebun nyata, yang dipilih oleh para tukang kebun mereka. Klik mana saja untuk melihat apa yang sedang tumbuh - dan bagaimana Patch & Pot menyesuaikan panduan bulanan dengan tempat mereka tinggal.",
+  "home.most_loved.plant_count": "{n} tanaman",
+
 };
 
 export default dict;

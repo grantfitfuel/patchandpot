@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Nukopijuoti nuorodą",
   "share_view.social.copied": "Nuoroda nukopijuota",
   "share_view.social.tagline": "{name} prie Patch & Pot — pažiūrėkite, kas šiuo metu auga.",
-  "share_view.social.tagline_region": "{name} regione {region} — pažiūrėkite, kas auga Patch & Pot.",
+  "share_view.social.tagline_region": "{name} regione {region} — pažiūrėkite, kas auga Patch & Pot.",  "share_view.views": "{n} apsilankymai šią savaitę",
+  "share_view.views_one": "1 apsilankymas šią savaitę",
+  "share_patch.embed.open": "Gauti įterpimo kodą",
+  "share_patch.embed.label": "Įterpti į tinklaraštį arba klubo puslapį",
+  "share_patch.embed.help": "Įklijuokite šį fragmentą į savo svetainę, kad rodytumėte tvarkingą gyvą savo sklypo peržiūrą.",
+  "share_patch.embed.copy": "Kopijuoti įterpimo kodą",
+  "share_patch.embed.preview": "Peržiūrėti įterpimą",
+  "share_patch.qr.download": "Atsisiųsti sodo vartų QR lipduką (PDF)",
+  "share_patch.list_publicly.title": "Rodyti pagrindiniame puslapyje „Mėgstamiausi sklypai“ sieną",
+  "share_patch.list_publicly.help": "Numatytoji būsena - išjungta. Įjungus, šis sklypas gali pasirodyti Patch & Pot pagrindiniame puslapyje, atsižvelgiant į apsilankymus. Galite bet kada vėl jį išjungti.",
+  "home.most_loved.eyebrow": "Aplink sklypą",
+  "home.most_loved.title": "Mėgstamiausi sklypai šią savaitę",
+  "home.most_loved.body": "Reali sodo, pasirinkta jų sodininkų. Paspauskite bet kurį, kad pamatytumėte, kas auga — ir kaip Patch & Pot pritaiko savo mėnesinį gaires prie to, kur jie gyvena.",
+  "home.most_loved.plant_count": "{n} augalų",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Сілтемені көшіру",
   "share_view.social.copied": "Сілтеме көшірілді",
   "share_view.social.tagline": "{name} Patch & Pot-та — қазір не өсіп жатқанына қараңыз.",
-  "share_view.social.tagline_region": "{name} {region} — Patch & Pot-та не өсіп жатқанына қараңыз.",
+  "share_view.social.tagline_region": "{name} {region} — Patch & Pot-та не өсіп жатқанына қараңыз.",  "share_view.views": "{n} осы аптада келгендер",
+  "share_view.views_one": "1 осы аптада келген",
+  "share_patch.embed.open": "Кодты алу",
+  "share_patch.embed.label": "Блог немесе клуб бетінен енгізу",
+  "share_patch.embed.help": "Патчыңыздың таза тірі алдын ала қарауын көрсету үшін осы фрагментті сайтыңызға салыңыз.",
+  "share_patch.embed.copy": "Ендірілген кодты көшіру",
+  "share_patch.embed.preview": "Ендірілген алдын ала қарау",
+  "share_patch.qr.download": "Бағын көгалдандыру QR жапсырмасын жүктеу (PDF)",
+  "share_patch.list_publicly.title": "\"Ең жақсы көрген патчтар\" қабырғасында көрсету",
+  "share_patch.list_publicly.help": "Әдепкі бойынша өшірулі. Құлпын ашқанда, бұл патч Patch & Pot басты бетінде келушілердің санына байланысты пайда болуы мүмкін. Сіз оны кез келген уақытта қайтадан өшіре аласыз.",
+  "home.most_loved.eyebrow": "Патчтың айналасында",
+  "home.most_loved.title": "Ең сүйікті патчтар осы аптада",
+  "home.most_loved.body": "Нағыз бақтар, олардың бағбандары тарапынан қатысқан. Не өсіп жатқанын көру үшін кез келгенін басыңыз — және Patch & Pot ай сайынғы нұсқауын қайда тұратынына сәйкес реттейді.",
+  "home.most_loved.plant_count": "{n} өсімдіктер",
+
 };
 
 export default dict;

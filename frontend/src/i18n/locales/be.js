@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Капіяваць спасылку",
   "share_view.social.copied": "Спасылка скопіравана",
   "share_view.social.tagline": "{name} на Patch & Pot — глядзіце, што расце зараз.",
-  "share_view.social.tagline_region": "{name} у {region} — глядзіце, што расце на Patch & Pot.",
+  "share_view.social.tagline_region": "{name} у {region} — глядзіце, што расце на Patch & Pot.",  "share_view.views": "{n} наведванняў на гэтым тыдні",
+  "share_view.views_one": "1 наведванне на гэтым тыдні",
+  "share_patch.embed.open": "Атрымаць код для ўбудовы",
+  "share_patch.embed.label": "Убудова на старонцы блога або клуба",
+  "share_patch.embed.help": "Уставце гэты фрагмент на ваш сайт, каб паказаць акуратны жывы прагляд вашага ўчастка.",
+  "share_patch.embed.copy": "Скапіраваць код для ўбудовы",
+  "share_patch.embed.preview": "Прагляд убудовы",
+  "share_patch.qr.download": "Спампаваць QR-стыкер для садовага ўваходу (PDF)",
+  "share_patch.list_publicly.title": "Паказаць на старонцы \"Найлепшыя ўчасткі\"",
+  "share_patch.list_publicly.help": "Па змаўчанні выключана. Калі ўключана, гэты ўчастак можа з'явіцца на старонцы Patch & Pot у залежнасці ад наведванняў. Вы можаце адключыць гэта ў любы час.",
+  "home.most_loved.eyebrow": "Акругі ўчастка",
+  "home.most_loved.title": "Найлепшыя ўчасткі на гэтым тыдні",
+  "home.most_loved.body": "Сапраўдныя сады, заяўленыя іх гаспадарамі. Націсніце любы, каб убачыць, што расце — і як Patch & Pot наладжвае свае штомесячныя рэкамендацыі ў адпаведнасці з тым, дзе яны жывуць.",
+  "home.most_loved.plant_count": "{n} расліна",
+
 };
 
 export default dict;

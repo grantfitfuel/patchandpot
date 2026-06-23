@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "இணைப்பை நகலெடுக்கவும்",
   "share_view.social.copied": "இணைப்பு நகலெடுக்கப்பட்டது",
   "share_view.social.tagline": "{name} Patch & Pot இல் — இப்போது என்ன வளர்ந்து கொண்டிருக்கிறது என்பதை பாருங்கள்.",
-  "share_view.social.tagline_region": "{name} {region} இல் — Patch & Pot இல் என்ன வளர்ந்து கொண்டிருக்கிறது என்பதை பாருங்கள்.",
+  "share_view.social.tagline_region": "{name} {region} இல் — Patch & Pot இல் என்ன வளர்ந்து கொண்டிருக்கிறது என்பதை பாருங்கள்.",  "share_view.views": "{n} இந்த வாரத்தில் பார்வைகள்",
+  "share_view.views_one": "1 இந்த வாரத்தில் பார்வை",
+  "share_patch.embed.open": "எம்பெட் கோடைக் கொள்ளு",
+  "share_patch.embed.label": "ஒரு பிளாக்கில் அல்லது கிளப் பக்கத்தில் எம்பெட் செய்",
+  "share_patch.embed.help": "உங்கள் தளத்தில் இந்த துண்டத்தை பதியுங்கள் உங்கள் patch-இன் நேரலை முன்னோட்டத்தை காட்ட.",
+  "share_patch.embed.copy": "எம்பெட் கோட்டை நகலெடுக்கவும்",
+  "share_patch.embed.preview": "எம்பெட் முன்னோட்டம்",
+  "share_patch.qr.download": "தோட்டவாயில் QR ஸ்டிக்கரை பதிவிறக்கம் செய்க (PDF)",
+  "share_patch.list_publicly.title": "முகப்பில் \"மிகவும்-காதலிக்கப்படும் patches\" சுவர் காட்டவும்",
+  "share_patch.list_publicly.help": "இயல்பாக அணைக்கப்பட்டுள்ளது. இயக்கும்போது, இந்த patch Patch & Pot முகப்பில் பார்வைகளின் அடிப்படையில் தோன்றலாம். நீங்கள் எப்போது வேண்டுமானாலும் மீண்டும் அணைக்கலாம்.",
+  "home.most_loved.eyebrow": "பேட்ச் சுற்றிலும்",
+  "home.most_loved.title": "இந்த வாரத்தின் மிகவும்-காதலிக்கப்படும் patches",
+  "home.most_loved.body": "உண்மையான தோட்டங்கள், அவற்றின் தோட்டக்காரர்களால் தேர்ந்தெடுக்கப்பட்டுள்ளது. எந்ததையும் கிளிக் செய்யவும் எப்போது வளர்கிறது - மற்றும் Patch & Pot அதன் மாதாந்திர வழிகாட்டு கோள்களை அவர்கள் வாழும் இடத்திற்கு எப்படி ஒப்புவிக்கிறது என்பதைப் பார்க்க.",
+  "home.most_loved.plant_count": "{n} தாவரங்கள்",
+
 };
 
 export default dict;

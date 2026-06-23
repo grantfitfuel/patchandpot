@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopiraj poveznicu",
   "share_view.social.copied": "Poveznica kopirana",
   "share_view.social.tagline": "{name} na Patch & Pot — vidi što trenutno raste.",
-  "share_view.social.tagline_region": "{name} u {region} — vidi što raste na Patch & Pot.",
+  "share_view.social.tagline_region": "{name} u {region} — vidi što raste na Patch & Pot.",  "share_view.views": "{n} posjeta ovog tjedna",
+  "share_view.views_one": "1 posjeta ovog tjedna",
+  "share_patch.embed.open": "Nabavite kod za umetanje",
+  "share_patch.embed.label": "Umetnite na blog ili stranicu kluba",
+  "share_patch.embed.help": "Zalijepite ovaj isječak na svoju stranicu da biste prikazali uredan pregled vašeg vrta.",
+  "share_patch.embed.copy": "Kopirajte kod za umetanje",
+  "share_patch.embed.preview": "Pregledajte umetanje",
+  "share_patch.qr.download": "Preuzmite QR naljepnicu vrtnog ulaza (PDF)",
+  "share_patch.list_publicly.title": "Prikaži na naslovnoj stranici \"Najmiliji vrtovi\"",
+  "share_patch.list_publicly.help": "Prekidač je isključen po defaultu. Kada je uključen, ovaj vrt može se pojaviti na naslovnoj stranici Patch & Pot-a na temelju posjeta. Možete ga ponovno isključiti u bilo kojem trenutku.",
+  "home.most_loved.eyebrow": "Oko vrta",
+  "home.most_loved.title": "Najmiliji vrtovi ovog tjedna",
+  "home.most_loved.body": "Pravi vrtovi, prijavljeni od strane svojih vrtlara. Kliknite bilo koji da vidite što raste — i kako Patch & Pot usmjerava svoje mjesečne smjernice prema tome gdje žive.",
+  "home.most_loved.plant_count": "{n} biljaka",
+
 };
 
 export default dict;

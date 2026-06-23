@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Манжаны көчүрүү",
   "share_view.social.copied": "Манжа көчүрүлдү",
   "share_view.social.tagline": "{name} Patch & Pot'та — азыр эмне өсүп жатканын караңыз.",
-  "share_view.social.tagline_region": "{name} {region}'де — Patch & Pot'та эмне өсүп жатканын караңыз.",
+  "share_view.social.tagline_region": "{name} {region}'де — Patch & Pot'та эмне өсүп жатканын караңыз.",  "share_view.views": "{n} визит ушул жумада",
+  "share_view.views_one": "1 визит ушул жумада",
+  "share_patch.embed.open": "Эмбед коду ал",
+  "share_patch.embed.label": "Блог же клуб бетине эмбедде",
+  "share_patch.embed.help": "Сиздин сайтка ушул фрагментти куюп, бадалдын жандуу алдын ала көрүнө көрүнүшүн көрсөтүңүз.",
+  "share_patch.embed.copy": "Эмбед кодду көчүр",
+  "share_patch.embed.preview": "Эмбед алдын ала көрүү",
+  "share_patch.qr.download": "Багбан дарбазасынын QR стикерин жүктөө (PDF)",
+  "share_patch.list_publicly.title": "\"Эң сүйүктүү бадалдар\" дубалын башкы бетте көрсөт",
+  "share_patch.list_publicly.help": "Дефолт боюнча өчүрүлгөн. Включен болгондо, бул бадал Patch & Pot башкы бетинде визиттерге негизделип көрүнүшү мүмкүн. Сиз каалаган убакта аны кайра өчүрө аласыз.",
+  "home.most_loved.eyebrow": "Бадалдын айнектери",
+  "home.most_loved.title": "Бул жумадан эң сүйүктүү бадалдар",
+  "home.most_loved.body": "Чыныгы бакчалар, бакчачылар тарабынан тандалган. Кандай өсүмдүктөрдү өсүп жатканын көрүү үчүн кез-келгенин чыкылдатыңыз — жана Patch & Pot козгогон айлык指аяй чиймелерин алардын жашаган жерине кандай дал келерин көрүңүз.",
+  "home.most_loved.plant_count": "{n} өсүмдүк",
+
 };
 
 export default dict;

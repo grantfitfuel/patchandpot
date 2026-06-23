@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Cóip na nasctha",
   "share_view.social.copied": "Nasctha cóipáilte",
   "share_view.social.tagline": "{name} ar Patch & Pot — feic conas atá ag fás anois.",
-  "share_view.social.tagline_region": "{name} i {region} — feic conas atá ag fás ar Patch & Pot.",
+  "share_view.social.tagline_region": "{name} i {region} — feic conas atá ag fás ar Patch & Pot.",  "share_view.views": "{n} cuairteanna an tseachtain seo",
+  "share_view.views_one": "1 cuairt an tseachtain seo",
+  "share_patch.embed.open": "Faigh an cód embed",
+  "share_patch.embed.label": "Embed ar bhlag nó ar leathanach cluba",
+  "share_patch.embed.help": "Greamaigh an sliocht seo isteach i do shuíomh chun réamhamharc gné dhíreach eagraithe a thaispeáint.",
+  "share_patch.embed.copy": "Cóipeáil cód embed",
+  "share_patch.embed.preview": "Réamhamharc embed",
+  "share_patch.qr.download": "Íoslódáil stíle QR gairdín (PDF)",
+  "share_patch.list_publicly.title": "Taispeáin ar an leathanach baile \"Páistí is fearr leat\"",
+  "share_patch.list_publicly.help": "As de faobhar go dtí seo. Nuair atá sé ar siúl, d'fhéadfadh an patches seo a bheith le feiceáil ar leathanach baile Patch & Pot bunaithe ar chuairteanna. Is féidir leat é a chur as de faobhar arís aon uair.",
+  "home.most_loved.eyebrow": "Timpeall an pháisín",
+  "home.most_loved.title": "Páistí is fearr leat an tseachtain seo",
+  "home.most_loved.body": "Gáirdíní fíor, optáilte ag a n-úinéirí. Cliceáil ar aon cheann le feiceáil cad atá ag fás - agus conas a oireann Patch & Pot a treoir mhíosúil don áit ina gcónaíonn siad.",
+  "home.most_loved.plant_count": "{n} plandálachtaí",
+
 };
 
 export default dict;

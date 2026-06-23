@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "نسخ الرابط",
   "share_view.social.copied": "تم نسخ الرابط",
   "share_view.social.tagline": "{name} على Patch & Pot — اكتشف ما ينمو الآن.",
-  "share_view.social.tagline_region": "{name} في {region} — اكتشف ما ينمو على Patch & Pot.",
+  "share_view.social.tagline_region": "{name} في {region} — اكتشف ما ينمو على Patch & Pot.",  "share_view.views": "{n} زيارة هذا الأسبوع",
+  "share_view.views_one": "1 زيارة هذا الأسبوع",
+  "share_patch.embed.open": "احصل على كود التضمين",
+  "share_patch.embed.label": "تضمين في مدونة أو صفحة نادي",
+  "share_patch.embed.help": "الصق هذا المقتطف في موقعك لعرض معاينة مباشرة مرتبة لحديقتك.",
+  "share_patch.embed.copy": "انسخ كود التضمين",
+  "share_patch.embed.preview": "معاينة التضمين",
+  "share_patch.qr.download": "تنزيل ملصق QR لبوابة الحديقة (PDF)",
+  "share_patch.list_publicly.title": "عرض على الصفحة الرئيسية \"أكثر الحدائق حبًا\"",
+  "share_patch.list_publicly.help": "مغلق بشكل افتراضي. عند التفعيل، قد يظهر هذا الحديقة على الصفحة الرئيسية لـ Patch & Pot بناءً على الزيارات. يمكنك إيقاف تشغيله مرة أخرى في أي وقت.",
+  "home.most_loved.eyebrow": "حول الحديقة",
+  "home.most_loved.title": "أكثر الحدائق حبًا هذا الأسبوع",
+  "home.most_loved.body": "حدائق حقيقية، اختارها حدائقها. انقر على أي واحدة لرؤية ما ينمو — وكيف تضبط Patch & Pot إرشاداتها الشهرية بناءً على المكان الذي يعيشون فيه.",
+  "home.most_loved.plant_count": "{n} نباتات",
+
 };
 
 export default dict;

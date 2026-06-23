@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Copiar enlace",
   "share_view.social.copied": "Enlace copiado",
   "share_view.social.tagline": "{name} en Patch & Pot — mira qué está creciendo ahora mismo.",
-  "share_view.social.tagline_region": "{name} en {region} — mira qué está creciendo en Patch & Pot.",
+  "share_view.social.tagline_region": "{name} en {region} — mira qué está creciendo en Patch & Pot.",  "share_view.views": "{n} visitas esta semana",
+  "share_view.views_one": "1 visita esta semana",
+  "share_patch.embed.open": "Obten el código de incrustación",
+  "share_patch.embed.label": "Incrustar en un blog o página de club",
+  "share_patch.embed.help": "Pega este fragmento en tu sitio para mostrar una vista previa en vivo ordenada de tu patch.",
+  "share_patch.embed.copy": "Copiar código de incrustación",
+  "share_patch.embed.preview": "Vista previa de la incrustación",
+  "share_patch.qr.download": "Descargar etiqueta QR de la puerta del jardín (PDF)",
+  "share_patch.list_publicly.title": "Mostrar en la página de inicio la pared de \"Patches más amados\"",
+  "share_patch.list_publicly.help": "Desactivado por defecto. Cuando está activado, este patch puede aparecer en la página de inicio de Patch & Pot basado en visitas. Puedes desactivarlo nuevamente en cualquier momento.",
+  "home.most_loved.eyebrow": "Alrededor del patch",
+  "home.most_loved.title": "Parches más amados esta semana",
+  "home.most_loved.body": "Jardines reales, optados por sus jardineros. Haz clic en cualquiera para ver qué está creciendo — y cómo Patch & Pot ajusta su orientación mensual a donde viven.",
+  "home.most_loved.plant_count": "{n} plantas",
+
 };
 
 export default dict;

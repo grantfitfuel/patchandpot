@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Копирай линк",
   "share_view.social.copied": "Линкът е копиран",
   "share_view.social.tagline": "{name} на Patch & Pot — виж какво расте в момента.",
-  "share_view.social.tagline_region": "{name} в {region} — виж какво расте на Patch & Pot.",
+  "share_view.social.tagline_region": "{name} в {region} — виж какво расте на Patch & Pot.",  "share_view.views": "{n} посещения тази седмица",
+  "share_view.views_one": "1 посещение тази седмица",
+  "share_patch.embed.open": "Вземете кода за вграждане",
+  "share_patch.embed.label": "Вгради на блог или страница на клуб",
+  "share_patch.embed.help": "Вмъкнете този фрагмент в сайта си, за да покажете подреден предварителен преглед на вашия участък.",
+  "share_patch.embed.copy": "Копирайте кода за вграждане",
+  "share_patch.embed.preview": "Предварителен преглед на вграждането",
+  "share_patch.qr.download": "Изтеглете QR стикер на врата на градината (PDF)",
+  "share_patch.list_publicly.title": "Покажи на началната страница стената \"Най-обичаните участъци\"",
+  "share_patch.list_publicly.help": "По подразбиране е изключено. Когато е включено, този участък може да се появи на началната страница на Patch & Pot въз основа на посещения. Можете да го изключите отново по всяко време.",
+  "home.most_loved.eyebrow": "Около участъка",
+  "home.most_loved.title": "Най-обичаните участъци тази седмица",
+  "home.most_loved.body": "Истински градини, избрани от техните градинари. Кликнете на който и да е, за да видите какво расте - и как Patch & Pot адаптира своето месечно ръководство в зависимост от мястото, където живеят.",
+  "home.most_loved.plant_count": "{n} растения",
+
 };
 
 export default dict;

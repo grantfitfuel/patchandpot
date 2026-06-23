@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Ikseb il-link",
   "share_view.social.copied": "Link ikkoperat",
   "share_view.social.tagline": "{name} fuq Patch & Pot — ara x' qed jikber issa.",
-  "share_view.social.tagline_region": "{name} f'{region} — ara x' qed jikber fuq Patch & Pot.",
+  "share_view.social.tagline_region": "{name} f'{region} — ara x' qed jikber fuq Patch & Pot.",  "share_view.views": "{n} viżti din il-ġimgħa",
+  "share_view.views_one": "1 viżta din il-ġimgħa",
+  "share_patch.embed.open": "Ikseb il-kodiċi tal-immonta",
+  "share_patch.embed.label": "Immonta fuq blog jew paġna tal-klabb",
+  "share_patch.embed.help": "Skolla din is-snipet fis-sit tiegħek biex turi previżjoni tidila tal-patch tiegħek.",
+  "share_patch.embed.copy": "Ikopri l-kodiċi tal-immonta",
+  "share_patch.embed.preview": "Previżjoni tal-immonta",
+  "share_patch.qr.download": "Niżżel QR sticker tal-bieb tal-ġnien (PDF)",
+  "share_patch.list_publicly.title": "Uri fuq il-paġna prinċipali \"Patches l-aktar maħbuba\"",
+  "share_patch.list_publicly.help": "Moffa off per eżempju. Meta tkun fuq, dan il-patch jista' jidher fuq il-paġna prinċipali ta' Patch & Pot ibbażat fuq viżti. Tista' terġa' toffrha fi kwalunkwe ħin.",
+  "home.most_loved.eyebrow": "Madwar il-patch",
+  "home.most_loved.title": "Patches l-aktar maħbuba din il-ġimgħa",
+  "home.most_loved.body": "Ġnien reali, ippreferuti mill-ġardin tagħhom. Ikklikkja kwalunkwe biex tara x'għaddej — u kif Patch & Pot jaġġusta l-gwida tiegħu kull xahar skont fejn jgħixu.",
+  "home.most_loved.plant_count": "{n} pjanti",
+
 };
 
 export default dict;

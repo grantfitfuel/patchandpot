@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopeeri link",
   "share_view.social.copied": "Link kopeeritud",
   "share_view.social.tagline": "{name} Patch & Pot'is — vaata, mis praegu kasvab.",
-  "share_view.social.tagline_region": "{name} piirkonnas {region} — vaata, mis kasvab Patch & Pot'is.",
+  "share_view.social.tagline_region": "{name} piirkonnas {region} — vaata, mis kasvab Patch & Pot'is.",  "share_view.views": "{n} külastust sel nädalal",
+  "share_view.views_one": "1 külastus sel nädalal",
+  "share_patch.embed.open": "Hangi embed kood",
+  "share_patch.embed.label": "Sisesta blogisse või klubi lehele",
+  "share_patch.embed.help": "Koori see kood oma saidile ja näita oma peenra korralikku reaalajas eelvaadet.",
+  "share_patch.embed.copy": "Kopeeri embed kood",
+  "share_patch.embed.preview": "Eelvaata embed",
+  "share_patch.qr.download": "Laadi alla aia värava QR kleebis (PDF)",
+  "share_patch.list_publicly.title": "Näita avalikus \"Kõige armastatumad peenrad\" seinal",
+  "share_patch.list_publicly.help": "Vaikimisi välja lülitatud. Kui sisselülitatud, võib see peenar ilmuda Patch & Pot avalehele külastuste põhjal. Sa saad selle igal ajal uuesti välja lülitada.",
+  "home.most_loved.eyebrow": "Peenra ümber",
+  "home.most_loved.title": "Kõige armastatumad peenrad sel nädalal",
+  "home.most_loved.body": "Reaalsed aiad, mille on valinud nende aiapidajad. Kliki ükskõik millele, et näha, mis kasvab — ja kuidas Patch & Pot kohandab oma igakuist juhendamist vastavalt nende elukohale.",
+  "home.most_loved.plant_count": "{n} taime",
+
 };
 
 export default dict;

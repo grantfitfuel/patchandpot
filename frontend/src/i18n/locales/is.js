@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Afrita tengil",
   "share_view.social.copied": "Tengill afritaður",
   "share_view.social.tagline": "{name} á Patch & Pot — sjáðu hvað er að vaxa núna.",
-  "share_view.social.tagline_region": "{name} í {region} — sjáðu hvað er að vaxa á Patch & Pot.",
+  "share_view.social.tagline_region": "{name} í {region} — sjáðu hvað er að vaxa á Patch & Pot.",  "share_view.views": "{n} heimsóknir í þessari viku",
+  "share_view.views_one": "1 heimsókn í þessari viku",
+  "share_patch.embed.open": "Fáðu innsláttarkóðann",
+  "share_patch.embed.label": "Fela á bloggi eða klúbbsíðu",
+  "share_patch.embed.help": "Líttu á þennan kóða á síðuna þína til að sýna snyrtilega lifandi forskoðun á þínu patch.",
+  "share_patch.embed.copy": "Afrita innsláttarkóða",
+  "share_patch.embed.preview": "Forskoða innslátt",
+  "share_patch.qr.download": "Sækja garðhlið QR merki (PDF)",
+  "share_patch.list_publicly.title": "Sýna á forsíðu \"Mest elskaðar patch\" vegg",
+  "share_patch.list_publicly.help": "Slökkt á sjálfgefið. Þegar þetta er virkjuð, gæti þetta patch birtast á forsíðu Patch & Pot miðað við heimsóknir. Þú getur slökkt á því aftur hvenær sem er.",
+  "home.most_loved.eyebrow": "Um patchið",
+  "home.most_loved.title": "Mest elskaðar patch í þessari viku",
+  "home.most_loved.body": "Raunveruleg garðar, valin af þeirra garðyrkjumönnum. Smelltu á hvaða sem er til að sjá hvað er að vaxa — og hvernig Patch & Pot aðlargar leiðbeiningar sínar á hverjum mánuði að því hvar þeir búa.",
+  "home.most_loved.plant_count": "{n} plöntur",
+
 };
 
 export default dict;

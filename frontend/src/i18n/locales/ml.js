@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "ലിങ്ക് പകർപ്പിക്കുക",
   "share_view.social.copied": "ലിങ്ക് പകർപ്പിച്ചിരിക്കുന്നു",
   "share_view.social.tagline": "{name} Patch & Potൽ — ഇപ്പോൾ എന്തു വളരുന്നുണ്ട് എന്നും കാണുക.",
-  "share_view.social.tagline_region": "{name} {region}ൽ — Patch & Potലിനെ ബാധിക്കുന്നതിനെക്കുറിച്ച് കാണുക.",
+  "share_view.social.tagline_region": "{name} {region}ൽ — Patch & Potലിനെ ബാധിക്കുന്നതിനെക്കുറിച്ച് കാണുക.",  "share_view.views": "{n} സന്ദർശനങ്ങൾ ഈ ആഴ്ച",
+  "share_view.views_one": "1 സന്ദർശനം ഈ ആഴ്ച",
+  "share_patch.embed.open": "എംബഡ് കോഡ് ಪಡೆಯൂ",
+  "share_patch.embed.label": "ബ്ലാഗിൽ അല്ലെങ്കിൽ ക്ലബ് പേജിൽ എംബഡ് ചെയ്‍യുക",
+  "share_patch.embed.help": "ഈ കുടുക്ക് നിങ്ങളുടെ സൈറ്റിൽ പേസ്റ്റ് ചെയ്യുക, നിങ്ങളുടെ പാച്ചിന്റെ ശരിയായ ലൈവ് പ്രിവ്യൂ കാണിക്കാൻ.",
+  "share_patch.embed.copy": "എംബഡ് കോഡ് പകര്‍ത്തുക",
+  "share_patch.embed.preview": "എംബഡ് പ്രിവ്യൂ",
+  "share_patch.qr.download": "ബാഗം ഗേറ്റ് QR സ്റ്റിക്കർ ഡൗൺലോഡ് ചെയ്യുക (PDF)",
+  "share_patch.list_publicly.title": "ഹോംപേജ് \"ഏറ്റവും ഇഷ്ടപ്പെടുന്ന പാച്ചുകൾ\" വാൾ കാണിക്കുക",
+  "share_patch.list_publicly.help": "ഡീഫോൾട്ടിൽ ഓഫ് ആണ്. ഓണായാൽ, ഈ പാച്ച് സന്ദർശനങ്ങളുടെ അടിസ്ഥാനത്തിൽ Patch & Pot ഹോംപേജിൽ പ്രത്യക്ഷപ്പെടാൻ കഴിയും. നിങ്ങള്‍ ഇത് എപ്പോഴും ഓഫ് ചെയ്യാവുന്നതാണ്.",
+  "home.most_loved.eyebrow": "പാച്ചിന്റെ ചുറ്റിലും",
+  "home.most_loved.title": "ഈ ആഴ്ചയിലെ ഏറ്റവും ഇഷ്ടപ്പെട്ട പാച്ചുകൾ",
+  "home.most_loved.body": "จริง ๆ จะมีสวนที่ถูกเลือกโดยชาวสวนของพวกเขา คลิกเพื่อดูว่าสิ่งใดกำลังเติบโต - และ Patch & Pot ปรับคำแนะนำรายเดือนให้เหมาะสมกับที่ที่พวกเขาอาศัยอยู่",
+  "home.most_loved.plant_count": "{n} നരിയെ",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Copiază linkul",
   "share_view.social.copied": "Linkul a fost copiat",
   "share_view.social.tagline": "{name} pe Patch & Pot — vezi ce crește acum.",
-  "share_view.social.tagline_region": "{name} în {region} — vezi ce crește pe Patch & Pot.",
+  "share_view.social.tagline_region": "{name} în {region} — vezi ce crește pe Patch & Pot.",  "share_view.views": "{n} vizite în această săptămână",
+  "share_view.views_one": "1 vizită în această săptămână",
+  "share_patch.embed.open": "Obține codul de încorporare",
+  "share_patch.embed.label": "Încorporează pe o pagină de blog sau club",
+  "share_patch.embed.help": "Lipește acest fragment în site-ul tău pentru a arăta o previzualizare curată și în timp real a patch-ului tău.",
+  "share_patch.embed.copy": "Copiază codul de încorporare",
+  "share_patch.embed.preview": "Previzualizare încorporare",
+  "share_patch.qr.download": "Descarcă autocolantul QR pentru poarta grădinii (PDF)",
+  "share_patch.list_publicly.title": "Afișează pe pagina principală \"Patch-uri cele mai iubite\"",
+  "share_patch.list_publicly.help": "Dezactivat în mod implicit. Când este activat, acest patch poate apărea pe pagina principală Patch & Pot în funcție de vizite. Îl poți dezactiva din nou oricând.",
+  "home.most_loved.eyebrow": "În jurul patch-ului",
+  "home.most_loved.title": "Patch-uri cele mai iubite în această săptămână",
+  "home.most_loved.body": "Grădini reale, optează de către grădinarii lor. Fă clic pe oricare pentru a vedea ce crește - și cum Patch & Pot își ajustează ghidarea lunară în funcție de locul în care locuiesc.",
+  "home.most_loved.plant_count": "{n} plante",
+
 };
 
 export default dict;

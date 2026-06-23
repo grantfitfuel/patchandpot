@@ -136,7 +136,9 @@ export default function SharedPatchPage() {
           )}
           {state.data?.view_count > 0 && (
             <p className="mt-2 text-xs text-moss/80 tracking-wider uppercase" data-testid="share-view-count">
-              {t("share_view.views", { n: state.data.view_count })}
+              {state.data.view_count === 1
+                ? t("share_view.views_one")
+                : t("share_view.views", { n: state.data.view_count })}
             </p>
           )}
           <SocialShareRow

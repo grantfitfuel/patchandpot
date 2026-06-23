@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "링크 복사",
   "share_view.social.copied": "링크가 복사되었습니다",
   "share_view.social.tagline": "{name} on Patch & Pot — 지금 어떤 것이 자라고 있는지 확인하세요.",
-  "share_view.social.tagline_region": "{name} in {region} — Patch & Pot에서 어떤 것이 자라고 있는지 확인하세요.",
+  "share_view.social.tagline_region": "{name} in {region} — Patch & Pot에서 어떤 것이 자라고 있는지 확인하세요.",  "share_view.views": "{n}회의 이번 주 방문",
+  "share_view.views_one": "1회의 이번 주 방문",
+  "share_patch.embed.open": "임베드 코드 가져오기",
+  "share_patch.embed.label": "블로그나 클럽 페이지에 임베드",
+  "share_patch.embed.help": "이 코드 조각을 귀하의 사이트에 붙여 넣어 패치의 깔끔한 실시간 미리보기를 표시하세요.",
+  "share_patch.embed.copy": "임베드 코드 복사",
+  "share_patch.embed.preview": "임베드 미리보기",
+  "share_patch.qr.download": "정원문 QR 스티커 다운로드 (PDF)",
+  "share_patch.list_publicly.title": "홈페이지에 \"가장 사랑받는 패치\" 게시판 표시",
+  "share_patch.list_publicly.help": "기본적으로 비활성화 되어 있습니다. 활성화된 경우, 이 패치는 방문에 따라 Patch & Pot 홈페이지에 표시될 수 있습니다. 언제든지 다시 끌 수 있습니다.",
+  "home.most_loved.eyebrow": "패치 주변",
+  "home.most_loved.title": "이번 주 가장 사랑받는 패치",
+  "home.most_loved.body": "실제 정원, 정원사가 선택한. 클릭하여 무엇이 자라고 있는지 확인하세요 — 그리고 Patch & Pot이 그들이 사는 곳에 맞춰 매월 어떻게 안내하는지.",
+  "home.most_loved.plant_count": "{n} 식물",
+
 };
 
 export default dict;

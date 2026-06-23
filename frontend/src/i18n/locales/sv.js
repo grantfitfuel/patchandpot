@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopiera länk",
   "share_view.social.copied": "Länk kopierad",
   "share_view.social.tagline": "{name} på Patch & Pot — se vad som växer just nu.",
-  "share_view.social.tagline_region": "{name} i {region} — se vad som växer på Patch & Pot.",
+  "share_view.social.tagline_region": "{name} i {region} — se vad som växer på Patch & Pot.",  "share_view.views": "{n} besök den här veckan",
+  "share_view.views_one": "1 besök den här veckan",
+  "share_patch.embed.open": "Få inbäddningskoden",
+  "share_patch.embed.label": "Bädda in på en blogg eller klubbssida",
+  "share_patch.embed.help": "Klistra in detta utdrag på din webbplats för att visa en prydlig liveförhandsgranskning av din patch.",
+  "share_patch.embed.copy": "Kopiera inbäddningskod",
+  "share_patch.embed.preview": "Förhandsgranska inbäddning",
+  "share_patch.qr.download": "Ladda ner QR-klistermärke för trädgårdsporten (PDF)",
+  "share_patch.list_publicly.title": "Visa på hemsidan \"Mest älskade patches\" vägg",
+  "share_patch.list_publicly.help": "Avstängd som standard. När den är på kan denna patch visas på Patch & Pot hemsidan baserat på besök. Du kan stänga av den igen när som helst.",
+  "home.most_loved.eyebrow": "Runt patchen",
+  "home.most_loved.title": "Mest älskade patches den här veckan",
+  "home.most_loved.body": "Riktiga trädgårdar, valda av sina trädgårdsmästare. Klicka på någon för att se vad som växer — och hur Patch & Pot justerar sin månatliga vägledning efter var de bor.",
+  "home.most_loved.plant_count": "{n} växter",
+
 };
 
 export default dict;

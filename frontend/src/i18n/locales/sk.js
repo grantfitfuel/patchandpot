@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopírovať odkaz",
   "share_view.social.copied": "Odkaz skopírovaný",
   "share_view.social.tagline": "{name} na Patch & Pot — pozrite sa, čo práve rastie.",
-  "share_view.social.tagline_region": "{name} v {region} — pozrite sa, čo rastie na Patch & Pot.",
+  "share_view.social.tagline_region": "{name} v {region} — pozrite sa, čo rastie na Patch & Pot.",  "share_view.views": "{n} návštev tento týždeň",
+  "share_view.views_one": "1 návšteva tento týždeň",
+  "share_patch.embed.open": "Získať kód pre vloženie",
+  "share_patch.embed.label": "Vložiť na blog alebo stránku klubu",
+  "share_patch.embed.help": "Vložte tento úryvok na svojich stránkach, aby ste ukázali upravený živý náhľad vašej záhrady.",
+  "share_patch.embed.copy": "Skopírovať kód pre vloženie",
+  "share_patch.embed.preview": "Náhľad vloženia",
+  "share_patch.qr.download": "Stiahnuť QR nálepku (PDF)",
+  "share_patch.list_publicly.title": "Zobraziť na domovskej stránke \"Najobľúbenejšie záhrady\"",
+  "share_patch.list_publicly.help": "Predvolene vypnuté. Ak je zapnuté, táto záhrada sa môže zobraziť na domovskej stránke Patch & Pot na základe návštev. Môžete to opäť kedykoľvek vypnúť.",
+  "home.most_loved.eyebrow": "Okolo záhrady",
+  "home.most_loved.title": "Najobľúbenejšie záhrady tento týždeň",
+  "home.most_loved.body": "Skutočné záhrady, ktoré sa prihlásili ich záhradníci. Kliknite na akúkoľvek, aby ste videli, čo rastie — a ako Patch & Pot prispôsobuje svoje mesačné usmernenia tomu, kde žijú.",
+  "home.most_loved.plant_count": "{n} rastlín",
+
 };
 
 export default dict;

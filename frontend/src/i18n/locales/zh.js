@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "复制链接",
   "share_view.social.copied": "链接已复制",
   "share_view.social.tagline": "{name} 在 Patch & Pot 上 — 看看现在在成长什么。",
-  "share_view.social.tagline_region": "{name} 在 {region} — 看看在 Patch & Pot 上在成长什么。",
+  "share_view.social.tagline_region": "{name} 在 {region} — 看看在 Patch & Pot 上在成长什么。",  "share_view.views": "本周{n}次访问",
+  "share_view.views_one": "本周1次访问",
+  "share_patch.embed.open": "获取嵌入代码",
+  "share_patch.embed.label": "嵌入到博客或俱乐部页面",
+  "share_patch.embed.help": "将此代码片段粘贴到您的网站，以显示您花园的整洁实时预览。",
+  "share_patch.embed.copy": "复制嵌入代码",
+  "share_patch.embed.preview": "预览嵌入",
+  "share_patch.qr.download": "下载花园门二维码贴纸（PDF）",
+  "share_patch.list_publicly.title": "在主页显示\"最受欢迎的花园\"墙",
+  "share_patch.list_publicly.help": "默认关闭。当开启时，该花园可能会根据访问量出现在Patch & Pot主页上。您可以随时将其关闭。",
+  "home.most_loved.eyebrow": "在花园周围",
+  "home.most_loved.title": "本周最受欢迎的花园",
+  "home.most_loved.body": "真实的花园，由其园丁选择参与。点击任何一个查看正在生长的植物——以及Patch & Pot如何根据他们的居住地点调整每月的指导。",
+  "home.most_loved.plant_count": "{n}棵植物",
+
 };
 
 export default dict;

@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Bağlantıyı Kopyala",
   "share_view.social.copied": "Bağlantı kopyalandı",
   "share_view.social.tagline": "{name} Patch & Pot'ta — şu anda neyin büyüdüğüne bak.",
-  "share_view.social.tagline_region": "{name} {region}'de — Patch & Pot'ta neyin büyüdüğüne bak.",
+  "share_view.social.tagline_region": "{name} {region}'de — Patch & Pot'ta neyin büyüdüğüne bak.",  "share_view.views": "{n} bu hafta ziyaretçi",
+  "share_view.views_one": "1 bu hafta ziyaretçi",
+  "share_patch.embed.open": "Gömme kodunu al",
+  "share_patch.embed.label": "Bir blog veya kulüp sayfasına göm",
+  "share_patch.embed.help": "Patch'inizi göstermek için bu kodu sitenize yapıştırın.",
+  "share_patch.embed.copy": "Gömme kodunu kopyala",
+  "share_patch.embed.preview": "Gömme önizlemesini görüntüle",
+  "share_patch.qr.download": "Bahçe kapısı QR etiketi indir (PDF)",
+  "share_patch.list_publicly.title": "\"En sevilen patch'ler\" duvarını ana sayfada göster",
+  "share_patch.list_publicly.help": "Varsayılan olarak kapalıdır. Açık olduğunda, bu patch Patch & Pot ana sayfasında ziyaretlere göre görünebilir. İstediğiniz zaman kapatabilirsiniz.",
+  "home.most_loved.eyebrow": "Patch'in etrafında",
+  "home.most_loved.title": "Bu hafta en sevilen patch'ler",
+  "home.most_loved.body": "Gerçek bahçeler, bahçıvanları tarafından seçilmiş. Ne yetiştiğini görmek için herhangi birine tıklayın - ve Patch & Pot'un aylık rehberliğini yaşadıkları yere nasıl uyarladığını öğrenin.",
+  "home.most_loved.plant_count": "{n} bitki",
+
 };
 
 export default dict;

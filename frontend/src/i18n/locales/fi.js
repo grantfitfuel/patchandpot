@@ -661,7 +661,21 @@ const dict = {
   "share_view.social.copy": "Kopioi linkki",
   "share_view.social.copied": "Linkki kopioitu",
   "share_view.social.tagline": "{name} on Patch & Pot — katso, mitä kasvaa juuri nyt.",
-  "share_view.social.tagline_region": "{name} {region}ssä — katso, mitä kasvaa Patch & Potissa.",
+  "share_view.social.tagline_region": "{name} {region}ssä — katso, mitä kasvaa Patch & Potissa.",  "share_view.views": "{n} käyntiä tällä viikolla",
+  "share_view.views_one": "1 käynti tällä viikolla",
+  "share_patch.embed.open": "Hanki upotuskoodi",
+  "share_patch.embed.label": "Upota blogiin tai klubi-sivulle",
+  "share_patch.embed.help": "Liitä tämä koodinpätkä sivustollesi näyttääksesi siistin reaaliaikaisen esikatselun palstastasi.",
+  "share_patch.embed.copy": "Kopioi upotuskoodi",
+  "share_patch.embed.preview": "Esikatselu upotuksesta",
+  "share_patch.qr.download": "Lataa puutarha-portti QR-tarra (PDF)",
+  "share_patch.list_publicly.title": "Näytä etusivulla \"Suosituimmat palstat\" -seinä",
+  "share_patch.list_publicly.help": "Oletuksena pois päältä. Kun on päällä, tämä palsta voi näkyä Patch & Pot -etussivulla vieraiden perusteella. Voit kytkeä sen pois päältä uudelleen milloin tahansa.",
+  "home.most_loved.eyebrow": "Kierroksella palstalla",
+  "home.most_loved.title": "Suosituimmat palstat tällä viikolla",
+  "home.most_loved.body": "Todelliset puutarhat, joiden puutarhurit ovat liittyneet mukaan. Napsauta mitä tahansa nähdäksesi, mitä on kasvamassa — ja kuinka Patch & Pot säätää kuukausiohjeitaan asuinpaikan mukaan.",
+  "home.most_loved.plant_count": "{n} kasvia",
+
 };
 
 export default dict;

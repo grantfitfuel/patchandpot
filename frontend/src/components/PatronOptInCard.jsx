@@ -102,9 +102,9 @@ export default function PatronOptInCard({ sessionId }) {
         type="button"
         onClick={() => setOpen(true)}
         data-testid="patron-opt-in-open"
-        className="mt-8 text-sm text-forest hover:text-terracotta underline-offset-4 hover:underline inline-flex items-center gap-1.5"
+        className="mt-8 inline-flex items-center gap-2 px-4 py-2.5 border border-forest/40 bg-sand/60 text-forest font-medium underline underline-offset-4 decoration-terracotta decoration-2 hover:bg-forest/5 hover:border-forest transition-colors"
       >
-        <Heart strokeWidth={1.5} className="w-3.5 h-3.5" />
+        <Heart strokeWidth={1.8} className="w-4 h-4 text-terracotta" />
         Want a thank-you mention on our Patrons page? (Optional)
       </button>
     );

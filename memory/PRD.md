@@ -303,9 +303,7 @@
 
 ### P1
 - Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
-- Paste real Sentry DSNs into `backend/.env` (`SENTRY_DSN=...`) and `frontend/.env` (`REACT_APP_SENTRY_DSN=...`) when ready. Rebuild frontend.
 - Save multiple "patches" (home + holiday cottage).
-- **Patron opt-in link visibility** — the "Want a thank-you mention on our Patrons page? (Optional)" button on `/checkout/success` (`PatronOptInCard.jsx` collapsed state) is currently a small heart-icon text link with `hover:underline`. User feedback: not obvious enough as a clickable link. Make the default state look like the hovered state (persistent underline + slightly more visual weight) so it reads unambiguously as a tappable action.
 
 ### P2
 - Optional email subscription via Resend (when user supplies API key).

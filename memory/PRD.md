@@ -265,6 +265,15 @@
   - Any re-request: <200ms cache hit
 - **Bill impact (estimated)**: hot regions (London/NYC/Sydney) viewed in 10+ languages now cost ~1× Sonnet + 10× Haiku ≈ 1× Sonnet + 2× Sonnet = 3× Sonnet, vs the old 11× Sonnet → **~73% reduction** on those regions. Cold/single-language regions cost the same as before.
 
+### Iteration 24 (2026-02-23): ✅ — Multi-patch paid tier (1a + 2b)
+- **Backend constants** `FREE_PATCH_LIMIT=5` / `PAID_PATCH_LIMIT=25` added to `core.py` and re-exported in `__all__`.
+- **`POST /api/access/check` extended** to return `patch_limit` (5 if no/expired/bogus grant, 25 if any active paid grant — monthly through founding-lifetime). Server is the source of truth; the frontend defaults to 5 only as an optimistic fallback before the first verify.
+- **`usePaywall` exposes `patchLimit`** alongside `paid` / `loading` / `refresh`.
+- **`usePatches(limit?)`** now accepts a runtime cap; `canAdd`, `addPatch` and the legacy `MAX_PATCHES` alias all respect the passed-in cap. The free-tier constant `FREE_PATCH_LIMIT` is exported for components that need to know the cutoff for paywall-CTA copy.
+- **`<PatchSwitcher/>` and `<PatchTabStrip/>`** read `patchLimit` from `usePaywall`, pass it to `usePatches`, and swap the disabled-add affordance for an "🔒 Unlock up to 25 patches" CTA when an unpaid user hits 5. Clicking opens `<PaywallModal/>`; `onUnlocked` calls `refreshPaywall()` so the cap lifts immediately without a page reload. Paid users hitting 25 see "email hello@patchandpot.com if you need more" copy instead.
+- **Tests** (`backend/tests/test_patch_limit.py`): 5/5 pass — empty/bogus token → 5, valid lifetime grant → 25, expired grant → paid=false + 5, constants sanity.
+- **Honest threat-model note**: patches themselves still live entirely in localStorage (no server-side storage), so a determined power-user could edit JSON to add a 6th patch — but the canonical cap value is server-authoritative and the UX is gated. Acceptable for a UI feature; no server resource at risk.
+
 ### Iteration 23 (2026-02-23): ✅ — Multi-patch (home + holiday cottage) + retrospective patrons + backend regression fix
 - **New `usePatches` hook** (`/app/frontend/src/hooks/usePatches.js`) — module-level singleton (`useSyncExternalStore`) holding the patches index `{active_id, patches:[{id,name,created_at}]}` in `patchpot.patches.v1`. Each patch owns its own namespaced slots `patchpot.patch.<id>.region.v1`, `.garden.v1`, `.tasks.v1`. MAX_PATCHES = 5 (will be lifted under a paid tier later). Cross-tab sync via the `storage` event.
 - **Auto-migration of pre-patch users**: if `patchpot.patches.v1` is missing AND any of `patchpot.region.v1` / `patchpot.garden.v1` / `patchpot.tasks.v1` exist on first read, they are wrapped into a single auto-named "Home" patch (or named after the saved region) and the legacy keys deleted. No data loss; users keep the exact same view they had.
@@ -316,7 +325,6 @@
 
 ### P1
 - Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
-- Save multiple "patches" (home + holiday cottage).
 
 ### P2
 - Optional email subscription via Resend (when user supplies API key).

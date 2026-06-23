@@ -174,22 +174,27 @@ def make_router(db) -> APIRouter:
     @router.post("/access/check")
     async def check_access(payload: AccessCheckRequest):
         """Validate that a session_id has been granted access AND that any expiry
-        has not yet passed. Lifetime grants have expires_at=None and never expire."""
+        has not yet passed. Lifetime grants have expires_at=None and never expire.
+        Also reports the multi-patch cap (5 free / 25 paid) on the same response
+        so the frontend can adjust `canAdd` without a second round-trip."""
+        from core import FREE_PATCH_LIMIT, PAID_PATCH_LIMIT
         token = (payload.token or "").strip()
         if not token:
-            return {"paid": False}
+            return {"paid": False, "patch_limit": FREE_PATCH_LIMIT}
         grant = await db.access_grants.find_one({"token": token}, {"_id": 0})
         if not grant:
-            return {"paid": False}
+            return {"paid": False, "patch_limit": FREE_PATCH_LIMIT}
         expires_at = grant.get("expires_at")
         now_iso = datetime.now(timezone.utc).isoformat()
         expired = bool(expires_at) and now_iso > expires_at
+        paid = not expired
         return {
-            "paid": not expired,
+            "paid": paid,
             "expired": expired,
             "package_id": grant.get("package_id"),
             "granted_at": grant.get("granted_at"),
             "expires_at": expires_at,
+            "patch_limit": PAID_PATCH_LIMIT if paid else FREE_PATCH_LIMIT,
         }
 
     return router

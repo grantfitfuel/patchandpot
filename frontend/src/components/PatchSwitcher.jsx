@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, ChevronDown, Plus, Check, Settings } from "lucide-react";
-import { usePatches } from "@/hooks/usePatches";
+import { MapPin, ChevronDown, Plus, Check, Settings, Lock } from "lucide-react";
+import { usePatches, FREE_PATCH_LIMIT } from "@/hooks/usePatches";
 import { useRegion } from "@/hooks/useRegion";
+import { usePaywall } from "@/hooks/usePaywall";
 import RegionPicker from "@/components/RegionPicker";
+import PaywallModal from "@/components/PaywallModal";
 import { useI18n } from "@/i18n";
 
 /**
@@ -17,17 +19,22 @@ import { useI18n } from "@/i18n";
  *    currently active patch (so the existing single-patch flow still works).
  *  - "Add another patch" → opens the region picker in onPick mode, then
  *    creates a brand-new patch with the chosen region's name and switches
- *    to it. Hidden when the user already has MAX_PATCHES.
+ *    to it. Hidden / replaced with paywall CTA when the free cap is hit.
  *  - "Manage patches" → /garden, which renders the tab strip + rename /
  *    remove controls.
  */
 export default function PatchSwitcher() {
-  const { patches, activePatchId, activePatch, setActivePatch, addPatch, canAdd, MAX_PATCHES } = usePatches();
+  const { paid, patchLimit, refresh: refreshPaywall } = usePaywall();
+  // `patchLimit` is server-authoritative (5 free / 25 paid); fall back to the
+  // free cap on first paint before /api/access/check returns.
+  const { patches, activePatchId, activePatch, setActivePatch, addPatch, canAdd, limit } =
+    usePatches(patchLimit);
   const { region, setRegion } = useRegion();
   const { t } = useI18n();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [paywallOpen, setPaywallOpen] = useState(false);
   // pickerMode = "set_active" → write region to current active patch
   // pickerMode = "add_patch"  → create a new patch with the chosen region
   const [pickerMode, setPickerMode] = useState("set_active");
@@ -60,7 +67,17 @@ export default function PatchSwitcher() {
   }
 
   function openAddPatch() {
-    if (!canAdd) return;
+    if (!canAdd) {
+      // Free tier cap reached → invite to upgrade instead of silently
+      // dropping the click. Paid users hitting the 25 cap fall through to
+      // the disabled-button copy.
+      if (!paid && patches.length >= FREE_PATCH_LIMIT) {
+        setPaywallOpen(true);
+        setMenuOpen(false);
+        return;
+      }
+      return;
+    }
     setPickerMode("add_patch");
     setPickerOpen(true);
     setMenuOpen(false);
@@ -115,7 +132,7 @@ export default function PatchSwitcher() {
           className="absolute right-0 mt-2 w-72 bg-surface border border-border shadow-xl z-50"
         >
           <div className="px-4 pt-4 pb-2">
-            <p className="overline">Your patches · {patches.length} of {MAX_PATCHES}</p>
+            <p className="overline">Your patches · {patches.length} of {limit}</p>
           </div>
           <ul className="py-1">
             {patches.map((p) => {
@@ -161,13 +178,29 @@ export default function PatchSwitcher() {
               <Plus strokeWidth={1.7} className="w-4 h-4 text-terracotta" />
               Add another patch
             </button>
+          ) : !paid ? (
+            <button
+              type="button"
+              onClick={openAddPatch}
+              data-testid="patch-switcher-upgrade"
+              className="w-full text-left px-4 py-3 text-sm text-forest hover:bg-sand/60 flex items-start gap-2 font-medium bg-sand/40 border-y border-border"
+            >
+              <Lock strokeWidth={1.6} className="w-4 h-4 text-terracotta mt-0.5 flex-shrink-0" />
+              <span className="leading-snug">
+                Unlock up to 25 patches
+                <span className="block text-[11px] text-moss font-normal mt-0.5">
+                  Included with any Patch &amp; Pot membership
+                </span>
+              </span>
+            </button>
           ) : (
             <div
               data-testid="patch-switcher-limit"
               className="px-4 py-2.5 text-xs text-moss leading-relaxed"
             >
-              You&apos;ve reached the {MAX_PATCHES}-patch limit. Unlimited patches will be
-              available later as part of the paid tier.
+              You&apos;ve reached the {limit}-patch limit. Email
+              {" "}<a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">hello@patchandpot.com</a>
+              {" "}if you need more.
             </div>
           )}
           <Link
@@ -189,6 +222,17 @@ export default function PatchSwitcher() {
         onClose={() => setPickerOpen(false)}
         onPick={pickerMode === "add_patch" ? onRegionPicked : undefined}
       />
+      {paywallOpen && (
+        <PaywallModal
+          onClose={() => setPaywallOpen(false)}
+          onUnlocked={() => {
+            setPaywallOpen(false);
+            // Pull the new patchLimit from /api/access/check so the cap
+            // lifts immediately without a page reload.
+            refreshPaywall();
+          }}
+        />
+      )}
     </div>
   );
 }

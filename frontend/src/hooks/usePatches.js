@@ -32,7 +32,14 @@
 import { useCallback, useSyncExternalStore } from "react";
 
 const INDEX_KEY = "patchpot.patches.v1";
-export const MAX_PATCHES = 5;
+// Free-tier upper bound. Paid users get PAID_PATCH_LIMIT (25, set on the
+// server). usePatches() accepts a runtime `limit` arg from each caller —
+// see PatchSwitcher / PatchTabStrip which read it from usePaywall().
+export const FREE_PATCH_LIMIT = 5;
+export const PAID_PATCH_LIMIT = 25;
+// Kept exported under the old name so existing imports compiling against
+// `MAX_PATCHES` keep working — it now reflects the free-tier cap only.
+export const MAX_PATCHES = FREE_PATCH_LIMIT;
 
 const LEGACY_KEYS = {
   region: "patchpot.region.v1",
@@ -173,7 +180,7 @@ function update(nextIndex) {
   }
 }
 
-export function usePatches() {
+export function usePatches(limit = FREE_PATCH_LIMIT) {
   const index = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const setActivePatch = useCallback((id) => {
@@ -183,7 +190,7 @@ export function usePatches() {
   }, []);
 
   const addPatch = useCallback((name) => {
-    if (current.patches.length >= MAX_PATCHES) return null;
+    if (current.patches.length >= limit) return null;
     const id = newId();
     const safeName = (name || "").trim().slice(0, 30) || "New patch";
     const next = {
@@ -193,7 +200,7 @@ export function usePatches() {
     };
     update(next);
     return id;
-  }, []);
+  }, [limit]);
 
   const renamePatch = useCallback((id, name) => {
     const safeName = (name || "").trim().slice(0, 30);
@@ -230,8 +237,9 @@ export function usePatches() {
     addPatch,
     renamePatch,
     removePatch,
-    canAdd: index.patches.length < MAX_PATCHES,
-    MAX_PATCHES,
+    canAdd: index.patches.length < limit,
+    limit,
+    MAX_PATCHES: limit, // back-compat alias for legacy callers
   };
 }
 

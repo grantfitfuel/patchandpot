@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Edit3, Trash2, Check, X, Plus, MapPin, AlertCircle } from "lucide-react";
-import { usePatches } from "@/hooks/usePatches";
+import { Edit3, Trash2, Check, X, Plus, MapPin, AlertCircle, Lock } from "lucide-react";
+import { usePatches, FREE_PATCH_LIMIT } from "@/hooks/usePatches";
 import { useRegion } from "@/hooks/useRegion";
+import { usePaywall } from "@/hooks/usePaywall";
 import RegionPicker from "@/components/RegionPicker";
+import PaywallModal from "@/components/PaywallModal";
 
 /**
  * Tab strip + management bar for the user's gardening "patches".
@@ -12,10 +14,11 @@ import RegionPicker from "@/components/RegionPicker";
  * patch's stored data). Inline rename + a guarded delete sit alongside.
  */
 export default function PatchTabStrip() {
+  const { paid, patchLimit, refresh: refreshPaywall } = usePaywall();
   const {
     patches, activePatchId, activePatch, setActivePatch,
-    addPatch, renamePatch, removePatch, canAdd, MAX_PATCHES,
-  } = usePatches();
+    addPatch, renamePatch, removePatch, canAdd, limit,
+  } = usePatches(patchLimit);
   const { region, setRegion } = useRegion();
 
   const [renaming, setRenaming] = useState(false);
@@ -23,6 +26,7 @@ export default function PatchTabStrip() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerMode, setPickerMode] = useState("set_active");
+  const [paywallOpen, setPaywallOpen] = useState(false);
 
   function startRename() {
     setDraftName(activePatch?.name || "");
@@ -43,7 +47,13 @@ export default function PatchTabStrip() {
     setPickerOpen(true);
   }
   function openAddPatch() {
-    if (!canAdd) return;
+    if (!canAdd) {
+      if (!paid && patches.length >= FREE_PATCH_LIMIT) {
+        setPaywallOpen(true);
+        return;
+      }
+      return;
+    }
     setPickerMode("add_patch");
     setPickerOpen(true);
   }
@@ -81,7 +91,7 @@ export default function PatchTabStrip() {
             </button>
           );
         })}
-        {canAdd && (
+        {canAdd ? (
           <button
             type="button"
             onClick={openAddPatch}
@@ -91,7 +101,17 @@ export default function PatchTabStrip() {
             <Plus strokeWidth={1.7} className="w-4 h-4 text-terracotta" />
             Add patch
           </button>
-        )}
+        ) : !paid ? (
+          <button
+            type="button"
+            onClick={openAddPatch}
+            data-testid="patch-tab-upgrade"
+            className="px-3 py-2.5 text-sm text-forest hover:bg-sand/60 border-b-2 border-transparent inline-flex items-center gap-1.5 font-medium"
+          >
+            <Lock strokeWidth={1.6} className="w-4 h-4 text-terracotta" />
+            Unlock more patches
+          </button>
+        ) : null}
       </div>
 
       {/* Per-patch toolbar */}
@@ -183,10 +203,26 @@ export default function PatchTabStrip() {
           </div>
         )}
 
-        {!canAdd && (
+        {!canAdd && !paid && (
           <p className="text-[11px] text-moss leading-relaxed w-full" data-testid="patch-limit-note">
-            You&apos;ve reached the {MAX_PATCHES}-patch limit. Unlimited patches will be
-            available later as part of the paid tier.
+            You&apos;ve reached the free {FREE_PATCH_LIMIT}-patch limit.
+            <button
+              type="button"
+              onClick={() => setPaywallOpen(true)}
+              data-testid="patch-limit-upgrade-link"
+              className="ml-1 underline-offset-4 underline text-forest hover:text-terracotta"
+            >
+              Upgrade to track up to 25 patches.
+            </button>
+          </p>
+        )}
+        {!canAdd && paid && (
+          <p className="text-[11px] text-moss leading-relaxed w-full" data-testid="patch-limit-note">
+            You&apos;ve reached the {limit}-patch limit. Email{" "}
+            <a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">
+              hello@patchandpot.com
+            </a>{" "}
+            if you need more.
           </p>
         )}
       </div>
@@ -196,6 +232,15 @@ export default function PatchTabStrip() {
         onClose={() => setPickerOpen(false)}
         onPick={pickerMode === "add_patch" ? onRegionPicked : undefined}
       />
+      {paywallOpen && (
+        <PaywallModal
+          onClose={() => setPaywallOpen(false)}
+          onUnlocked={() => {
+            setPaywallOpen(false);
+            refreshPaywall();
+          }}
+        />
+      )}
     </div>
   );
 }

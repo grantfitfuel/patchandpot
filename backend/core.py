@@ -404,6 +404,13 @@ DEFAULT_PACKAGE_ID = "annual"
 # closes and the home-page banner switches to "Thank you, sold out".
 FOUNDING_TOTAL = 30
 
+# Multi-patch ("home + holiday cottage") caps. Free users get 5 patches; any
+# paid grant (monthly … lifetime, including founding) lifts the cap to 25.
+# Surfaced to the frontend via /api/access/check so usePatches can adjust
+# `canAdd` and the upgrade CTA copy without a second round-trip.
+FREE_PATCH_LIMIT = 5
+PAID_PATCH_LIMIT = 25
+
 
 def _stripe_checkout(host_url: str) -> StripeCheckout:
     if not STRIPE_API_KEY:
@@ -968,7 +975,8 @@ __all__ = [
     # constants
     "LANG_NAMES", "MONTHS", "EMERGENT_LLM_KEY", "STRIPE_API_KEY",
     "PAYWALL_PACKAGES", "DEFAULT_PACKAGE_ID",
-    "FOUNDING_TOTAL", "AI_MONTHLY_BUDGET_GBP",
+    "FOUNDING_TOTAL", "FREE_PATCH_LIMIT", "PAID_PATCH_LIMIT",
+    "AI_MONTHLY_BUDGET_GBP",
     "PLANTS", "PLANT_INDEX", "COMPANIONS", "COMPANION_REASONS",
     "FLOWER_PORTRAITS", "SHARE_MOTIFS", "STATIC_MASTERCLASS_OG",
     "MASTERCLASS_VOICE_SAMPLE", "_GUIDE_PDFS",

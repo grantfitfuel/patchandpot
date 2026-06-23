@@ -39,6 +39,11 @@ export function clearStoredAccessToken() {
   }
 }
 
+// Free-tier patch cap. The server (POST /api/access/check) returns the
+// authoritative current limit; this constant is the optimistic fallback we
+// use before the first verify() returns.
+const FREE_PATCH_LIMIT = 5;
+
 export function usePaywall() {
   // Cheap optimistic state from cache so paid users never see a flash of paywall.
   const [paid, setPaid] = useState(() => {
@@ -46,17 +51,22 @@ export function usePaywall() {
     catch (e) { console.warn("usePaywall: read cache failed", e); return false; }
   });
   const [loading, setLoading] = useState(true);
+  const [patchLimit, setPatchLimit] = useState(FREE_PATCH_LIMIT);
 
   const verify = useCallback(async () => {
     const token = getStoredAccessToken();
     if (!token) {
       setPaid(false);
+      setPatchLimit(FREE_PATCH_LIMIT);
       setLoading(false);
       return;
     }
     try {
       const res = await checkAccess(token);
       setPaid(!!res.paid);
+      // Server is the source of truth for the cap. Fall back to free cap
+      // if the field is missing (older deploys before this endpoint update).
+      setPatchLimit(typeof res.patch_limit === "number" ? res.patch_limit : FREE_PATCH_LIMIT);
       if (res.paid) {
         try { localStorage.setItem(CACHE_KEY, "1"); }
         catch (e) { console.warn("usePaywall: persist cache failed", e); }
@@ -74,5 +84,5 @@ export function usePaywall() {
 
   useEffect(() => { verify(); }, [verify]);
 
-  return { paid, loading, refresh: verify };
+  return { paid, loading, patchLimit, refresh: verify };
 }

@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { Trash2, Sprout, MapPin, Download } from "lucide-react";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useRegion } from "@/hooks/useRegion";
+import { usePatches } from "@/hooks/usePatches";
 import PlantImage from "@/components/PlantImage";
 import GuidanceView from "@/components/GuidanceView";
 import MonthSelector from "@/components/MonthSelector";
 import ArrangementSuggester from "@/components/ArrangementSuggester";
+import PatchTabStrip from "@/components/PatchTabStrip";
 import { useMemo, useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
 import { useI18n } from "@/i18n";
@@ -13,6 +15,7 @@ import { useI18n } from "@/i18n";
 export default function MyGardenPage() {
   const { plants, removePlant } = useMyGarden();
   const { region } = useRegion();
+  const { activePatch } = usePatches();
   const { t, lang } = useI18n();
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -25,9 +28,11 @@ export default function MyGardenPage() {
 
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
+      <PatchTabStrip />
+
       <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
         <div>
-          <p className="overline">{t("garden.eyebrow")}</p>
+          <p className="overline">{t("garden.eyebrow")}{activePatch ? ` · ${activePatch.name}` : ""}</p>
           <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("garden.title")}</h1>
           {summary && <p className="mt-3 text-ink/75">{summary}</p>}
         </div>

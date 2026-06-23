@@ -1,19 +1,51 @@
 import { useCallback, useEffect, useState } from "react";
+import { PATCH_KEYS, getActivePatchId, onActiveChange } from "@/hooks/usePatches";
 
-const KEY = "patchpot.garden.v1";
-const TASKS_KEY = "patchpot.tasks.v1";
+/**
+ * Plant list + per-month task completion — both scoped to the active patch.
+ *
+ * Public API is unchanged from the pre-patches single-garden version. Under
+ * the hood we read/write the namespaced keys
+ *   patchpot.patch.<active_id>.garden.v1
+ *   patchpot.patch.<active_id>.tasks.v1
+ * and re-mount our state when the active patch flips, so switching from
+ * "Home" to "Cottage" instantly swaps both the plant grid and the
+ * checked-task state.
+ */
+
+function readGarden() {
+  const id = getActivePatchId();
+  if (!id) return [];
+  try {
+    return JSON.parse(localStorage.getItem(PATCH_KEYS.garden(id)) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function writeGarden(plants) {
+  const id = getActivePatchId();
+  if (!id) return;
+  try {
+    localStorage.setItem(PATCH_KEYS.garden(id), JSON.stringify(plants));
+  } catch (e) {
+    console.warn("useMyGarden: persist failed", e);
+  }
+}
 
 export function useMyGarden() {
-  const [plants, setPlants] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem(KEY) || "[]");
-    } catch {
-      return [];
-    }
-  });
+  const [plants, setPlants] = useState(() => readGarden());
 
+  // Re-sync from the new patch's storage when the active patch changes.
   useEffect(() => {
-    localStorage.setItem(KEY, JSON.stringify(plants));
+    const off = onActiveChange(() => setPlants(readGarden()));
+    return () => off();
+  }, []);
+
+  // Persist whenever the local list changes — scoped to the current active
+  // patch (whichever patch is active at the time of the write).
+  useEffect(() => {
+    writeGarden(plants);
   }, [plants]);
 
   const addPlant = useCallback((plant) => {
@@ -31,34 +63,52 @@ export function useMyGarden() {
   return { plants, addPlant, removePlant, has };
 }
 
+function readTasksAll() {
+  const id = getActivePatchId();
+  if (!id) return {};
+  try {
+    return JSON.parse(localStorage.getItem(PATCH_KEYS.tasks(id)) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function writeTasksAll(all) {
+  const id = getActivePatchId();
+  if (!id) return;
+  try {
+    localStorage.setItem(PATCH_KEYS.tasks(id), JSON.stringify(all));
+  } catch (e) {
+    console.warn("useCompletedTasks: persist failed", e);
+  }
+}
+
 export function useCompletedTasks(monthKey) {
   const [completed, setCompleted] = useState(() => {
-    try {
-      const all = JSON.parse(localStorage.getItem(TASKS_KEY) || "{}");
-      return all[monthKey] || {};
-    } catch {
-      return {};
-    }
+    const all = readTasksAll();
+    return all[monthKey] || {};
   });
 
+  // Persist on change.
   useEffect(() => {
-    try {
-      const all = JSON.parse(localStorage.getItem(TASKS_KEY) || "{}");
-      all[monthKey] = completed;
-      localStorage.setItem(TASKS_KEY, JSON.stringify(all));
-    } catch (e) {
-      console.warn("useCompletedTasks: persist failed", e);
-    }
+    const all = readTasksAll();
+    all[monthKey] = completed;
+    writeTasksAll(all);
   }, [completed, monthKey]);
 
-  // refresh state when monthKey changes
+  // Re-load when month changes.
   useEffect(() => {
-    try {
-      const all = JSON.parse(localStorage.getItem(TASKS_KEY) || "{}");
+    const all = readTasksAll();
+    setCompleted(all[monthKey] || {});
+  }, [monthKey]);
+
+  // Re-load when the active patch changes.
+  useEffect(() => {
+    const off = onActiveChange(() => {
+      const all = readTasksAll();
       setCompleted(all[monthKey] || {});
-    } catch {
-      setCompleted({});
-    }
+    });
+    return () => off();
   }, [monthKey]);
 
   const toggle = useCallback((taskId) => {

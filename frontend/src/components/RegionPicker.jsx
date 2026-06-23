@@ -4,7 +4,7 @@ import { useRegion } from "@/hooks/useRegion";
 import { searchRegions, reverseGeocode, ipDetectRegion } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
-export default function RegionPicker({ open, onClose }) {
+export default function RegionPicker({ open, onClose, onPick }) {
   const { region, setRegion, defaultRegion } = useRegion();
   const { t } = useI18n();
   const [query, setQuery] = useState("");
@@ -50,8 +50,17 @@ export default function RegionPicker({ open, onClose }) {
     return t("climate.polar");
   };
 
+  // Either save the region into the active patch (default behaviour) or
+  // hand it back to the caller (e.g. PatchSwitcher's "add new patch" flow,
+  // which needs to create the patch first and *then* assign the region).
+  const commit = (next) => {
+    if (onPick) onPick(next);
+    else setRegion(next);
+    onClose();
+  };
+
   const pick = (r) => {
-    setRegion({
+    commit({
       name: r.name,
       country: r.country,
       latitude: r.latitude,
@@ -59,7 +68,6 @@ export default function RegionPicker({ open, onClose }) {
       hemisphere: hemisphereFor(r.latitude),
       climate_zone: climateFor(r.latitude),
     });
-    onClose();
   };
 
   const detect = () => {
@@ -73,8 +81,7 @@ export default function RegionPicker({ open, onClose }) {
     const ipFallback = async () => {
       try {
         const data = await ipDetectRegion();
-        setRegion(data);
-        onClose();
+        commit(data);
       } catch (e) {
         setError(t("region.detect_failed"));
       } finally {
@@ -91,8 +98,7 @@ export default function RegionPicker({ open, onClose }) {
       async (pos) => {
         try {
           const data = await reverseGeocode(pos.coords.latitude, pos.coords.longitude);
-          setRegion(data);
-          onClose();
+          commit(data);
         } catch (e) {
           // Reverse-geocode failed even though GPS worked — try IP route.
           await ipFallback();
@@ -111,8 +117,7 @@ export default function RegionPicker({ open, onClose }) {
   };
 
   const useDefault = () => {
-    setRegion(defaultRegion);
-    onClose();
+    commit(defaultRegion);
   };
 
   if (!open) return null;

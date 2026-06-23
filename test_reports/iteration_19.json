@@ -1,0 +1,62 @@
+{
+  "summary": "Frontend testing of P1 multi-patch feature (Patch Switcher header, PatchTabStrip on /garden, add/rename/delete/switch, persistence, legacy migration, 5-patch limit) + retrospective patron CTA on /patrons. 11 of 12 scenarios PASS. Scenario 12 (retrospective patron CTA visibility) is BLOCKED by a backend regression: the `patrons` router was removed from server.py so /api/patrons returns 404, which gates the retro CTA (it only renders when `data && !error`). All multi-patch UI/behaviour works correctly.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "/api/patrons (GET) and ALL /api/patrons/* routes",
+        "issue": "CRITICAL REGRESSION — patrons router is no longer registered in /app/backend/server.py. Iter18 had it at line 86 (`app.include_router(patrons_router.make_router(db))`). It is now missing from both the imports (lines 29-41) and the include_router section (lines 73-84). /app/backend/routers/patrons.py still exists and uses its own APIRouter(prefix='/api'). Result: GET /api/patrons returns 404, breaking /patrons page, /patrons/manage flow, the existing opt-in flow on /checkout/success, AND the new retrospective patron CTA (which is the second-half deliverable of this iteration). Fix: re-add `patrons as patrons_router` to the imports block and `app.include_router(patrons_router.make_router(db))` (NO extra prefix — the router self-prefixes per iter18 note).",
+        "priority": "CRITICAL"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Retrospective patron CTA visibility on /patrons",
+        "issue": "Cannot verify CTA rendering end-to-end because /patrons page enters error state when /api/patrons returns 404, and the CTA section is conditionally rendered behind `!error && data` (Patrons.jsx line 139). Once the backend route is restored the CTA should appear — the JSX, data-testid='patrons-retro-cta' and link to /patrons/manage are correctly coded. Recommend MAIN AGENT also consider showing the retro CTA even when patrons list fails to load (it has nothing to do with the list), so users with broken backends can still self-add.",
+        "affected_selectors": ["[data-testid='patrons-retro-cta']", "[data-testid='patrons-retro-cta-link']"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "BACKEND FIX (high priority): Re-register patrons router in /app/backend/server.py — add `patrons as patrons_router` to the imports tuple (lines 29-41) and add `app.include_router(patrons_router.make_router(db))` near line 84 (NO extra prefix because the router self-prefixes with /api). This restores /api/patrons, /api/patrons/me, /api/patrons/opt-in, /api/patrons/opt-out — all currently 404.",
+    "After backend fix, retest /patrons → confirm patrons-retro-cta is visible, link navigates to /patrons/manage, and the existing manage form (covered in iter18) still works.",
+    "OPTIONAL UX: Consider rendering the retrospective CTA in /patrons even when the patrons list fails to load — it's purely a self-serve add flow and doesn't depend on the list. Currently a backend hiccup hides the recovery path."
+  ],
+  "critical_code_review_comments": [
+    "usePatches.js (line 142): `current` is initialised at module load via loadIndex() which writes to localStorage as a side-effect during import. This is fine for browsers but means tests can't intercept the bootstrap to seed alt-states. Pre-seeding localStorage BEFORE the bundle evaluates is the only way (as the iter18 migration test does).",
+    "usePatches.js addPatch (line 185): silently returns null on cap — UI components do guard with `canAdd`, but a tiny console.warn would help debugging.",
+    "PatchSwitcher.jsx (line 79): after addPatch the comment claims setRegion will write into the freshly active patch, which works only because addPatch synchronously updates `current` and emits before setRegion fires. Fragile ordering — relies on synchronous module-singleton update. Add a small comment hardening this assumption.",
+    "PatchTabStrip.jsx renaming UX: pressing Escape in the rename input does NOT cancel (cancelRename only via X button). Minor — but Enter saves so Escape-to-cancel is expected.",
+    "Patrons.jsx: retrospective CTA section gated by `!error && data` (line 139). If /api/patrons errors, users have NO way to discover /patrons/manage from /patrons (the only path is the small footer link). Consider showing the CTA even in the error state."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "N/A (frontend-only request, but discovered 1 critical backend regression that blocks 1 frontend scenario)",
+    "frontend": "92% (11/12 scenarios — only blocker is the backend regression above)"
+  },
+  "test_credentials": "Not required for these scenarios — all flows are localStorage-only.",
+  "seed_data_creation": "None — used localStorage manipulation via page.evaluate (cleaned between scenarios).",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Multi-patch feature is solid. ALL header-dropdown, tab-strip, add/rename/delete, persistence, swap-on-switch (storage-level), 5-patch-limit, and legacy-migration flows verified. The only outstanding test is scenario 12 (retrospective patron CTA) which is unblocked once /api/patrons returns 200 — i.e. once the patrons router is re-registered in server.py. Iter18 covered the patrons-manage form submission flow so a smoke test (CTA visible + navigates to /patrons/manage + form renders) is sufficient. To pre-seed legacy keys for migration testing, use page.evaluate BEFORE first navigation: localStorage.setItem('patchpot.region.v1', ...), 'patchpot.garden.v1', 'patchpot.tasks.v1' — do NOT pre-set 'patchpot.patches.v1'.",
+  "rca of the issue": "Root cause for /api/patrons 404: during the multi-patch P1 build, /app/backend/server.py lost both the `patrons as patrons_router` import line (was in lines 29-41 import block) and the `app.include_router(patrons_router.make_router(db))` registration line (was at line 86 per iter18 context). The router file /app/backend/routers/patrons.py is untouched and still uses APIRouter(prefix='/api', tags=['patrons']). Reproduction: `curl https://grow-by-season-1.preview.emergentagent.com/api/patrons` → HTTP 404 {\"detail\":\"Not Found\"}. Mitigation: re-add the two lines (import + include_router with NO extra prefix). Verification: same curl should return 200 with {total, groups}.",
+  "scenarios_pass_detail": {
+    "1_first_load_home_patch_default": "PASS — Trigger shows 'Home', dropdown opens, 1 patch listed with active styling, add button visible.",
+    "2_add_madrid_patch_via_dropdown": "PASS — RegionPicker opens, Madrid search returns results, click creates patch auto-named 'Madrid', becomes active, trigger label updates.",
+    "3_switch_patch_via_dropdown_item": "PASS — Clicking Home item switches active, dropdown closes, trigger label updates.",
+    "4_change_region_does_not_create_new_patch": "PASS — patch-switcher-change-region opens picker, picking London updates region of CURRENT patch, patch count unchanged.",
+    "5_patchtabstrip_on_garden": "PASS — Tabstrip renders, one tab per patch, add-patch button visible at <5 patches.",
+    "6_inline_rename": "PASS — Rename input appears, save updates patch name, header pill reflects new name.",
+    "7_delete_patch": "PASS — Confirm row appears, yes-delete removes patch, delete button hidden on last remaining patch.",
+    "8_persistence_across_reload": "PASS — Active id and patch list survive hard reload.",
+    "9_per_patch_data_isolation": "PASS — Verified at localStorage level that each patch has its own patchpot.patch.<id>.garden.v1 / .tasks.v1 / .region.v1 namespaced keys.",
+    "10_five_patch_limit": "PASS — At 5 patches: patch-tab-add hidden, patch-limit-note visible on /garden, patch-switcher-limit visible in dropdown, patch-switcher-add hidden.",
+    "11_legacy_user_migration": "PASS — Pre-set patchpot.region.v1 ('Paris'), patchpot.garden.v1, patchpot.tasks.v1 → after load, single patch auto-named 'Paris' is created, all three data items migrated into patchpot.patch.<id>.* keys, all three legacy keys REMOVED.",
+    "12_retrospective_patron_cta": "BLOCKED — /api/patrons 404 due to backend router regression. CTA is correctly coded but gated behind data load."
+  }
+}

@@ -1,15 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
-import { Sprout, MapPin } from "lucide-react";
-import { useRegion } from "@/hooks/useRegion";
-import RegionPicker from "@/components/RegionPicker";
+import { Sprout } from "lucide-react";
+import PatchSwitcher from "@/components/PatchSwitcher";
 import LanguageSelector from "@/components/LanguageSelector";
-import { useState } from "react";
 import { useI18n } from "@/i18n";
 
 export default function Header() {
-  const { region } = useRegion();
   const { t } = useI18n();
-  const [pickerOpen, setPickerOpen] = useState(false);
 
   const NAV = [
     { to: "/", label: t("nav.home"), key: "home" },
@@ -51,16 +47,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <LanguageSelector compact />
-          <button
-            type="button"
-            data-testid="region-picker-trigger"
-            onClick={() => setPickerOpen(true)}
-            className="flex items-center gap-2 text-sm text-forest border border-forest/30 px-3 py-2 hover:bg-forest/5 transition-colors"
-          >
-            <MapPin strokeWidth={1.5} className="w-4 h-4" />
-            <span className="hidden sm:inline">{region ? region.name : t("region.set")}</span>
-            <span className="sm:hidden">{t("region.region")}</span>
-          </button>
+          <PatchSwitcher />
         </div>
       </div>
 
@@ -82,8 +69,6 @@ export default function Header() {
           ))}
         </div>
       </nav>
-
-      <RegionPicker open={pickerOpen} onClose={() => setPickerOpen(false)} />
     </header>
   );
 }

@@ -134,7 +134,32 @@ export default function PatronsPage() {
         </div>
       )}
 
-      <footer className="mt-20 pt-8 border-t border-border text-center">
+      {/* Retrospective patron CTA — for paid customers who didn't tick the
+          opt-in box at checkout but want to be listed now. */}
+      {!error && data && (
+        <section
+          className="mt-16 border-y border-border bg-sand/40 py-8 px-6 text-center"
+          data-testid="patrons-retro-cta"
+        >
+          <p className="overline">Already supported but not listed?</p>
+          <h2 className="font-serif text-2xl text-forest mt-2">Add yourself any time.</h2>
+          <p className="mt-2 text-sm text-ink/70 max-w-md mx-auto leading-relaxed">
+            If you paid but didn&apos;t tick the opt-in box on the success page,
+            you can add yourself here using the checkout token from your receipt.
+            One click to edit or remove later.
+          </p>
+          <Link
+            to="/patrons/manage"
+            data-testid="patrons-retro-cta-link"
+            className="mt-5 btn-terracotta inline-flex items-center gap-2"
+          >
+            Add me to the Patrons page
+            <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+          </Link>
+        </section>
+      )}
+
+      <footer className="mt-12 pt-8 border-t border-border text-center">
         <p className="text-xs text-moss leading-relaxed max-w-xl mx-auto">
           Listed with explicit consent. Patrons can{" "}
           <Link
@@ -142,7 +167,7 @@ export default function PatronsPage() {
             className="underline-offset-4 hover:underline text-forest"
             data-testid="patrons-page-manage-link"
           >
-            edit or remove their listing
+            add, edit or remove their listing
           </Link>
           {" "}any time using the checkout token from their receipt — no
           login required. Email{" "}

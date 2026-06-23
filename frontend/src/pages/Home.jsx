@@ -7,6 +7,11 @@ import ThisMonthCard from "@/components/ThisMonthCard";
 import PaywallModal from "@/components/PaywallModal";
 import FoundingBanner from "@/components/FoundingBanner";
 import EmbedFoundingSnippet from "@/components/EmbedFoundingSnippet";
+import {
+  NoticeIllustration,
+  SlowIllustration,
+  NourishIllustration,
+} from "@/components/illustrations/WellbeingIllustrations";
 import { usePaywall } from "@/hooks/usePaywall";
 import { useI18n, monthLabel } from "@/i18n";
 
@@ -161,12 +166,14 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {[
-              { k: "notice",  Icon: Sprout },
-              { k: "slow",    Icon: Heart },
-              { k: "nourish", Icon: Flower2 },
-            ].map(({ k, Icon }) => (
+              { k: "notice",  Illo: NoticeIllustration },
+              { k: "slow",    Illo: SlowIllustration },
+              { k: "nourish", Illo: NourishIllustration },
+            ].map(({ k, Illo }) => (
               <article key={k} className="card-flat p-6 md:p-7">
-                <Icon strokeWidth={1.4} className="w-5 h-5 text-terracotta mb-4" />
+                <div className="w-14 h-14 mb-5 text-terracotta">
+                  <Illo />
+                </div>
                 <h3 className="font-serif text-xl text-forest mb-2">
                   {t(`wellbeing.principle.${k}.title`)}
                 </h3>

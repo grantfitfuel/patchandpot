@@ -59,10 +59,13 @@ export default function SharedPatchPage() {
       // og:image — points at the same backend-rendered card the social
       // crawler picks up from /api/share/preview/{id}. Crawlers that DO
       // execute JS (modern Slack, Discord, Telegram) will now also unfurl
-      // the card from this SPA URL itself.
+      // the card from this SPA URL itself. We append a ?v= cache-buster
+      // derived from updated_at so social-cache CDNs refetch the card
+      // whenever the gardener edits the snapshot.
       if (shareId) {
         const origin = window.location.origin;
-        const imgUrl = `${origin}/api/share/patch/${shareId}/og.png`;
+        const version = sha1Short(d.updated_at || d.created_at || "");
+        const imgUrl = `${origin}/api/share/patch/${shareId}/og.png${version ? `?v=${version}` : ""}`;
         ensureMetaTag("og:image", imgUrl, "property");
         ensureMetaTag("og:image:width", "1200", "property");
         ensureMetaTag("og:image:height", "630", "property");
@@ -217,4 +220,19 @@ function ensureMetaTag(name, content, attr = "name") {
     document.head.appendChild(el);
   }
   el.setAttribute("content", content);
+}
+
+// Tiny deterministic hash → 12-char hex. Used purely as a cache-buster
+// token on social-CDN URLs (NOT for any security purpose) — mirrors the
+// sha1[:12] the backend share preview wrapper produces so the SPA-side
+// JS-injected og:image stays in sync with the bot-rendered HTML wrapper.
+function sha1Short(str) {
+  if (!str) return "";
+  // FNV-1a 32-bit, repeated twice into a 12-char hex — no crypto needed.
+  let h1 = 0x811c9dc5, h2 = 0x01000193;
+  for (let i = 0; i < str.length; i++) {
+    h1 = Math.imul(h1 ^ str.charCodeAt(i), 0x01000193) >>> 0;
+    h2 = Math.imul(h2 ^ str.charCodeAt(str.length - 1 - i), 0x811c9dc5) >>> 0;
+  }
+  return (h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0")).slice(0, 12);
 }

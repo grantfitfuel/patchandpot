@@ -14,6 +14,7 @@
 - ✅ **Embeddable widget** (iter 28) — `/embed/p/:shareId` + iframe snippet in SharePatchModal.
 - ✅ **Garden QR sticker** (iter 28) — `/api/share/patch/{id}/qr.pdf`.
 - ✅ **View counter + Most-loved patches wall** (iter 28) — opt-in homepage discovery with weekly decay.
+- **P2: "Plant of the week" homepage rail** — pick the single most-viewed plant guide from the last 7 days and give it a hero spot on the homepage with its big OG card. Turns the homepage into a constantly-fresh content magnet for Google to re-crawl AND gives recurring visitors a reason to come back weekly. Requires lightweight plant-view tracking (mirror the existing `shared_patch_views` debounce pattern). ~half a day.
 - **P3: Email-a-friend** — add a `mailto:` button to the social row on `/p/:shareId`. No infra needed; ~30 min.
 - **P4: Weekly digest emails** — needs Resend/Postmark integration + unsubscribe handling. Defer until user demand is proven.
 - **P4: Harvest-photo brag cards** — needs photo uploads, storage, moderation. Defer.

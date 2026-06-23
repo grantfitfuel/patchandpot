@@ -79,6 +79,7 @@ def make_router(db) -> APIRouter:
             language=language,
             orientation=(req.orientation or "portrait").lower(),
             qr_url=qr_url,
+            month=req.month,
         )
 
         safe_region = re.sub(r"[^A-Za-z0-9_-]+", "-", req.region.name)[:40] or "region"

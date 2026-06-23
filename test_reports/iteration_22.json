@@ -1,0 +1,31 @@
+{
+  "summary": "Tested the new 'Share my Patch' feature end-to-end. Backend pytest /app/backend/tests/test_share_patch.py: 8/8 PASSED (re-ran as sanity check). Frontend Playwright walk-through: 24/24 steps PASSED covering modal open, create link, copy/open/refresh/delete testids, public preview /p/:shareId (name, region, plants, forecast block, dynamic <title>, top + bottom CTAs), re-share preserves URL after adding a plant, missing share id state, and post-delete 404 -> missing state.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_share_patch.py",
+    "/app/test_reports/pytest/test_share_patch_iter22.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "share.py uses payload.region.dict() (pydantic v1 API). Codebase appears to be on pydantic v2 in other modules; .dict() still works via deprecation shim but consider .model_dump() for forward compatibility.",
+    "_PROFANITY_RE uses raw \\b but the test string 'My fucking garden' matches via the prefix-not-anchored pattern (no trailing \\b) — intentional but means 'classic' false positives like 'Scunthorpe' could be flagged. Acceptable for now; consider a denylist test.",
+    "SharedPatch.jsx unmount cleanup resets document.title to 'Patch & Pot' on every effect re-run (because the cleanup runs on dependency change too, not just unmount). Functionally fine because the next effect immediately re-sets it, but a brief title flash to 'Patch & Pot' can occur when month changes. Low priority.",
+    "delete_share uses a query-string secret which will land in any access logs / referer headers. For a higher-security feature this would warrant a body or header; for an anonymous, low-stakes share it's acceptable and documented in the router docstring."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "n/a — feature is unauthenticated",
+  "seed_data_creation": "Seeded localStorage on the preview origin: patchpot.patches.v1, patchpot.patch.<id>.region.v1 (London, UK), patchpot.patch.<id>.garden.v1 (Basil, Tomato, then +Mint). All created share snapshots were deleted at end of run via the modal delete flow; pytest cases self-clean via TEST_ prefix + DELETE.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend share router lives at /app/backend/routers/share.py; pytest at /app/backend/tests/test_share_patch.py (8 cases, all passing). Frontend pieces: SharePatchModal.jsx, SharedPatch.jsx, MyGarden.jsx (garden-share-btn next to Download when region is set), App.js route /p/:shareId. localStorage cache key for the share is patchpot.share.<patchId>.v1 holding {share_id, owner_secret}. The share button only renders if BOTH region and patchName are set on the active patch — seed both before driving the UI. Public preview's 'This month' forecast block reuses GuidanceView and can take 20-60s on cold cache for a new region; the share-view DOM (name/region/plants/forecast container + CTAs) renders immediately regardless.",
+  "rca of the issue": "No issues found; nothing to RCA."
+}

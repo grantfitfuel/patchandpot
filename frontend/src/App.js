@@ -22,6 +22,7 @@ import AdminAiUsagePage from "@/pages/AdminAiUsage";
 import AdminReferralsPage from "@/pages/AdminReferrals";
 import PatronsPage from "@/pages/Patrons";
 import PatronsManagePage from "@/pages/PatronsManage";
+import SharedPatchPage from "@/pages/SharedPatch";
 import PrivacyPage from "@/pages/Privacy";
 import TermsPage from "@/pages/Terms";
 import LanguageDetectedBanner from "@/components/LanguageDetectedBanner";
@@ -61,6 +62,7 @@ export default function App() {
             <Route path="/admin/referrals" element={<AdminReferralsPage />} />
             <Route path="/patrons" element={<PatronsPage />} />
             <Route path="/patrons/manage" element={<PatronsManagePage />} />
+            <Route path="/p/:shareId" element={<SharedPatchPage />} />
           </Routes>
         </main>
         <Footer />

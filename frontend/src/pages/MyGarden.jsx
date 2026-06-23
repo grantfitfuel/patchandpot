@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Trash2, Sprout, MapPin, Download } from "lucide-react";
+import { Trash2, Sprout, MapPin, Download, Share2 } from "lucide-react";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useRegion } from "@/hooks/useRegion";
 import { usePatches } from "@/hooks/usePatches";
@@ -8,6 +8,7 @@ import GuidanceView from "@/components/GuidanceView";
 import MonthSelector from "@/components/MonthSelector";
 import ArrangementSuggester from "@/components/ArrangementSuggester";
 import PatchTabStrip from "@/components/PatchTabStrip";
+import SharePatchModal from "@/components/SharePatchModal";
 import { useMemo, useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
 import { useI18n } from "@/i18n";
@@ -15,10 +16,11 @@ import { useI18n } from "@/i18n";
 export default function MyGardenPage() {
   const { plants, removePlant } = useMyGarden();
   const { region } = useRegion();
-  const { activePatch } = usePatches();
+  const { activePatch, activePatchId } = usePatches();
   const { t, lang } = useI18n();
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const summary = useMemo(() => {
     if (plants.length === 0) return null;
@@ -41,6 +43,16 @@ export default function MyGardenPage() {
             <Link to={`/print/${month}`} data-testid="garden-download-btn" className="btn-terracotta inline-flex items-center gap-2">
               <Download className="w-4 h-4" strokeWidth={1.5} /> {t("download.button")}
             </Link>
+          )}
+          {region && (
+            <button
+              type="button"
+              onClick={() => setShareOpen(true)}
+              data-testid="garden-share-btn"
+              className="btn-ghost inline-flex items-center gap-2"
+            >
+              <Share2 className="w-4 h-4" strokeWidth={1.5} /> {t("share_patch.button")}
+            </button>
           )}
           <button
             type="button"
@@ -114,6 +126,14 @@ export default function MyGardenPage() {
       )}
 
       <RegionPicker open={pickerOpen} onClose={() => setPickerOpen(false)} />
+      <SharePatchModal
+        open={shareOpen}
+        onClose={() => setShareOpen(false)}
+        patchId={activePatchId}
+        patchName={activePatch?.name || ""}
+        region={region}
+        plants={plants}
+      />
     </div>
   );
 }

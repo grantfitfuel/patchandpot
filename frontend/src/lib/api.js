@@ -183,3 +183,11 @@ export const fetchLearnOgMeta = (topic, language = "en") =>
 // "What's in your garden right now" arrangement suggester.
 export const fetchArrangementSuggestion = (payload, regenerate = false) =>
   api.post("/arrangement/suggest", payload, { params: { regenerate } }).then((r) => r.data);
+
+// ────────────────── Share my patch ──────────────────
+export const createSharedPatch = (payload) =>
+  api.post("/share/patch", payload).then((r) => r.data);
+export const fetchSharedPatch = (shareId) =>
+  api.get(`/share/patch/${shareId}`).then((r) => r.data);
+export const deleteSharedPatch = (shareId, ownerSecret) =>
+  api.delete(`/share/patch/${shareId}`, { params: { owner_secret: ownerSecret } }).then((r) => r.data);

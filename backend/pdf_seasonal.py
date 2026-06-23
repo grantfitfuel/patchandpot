@@ -17,6 +17,8 @@ from reportlab.platypus import (
     PageTemplate, Paragraph, Spacer, Table, TableStyle,
 )
 
+from pdf_illustrations import monthly_drawing
+
 FOREST = colors.HexColor("#21372A")
 TERRACOTTA = colors.HexColor("#C2553A")
 INK = colors.HexColor("#2B2A26")
@@ -98,20 +100,32 @@ def _rich(markup, style):
 
 def build_seasonal_pdf(*, guidance: dict, region_name: str, month_label: str,
                        language: str, orientation: str = "portrait",
-                       qr_url: str | None = None) -> bytes:
+                       qr_url: str | None = None, month: int | None = None) -> bytes:
     """Render a full seasonal journal PDF.
 
     `guidance` is the JSON dict returned by /api/guidance — keys: plant_now,
     harvest_now, tasks, pests (each a list of typed objects).
     `qr_url` (optional): URL encoded into a small QR on the My-notes page so
     the printed PDF stays a re-entry point to the live site.
+    `month` (optional, 1-12): if provided, a small seasonal vignette is
+    rendered in the cover-page header (rose hip in October, sweet pea in
+    June, etc.). Skipped silently if absent.
     """
     pagesize = landscape(A4) if orientation == "landscape" else A4
     buf = BytesIO()
     doc = _doc(buf, pagesize=pagesize)
     s = _styles()
 
-    story = [
+    story = []
+    # Cover-page seasonal vignette — small, sits above the eyebrow so the
+    # printed page reads like a magazine plate rather than a generated form.
+    if month is not None:
+        illo = monthly_drawing(month, target_width_mm=24.0)
+        if illo is not None:
+            story.append(illo)
+            story.append(Spacer(1, 3 * mm))
+
+    story += [
         _para("SEASONAL GROWING JOURNAL", s["eyebrow"]),
         _para(f"{month_label} — {region_name}", s["h1"]),
         _para(

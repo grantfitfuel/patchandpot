@@ -67,6 +67,13 @@ Approximate climate: {climate}
 Hemisphere: {hemi}
 Month: {month_name} (month #{req.month})
 
+PLACE-NAME RULES (mandatory):
+- When you reference the place in any text field (summary, plant.why, harvest.tip,
+  task.detail, pest.control, etc.) ALWAYS use the actual place name "{region_label}"
+  or its city portion "{req.region.name}".
+- NEVER write generic phrases like "your location", "your area", "your region",
+  "in your part of the world", "where you live", or any equivalent translation.
+  This is a printed almanac for one specific city — name the city.
 {season_facts}
 CLIMATE-RESPECT RULES (mandatory — violating any of these is a critical error):
 - Treat the Ground-Truth Climate Facts above as authoritative. If the frost

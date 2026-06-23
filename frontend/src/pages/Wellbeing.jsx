@@ -9,6 +9,7 @@ import {
   SlowIllustration,
   NourishIllustration,
 } from "@/components/illustrations/WellbeingIllustrations";
+import { monthlyIllustration } from "@/components/illustrations/MonthlyIllustrations";
 import { useI18n } from "@/i18n";
 
 // The three principle illustrations live keyed off the principle id (set
@@ -41,6 +42,7 @@ export default function WellbeingPage() {
 
   const month = new Date().getMonth() + 1;
   const moment = momentForMonth(month);
+  const MonthlyIllo = monthlyIllustration(month);
   const [mood, setMood] = useState(today?.mood ?? 3);
   const [note, setNote] = useState(today?.note ?? "");
   const [justSaved, setJustSaved] = useState(false);
@@ -89,13 +91,20 @@ export default function WellbeingPage() {
         className="card-flat p-8 md:p-10 mb-12 bg-sand/40 border-l-4 border-terracotta"
         data-testid="wellbeing-moment"
       >
-        <p className="overline">{t("wellbeing.moment.eyebrow")}</p>
-        <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 leading-tight">
-          {t(moment.title_key)}
-        </h2>
-        <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">
-          {t(moment.body_key)}
-        </p>
+        <div className="flex items-start gap-6 md:gap-8">
+          <div className="hidden sm:block w-20 h-20 md:w-24 md:h-24 text-terracotta flex-shrink-0">
+            <MonthlyIllo />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="overline">{t("wellbeing.moment.eyebrow")}</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 leading-tight">
+              {t(moment.title_key)}
+            </h2>
+            <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">
+              {t(moment.body_key)}
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Sit and notice — sensory immersion. The whole point of having a

@@ -7,6 +7,26 @@
 > Iteration 2: also add multi-language, pest reference gallery, companion suggestions,
 > a "Get this month's update" button with download/print, and PWA offline mode.
 
+## Growth & Backlog (prioritised)
+
+### Growth ideas (sharing surfaces)
+- **P1: Plant-level OG cards** — extend the OG renderer to every `/plants/:id` so search-driven discovery ("how to grow tomatoes in London") drives long-tail SEO traffic. Reuses the existing renderer; ~1 day.
+- **P1: Embeddable widget** — `<iframe src="patchandpot.app/embed/p/{id}">` so users can put their patch on blogs / garden-club sites / school newsletters. Every embed = a permanent backlink + referral path; ~1 day.
+- **P2: Garden QR sticker** — generate a printable PDF QR code per `/p/:shareId` so users can stick it on their actual garden gate; physical → digital traffic; ~2 hours.
+- **P2: View counter + Most-loved patches wall** — track non-PII visit counts per snapshot ("N visits this week" in moss-grey on `/p/:shareId`) + a homepage wall showing the top public patches this week. Social proof for new visitors. Pairs naturally with a "Patron of the Week" slot once Stripe is live; ~half a day.
+- **P3: Email-a-friend** — add a `mailto:` button to the existing social row. Pre-fills subject + body. No infra needed; ~30 min.
+- **P4: Weekly digest emails** — needs Resend/Postmark integration + unsubscribe handling. Defer until user demand is proven.
+- **P4: Harvest-photo brag cards** — needs photo uploads, storage, moderation. Defer.
+
+### Refactor backlog
+- **P3: React-key anti-pattern in `LearnLanding.jsx` + `AIMasterclass.jsx`** — currently uses `key={index}`. Only matters if those pages ever gain filtering/sorting. Pure hygiene right now.
+- **P3: Modularise `/app/frontend/src/i18n/index.jsx`** (~37.6k lines, ~2MB shipped to every visitor). Per-locale split would (a) cut first-paint payload to ~35KB per user — meaningful on 4G, (b) make bulk translation scripts safer, (c) cleaner git diffs.
+- **P4: FastAPI `@app.on_event` → modern `lifespan` context manager.**
+- **P4: Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` into one component.**
+
+### Blocked
+- **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
+
 ### Iteration 27 (2026-02-23): ✅ — Social-share row on `/p/:shareId`
 - **New `SocialShareRow.jsx`** under the patch header on every shared-patch preview. One-tap buttons for **X**, **WhatsApp**, **Pinterest** (with `media` param pointing at the OG card so pins include the visual), plus a **Copy link** button. Each propagates the bot-friendly `/api/share/preview/{id}` URL — so re-shares from the public preview unfurl rich cards in chats too. Subtle styling (9×9 outlined icon buttons with brand-specific hover colours: X turns ink, WhatsApp #25D366, Pinterest #E60023). Pre-filled `tagline` text: "{patch_name} in {region} — see what's growing on Patch & Pot." Brand glyphs inlined as SVG because lucide-react dropped brand icons in 2024.
 - **Full 58-locale i18n coverage** via `/app/scripts/translate_social_keys.py`. 8 new keys (label, x, whatsapp, pinterest, copy, copied, tagline, tagline_region) × 57 non-EN locales — all 58/58 translated on first pass.

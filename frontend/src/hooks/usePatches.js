@@ -205,7 +205,19 @@ export function usePatches(limit = FREE_PATCH_LIMIT) {
   const addPatch = useCallback((name) => {
     if (current.patches.length >= limit) return null;
     const id = newId();
-    const safeName = (name || "").trim().slice(0, 30) || "New patch";
+    // Sanitise + dedupe against existing names. If the user picks "Home"
+    // a second time we silently rename it to "Home (2)" (then 3, 4, …)
+    // so the dropdown / tab strip never shows two patches with the
+    // identical label, which is otherwise impossible to disambiguate.
+    const baseRaw = (name || "").trim().slice(0, 30) || "New patch";
+    const existing = new Set(current.patches.map((p) => p.name));
+    let safeName = baseRaw;
+    let suffix = 2;
+    while (existing.has(safeName)) {
+      const tail = ` (${suffix})`;
+      safeName = baseRaw.slice(0, 30 - tail.length) + tail;
+      suffix += 1;
+    }
     const next = {
       ...current,
       active_id: id,

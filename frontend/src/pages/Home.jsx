@@ -193,27 +193,27 @@ export default function Home() {
         <section className="border-t border-border" data-testid="home-bundle-cta">
           <div className="container-narrow py-20 md:py-24 grid md:grid-cols-12 gap-10 items-center">
             <div className="md:col-span-7">
-              <p className="overline">The full library</p>
+              <p className="overline">{t("home.bundle.eyebrow")}</p>
               <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
-                Every guide, course, AI tool and seasonal journal — in one place.
+                {t("home.bundle.title")}
               </h2>
               <p className="mt-5 text-ink/75 leading-relaxed max-w-xl">
-                Five flexible tiers — from a single month for £2.99 to lifetime for £50. No auto-renewals, no email lists, 30-day refund on every tier.
+                {t("home.bundle.body")}
               </p>
 
               <ul className="mt-8 space-y-3 text-ink/85">
                 {[
-                  ["4 Foundation masterclasses", "Propagation · Pest Control · Plant Care · Seasonal Planting"],
-                  ["6 Deep-dive courses", "Soil · Containers · Pollinators · Harvest · Cut Flowers · Reading the Sky"],
-                  ["Unlimited AI masterclasses", "Suggest any topic — full lesson set in 90 seconds"],
-                  ["Seasonal Growing Journal PDF", "A4 printable, region-aware, refreshed monthly"],
-                  ["Full plant database", "Care guides, companions, runtime translation to 58 languages"],
-                ].map(([title, sub]) => (
-                  <li key={title} className="flex items-start gap-3">
+                  ["home.bundle.row1.title", "home.bundle.row1.sub"],
+                  ["home.bundle.row2.title", "home.bundle.row2.sub"],
+                  ["home.bundle.row3.title", "home.bundle.row3.sub"],
+                  ["home.bundle.row4.title", "home.bundle.row4.sub"],
+                  ["home.bundle.row5.title", "home.bundle.row5.sub"],
+                ].map(([titleKey, subKey]) => (
+                  <li key={titleKey} className="flex items-start gap-3">
                     <Check strokeWidth={2} className="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-medium text-forest">{title}</p>
-                      <p className="text-sm text-ink/65">{sub}</p>
+                      <p className="font-medium text-forest">{t(titleKey)}</p>
+                      <p className="text-sm text-ink/65">{t(subKey)}</p>
                     </div>
                   </li>
                 ))}
@@ -223,12 +223,12 @@ export default function Home() {
             <div className="md:col-span-5 md:col-start-8">
               <div className="bg-sand border-2 border-terracotta p-7 relative">
                 <span className="absolute -top-3 left-7 bg-terracotta text-sand text-[10px] tracking-[0.18em] uppercase px-2 py-1">
-                  Best value
+                  {t("home.bundle.best_value")}
                 </span>
                 <p className="font-serif text-5xl text-forest leading-none">£50</p>
-                <p className="text-sm text-moss mt-1">Lifetime · pay once</p>
+                <p className="text-sm text-moss mt-1">{t("home.bundle.lifetime_label")}</p>
                 <p className="text-xs text-ink/65 mt-3 leading-relaxed">
-                  Breaks even with annual at year three. After that, every season is free — your 2031 garden still unlocked.
+                  {t("home.bundle.lifetime_blurb")}
                 </p>
                 <button
                   type="button"
@@ -236,7 +236,7 @@ export default function Home() {
                   onClick={() => setPaywallOpen(true)}
                   className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2"
                 >
-                  Unlock for life <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+                  {t("home.bundle.unlock_lifetime")} <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
@@ -244,10 +244,10 @@ export default function Home() {
                   onClick={() => setPaywallOpen(true)}
                   className="mt-3 w-full text-sm text-moss hover:text-forest underline-offset-4 hover:underline"
                 >
-                  Or from £2.99 / month →
+                  {t("home.bundle.from_monthly")}
                 </button>
                 <p className="text-[11px] text-moss mt-4 text-center leading-snug">
-                  🛡️ 30-day money-back guarantee. No subscriptions, no auto-renewal, no email lists.
+                  🛡️ {t("home.bundle.guarantee")}
                 </p>
               </div>
             </div>

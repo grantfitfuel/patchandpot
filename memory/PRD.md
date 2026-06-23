@@ -265,6 +265,12 @@
   - Any re-request: <200ms cache hit
 - **Bill impact (estimated)**: hot regions (London/NYC/Sydney) viewed in 10+ languages now cost ~1× Sonnet + 10× Haiku ≈ 1× Sonnet + 2× Sonnet = 3× Sonnet, vs the old 11× Sonnet → **~73% reduction** on those regions. Cold/single-language regions cost the same as before.
 
+### Iteration 26 (2026-02-23): ✅ — Home bundle localised + patch dedupe + footer/badge clearance
+- **Home `home-bundle-cta` block fully i18n-ised** (~21 new keys: eyebrow, title, body, 5 feature rows × 2, "Best value" tag, lifetime/monthly labels, blurb, CTAs, guarantee). All translated to all 57 non-EN locales via the new `scripts/translate_bundle_keys.py` (forked from `translate_session_keys.py`). The "🛡 30-day money-back guarantee. No subscriptions, no auto-renewal, no email lists." line now reads in the user's language.
+- **PatchSwitcher add-patch now dedupes auto-names**: if a user picks a region twice (e.g. defaults to "London" or "Home"), the second patch is silently renamed to "Home (2)", "Home (3)" etc, with the suffix counted against the 30-char name cap so display never overflows. Implemented in `usePatches.addPatch` — `renamePatch` is intentionally untouched so users remain free to choose any name they want explicitly.
+- **Footer / Emergent badge overlap fixed**: the legal strip in `Footer.jsx` now has `pb-20` on mobile / `md:pr-44` on desktop, giving the floating "Made with Emergent" platform badge ~64px of clearance at the bottom-right so it never sits on top of the Patrons / Privacy / Terms / Contact links. Verified at 414×800 mobile viewport.
+- Lint clean across all touched files. No new tests required — translations covered by existing iter21 frontend i18n smoke; dedupe and footer changes are minor.
+
 ### Iteration 25 (2026-02-23): ✅ — Compare patches + Wellbeing feature + 58-language coverage
 - **Compare patches** (`/calendar/compare`): two-column dual-region monthly guidance side by side. Free users see column A in full, column B is rendered as a static skeleton (zero LLM cost) under a backdrop-blur with an "🔒 Unlock side-by-side compare" CTA opening the existing PaywallModal. Paid users pick either column from any of their patches via dropdowns; a Swap pill flips columns. Added a "Compare patches" link to `/calendar`.
 - **GuidanceView readOnly prop**: tasks render as static squares (no toggle) inside the compare columns so toggling there doesn't mutate the active patch's task state.
@@ -341,8 +347,6 @@
 
 ### P1
 - Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
-
-### P2
 - Optional email subscription via Resend (when user supplies API key).
 - Community / journal entries (would need auth).
 - Refactor: consider splitting `/app/frontend/src/i18n/index.jsx` (>22,000 lines) into `i18n/en.js`, `i18n/de.js`, … with a `langLoader` per locale to keep diffs reviewable.

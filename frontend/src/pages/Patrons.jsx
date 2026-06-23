@@ -135,12 +135,13 @@ export default function PatronsPage() {
       )}
 
       {/* Retrospective patron CTA — for paid customers who didn't tick the
-          opt-in box at checkout but want to be listed now. */}
-      {!error && data && (
-        <section
-          className="mt-16 border-y border-border bg-sand/40 py-8 px-6 text-center"
-          data-testid="patrons-retro-cta"
-        >
+          opt-in box at checkout but want to be listed now. Rendered
+          unconditionally (even if /api/patrons fails to load) so users
+          always have a path to the self-serve manage page. */}
+      <section
+        className="mt-16 border-y border-border bg-sand/40 py-8 px-6 text-center"
+        data-testid="patrons-retro-cta"
+      >
           <p className="overline">Already supported but not listed?</p>
           <h2 className="font-serif text-2xl text-forest mt-2">Add yourself any time.</h2>
           <p className="mt-2 text-sm text-ink/70 max-w-md mx-auto leading-relaxed">
@@ -157,7 +158,6 @@ export default function PatronsPage() {
             <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
           </Link>
         </section>
-      )}
 
       <footer className="mt-12 pt-8 border-t border-border text-center">
         <p className="text-xs text-moss leading-relaxed max-w-xl mx-auto">

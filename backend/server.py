@@ -36,6 +36,7 @@ from routers import (
     images as images_router,
     lesson as lesson_router,
     masterclass as masterclass_router,
+    patrons as patrons_router,
     pdf as pdf_router,
     plants as plants_router,
     regions as regions_router,
@@ -82,6 +83,8 @@ app.include_router(masterclass_router.make_router(db), prefix="/api")
 app.include_router(images_router.make_router(db), prefix="/api")
 app.include_router(lesson_router.make_router(db), prefix="/api")
 app.include_router(admin_router.make_router(db), prefix="/api")
+# Patrons router self-prefixes with /api (see routers/patrons.py).
+app.include_router(patrons_router.make_router(db))
 
 # ───────────────────────── Middleware ─────────────────────────
 app.add_middleware(

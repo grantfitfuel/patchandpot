@@ -7,6 +7,7 @@ import ThisMonthCard from "@/components/ThisMonthCard";
 import PaywallModal from "@/components/PaywallModal";
 import FoundingBanner from "@/components/FoundingBanner";
 import EmbedFoundingSnippet from "@/components/EmbedFoundingSnippet";
+import MostLovedPatches from "@/components/MostLovedPatches";
 import {
   NoticeIllustration,
   SlowIllustration,
@@ -195,6 +196,8 @@ export default function Home() {
       </section>
 
       {!paid && <EmbedFoundingSnippet />}
+
+      <MostLovedPatches />
 
       {!paid && (
         <section className="border-t border-border" data-testid="home-bundle-cta">

@@ -24,7 +24,7 @@ import html
 import os
 import re
 import secrets
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Request
@@ -32,6 +32,7 @@ from fastapi.responses import HTMLResponse, Response
 from pydantic import BaseModel, Field
 
 from share_og import render_share_og_png
+from share_qr import render_qr_sticker_pdf
 
 
 _PROFANITY = [
@@ -73,6 +74,11 @@ class SharePatchCreate(BaseModel):
     patch_name: str = Field(..., min_length=1, max_length=_PATCH_NAME_MAX)
     region: SharedPatchRegion
     plants: List[SharedPatchPlant] = Field(default_factory=list)
+    # Opt-in: whether the owner wants this patch listed on the public
+    # "Most-loved patches this week" homepage wall. Off by default —
+    # users shouldn't be surprised by their patch appearing on the
+    # homepage just because they clicked Share once.
+    list_publicly: Optional[bool] = False
     # Optional — if supplied we treat this as an update on an existing
     # snapshot rather than a fresh create. Lets a user re-share the same
     # URL after adding a plant without piling up dead snapshots.
@@ -102,9 +108,39 @@ def _public_view(doc: dict) -> dict:
         "patch_name": doc["patch_name"],
         "region": doc["region"],
         "plants": doc["plants"],
+        "list_publicly": bool(doc.get("list_publicly", False)),
+        "view_count": int(doc.get("view_count", 0)),
         "created_at": doc["created_at"],
         "updated_at": doc.get("updated_at") or doc["created_at"],
     }
+
+
+def _viewer_fingerprint(request) -> str:
+    """Cheap fingerprint for visit-debouncing — IP + UA hashed. Never stored
+    in plaintext, never returned to anyone. Purely used as a dedup key
+    inside `shared_patch_views` so a single fan refreshing the page 100
+    times only counts once per 24h window."""
+    import hashlib
+    ip = (
+        request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+        or (request.client.host if request.client else "0.0.0.0")
+    )
+    ua = (request.headers.get("user-agent") or "")[:160]
+    return hashlib.sha256(f"{ip}|{ua}".encode()).hexdigest()[:24]
+
+
+def _is_bot(request) -> bool:
+    """Cheap user-agent check so view counters aren't inflated by social
+    crawlers / link previewers / link-checkers."""
+    ua = (request.headers.get("user-agent") or "").lower()
+    if not ua:
+        return True
+    needles = (
+        "bot", "spider", "crawler", "facebookexternalhit", "slurp",
+        "whatsapp", "telegram", "twitterbot", "linkedinbot", "pinterest",
+        "discordbot", "preview", "scraper", "headless", "phantomjs",
+    )
+    return any(n in ua for n in needles)
 
 
 def make_router(db) -> APIRouter:
@@ -157,6 +193,7 @@ def make_router(db) -> APIRouter:
                         "patch_name": patch_name,
                         "region": region,
                         "plants": plants,
+                        "list_publicly": bool(payload.list_publicly),
                         "updated_at": now_iso,
                     }},
                 )
@@ -179,6 +216,8 @@ def make_router(db) -> APIRouter:
                 "patch_name": patch_name,
                 "region": region,
                 "plants": plants,
+                "list_publicly": bool(payload.list_publicly),
+                "view_count": 0,
                 "created_at": now_iso,
                 "updated_at": now_iso,
             }
@@ -196,14 +235,82 @@ def make_router(db) -> APIRouter:
         raise HTTPException(500, "Could not allocate a share id. Please try again.")
 
     @router.get("/share/patch/{share_id}")
-    async def get_share(share_id: str):
-        """Public read — no auth. Returns 404 for unknown / deleted snapshots."""
+    async def get_share(share_id: str, request: Request):
+        """Public read — no auth. Returns 404 for unknown / deleted snapshots.
+
+        Side-effect: records a debounced visit for the view counter (24h
+        window per viewer fingerprint, bots skipped).
+        """
         if not share_id or len(share_id) > 40:
             raise HTTPException(404, "Snapshot not found.")
         doc = await db.shared_patches.find_one({"share_id": share_id})
         if not doc:
             raise HTTPException(404, "Snapshot not found.")
+
+        # ─── debounced view counter ───
+        if not _is_bot(request):
+            fp = _viewer_fingerprint(request)
+            # 24h dedup key: collection has a TTL index on `expires_at` so
+            # rows auto-evict; the insert fails on duplicate so we only
+            # increment view_count for fresh fingerprints.
+            now = datetime.now(timezone.utc)
+            expires_at = now + timedelta(hours=24)
+            try:
+                await db.shared_patch_views.insert_one({
+                    "_id": f"{share_id}:{fp}",  # unique compound key
+                    "share_id": share_id,
+                    "viewed_at": now.isoformat(),
+                    "expires_at": expires_at,
+                })
+                await db.shared_patches.update_one(
+                    {"share_id": share_id},
+                    {"$inc": {"view_count": 1, "view_count_7d": 1}},
+                )
+                # Refresh doc so the response includes the freshly-incremented count
+                doc = await db.shared_patches.find_one({"share_id": share_id})
+            except Exception:  # noqa: BLE001 — DuplicateKeyError on revisit
+                pass
+
         return _public_view(doc)
+
+    @router.get("/share/patches/popular")
+    async def list_popular(limit: int = 12):
+        """Public discovery wall — top OPT-IN snapshots by recent views.
+
+        Only returns snapshots where the owner set `list_publicly: true`.
+        Excludes empty / placeholder snapshots so the homepage wall always
+        looks alive.
+        """
+        limit = max(1, min(int(limit or 12), 24))
+        cursor = (
+            db.shared_patches
+              .find(
+                  {
+                      "list_publicly": True,
+                      "plants.0": {"$exists": True},  # at least 1 plant
+                  },
+                  {
+                      "_id": 0, "owner_secret": 0, "view_count_7d": 0,
+                  },
+              )
+              .sort([("view_count", -1), ("updated_at", -1)])
+              .limit(limit)
+        )
+        items = []
+        async for row in cursor:
+            items.append({
+                "share_id": row.get("share_id"),
+                "patch_name": row.get("patch_name"),
+                "region": row.get("region", {}),
+                "plant_count": len(row.get("plants") or []),
+                "first_plants": [
+                    {"name": p.get("name"), "category": p.get("category")}
+                    for p in (row.get("plants") or [])[:3]
+                ],
+                "view_count": int(row.get("view_count", 0)),
+                "updated_at": row.get("updated_at"),
+            })
+        return {"items": items}
 
     @router.delete("/share/patch/{share_id}")
     async def delete_share(share_id: str, owner_secret: str):
@@ -231,6 +338,46 @@ def make_router(db) -> APIRouter:
     # proper <meta> tags up-front and then meta-refreshes humans into the
     # SPA at /p/{id}. The Share modal shares this preview URL so every
     # chat / DM / social post gets a real card.
+    @router.get("/share/patch/{share_id}/qr.pdf")
+    async def qr_sticker(share_id: str, request: Request):
+        """Generate a printable A6 garden-gate QR sticker PDF for this snapshot."""
+        if not share_id or len(share_id) > 40:
+            raise HTTPException(404, "Snapshot not found.")
+        doc = await db.shared_patches.find_one({"share_id": share_id})
+        if not doc:
+            raise HTTPException(404, "Snapshot not found.")
+
+        public_origin = (
+            os.environ.get("PUBLIC_APP_URL", "").rstrip("/")
+            or _origin_from_request(request)
+        )
+        # Use the clean /p/{id} URL on the sticker — humans scanning a QR
+        # from a garden gate are best served by going directly into the SPA
+        # without the rich-preview wrapper redirect blip.
+        share_url   = f"{public_origin}/p/{share_id}"
+        display_url = share_url.replace("https://", "").replace("http://", "")
+
+        region = (doc.get("region") or {})
+        region_text = region.get("name") or ""
+        if region.get("country") and region["country"] not in region_text:
+            region_text = f"{region_text}, {region['country']}"
+
+        pdf_bytes = render_qr_sticker_pdf(
+            patch_name=doc.get("patch_name") or "My patch",
+            region_name=region_text,
+            share_url=share_url,
+            display_url=display_url,
+        )
+        filename = f"patch-and-pot-{share_id}.pdf"
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f'inline; filename="{filename}"',
+                "Cache-Control": "public, max-age=86400",
+            },
+        )
+
     @router.get("/share/patch/{share_id}/og.png")
     async def og_card(share_id: str):
         """Render (and cache) the 1200×630 OG share card for a snapshot."""

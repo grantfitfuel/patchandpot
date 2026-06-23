@@ -123,6 +123,15 @@ async def start_scheduler():
     except Exception as e:  # noqa: BLE001
         logger.warning("AI budget refresh failed at startup: %s", e)
 
+    # TTL index on shared_patch_views — visit-debounce keys expire after
+    # 24h, so a single fan refreshing the page only counts once per day.
+    try:
+        await db.shared_patch_views.create_index("expires_at", expireAfterSeconds=0)
+        await db.shared_patches.create_index([("list_publicly", 1), ("view_count", -1)])
+        logger.info("shared_patch_views TTL + popular-wall indexes ensured")
+    except Exception as e:  # noqa: BLE001
+        logger.warning("share view indexes setup failed: %s", e)
+
 
 @app.on_event("shutdown")
 async def shutdown_db_client():

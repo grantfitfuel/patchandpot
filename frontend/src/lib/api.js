@@ -191,3 +191,5 @@ export const fetchSharedPatch = (shareId) =>
   api.get(`/share/patch/${shareId}`).then((r) => r.data);
 export const deleteSharedPatch = (shareId, ownerSecret) =>
   api.delete(`/share/patch/${shareId}`, { params: { owner_secret: ownerSecret } }).then((r) => r.data);
+export const fetchPopularPatches = (limit = 6) =>
+  api.get("/share/patches/popular", { params: { limit } }).then((r) => r.data);

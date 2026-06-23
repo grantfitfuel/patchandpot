@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Check, Copy, ExternalLink, Loader2, Share2, Sprout, Trash2, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Check, Code2, Copy, Download, ExternalLink, Loader2, Share2, Sprout, Trash2, X } from "lucide-react";
 import { createSharedPatch, deleteSharedPatch } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
@@ -37,12 +37,28 @@ function clearCachedShare(patchId) {
   catch (e) { console.warn("SharePatchModal: clear failed", e); }
 }
 
+// Minimal HTML-attribute escape — used for the iframe `title` we embed in
+// the copy-pasteable snippet. Keeps user-provided patch names safe to drop
+// into someone else's blog without breaking the snippet's outer quotes.
+function escapeAttr(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 export default function SharePatchModal({ open, onClose, patchId, patchName, region, plants }) {
   const { t } = useI18n();
   const [state, setState] = useState({ status: "idle", error: "" });
   const [cached, setCached] = useState(() => readCachedShare(patchId));
   const [copied, setCopied] = useState(false);
+  const [embedCopied, setEmbedCopied] = useState(false);
+  const [showEmbed, setShowEmbed] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  // Opt-in: surface this patch on the homepage "Most-loved" wall.
+  // Default off — owner explicitly toggles it on.
+  const [listPublicly, setListPublicly] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -51,6 +67,28 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     setCopied(false);
     setShowDeleteConfirm(false);
   }, [open, patchId]);
+
+  // Auto-save `list_publicly` toggle changes — but skip the very first
+  // render after the modal opens (otherwise the initial false→false noop
+  // would fire a redundant POST).
+  const firstToggleRender = useRef(true);
+  useEffect(() => {
+    if (firstToggleRender.current) {
+      firstToggleRender.current = false;
+      return;
+    }
+    if (!cached?.share_id || !cached?.owner_secret) return;
+    onCreateOrUpdate();
+    // onCreateOrUpdate is intentionally not in deps — it's recreated on
+    // every render via inline closures and would loop. We only want to
+    // fire when the toggle itself flips.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listPublicly]);
+
+  // Reset the "first render skip" flag whenever the modal opens.
+  useEffect(() => {
+    if (open) firstToggleRender.current = true;
+  }, [open]);
 
   const shareUrl = useMemo(() => {
     if (!cached?.share_id) return "";
@@ -71,6 +109,28 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     return `${origin}/p/${cached.share_id}`;
   }, [cached]);
 
+  // Iframe-friendly embed URL — designed to be dropped into a blog post via
+  // the snippet shown below. Skips header/footer chrome via the /embed/p/
+  // route handled in App.js.
+  const embedUrl = useMemo(() => {
+    if (!cached?.share_id) return "";
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    return `${origin}/embed/p/${cached.share_id}`;
+  }, [cached]);
+
+  const embedSnippet = useMemo(() => {
+    if (!embedUrl) return "";
+    const title = patchName ? `${patchName} — Patch & Pot` : "My Patch & Pot garden";
+    return `<iframe src="${embedUrl}" width="100%" height="420" frameborder="0" style="border:1px solid #e6e1d6;max-width:640px" title="${escapeAttr(title)}" loading="lazy"></iframe>`;
+  }, [embedUrl, patchName]);
+
+  // QR sticker PDF for printing & sticking on a garden gate.
+  const qrPdfUrl = useMemo(() => {
+    if (!cached?.share_id) return "";
+    const backend = process.env.REACT_APP_BACKEND_URL || "";
+    return `${backend}/api/share/patch/${cached.share_id}/qr.pdf`;
+  }, [cached]);
+
   const ready = !!region && !!patchName;
 
   const onCreateOrUpdate = async () => {
@@ -79,6 +139,7 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     try {
       const result = await createSharedPatch({
         patch_name: patchName,
+        list_publicly: listPublicly,
         region: {
           name: region.name,
           country: region.country || null,
@@ -114,6 +175,17 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
       setTimeout(() => setCopied(false), 1800);
     } catch (e) {
       console.warn("clipboard write failed", e);
+    }
+  };
+
+  const onCopyEmbed = async () => {
+    if (!embedSnippet) return;
+    try {
+      await navigator.clipboard.writeText(embedSnippet);
+      setEmbedCopied(true);
+      setTimeout(() => setEmbedCopied(false), 1800);
+    } catch (e) {
+      console.warn("clipboard write failed (embed)", e);
     }
   };
 
@@ -276,6 +348,79 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
               <p className="text-xs text-moss/80 leading-relaxed">
                 {t("share_patch.fine_print")}
               </p>
+
+              {/* Opt-in: homepage discovery wall */}
+              <label className="flex items-start gap-3 cursor-pointer select-none" data-testid="share-patch-list-publicly-label">
+                <input
+                  type="checkbox"
+                  checked={listPublicly}
+                  onChange={(e) => setListPublicly(e.target.checked)}
+                  data-testid="share-patch-list-publicly"
+                  className="mt-1 w-4 h-4 accent-forest"
+                />
+                <span className="text-xs text-ink/80 leading-relaxed">
+                  <span className="block font-semibold text-ink">{t("share_patch.list_publicly.title")}</span>
+                  {t("share_patch.list_publicly.help")}
+                </span>
+              </label>
+
+              {/* Embed snippet + QR sticker — collapsed by default so the
+                  primary share flow stays uncluttered. */}
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                {!showEmbed ? (
+                  <button
+                    type="button"
+                    onClick={() => setShowEmbed(true)}
+                    data-testid="share-patch-embed-open"
+                    className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
+                  >
+                    <Code2 strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.embed.open")}
+                  </button>
+                ) : null}
+                <a
+                  href={qrPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="share-patch-qr-download"
+                  className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
+                >
+                  <Download strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.qr.download")}
+                </a>
+              </div>
+              {showEmbed && (
+                <div className="pt-2 space-y-2" data-testid="share-patch-embed-block">
+                  <p className="overline">{t("share_patch.embed.label")}</p>
+                  <p className="text-xs text-moss/80">{t("share_patch.embed.help")}</p>
+                  <textarea
+                    readOnly
+                    rows={4}
+                    value={embedSnippet}
+                    onFocus={(e) => e.target.select()}
+                    data-testid="share-patch-embed-snippet"
+                    className="w-full px-3 py-2 border border-border bg-surface text-ink text-xs font-mono resize-none"
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={onCopyEmbed}
+                      data-testid="share-patch-embed-copy"
+                      className="btn-ghost inline-flex items-center gap-2"
+                    >
+                      {embedCopied ? <Check strokeWidth={1.6} className="w-4 h-4" /> : <Copy strokeWidth={1.6} className="w-4 h-4" />}
+                      {embedCopied ? t("share_patch.copied") : t("share_patch.embed.copy")}
+                    </button>
+                    <a
+                      href={embedUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="share-patch-embed-preview"
+                      className="btn-ghost inline-flex items-center gap-2"
+                    >
+                      <ExternalLink strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.embed.preview")}
+                    </a>
+                  </div>
+                </div>
+              )}
 
               <div className="pt-4 border-t border-border">
                 {!showDeleteConfirm ? (

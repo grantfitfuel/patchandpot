@@ -134,6 +134,11 @@ export default function SharedPatchPage() {
               <span>{region.name}{region.country ? `, ${region.country}` : ""}</span>
             </p>
           )}
+          {state.data?.view_count > 0 && (
+            <p className="mt-2 text-xs text-moss/80 tracking-wider uppercase" data-testid="share-view-count">
+              {t("share_view.views", { n: state.data.view_count })}
+            </p>
+          )}
           <SocialShareRow
             shareId={shareId}
             patchName={state.data.patch_name}

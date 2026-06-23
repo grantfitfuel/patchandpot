@@ -133,7 +133,48 @@ def _draw_botanical(draw: ImageDraw.ImageDraw, cx: float, cy: float, scale: floa
 
 
 def render_share_og_png(patch_name: str, region_name: str, plant_count: int) -> bytes:
-    """Compose the 1200×630 OG card and return PNG bytes."""
+    """Compose the 1200×630 OG card for a SHARED PATCH and return PNG bytes."""
+    plant_label = "plant" if plant_count == 1 else "plants"
+    return _compose_card(
+        eyebrow="A SHARED GARDEN",
+        title=patch_name,
+        sub1=f"Growing in {region_name}" if region_name else "Growing somewhere lovely",
+        sub2=f"{plant_count} {plant_label} tracked  ·  monthly seasonal guide",
+        cta="OPEN THE GARDEN  →",
+    )
+
+
+def render_plant_og_png(
+    plant_name: str, category: str = "", difficulty: str = "",
+    sun: str = "", water: str = "",
+) -> bytes:
+    """Compose the 1200×630 OG card for a PLANT GUIDE page and return PNG bytes.
+
+    Pulls the same letterpress aesthetic as the shared-patch card but reframes
+    the metadata: category + difficulty + sun + water — the four facts a
+    Pinterest/Twitter scroller actually wants to see before clicking.
+    """
+    parts1 = [p for p in (category, difficulty) if p]
+    parts2 = []
+    if sun:
+        parts2.append(f"Sun: {sun}")
+    if water:
+        parts2.append(f"Water: {water}")
+    return _compose_card(
+        eyebrow="A PLANT GUIDE",
+        title=plant_name,
+        sub1="  ·  ".join(parts1) if parts1 else "A small-space gardening guide",
+        sub2="  ·  ".join(parts2),
+        cta="READ THE GUIDE  →",
+    )
+
+
+def _compose_card(*, eyebrow: str, title: str, sub1: str, sub2: str, cta: str) -> bytes:
+    """Shared 1200×630 letterpress composition used by every OG variant.
+
+    All variants pin the same brand frame: wordmark + eyebrow + auto-fit serif
+    italic title + terracotta rule + two meta lines + footer URL + terracotta
+    CTA + botanical motif on the right. Only the four text parameters change."""
     img = Image.new("RGB", (WIDTH, HEIGHT), SAND)
     draw = ImageDraw.Draw(img)
 
@@ -147,43 +188,28 @@ def render_share_og_png(patch_name: str, region_name: str, plant_count: int) -> 
 
     # Top-left wordmark
     wordmark_font = _font("sans-bold", 22)
-    draw.text(
-        (PADDING, PADDING),
-        "PATCH & POT",
-        fill=MOSS,
-        font=wordmark_font,
-        spacing=4,
-    )
-    # Slim divider under wordmark
+    draw.text((PADDING, PADDING), "PATCH & POT", fill=MOSS, font=wordmark_font, spacing=4)
     draw.line(
         [(PADDING, PADDING + 38), (PADDING + 120, PADDING + 38)],
         fill=TERRACOTTA, width=2,
     )
 
-    # Eyebrow above the patch name
+    # Eyebrow above the title
     eyebrow_font = _font("sans-regular", 22)
-    eyebrow = "A SHARED GARDEN"
-    draw.text(
-        (PADDING, PADDING + 90),
-        eyebrow,
-        fill=MOSS,
-        font=eyebrow_font,
-    )
+    draw.text((PADDING, PADDING + 90), eyebrow, fill=MOSS, font=eyebrow_font)
 
-    # ─────────── Patch name (big serif italic, wrapped) ───────────
-    # Fit-to-box: shrink until it wraps in ≤ 2 lines within the text column.
+    # ─────────── Title (big serif italic, wrapped to ≤ 2 lines) ───────────
     text_col_width = WIDTH - PADDING * 2 - 280  # leave room for botanical motif on right
     name_size = 110
     while name_size >= 56:
         name_font = _font("serif-italic-bold", name_size)
-        lines = _wrap_to_width(draw, patch_name, name_font, text_col_width)
+        lines = _wrap_to_width(draw, title, name_font, text_col_width)
         if len(lines) <= 2:
             break
         name_size -= 8
     else:
-        # Truncate the second line with an ellipsis as a last resort.
         name_font = _font("serif-italic-bold", 56)
-        lines = _wrap_to_width(draw, patch_name, name_font, text_col_width)[:2]
+        lines = _wrap_to_width(draw, title, name_font, text_col_width)[:2]
         if len(lines) == 2 and draw.textlength(lines[1] + "…", font=name_font) > text_col_width:
             while lines[1] and draw.textlength(lines[1] + "…", font=name_font) > text_col_width:
                 lines[1] = lines[1][:-1]
@@ -194,52 +220,30 @@ def render_share_og_png(patch_name: str, region_name: str, plant_count: int) -> 
     for i, line in enumerate(lines):
         draw.text((PADDING, name_y + i * line_height), line, fill=FOREST, font=name_font)
 
-    # Terracotta accent rule under the name block
+    # Terracotta accent rule under the title block
     rule_y = name_y + len(lines) * line_height + 12
-    draw.rectangle(
-        [PADDING, rule_y, PADDING + 60, rule_y + 4],
-        fill=TERRACOTTA,
-    )
+    draw.rectangle([PADDING, rule_y, PADDING + 60, rule_y + 4], fill=TERRACOTTA)
 
-    # Region line — moss, sans
-    region_font = _font("serif-italic", 36)
-    region_text = f"Growing in {region_name}" if region_name else "Growing somewhere lovely"
-    draw.text(
-        (PADDING, rule_y + 30),
-        region_text,
-        fill=INK,
-        font=region_font,
-    )
+    # Sub-line 1 (italic serif)
+    if sub1:
+        sub1_font = _font("serif-italic", 36)
+        draw.text((PADDING, rule_y + 30), sub1, fill=INK, font=sub1_font)
 
-    # Plant count line
-    count_font = _font("sans-regular", 24)
-    plant_label = "plant" if plant_count == 1 else "plants"
-    count_text = f"{plant_count} {plant_label} tracked  ·  monthly seasonal guide"
-    draw.text(
-        (PADDING, rule_y + 80),
-        count_text,
-        fill=MOSS,
-        font=count_font,
-    )
+    # Sub-line 2 (sans, moss)
+    if sub2:
+        sub2_font = _font("sans-regular", 24)
+        draw.text((PADDING, rule_y + 80), sub2, fill=MOSS, font=sub2_font)
 
     # Footer URL (bottom-left)
     url_font = _font("sans-regular", 22)
-    draw.text(
-        (PADDING, HEIGHT - PADDING - 20),
-        "patchandpot.app",
-        fill=MOSS,
-        font=url_font,
-    )
+    draw.text((PADDING, HEIGHT - PADDING - 20), "patchandpot.app", fill=MOSS, font=url_font)
 
     # Bottom-right CTA tag
     cta_font = _font("sans-bold", 22)
-    cta = "OPEN THE GARDEN  →"
     cta_w = draw.textlength(cta, font=cta_font)
     draw.text(
         (WIDTH - PADDING - cta_w, HEIGHT - PADDING - 20),
-        cta,
-        fill=TERRACOTTA,
-        font=cta_font,
+        cta, fill=TERRACOTTA, font=cta_font,
     )
 
     # Decorative botanical sprig on the right
@@ -251,8 +255,6 @@ def render_share_og_png(patch_name: str, region_name: str, plant_count: int) -> 
         outline=(45, 74, 34, 80), width=1,
     )
 
-    # PNG encode (optimize=True is slow; small image, optimisation worth it
-    # once because we cache the result).
     buf = io.BytesIO()
     img.save(buf, format="PNG", optimize=True)
     return buf.getvalue()

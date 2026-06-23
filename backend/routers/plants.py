@@ -1,13 +1,19 @@
 """Plant catalogue, single-plant lookup, companion plants, and the
 AI-driven plant-image / pest-image endpoints. Also exposes the AI-generated
-'any plant' guide endpoints (`/plant-guide`, `/recent-plants`)."""
+'any plant' guide endpoints (`/plant-guide`, `/recent-plants`) and the
+public OG card + HTML preview wrapper for `/plants/{id}` so shared plant
+links unfurl as rich social-media cards."""
+import hashlib
+import html
 import json
 import logging
+import os
 import re
 import uuid
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
+from fastapi.responses import HTMLResponse, Response
 
 from core import (
     LANG_NAMES, PLANTS, PLANT_INDEX, COMPANIONS, COMPANION_REASONS,
@@ -15,6 +21,7 @@ from core import (
     _llm_json, _llm_json_cheap, _plant_slug,
     make_cached_image, make_plants_in_language, make_translate_companion_reasons,
 )
+from share_og import render_plant_og_png
 
 logger = logging.getLogger(__name__)
 
@@ -156,7 +163,6 @@ def make_router(db) -> APIRouter:
         en_cached = await db.guidance_cache.find_one({"key": en_key}, {"_id": 0})
 
         if language == "en" or not en_cached:
-            language_name = LANG_NAMES[language]
             system = (
                 "You are a careful horticulturalist creating concise, accurate plant care guides "
                 "for small-space gardeners. Stick to widely-accepted advice. If asked about a plant "
@@ -286,4 +292,176 @@ Return JSON only."""
             })
         return {"items": items}
 
+    # ─────────────────── OG card + crawler HTML wrapper ───────────────────
+    # Plant guides are evergreen SEO entry points — every search-query gardener
+    # who lands on /plants/tomato should be able to share that page into a
+    # chat / DM / Pinterest pin and have it unfurl as a real branded card.
+    # Mirrors the share-patch wrapper at /api/share/preview/{id}.
+    async def _resolve_plant_for_og(plant_id: str) -> dict:
+        """Fetch enough plant metadata to render an OG card. Works for both
+        curated plants and AI-generated guides (`ai-*` slugs)."""
+        if plant_id.startswith("ai-"):
+            # AI plants are stored as `plant-guide:{slug}:en` in guidance_cache.
+            row = await db.guidance_cache.find_one(
+                {"key": f"plant-guide:{plant_id}:en"}, {"_id": 0},
+            )
+            if not row:
+                raise HTTPException(404, "Plant not found")
+            d = row.get("data") or {}
+            return {
+                "id": plant_id,
+                "name": d.get("name") or plant_id,
+                "category": d.get("category") or "",
+                "difficulty": d.get("difficulty") or "",
+                "sun": d.get("sun") or "",
+                "water": d.get("water") or "",
+                "summary": d.get("summary") or "",
+            }
+        p = PLANT_INDEX.get(plant_id)
+        if not p:
+            raise HTTPException(404, "Plant not found")
+        return {
+            "id": p["id"],
+            "name": p.get("name") or plant_id,
+            "category": p.get("category") or "",
+            "difficulty": p.get("difficulty") or "",
+            "sun": p.get("sun") or "",
+            "water": p.get("water") or "",
+            "summary": p.get("summary") or "",
+        }
+
+    @router.get("/plants/{plant_id}/og.png")
+    async def plant_og_card(plant_id: str):
+        """Render (and cache) the 1200×630 OG card for a plant guide page."""
+        p = await _resolve_plant_for_og(plant_id)
+        cached = await db.plant_og_cache.find_one(
+            {"plant_id": plant_id}, {"_id": 0, "png": 1},
+        )
+        if cached and cached.get("png"):
+            png_bytes = cached["png"]
+        else:
+            png_bytes = render_plant_og_png(
+                plant_name=p["name"], category=p["category"],
+                difficulty=p["difficulty"], sun=p["sun"], water=p["water"],
+            )
+            await db.plant_og_cache.update_one(
+                {"plant_id": plant_id},
+                {"$set": {
+                    "plant_id": plant_id, "png": png_bytes,
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                }},
+                upsert=True,
+            )
+        return Response(
+            content=png_bytes, media_type="image/png",
+            headers={"Cache-Control": "public, max-age=86400"},
+        )
+
+    @router.get("/plants/preview/{plant_id}", response_class=HTMLResponse)
+    async def plant_preview(plant_id: str, request: Request):
+        """Bot-friendly HTML wrapper for a plant page. Crawlers see OG/Twitter
+        meta tags up-front; humans get redirected into the SPA."""
+        p = await _resolve_plant_for_og(plant_id)
+
+        public_origin = (
+            os.environ.get("PUBLIC_APP_URL", "").rstrip("/")
+            or _plant_origin_from_request(request)
+        )
+        clean_url = f"{public_origin}/plants/{'ai/' if plant_id.startswith('ai-') else ''}{plant_id}"
+        # ?v= cache-buster — keyed on the plant id itself for now (curated
+        # plants don't change; AI plants rarely re-cache).
+        v = hashlib.sha1(plant_id.encode()).hexdigest()[:10]
+        og_image_url = f"{public_origin}/api/plants/{plant_id}/og.png?v={v}"
+
+        title = f"How to grow {p['name']} — Patch & Pot"
+        bits = [b for b in (p["category"], p["difficulty"]) if b]
+        meta_facts = ("  ·  ".join(bits) + ".  ") if bits else ""
+        desc = (
+            f"{meta_facts}{p['summary']}".strip()
+            or f"A small-space growing guide for {p['name']} on Patch & Pot."
+        )
+
+        body_html = _plant_preview_html(
+            title=title, desc=desc, og_image_url=og_image_url,
+            clean_url=clean_url, name=p["name"],
+        )
+        return HTMLResponse(
+            content=body_html,
+            headers={"Cache-Control": "public, max-age=300"},
+        )
+
     return router
+
+
+def _plant_origin_from_request(request: Request) -> str:
+    """Recover the public origin (scheme://host) from forwarding headers."""
+    proto = request.headers.get("x-forwarded-proto") or request.url.scheme or "https"
+    host = (
+        request.headers.get("x-forwarded-host")
+        or request.headers.get("host")
+        or request.url.hostname
+        or "patchandpot.app"
+    )
+    host = host.split(",")[0].strip()
+    return f"{proto}://{host}"
+
+
+def _plant_preview_html(*, title, desc, og_image_url, clean_url, name) -> str:
+    """Minimal plant-preview HTML — same posture as share preview wrapper."""
+    js_url = _js_string_literal(clean_url)
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)}</title>
+<meta name="description" content="{html.escape(desc)}">
+<link rel="canonical" href="{html.escape(clean_url)}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{html.escape(title)}">
+<meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:url" content="{html.escape(clean_url)}">
+<meta property="og:image" content="{html.escape(og_image_url)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="How to grow {html.escape(name)} — Patch & Pot">
+<meta property="og:site_name" content="Patch & Pot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{html.escape(title)}">
+<meta name="twitter:description" content="{html.escape(desc)}">
+<meta name="twitter:image" content="{html.escape(og_image_url)}">
+<meta http-equiv="refresh" content="0; url={html.escape(clean_url)}">
+<style>
+  html, body {{ margin: 0; padding: 0; background: #F7F5F0; color: #1C231A;
+    font-family: ui-serif, Georgia, "Times New Roman", serif; height: 100%; }}
+  .wrap {{ display: flex; flex-direction: column; align-items: center;
+    justify-content: center; height: 100%; padding: 0 24px; text-align: center; }}
+  h1 {{ font-style: italic; font-weight: 700; font-size: 2.2rem; color: #2D4A22;
+    margin: 0 0 12px; letter-spacing: -0.01em; }}
+  p  {{ color: #5C6B52; margin: 0 0 20px; font-family: ui-sans-serif, system-ui, sans-serif; }}
+  a  {{ color: #C65D47; text-decoration: none; border-bottom: 1px solid #C65D47;
+    padding-bottom: 2px; font-family: ui-sans-serif, system-ui, sans-serif; }}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Opening the {html.escape(name)} guide…</h1>
+  <p>If you're not redirected automatically:</p>
+  <a href="{html.escape(clean_url)}">Continue to the guide →</a>
+</div>
+<script>
+  window.location.replace({js_url});
+</script>
+</body>
+</html>
+"""
+
+
+def _js_string_literal(value: str) -> str:
+    safe = (
+        value.replace("\\", "\\\\")
+        .replace('"', '\\"')
+        .replace("\n", "\\n").replace("\r", "\\r")
+        .replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+    )
+    return f'"{safe}"'

@@ -19,6 +19,27 @@ export default function PlantDetailPage() {
     fetchPlant(id, lang).then(setPlant).catch(() => setError(t("plant.not_found")));
   }, [id, lang, t]);
 
+  // SEO + social-share: dynamic <title>, description, og:image meta tags
+  // pointing at the backend-rendered card so JS-executing crawlers
+  // (Slack/Discord/Telegram) and Google's bot can unfurl this plant page.
+  useEffect(() => {
+    if (typeof document === "undefined" || !plant) return;
+    document.title = `How to grow ${plant.name} — Patch & Pot`;
+    const bits = [plant.category, plant.difficulty].filter(Boolean).join("  ·  ");
+    const desc = `${bits ? bits + ". " : ""}${plant.summary || `A small-space growing guide for ${plant.name} on Patch & Pot.`}`;
+    const origin = window.location.origin;
+    const imgUrl = `${origin}/api/plants/${plant.id}/og.png`;
+    ensurePlantMeta("description", desc);
+    ensurePlantMeta("og:title", document.title, "property");
+    ensurePlantMeta("og:description", desc, "property");
+    ensurePlantMeta("og:type", "article", "property");
+    ensurePlantMeta("og:image", imgUrl, "property");
+    ensurePlantMeta("og:image:width", "1200", "property");
+    ensurePlantMeta("og:image:height", "630", "property");
+    ensurePlantMeta("twitter:card", "summary_large_image");
+    ensurePlantMeta("twitter:image", imgUrl);
+  }, [plant]);
+
   if (error) return <div className="container-narrow py-16 text-terracotta">{error}</div>;
   if (!plant) return <div className="container-narrow py-16 text-moss">{t("plant.loading")}</div>;
 
@@ -104,4 +125,15 @@ function Spec({ icon: Icon, label, value }) {
       <p className="text-ink mt-1.5">{value}</p>
     </div>
   );
+}
+
+function ensurePlantMeta(name, content, attr = "name") {
+  if (typeof document === "undefined") return;
+  let el = document.head.querySelector(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
 }

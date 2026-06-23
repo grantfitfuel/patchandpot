@@ -74,7 +74,7 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
       role="dialog"
       aria-modal="true"
       data-testid="paywall-modal"
-      className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 pt-8 sm:pt-4 bg-ink/55 backdrop-blur-sm animate-fade-up overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-4 pb-8 bg-ink/55 backdrop-blur-sm animate-fade-up overflow-y-auto"
     >
       <div className="bg-sand border border-border max-w-md w-full shadow-xl">
         <div className="flex items-start justify-between px-6 pt-6">

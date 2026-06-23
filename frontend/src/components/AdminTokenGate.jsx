@@ -11,16 +11,19 @@ const STORAGE_KEY = "pp-admin-token";
 
 export function useAdminToken() {
   const [token, setToken] = useState(() => {
-    try { return localStorage.getItem(STORAGE_KEY) || ""; } catch { return ""; }
+    try { return localStorage.getItem(STORAGE_KEY) || ""; }
+    catch (e) { console.warn("AdminTokenGate: read token failed", e); return ""; }
   });
   const signIn = (t) => {
     const v = (t || "").trim();
     if (!v) return;
-    try { localStorage.setItem(STORAGE_KEY, v); } catch { /* ignore */ }
+    try { localStorage.setItem(STORAGE_KEY, v); }
+    catch (e) { console.warn("AdminTokenGate: persist token failed", e); }
     setToken(v);
   };
   const signOut = () => {
-    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+    try { localStorage.removeItem(STORAGE_KEY); }
+    catch (e) { console.warn("AdminTokenGate: clear token failed", e); }
     setToken("");
   };
   return { token, signIn, signOut };

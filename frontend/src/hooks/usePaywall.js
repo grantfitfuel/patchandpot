@@ -42,7 +42,8 @@ export function clearStoredAccessToken() {
 export function usePaywall() {
   // Cheap optimistic state from cache so paid users never see a flash of paywall.
   const [paid, setPaid] = useState(() => {
-    try { return localStorage.getItem(CACHE_KEY) === "1"; } catch { return false; }
+    try { return localStorage.getItem(CACHE_KEY) === "1"; }
+    catch (e) { console.warn("usePaywall: read cache failed", e); return false; }
   });
   const [loading, setLoading] = useState(true);
 
@@ -57,7 +58,8 @@ export function usePaywall() {
       const res = await checkAccess(token);
       setPaid(!!res.paid);
       if (res.paid) {
-        try { localStorage.setItem(CACHE_KEY, "1"); } catch { /* ignore */ }
+        try { localStorage.setItem(CACHE_KEY, "1"); }
+        catch (e) { console.warn("usePaywall: persist cache failed", e); }
       } else {
         // Token in storage but server says no — clear so we don't keep retrying.
         clearStoredAccessToken();

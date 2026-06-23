@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+ 
 // Patch & Pot — The Art of Flower Arranging masterclass.
 // Nine deep lessons covering the principles, tools, mechanics, and seasonal
 // recipes that turn home-grown flowers into the kind of arrangements you

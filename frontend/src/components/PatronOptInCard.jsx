@@ -59,7 +59,7 @@ export default function PatronOptInCard({ sessionId }) {
         <div className="flex items-start gap-3">
           <Check strokeWidth={1.8} className="w-5 h-5 text-forest flex-shrink-0 mt-0.5" />
           <div className="flex-1">
-            <p className="font-medium text-forest">You're on the Patrons page. Thank you.</p>
+            <p className="font-medium text-forest">You&apos;re on the Patrons page. Thank you.</p>
             <p className="mt-1 text-sm text-ink/70 leading-relaxed">
               Your name appears as <b>{name.trim()}</b>. You can{" "}
               <a

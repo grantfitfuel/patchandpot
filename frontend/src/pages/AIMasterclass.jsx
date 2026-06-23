@@ -65,7 +65,8 @@ export default function AIMasterclassPage() {
   function toggleDone(s) {
     const next = { ...done, [s]: !done[s] };
     setDone(next);
-    try { localStorage.setItem(`patchpot.aimc.progress.${slug}`, JSON.stringify(next)); } catch { /* ignore quota */ }
+    try { localStorage.setItem(`patchpot.aimc.progress.${slug}`, JSON.stringify(next)); }
+    catch (e) { console.warn("AIMasterclass: persist progress failed", e); }
   }
 
   return (

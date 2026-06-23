@@ -48,7 +48,7 @@ export default function ThisMonthCard({ onSetRegion }) {
       .catch(() => { if (!cancelled) setError(true); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [activeRegion?.name, month, lang, gardenIds]);
 
   if (error) {

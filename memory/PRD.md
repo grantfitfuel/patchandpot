@@ -265,6 +265,13 @@
   - Any re-request: <200ms cache hit
 - **Bill impact (estimated)**: hot regions (London/NYC/Sydney) viewed in 10+ languages now cost ~1× Sonnet + 10× Haiku ≈ 1× Sonnet + 2× Sonnet = 3× Sonnet, vs the old 11× Sonnet → **~73% reduction** on those regions. Cold/single-language regions cost the same as before.
 
+### Iteration 22 (2026-02-23): ✅ — Code Quality sweep
+- **Empty catch blocks** in localStorage/sessionStorage wrappers now log via `console.warn` for better DevTools visibility while preserving the defensive ignore semantics for browser quota / privacy-mode failures. Files: `AdminAiUsage.jsx`, `AdminTokenGate.jsx`, `AIMasterclass.jsx`, `FoundingClaimModal.jsx`, `usePaywall.js`.
+- **Stale `eslint-disable react-hooks/exhaustive-deps`** removed from `MasterclassDetail.jsx` (deps array is already correct; the disable comment was no longer suppressing anything). Same cleanup in `GuidanceView.jsx`, `SourceLinks.jsx`, `ThisMonthCard.jsx`, `Print.jsx`, `sentry.js`, and stale `max-lines` disables in 3 `data/*-masterclasses.js` files.
+- **Unescaped apostrophes** fixed in `CheckoutSuccess.jsx` and `PatronOptInCard.jsx`.
+- **Confirmed**: Code Review's "React hook dependency issues" were already fixed in earlier iterations — lint sweep on `CheckoutSuccess.jsx`, `AIPlantDetail.jsx`, `MasterclassDetail.jsx` produces zero exhaustive-deps warnings.
+- Frontend lint now clean across all non-shadcn-ui files. Smoke screenshot on `/` confirms the app still renders.
+
 ### Iteration 21 (2026-02-22): ✅ — All loading copy translated to 58 languages
 - Created `/app/scripts/translate_loading_keys.py` — a thin wrapper around the existing `translate_new_keys.py` that overrides `NEW_KEYS` so we only translate the 4 new loading strings (no re-translation of 80 unrelated keys).
 - Ran successfully across all 57 non-EN locales. Idempotent — re-running safely upserts.
@@ -298,6 +305,7 @@
 - Real affiliate codes — waiting on user-supplied Amazon Associates, Awin, etc. network tags to swap into `/app/frontend/src/data/vendors.js`.
 - Paste real Sentry DSNs into `backend/.env` (`SENTRY_DSN=...`) and `frontend/.env` (`REACT_APP_SENTRY_DSN=...`) when ready. Rebuild frontend.
 - Save multiple "patches" (home + holiday cottage).
+- **Patron opt-in link visibility** — the "Want a thank-you mention on our Patrons page? (Optional)" button on `/checkout/success` (`PatronOptInCard.jsx` collapsed state) is currently a small heart-icon text link with `hover:underline`. User feedback: not obvious enough as a clickable link. Make the default state look like the hovered state (persistent underline + slightly more visual weight) so it reads unambiguously as a tappable action.
 
 ### P2
 - Optional email subscription via Resend (when user supplies API key).

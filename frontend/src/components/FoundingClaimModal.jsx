@@ -48,7 +48,8 @@ function readCheckoutCache(packageId) {
     const { url, exp } = JSON.parse(raw);
     if (!url || !exp || Date.now() > exp) return null;
     return url;
-  } catch {
+  } catch (e) {
+    console.warn("FoundingClaimModal: read cache failed", e);
     return null;
   }
 }
@@ -60,14 +61,16 @@ function writeCheckoutCache(packageId, url) {
       CHECKOUT_CACHE_PREFIX + packageId,
       JSON.stringify({ url, exp: Date.now() + CHECKOUT_CACHE_TTL_MS }),
     );
-  } catch {
+  } catch (e) {
     // Quota / privacy mode — silently skip; we just lose the optimisation.
+    console.warn("FoundingClaimModal: persist cache failed", e);
   }
 }
 
 function clearCheckoutCache(packageId) {
   if (typeof window === "undefined") return;
-  try { sessionStorage.removeItem(CHECKOUT_CACHE_PREFIX + packageId); } catch { /* noop */ }
+  try { sessionStorage.removeItem(CHECKOUT_CACHE_PREFIX + packageId); }
+  catch (e) { console.warn("FoundingClaimModal: clear cache failed", e); }
 }
 
 async function getOrCreateCheckout(packageId) {

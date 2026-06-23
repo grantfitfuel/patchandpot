@@ -35,7 +35,7 @@ if (DSN) {
     });
   } catch (e) {
     // Sentry init failing must never block the app from rendering.
-    // eslint-disable-next-line no-console
+     
     console.warn("Sentry init failed (continuing without it):", e);
   }
 }

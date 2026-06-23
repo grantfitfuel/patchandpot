@@ -33,7 +33,7 @@ export default function SourceLinks({ plant }) {
       potsVendor && { vendor: potsVendor, slot: "pots", label: t("source.pots"), sub: t("source.pots_sub"), icon: Package },
       extraVendor && { vendor: extraVendor, slot: "tools", label: t("source.tools"), sub: t("source.tools_sub"), icon: Package },
     ].filter(Boolean);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [plant?.name, activeRegion?.country, lang]);
 
   const cacheKey = useMemo(() => {
@@ -77,7 +77,7 @@ export default function SourceLinks({ plant }) {
         if (!cancelled) setBlurbsLoading(false);
       });
     return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [cacheKey]);
 
   if (!plant?.name || cards.length === 0) return null;

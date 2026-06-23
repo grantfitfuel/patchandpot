@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+ 
 // Patch & Pot — Masterclass content.
 // Three deep, structured courses with 6–8 lessons each. Content is authored
 // (not AI-generated) so it stays trustworthy and consistent across sessions.

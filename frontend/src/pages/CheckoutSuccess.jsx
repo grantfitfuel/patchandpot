@@ -131,7 +131,7 @@ export default function CheckoutSuccess() {
             gardener to another.
           </p>
           <p className="mt-2 text-sm text-moss leading-relaxed">
-            🌱 If you'd like to support more, the Founding Member tier (£35 lifetime) is still
+            🌱 If you&apos;d like to support more, the Founding Member tier (£35 lifetime) is still
             open — same one-time spirit, but it unlocks everything for life.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 justify-center">

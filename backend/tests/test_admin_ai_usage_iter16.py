@@ -4,7 +4,10 @@ import requests
 import pytest
 
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://grow-by-season-1.preview.emergentagent.com").rstrip("/")
-ADMIN_TOKEN = "patchpot-admin-d3f8a2b9c4"
+# Pull from env so the token is not committed to source. Tests that need it
+# skip cleanly when not configured (CI without the secret, fork agents etc).
+ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN")
+pytestmark = pytest.mark.skipif(not ADMIN_TOKEN, reason="ADMIN_TOKEN env var not set")
 
 
 @pytest.fixture

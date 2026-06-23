@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+ 
 // Patch & Pot — Flower Masterclasses.
 // Per-flower deep dives. Each course: 5 lessons covering varieties, planting,
 // growing/care, common problems, and harvest/overwinter/propagation.

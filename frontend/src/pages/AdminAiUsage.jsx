@@ -18,7 +18,8 @@ const WINDOW_OPTIONS = [7, 30, 90];
 
 export default function AdminAiUsagePage() {
   const [token, setToken] = useState(() => {
-    try { return localStorage.getItem(TOKEN_KEY) || ""; } catch { return ""; }
+    try { return localStorage.getItem(TOKEN_KEY) || ""; }
+    catch (e) { console.warn("AdminAiUsage: read token failed", e); return ""; }
   });
   const [draft, setDraft] = useState("");
   const [days, setDays] = useState(30);
@@ -50,13 +51,15 @@ export default function AdminAiUsagePage() {
     e.preventDefault();
     const t = draft.trim();
     if (!t) return;
-    try { localStorage.setItem(TOKEN_KEY, t); } catch { /* ignore quota */ }
+    try { localStorage.setItem(TOKEN_KEY, t); }
+    catch (e) { console.warn("AdminAiUsage: persist token failed", e); }
     setToken(t);
     setDraft("");
   }
 
   function signOut() {
-    try { localStorage.removeItem(TOKEN_KEY); } catch { /* ignore */ }
+    try { localStorage.removeItem(TOKEN_KEY); }
+    catch (e) { console.warn("AdminAiUsage: clear token failed", e); }
     setToken("");
     setData(null);
     setError(null);

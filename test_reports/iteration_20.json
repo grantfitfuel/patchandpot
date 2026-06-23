@@ -1,0 +1,40 @@
+{
+  "summary": "Frontend testing of /calendar/compare side-by-side dual-column view. ALL 9 review scenarios PASS — empty state, dual-column rendering, free-user upgrade overlay on column B, paywall modal opening on overlay click, cross-exclusion in patch dropdowns, swap button, month selector affecting both columns, /calendar 'Compare patches' link, GuidanceView readOnly (no task-toggle on compare; toggles still work on /calendar), no-region empty state per column, and PAID user fully unblurred view (DB-seeded access_grants + localStorage token).",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "DOCS NIT (no code change required): The review-request asked the test agent to seed localStorage at key 'patchpot.access_token.v1', but the actual key used by usePaywall.js / lib/api.js is 'patchpot.access.v1' (with companion cache key 'patchpot.access.paid.v1'). Code is fine — only the review-request docstring is mis-spelled. Worth correcting in any future agent-to-agent context note so the next agent doesn't waste a cycle on the wrong key."
+  ],
+  "critical_code_review_comments": [
+    "CalendarCompare.jsx swap closure (line 42): `const swap = () => { setAId(bId); setBId(aId); }` — works correctly because both setters are queued in the same render's snapshot of aId/bId, but it's worth a short comment so a future refactor doesn't switch to functional updaters and accidentally double-read stale state.",
+    "CalendarCompare.jsx column dropdown filter (line 160): `filter((p) => p.id === selectedId || p.id !== excludeId)` — semantically correct (keeps the currently-selected id in its own dropdown even if it equals the other column) but reads twisted; consider extracting to a tiny helper or inline comment for clarity.",
+    "CalendarCompare.jsx default selection (lines 33-37): `initialB` is computed via useMemo but it is only consumed as the initial useState value — useMemo is dead-weight here (state only takes the first value). Either drop the memo or hoist the selection into a useEffect that re-syncs when patches change (e.g. when user adds/removes patches in another tab while on this page).",
+    "CalendarCompare.jsx — there's no test-id on the Header section (`compare-header`) and MonthSelector month buttons aren't queryable by stable testids on this page. Not a blocker (text-based selector worked in tests) but adding `data-testid='compare-month-{n}'` would harden future E2E.",
+    "Free-user UX nit: column B's GuidanceView still issues a real /api/guidance request even though the user can never read the result. With today's caching that's mostly fine, but on a cold cache it burns one paid LLM call per free-user visit. Consider passing `region={null}` (or skipping the fetch in GuidanceView when a `paywalled` prop is set) and rendering placeholder copy under the blur instead. Iter prompt explicitly calls this 'honest social proof' so it's a deliberate choice — flagging only because it has a real cost dimension.",
+    "Review-request key drift: review request says localStorage key is 'patchpot.access_token.v1' but real key is 'patchpot.access.v1' (see hooks/usePaywall.js TOKEN_KEY). Test passed once I used the real key — no code fix needed."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "N/A (frontend-only request)", "frontend": "100% (9/9 scenarios)" },
+  "test_credentials": "Created TEST_compare_paid_token_001 access_grant (lifetime, no expiry) directly in Mongo for the paid-user scenario; deleted after the run. No human credentials needed.",
+  "seed_data_creation": "Seeded one access_grants row (token=TEST_compare_paid_token_001, package_id=lifetime, expires_at=null) into Mongo for paid-user verification. Cleaned up at end. Verified via curl POST /api/access/check returns paid=true, patch_limit=25.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Compare view is fully working end-to-end. Patches and regions are localStorage-only — pre-seed via page.evaluate BEFORE navigation: keys 'patchpot.patches.v1' (index) and 'patchpot.patch.<id>.region.v1'. For paid scenarios, seed Mongo db.access_grants with {token, package_id:'lifetime', expires_at:null} AND set localStorage 'patchpot.access.v1' to that token plus optimistic flag 'patchpot.access.paid.v1'='1'. Note: review-request docstrings call the token key 'patchpot.access_token.v1' — real key is 'patchpot.access.v1' (see hooks/usePaywall.js TOKEN_KEY). The swap button is force-clickable; in flows where the paywall modal has just opened, close it (reload or click outside) before clicking swap so the modal portal doesn't intercept. Use force=True for the overlay click since it's behind a backdrop-blur layer.",
+  "scenarios_pass_detail": {
+    "1_empty_state_one_patch": "PASS — fresh load auto-bootstraps single 'Home' patch; /calendar/compare shows compare-empty + compare-empty-cta → href=/garden; compare-grid is NOT rendered.",
+    "2_two_patches_free_user_dual_grid": "PASS — compare-grid + compare-col-A + compare-col-B all render; compare-upgrade-overlay sits over column B; compare-select-A and compare-select-B both present; cross-exclusion works (A only shows Home, B only shows Cottage).",
+    "3_overlay_click_opens_paywall": "PASS — clicking compare-upgrade-overlay opens [data-testid='paywall-modal'].",
+    "4_swap_button": "PASS (after re-test in clean state) — compare-swap exchanges aId/bId; selA value flips from p_test_a→p_test_b and selB from p_test_b→p_test_a.",
+    "5_month_selector_both_cols": "PASS — clicking March on MonthSelector triggers both GuidanceView fetches (loading/content seen for both columns).",
+    "6_calendar_compare_link": "PASS — /calendar shows [data-testid='calendar-compare-link'] with href=/calendar/compare.",
+    "7_guidance_readonly_on_compare": "PASS — 0 task-toggle-* elements on /calendar/compare (both columns); task-toggle-0 IS present on /calendar.",
+    "8_no_region_per_column": "PASS — removing patch region from localStorage causes compare-no-region-A and compare-no-region-B to render (with /garden link); does NOT crash GuidanceView.",
+    "9_paid_user_fully_unblurred": "PASS — with valid lifetime access_grant in DB and 'patchpot.access.v1' in localStorage, /calendar/compare renders both columns fully; compare-upgrade-overlay is NOT in the DOM; both 'London' and 'Madrid' guidance content rendered side by side."
+  },
+  "rca of the issue": "No outstanding issues. Initial swap-button test failure was a test-script artefact (paywall modal from the preceding overlay-click scenario was still open and intercepted React state updates). Re-running with a fresh page load resolved it — feature works correctly."
+}

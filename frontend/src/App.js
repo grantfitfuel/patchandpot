@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import CalendarPage from "@/pages/Calendar";
+import CalendarComparePage from "@/pages/CalendarCompare";
 import PlantsPage from "@/pages/Plants";
 import PlantDetailPage from "@/pages/PlantDetail";
 import AIPlantDetailPage from "@/pages/AIPlantDetail";
@@ -35,6 +36,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/calendar/compare" element={<CalendarComparePage />} />
             <Route path="/plants" element={<PlantsPage />} />
             <Route path="/plants/ai/:slug" element={<AIPlantDetailPage />} />
             <Route path="/plants/:id" element={<PlantDetailPage />} />

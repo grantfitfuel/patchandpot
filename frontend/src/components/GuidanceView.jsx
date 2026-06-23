@@ -18,7 +18,7 @@ function Section({ icon: Icon, eyebrow, title, children }) {
   );
 }
 
-export default function GuidanceView({ region, month, view = "all", onData, myGarden = null }) {
+export default function GuidanceView({ region, month, view = "all", onData, myGarden = null, readOnly = false }) {
   const { t, lang } = useI18n();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -153,6 +153,20 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
               {(data.tasks || []).map((task, i) => {
                 const id = `task:${task.title}`;
                 const done = !!completed[id];
+                if (readOnly) {
+                  // Compare-view (or any other read-only consumer) — render
+                  // tasks as a static list so toggling here doesn't bleed
+                  // into the active patch's task state.
+                  return (
+                    <li key={id} className="flex items-start gap-3">
+                      <span className="mt-1 w-5 h-5 border border-forest/30 flex-shrink-0" aria-hidden />
+                      <div>
+                        <p className="font-medium text-ink">{task.title}</p>
+                        <p className="text-sm text-moss">{task.detail}</p>
+                      </div>
+                    </li>
+                  );
+                }
                 return (
                   <li key={id} className="flex items-start gap-3">
                     <button

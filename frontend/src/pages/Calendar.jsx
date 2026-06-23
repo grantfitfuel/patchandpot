@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useRegion } from "@/hooks/useRegion";
 import MonthSelector from "@/components/MonthSelector";
 import GuidanceView from "@/components/GuidanceView";
 import RegionPicker from "@/components/RegionPicker";
 import PaywallModal from "@/components/PaywallModal";
-import { MapPin, Download, Lock, Loader2 } from "lucide-react";
+import { MapPin, Download, Lock, Loader2, Columns2 } from "lucide-react";
 import { useI18n } from "@/i18n";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
@@ -65,6 +66,14 @@ export default function CalendarPage() {
           <p className="mt-3 text-ink/75 max-w-xl">{t("calendar.subtitle")}</p>
         </div>
         <div className="flex flex-wrap gap-3">
+          <Link
+            to="/calendar/compare"
+            data-testid="calendar-compare-link"
+            className="btn-ghost inline-flex items-center gap-2"
+          >
+            <Columns2 className="w-4 h-4" strokeWidth={1.5} />
+            Compare patches
+          </Link>
           <button
             type="button"
             onClick={downloadSeasonalPdf}

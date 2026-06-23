@@ -59,6 +59,19 @@ export const PATCH_KEYS = {
   tasks: patchTasksKey,
 };
 
+// Read a specific patch's stored region directly from localStorage. Used
+// by the Compare view, which renders two patches side by side and needs
+// regions for each one (not just the currently active patch's).
+export function readPatchRegion(patchId) {
+  if (!patchId || typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(PATCH_KEYS.region(patchId));
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 function newId() {
   // Short, sortable-ish, collision-safe enough for client-only IDs.
   return `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;

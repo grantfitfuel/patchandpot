@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Heart, Trash2, Sprout, Download, ArrowLeft, Ear, Eye, Wind, Hand, Apple } from "lucide-react";
+import { Heart, Trash2, Download, ArrowLeft, Ear, Eye, Wind, Hand, Apple } from "lucide-react";
 import { useWellbeingJournal } from "@/hooks/useWellbeingJournal";
 import { usePatches } from "@/hooks/usePatches";
 import { momentForMonth, WELLBEING_PRINCIPLES } from "@/data/wellbeing";
+import {
+  NoticeIllustration,
+  SlowIllustration,
+  NourishIllustration,
+} from "@/components/illustrations/WellbeingIllustrations";
 import { useI18n } from "@/i18n";
+
+// The three principle illustrations live keyed off the principle id (set
+// in /app/frontend/src/data/wellbeing.js: notice / slow / nourish), so a
+// new principle in the data file would simply fall back to a Sprout icon.
+const PRINCIPLE_ILLUSTRATIONS = {
+  notice: NoticeIllustration,
+  slow: SlowIllustration,
+  nourish: NourishIllustration,
+};
 
 const MOOD_FACES = ["😞", "🙁", "😐", "🙂", "😊"];
 
@@ -207,13 +221,18 @@ export default function WellbeingPage() {
           {t("wellbeing.principles.title")}
         </h2>
         <div className="grid md:grid-cols-3 gap-6" data-testid="wellbeing-principles">
-          {WELLBEING_PRINCIPLES.map((p) => (
-            <article key={p.id} className="card-flat p-6">
-              <Sprout strokeWidth={1.4} className="w-5 h-5 text-terracotta mb-3" />
-              <h3 className="font-serif text-xl text-forest mb-2">{t(p.title_key)}</h3>
-              <p className="text-sm text-ink/75 leading-relaxed">{t(p.body_key)}</p>
-            </article>
-          ))}
+          {WELLBEING_PRINCIPLES.map((p) => {
+            const Illo = PRINCIPLE_ILLUSTRATIONS[p.id];
+            return (
+              <article key={p.id} className="card-flat p-6">
+                <div className="w-12 h-12 mb-4 text-terracotta">
+                  {Illo ? <Illo /> : null}
+                </div>
+                <h3 className="font-serif text-xl text-forest mb-2">{t(p.title_key)}</h3>
+                <p className="text-sm text-ink/75 leading-relaxed">{t(p.body_key)}</p>
+              </article>
+            );
+          })}
         </div>
       </section>
 

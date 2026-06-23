@@ -7,6 +7,13 @@
 > Iteration 2: also add multi-language, pest reference gallery, companion suggestions,
 > a "Get this month's update" button with download/print, and PWA offline mode.
 
+### Iteration 25 (2026-02-23): ✅ — Share my Patch (public read-only preview, SEO entry point)
+- **Backend router** `/app/backend/routers/share.py` with `POST /api/share/patch` (create or update by `share_id` + `owner_secret`), public `GET /api/share/patch/{share_id}` (no auth, never leaks owner_secret), and `DELETE /api/share/patch/{id}?owner_secret=` (403 on mismatched secret). Profanity filter, 30-char patch name cap, 100-plant cap, 12-char base32 share_id (no l/o/0/1).
+- **`SharePatchModal`** (`/app/frontend/src/components/SharePatchModal.jsx`) — opens from `My Garden` next to Download. Caches `{share_id, owner_secret}` per active patch in `patchpot.share.<patchId>.v1` so re-sharing the same patch updates the URL the user already pasted in chat (no link churn). Copy-to-clipboard, native Web Share API when available, "Update with my latest plants" refresh, and delete-with-confirm.
+- **Public preview page** `/p/:shareId` (`/app/frontend/src/pages/SharedPatch.jsx`) — read-only patch name + region + plant grid + AI "This month in {region}" forecast (reuses `GuidanceView` with `readOnly`). Sets `<title>` and `<meta name="description">`/`og:title`/`og:description`/`og:type` dynamically for SEO. Top + bottom "Create your own patch" CTAs. Missing snapshots render a friendly 404 state with a CTA back to `/`.
+- **Full 58-language coverage**: added `share_patch.*` (25 keys) + `share_view.*` (15 keys) to the English block, then ran a new `/app/scripts/translate_share_keys.py` (clone of `translate_session_keys.py`) across all 57 non-EN locales. Two stragglers (`ml`, `az`) hand-retried; final count = 58/58 for every key.
+- **Tests**: backend `/app/backend/tests/test_share_patch.py` — 8/8 PASS (create, fetch, update-preserves-URL, wrong-secret-falls-through, 404, profanity 422, >100 plants 422, delete-requires-secret, delete-then-404). Testing agent iter22 Playwright walk-through — 24/24 PASS covering modal open, create-link, copy/open/refresh/delete testids, public preview render with dynamic title, re-share preserves URL after adding a plant, missing share id state, post-delete 404.
+
 ## Architecture
 - **Backend**: FastAPI on :8001 + MongoDB (cache: guidance_cache, image_cache).
   Routes prefixed `/api`. `emergentintegrations.llm.chat.LlmChat` for Claude Sonnet 4.5

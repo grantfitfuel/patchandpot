@@ -57,14 +57,13 @@ export default function SharedPatchPage() {
       ensureMetaTag("og:description", desc, "property");
       ensureMetaTag("og:type", "article", "property");
     }
-    return () => {
-      // Restore a sane default on unmount so the title doesn't bleed into
-      // the next page the user navigates to inside the SPA.
-      if (typeof document !== "undefined") {
-        document.title = "Patch & Pot";
-      }
-    };
   }, [state.data, month, t]);
+
+  // Restore a sane default on unmount only — kept separate from the effect
+  // above so changing `month` doesn't briefly flash the default title.
+  useEffect(() => () => {
+    if (typeof document !== "undefined") document.title = "Patch & Pot";
+  }, []);
 
   const plants = useMemo(() => state.data?.plants || [], [state.data]);
   const region = state.data?.region || null;

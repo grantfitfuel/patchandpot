@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Heart, Trash2, Sprout, Download, ArrowLeft, Ear, Eye, Wind, Hand, Apple } from "lucide-react";
 import { useWellbeingJournal } from "@/hooks/useWellbeingJournal";
@@ -30,6 +30,18 @@ export default function WellbeingPage() {
   const [mood, setMood] = useState(today?.mood ?? 3);
   const [note, setNote] = useState(today?.note ?? "");
   const [justSaved, setJustSaved] = useState(false);
+
+  // When the user switches active patch, useWellbeingJournal re-loads
+  // entries and `today` re-derives. Re-seed the local form state to
+  // match — otherwise the form keeps the previous patch's mood/note and
+  // the "Update today's check-in" label can lie. We watch the patch id
+  // (not `today` itself) so local edits don't get clobbered while a user
+  // is mid-form.
+  useEffect(() => {
+    setMood(today?.mood ?? 3);
+    setNote(today?.note ?? "");
+    setJustSaved(false);
+  }, [activePatch?.id]);
 
   function save(e) {
     e?.preventDefault();

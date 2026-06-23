@@ -265,6 +265,22 @@
   - Any re-request: <200ms cache hit
 - **Bill impact (estimated)**: hot regions (London/NYC/Sydney) viewed in 10+ languages now cost ~1× Sonnet + 10× Haiku ≈ 1× Sonnet + 2× Sonnet = 3× Sonnet, vs the old 11× Sonnet → **~73% reduction** on those regions. Cold/single-language regions cost the same as before.
 
+### Iteration 25 (2026-02-23): ✅ — Compare patches + Wellbeing feature + 58-language coverage
+- **Compare patches** (`/calendar/compare`): two-column dual-region monthly guidance side by side. Free users see column A in full, column B is rendered as a static skeleton (zero LLM cost) under a backdrop-blur with an "🔒 Unlock side-by-side compare" CTA opening the existing PaywallModal. Paid users pick either column from any of their patches via dropdowns; a Swap pill flips columns. Added a "Compare patches" link to `/calendar`.
+- **GuidanceView readOnly prop**: tasks render as static squares (no toggle) inside the compare columns so toggling there doesn't mutate the active patch's task state.
+- **`<WellbeingPage/>` at `/wellbeing`** — a full wellbeing journal:
+  - Hero + new nav link (`Wellbeing`).
+  - **Mindful moment** card with a rotating monthly prompt (12 seasonal cards, one per month, all in the i18n layer).
+  - **Sit and notice** sensory immersion section: 5 cards (Listen / Watch / Breathe in / Touch / Taste) with vivid copy invoking the rustle of ornamental grasses, bees in lavender, hoverflies on daisies, butterflies on buddleia, the smell of a tomato vine after rain, etc.
+  - **Soul band** ("You don't only grow food, or the transient beauty of flowers. You grow yourself and your soul.") — the deeper "why".
+  - **Today's check-in**: 5-mood scale + a 280-char gratitude note. Saved per-patch in localStorage at `patchpot.patch.<active>.wellbeing.v1`. Form re-seeds on patch switch (was a state-staleness bug flagged by tests, now fixed).
+  - **Three principles**: Notice / Slow / Nourish.
+  - **History**: timeline of past entries with delete, plus a `window.print()` "booklet" export.
+- **Home wellbeing band** ("Grow food. Grow yourself.") added below the editorial quote on the home page, with the 3 principles + a CTA into `/wellbeing`.
+- **i18n at session scale**: added ~140 new keys spanning multi-patch UI, compare view, retro-patron CTA, and the entire wellbeing feature. Translated to all 57 non-English locales using a forked `translate_session_keys.py` script (`gpt-4o-mini` via the Emergent LLM key). Plus a follow-up patch (`translate_session_patch.py`) re-translated 4 keys after copy edits ("no purpose apart from simply being and relaxing", "transient beauty of flowers / soul"). Two locales (gu, th) had AI-generated unescaped quotes that mangled the i18n file — surgically hand-cleaned. Lint passes; iter21 frontend testing agent confirmed FR/DE/ES/JA/AR all render translated copy and AR is RTL.
+- **Per-patch wellbeing isolation** verified via tests — switching patches swaps history + form pre-fill correctly; nothing bleeds between gardens.
+- **Tests**: testing agent iter21 — 16/16 frontend scenarios PASS at first sweep including i18n smoke for 5 langs + Arabic RTL, persistence on reload, history delete, print invocation, and per-patch isolation.
+
 ### Iteration 24 (2026-02-23): ✅ — Multi-patch paid tier (1a + 2b)
 - **Backend constants** `FREE_PATCH_LIMIT=5` / `PAID_PATCH_LIMIT=25` added to `core.py` and re-exported in `__all__`.
 - **`POST /api/access/check` extended** to return `patch_limit` (5 if no/expired/bogus grant, 25 if any active paid grant — monthly through founding-lifetime). Server is the source of truth; the frontend defaults to 5 only as an optimistic fallback before the first verify.

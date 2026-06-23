@@ -46,11 +46,10 @@ function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
 
-// Re-export so callers building exports/PDFs can resolve a specific patch's
-// journal slot without subscribing to React state.
-export const WELLBEING_KEY = PATCH_KEYS
-  ? (id) => `patchpot.patch.${id}.wellbeing.v1`
-  : patchKey;
+// Re-export the namespaced storage-key helper so callers building exports
+// or PDFs can resolve a specific patch's journal slot without subscribing
+// to React state.
+export const WELLBEING_KEY = (id) => `patchpot.patch.${id}.wellbeing.v1`;
 
 export function useWellbeingJournal() {
   const [entries, setEntries] = useState(() => readJournal());

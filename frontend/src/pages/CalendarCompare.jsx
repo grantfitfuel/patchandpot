@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeftRight, Lock, MapPin } from "lucide-react";
 import { usePatches, readPatchRegion } from "@/hooks/usePatches";
@@ -28,17 +28,22 @@ export default function CalendarComparePage() {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [paywallOpen, setPaywallOpen] = useState(false);
 
-  // Default selections: A = active patch; B = the next patch in the list,
-  // or — if the user only has one patch — null (we render an empty-state).
+  // Initial selections: A = active patch; B = the next patch in the list,
+  // or null if the user only has one patch (empty-state branches below).
+  // Plain initialisers — useState only consumes these on first render so
+  // useMemo would be dead-weight; if the user mutates the patch list while
+  // on this page (rename/delete/add in another tab) we let setAId/setBId
+  // recover via the dropdowns rather than re-deriving here.
   const initialA = activePatchId || (patches[0]?.id ?? "");
-  const initialB = useMemo(() => {
-    const others = patches.filter((p) => p.id !== initialA);
-    return others[0]?.id ?? "";
-  }, [patches, initialA]);
+  const initialB = patches.find((p) => p.id !== initialA)?.id ?? "";
 
   const [aId, setAId] = useState(initialA);
   const [bId, setBId] = useState(initialB);
 
+  // Both setters read from the current render's snapshot of aId/bId, so a
+  // straight swap is safe. Don't refactor to functional updaters without
+  // capturing a temp first — `setAId(x => bId); setBId(x => aId)` would
+  // still work because aId/bId are closure-captured, but it's less obvious.
   const swap = () => { setAId(bId); setBId(aId); };
 
   const a = patches.find((p) => p.id === aId);
@@ -83,6 +88,8 @@ export default function CalendarComparePage() {
           region={aRegion}
           month={month}
           excludeId={bId}
+          // Column A always renders real guidance.
+          paywalled={false}
         />
 
         {/* Swap pill — sits on the divider on desktop, between the columns
@@ -108,6 +115,10 @@ export default function CalendarComparePage() {
             region={bRegion}
             month={month}
             excludeId={aId}
+            // For unpaid users we render a skeleton instead of firing a real
+            // /api/guidance call — the visual tease is identical (blur over
+            // content) but with zero LLM cost per free-user visit.
+            paywalled={!paid}
           />
           {!paid && (
             <UpgradeOverlay onClick={() => setPaywallOpen(true)} />
@@ -145,7 +156,16 @@ function Header({ month, setMonth, t }) {
   );
 }
 
-function Column({ label, patches, selectedId, onSelect, region, month, excludeId }) {
+function Column({ label, patches, selectedId, onSelect, region, month, excludeId, paywalled }) {
+  // The dropdown should always include the patch this column is currently
+  // showing (so the user can re-pick it later), and exclude only the
+  // patch that the *other* column is showing. Reads "weird" because the
+  // first clause keeps the currently-selected one in even if it equals
+  // excludeId — which only happens transiently during a swap.
+  const dropdownPatches = patches.filter(
+    (p) => p.id === selectedId || p.id !== excludeId,
+  );
+
   return (
     <div className="space-y-6" data-testid={`compare-col-${label}`}>
       <div className="flex items-center justify-between gap-3 pb-4 border-b border-border">
@@ -156,11 +176,9 @@ function Column({ label, patches, selectedId, onSelect, region, month, excludeId
           data-testid={`compare-select-${label}`}
           className="text-sm bg-surface border border-border px-3 py-1.5 focus:border-terracotta focus:outline-none"
         >
-          {patches
-            .filter((p) => p.id === selectedId || p.id !== excludeId)
-            .map((p) => (
-              <option key={p.id} value={p.id}>{p.name}</option>
-            ))}
+          {dropdownPatches.map((p) => (
+            <option key={p.id} value={p.id}>{p.name}</option>
+          ))}
         </select>
       </div>
 
@@ -170,7 +188,7 @@ function Column({ label, patches, selectedId, onSelect, region, month, excludeId
             <MapPin strokeWidth={1.5} className="w-4 h-4" />
             {region.name}{region.country ? `, ${region.country}` : ""}
           </p>
-          <GuidanceView region={region} month={month} readOnly />
+          {paywalled ? <ColumnSkeleton /> : <GuidanceView region={region} month={month} readOnly />}
         </>
       ) : (
         <div className="card-flat p-10 text-center" data-testid={`compare-no-region-${label}`}>
@@ -182,6 +200,45 @@ function Column({ label, patches, selectedId, onSelect, region, month, excludeId
           </p>
         </div>
       )}
+    </div>
+  );
+}
+
+/**
+ * Static placeholder rendered behind the upgrade overlay for unpaid users.
+ * Mirrors the rough visual structure of GuidanceView (header paragraph +
+ * two side-by-side cards) so the blur reads as "real content underneath",
+ * without firing a paid LLM call we'd never display.
+ */
+function ColumnSkeleton() {
+  return (
+    <div data-testid="compare-skeleton" aria-hidden="true">
+      <div className="space-y-3 mb-8">
+        <div className="h-3 w-24 bg-moss/15" />
+        <div className="space-y-2">
+          <div className="h-4 bg-moss/10" />
+          <div className="h-4 w-11/12 bg-moss/10" />
+          <div className="h-4 w-10/12 bg-moss/10" />
+          <div className="h-4 w-9/12 bg-moss/10" />
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        {["plant", "harvest"].map((k) => (
+          <div key={k} className="card-flat p-5 space-y-3">
+            <div className="h-3 w-20 bg-terracotta/20" />
+            <div className="h-5 w-3/4 bg-moss/15" />
+            <div className="space-y-2 pt-2">
+              <div className="h-3 bg-moss/10" />
+              <div className="h-3 w-5/6 bg-moss/10" />
+              <div className="h-3 w-3/4 bg-moss/10" />
+            </div>
+            <div className="space-y-2 pt-3">
+              <div className="h-3 bg-moss/10" />
+              <div className="h-3 w-5/6 bg-moss/10" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

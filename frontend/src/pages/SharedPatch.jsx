@@ -56,8 +56,21 @@ export default function SharedPatchPage() {
       ensureMetaTag("og:title", document.title, "property");
       ensureMetaTag("og:description", desc, "property");
       ensureMetaTag("og:type", "article", "property");
+      // og:image — points at the same backend-rendered card the social
+      // crawler picks up from /api/share/preview/{id}. Crawlers that DO
+      // execute JS (modern Slack, Discord, Telegram) will now also unfurl
+      // the card from this SPA URL itself.
+      if (shareId) {
+        const origin = window.location.origin;
+        const imgUrl = `${origin}/api/share/patch/${shareId}/og.png`;
+        ensureMetaTag("og:image", imgUrl, "property");
+        ensureMetaTag("og:image:width", "1200", "property");
+        ensureMetaTag("og:image:height", "630", "property");
+        ensureMetaTag("twitter:card", "summary_large_image");
+        ensureMetaTag("twitter:image", imgUrl);
+      }
     }
-  }, [state.data, month, t]);
+  }, [state.data, month, t, shareId]);
 
   // Restore a sane default on unmount only — kept separate from the effect
   // above so changing `month` doesn't briefly flash the default title.

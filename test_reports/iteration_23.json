@@ -1,0 +1,42 @@
+{
+  "summary": "Iteration 23 — OG share image for Share-my-Patch. Verified backend OG endpoints + HTML preview wrapper + cache invalidation on edit, and frontend share modal URL switch + SPA og:image meta injection + /api/share/preview→/p redirect. All 13 baseline tests pass, 2 new iter-23 tests pass (15/15 backend), and all 5 frontend assertions pass.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "/api/share/preview/{share_id}",
+        "issue": "og:image ?v= cache-buster token is updated_at[:14] (YYYYMMDDTHHMMS) → ~10-second resolution. Two snapshot edits within the same 10-second window produce the same ?v= even though the underlying og.png bytes do change. Social caches keyed on the URL won't refetch in that window. Bytes-level cache invalidation works correctly (verified)."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_share_patch.py",
+    "/app/backend/tests/test_share_og_iter23.py",
+    "/app/test_reports/pytest/test_share_patch_iter23.xml",
+    "/app/test_reports/pytest/test_share_og_iter23.xml"
+  ],
+  "action_items": [
+    "Optional: widen the preview HTML ?v= cache-buster precision from updated_at[:14] to at least [:15] (includes the seconds units digit) — or drop the slice entirely and use the full ISO timestamp URL-encoded — so two quick successive edits both bust social-cache CDN. The og.png cache itself uses the full updated_at, so only the URL-side token is affected."
+  ],
+  "critical_code_review_comments": [
+    "share.py _render_preview_html duplicates the HTML/JS escape concerns — html.escape is used for attributes but the og:image URL is not URL-encoded. As long as updated_at stays alphanumeric this is safe, but worth noting if future versions of the token include reserved chars.",
+    "share_og.py uses ImageDraw private `_image` attr to paste rotated leaves (`draw._image`). Works today on Pillow ≥10, but accessing _underscored attrs may break on future Pillow majors. Consider keeping a reference to the Image object explicitly.",
+    "share.py module-scoped _PROFANITY list duplicated with patrons.py — small DRY opportunity for a shared sanitiser util.",
+    "share.py /share/patch/{id}/og.png Cache-Control is 1 day, but the cache-key version uses updated_at. CDN/social caches won't see the new URL until ?v= bumps in the preview HTML — see the [:14] bug above. Worth lifting `og.png?v=…` from the preview wrapper into the SPA's og:image too (SharedPatch.jsx currently appends no ?v= cache-buster on the JS-injected meta)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_share_og_iter23.py"
+  ],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% (5/5)"},
+  "test_credentials": "n/a — public endpoints + localStorage seed",
+  "seed_data_creation": "Test snapshots are auto-cleaned via fixtures (test_share_patch.py) and the iter23 tests delete their own snapshots in `finally`. The frontend e2e flow created one snapshot and deleted it via the modal's delete button (data-testid='share-patch-delete-confirm').",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend tests at /app/backend/tests/test_share_patch.py (13) + /app/backend/tests/test_share_og_iter23.py (2). All green. Frontend Share modal correctly uses /api/share/preview/{id} for the copyable URL and /p/{id} for the Open Preview link; SharedPatch.jsx injects og:image/width/height + twitter:card via useEffect; the FastAPI preview HTML wrapper redirects humans to /p/{id} via window.location.replace + meta-refresh. The only nit is the ?v= cache-buster token resolution (10s) — see action_items.",
+  "rca of the issue": "n/a — no functional bug, only the cache-buster precision nit documented above."
+}

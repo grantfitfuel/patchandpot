@@ -55,6 +55,19 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
   const shareUrl = useMemo(() => {
     if (!cached?.share_id) return "";
     const origin = typeof window !== "undefined" ? window.location.origin : "";
+    // We share the crawler-friendly /api/share/preview/{id} URL — it serves
+    // proper OG/Twitter meta tags up-front so chat / DM / social previews
+    // unfurl into a real card, then redirects humans into the clean SPA
+    // route /p/{id}. The redirect happens via window.location.replace so
+    // recipients see only a single navigation, not a flash.
+    return `${origin}/api/share/preview/${cached.share_id}`;
+  }, [cached]);
+
+  // Direct (clean) URL — surfaced as a secondary "open preview" link so the
+  // owner can verify their patch without going through the redirect.
+  const directUrl = useMemo(() => {
+    if (!cached?.share_id) return "";
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
     return `${origin}/p/${cached.share_id}`;
   }, [cached]);
 
@@ -226,7 +239,7 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
 
               <div className="flex flex-wrap gap-3">
                 <a
-                  href={shareUrl}
+                  href={directUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="share-patch-open"

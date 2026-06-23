@@ -144,3 +144,54 @@ def test_delete_then_404():
     assert r2.status_code == 200
     r3 = requests.get(f"{API}/share/patch/{body['share_id']}", timeout=30)
     assert r3.status_code == 404
+
+
+def test_og_png_renders(created):
+    """The OG card endpoint should return a real PNG, not JSON / HTML."""
+    sid = created["share_id"]
+    r = requests.get(f"{API}/share/patch/{sid}/og.png", timeout=30)
+    assert r.status_code == 200
+    assert r.headers["content-type"] == "image/png"
+    # PNG magic header: 89 50 4E 47 0D 0A 1A 0A
+    assert r.content[:8] == b"\x89PNG\r\n\x1a\n"
+    # Standard OG dimensions
+    assert len(r.content) > 5000  # non-trivial size
+
+
+def test_og_png_is_cached(created):
+    """Second hit should be served from the shared_patch_og cache fast-path
+    (same bytes, fast). We just assert idempotency here — no perf claim."""
+    sid = created["share_id"]
+    r1 = requests.get(f"{API}/share/patch/{sid}/og.png", timeout=30)
+    r2 = requests.get(f"{API}/share/patch/{sid}/og.png", timeout=30)
+    assert r1.status_code == 200 and r2.status_code == 200
+    assert r1.content == r2.content
+
+
+def test_og_png_404_for_unknown_id():
+    r = requests.get(f"{API}/share/patch/does-not-exist/og.png", timeout=30)
+    assert r.status_code == 404
+
+
+def test_share_preview_html_has_og_tags(created):
+    """The HTML wrapper must include the four OG tags + twitter:card so
+    chat-app crawlers can unfurl a real card."""
+    sid = created["share_id"]
+    r = requests.get(f"{API}/share/preview/{sid}", timeout=30)
+    assert r.status_code == 200
+    body = r.text
+    assert 'property="og:title"' in body
+    assert 'property="og:description"' in body
+    assert 'property="og:image"' in body
+    assert 'property="og:type"' in body
+    assert 'name="twitter:card"' in body
+    assert 'content="summary_large_image"' in body
+    # Both meta-refresh and a JS replace() are wired for crawler-resilient
+    # human redirects.
+    assert 'http-equiv="refresh"' in body
+    assert "window.location.replace" in body
+
+
+def test_share_preview_404_for_unknown_id():
+    r = requests.get(f"{API}/share/preview/does-not-exist", timeout=30)
+    assert r.status_code == 404

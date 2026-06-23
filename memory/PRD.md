@@ -7,6 +7,11 @@
 > Iteration 2: also add multi-language, pest reference gallery, companion suggestions,
 > a "Get this month's update" button with download/print, and PWA offline mode.
 
+### Iteration 27 (2026-02-23): ✅ — Social-share row on `/p/:shareId`
+- **New `SocialShareRow.jsx`** under the patch header on every shared-patch preview. One-tap buttons for **X**, **WhatsApp**, **Pinterest** (with `media` param pointing at the OG card so pins include the visual), plus a **Copy link** button. Each propagates the bot-friendly `/api/share/preview/{id}` URL — so re-shares from the public preview unfurl rich cards in chats too. Subtle styling (9×9 outlined icon buttons with brand-specific hover colours: X turns ink, WhatsApp #25D366, Pinterest #E60023). Pre-filled `tagline` text: "{patch_name} in {region} — see what's growing on Patch & Pot." Brand glyphs inlined as SVG because lucide-react dropped brand icons in 2024.
+- **Full 58-locale i18n coverage** via `/app/scripts/translate_social_keys.py`. 8 new keys (label, x, whatsapp, pinterest, copy, copied, tagline, tagline_region) × 57 non-EN locales — all 58/58 translated on first pass.
+- **Testids**: `share-view-social-row`, `share-view-social-x`, `share-view-social-whatsapp`, `share-view-social-pinterest`, `share-view-social-copy`. Verified live: hrefs are correctly URL-encoded with patch name + wrapper URL, hover-state brand colours fire on X.
+
 ### Iteration 26 (2026-02-23): ✅ — OG share image (rich chat/social previews) + region-name resilience
 - **OG card renderer** `/app/backend/share_og.py` — pure-Pillow, no AI cost. Letterpress-style 1200×630: sand/forest/terracotta brand palette, big italic serif patch name with auto-fit shrink-to-2-lines, region line, plant count, hand-composed botanical leaf sprig, "OPEN THE GARDEN →" CTA. ~50ms render, ~85KB output. Visually rated 8.5/10 by analyze_file_tool.
 - **Two new backend endpoints in `routers/share.py`**:

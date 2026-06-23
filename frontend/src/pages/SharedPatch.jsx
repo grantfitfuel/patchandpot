@@ -5,6 +5,7 @@ import { fetchSharedPatch } from "@/lib/api";
 import GuidanceView from "@/components/GuidanceView";
 import MonthSelector from "@/components/MonthSelector";
 import PlantImage from "@/components/PlantImage";
+import SocialShareRow from "@/components/SocialShareRow";
 import { useI18n, monthLabel } from "@/i18n";
 
 /**
@@ -133,6 +134,12 @@ export default function SharedPatchPage() {
               <span>{region.name}{region.country ? `, ${region.country}` : ""}</span>
             </p>
           )}
+          <SocialShareRow
+            shareId={shareId}
+            patchName={state.data.patch_name}
+            regionName={region ? `${region.name}${region.country ? `, ${region.country}` : ""}` : ""}
+            origin={typeof window !== "undefined" ? window.location.origin : ""}
+          />
         </div>
         <Link to="/" className="btn-terracotta inline-flex items-center gap-2" data-testid="share-view-cta-top">
           <Sparkles strokeWidth={1.5} className="w-4 h-4" /> {t("share_view.cta_create")}

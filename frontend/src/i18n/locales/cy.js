@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Patchiau mwyaf carwr yr wythnos hon",
   "home.most_loved.body": "Gardd real, a ddewiswyd gan eu garddwriaid. Cliciwch ar un i weld beth sy'n tyfu — a sut mae Patch & Pot yn addasu ei arweiniad misol yn seiliedig ar ble maen nhw'n byw.",
   "home.most_loved.plant_count": "{n} planhigion",
+  "home.plant_of_the_week.eyebrow": "Planhigyn yr wythnos",
+  "home.plant_of_the_week.image_alt": "{name} — canllaw planhigion Patch & Pot",
+  "home.plant_of_the_week.cta": "Darllenwch y canllaw {name}",
+  "home.plant_of_the_week.views": "{n} garddwyr yn darllen yr wythnos hon",
+  "home.plant_of_the_week.views_one": "1 garddwr yn darllen yr wythnos hon",
 
 };
 

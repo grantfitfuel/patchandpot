@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Najmiliji vrtovi ovog tjedna",
   "home.most_loved.body": "Pravi vrtovi, prijavljeni od strane svojih vrtlara. Kliknite bilo koji da vidite što raste — i kako Patch & Pot usmjerava svoje mjesečne smjernice prema tome gdje žive.",
   "home.most_loved.plant_count": "{n} biljaka",
+  "home.plant_of_the_week.eyebrow": "Biljka tjedna",
+  "home.plant_of_the_week.image_alt": "{name} — vodič za biljke Patch & Pot",
+  "home.plant_of_the_week.cta": "Pročitajte vodič za {name}",
+  "home.plant_of_the_week.views": "{n} vrtlara koji čitaju ovaj tjedan",
+  "home.plant_of_the_week.views_one": "1 vrtlar koji čita ovaj tjedan",
 
 };
 

@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "ਪੈਚ ਦੇ ਆਸ-ਪਾਸ",
   "home.most_loved.title": "ਇਸ ਹਫਤੇ ਦੇ ਸਭ ਤੋਂ ਪਸੰਦੀਦਾਪੈਚ",
   "home.most_loved.body": "ਅਸਲੀ ਬਾਗ, ਆਪਣੇ ਮਾਲਕਾਂ ਦੁਆਰਾ ਸ਼ਾਮਲ ਕੀਤੇ ਗਏ. ਦੇਖਣ ਲਈ ਕਿਸੇ 'ਤੇ ਕਲਿੱਕ ਕਰੋ ਕਿ ਕੀ ਵਧ ਰਿਹਾ ਹੈ — ਅਤੇ Patch & Pot ਜਦੋਂ ਮਾਸਿਕ ਮਦਦ ਨੂੰ ਉਨਾਂ ਦੇ ਰਹਿਣ ਦੇ ਸਥਾਨ ਦੇ ਨਾਲ ਕਿਵੇਂ ਅਨੁਕੂਲ ਬਣਾਉਂਦਾ ਹੈ.",
-  "home.most_loved.plant_count": "{n} ਪੌਧੇ",
-  "home.plant_of_the_week.eyebrow": "ਮਾੜੀ ਦਾ ਪੌਦਾ",
-  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot ਪੌਦਾ ਮਾਰਗਦਰਸ਼ਨ",
-  "home.plant_of_the_week.cta": "{name} ਮਾਰਗਦਰਸ਼ਨ ਪੜ੍ਹੋ",
-  "home.plant_of_the_week.views": "ਇਸ ਹਫ਼ਤੇ {n} ਮਾਲੀ ਪੜ੍ਹ ਰਹੇ ਹਨ",
-  "home.plant_of_the_week.views_one": "ਇਸ ਹਫ਼ਤੇ 1 ਮਾਲੀ ਪੜ੍ਹ ਰਿਹਾ ਹੈ",
+  "home.most_loved.plant_count": "{n} ਪੌਧੇ",  "home.plant_of_the_week.eyebrow": "ਫਸਲ ਦਾ ਤੋਹਫਾ",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot ਫਸਲ ਗਾਈਡ",
+  "home.plant_of_the_week.cta": "{name} ਗਾਈਡ ਪੜ੍ਹੋ",
+  "home.plant_of_the_week.views": "{n} ਮਾਲੀ ਇਸ ਹਫਤੇ ਪੜ੍ਹ ਰਹੇ ਹਨ",
+  "home.plant_of_the_week.views_one": "1 ਮਾਲੀ ਇਸ ਹਫਤੇ ਪੜ੍ਹ ਰਿਹਾ ਹੈ",
 
 };
 

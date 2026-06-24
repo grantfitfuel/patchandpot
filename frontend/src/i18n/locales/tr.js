@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "Patch'in etrafında",
   "home.most_loved.title": "Bu hafta en sevilen patch'ler",
   "home.most_loved.body": "Gerçek bahçeler, bahçıvanları tarafından seçilmiş. Ne yetiştiğini görmek için herhangi birine tıklayın - ve Patch & Pot'un aylık rehberliğini yaşadıkları yere nasıl uyarladığını öğrenin.",
-  "home.most_loved.plant_count": "{n} bitki",
-  "home.plant_of_the_week.eyebrow": "Haftanın bitkisi",
+  "home.most_loved.plant_count": "{n} bitki",  "home.plant_of_the_week.eyebrow": " Haftanın bitkisi",
   "home.plant_of_the_week.image_alt": "{name} — Patch & Pot bitki rehberi",
   "home.plant_of_the_week.cta": "{name} rehberini oku",
-  "home.plant_of_the_week.views": "Bu hafta {n} bahçıvan okuyor",
-  "home.plant_of_the_week.views_one": "Bu hafta 1 bahçıvan okuyor",
+  "home.plant_of_the_week.views": "Bu hafta {n} bahçıvan okuyordu",
+  "home.plant_of_the_week.views_one": "Bu hafta 1 bahçıvan okuyordu",
 
 };
 

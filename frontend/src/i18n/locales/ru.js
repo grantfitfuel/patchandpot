@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Самые любимые участки на этой неделе",
   "home.most_loved.body": "Настоящие сады, согласованные их садоводами. Нажмите любой, чтобы увидеть, что растет — и как Patch & Pot настраивает свои ежемесячные рекомендации в зависимости от их местоположения.",
   "home.most_loved.plant_count": "{n} растений",
+  "home.plant_of_the_week.eyebrow": "Растение недели",
+  "home.plant_of_the_week.image_alt": "{name} — гид по растениям Patch & Pot",
+  "home.plant_of_the_week.cta": "Читать гид по {name}",
+  "home.plant_of_the_week.views": "{n} садоводов читают на этой неделе",
+  "home.plant_of_the_week.views_one": "1 садовод читает на этой неделе",
 
 };
 

@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Kõige armastatumad peenrad sel nädalal",
   "home.most_loved.body": "Reaalsed aiad, mille on valinud nende aiapidajad. Kliki ükskõik millele, et näha, mis kasvab — ja kuidas Patch & Pot kohandab oma igakuist juhendamist vastavalt nende elukohale.",
   "home.most_loved.plant_count": "{n} taime",
+  "home.plant_of_the_week.eyebrow": "Nädala taim",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot taimede juhend",
+  "home.plant_of_the_week.cta": "Loe {name} juhendit",
+  "home.plant_of_the_week.views": "{n} aednikku loevad sel nädalal",
+  "home.plant_of_the_week.views_one": "1 aednik loeb sel nädalal",
 
 };
 

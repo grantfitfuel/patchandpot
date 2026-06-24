@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "Patch atrofida",
   "home.most_loved.title": "Bu haftada eng sevilgan patchlar",
   "home.most_loved.body": "Haqiqiy bog'lar, ularning bog'bonlari tomonidan ro'yxatdan o'tkazilgan. Qanday o'sayotganini ko'rish uchun biron biriga bosing - va Patch & Pot oylik yo'l-yo'riqlarini ular yashaydigan joyga qanday moslashtirishi haqida.",
-  "home.most_loved.plant_count": "{n} o'simliklar",
-  "home.plant_of_the_week.eyebrow": "Xonadagi o'simlik",
-  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot o'simlik bo'yicha qo'llanma",
+  "home.most_loved.plant_count": "{n} o'simliklar",  "home.plant_of_the_week.eyebrow": "Haftaning o'simligi",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot o'simlik qo'llanmasi",
   "home.plant_of_the_week.cta": "{name} qo'llanmasini o'qing",
-  "home.plant_of_the_week.views": "Bu haftada {n} bog'bon o'qimoqda",
-  "home.plant_of_the_week.views_one": "Bu haftada 1 bog'bon o'qimoqda",
+  "home.plant_of_the_week.views": "Bu hafta {n} bog'bon o'qiyotgan",
+  "home.plant_of_the_week.views_one": "Bu hafta 1 bog'bon o'qiyotgan",
 
 };
 

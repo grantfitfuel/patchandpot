@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "Omkring patchen",
   "home.most_loved.title": "Mest elskede patches i denne uge",
   "home.most_loved.body": "Virkelige haver, tilmeldt af deres gartnere. Klik på nogen for at se, hvad der vokser – og hvordan Patch & Pot tilpasser sin månedlige vejledning til, hvor de bor.",
-  "home.most_loved.plant_count": "{n} planter",
-  "home.plant_of_the_week.eyebrow": "Ugens plante",
+  "home.most_loved.plant_count": "{n} planter",  "home.plant_of_the_week.eyebrow": "Ugens plante",
   "home.plant_of_the_week.image_alt": "{name} — Patch & Pot planteguide",
   "home.plant_of_the_week.cta": "Læs {name} guiden",
-  "home.plant_of_the_week.views": "{n} gartnere læser i denne uge",
-  "home.plant_of_the_week.views_one": "1 gartner læser i denne uge",
+  "home.plant_of_the_week.views": "{n} gartnere læser denne uge",
+  "home.plant_of_the_week.views_one": "1 gartner læser denne uge",
 
 };
 

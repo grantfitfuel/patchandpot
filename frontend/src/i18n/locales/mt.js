@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "Madwar il-patch",
   "home.most_loved.title": "Patches l-aktar maħbuba din il-ġimgħa",
   "home.most_loved.body": "Ġnien reali, ippreferuti mill-ġardin tagħhom. Ikklikkja kwalunkwe biex tara x'għaddej — u kif Patch & Pot jaġġusta l-gwida tiegħu kull xahar skont fejn jgħixu.",
-  "home.most_loved.plant_count": "{n} pjanti",
-  "home.plant_of_the_week.eyebrow": "Plant tal-ġimgħa",
-  "home.plant_of_the_week.image_alt": "{name} — guida għall-pjanti Patch & Pot",
-  "home.plant_of_the_week.cta": "Aqra l-guida {name}",
-  "home.plant_of_the_week.views": "{n} ġardiniera qed taqra din il-ġimgħa",
-  "home.plant_of_the_week.views_one": "1 ġardiniera qed taqra din il-ġimgħa",
+  "home.most_loved.plant_count": "{n} pjanti",  "home.plant_of_the_week.eyebrow": "Planta tal-ġimgħa",
+  "home.plant_of_the_week.image_alt": "{name} — gwida tal-pjanti Patch & Pot",
+  "home.plant_of_the_week.cta": "Aqra l-gwida {name}",
+  "home.plant_of_the_week.views": "{n} jardiniera' qed jaqraw din il-ġimgħa",
+  "home.plant_of_the_week.views_one": "1 jardinier qed jaqra din il-ġimgħa",
 
 };
 

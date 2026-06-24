@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Ngā patch rongonui i tēnei wiki",
   "home.most_loved.body": "Ngā māra pono, kua pānuitia e ā rātou kai māra. Pāwhiritia tetahi hei kitea ko te aha kei te tupu — me pēhea te whakatika a Patch & Pot i tāna aratohu marama ki te wahi e noho ana rātou.",
   "home.most_loved.plant_count": "{n} nāhukahuka",
+  "home.plant_of_the_week.eyebrow": " tipu o te wiki",
+  "home.plant_of_the_week.image_alt": "{name} — kaiārahi tipu o Patch & Pot",
+  "home.plant_of_the_week.cta": "Pānui i te aratohu {name}",
+  "home.plant_of_the_week.views": "{n} karihi e pānui ana i tēnei wiki",
+  "home.plant_of_the_week.views_one": "1 karihi e pānui ana i tēnei wiki",
 
 };
 

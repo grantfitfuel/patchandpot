@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Mėgstamiausi sklypai šią savaitę",
   "home.most_loved.body": "Reali sodo, pasirinkta jų sodininkų. Paspauskite bet kurį, kad pamatytumėte, kas auga — ir kaip Patch & Pot pritaiko savo mėnesinį gaires prie to, kur jie gyvena.",
   "home.most_loved.plant_count": "{n} augalų",
+  "home.plant_of_the_week.eyebrow": "Augalo savaitės",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot augalų vadovas",
+  "home.plant_of_the_week.cta": "Perskaitykite {name} vadovą",
+  "home.plant_of_the_week.views": "{n} sodininkų skaito šią savaitę",
+  "home.plant_of_the_week.views_one": "1 sodininkas skaito šią savaitę",
 
 };
 

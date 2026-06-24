@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "Патчтың айналасында",
   "home.most_loved.title": "Ең сүйікті патчтар осы аптада",
   "home.most_loved.body": "Нағыз бақтар, олардың бағбандары тарапынан қатысқан. Не өсіп жатқанын көру үшін кез келгенін басыңыз — және Patch & Pot ай сайынғы нұсқауын қайда тұратынына сәйкес реттейді.",
-  "home.most_loved.plant_count": "{n} өсімдіктер",
-  "home.plant_of_the_week.eyebrow": "Аптаның өсімдігі",
-  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot өсімдік нұсқаулығы",
-  "home.plant_of_the_week.cta": "{name} нұсқаулығын оқыңыз",
-  "home.plant_of_the_week.views": "{n} бағбан осы аптада оқып жатыр",
-  "home.plant_of_the_week.views_one": "1 бағбан осы аптада оқып жатыр",
+  "home.most_loved.plant_count": "{n} өсімдіктер",  "home.plant_of_the_week.eyebrow": "Аптаның зауыты",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot зауыт нұсқаулығы",
+  "home.plant_of_the_week.cta": "{name} нұсқаулығын оқу",
+  "home.plant_of_the_week.views": "Бұл аптада {n} бағбан оқып жатыр",
+  "home.plant_of_the_week.views_one": "Бұл аптада 1 бағбан оқып жатыр",
 
 };
 

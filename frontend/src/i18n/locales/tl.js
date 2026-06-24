@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Most-loved patches sa linggong ito",
   "home.most_loved.body": "Tunay na mga hardin, pinili ng kanilang mga hardinero. I-click ang kahit anong isa upang makita kung ano ang tumutubo — at kung paano inaangkop ng Patch & Pot ang buwanang patnubay nito sa kung saan sila nakatira.",
   "home.most_loved.plant_count": "{n} mga halaman",
+  "home.plant_of_the_week.eyebrow": "Puno ng linggo",
+  "home.plant_of_the_week.image_alt": "{name} — gabay sa halaman ng Patch & Pot",
+  "home.plant_of_the_week.cta": "Basahin ang gabay sa {name}",
+  "home.plant_of_the_week.views": "{n} hardinero ang nagbabasa ngayong linggo",
+  "home.plant_of_the_week.views_one": "1 hardinero ang nagbabasa ngayong linggo",
 
 };
 

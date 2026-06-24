@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "ತುಂಡಿನ ಸುತ್ತ",
   "home.most_loved.title": "ಈ ವಾರದ ಹೆಚ್ಚುಪ್ರಿಯ ತುಂಡುಗಳು",
   "home.most_loved.body": "ವಾಸ್ತವಿಕ ತೋಟಗಳು, ತಮ್ಮ ತೋಟಗಾರಿಕರ ಅನುಮೋದನೆಗಾಗಿ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ. ಏನೇನಾದರೂ ಕ್ಲಿಕ್ ಮಾಡಿ ಏನೆಲ್ಲ ಬೆಳೆಯುತ್ತಿದೆ ಎಂಬುದನ್ನು ನೋಡಿ — ಮತ್ತು Patch & Pot ತನ್ನ ಮಾಸದಲ್ಲಿ ಅವರು ನಿವಾಸಿಸುವ ಸ್ಥಳಕ್ಕೆ ಹೇಗೆ ಮಾರ್ಗದರ್ಶನವನ್ನು ಹೊಂದಿಸುತ್ತದೆ.",
-  "home.most_loved.plant_count": "{n} ಸೊಪ್ಪುಗಳು",
-  "home.plant_of_the_week.eyebrow": "ಈ ವಾರದ ಗಂಟು",
-  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot ಚ Pflಾದಾನು ಕೇಳಿಸಿ",
-  "home.plant_of_the_week.cta": "{name} ಎಲ್ಲವೂ ಓದಿರಿ",
-  "home.plant_of_the_week.views": "ಈ ವಾರ {n} ತೋಟಗಾರರು ಓದುತ್ತಿದ್ದಾರೆ",
-  "home.plant_of_the_week.views_one": "ಈ ವಾರ 1 ತೋಟಗಾರ ಓದುತ್ತಾನೆ",
+  "home.most_loved.plant_count": "{n} ಸೊಪ್ಪುಗಳು",  "home.plant_of_the_week.eyebrow": "ಈ ವಾರದ ಗಿಡ",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot ವೃಕ್ಷ ಮಾರ್ಗದರ್ಶಿ",
+  "home.plant_of_the_week.cta": "{name} ಮಾರ್ಗದರ್ಶಿ ಓದಿ",
+  "home.plant_of_the_week.views": "ಈ ವಾರ {n} ಉದ್ಯಾನಕೋಶಿಗಳು ಓದುತ್ತಿದ್ದಾರೆ",
+  "home.plant_of_the_week.views_one": "ಈ ವಾರ 1 ಉದ್ಯಾನಕೋಶಿ ಓದುತ್ತಿದ್ದಾರೆ",
 
 };
 

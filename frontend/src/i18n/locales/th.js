@@ -674,12 +674,11 @@ const dict = {
   "home.most_loved.eyebrow": "รอบๆ Patch",
   "home.most_loved.title": "Patch ที่รักที่สุดในสัปดาห์นี้",
   "home.most_loved.body": "สวนจริงที่ได้รับความเห็นชอบจากสวนของพวกเขา คลิกที่ใดก็ได้เพื่อดูว่าอะไรเติบโต — และ Patch & Pot ปรับแนวทางรายเดือนของตนให้เข้ากับที่ที่พวกเขาอยู่ได้อย่างไร.",
-  "home.most_loved.plant_count": "{n} พืช",
-  "home.plant_of_the_week.eyebrow": "พืชประจำสัปดาห์",
-  "home.plant_of_the_week.image_alt": "{name} — คู่มือพืชของ Patch & Pot",
+  "home.most_loved.plant_count": "{n} พืช",  "home.plant_of_the_week.eyebrow": "พืชประจำสัปดาห์",
+  "home.plant_of_the_week.image_alt": "{name} — คู่มือพืชจาก Patch & Pot",
   "home.plant_of_the_week.cta": "อ่านคู่มือ {name}",
-  "home.plant_of_the_week.views": "{n} ชาวสวนกำลังอ่านในสัปดาห์นี้",
-  "home.plant_of_the_week.views_one": "ชาวสวน 1 คนกำลังอ่านในสัปดาห์นี้",
+  "home.plant_of_the_week.views": "อ่านโดยชาวสวน {n} คนในสัปดาห์นี้",
+  "home.plant_of_the_week.views_one": "อ่านโดยชาวสวน 1 คนในสัปดาห์นี้",
 
 };
 

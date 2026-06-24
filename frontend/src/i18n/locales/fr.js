@@ -687,7 +687,7 @@ const dict = {
   "plant.pin_description": "Comment cultiver {name} dans de petits espaces — Patch & Pot",
   "share_patch.social_kit.download": "Télécharger le kit de médias sociaux (ZIP)",
   "share_patch.social_kit.help": "Quatre images prêtes à être publiées (1:1, 4:5, 9:16, 16:9) et des légendes par plateforme — pour Instagram, Reels, TikTok, Twitter et YouTube. Cela prend quelques secondes la première fois pendant que les légendes sont écrites.",
-  "share_patch.tweet.action": "Tweeter ce patch",
+  "share_patch.tweet.action": "Tweeter cette parcelle",
 
 };
 

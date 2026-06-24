@@ -28,6 +28,20 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 34 (2026-02-25): ✅ — [Tweet this patch] one-click X intent button
+
+Tiny but high-leverage follow-up to iter33: lets the patch owner post a real Twitter Card preview to X in a single click, with the AI-tuned caption auto-filled. The 4-image ZIP is great for considered marketing, but the friction is real — most users won't open the ZIP, pick an image, write a tweet, attach the image. The intent URL bypasses all of that.
+
+- **`backend/routers/share.py`** — extracted `_format_region()` and `_get_or_generate_captions()` helpers from the social-kit endpoint into shared nested functions. Both the new captions endpoint and the existing ZIP endpoint now read/write the same `shared_patch_captions` MongoDB cache keyed on `(share_id, version=updated_at)`, so the LLM call fires once per snapshot version regardless of which surface triggers it first. Cache-Control: public, max-age=86400.
+- **New endpoint `GET /api/share/patch/{share_id}/captions.json`** — returns the four platform captions as `{"captions": {"instagram_square": str, "instagram_portrait": str, "reels_story": str, "youtube_twitter": str}}`. Used by the frontend tweet button.
+- **`frontend/src/components/SharePatchModal.jsx`** — new `[Tweet this patch]` button (`data-testid=share-patch-tweet`) beside the social-kit download. `onTweet()` fetches `/captions.json`, then opens `https://x.com/intent/tweet?text=<youtube_twitter_caption>&url=<share_url>` in a sized popup (with `window.location.href` fallback if popups are blocked). Text param does NOT inline the URL — that's deliberate; X needs `&url=` separately to unfurl the OG card. `tweeting` state drives spinner + disabled while the captions fetch resolves.
+- **i18n**: new key `share_patch.tweet.action` → translated to all 57 non-English locales via `/app/scripts/translate_tweet_key.py`. French manually polished from "Tweeter ce patch" → "Tweeter cette parcelle" to match the surrounding FR locale terminology (per testing-agent feedback).
+- **Tests**: `backend/tests/test_captions_iter34.py` (4/4 green: returns 4 platforms, cached identically on second call, warms ZIP cache so captions match verbatim, 404 on unknown share_id). testing_agent_v3 iter34: backend 22/22 + frontend assertions all met. Report: `/app/test_reports/iteration_34.json`.
+
+Together with iter33, this closes the social-marketing surface: ZIP for thoughtful posts, one-click button for impulse shares.
+
+
+
 ### Iteration 33 (2026-02-25): ✅ — Social Media Kit (ZIP download)
 
 Closes the long-deferred P2 "Social Media Kit" request — the user can now download a single ZIP that includes one teaser image per major social aspect ratio plus an AI-written, on-brand caption for each. Targeted use case: "I want to share my patch on Instagram/Reels/TikTok without screenshotting my dashboard or hiring a designer."

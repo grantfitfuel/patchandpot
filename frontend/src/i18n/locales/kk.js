@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Әлеуметтік медиа жинағын жүктеп алыңыз (ZIP)",
   "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter және YouTube үшін төрт дайын жарияланатын бейне (1:1, 4:5, 9:16, 16:9) және платформаға арналған жазбалар. Жазбалар жазылған кезде бірінші рет бірнеше секундты алады.",
   "share_patch.tweet.action": "Бұл патчты твиттеу",
+  "share_patch.story.action": "Stories / Reels-ге бөлісу",
 
 };
 

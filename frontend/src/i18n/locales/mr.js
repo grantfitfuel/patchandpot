@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "सोशल मीडियाच्या किट डाउनलोड करा (ZIP)",
   "share_patch.social_kit.help": "चार पोस्ट करण्यास तयार प्रतिमा (1:1, 4:5, 9:16, 16:9) आणि प्रत्येक प्लॅटफॉर्मसाठी कॅप्शन — Instagram, Reels, TikTok, Twitter आणि YouTube साठी. पहिल्यांदा कॅप्शन लिहिण्यात थोडा वेळ लागतो.",
   "share_patch.tweet.action": "या पॅचला ट्वीट करा",
+  "share_patch.story.action": "कथा / रील्स वर सामायिक करा",
 
 };
 

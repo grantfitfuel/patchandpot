@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "下载社交媒体工具包（ZIP）",
   "share_patch.social_kit.help": "四个可以直接发布的图像（1:1，4:5，9:16，16:9）以及每个平台的描述 — 适用于Instagram、Reels、TikTok、Twitter和YouTube。第一次需要几秒钟写入描述。",
   "share_patch.tweet.action": "分享这个补丁",
+  "share_patch.story.action": "分享至故事 / 短视频",
 
 };
 

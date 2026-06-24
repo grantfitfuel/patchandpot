@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Download Social Media Kit (ZIP)",
   "share_patch.social_kit.help": "Vier kant-en-klare afbeeldingen om te posten (1:1, 4:5, 9:16, 16:9) en per-platform bijschriften — voor Instagram, Reels, TikTok, Twitter en YouTube. Het kost een paar seconden de eerste keer terwijl de bijschriften worden geschreven.",
   "share_patch.tweet.action": "Tweet deze patch",
+  "share_patch.story.action": "Deel naar Verhalen / Reels",
 
 };
 

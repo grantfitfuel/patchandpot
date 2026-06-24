@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Check, Code2, Copy, Download, ExternalLink, ImageDown, Loader2, Share2, Sprout, Trash2, Twitter, X } from "lucide-react";
+import { Check, Code2, Copy, Download, ExternalLink, ImageDown, Loader2, Share, Share2, Sprout, Trash2, Twitter, X } from "lucide-react";
 import { createSharedPatch, deleteSharedPatch } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
@@ -139,6 +139,54 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     return `${backend}/api/share/patch/${cached.share_id}/social-kit.zip`;
   }, [cached]);
 
+  // [Share to Stories / Reels] — invokes the OS-native share sheet on
+  // mobile so the user can post to Instagram Story / TikTok / WhatsApp
+  // Status in one tap. Requires the Web Share API Level 2 (file sharing).
+  // Desktop browsers and older mobiles silently fall back to a download.
+  const [sharingStory, setSharingStory] = useState(false);
+  const canNativeShareFiles = useMemo(() => {
+    if (typeof navigator === "undefined") return false;
+    if (typeof navigator.canShare !== "function") return false;
+    try {
+      // Probe with a 1-byte dummy file — same File API surface as the
+      // real share. If canShare returns false here (e.g. desktop
+      // Chrome) we don't show the button at all.
+      const probe = new File([new Uint8Array([0])], "probe.png", { type: "image/png" });
+      return navigator.canShare({ files: [probe] });
+    } catch {
+      return false;
+    }
+  }, []);
+  const onShareStory = async () => {
+    if (!cached?.share_id || sharingStory) return;
+    setSharingStory(true);
+    try {
+      const backend = process.env.REACT_APP_BACKEND_URL || "";
+      // Fetch the 9:16 teaser image + captions in parallel — the captions
+      // endpoint also warms the LLM cache for any later Tweet click.
+      const [imgRes, capRes] = await Promise.all([
+        fetch(`${backend}/api/share/patch/${cached.share_id}/story.png`),
+        fetch(`${backend}/api/share/patch/${cached.share_id}/captions.json`),
+      ]);
+      if (!imgRes.ok) throw new Error("story image fetch failed");
+      const blob = await imgRes.blob();
+      const file = new File([blob], "patch-and-pot-story.png", { type: "image/png" });
+      const cap = capRes.ok ? (await capRes.json())?.captions?.reels_story : "";
+      await navigator.share({
+        files: [file],
+        text: cap || "",
+        url: shareUrl,
+        title: cached?.patch_name || "My Patch",
+      });
+    } catch (e) {
+      // AbortError = user dismissed the share sheet; not worth surfacing.
+      if (e?.name !== "AbortError") {
+        console.warn("Native share failed", e);
+      }
+    } finally {
+      setSharingStory(false);
+    }
+  };
   // [Tweet this patch] — fetch the AI-written Twitter-tuned caption from
   // the same cache that powers the social-kit ZIP, then pop X's intent
   // URL pre-filled with both the caption text and the patch URL. X will
@@ -445,6 +493,20 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
                     : <Twitter strokeWidth={1.5} className="w-4 h-4" />}
                   {t("share_patch.tweet.action")}
                 </button>
+                {canNativeShareFiles && (
+                  <button
+                    type="button"
+                    onClick={onShareStory}
+                    disabled={sharingStory}
+                    data-testid="share-patch-story"
+                    className="text-sm text-moss hover:text-forest inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-wait"
+                  >
+                    {sharingStory
+                      ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" />
+                      : <Share strokeWidth={1.5} className="w-4 h-4" />}
+                    {t("share_patch.story.action")}
+                  </button>
+                )}
               </div>
               <p className="text-xs text-moss/60 leading-relaxed -mt-2" data-testid="share-patch-social-kit-help">
                 {t("share_patch.social_kit.help")}

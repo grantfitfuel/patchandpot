@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Scarica il Kit Social Media (ZIP)",
   "share_patch.social_kit.help": "Quattro immagini pronte per essere pubblicate (1:1, 4:5, 9:16, 16:9) e didascalie per ogni piattaforma — per Instagram, Reels, TikTok, Twitter e YouTube. Ci vogliono alcuni secondi la prima volta mentre le didascalie vengono scritte.",
   "share_patch.tweet.action": "Twitta questo patch",
+  "share_patch.story.action": "Condividi su Storie / Reel",
 
 };
 

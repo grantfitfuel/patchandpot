@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Last ned sosiale medier-pakken (ZIP)",
   "share_patch.social_kit.help": "Fire klare til å postes bilder (1:1, 4:5, 9:16, 16:9) og plattformspesifikke bildetekster — for Instagram, Reels, TikTok, Twitter og YouTube. Tar noen sekunder første gang mens bildetekstene skrives.",
   "share_patch.tweet.action": "Tweet dette patchen",
+  "share_patch.story.action": "Del til Stories / Reels",
 
 };
 

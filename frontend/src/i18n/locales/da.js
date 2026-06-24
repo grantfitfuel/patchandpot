@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Download sociale medier kit (ZIP)",
   "share_patch.social_kit.help": "Fire klar-til-at-poste billeder (1:1, 4:5, 9:16, 16:9) og per-platform beskrivelser — til Instagram, Reels, TikTok, Twitter og YouTube. Det tager et par sekunder første gang, mens beskrivelserne skrives.",
   "share_patch.tweet.action": "Tweet denne patch",
+  "share_patch.story.action": "Del til Stories / Reels",
 
 };
 

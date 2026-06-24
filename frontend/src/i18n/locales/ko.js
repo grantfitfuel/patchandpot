@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "소셜 미디어 키트 다운로드 (ZIP)",
   "share_patch.social_kit.help": "인스타그램, Reels, TikTok, Twitter 및 YouTube를 위한 플랫폼별 캡션과 함께 준비된 게시 이미지 네 개 (1:1, 4:5, 9:16, 16:9). 캡션이 작성되는 동안 처음 몇 초가 소요됩니다.",
   "share_patch.tweet.action": "이 패치를 트윗하세요",
+  "share_patch.story.action": "Stories / 릴스에 공유하기",
 
 };
 

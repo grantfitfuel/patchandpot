@@ -1,0 +1,33 @@
+{
+  "summary": "iter35 [Share to Stories / Reels] verified end-to-end. Backend: 13/13 pytest green — 4 new test_story_image_iter35 (story.png returns 200 with valid PNG signature + 1080x1920, second call cached/byte-identical, 404 on unknown share, byte-identical to reels_story.png inside social-kit.zip), 4 captions_iter34 regression + 5 social_kit_iter33 regression all pass. Frontend: (a) without canShare stub, data-testid='share-patch-story' is correctly absent from the DOM (feature-detection works); (b) with init-script stub installing navigator.canShare({files}) -> true and navigator.share capturing calls, the button renders with EN label 'Share to Stories / Reels' (not raw key); (c) clicking it produces exactly 1 window.__shareCalls entry containing files=[{name:'patch-and-pot-story.png', type:'image/png', size:110811}], text=AI-generated reels caption (e.g. 'Two plants. One Bristol patch...'), url='https://.../api/share/preview/<share_id>', title set; (d) Loader2 spinner + disabled state confirmed during in-flight fetch (verified in first run before cache warm-up); (e) Spanish locale (patchpot.lang.v1='es') shows translated label 'Compartir en Stories / Reels' — not raw key. Regression: share-patch-qr-download, share-patch-social-kit, share-patch-tweet all still present alongside.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_story_image_iter35.py",
+    "/app/backend/tests/test_captions_iter34.py",
+    "/app/backend/tests/test_social_kit_iter33.py",
+    "/app/test_reports/pytest/iter35_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "share.py: new /story.png endpoint correctly delegates to share_social_kit.render_kit_images() (same render call that ZIP endpoint uses) so the standalone PNG and ZIP's reels_story.png are guaranteed byte-identical — verified by test_story_png_matches_kit_zip_reels_image.",
+    "Server-side caching is via shared_patch_story_png collection keyed on (share_id, version=updated_at) — same pattern as og.png + social-kit.zip + captions.json. Cache invalidation is automatic on snapshot edit. Lazy generation means no upfront cost for unshared snapshots.",
+    "Cache-Control 'public, max-age=86400' set server-side; the preview ingress overrides with no-store (acknowledged in spec). Tests correctly assert no client-side cache header — only server-side cache (second call returns identical bytes).",
+    "SharePatchModal.jsx canNativeShareFiles useMemo is correctly written with empty deps array — probes navigator.canShare({files:[1-byte File]}) once at mount. Try/catch ensures Safari quirks don't crash render. Button is wrapped in {canNativeShareFiles && ...} so it's literally NOT in the DOM when probe returns false — perfect feature-detection.",
+    "onShareStory() handler: parallel Promise.all for story.png + captions.json (no waterfall), passes File object (not raw Blob) so iOS share sheet picks correct app routing, gracefully swallows AbortError (user dismissed sheet) without surfacing as error. text=captions.reels_story, url=shareUrl (the /api/share/preview/<id> URL — right one for unfurling).",
+    "Share icon (lucide-react) added to existing import line — no new import statement. setSharingStory state flag is independent from main `state` reducer so the create/update loading state can't clobber it.",
+    "Minor nit: onShareStory uses console.warn on non-AbortError, no user-facing toast. Same posture as Tweet button (iter34). If story.png endpoint were hard-down the user gets no visual feedback. Acceptable for an optional share affordance."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (13/13 tests)", "frontend": "100% (all required assertions met: feature-detection, stub flow with file+text+url+title verified, spinner/disabled UX, EN+ES locale labels, regression buttons all present)"},
+  "test_credentials": "n/a",
+  "seed_data_creation": "Seeded patch via localStorage: patchpot.patches.v1 (index with active_id), patchpot.patch.<id>.region.v1 (Bristol/UK), patchpot.patch.<id>.garden.v1 (tomato+basil). Backend created TEST_story_iter35, TEST_story_cache, TEST_story_match_kit shared_patches docs.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Web Share API Level 2 stub pattern works reliably with page.add_init_script BEFORE first navigation: define navigator.canShare(data) -> !!data.files.length and navigator.share(data) capturing files-as-metadata (File objects don't serialize over evaluate boundary, so map to {name,type,size}). Pre-warm story.png + captions.json via fetch in page context BEFORE clicking share-patch-story — first-call render takes ~10-15s and Playwright timeouts may abort. After pre-warm, the click resolves in <500ms and spinner state is brief. Locale switch: localStorage.setItem('patchpot.lang.v1', '<code>'). Seed-patch keys unchanged from iter33/34. Share-modal opener: data-testid='garden-share-btn' on /garden page.",
+  "rca_of_the_issue": "n/a — feature works as designed"
+}

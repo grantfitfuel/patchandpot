@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Baixar Kit de Mídias Sociais (ZIP)",
   "share_patch.social_kit.help": "Quatro imagens prontas para postagem (1:1, 4:5, 9:16, 16:9) e legendas por plataforma — para Instagram, Reels, TikTok, Twitter e YouTube. Leva alguns segundos na primeira vez enquanto as legendas são escritas.",
   "share_patch.tweet.action": "Twittar este patch",
+  "share_patch.story.action": "Compartilhar no Stories / Reels",
 
 };
 

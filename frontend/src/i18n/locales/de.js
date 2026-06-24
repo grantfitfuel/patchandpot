@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Social-Media-Kit herunterladen (ZIP)",
   "share_patch.social_kit.help": "Vier postfertige Bilder (1:1, 4:5, 9:16, 16:9) und plattformspezifische Bildtexte — für Instagram, Reels, TikTok, Twitter und YouTube. Beim ersten Mal dauert es ein paar Sekunden, während die Bildtexte geschrieben werden.",
   "share_patch.tweet.action": "Tweet diesen Patch",
+  "share_patch.story.action": "Teilen in Stories / Reels",
 
 };
 

@@ -685,6 +685,7 @@ const dict = {
   "share_patch.social_kit.download": "Sosyal Medya Kiti İndir (ZIP)",
   "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter ve YouTube için dört hazır paylaşım görseli (1:1, 4:5, 9:16, 16:9) ve her platforma özel başlıklar. Başlıklar yazılırken ilk seferde birkaç saniye alır.",
   "share_patch.tweet.action": "Bu yaması paylaş",
+  "share_patch.story.action": "Hikayelere / Reels'e Paylaş",
 
 };
 

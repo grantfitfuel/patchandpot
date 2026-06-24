@@ -640,6 +640,7 @@ const dict = {
   "share_patch.social_kit.download": "Download Social Media Kit (ZIP)",
   "share_patch.social_kit.help": "Four ready-to-post images (1:1, 4:5, 9:16, 16:9) and per-platform captions — for Instagram, Reels, TikTok, Twitter and YouTube. Takes a few seconds the first time while the captions are written.",
   "share_patch.tweet.action": "Tweet this patch",
+  "share_patch.story.action": "Share to Stories / Reels",
   "share_patch.list_publicly.title": "Show on the homepage \"Most-loved patches\" wall",
   "share_patch.list_publicly.help": "Off by default. When on, this patch may appear on the Patch & Pot homepage based on visits. You can switch it off again any time.",
   "share_patch.delete": "Remove the public link",

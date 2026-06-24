@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "ดาวน์โหลดชุดสื่อโซเชียล (ZIP)",
   "share_patch.social_kit.help": "ภาพที่พร้อมโพสต์สี่ภาพ (1:1, 4:5, 9:16, 16:9) และคำบรรยายตามแพลตฟอร์ม — สำหรับ Instagram, Reels, TikTok, Twitter และ YouTube ใช้เวลาสักครู่ในครั้งแรกที่เขียนคำบรรยาย.",
   "share_patch.tweet.action": "ทวีตแพตช์นี้",
+  "share_patch.story.action": "แชร์ไปที่ Stories / Reels",
 
 };
 

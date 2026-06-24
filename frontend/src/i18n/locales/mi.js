@@ -688,6 +688,7 @@ const dict = {
   "share_patch.social_kit.download": "Tuku i te Pūkete Pāpori (ZIP)",
   "share_patch.social_kit.help": "E pātea ana ngā whakaahua e whā hei pānui (1:1, 4:5, 9:16, 16:9) me ngā kupu whakauru mo ia papanga — mō Instagram, Reels, TikTok, Twitter me YouTube. Ka tango pea te pātea mō te wa tuatahi i te mea e tuhia ana ngā kupu whakauru.",
   "share_patch.tweet.action": "Tūhono i tēnei patch",
+  "share_patch.story.action": "Tāpirihia ki ngā pūrākau / Rīpene",
 
 };
 

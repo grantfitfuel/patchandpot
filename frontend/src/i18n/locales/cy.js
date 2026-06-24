@@ -688,6 +688,7 @@ const dict = {
   "share_patch.social_kit.download": "Lawrlwytho Pecyn Cyfryngau Cymdeithasol (ZIP)",
   "share_patch.social_kit.help": "Pum delwedd barod i’w gosod (1:1, 4:5, 9:16, 16:9) a mynegiadau ar gyfer pob llwyfan — ar gyfer Instagram, Reels, TikTok, Twitter a YouTube. Mae’n cymryd ychydig eiliadau y tro cyntaf tra bo’r mynegiadau’n cael eu hysgrifenni.",
   "share_patch.tweet.action": "Tweetio'r patch hwn",
+  "share_patch.story.action": "Rhannwch i Storiau / Reels",
 
 };
 

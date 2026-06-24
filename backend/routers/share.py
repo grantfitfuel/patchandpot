@@ -464,6 +464,54 @@ def make_router(db) -> APIRouter:
         )
         return doc, captions
 
+    @router.get("/share/patch/{share_id}/story.png")
+    async def share_story_image(share_id: str, request: Request):
+        """Return the 9:16 Reels/Stories teaser as a standalone PNG, so
+        the frontend can fetch it as a Blob and pass it to the native
+        Web Share API on mobile. Lighter than fetching the full ZIP.
+
+        Cached in `shared_patch_story_png` keyed on (share_id, version).
+        Generated lazily on first hit so we never pay the rendering cost
+        for shares that aren't promoted.
+        """
+        if not share_id or len(share_id) > 40:
+            raise HTTPException(404, "Snapshot not found.")
+        doc = await db.shared_patches.find_one({"share_id": share_id})
+        if not doc:
+            raise HTTPException(404, "Snapshot not found.")
+
+        version = doc.get("updated_at") or doc.get("created_at") or ""
+        cached = await db.shared_patch_story_png.find_one(
+            {"share_id": share_id, "version": version},
+            {"_id": 0, "png": 1},
+        )
+        if cached and cached.get("png"):
+            png_bytes = cached["png"]
+        else:
+            from share_social_kit import render_kit_images
+            kit = render_kit_images(
+                patch_name=doc.get("patch_name") or "My patch",
+                region_name=_format_region(doc.get("region") or {}),
+                plant_count=len(doc.get("plants") or []),
+            )
+            png_bytes = kit["reels_story"]
+            await db.shared_patch_story_png.update_one(
+                {"share_id": share_id},
+                {"$set": {
+                    "share_id": share_id,
+                    "version": version,
+                    "png": png_bytes,
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                }},
+                upsert=True,
+            )
+
+        return Response(
+            content=png_bytes,
+            media_type="image/png",
+            headers={"Cache-Control": "public, max-age=86400"},
+        )
+
     @router.get("/share/patch/{share_id}/captions.json")
     async def share_captions(share_id: str, request: Request):
         """Return the four AI-generated platform captions for this share as

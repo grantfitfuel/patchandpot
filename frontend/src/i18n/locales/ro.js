@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Descarcă kitul pentru rețelele sociale (ZIP)",
   "share_patch.social_kit.help": "Patru imagini gata de postat (1:1, 4:5, 9:16, 16:9) și descrieri per platformă — pentru Instagram, Reels, TikTok, Twitter și YouTube. Este nevoie de câteva secunde prima dată în timp ce descrierile sunt scrise.",
   "share_patch.tweet.action": "Tweet acest patch",
+  "share_patch.story.action": "Trimite în Stories / Reels",
 
 };
 

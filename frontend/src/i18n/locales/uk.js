@@ -688,6 +688,7 @@ const dict = {
   "share_patch.social_kit.download": "Завантажити набір соціальних медіа (ZIP)",
   "share_patch.social_kit.help": "Чотири готові до публікації зображення (1:1, 4:5, 9:16, 16:9) та підписи для кожної платформи — для Instagram, Reels, TikTok, Twitter і YouTube. На першій спробі це займає кілька секунд, поки підписи створюються.",
   "share_patch.tweet.action": "Твідніть цей патч",
+  "share_patch.story.action": "Поділитися в Stories / Reels",
 
 };
 

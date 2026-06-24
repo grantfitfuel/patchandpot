@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "Hlaða niður samfélagsmiðlapakka (ZIP)",
   "share_patch.social_kit.help": "Fjórar myndir tilbúnar til að deila (1:1, 4:5, 9:16, 16:9) og lýsingar fyrir hvern vettvang — fyrir Instagram, Reels, TikTok, Twitter og YouTube. Þetta tekur nokkrar sekúndur í fyrsta skipti meðan lýsingarnar eru skrifaðar.",
   "share_patch.tweet.action": "Tweeta þessa lappar",
+  "share_patch.story.action": "Deildu á Sögum / Reels",
 
 };
 

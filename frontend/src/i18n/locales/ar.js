@@ -687,6 +687,7 @@ const dict = {
   "share_patch.social_kit.download": "تحميل مجموعة وسائل التواصل الاجتماعي (ZIP)",
   "share_patch.social_kit.help": "أربع صور جاهزة للنشر (1:1, 4:5, 9:16, 16:9) وتعليقات لكل منصة — لـ Instagram و Reels و TikTok و Twitter و YouTube. يستغرق بضع ثوانٍ في المرة الأولى بينما يتم كتابة التعليقات.",
   "share_patch.tweet.action": "غرّد هذه اللصقة",
+  "share_patch.story.action": "شارك في القصص / الريلز",
 
 };
 

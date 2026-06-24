@@ -28,6 +28,21 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 33 (2026-02-25): ✅ — Social Media Kit (ZIP download)
+
+Closes the long-deferred P2 "Social Media Kit" request — the user can now download a single ZIP that includes one teaser image per major social aspect ratio plus an AI-written, on-brand caption for each. Targeted use case: "I want to share my patch on Instagram/Reels/TikTok without screenshotting my dashboard or hiring a designer."
+
+- **`backend/share_social_kit.py`** (NEW): Pillow-based renderer producing four layouts from a `_LAYOUTS` tuple of frozen `_Layout` dataclasses — `instagram_square` (1080×1080, 1:1), `instagram_portrait` (1080×1350, 4:5), `reels_story` (1080×1920, 9:16), `youtube_twitter` (1920×1080, 16:9). Reuses the OG card palette, font helpers and `_draw_botanical` motif from `share_og.py` for visual consistency. `build_kit_zip()` bundles the four PNGs + `captions.txt` + `README.txt` into a single archive.
+- **`backend/share_social_captions.py`** (NEW): generates one platform-tuned caption per layout via Claude Sonnet 4.5 (Emergent LLM key), with platform-specific length / hashtag / emoji hints embedded in the prompt. Wraps the call in a try/except — on any LLM failure or missing key, falls back to deterministic templates so the user always gets a usable kit. Captions backfill: any missing key in the LLM response is filled from the template so the ZIP always has all four.
+- **`backend/routers/share.py`**: new `GET /api/share/patch/{share_id}/social-kit.zip` endpoint. Caches the rendered ZIP in MongoDB collection `shared_patch_social_kit` keyed on `(share_id, version=updated_at)` — every snapshot edit (patch_name change, plant added/removed) automatically busts the cache. Cache-Control: public, max-age=86400. Content-Disposition: attachment with the share_id in the filename.
+- **`frontend/src/components/SharePatchModal.jsx`**: new "Download Social Media Kit (ZIP)" anchor (`data-testid=share-patch-social-kit`) next to the existing QR-sticker download, with a one-line help paragraph (`data-testid=share-patch-social-kit-help`) explaining the four aspect ratios and the cold-cache delay. Uses `ImageDown` from lucide-react.
+- **`frontend/src/i18n/locales/en.js`** + all 57 non-English locales via `/app/scripts/translate_social_kit_keys.py`: 2 new keys (`share_patch.social_kit.download`, `share_patch.social_kit.help`). German was manually polished from "Soziale Medien-Kit" → "Social-Media-Kit" (the established loanword) per testing-agent feedback.
+- **Tests**: `backend/tests/test_social_kit_iter33.py` (5/5 green) + testing-agent-written `test_social_kit_iter33_extras.py` (4/4 green) covering ZIP structure, byte-identical cache hits, cache invalidation on patch_name edit, long-unbreakable-name regression (width-aware re-fit loop in `_compose`), 404 path, fallback-template path, and full iter28/iter31 endpoint regression.
+
+**Cost envelope**: first kit download per snapshot costs ~$0.003 (4 short Claude Sonnet calls). Every subsequent download from the same snapshot version is free (cached bytes).
+
+
+
 ### Iteration 32 (2026-02-25): ✅ — Targeted code-quality remediation (audit pass)
 
 Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 React hook-deps, localStorage→httpOnly cookies, complexity refactors of `admin.py`/`checkout.py`/`GuidanceView.jsx`) **intentionally deferred** as architectural changes that warrant separate planning to avoid destabilising prod.

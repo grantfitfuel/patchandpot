@@ -193,3 +193,7 @@ export const deleteSharedPatch = (shareId, ownerSecret) =>
   api.delete(`/share/patch/${shareId}`, { params: { owner_secret: ownerSecret } }).then((r) => r.data);
 export const fetchPopularPatches = (limit = 6) =>
   api.get("/share/patches/popular", { params: { limit } }).then((r) => r.data);
+export const fetchPlantOfTheWeek = (language = "en") =>
+  api.get("/plants/of-the-week", { params: { language } }).then((r) => r.data);
+export const fetchPopularPlants = (limit = 6, language = "en") =>
+  api.get("/plants/popular", { params: { limit, language } }).then((r) => r.data);

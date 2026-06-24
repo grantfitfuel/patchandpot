@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "أكثر الحدائق حبًا هذا الأسبوع",
   "home.most_loved.body": "حدائق حقيقية، اختارها حدائقها. انقر على أي واحدة لرؤية ما ينمو — وكيف تضبط Patch & Pot إرشاداتها الشهرية بناءً على المكان الذي يعيشون فيه.",
   "home.most_loved.plant_count": "{n} نباتات",
+  "home.plant_of_the_week.eyebrow": "نبات الأسبوع",
+  "home.plant_of_the_week.image_alt": "{name} — دليل نباتات Patch & Pot",
+  "home.plant_of_the_week.cta": "اقرأ دليل {name}",
+  "home.plant_of_the_week.views": "{n} مزارع يقرأ هذا الأسبوع",
+  "home.plant_of_the_week.views_one": "1 مزارع يقرأ هذا الأسبوع",
 
 };
 

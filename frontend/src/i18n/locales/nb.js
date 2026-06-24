@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Mest elskede patches denne uken",
   "home.most_loved.body": "Ekte hager, valgt av gartnerne deres. Klikk på noen for å se hva som vokser — og hvordan Patch & Pot tilpasser sin månedlige veiledning til hvor de bor.",
   "home.most_loved.plant_count": "{n} planter",
+  "home.plant_of_the_week.eyebrow": "Ukens plante",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot planteguide",
+  "home.plant_of_the_week.cta": "Les {name}-guiden",
+  "home.plant_of_the_week.views": "{n} gartnerne leser denne uken",
+  "home.plant_of_the_week.views_one": "1 gartner leser denne uken",
 
 };
 

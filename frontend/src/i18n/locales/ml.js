@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "ഈ ആഴ്ചയിലെ ഏറ്റവും ഇഷ്ടപ്പെട്ട പാച്ചുകൾ",
   "home.most_loved.body": "จริง ๆ จะมีสวนที่ถูกเลือกโดยชาวสวนของพวกเขา คลิกเพื่อดูว่าสิ่งใดกำลังเติบโต - และ Patch & Pot ปรับคำแนะนำรายเดือนให้เหมาะสมกับที่ที่พวกเขาอาศัยอยู่",
   "home.most_loved.plant_count": "{n} നരിയെ",
+  "home.plant_of_the_week.eyebrow": "ഈ ആഴ്ചയുടെ സസ്യം",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot സസ്യം മാർഗ്ഗദർശിക",
+  "home.plant_of_the_week.cta": "{name} മാർഗ്ഗദർശകം വായിക്കുക",
+  "home.plant_of_the_week.views": "{n} മള്ളികാർ ഈ ആഴ്ച വായിക്കുന്നു",
+  "home.plant_of_the_week.views_one": "1 മള്ളികാർ ഈ ആഴ്ച വായിക്കുന്നു",
 
 };
 

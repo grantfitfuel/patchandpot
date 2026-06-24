@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "本周最受欢迎的花园",
   "home.most_loved.body": "真实的花园，由其园丁选择参与。点击任何一个查看正在生长的植物——以及Patch & Pot如何根据他们的居住地点调整每月的指导。",
   "home.most_loved.plant_count": "{n}棵植物",
+  "home.plant_of_the_week.eyebrow": "本周植物",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot 植物指南",
+  "home.plant_of_the_week.cta": "阅读 {name} 指南",
+  "home.plant_of_the_week.views": "本周有 {n} 名园丁在阅读",
+  "home.plant_of_the_week.views_one": "本周有 1 名园丁在阅读",
 
 };
 

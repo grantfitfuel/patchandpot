@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Pàircean as fheàrr a' seachdain seo",
   "home.most_loved.body": "Gàrridhean fìor, a thagh iad leis na gàrradairean aca. Clic guth sam bith gus fhaicinn dè a tha a' fàs — agus mar a bhios Patch & Pot a' freagair a stiùireadh mìosail ris an àite far a bheil iad a' fuireach.",
   "home.most_loved.plant_count": "{n} planntaichean",
+  "home.plant_of_the_week.eyebrow": "Planta na seachdain",
+  "home.plant_of_the_week.image_alt": "{name} — stiùireadh plant 'Patch & Pot'",
+  "home.plant_of_the_week.cta": "Leugh an stiùireadh {name}",
+  "home.plant_of_the_week.views": "{n} gàirnealairean a' leughadh an t-seachdain seo",
+  "home.plant_of_the_week.views_one": "1 gàirnealach a' leughadh an t-seachdain seo",
 
 };
 

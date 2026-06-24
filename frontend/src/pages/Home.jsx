@@ -8,6 +8,7 @@ import PaywallModal from "@/components/PaywallModal";
 import FoundingBanner from "@/components/FoundingBanner";
 import EmbedFoundingSnippet from "@/components/EmbedFoundingSnippet";
 import MostLovedPatches from "@/components/MostLovedPatches";
+import PlantOfTheWeek from "@/components/PlantOfTheWeek";
 import {
   NoticeIllustration,
   SlowIllustration,
@@ -196,6 +197,8 @@ export default function Home() {
       </section>
 
       {!paid && <EmbedFoundingSnippet />}
+
+      <PlantOfTheWeek />
 
       <MostLovedPatches />
 

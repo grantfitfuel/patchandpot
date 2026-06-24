@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Suosituimmat palstat tällä viikolla",
   "home.most_loved.body": "Todelliset puutarhat, joiden puutarhurit ovat liittyneet mukaan. Napsauta mitä tahansa nähdäksesi, mitä on kasvamassa — ja kuinka Patch & Pot säätää kuukausiohjeitaan asuinpaikan mukaan.",
   "home.most_loved.plant_count": "{n} kasvia",
+  "home.plant_of_the_week.eyebrow": "Viikon kasvi",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot kasviopas",
+  "home.plant_of_the_week.cta": "Lue {name} opas",
+  "home.plant_of_the_week.views": "{n} puutarhuria lukee tällä viikolla",
+  "home.plant_of_the_week.views_one": "1 puutarhuri lukee tällä viikolla",
 
 };
 

@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "ამ კვირის ყველაზე საყვარელი patches",
   "home.most_loved.body": "ნამდვილ ბაღები, რომლებიც მათი მებაღეების მიერ იყვნენ ჩართული. დააჭირეთ ნებისმიერ მათგანს რათა იხილოთ რა იზრდება - და როგორ დააწყვილებს Patch & Pot თავის თვისებრივ გაწვდას იქ, სადაც ისინი ცხოვრობენ.",
   "home.most_loved.plant_count": "{n} მცენარე",
+  "home.plant_of_the_week.eyebrow": "წლის მცენარე",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot-ის მცენარეთა გიდი",
+  "home.plant_of_the_week.cta": "წაიკითხეთ {name}-ის გიდი",
+  "home.plant_of_the_week.views": "{n} მებაღე読む დღეს",
+  "home.plant_of_the_week.views_one": "1 მებაღე讀一 აქ",
 
 };
 

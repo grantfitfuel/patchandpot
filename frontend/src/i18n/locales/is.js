@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Mest elskaðar patch í þessari viku",
   "home.most_loved.body": "Raunveruleg garðar, valin af þeirra garðyrkjumönnum. Smelltu á hvaða sem er til að sjá hvað er að vaxa — og hvernig Patch & Pot aðlargar leiðbeiningar sínar á hverjum mánuði að því hvar þeir búa.",
   "home.most_loved.plant_count": "{n} plöntur",
+  "home.plant_of_the_week.eyebrow": "Plöntu mánaðarins",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot plöntuleiðbeining",
+  "home.plant_of_the_week.cta": "Lestu {name} leiðbeininguna",
+  "home.plant_of_the_week.views": "{n} garðyrkjumenn að lesa þetta vikuna",
+  "home.plant_of_the_week.views_one": "1 garðyrkjumaður að lesa þetta vikuna",
 
 };
 

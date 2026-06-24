@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Vismīļākie dārzi šajā nedēļā",
   "home.most_loved.body": "Reāli dārzi, kurus ir izvēlējušies to dārznieki. Noklikšķiniet uz jebkura, lai redzētu, kas aug — un kā Patch & Pot pielāgo savu mēneša vadību tam, kur viņi dzīvo.",
   "home.most_loved.plant_count": "{n} augi",
+  "home.plant_of_the_week.eyebrow": "Augšana nedēļas augam",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot augu ceļvedis",
+  "home.plant_of_the_week.cta": "Izlasiet {name} ceļvedi",
+  "home.plant_of_the_week.views": "{n} dārznieki lasa šonedēļ",
+  "home.plant_of_the_week.views_one": "1 dārznieks lasa šonedēļ",
 
 };
 

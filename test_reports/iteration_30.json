@@ -1,0 +1,24 @@
+{
+  "summary": "Iteration 30 — Plant of the Week rail. Validated debounced /api/plants/{id} view tracking, /api/plants/of-the-week (incl. ?language=de), /api/plants/popular (default + cap), bot-UA skip, route ordering (not shadowed by /{plant_id}), and the homepage UI integration (eyebrow, image-OG-card src, h2, facts, CTA, views inflection, click-through). All 31 backend tests green (6 new + 13 share-patch regression + 12 iter28 regression).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_plant_of_the_week.py",
+    "/app/backend/tests/test_share_patch.py",
+    "/app/backend/tests/test_iter28.py",
+    "/app/test_reports/pytest/iter30_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "routers/plants.py: duplicated docstring comment block above _resolve_plant_for_og (4 identical lines repeated). Cosmetic cleanup.",
+    "_record_plant_view swallows ALL exceptions on the dedup insert, not just DuplicateKeyError. A network blip could be misread as a duplicate and silently skip the counter. Catch errors.DuplicateKeyError specifically.",
+    "plant_views uses TTL via expires_at (datetime) which is correct; but the _id is plant_id:fp — if fingerprints ever collide across plants this would still be distinct, OK. Just flagging for future thought."
+  ],
+  "updated_files": ["/app/backend/tests/test_plant_of_the_week.py"],
+  "success_rate": {"backend": "100% (31/31)", "frontend": "100% (all data-testids resolved, click-through OK, OG image src correct)"},
+  "seed_data_creation": "Tests forge fresh X-Forwarded-For + User-Agent per fingerprint; visited tomato/basil/chamomile/borage during runs. No persistent test data — TTL dedup expires in 24h, view_count_7d decays Mondays.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iter30 tests in /app/backend/tests/test_plant_of_the_week.py — fingerprint forged via X-Forwarded-For + unique UA per uuid. Be aware: visiting /api/plants/{id} from any new IP+UA increments the 7d counter. Tests use chamomile/borage to avoid clashing with iter28 tomato visits.",
+  "rca of the issue": "N/A — no failures."
+}

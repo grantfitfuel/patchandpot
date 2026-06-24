@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Legnépszerűbb patch-ek ezen a héten",
   "home.most_loved.body": "Valódi kertek, amelyek a kertészeik által választottak. Kattints bármelyikre, hogy lásd, mi nő — és hogyan hangolja a Patch & Pot a havi útmutatását a lakóhelyükhöz.",
   "home.most_loved.plant_count": "{n} növény",
+  "home.plant_of_the_week.eyebrow": "Hét növénye",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot növény útmutató",
+  "home.plant_of_the_week.cta": "Olvasd el a {name} útmutatót",
+  "home.plant_of_the_week.views": "{n} kertész olvassa ezen a héten",
+  "home.plant_of_the_week.views_one": "1 kertész olvassa ezen a héten",
 
 };
 

@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Τα πιο αγαπημένα patches αυτή την εβδομάδα",
   "home.most_loved.body": "Πραγματικοί κήποι, που επιλέχθηκαν από τους κηπουρούς τους. Κάντε κλικ σε οποιοδήποτε για να δείτε τι φυτρώνει — και πώς το Patch & Pot προσαρμόζει την μηνιαία καθοδήγησή του ανάλογα με το πού ζουν.",
   "home.most_loved.plant_count": "{n} φυτά",
+  "home.plant_of_the_week.eyebrow": "Φυτό της εβδομάδας",
+  "home.plant_of_the_week.image_alt": "{name} — οδηγός φυτών Patch & Pot",
+  "home.plant_of_the_week.cta": "Διαβάστε τον οδηγό {name}",
+  "home.plant_of_the_week.views": "{n} κηπουροί διαβάζουν αυτή την εβδομάδα",
+  "home.plant_of_the_week.views_one": "1 κηπουρός διαβάζει αυτή την εβδομάδα",
 
 };
 

@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Nejoblíbenější zahrady tento týden",
   "home.most_loved.body": "Skutečné zahrady, přihlášené jejich zahradníky. Klikněte na jakoukoli zahradu a podívejte se, co roste — a jak Patch & Pot přizpůsobuje své měsíční rady tomu, kde bydlí.",
   "home.most_loved.plant_count": "{n} rostlin",
+  "home.plant_of_the_week.eyebrow": "Rostlina týdne",
+  "home.plant_of_the_week.image_alt": "{name} — příručka pro rostliny Patch & Pot",
+  "home.plant_of_the_week.cta": "Přečtěte si příručku {name}",
+  "home.plant_of_the_week.views": "{n} zahradníků čte tento týden",
+  "home.plant_of_the_week.views_one": "1 zahradník čte tento týden",
 
 };
 

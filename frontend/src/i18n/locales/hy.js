@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Սիրելի patches այս շաբաթ",
   "home.most_loved.body": "Աληուն այգեր, իրենց այգեպանների կողմից ընտրված: Ոլորեք ցանկացածը տեսնելու համար, թե ինչ է աճում՝ ինչպես է Patch & Pot-ն ամսական տրամվացները հարմարեցնում աշխարում:",
   "home.most_loved.plant_count": "{n} բույսեր",
+  "home.plant_of_the_week.eyebrow": "Շաբաթվա բույս",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot բույսերի ուղեցույց",
+  "home.plant_of_the_week.cta": "Ընթերցեք {name} ուղեցույցը",
+  "home.plant_of_the_week.views": "{n} այգեգործ հ/readins this week",
+  "home.plant_of_the_week.views_one": "1 այգեգործ, ով ընթերցում է այս շաբաթ",
 
 };
 

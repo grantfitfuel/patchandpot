@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Páistí is fearr leat an tseachtain seo",
   "home.most_loved.body": "Gáirdíní fíor, optáilte ag a n-úinéirí. Cliceáil ar aon cheann le feiceáil cad atá ag fás - agus conas a oireann Patch & Pot a treoir mhíosúil don áit ina gcónaíonn siad.",
   "home.most_loved.plant_count": "{n} plandálachtaí",
+  "home.plant_of_the_week.eyebrow": "Planda na seachtaine",
+  "home.plant_of_the_week.image_alt": "{name} — treoir planda Patch & Pot",
+  "home.plant_of_the_week.cta": "Léigh an treoir {name}",
+  "home.plant_of_the_week.views": "{n} gairdíní ag léamh an tseachtain seo",
+  "home.plant_of_the_week.views_one": "1 gairdín ag léamh an tseachtain seo",
 
 };
 

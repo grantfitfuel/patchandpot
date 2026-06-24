@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Bu həftə ən sevilən patchlər",
   "home.most_loved.body": "Gerçək bağçalar, bağbanları tərəfindən seçilmişdir. Nə yetişdiyinə baxmaq üçün hər hansı birinə vurun - və Patch & Pot-un aylıq rəhbərliyini onların yaşadığı yerə necə uyğunlaşdırdığını görün.",
   "home.most_loved.plant_count": "{n} bitki",
+  "home.plant_of_the_week.eyebrow": "Həftənin bitkisi",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot bitki bələdçisi",
+  "home.plant_of_the_week.cta": "{name} bələdçisini oxu",
+  "home.plant_of_the_week.views": "Bu həftə {n} bağban oxuyur",
+  "home.plant_of_the_week.views_one": "Bu həftə 1 bağban oxuyur",
 
 };
 

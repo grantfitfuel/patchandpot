@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "इस सप्ताह के सबसे प्रिय पैच",
   "home.most_loved.body": "वास्तविक बाग़, अपने माली द्वारा चुने गए। यह देखने के लिए किसी पर भी क्लिक करें कि क्या उग रहा है - और पैच & पॉट कैसे अपने मासिक मार्गदर्शन को उनके रहने के स्थान के अनुसार अनुकूलित करता है।",
   "home.most_loved.plant_count": "{n} पौधे",
+  "home.plant_of_the_week.eyebrow": "इस सप्ताह का पौधा",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot पौधा गाइड",
+  "home.plant_of_the_week.cta": "{name} गाइड पढ़ें",
+  "home.plant_of_the_week.views": "इस सप्ताह {n} माली पढ़ रहे हैं",
+  "home.plant_of_the_week.views_one": "1 माली इस सप्ताह पढ़ रहा है",
 
 };
 

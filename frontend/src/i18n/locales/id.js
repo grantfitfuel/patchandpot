@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Patch terpopuler minggu ini",
   "home.most_loved.body": "Kebun nyata, yang dipilih oleh para tukang kebun mereka. Klik mana saja untuk melihat apa yang sedang tumbuh - dan bagaimana Patch & Pot menyesuaikan panduan bulanan dengan tempat mereka tinggal.",
   "home.most_loved.plant_count": "{n} tanaman",
+  "home.plant_of_the_week.eyebrow": "Tanaman Minggu Ini",
+  "home.plant_of_the_week.image_alt": "{name} — panduan tanaman Patch & Pot",
+  "home.plant_of_the_week.cta": "Baca panduan {name}",
+  "home.plant_of_the_week.views": "{n} tukang kebun membaca minggu ini",
+  "home.plant_of_the_week.views_one": "1 tukang kebun membaca minggu ini",
 
 };
 

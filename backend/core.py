@@ -10,6 +10,7 @@ Most helpers come in two flavours:
   - factories `make_xxx(db)` that close over the Mongo handle and return the
     function/coroutine the routers actually call.
 """
+import hashlib
 import json
 import logging
 import math
@@ -32,6 +33,38 @@ logger = logging.getLogger(__name__)
 # Load .env eagerly — core is imported by routers BEFORE server.py runs, so
 # we cannot rely on server.py's load_dotenv() having happened yet.
 load_dotenv(Path(__file__).parent / ".env")
+
+
+# ─────────────────── Shared visit-tracking helpers ───────────────────
+# Used by both `routers/share.py` (patch view counter) and `routers/plants.py`
+# (plant-of-the-week ranking). Keeping these here so both routers debounce
+# visits identically and skip the same bot user-agents.
+_VISIT_BOT_UAS = (
+    "bot", "spider", "crawler", "facebookexternalhit", "slurp",
+    "whatsapp", "telegram", "twitterbot", "linkedinbot", "pinterest",
+    "discordbot", "preview", "scraper", "headless", "phantomjs",
+)
+
+
+def is_visit_bot(request) -> bool:
+    """User-agent check so view counters aren't inflated by social crawlers."""
+    ua = (request.headers.get("user-agent") or "").lower()
+    if not ua:
+        return True
+    return any(n in ua for n in _VISIT_BOT_UAS)
+
+
+def viewer_fingerprint(request) -> str:
+    """Cheap (IP, UA) fingerprint hashed for debounce. Never stored in
+    plaintext; never returned to anyone. Used as the dedup key inside a
+    short-TTL Mongo collection so a single fan refreshing the page only
+    counts once per 24h window."""
+    ip = (
+        request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+        or (request.client.host if request.client else "0.0.0.0")
+    )
+    ua = (request.headers.get("user-agent") or "")[:160]
+    return hashlib.sha256(f"{ip}|{ua}".encode()).hexdigest()[:24]
 
 
 # ───────────────────────── Env / constants ─────────────────────────

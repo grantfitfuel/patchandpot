@@ -127,21 +127,31 @@ async def start_scheduler():
     # 24h, so a single fan refreshing the page only counts once per day.
     try:
         await db.shared_patch_views.create_index("expires_at", expireAfterSeconds=0)
+        await db.plant_views.create_index("expires_at", expireAfterSeconds=0)
         await db.shared_patches.create_index([("list_publicly", 1), ("view_count_7d", -1)])
-        logger.info("shared_patch_views TTL + popular-wall indexes ensured")
+        await db.plant_stats.create_index([("view_count_7d", -1)])
+        await db.plant_stats.create_index([("plant_id", 1)], unique=True)
+        logger.info("share/plant view TTL + popular-wall indexes ensured")
     except Exception as e:  # noqa: BLE001
-        logger.warning("share view indexes setup failed: %s", e)
+        logger.warning("share/plant view indexes setup failed: %s", e)
 
     # Weekly decay of view_count_7d so the homepage 'Most-loved patches
-    # THIS WEEK' wall actually reflects recent traffic rather than
-    # cumulative all-time views. Runs every Monday 03:00 UTC.
+    # THIS WEEK' wall and 'Plant of the week' rail actually reflect recent
+    # traffic rather than cumulative all-time views. Runs every Monday 03:00 UTC.
     async def _decay_weekly_views():
         try:
-            r = await db.shared_patches.update_many(
+            r1 = await db.shared_patches.update_many(
                 {"view_count_7d": {"$gt": 0}},
                 {"$set": {"view_count_7d": 0}},
             )
-            logger.info("weekly view_count_7d decay reset %d patches", r.modified_count)
+            r2 = await db.plant_stats.update_many(
+                {"view_count_7d": {"$gt": 0}},
+                {"$set": {"view_count_7d": 0}},
+            )
+            logger.info(
+                "weekly view_count_7d decay reset %d patches, %d plants",
+                r1.modified_count, r2.modified_count,
+            )
         except Exception as e:  # noqa: BLE001
             logger.warning("weekly view decay failed: %s", e)
 

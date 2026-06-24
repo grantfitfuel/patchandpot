@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "Am meisten geliebte Patchs in dieser Woche",
   "home.most_loved.body": "Echte Gärten, die von ihren Gärtnern optiert wurden. Klicken Sie auf einen, um zu sehen, was wächst – und wie Patch & Pot seine monatliche Anleitung anpasst, wo sie leben.",
   "home.most_loved.plant_count": "{n} Pflanzen",
+  "home.plant_of_the_week.eyebrow": "Pflanze der Woche",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot Pflanzenführer",
+  "home.plant_of_the_week.cta": "Lese den {name} Führer",
+  "home.plant_of_the_week.views": "{n} Gärtner lesen diese Woche",
+  "home.plant_of_the_week.views_one": "1 Gärtner liest diese Woche",
 
 };
 

@@ -675,6 +675,11 @@ const dict = {
   "home.most_loved.title": "이번 주 가장 사랑받는 패치",
   "home.most_loved.body": "실제 정원, 정원사가 선택한. 클릭하여 무엇이 자라고 있는지 확인하세요 — 그리고 Patch & Pot이 그들이 사는 곳에 맞춰 매월 어떻게 안내하는지.",
   "home.most_loved.plant_count": "{n} 식물",
+  "home.plant_of_the_week.eyebrow": "이번 주의 식물",
+  "home.plant_of_the_week.image_alt": "{name} — Patch & Pot 식물 가이드",
+  "home.plant_of_the_week.cta": "{name} 가이드 읽기",
+  "home.plant_of_the_week.views": "이번 주에 {n}명의 정원사가 읽고 있습니다",
+  "home.plant_of_the_week.views_one": "이번 주에 1명의 정원사가 읽고 있습니다",
 
 };
 

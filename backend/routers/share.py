@@ -33,6 +33,7 @@ from pydantic import BaseModel, Field
 
 from share_og import render_share_og_png
 from share_qr import render_qr_sticker_pdf
+from core import is_visit_bot, viewer_fingerprint
 
 
 _PROFANITY = [
@@ -113,34 +114,6 @@ def _public_view(doc: dict) -> dict:
         "created_at": doc["created_at"],
         "updated_at": doc.get("updated_at") or doc["created_at"],
     }
-
-
-def _viewer_fingerprint(request) -> str:
-    """Cheap fingerprint for visit-debouncing — IP + UA hashed. Never stored
-    in plaintext, never returned to anyone. Purely used as a dedup key
-    inside `shared_patch_views` so a single fan refreshing the page 100
-    times only counts once per 24h window."""
-    import hashlib
-    ip = (
-        request.headers.get("x-forwarded-for", "").split(",")[0].strip()
-        or (request.client.host if request.client else "0.0.0.0")
-    )
-    ua = (request.headers.get("user-agent") or "")[:160]
-    return hashlib.sha256(f"{ip}|{ua}".encode()).hexdigest()[:24]
-
-
-def _is_bot(request) -> bool:
-    """Cheap user-agent check so view counters aren't inflated by social
-    crawlers / link previewers / link-checkers."""
-    ua = (request.headers.get("user-agent") or "").lower()
-    if not ua:
-        return True
-    needles = (
-        "bot", "spider", "crawler", "facebookexternalhit", "slurp",
-        "whatsapp", "telegram", "twitterbot", "linkedinbot", "pinterest",
-        "discordbot", "preview", "scraper", "headless", "phantomjs",
-    )
-    return any(n in ua for n in needles)
 
 
 def make_router(db) -> APIRouter:
@@ -248,8 +221,8 @@ def make_router(db) -> APIRouter:
             raise HTTPException(404, "Snapshot not found.")
 
         # ─── debounced view counter ───
-        if not _is_bot(request):
-            fp = _viewer_fingerprint(request)
+        if not is_visit_bot(request):
+            fp = viewer_fingerprint(request)
             # 24h dedup key: collection has a TTL index on `expires_at` so
             # rows auto-evict; the insert fails on duplicate so we only
             # increment view_count for fresh fingerprints.

@@ -28,6 +28,19 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 35 (2026-02-25): ✅ — [Share to Stories / Reels] one-tap mobile share
+
+The mobile-native counterpart to iter34's Tweet button. Uses Web Share API Level 2 (`navigator.share({files,text,url})`) to invoke the OS share sheet on iOS/Android — putting Instagram Stories, Reels, TikTok, WhatsApp Status, Messages, Mail, etc. one tap away. Desktop browsers and older mobiles silently hide the button via `canShare()` feature detection.
+
+- **`backend/routers/share.py`** — new `GET /api/share/patch/{share_id}/story.png` endpoint. Lazily renders the 9:16 teaser using `share_social_kit.render_kit_images()` (shared render path with the ZIP endpoint → output is byte-identical to the ZIP's `reels_story.png`, verified by test). Caches in `shared_patch_story_png` collection keyed on `(share_id, version=updated_at)`.
+- **`frontend/src/components/SharePatchModal.jsx`** — new `canNativeShareFiles` useMemo probes `navigator.canShare({files: [1-byte File]})` once at mount. New `onShareStory()` handler runs `Promise.all` for `/story.png` + `/captions.json` in parallel, wraps the PNG blob in a `File` and calls `navigator.share({files,text=reels caption,url=shareUrl,title=patch_name})`. Gracefully swallows `AbortError` (user dismissed sheet) without surfacing as error. Button (`data-testid=share-patch-story`) is wrapped in `{canNativeShareFiles && ...}` so it's literally absent from the DOM on unsupporting browsers — clean feature detection, no greyed-out button noise.
+- **i18n**: new key `share_patch.story.action` → translated to all 57 non-English locales via `/app/scripts/translate_story_key.py`. Stories/Reels kept as English loanwords per the established Instagram brand-name treatment.
+- **Tests**: `backend/tests/test_story_image_iter35.py` (4/4 green: valid PNG signature + 1080×1920 dimensions, cached on second call, 404 on unknown share, byte-identical to ZIP's reels_story.png). testing_agent_v3 iter35: **backend 13/13 + frontend 100%** including stubbed Web Share API flow (file+text+url+title verified), feature-detection hide-when-unsupported, locale label, regression on all prior share buttons. Report: `/app/test_reports/iteration_35.json`.
+
+The share-modal toolkit is now complete: ZIP (considered marketing), Tweet (impulse share to X), Story (impulse share to IG/TikTok/WhatsApp), QR sticker (physical-world), Embed (blog/website).
+
+
+
 ### Iteration 34 (2026-02-25): ✅ — [Tweet this patch] one-click X intent button
 
 Tiny but high-leverage follow-up to iter33: lets the patch owner post a real Twitter Card preview to X in a single click, with the AI-tuned caption auto-filled. The 4-image ZIP is great for considered marketing, but the friction is real — most users won't open the ZIP, pick an image, write a tweet, attach the image. The intent URL bypasses all of that.

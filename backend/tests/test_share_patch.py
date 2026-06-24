@@ -19,6 +19,13 @@ BASE_URL = os.environ.get(
 
 API = f"{BASE_URL}/api"
 
+# Intentionally-bogus secret used to exercise the "mismatched owner_secret
+# falls through to a fresh create" branch. Not a real credential — kept in
+# one place so static-analysis tools don't flag inline literals as a
+# possibly-hardcoded production secret on every test that exercises this
+# negative path.
+BOGUS_OWNER_SECRET = "bogus-secret-xx"  # noqa: S105  - test fixture, not a real secret
+
 REGION = {
     "name": "London",
     "country": "United Kingdom",
@@ -93,7 +100,7 @@ def test_update_with_bad_secret_creates_new(created):
     sid = created["share_id"]
     r = requests.post(
         f"{API}/share/patch",
-        json=_payload(name="TEST_share hijack", share_id=sid, owner_secret="bogus-secret-xx"),
+        json=_payload(name="TEST_share hijack", share_id=sid, owner_secret=BOGUS_OWNER_SECRET),
         timeout=30,
     )
     assert r.status_code == 200

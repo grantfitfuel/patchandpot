@@ -157,7 +157,7 @@ def test_vendor_blurbs_never_5xx_on_weird_inputs(s):
         if p["vendors"] and p["vendors"][0]["id"] == "unknown-vendor-xyz":
             # blurbs map should only contain unknown-vendor-xyz if at all (its in vendors list)
             # OR be empty (if LLM keyed something else)
-            for k in data["blurbs"].keys():
+            for k in data["blurbs"]:
                 assert k == "unknown-vendor-xyz", f"Unknown vendor id leaked: {k}"
 
 

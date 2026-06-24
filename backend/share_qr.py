@@ -57,26 +57,32 @@ def render_qr_sticker_pdf(*, patch_name: str, region_name: str, share_url: str, 
     c = rl_canvas.Canvas(buf, pagesize=A6)
 
     # Background — sand wash; an inner surface card with a hairline forest border
-    c.setFillColor(SAND); c.rect(0, 0, page_w, page_h, stroke=0, fill=1)
+    c.setFillColor(SAND)
+    c.rect(0, 0, page_w, page_h, stroke=0, fill=1)
     inset = 5 * mm
-    c.setFillColor(SURFACE); c.setStrokeColor(FOREST); c.setLineWidth(0.4)
+    c.setFillColor(SURFACE)
+    c.setStrokeColor(FOREST)
+    c.setLineWidth(0.4)
     c.rect(inset, inset, page_w - 2 * inset, page_h - 2 * inset, stroke=1, fill=1)
 
     # Top — terracotta wordmark + accent rule
     c.setFillColor(MOSS)
     c.setFont("Helvetica-Bold", 8)
     c.drawString(10 * mm, page_h - 13 * mm, "PATCH & POT")
-    c.setStrokeColor(TERRACOTTA); c.setLineWidth(1.2)
+    c.setStrokeColor(TERRACOTTA)
+    c.setLineWidth(1.2)
     c.line(10 * mm, page_h - 15 * mm, 24 * mm, page_h - 15 * mm)
 
     # Eyebrow
-    c.setFont("Helvetica", 7); c.setFillColor(MOSS)
+    c.setFont("Helvetica", 7)
+    c.setFillColor(MOSS)
     c.drawString(10 * mm, page_h - 22 * mm, "FIND ME ONLINE")
 
     # Patch name (italic serif). reportlab built-in italic — switch to a real
     # Cormorant if/when we register custom fonts. Times-Italic is the
     # closest stock match.
-    c.setFillColor(FOREST); c.setFont("Times-BoldItalic", 18)
+    c.setFillColor(FOREST)
+    c.setFont("Times-BoldItalic", 18)
     # Manual ellipsis if the name is too long for the sticker width.
     max_w = page_w - 20 * mm
     name = patch_name
@@ -88,7 +94,8 @@ def render_qr_sticker_pdf(*, patch_name: str, region_name: str, share_url: str, 
 
     # Region
     if region_name:
-        c.setFillColor(INK); c.setFont("Times-Italic", 10)
+        c.setFillColor(INK)
+        c.setFont("Times-Italic", 10)
         region_text = region_name
         while c.stringWidth(region_text, "Times-Italic", 10) > max_w and len(region_text) > 3:
             region_text = region_text[:-1]
@@ -106,7 +113,8 @@ def render_qr_sticker_pdf(*, patch_name: str, region_name: str, share_url: str, 
     c.drawImage(img, qr_x, qr_y, qr_size, qr_size, mask="auto")
 
     # URL beneath the QR
-    c.setFillColor(MOSS); c.setFont("Helvetica", 7.5)
+    c.setFillColor(MOSS)
+    c.setFont("Helvetica", 7.5)
     url_text = display_url
     if c.stringWidth(url_text, "Helvetica", 7.5) > max_w:
         # Show only the path portion if the full URL is too wide.
@@ -119,7 +127,8 @@ def render_qr_sticker_pdf(*, patch_name: str, region_name: str, share_url: str, 
     c.drawCentredString(page_w / 2, qr_y - 5 * mm, url_text)
 
     # Footer CTA
-    c.setFillColor(TERRACOTTA); c.setFont("Helvetica-Bold", 8)
+    c.setFillColor(TERRACOTTA)
+    c.setFont("Helvetica-Bold", 8)
     c.drawCentredString(page_w / 2, 11 * mm, "SCAN TO SEE WHAT'S GROWING  →")
 
     c.showPage()

@@ -72,7 +72,7 @@ function MarIllustration({ className = "" }) {
         "M40 36 q 22 -2 22 8 q -8 6 -22 2",
         "M40 36 q -10 8 -8 18 q 6 -2 8 -10",
         "M40 36 q 10 8 8 18 q -6 -2 -8 -10",
-      ].map((d, i) => <path key={i} d={d} />)}
+      ].map((d) => <path key={d} d={d} />)}
       {/* leaf */}
       <path d="M40 64 q -10 -2 -12 -12 q 6 -1 12 8" />
     </svg>
@@ -87,8 +87,8 @@ function AprIllustration({ className = "" }) {
       {/* three small five-petal blooms */}
       {[
         [22, 56], [42, 40], [60, 30],
-      ].map(([cx, cy], i) => (
-        <g key={i}>
+      ].map(([cx, cy]) => (
+        <g key={`${cx}-${cy}`}>
           {[0, 72, 144, 216, 288].map((a) => {
             const r = 5;
             const rx = cx + r * Math.cos((a * Math.PI) / 180);
@@ -150,7 +150,7 @@ function JulIllustration({ className = "" }) {
         const y1 = 36 + 9 * Math.sin(a);
         const x2 = 40 + 18 * Math.cos(a);
         const y2 = 36 + 18 * Math.sin(a);
-        return <path key={i} d={`M${x1} ${y1} L${x2} ${y2}`} />;
+        return <path key={`ray-${i * 30}`} d={`M${x1} ${y1} L${x2} ${y2}`} />;
       })}
       <circle cx="40" cy="36" r="7" />
       {/* a couple of seed stipples */}
@@ -169,10 +169,10 @@ function AugIllustration({ className = "" }) {
     <svg className={className} {...COMMON}>
       <path d="M22 76 q 8 -8 14 -22" />
       {/* three berries — each a knot of small circles */}
-      {[[40, 32], [54, 28], [46, 18]].map(([cx, cy], i) => (
-        <g key={i}>
-          {[[0, 0], [-3, -2], [3, -2], [-3, 2], [3, 2], [0, -3], [0, 3]].map(([dx, dy], j) => (
-            <circle key={j} cx={cx + dx} cy={cy + dy} r="1.7" />
+      {[[40, 32], [54, 28], [46, 18]].map(([cx, cy]) => (
+        <g key={`berry-${cx}-${cy}`}>
+          {[[0, 0], [-3, -2], [3, -2], [-3, 2], [3, 2], [0, -3], [0, 3]].map(([dx, dy]) => (
+            <circle key={`${dx}-${dy}`} cx={cx + dx} cy={cy + dy} r="1.7" />
           ))}
         </g>
       ))}
@@ -194,14 +194,14 @@ function SepIllustration({ className = "" }) {
         const a = (i * 60 * Math.PI) / 180;
         const cx = 40 + 5 * Math.cos(a);
         const cy = 36 + 5 * Math.sin(a);
-        return <circle key={i} cx={cx} cy={cy} r="3" />;
+        return <circle key={`inner-${i * 60}`} cx={cx} cy={cy} r="3" />;
       })}
       {/* outer ring of 8 petals */}
       {Array.from({ length: 8 }).map((_, i) => {
         const a = ((i * 45 + 22) * Math.PI) / 180;
         const cx = 40 + 11 * Math.cos(a);
         const cy = 36 + 11 * Math.sin(a);
-        return <ellipse key={i} cx={cx} cy={cy} rx="4" ry="2.5" transform={`rotate(${i * 45 + 22} ${cx} ${cy})`} />;
+        return <ellipse key={`outer-${i * 45 + 22}`} cx={cx} cy={cy} rx="4" ry="2.5" transform={`rotate(${i * 45 + 22} ${cx} ${cy})`} />;
       })}
       <path d="M40 62 q -10 -2 -12 -10 q 6 -2 12 6" />
     </svg>
@@ -259,7 +259,7 @@ function DecIllustration({ className = "" }) {
       ].map(([dx, dy], i) => {
         const y = 70 - i * 5;
         return (
-          <g key={i}>
+          <g key={`needle-${dx}-${dy}`}>
             <path d={`M40 ${y} L ${40 - dx + 30} ${y - dy + 8}`} />
             <path d={`M40 ${y} L ${40 + dx - 30} ${y - dy + 8}`} />
           </g>

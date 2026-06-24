@@ -138,7 +138,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
               <p className="overline mb-3">{t("arr.label_stems")}</p>
               <ul className="space-y-3">
                 {data.stems.map((s, i) => (
-                  <li key={i} className="flex flex-wrap items-start gap-3">
+                  <li key={`${s.plant || "stem"}-${i}`} className="flex flex-wrap items-start gap-3">
                     <span
                       className={`overline px-2 py-0.5 border rounded-full text-[10px] ${
                         ROLE_STYLES[(s.role || "").toLowerCase()] || ROLE_STYLES.accent
@@ -166,7 +166,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
               <p className="overline mb-3">{t("arr.label_build")}</p>
               <ol className="space-y-2.5 list-decimal pl-5 marker:text-terracotta marker:font-semibold">
                 {data.build_steps.map((s, i) => (
-                  <li key={i} className="text-ink/80 leading-relaxed pl-1">{s}</li>
+                  <li key={`step-${i}-${(s || "").slice(0, 30)}`} className="text-ink/80 leading-relaxed pl-1">{s}</li>
                 ))}
               </ol>
             </div>

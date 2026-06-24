@@ -41,7 +41,7 @@ function readActiveRegion() {
     // users automatically get re-prompted to pick a real region.
     if (parsed && typeof parsed.name === "string"
         && parsed.name.trim().toLowerCase() === "your location") {
-      try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+      try { localStorage.removeItem(key); } catch (e) { /* migration cleanup — non-fatal */ void e; }
       return null;
     }
     return parsed;

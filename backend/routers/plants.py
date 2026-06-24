@@ -359,10 +359,6 @@ Return JSON only."""
     # who lands on /plants/tomato should be able to share that page into a
     # chat / DM / Pinterest pin and have it unfurl as a real branded card.
     # Mirrors the share-patch wrapper at /api/share/preview/{id}.
-    # Plant guides are evergreen SEO entry points — every search-query gardener
-    # who lands on /plants/tomato should be able to share that page into a
-    # chat / DM / Pinterest pin and have it unfurl as a real branded card.
-    # Mirrors the share-patch wrapper at /api/share/preview/{id}.
     async def _resolve_plant_for_og(plant_id: str) -> dict:
         """Fetch enough plant metadata to render an OG card. Works for both
         curated plants and AI-generated guides (`ai-*` slugs)."""
@@ -542,6 +538,7 @@ async def _record_plant_view(db, plant_id: str, fp: str) -> None:
     repeat fingerprint the insert raises DuplicateKeyError and we silently
     skip the increment — same behaviour as shared_patch_views.
     """
+    from pymongo.errors import DuplicateKeyError
     now = datetime.now(timezone.utc)
     expires_at = now + timedelta(hours=24)
     try:
@@ -551,7 +548,13 @@ async def _record_plant_view(db, plant_id: str, fp: str) -> None:
             "viewed_at": now.isoformat(),
             "expires_at": expires_at,
         })
-    except Exception:  # noqa: BLE001 — DuplicateKeyError on revisit is expected
+    except DuplicateKeyError:
+        # Expected on revisits within the 24h TTL window — just skip.
+        return
+    except Exception as e:  # noqa: BLE001
+        # Network blip or other transient error — log + skip so the visit
+        # counter never takes down a plant page render.
+        logger.warning("plant_views insert failed (skipping counter): %s", e)
         return
     try:
         await db.plant_stats.update_one(

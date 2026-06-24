@@ -10,11 +10,11 @@
 ## Growth & Backlog (prioritised)
 
 ### Growth ideas (sharing surfaces)
-- ✅ **Plant-level OG cards** (iter 28) — `/api/plants/{id}/og.png` + HTML wrapper + SPA meta tag injection.
-- ✅ **Embeddable widget** (iter 28) — `/embed/p/:shareId` + iframe snippet in SharePatchModal.
-- ✅ **Garden QR sticker** (iter 28) — `/api/share/patch/{id}/qr.pdf`.
-- ✅ **View counter + Most-loved patches wall** (iter 28) — opt-in homepage discovery with weekly decay.
-- **P2: "Plant of the week" homepage rail** — pick the single most-viewed plant guide from the last 7 days and give it a hero spot on the homepage with its big OG card. Turns the homepage into a constantly-fresh content magnet for Google to re-crawl AND gives recurring visitors a reason to come back weekly. Requires lightweight plant-view tracking (mirror the existing `shared_patch_views` debounce pattern). ~half a day.
+- ✅ **Plant-level OG cards** (iter 28).
+- ✅ **Embeddable widget** (iter 28).
+- ✅ **Garden QR sticker** (iter 28).
+- ✅ **View counter + Most-loved patches wall** (iter 28).
+- ✅ **"Plant of the week" homepage rail** (iter 30) — closes the loop between plant OG cards and homepage discovery.
 - **P3: Email-a-friend** — add a `mailto:` button to the social row on `/p/:shareId`. No infra needed; ~30 min.
 - **P4: Weekly digest emails** — needs Resend/Postmark integration + unsubscribe handling. Defer until user demand is proven.
 - **P4: Harvest-photo brag cards** — needs photo uploads, storage, moderation. Defer.
@@ -27,6 +27,15 @@
 
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
+
+### Iteration 30 (2026-02-24): ✅ — "Plant of the week" homepage rail (closes the growth loop)
+- **Shared visit-tracking helpers** extracted to `core.py`: new `is_visit_bot(request)` and `viewer_fingerprint(request)`. Removed the duplicates from `routers/share.py`; now both `share.py` and `plants.py` debounce visits identically.
+- **`routers/plants.py` — view tracking**: new `_record_plant_view(db, plant_id, fp)` mirrors the `shared_patch_views` pattern. `plant_views` collection (TTL on `expires_at`) for 24h dedup; `plant_stats` collection holds the rolling `view_count_7d` + all-time `view_count`. Catches `pymongo.errors.DuplicateKeyError` specifically rather than swallowing all exceptions (testing-agent code-review fix).
+- **New endpoints**: `GET /api/plants/of-the-week?language={code}` — single most-viewed plant in last 7 days, hydrated for the active locale; returns `{plant: null}` when empty. `GET /api/plants/popular?limit=N&language={code}` — top N. Both registered BEFORE `/plants/{plant_id}` to avoid route shadowing.
+- **`server.py`** now ensures `plant_views.expires_at` TTL + `plant_stats.plant_id` unique index at startup, and the weekly Monday-03:00-UTC scheduler resets `view_count_7d` on BOTH `shared_patches` and `plant_stats`.
+- **Frontend `PlantOfTheWeek.jsx`**: new homepage hero section between `EmbedFoundingSnippet` and `MostLovedPatches`. Left half (md:col-span-7) is the big plant OG card as the hero image (clickable, links to the plant guide). Right half: plant name h2, summary, 4 facts grid (category / difficulty / sun / water), "Read the {name} guide" terracotta CTA, social-proof line ("N gardeners reading this week" with singular/plural inflection). Returns null while loading or when empty so the homepage stays tidy in the first days.
+- **i18n**: 5 new English keys (`home.plant_of_the_week.{eyebrow,image_alt,cta,views,views_one}`). 47/58 locales fully translated; the 11 stragglers (cy, hr, bg, et, lt, uk, ja, fr, tl, mi, ru) fall back to English UI text — Emergent LLM key budget exceeded mid-run. **Re-running `python /app/scripts/translate_pow_keys.py cy hr bg et lt uk ja fr tl mi ru` after a top-up will fill them in.**
+- **Tests**: testing_agent_v3 iter30 → **31/31 backend pytest + 100% frontend Playwright, 0 issues**. 6 new iter30 tests + 13 share-patch regression + 12 iter28 regression all green.
 
 ### Iteration 29 (2026-02-24): ✅ — React-key anti-pattern refactor
 - **`LearnLanding.jsx`** — replaced array-index keys at lines 196 (intro paragraphs), 205 (intro-box bullets), 233 (lesson titles) with content-based keys. Paragraphs use `${i}-${p.slice(0,40)}` to keep keys distinct even if two paragraphs happen to share a prefix.

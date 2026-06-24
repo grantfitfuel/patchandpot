@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "ਸੋਚਿਆ ਕਿ ਤੁਸੀਂ ਇਸ ਪੈਚ ਨੂੰ ਪੈਚ & ਪੌਟ 'ਤੇ ਪਿਆਰ ਕਰਾਂਗੇ — {name}: {url}",
   "plant.pin_to_pinterest": "پینٹرسٹ ' te pin karo",
   "plant.pin_description": "{name} نوں چھوٹے جگہاں ' چ وکھیا کرن دا طریقہ — Patch & Pot",
+  "share_patch.social_kit.download": "ਸੋਸ਼ਲ ਮੀਡੀਆ ਕিট ਡਾਊਨਲੋਡ ਕਰੋ (ZIP)",
+  "share_patch.social_kit.help": "ਚਾਰ ਤਿਆਰ-ਕਿਸ਼ਟ ਚਿੱਤਰ (1:1, 4:5, 9:16, 16:9) ਅਤੇ ਪ੍ਰਤੀ-ਪਲੇਟਫਾਰਮ ਕੈਪਸ਼ਨ — Instagram, Reels, TikTok, Twitter ਅਤੇ YouTube ਲਈ। ਪਹਿਲੀ ਵਾਰ ਜਦੋਂ ਕੈਪਸ਼ਨ ਲਿਖੇ ਜਾਂਦੇ ਹਨ, ਇਸ ਨੂੰ ਕੁਝ ਸੈਕਿੰਡ ਲੱਗਦੇ ਹਨ।",
 
 };
 

@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Am crezut că ți-ar plăcea acest patch pe Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "Pune pe Pinterest",
   "plant.pin_description": "Cum să crești {name} în spații mici — Patch & Pot",
+  "share_patch.social_kit.download": "Descarcă kitul pentru rețelele sociale (ZIP)",
+  "share_patch.social_kit.help": "Patru imagini gata de postat (1:1, 4:5, 9:16, 16:9) și descrieri per platformă — pentru Instagram, Reels, TikTok, Twitter și YouTube. Este nevoie de câteva secunde prima dată în timp ce descrierile sunt scrise.",
 
 };
 

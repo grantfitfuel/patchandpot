@@ -682,6 +682,8 @@ const dict = {
   "share_view.social.email": "Bir arkadaşına e-posta",
   "share_view.social.email_subject": "{name} Patch & Pot'ta",
   "share_view.social.email_body": "Bunun Patch & Pot'taki bu bahçeyi çok seveceğini düşündüm — {name}: {url}",
+  "share_patch.social_kit.download": "Sosyal Medya Kiti İndir (ZIP)",
+  "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter ve YouTube için dört hazır paylaşım görseli (1:1, 4:5, 9:16, 16:9) ve her platforma özel başlıklar. Başlıklar yazılırken ilk seferde birkaç saniye alır.",
 
 };
 

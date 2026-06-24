@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Check, Code2, Copy, Download, ExternalLink, Loader2, Share2, Sprout, Trash2, X } from "lucide-react";
+import { Check, Code2, Copy, Download, ExternalLink, ImageDown, Loader2, Share2, Sprout, Trash2, X } from "lucide-react";
 import { createSharedPatch, deleteSharedPatch } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
@@ -82,7 +82,6 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     // onCreateOrUpdate is intentionally not in deps — it's recreated on
     // every render via inline closures and would loop. We only want to
     // fire when the toggle itself flips.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listPublicly]);
 
   // Reset the "first render skip" flag whenever the modal opens.
@@ -129,6 +128,15 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     if (!cached?.share_id) return "";
     const backend = process.env.REACT_APP_BACKEND_URL || "";
     return `${backend}/api/share/patch/${cached.share_id}/qr.pdf`;
+  }, [cached]);
+
+  // Social Media Kit ZIP — 4 aspect-ratio teasers + per-platform captions.
+  // The endpoint generates + caches everything server-side; the user just
+  // needs an anchor tag with a sensible filename.
+  const socialKitUrl = useMemo(() => {
+    if (!cached?.share_id) return "";
+    const backend = process.env.REACT_APP_BACKEND_URL || "";
+    return `${backend}/api/share/patch/${cached.share_id}/social-kit.zip`;
   }, [cached]);
 
   const ready = !!region && !!patchName;
@@ -386,7 +394,19 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
                 >
                   <Download strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.qr.download")}
                 </a>
+                <a
+                  href={socialKitUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="share-patch-social-kit"
+                  className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
+                >
+                  <ImageDown strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.social_kit.download")}
+                </a>
               </div>
+              <p className="text-xs text-moss/60 leading-relaxed -mt-2" data-testid="share-patch-social-kit-help">
+                {t("share_patch.social_kit.help")}
+              </p>
               {showEmbed && (
                 <div className="pt-2 space-y-2" data-testid="share-patch-embed-block">
                   <p className="overline">{t("share_patch.embed.label")}</p>

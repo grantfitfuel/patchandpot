@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Сізге Patch & Pot-тағы осы учасканы ұнатасыз деп ойладым — {name}: {url}",
   "plant.pin_to_pinterest": "Pinterest-ке жапсыру",
   "plant.pin_description": "{name} өсірудің жолы — Patch & Pot",
+  "share_patch.social_kit.download": "Әлеуметтік медиа жинағын жүктеп алыңыз (ZIP)",
+  "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter және YouTube үшін төрт дайын жарияланатын бейне (1:1, 4:5, 9:16, 16:9) және платформаға арналған жазбалар. Жазбалар жазылған кезде бірінші рет бірнеше секундты алады.",
 
 };
 

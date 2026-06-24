@@ -685,6 +685,8 @@ const dict = {
   "share_view.social.email_body": "Roeddwn i'n meddwl y byddai'n dychryn i ti'r patch hwn ar Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "Pinio i Pinterest",
   "plant.pin_description": "Sut i dyfu {name} mewn mannau bach — Patch & Pot",
+  "share_patch.social_kit.download": "Lawrlwytho Pecyn Cyfryngau Cymdeithasol (ZIP)",
+  "share_patch.social_kit.help": "Pum delwedd barod i’w gosod (1:1, 4:5, 9:16, 16:9) a mynegiadau ar gyfer pob llwyfan — ar gyfer Instagram, Reels, TikTok, Twitter a YouTube. Mae’n cymryd ychydig eiliadau y tro cyntaf tra bo’r mynegiadau’n cael eu hysgrifenni.",
 
 };
 

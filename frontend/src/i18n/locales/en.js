@@ -637,6 +637,8 @@ const dict = {
   "share_patch.embed.copy": "Copy embed code",
   "share_patch.embed.preview": "Preview embed",
   "share_patch.qr.download": "Download garden-gate QR sticker (PDF)",
+  "share_patch.social_kit.download": "Download Social Media Kit (ZIP)",
+  "share_patch.social_kit.help": "Four ready-to-post images (1:1, 4:5, 9:16, 16:9) and per-platform captions — for Instagram, Reels, TikTok, Twitter and YouTube. Takes a few seconds the first time while the captions are written.",
   "share_patch.list_publicly.title": "Show on the homepage \"Most-loved patches\" wall",
   "share_patch.list_publicly.help": "Off by default. When on, this patch may appear on the Patch & Pot homepage based on visits. You can switch it off again any time.",
   "share_patch.delete": "Remove the public link",

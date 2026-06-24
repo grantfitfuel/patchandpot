@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Ħsibt li tħobb dan il-patch fuq Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "Pin għal Pinterest",
   "plant.pin_description": "Kif ti grow {name} f'spazji żgħar — Patch & Pot",
+  "share_patch.social_kit.download": "Niżżel il-Kit tal-Midja Soċjali (ZIP)",
+  "share_patch.social_kit.help": "Erba' immaġini lesti biex jitpoġġew (1:1, 4:5, 9:16, 16:9) u sottotitoli għal kull pjattaforma — għall-Instagram, Reels, TikTok, Twitter u YouTube. Jieħu ftit sekondi għall-ewwel darba waqt li s-sottotitoli jiġu miktuba.",
 
 };
 

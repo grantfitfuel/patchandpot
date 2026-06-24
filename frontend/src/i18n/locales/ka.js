@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "ვიფიქრე, რომ მოგეწონებათ ეს ლაქა Patch & Pot-ზე — {name}: {url}",
   "plant.pin_to_pinterest": "დაამატეთ Pinterest-ში",
   "plant.pin_description": "{name}-ის მოყვანა მცირე სივრცეებში — Patch & Pot",
+  "share_patch.social_kit.download": "დატვირთეთ სოციალური მედიის ნაკრები (ZIP)",
+  "share_patch.social_kit.help": "ოთხი წესების შესაბამისი გამოსახულება (1:1, 4:5, 9:16, 16:9) და პლატფორმების მიხედვით წარწერები — Instagram, Reels, TikTok, Twitter და YouTube. პირველად რამდენჯერაც წარწერები წერს, რამდენიმე წამი სჭირდება.",
 
 };
 

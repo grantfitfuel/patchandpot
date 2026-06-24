@@ -1,0 +1,38 @@
+{
+  "summary": "iter33 'Social Media Kit' fully verified end-to-end. Backend pytest suite test_social_kit_iter33.py — 5/5 green; plus 4 extra regression tests (test_social_kit_iter33_extras.py) covering cache-bust on patch_name edit + sitemap/robots/og.png/qr.pdf iter28/iter31 endpoints — all green. Direct curl confirmed ZIP membership, content-type=application/zip, attachment+share_id in Content-Disposition, and cache busts the rendered PNG bytes when patch_name is edited. Frontend: SharePatchModal post-create state exposes data-testid='share-patch-social-kit' anchor pointing at {REACT_APP_BACKEND_URL}/api/share/patch/<id>/social-kit.zip (resolves with content-type=application/zip), help text under it, alongside the existing share-patch-embed-open + share-patch-qr-download (no layout regression). German locale: label translates to 'Soziale Medien-Kit herunterladen (ZIP)' (NOT raw key 'share_patch.social_kit.download') and the help paragraph is also fully translated. /p/<id> mailto regression intact (no target='_blank'). /plants/tomato 'Pin to Pinterest' translates to 'Auf Pinterest pinnen' in DE.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "SharePatchModal — German",
+       "issues": ["Minor translation: 'Soziale Medien-Kit herunterladen (ZIP)' is grammatically a bit awkward in German (should likely be 'Social-Media-Kit herunterladen (ZIP)' since 'Social Media' is the established loanword). NOT a bug — the key is translated and not raw — but a German native speaker might polish the wording. Help text also uses 'Soziale Medien' which is unusual; native German speakers usually say 'Social Media'."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_social_kit_iter33.py",
+    "/app/backend/tests/test_social_kit_iter33_extras.py",
+    "/app/test_reports/pytest/iter33_results.xml",
+    "/app/test_reports/pytest/iter33_extras_results.xml"
+  ],
+  "action_items": [
+    "(Optional polish, not a blocker) Reconsider the German wording for share_patch.social_kit.download / help — 'Social Media Kit' is the loanword users actually search for; current 'Soziale Medien-Kit' reads slightly machine-translated. Other 56 locales were not spot-checked beyond German."
+  ],
+  "critical_code_review_comments": [
+    "share_social_kit.py — width-aware re-fit loop verified: long unbreakable patch names (30-char underscore-joined) still produce valid PNGs >20KB across all 4 aspect ratios.",
+    "routers/share.py social-kit endpoint — cache key (share_id, version=updated_at) correctly busts on POST update of patch_name; second identical request returns byte-identical ZIP, third request after edit returns DIFFERENT PNG bytes (renderer re-ran with new name) confirming cache invalidation.",
+    "share_social_captions.py — _fallback_captions returns all 4 platform keys with patch context, so the endpoint stays up even with no EMERGENT_LLM_KEY (verified by unit test).",
+    "SharePatchModal.jsx — anchor uses href={socialKitUrl} pointing at the absolute REACT_APP_BACKEND_URL (correct ingress routing); ImageDown icon import added cleanly; no console errors observed on open/create flow.",
+    "i18n EN keys share_patch.social_kit.download and share_patch.social_kit.help present and consumed; German locale resolves to translated strings (not the raw key), confirming the bulk-translation script ran for at least DE — review request claims all 57 non-English locales were processed by /app/scripts/translate_social_kit_keys.py; we spot-checked DE only."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_social_kit_iter33_extras.py (NEW, written by testing agent)"
+  ],
+  "success_rate": {"backend": "100% (9/9 tests)", "frontend": "100% (all required assertions met)"},
+  "test_credentials": "n/a",
+  "seed_data_creation": "Seeded patches via POST /api/share/patch (TEST_kit_*, TEST_regression_og, TEST_regression_mailto); frontend seeded via localStorage keys patchpot.patch.<pid>.region.v1 + patchpot.patch.<pid>.garden.v1 to populate a freshly-created patch.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "To seed an in-app patch programmatically for any future Garden/SharePatch tests: read the active patch id from a [data-testid^='patch-tab-p_'] tab, then localStorage.setItem('patchpot.patch.<pid>.region.v1', JSON.stringify({...region})) and localStorage.setItem('patchpot.patch.<pid>.garden.v1', JSON.stringify([...plants])). The share modal in MyGarden is opened by data-testid='garden-share-btn' and the create-link button inside is data-testid='share-patch-create' (NOT the 'share-patch-open' that's only visible after creation).",
+  "rca_of_the_issue": "n/a — feature works as designed"
+}

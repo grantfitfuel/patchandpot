@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "이 패치가 당신에게 좋을 것 같아서 공유해요 — {name}: {url}",
   "plant.pin_to_pinterest": "Pinterest에 고정하기",
   "plant.pin_description": "{name}을(를) 작은 공간에서 기르는 방법 — Patch & Pot",
+  "share_patch.social_kit.download": "소셜 미디어 키트 다운로드 (ZIP)",
+  "share_patch.social_kit.help": "인스타그램, Reels, TikTok, Twitter 및 YouTube를 위한 플랫폼별 캡션과 함께 준비된 게시 이미지 네 개 (1:1, 4:5, 9:16, 16:9). 캡션이 작성되는 동안 처음 몇 초가 소요됩니다.",
 
 };
 

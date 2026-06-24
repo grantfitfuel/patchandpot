@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Pensé que te encantaría este parche en Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "Fijar en Pinterest",
   "plant.pin_description": "Cómo cultivar {name} en espacios pequeños — Patch & Pot",
+  "share_patch.social_kit.download": "Descargar el Kit de Redes Sociales (ZIP)",
+  "share_patch.social_kit.help": "Cuatro imágenes listas para publicar (1:1, 4:5, 9:16, 16:9) y descripciones por plataforma — para Instagram, Reels, TikTok, Twitter y YouTube. Toma unos segundos la primera vez mientras se escriben las descripciones.",
 
 };
 

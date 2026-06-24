@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Bu Patch & Pot-dakı sahəni bəyənəcəyini düşündüm — {name}: {url}",
   "plant.pin_to_pinterest": "Pinterest-ə əlavə et",
   "plant.pin_description": "{name} i kiçik məkanlarda necə becərmək olar — Patch & Pot",
+  "share_patch.social_kit.download": "Sosial Media Dəstini Yüklə (ZIP)",
+  "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter və YouTube üçün hazırlanan dörd paylaşmağa hazır şəkil (1:1, 4:5, 9:16, 16:9) və platformaya uyğun başlıqlar. Başlıqlar yazıldığı üçün birinci dəfə bir neçə saniyə çəkir.",
 
 };
 

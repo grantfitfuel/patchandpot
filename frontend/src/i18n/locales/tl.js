@@ -685,6 +685,8 @@ const dict = {
   "share_view.social.email_body": "Naisip kong magugustuhan mo ang patch na ito sa Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "I-pin sa Pinterest",
   "plant.pin_description": "Kung paano palaguin ang {name} sa maliliit na espasyo — Patch & Pot",
+  "share_patch.social_kit.download": "I-download ang Social Media Kit (ZIP)",
+  "share_patch.social_kit.help": "Apat na handang i-post na mga imahe (1:1, 4:5, 9:16, 16:9) at mga caption bawat platform — para sa Instagram, Reels, TikTok, Twitter at YouTube. Kumukuha ng ilang segundo sa unang pagkakataon habang ang mga caption ay isinusulat.",
 
 };
 

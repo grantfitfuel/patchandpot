@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Myslel(a) som, že sa ti tento patch na Patch & Pot bude páčiť — {name}: {url}",
   "plant.pin_to_pinterest": "Pripnúť na Pinterest",
   "plant.pin_description": "Ako pestovať {name} na malých priestoroch — Patch & Pot",
+  "share_patch.social_kit.download": "Stiahnuť sadu pre sociálne médiá (ZIP)",
+  "share_patch.social_kit.help": "Štyri pripravené obrázky na zverejnenie (1:1, 4:5, 9:16, 16:9) a popisy pre každú platformu — pre Instagram, Reels, TikTok, Twitter a YouTube. Prvýkrát to chvíľu trvá, kým sa popisy napíšu.",
 
 };
 

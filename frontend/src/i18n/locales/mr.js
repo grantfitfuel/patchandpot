@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "तुला हा Patch & Pot वरील पॅच आवडेल अशी अपेक्षा होती — {name}: {url}",
   "plant.pin_to_pinterest": "पिन करा Pinterest",
   "plant.pin_description": "{name} लहान जागांमध्ये कसे वाढवावे — Patch & Pot",
+  "share_patch.social_kit.download": "सोशल मीडियाच्या किट डाउनलोड करा (ZIP)",
+  "share_patch.social_kit.help": "चार पोस्ट करण्यास तयार प्रतिमा (1:1, 4:5, 9:16, 16:9) आणि प्रत्येक प्लॅटफॉर्मसाठी कॅप्शन — Instagram, Reels, TikTok, Twitter आणि YouTube साठी. पहिल्यांदा कॅप्शन लिहिण्यात थोडा वेळ लागतो.",
 
 };
 

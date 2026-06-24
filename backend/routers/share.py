@@ -33,6 +33,8 @@ from pydantic import BaseModel, Field
 
 from share_og import render_share_og_png
 from share_qr import render_qr_sticker_pdf
+from share_social_kit import build_kit_zip
+from share_social_captions import generate_captions
 from core import is_visit_bot, viewer_fingerprint
 
 
@@ -400,6 +402,75 @@ def make_router(db) -> APIRouter:
                 # snapshot's updated_at value once we wire that in below
                 # (?v=…). For now snapshot edits + redeploys are rare so a
                 # 1d cache is fine.
+                "Cache-Control": "public, max-age=86400",
+            },
+        )
+
+    @router.get("/share/patch/{share_id}/social-kit.zip")
+    async def social_media_kit(share_id: str, request: Request):
+        """Bundle 4 aspect-ratio teaser images + AI captions + README into a
+        single downloadable ZIP for the patch owner's social marketing.
+
+        Cache strategy mirrors og.png: keyed on `(share_id, version)` where
+        version = the snapshot's `updated_at`. Every snapshot edit busts the
+        cache automatically. Caption generation is the expensive step
+        (~$0.003 in LLM credits) so the cache is real money-saving, not
+        just latency-saving.
+        """
+        if not share_id or len(share_id) > 40:
+            raise HTTPException(404, "Snapshot not found.")
+        doc = await db.shared_patches.find_one({"share_id": share_id})
+        if not doc:
+            raise HTTPException(404, "Snapshot not found.")
+
+        version = doc.get("updated_at") or doc.get("created_at") or ""
+        cached = await db.shared_patch_social_kit.find_one(
+            {"share_id": share_id, "version": version},
+            {"_id": 0, "zip": 1},
+        )
+        if cached and cached.get("zip"):
+            zip_bytes = cached["zip"]
+        else:
+            region = doc.get("region") or {}
+            region_name = region.get("name") or ""
+            country = region.get("country") or ""
+            full_region = region_name + (f", {country}" if country and country not in region_name else "")
+
+            public_origin = (
+                os.environ.get("PUBLIC_APP_URL", "").rstrip("/")
+                or _origin_from_request(request)
+            )
+            share_url = f"{public_origin}/p/{share_id}"
+
+            captions = await generate_captions(
+                patch_name=doc.get("patch_name") or "My patch",
+                region_name=full_region.strip(", "),
+                plant_count=len(doc.get("plants") or []),
+                share_url=share_url,
+            )
+            zip_bytes = build_kit_zip(
+                patch_name=doc.get("patch_name") or "My patch",
+                region_name=full_region.strip(", "),
+                plant_count=len(doc.get("plants") or []),
+                captions=captions,
+            )
+            await db.shared_patch_social_kit.update_one(
+                {"share_id": share_id},
+                {"$set": {
+                    "share_id": share_id,
+                    "version": version,
+                    "zip": zip_bytes,
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                }},
+                upsert=True,
+            )
+
+        filename = f"patch-and-pot-{share_id}-social-kit.zip"
+        return Response(
+            content=zip_bytes,
+            media_type="application/zip",
+            headers={
+                "Content-Disposition": f'attachment; filename="{filename}"',
                 "Cache-Control": "public, max-age=86400",
             },
         )

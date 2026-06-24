@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Dachte, du würdest dieses Patch bei Patch & Pot lieben — {name}: {url}",
   "plant.pin_to_pinterest": "Auf Pinterest pinnen",
   "plant.pin_description": "Wie man {name} in kleinen Räumen anbaut — Patch & Pot",
+  "share_patch.social_kit.download": "Soziale Medien-Kit herunterladen (ZIP)",
+  "share_patch.social_kit.help": "Vier bereit zum Posten Bilder (1:1, 4:5, 9:16, 16:9) und plattformspezifische Bildunterschriften — für Instagram, Reels, TikTok, Twitter und YouTube. Es dauert beim ersten Mal ein paar Sekunden, während die Bildunterschriften geschrieben werden.",
 
 };
 

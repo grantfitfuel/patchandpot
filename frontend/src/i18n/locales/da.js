@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Tænkte du ville elske denne plet på Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "Fastgør til Pinterest",
   "plant.pin_description": "Sådan dyrker du {name} i små rum — Patch & Pot",
+  "share_patch.social_kit.download": "Download sociale medier kit (ZIP)",
+  "share_patch.social_kit.help": "Fire klar-til-at-poste billeder (1:1, 4:5, 9:16, 16:9) og per-platform beskrivelser — til Instagram, Reels, TikTok, Twitter og YouTube. Det tager et par sekunder første gang, mens beskrivelserne skrives.",
 
 };
 

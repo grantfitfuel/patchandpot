@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "ഈ പാച്ച് Patch & Pot-ൽ നിങ്ങൾക്ക് ഇഷ്ടമായിരിക്കും എന്ന് തോന്നി — {name}: {url}",
   "plant.pin_to_pinterest": "Pinterest-ലേക്ക് പിന്‍ ചെയ്യൂ",
   "plant.pin_description": "{name} ക്രമീകരിക്കേണ്ടത് എങ്ങനെ - Patch & Pot",
+  "share_patch.social_kit.download": "സോഷ്യല്‍ മീഡിയ കിറ്റ് ഡൗണ്‍ലോഡ് ചെയ്യുക (ZIP)",
+  "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter, YouTube എന്നിവയ്ക്ക് വേണ്ടി നാല് തയ്യാറായ ചിത്രങ്ങള്‍ (1:1, 4:5, 9:16, 16:9) കൂടാതെ ഓരോ പ്ലാറ്റ്ഫോമിനായി എഴുതിയ ക്യാപ്ഷനുകള്‍ - ആദ്യമായി എഴുതിക്കൊണ്ടിരിക്കുമ്പോള്‍ ചില സെക്കന്‍ഡുകള്‍ വേണം.",
 
 };
 

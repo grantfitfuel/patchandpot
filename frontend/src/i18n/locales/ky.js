@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Бул Patch & Pot боюнча сен жакшы көрөт деп ойлодум — {name}: {url}",
   "plant.pin_to_pinterest": "Пин кылуу Pinterestке",
   "plant.pin_description": "{name}ди кичинекей жайларда өстүрүүнүн жолу — Patch & Pot",
+  "share_patch.social_kit.download": "Социалдык Медиа Жетекчисин Жүктөө (ZIP)",
+  "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter жана YouTube үчүн төрт дайын постторго арналган сүрөт (1:1, 4:5, 9:16, 16:9) жана ар бир платформага ылайык жазуулар. Бул жазуулар жазылгандан кийин биринчи жолу бир нече секунд алат.",
 
 };
 

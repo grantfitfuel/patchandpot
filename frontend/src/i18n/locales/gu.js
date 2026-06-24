@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "હું વિચાર્યો કે તમારે આ પાર્ટચ પર ખૂબ જ પસંદ આવશે Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "પિન કરો Pinterest પર",
   "plant.pin_description": "{name} ને નાના જગ્યાઓમાં કઈ રીતે ઉગાડવું — Patch & Pot",
+  "share_patch.social_kit.download": "સોશિયલ મીડિયાની કિટ ડાઉનલોડ કરો (ZIP)",
+  "share_patch.social_kit.help": "ચાર તૈયાર મુકાય તેવા છિટ્ટાઓ (1:1, 4:5, 9:16, 16:9) અને પ્રત્યેક પ્લેટફોર્મ માટે શીર્ષકો — Instagram, Reels, TikTok, Twitter અને YouTube માટે. પ્રથમ વખતમાં સમય લાગે છે જ્યારેથી શીર્ષકો લખાય છે.",
 
 };
 

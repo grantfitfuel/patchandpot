@@ -684,6 +684,8 @@ const dict = {
   "share_view.social.email_body": "Mislil sem, da ti bo ta vrt na Patch & Pot všeč — {name}: {url}",
   "plant.pin_to_pinterest": "Pripni na Pinterest",
   "plant.pin_description": "Kako gojiti {name} v majhnih prostorih — Patch & Pot",
+  "share_patch.social_kit.download": "Prenesi komplet za družbena omrežja (ZIP)",
+  "share_patch.social_kit.help": "Štiri slike, pripravljene za objavo (1:1, 4:5, 9:16, 16:9) in napisi za posamezne platforme — za Instagram, Reels, TikTok, Twitter in YouTube. Prvič traja nekaj sekund, medtem ko so napisi napisani.",
 
 };
 

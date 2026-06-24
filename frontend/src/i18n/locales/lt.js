@@ -685,6 +685,8 @@ const dict = {
   "share_view.social.email_body": "Maniau, kad tau patiks šis daržas Patch & Pot — {name}: {url}",
   "plant.pin_to_pinterest": "Prisegti prie Pinterest",
   "plant.pin_description": "Kaip auginti {name} mažose erdvėse — Patch & Pot",
+  "share_patch.social_kit.download": "Atsisiųsti socialinių tinklų rinkinį (ZIP)",
+  "share_patch.social_kit.help": "Keturi paruošti įrašui vaizdai (1:1, 4:5, 9:16, 16:9) ir kiekvienai platformai skirti antraštės — Instagram, Reels, TikTok, Twitter ir YouTube. Pirmą kartą užtrunka kelias sekundes, kol antraštės yra parašomos.",
 
 };
 

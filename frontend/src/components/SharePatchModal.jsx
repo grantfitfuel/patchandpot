@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Check, Code2, Copy, Download, ExternalLink, ImageDown, Loader2, Share2, Sprout, Trash2, X } from "lucide-react";
+import { Check, Code2, Copy, Download, ExternalLink, ImageDown, Loader2, Share2, Sprout, Trash2, Twitter, X } from "lucide-react";
 import { createSharedPatch, deleteSharedPatch } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
@@ -138,6 +138,36 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     const backend = process.env.REACT_APP_BACKEND_URL || "";
     return `${backend}/api/share/patch/${cached.share_id}/social-kit.zip`;
   }, [cached]);
+
+  // [Tweet this patch] — fetch the AI-written Twitter-tuned caption from
+  // the same cache that powers the social-kit ZIP, then pop X's intent
+  // URL pre-filled with both the caption text and the patch URL. X will
+  // auto-attach the OG card image when it scrapes the URL, so the user
+  // gets a real Twitter Card preview with zero extra work.
+  const [tweeting, setTweeting] = useState(false);
+  const onTweet = async () => {
+    if (!cached?.share_id || tweeting) return;
+    setTweeting(true);
+    try {
+      const backend = process.env.REACT_APP_BACKEND_URL || "";
+      const r = await fetch(`${backend}/api/share/patch/${cached.share_id}/captions.json`);
+      const json = r.ok ? await r.json() : null;
+      const twitterCaption = json?.captions?.youtube_twitter || "";
+      // Open the intent URL — popup if the browser allows, fallback to
+      // top-level navigation if it's blocked. Tweet text must NOT include
+      // the URL (Twitter appends it separately via &url=, which is what
+      // gives us the unfurled card preview).
+      const intent = new URL("https://x.com/intent/tweet");
+      if (twitterCaption) intent.searchParams.set("text", twitterCaption);
+      intent.searchParams.set("url", shareUrl);
+      const win = window.open(intent.toString(), "_blank", "noopener,noreferrer,width=600,height=560");
+      if (!win) window.location.href = intent.toString();
+    } catch (e) {
+      console.warn("Tweet intent failed", e);
+    } finally {
+      setTweeting(false);
+    }
+  };
 
   const ready = !!region && !!patchName;
 
@@ -403,6 +433,18 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
                 >
                   <ImageDown strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.social_kit.download")}
                 </a>
+                <button
+                  type="button"
+                  onClick={onTweet}
+                  disabled={tweeting}
+                  data-testid="share-patch-tweet"
+                  className="text-sm text-moss hover:text-forest inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-wait"
+                >
+                  {tweeting
+                    ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" />
+                    : <Twitter strokeWidth={1.5} className="w-4 h-4" />}
+                  {t("share_patch.tweet.action")}
+                </button>
               </div>
               <p className="text-xs text-moss/60 leading-relaxed -mt-2" data-testid="share-patch-social-kit-help">
                 {t("share_patch.social_kit.help")}

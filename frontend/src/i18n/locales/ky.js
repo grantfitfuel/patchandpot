@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name}ди кичинекей жайларда өстүрүүнүн жолу — Patch & Pot",
   "share_patch.social_kit.download": "Социалдык Медиа Жетекчисин Жүктөө (ZIP)",
   "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter жана YouTube үчүн төрт дайын постторго арналган сүрөт (1:1, 4:5, 9:16, 16:9) жана ар бир платформага ылайык жазуулар. Бул жазуулар жазылгандан кийин биринчи жолу бир нече секунд алат.",
+  "share_patch.tweet.action": "Бул патчты твиттөө",
 
 };
 

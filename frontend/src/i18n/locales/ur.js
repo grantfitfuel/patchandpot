@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name} کو چھوٹے جگہوں پر اگانے کا طریقہ — Patch & Pot",
   "share_patch.social_kit.download": "سوشل میڈیا کٹ (ZIP) ڈاؤن لوڈ کریں",
   "share_patch.social_kit.help": "چار تیار کردہ امیجز (1:1, 4:5, 9:16, 16:9) اور ہر پلیٹ فارم کے کیپشن — Instagram، Reels، TikTok، Twitter اور YouTube کے لئے۔ پہلی بار کیپشن لکھنے میں چند سیکنڈ لگتے ہیں۔",
+  "share_patch.tweet.action": "اس پیچ کو ٹویٹ کریں",
 
 };
 

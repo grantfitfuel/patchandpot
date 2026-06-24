@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Cara menanam {name} di ruang kecil — Patch & Pot",
   "share_patch.social_kit.download": "Muat Turun Set Media Sosial (ZIP)",
   "share_patch.social_kit.help": "Empat imej sedia untuk dihantar (1:1, 4:5, 9:16, 16:9) dan kapsyen mengikut platform — untuk Instagram, Reels, TikTok, Twitter dan YouTube. Memerlukan beberapa detik kali pertama semasa kapsyen ditulis.",
+  "share_patch.tweet.action": "Tweet patch ini",
 
 };
 

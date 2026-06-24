@@ -687,6 +687,7 @@ const dict = {
   "plant.pin_description": "Kuidas kasvatada {name} väikestes ruumides — Patch & Pot",
   "share_patch.social_kit.download": "Laadi alla sotsiaalmeedia komplekt (ZIP)",
   "share_patch.social_kit.help": "Neli postitamiseks valmis pilti (1:1, 4:5, 9:16, 16:9) ja iga platvormi pealkirjad — Instagrami, Reelsi, TikToki, Twitteri ja YouTube'i jaoks. Esmakordsel kasutamisel kulub pealkirjade kirjutamiseks paar sekundit.",
+  "share_patch.tweet.action": "Twiitige seda plaastrit",
 
 };
 

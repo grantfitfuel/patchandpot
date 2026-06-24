@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name} ছোট স্থানে কীভাবে বৃদ্ধি পাবেন — Patch & Pot",
   "share_patch.social_kit.download": "সোশ্যাল মিডিয়া কিট (জিপ) ডাউনলোড করুন",
   "share_patch.social_kit.help": "চারটি পোস্ট করার জন্য প্রস্তুত ছবি (1:1, 4:5, 9:16, 16:9) এবং প্রতি প্ল্যাটফর্মের ক্যাপশন — Instagram, Reels, TikTok, Twitter এবং YouTube এর জন্য। প্রথমবার ক্যাপশন লেখা হতে কয়েক সেকেন্ড সময় নেয়।",
+  "share_patch.tweet.action": "এই প্যাচটি টুইট করুন",
 
 };
 

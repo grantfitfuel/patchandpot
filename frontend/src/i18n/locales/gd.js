@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Mar a thogas tu {name} ann an àitean beag — Patch & Pot",
   "share_patch.social_kit.download": "Luchdaich sìos an Sgriobhan Meadhanan Sòisealta (ZIP)",
   "share_patch.social_kit.help": "Ceithir ìomhaighean deiseil airson a phostadh (1:1, 4:5, 9:16, 16:9) agus freagairtean airson gach platfoirm — airson Instagram, Reels, TikTok, Twitter agus YouTube. Thèid beagan dhiogannan a ghabhail a' chiad uair a thèid na freagairtean a sgrìobhadh.",
+  "share_patch.tweet.action": "Tweet am pìos seo",
 
 };
 

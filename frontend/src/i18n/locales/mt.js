@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Kif ti grow {name} f'spazji żgħar — Patch & Pot",
   "share_patch.social_kit.download": "Niżżel il-Kit tal-Midja Soċjali (ZIP)",
   "share_patch.social_kit.help": "Erba' immaġini lesti biex jitpoġġew (1:1, 4:5, 9:16, 16:9) u sottotitoli għal kull pjattaforma — għall-Instagram, Reels, TikTok, Twitter u YouTube. Jieħu ftit sekondi għall-ewwel darba waqt li s-sottotitoli jiġu miktuba.",
+  "share_patch.tweet.action": "Twitta dan il-patch",
 
 };
 

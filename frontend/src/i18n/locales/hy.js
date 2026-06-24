@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name}-ը փոքր տարածքներում աճեցնել — Patch & Pot",
   "share_patch.social_kit.download": "Բեռնեք Բնակության Միջոցների Համալիրը (ZIP)",
   "share_patch.social_kit.help": "Չորս պատրաստակամ լուսանկար (1:1, 4:5, 9:16, 16:9) և յուրաքանչյուր պլատֆորմի գրառումներ՝ Instagram, Reels, TikTok, Twitter և YouTube համար։ Առաջին անգամ դա կտևի մի քանի վայրկյան, քանի դեռ գրառումները գրել են։",
+  "share_patch.tweet.action": "Թվիթել այս պիջակը",
 
 };
 

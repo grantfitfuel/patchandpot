@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Πώς να φυτέψετε {name} σε μικρούς χώρους — Patch & Pot",
   "share_patch.social_kit.download": "Κατεβάστε το Πακέτο Κοινωνικών Μέσων (ZIP)",
   "share_patch.social_kit.help": "Τέσσερις έτοιμες προς ανάρτηση εικόνες (1:1, 4:5, 9:16, 16:9) και λεζάντες ανά πλατφόρμα — για Instagram, Reels, TikTok, Twitter και YouTube. Χρειάζεται μερικά δευτερόλεπτα την πρώτη φορά ενώ γράφονται οι λεζάντες.",
+  "share_patch.tweet.action": "Tweet αυτό το patch",
 
 };
 

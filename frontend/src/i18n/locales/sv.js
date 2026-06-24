@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Hur man odlar {name} i små utrymmen — Patch & Pot",
   "share_patch.social_kit.download": "Ladda ner sociala medier-kittet (ZIP)",
   "share_patch.social_kit.help": "Fyra färdiga bilder att posta (1:1, 4:5, 9:16, 16:9) och plattformsanpassade texter — för Instagram, Reels, TikTok, Twitter och YouTube. Tar några sekunder första gången medan texterna skrivs.",
+  "share_patch.tweet.action": "Tweeta denna patch",
 
 };
 

@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name}ஐ சிறிய இடங்களில் எப்படிச் வளர்க்க வேண்டும் — Patch & Pot",
   "share_patch.social_kit.download": "சமூகவியல் கிட்டைப் பதிவிறக்கம் செய்க (ZIP)",
   "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter மற்றும் YouTube க்கான நான்கு முன்பதிவு செய்ய தயாரான படங்கள் (1:1, 4:5, 9:16, 16:9) மற்றும் ஒவ்வொரு தளத்திற்குமான மாணவொர்கள் — முதன்முதலாக மாணவொர்கள் எழுதப்படுவதால் சில секундுகள் எடுக்கிறது.",
+  "share_patch.tweet.action": "இப்பாட் ஐ ட்வீட் செய்",
 
 };
 

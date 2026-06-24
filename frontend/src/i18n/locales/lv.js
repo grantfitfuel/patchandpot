@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Kā audzēt {name} mazās telpās — Patch & Pot",
   "share_patch.social_kit.download": "Lejupielādēt sociālo mediju komplektu (ZIP)",
   "share_patch.social_kit.help": "Vier gatavi publicēšanai attēli (1:1, 4:5, 9:16, 16:9) un katrai platformai atbilstošas paraksti — Instagram, Reels, TikTok, Twitter un YouTube. Pirmajā reizē tās izveidošana aizņem dažas sekundes.",
+  "share_patch.tweet.action": "Izvietot šo patch",
 
 };
 

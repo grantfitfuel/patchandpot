@@ -1,0 +1,39 @@
+{
+  "summary": "iter34 [Tweet this patch] verified end-to-end. Backend: 22/22 pytest green — 4 new test_captions_iter34 (captions.json returns 4 platforms, identical response on second call, ZIP captions match JSON verbatim, 404 on unknown), 5 iter33 regression + 13 share_patch regression all pass. Direct cache-invalidation test passed: editing patch_name via POST /api/share/patch (with owner_secret) produces a different captions.json payload referencing the new context. Frontend: SharePatchModal renders data-testid='share-patch-tweet' with EN label 'Tweet this patch' (not raw key), FR label 'Tweeter ce patch' (translated, not raw key). Clicking the button issues a GET to /api/share/patch/<id>/captions.json (verified in network panel), shows a Loader2 spinner via [data-testid='share-patch-tweet'] svg.animate-spin while loading, and disables the button (is_disabled True). Regression: share-patch-social-kit anchor, share-patch-qr-download, share-patch-social-kit-help all still render. window.open invocation could not be captured by the test harness (mocked via add_init_script with a non-null stub, but __openCalls remained []) — however the onTweet source in SharePatchModal.jsx unambiguously constructs `new URL('https://x.com/intent/tweet')`, sets text = json.captions.youtube_twitter and url = shareUrl, and calls window.open(intent.toString(), '_blank', 'noopener,noreferrer,width=600,height=560') with a window.location.href fallback if popup is blocked. Text param does NOT embed the URL inline (set separately via searchParams), so Twitter Card unfurl is preserved.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "SharePatchModal — French",
+        "issues": ["FR translation reads 'Tweeter ce patch' — uses the English loanword 'patch' rather than 'parcelle' (which the rest of the FR locale uses, e.g. 'Ajouter une parcelle'). Not a bug — the key is translated, not raw — but slightly inconsistent with the surrounding FR copy. Spec hinted 'Tweeter cette parcelle' which would read more natively. Other 56 locales not spot-checked."]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_captions_iter34.py",
+    "/app/backend/tests/test_social_kit_iter33.py",
+    "/app/backend/tests/test_share_patch.py",
+    "/app/test_reports/pytest/iter34_results.xml"
+  ],
+  "action_items": [
+    "(Optional polish) Consider re-running the FR translation pass for share_patch.tweet.action — 'Tweeter cette parcelle' matches the rest of the FR locale's terminology better than 'Tweeter ce patch'. Other 56 non-English locales were not spot-checked beyond FR."
+  ],
+  "critical_code_review_comments": [
+    "share.py refactor is clean — _format_region() and _get_or_generate_captions() are properly extracted as nested functions inside make_router (so they capture db via closure). Both the captions.json and social-kit.zip endpoints now read/write the same shared_patch_captions collection keyed on (share_id, version=updated_at), so the cost-heavy LLM call only fires once per snapshot version regardless of which surface triggers it first.",
+    "captions.json endpoint returns Cache-Control public, max-age=86400 — matches the OG card endpoint. Cache invalidation is automatic because share/patch POST updates updated_at, which becomes the new version key.",
+    "SharePatchModal.jsx onTweet handler is correctly written: text param = youtube_twitter caption only, url param = shareUrl (the /api/share/preview/<id> URL — which is the right one to send to Twitter so its crawler unfurls the OG card). Fallback to window.location.href if popup blocked is the right UX.",
+    "Tweeting state flag uses a separate useState (not the main `state` reducer), so it can't accidentally clobber the create/update loading state. Spinner + disabled wired off the same flag — no race.",
+    "Twitter icon import added to the existing lucide-react import line — no new import statements, clean diff.",
+    "Minor nit: the onTweet handler does not surface an error toast if the captions.json fetch fails (just console.warn). If the LLM endpoint is hard-down the button would silently open x.com with an empty text param. Not a regression — same posture as the social-kit anchor — but worth a future iteration."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (22/22 tests + manual cache-invalidation)", "frontend": "100% (all required assertions met; window.open mock harness limitation noted but source-verified)"},
+  "test_credentials": "n/a",
+  "seed_data_creation": "Seeded a patch via localStorage keys patchpot.patch.<pid>.region.v1 + patchpot.patch.<pid>.garden.v1 (Bristol/UK, kale+tomato). Backend created TEST_captions_* and TEST_iter34_* shared_patches docs.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "To verify window.open invocation in Playwright when the React code uses `window.open(url,'_blank','noopener,noreferrer,...')`: add_init_script with `window.open = (url,...) => { window.__openCalls.push({url}); return {closed:false}; }` is the right pattern, BUT the stub must return a truthy object — returning null triggers the !win fallback which navigates the test page away to x.com and loses __openCalls. Even with the truthy stub, the harness occasionally fails to capture in this environment; an alternate is `async with page.expect_popup() as popup_info: await page.click(...)` then `popup = await popup_info.value; assert popup.url.startswith('https://x.com/intent/tweet')`. Locale switch is achieved via localStorage key 'patchpot.lang.v1' = 'fr' (NOT 'patchpot.locale.v1' which was a guess in iter33). The seed-patch technique from iter33 still works unchanged.",
+  "rca_of_the_issue": "n/a — feature works as designed"
+}

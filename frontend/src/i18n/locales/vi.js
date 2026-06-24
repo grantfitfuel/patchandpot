@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Cách trồng {name} trong không gian nhỏ — Patch & Pot",
   "share_patch.social_kit.download": "Tải xuống Bộ Công cụ Mạng Xã Hội (ZIP)",
   "share_patch.social_kit.help": "Bốn hình ảnh sẵn sàng để đăng (1:1, 4:5, 9:16, 16:9) và chú thích theo từng nền tảng — cho Instagram, Reels, TikTok, Twitter và YouTube. Mất vài giây trong lần đầu tiên khi các chú thích được viết.",
+  "share_patch.tweet.action": "Tweeter bản vá này",
 
 };
 

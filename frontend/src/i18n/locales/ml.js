@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name} ക്രമീകരിക്കേണ്ടത് എങ്ങനെ - Patch & Pot",
   "share_patch.social_kit.download": "സോഷ്യല്‍ മീഡിയ കിറ്റ് ഡൗണ്‍ലോഡ് ചെയ്യുക (ZIP)",
   "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter, YouTube എന്നിവയ്ക്ക് വേണ്ടി നാല് തയ്യാറായ ചിത്രങ്ങള്‍ (1:1, 4:5, 9:16, 16:9) കൂടാതെ ഓരോ പ്ലാറ്റ്ഫോമിനായി എഴുതിയ ക്യാപ്ഷനുകള്‍ - ആദ്യമായി എഴുതിക്കൊണ്ടിരിക്കുമ്പോള്‍ ചില സെക്കന്‍ഡുകള്‍ വേണം.",
+  "share_patch.tweet.action": "ഈ പാച്ച് ട്വീറ്റ് ചെയ്യുക",
 
 };
 

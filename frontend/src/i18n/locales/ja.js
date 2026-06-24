@@ -687,6 +687,7 @@ const dict = {
   "plant.pin_description": "{name}を小さなスペースで育てる方法 — Patch & Pot",
   "share_patch.social_kit.download": "ソーシャルメディアキット（ZIP）をダウンロード",
   "share_patch.social_kit.help": "Instagram、Reels、TikTok、Twitter、YouTube用の準備済みの投稿画像（1:1、4:5、9:16、16:9）とプラットフォームごとのキャプションが4枚。キャプションが書かれるため、最初の一度だけ数秒かかります。",
+  "share_patch.tweet.action": "このパッチをツイートする",
 
 };
 

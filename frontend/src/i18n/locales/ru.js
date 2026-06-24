@@ -687,6 +687,7 @@ const dict = {
   "plant.pin_description": "Как вырастить {name} в небольших пространствах — Patch & Pot",
   "share_patch.social_kit.download": "Скачать комплект для социальных сетей (ZIP)",
   "share_patch.social_kit.help": "Четыре готовых изображения для публикации (1:1, 4:5, 9:16, 16:9) и подписи для каждой платформы — для Instagram, Reels, TikTok, Twitter и YouTube. В первый раз это займет несколько секунд, пока подписи будут написаны.",
+  "share_patch.tweet.action": "Твитнуть этот патч",
 
 };
 

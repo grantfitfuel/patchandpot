@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Conas {name} a fhás i spásanna beaga — Patch & Pot",
   "share_patch.social_kit.download": "Íoslódáil an Conradh Meáin Shóisialta (ZIP)",
   "share_patch.social_kit.help": "Ceithre íomhá réidh le poist (1:1, 4:5, 9:16, 16:9) agus cur síos ar gach ardán - do Instagram, Reels, TikTok, Twitter agus YouTube. Tógann sé cúpla soicind an chéad uair nuair a scríobhann na cur síos.",
+  "share_patch.tweet.action": "Tweeter an phac",
 
 };
 

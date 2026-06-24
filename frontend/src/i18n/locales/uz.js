@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name} ni kichik joylarda qanday o'stirish kerak — Patch & Pot",
   "share_patch.social_kit.download": "Ijtimoiy tarmoq to'plamini yuklab olish (ZIP)",
   "share_patch.social_kit.help": "Instagram, Reels, TikTok, Twitter va YouTube uchun to'rt tayyor rasmlar (1:1, 4:5, 9:16, 16:9) va har bir platforma uchun izohlar. Izohlar yozilganida birinchi marta bir necha soniya vaqt oladi.",
+  "share_patch.tweet.action": "Patch & Pot'ni baham ko'ring",
 
 };
 

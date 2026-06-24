@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Hogyan nevelj {name}-t kicsi helyeken — Patch & Pot",
   "share_patch.social_kit.download": "Töltse le a közösségi média készletet (ZIP)",
   "share_patch.social_kit.help": "Négy, közzétételre kész kép (1:1, 4:5, 9:16, 16:9) és platformonkénti feliratok - Instagram, Reels, TikTok, Twitter és YouTube számára. Az első alkalommal néhány másodpercet vesz igénybe, amíg a feliratok elkészülnek.",
+  "share_patch.tweet.action": "Tweeteld ezt a patch-et",
 
 };
 

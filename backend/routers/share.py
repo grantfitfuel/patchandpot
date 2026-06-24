@@ -28,7 +28,7 @@ from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import HTMLResponse, JSONResponse, Response
 from pydantic import BaseModel, Field
 
 from share_og import render_share_og_png
@@ -372,12 +372,9 @@ def make_router(db) -> APIRouter:
         if cached and cached.get("png"):
             png_bytes = cached["png"]
         else:
-            region_name = (doc.get("region") or {}).get("name") or ""
-            country = (doc.get("region") or {}).get("country") or ""
-            full_region = region_name + (f", {country}" if country and country not in region_name else "")
             png_bytes = render_share_og_png(
                 patch_name=doc.get("patch_name") or "A garden",
-                region_name=full_region.strip(", "),
+                region_name=_format_region(doc.get("region") or {}),
                 plant_count=len(doc.get("plants") or []),
             )
             # Upsert keyed by (share_id, version). Old versions get pushed
@@ -406,6 +403,81 @@ def make_router(db) -> APIRouter:
             },
         )
 
+    def _format_region(region: dict) -> str:
+        """Render a region dict as a single human-readable line like
+        'London, United Kingdom'. Empty country is dropped silently; a
+        country already embedded in the name (e.g. 'Wales') is not
+        duplicated. Used by both the captions helper and the ZIP builder
+        so they always stamp the same region label on the assets."""
+        name = (region or {}).get("name") or ""
+        country = (region or {}).get("country") or ""
+        if country and country not in name:
+            return f"{name}, {country}".strip(", ")
+        return name.strip(", ")
+
+    async def _get_or_generate_captions(share_id: str, request: Request) -> tuple[dict, dict]:
+        """Resolve the snapshot + captions for `share_id`, generating &
+        caching the captions if we haven't seen this `version` before.
+
+        Returns `(snapshot_doc, captions_dict)`. Raises 404 if the share
+        doesn't exist. Used by both the ZIP endpoint and the lighter
+        captions-only endpoint that powers the [Tweet this patch] button —
+        sharing the cache means the ZIP download warms the tweet button
+        and vice-versa.
+        """
+        if not share_id or len(share_id) > 40:
+            raise HTTPException(404, "Snapshot not found.")
+        doc = await db.shared_patches.find_one({"share_id": share_id})
+        if not doc:
+            raise HTTPException(404, "Snapshot not found.")
+
+        version = doc.get("updated_at") or doc.get("created_at") or ""
+        cached = await db.shared_patch_captions.find_one(
+            {"share_id": share_id, "version": version},
+            {"_id": 0, "captions": 1},
+        )
+        if cached and cached.get("captions"):
+            return doc, cached["captions"]
+
+        region = doc.get("region") or {}
+        public_origin = (
+            os.environ.get("PUBLIC_APP_URL", "").rstrip("/")
+            or _origin_from_request(request)
+        )
+        share_url = f"{public_origin}/p/{share_id}"
+
+        captions = await generate_captions(
+            patch_name=doc.get("patch_name") or "My patch",
+            region_name=_format_region(region),
+            plant_count=len(doc.get("plants") or []),
+            share_url=share_url,
+        )
+        await db.shared_patch_captions.update_one(
+            {"share_id": share_id},
+            {"$set": {
+                "share_id": share_id,
+                "version": version,
+                "captions": captions,
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+            }},
+            upsert=True,
+        )
+        return doc, captions
+
+    @router.get("/share/patch/{share_id}/captions.json")
+    async def share_captions(share_id: str, request: Request):
+        """Return the four AI-generated platform captions for this share as
+        JSON, generating + caching them if necessary. Used by the frontend
+        `[Tweet this patch]` quick-action so the button can pre-fill an X
+        intent URL with the Twitter-tuned caption without forcing the
+        owner to download the full ZIP first.
+        """
+        _, captions = await _get_or_generate_captions(share_id, request)
+        return JSONResponse(
+            content={"captions": captions},
+            headers={"Cache-Control": "public, max-age=86400"},
+        )
+
     @router.get("/share/patch/{share_id}/social-kit.zip")
     async def social_media_kit(share_id: str, request: Request):
         """Bundle 4 aspect-ratio teaser images + AI captions + README into a
@@ -431,26 +503,13 @@ def make_router(db) -> APIRouter:
         if cached and cached.get("zip"):
             zip_bytes = cached["zip"]
         else:
-            region = doc.get("region") or {}
-            region_name = region.get("name") or ""
-            country = region.get("country") or ""
-            full_region = region_name + (f", {country}" if country and country not in region_name else "")
-
-            public_origin = (
-                os.environ.get("PUBLIC_APP_URL", "").rstrip("/")
-                or _origin_from_request(request)
-            )
-            share_url = f"{public_origin}/p/{share_id}"
-
-            captions = await generate_captions(
-                patch_name=doc.get("patch_name") or "My patch",
-                region_name=full_region.strip(", "),
-                plant_count=len(doc.get("plants") or []),
-                share_url=share_url,
-            )
+            # Reuse the shared caption cache — clicking the [Tweet] button
+            # earlier (or another ZIP download) will already have populated
+            # this for free.
+            _, captions = await _get_or_generate_captions(share_id, request)
             zip_bytes = build_kit_zip(
                 patch_name=doc.get("patch_name") or "My patch",
-                region_name=full_region.strip(", "),
+                region_name=_format_region(doc.get("region") or {}),
                 plant_count=len(doc.get("plants") or []),
                 captions=captions,
             )

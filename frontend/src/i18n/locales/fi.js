@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Kuinka kasvattaa {name} pienissä tiloissa — Patch & Pot",
   "share_patch.social_kit.download": "Lataa sosiaalisen median paketti (ZIP)",
   "share_patch.social_kit.help": "Neljä valmiita julkaistavaa kuvaa (1:1, 4:5, 9:16, 16:9) ja alatekstejä eri alustoille — Instagramiin, Reelsiin, TikTokiin, Twitteriin ja YouTubeen. Ensimmäisellä kerralla kestää muutama sekunti, kun alatekstit kirjoitetaan.",
+  "share_patch.tweet.action": "Tweettää tämä paikka",
 
 };
 

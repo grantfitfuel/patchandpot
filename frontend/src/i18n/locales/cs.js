@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "Jak pěstovat {name} na malém prostoru — Patch & Pot",
   "share_patch.social_kit.download": "Stáhnout sadu pro sociální média (ZIP)",
   "share_patch.social_kit.help": "Čtyři připravené obrázky k publikaci (1:1, 4:5, 9:16, 16:9) a popisky pro každou platformu — pro Instagram, Reels, TikTok, Twitter a YouTube. Popisky se při prvním stažení píší několik sekund.",
+  "share_patch.tweet.action": "Tweetnout tento patch",
 
 };
 

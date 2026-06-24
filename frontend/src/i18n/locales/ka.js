@@ -686,6 +686,7 @@ const dict = {
   "plant.pin_description": "{name}-ის მოყვანა მცირე სივრცეებში — Patch & Pot",
   "share_patch.social_kit.download": "დატვირთეთ სოციალური მედიის ნაკრები (ZIP)",
   "share_patch.social_kit.help": "ოთხი წესების შესაბამისი გამოსახულება (1:1, 4:5, 9:16, 16:9) და პლატფორმების მიხედვით წარწერები — Instagram, Reels, TikTok, Twitter და YouTube. პირველად რამდენჯერაც წარწერები წერს, რამდენიმე წამი სჭირდება.",
+  "share_patch.tweet.action": "პოსტე ეს პაჩი",
 
 };
 

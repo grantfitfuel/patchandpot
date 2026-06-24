@@ -28,7 +28,28 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 32 (2026-02-25): ✅ — Targeted code-quality remediation (audit pass)
+
+Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 React hook-deps, localStorage→httpOnly cookies, complexity refactors of `admin.py`/`checkout.py`/`GuidanceView.jsx`) **intentionally deferred** as architectural changes that warrant separate planning to avoid destabilising prod.
+
+- `backend/share_qr.py` — split 9 semicolon-chained statements onto own lines (ruff E702). PDF byte-for-byte identical output verified.
+- `backend/tests/test_share_patch.py` — promoted inline `"bogus-secret-xx"` test fixture to module-level `BOGUS_OWNER_SECRET` constant with `# noqa: S105` so static analysers stop flagging an obvious test value as a leaked production credential.
+- `backend/tests/test_vendor_blurbs.py` — `for k in d.keys()` → `for k in d` (ruff SIM118).
+- `components/illustrations/MonthlyIllustrations.jsx` — 7 array-index React keys replaced with content-derived stable keys (the SVG `d` string itself; angle integers like `ray-${i*30}`; coordinate tuples like `${cx}-${cy}`).
+- `components/ArrangementSuggester.jsx` — 2 array-index keys → `${plant}-${i}` and `step-${i}-${preview}`. List order is server-driven & stable per response so idx fallback is safe.
+- `hooks/useRegion.js` — bare `/* ignore */` catch upgraded with explicit `void e;` + comment so the swallow is observable in lint reports.
+- testing_agent_v3 iter32: backend 23/23 pytest green; frontend regression all green (Mar/Jul/Dec calendar illustrations, /plants/tomato JSON-LD + Pinterest, /p/y997txhsnkmt mailto: button). Report: `/app/test_reports/iteration_32.json`.
+
+**Audit items intentionally NOT actioned (need future planning, not silent triage):**
+- 92 `react-hooks/exhaustive-deps` warnings — many are deliberate (single-fire effects, infinite-loop avoidance). Bulk-fixing without per-callsite analysis risks introducing infinite re-renders or stale-closure bugs that are harder to detect than the warnings themselves.
+- localStorage → httpOnly cookies for auth — Patch & Pot uses **passwordless token auth** stored locally by design; switching to cookies requires a coordinated backend + Stripe-checkout-redirect overhaul.
+- High-cyclomatic-complexity refactors (`pdf_seasonal.py:build_seasonal_pdf`, `routers/admin.py`, `core.py:_climate_context`, `routers/checkout.py`, `GuidanceView.jsx`, `AIMasterclassSuggest.jsx`) — listed in P4 backlog; they touch hot paths and need their own test coverage uplift first.
+- 55 `console.*` statements — every one inspected is in an error/diagnostic branch (e.g. Sentry init failure, localStorage quota exceeded). Stripping them would hurt production observability more than it helps security.
+- Type-hint coverage uplift — incremental work; new code added in iter31/32 already includes annotations.
+
+
 ### Iteration 31 (2026-02-25): ✅ — SEO foundations bundle (+ Email-a-friend)
+
 - **`/app/backend/routers/seo.py`**: new dynamic `GET /api/sitemap.xml` (urlset with 12 evergreen static routes + per-plant URLs sourced from `core.PLANTS`) and `GET /api/robots.txt` (returns directives + `Sitemap:` line). Both reconstruct the public origin via `x-forwarded-proto` / `x-forwarded-host` so production serves canonical `patchandpot.app` URLs. Mounted at `/api` prefix in `server.py`.
 - **`/app/frontend/public/robots.txt`**: static CRA fallback for crawlers that fetch `/robots.txt` directly.
 - **`PlantDetail.jsx`**: injects a `<script type="application/ld+json" data-jsonld="plant-jsonld">` Article schema (headline, description, image, author=Patch & Pot, datePublished, dateModified) so plant guides surface as Google rich results. Adds a Pinterest "Save" anchor (`data-testid=plant-pinterest-save`) hitting `pinterest.com/pin/create/button/` with `url=/api/plants/preview/<id>` (bot-friendly HTML wrapper) and `media=/api/plants/<id>/og.png`.

@@ -193,7 +193,7 @@ export default function LearnLandingPage() {
         )}
         <div className="mt-6 space-y-5">
           {meta.introParagraphs.map((p, i) => (
-            <p key={i} className="text-ink/80 leading-relaxed text-lg">{p}</p>
+            <p key={`${i}-${p.slice(0, 40)}`} className="text-ink/80 leading-relaxed text-lg">{p}</p>
           ))}
         </div>
 
@@ -201,8 +201,8 @@ export default function LearnLandingPage() {
           <section key={`box-${bi}`} className="mt-8 card-flat p-6">
             <p className="overline">{box.label}</p>
             <ul className="mt-4 space-y-3">
-              {(box.items || []).map((it, i) => (
-                <li key={i} className="flex gap-3 text-ink/80 leading-relaxed">
+              {(box.items || []).map((it) => (
+                <li key={it} className="flex gap-3 text-ink/80 leading-relaxed">
                   <span className="text-terracotta mt-1.5 w-1 h-1 bg-terracotta rounded-full flex-shrink-0" />
                   <span>{it}</span>
                 </li>
@@ -230,7 +230,7 @@ export default function LearnLandingPage() {
             {meta.lessonTitles.length > 1 && (
               <ol className="mt-7 max-w-md mx-auto text-left space-y-2" data-testid="learn-lesson-list">
                 {meta.lessonTitles.slice(1).map((title, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm text-ink/70">
+                  <li key={title} className="flex items-center gap-3 text-sm text-ink/70">
                     <Lock strokeWidth={1.5} className="w-3.5 h-3.5 text-moss flex-shrink-0" />
                     <span className="overline shrink-0 text-moss">{t("learn.lesson_n", { n: i + 2 })}</span>
                     <span className="truncate">{title}</span>

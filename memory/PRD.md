@@ -21,12 +21,17 @@
 
 ### Refactor backlog
 - ✅ **Modularise `/app/frontend/src/i18n/index.jsx`** (iter 28) — split into 58 per-locale files lazy-loaded via dynamic imports. 38,082 lines → 244 lines.
-- **P3: React-key anti-pattern in `LearnLanding.jsx` + `AIMasterclass.jsx`** — currently uses `key={index}`. Only matters if those pages ever gain filtering/sorting. Pure hygiene right now.
+- ✅ **React-key anti-pattern in `LearnLanding.jsx` + `AIMasterclass.jsx`** (iter 29) — all index-only keys replaced with content-based stable keys.
 - **P4: FastAPI `@app.on_event` → modern `lifespan` context manager.**
 - **P4: Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` into one component.**
 
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
+
+### Iteration 29 (2026-02-24): ✅ — React-key anti-pattern refactor
+- **`LearnLanding.jsx`** — replaced array-index keys at lines 196 (intro paragraphs), 205 (intro-box bullets), 233 (lesson titles) with content-based keys. Paragraphs use `${i}-${p.slice(0,40)}` to keep keys distinct even if two paragraphs happen to share a prefix.
+- **`AIMasterclass.jsx`** — replaced array-index keys at lines 148 (body paragraphs), 153 (boxes — now keyed by `${bi}-${box.label}`), 157 (box bullets), 171 (numbered step items). The `lessons.map` at line 112 was already using `key={l.slug}`; the `, i` there is only for the "Lesson N" label and was left intact.
+- Verified live on `/learn/propagation` — 5 lesson list items + 5 intro paragraphs render with zero pageerrors. Lint clean. No `key={i|ii|bi|idx|index}` references remain in either file.
 
 ### Iteration 28 (2026-02-23): ✅ — Five growth/quality items shipped in order
 

@@ -145,16 +145,16 @@ export default function AIMasterclassPage() {
 
             <div className="prose-narrow mt-8 space-y-5 text-ink/85 leading-relaxed">
               {(current.body || []).map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={`${i}-${p.slice(0, 40)}`}>{p}</p>
               ))}
             </div>
 
             {(current.boxes || []).map((box, bi) => (
-              <div key={bi} className="mt-8 p-5 bg-surface border-l-2 border-terracotta">
+              <div key={`${bi}-${box.label}`} className="mt-8 p-5 bg-surface border-l-2 border-terracotta">
                 <p className="overline text-terracotta">{box.label}</p>
                 <ul className="mt-3 space-y-2 text-sm text-ink/85">
-                  {(box.items || []).map((item, ii) => (
-                    <li key={ii} className="flex items-start gap-2">
+                  {(box.items || []).map((item) => (
+                    <li key={item} className="flex items-start gap-2">
                       <span className="w-1 h-1 rounded-full bg-terracotta flex-shrink-0 mt-2" />
                       <span>{item}</span>
                     </li>
@@ -168,7 +168,7 @@ export default function AIMasterclassPage() {
                 <p className="font-serif text-xl text-forest mb-3">{current.steps.title}</p>
                 <ol className="space-y-2.5 text-sm text-ink/85">
                   {(current.steps.items || []).map((it, i) => (
-                    <li key={i} className="flex items-start gap-3">
+                    <li key={`${i}-${it.slice(0, 40)}`} className="flex items-start gap-3">
                       <span className="font-serif text-terracotta flex-shrink-0">{i + 1}.</span>
                       <span>{it}</span>
                     </li>

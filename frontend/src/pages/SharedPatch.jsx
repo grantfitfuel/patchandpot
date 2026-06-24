@@ -72,6 +72,27 @@ export default function SharedPatchPage() {
         ensureMetaTag("og:image:height", "630", "property");
         ensureMetaTag("twitter:card", "summary_large_image");
         ensureMetaTag("twitter:image", imgUrl);
+        // JSON-LD WebPage schema — turns shared-patch pages into rich
+        // results in search alongside the patch OG image + name + region.
+        const jsonld = {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: document.title,
+          description: desc,
+          url: window.location.href,
+          image: imgUrl,
+          author: { "@type": "Person", name: "A Patch & Pot gardener" },
+          publisher: {
+            "@type": "Organization",
+            name: "Patch & Pot",
+            logo: { "@type": "ImageObject", url: `${origin}/logo192.png` },
+          },
+          datePublished: d.created_at,
+          dateModified: d.updated_at || d.created_at,
+          isPartOf: { "@type": "WebSite", name: "Patch & Pot", url: origin },
+          primaryImageOfPage: imgUrl,
+        };
+        ensureSharedJsonLd("share-jsonld", jsonld);
       }
     }
   }, [state.data, month, t, shareId]);
@@ -234,6 +255,20 @@ function ensureMetaTag(name, content, attr = "name") {
     document.head.appendChild(el);
   }
   el.setAttribute("content", content);
+}
+
+// Inject (or replace) a <script type="application/ld+json"> element by a
+// stable data-tag attribute so React re-renders don't pile up duplicates.
+function ensureSharedJsonLd(tag, data) {
+  if (typeof document === "undefined") return;
+  let el = document.head.querySelector(`script[data-jsonld="${tag}"]`);
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.setAttribute("data-jsonld", tag);
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
 }
 
 // Tiny deterministic hash → 12-char hex. Used purely as a cache-buster

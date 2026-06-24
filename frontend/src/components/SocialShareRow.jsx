@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Link2 } from "lucide-react";
+import { Check, Link2, Mail } from "lucide-react";
 import { useI18n } from "@/i18n";
 
 /**
@@ -45,6 +45,14 @@ export default function SocialShareRow({
     + `?url=${encodeURIComponent(wrapperUrl)}`
     + `&media=${encodeURIComponent(imageUrl)}`
     + `&description=${encodeURIComponent(tagline)}`;
+  // Email a friend — mailto: deep link with prefilled subject + body.
+  // Falls back to opening the user's default mail client; no server-side
+  // sending so we avoid spam abuse and don't need an outbound provider.
+  const emailSubject = t("share_view.social.email_subject", { name: patchName });
+  const emailBody = t("share_view.social.email_body", { name: patchName, url: wrapperUrl });
+  const emailUrl = "mailto:?subject="
+    + encodeURIComponent(emailSubject)
+    + "&body=" + encodeURIComponent(emailBody);
 
   const onCopy = async () => {
     try {
@@ -90,6 +98,16 @@ export default function SocialShareRow({
         platformClass="hover:bg-[#E60023] hover:text-white"
       >
         <PinterestLogo />
+      </ShareIconLink>
+
+      <ShareIconLink
+        href={emailUrl}
+        label={t("share_view.social.email")}
+        testId="share-view-social-email"
+        platformClass="hover:bg-forest hover:text-sand"
+        targetBlank={false}
+      >
+        <Mail strokeWidth={1.6} className="w-4 h-4" />
       </ShareIconLink>
 
       <button

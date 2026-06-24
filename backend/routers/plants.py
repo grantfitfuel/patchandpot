@@ -443,9 +443,39 @@ Return JSON only."""
             or f"A small-space growing guide for {p['name']} on Patch & Pot."
         )
 
+        # JSON-LD Schema.org markup — turns this page into a rich result in
+        # Google search. Article + HowTo are both relevant for plant guides;
+        # Article is the safer choice unless we have explicit step-by-step
+        # instructions (some guides do, some don't).
+        jsonld = json.dumps({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": title,
+            "description": desc,
+            "image": og_image_url,
+            "url": clean_url,
+            "author": {"@type": "Organization", "name": "Patch & Pot"},
+            "publisher": {
+                "@type": "Organization",
+                "name": "Patch & Pot",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": f"{public_origin}/logo192.png",
+                },
+            },
+            "datePublished": "2025-06-01",
+            "dateModified": datetime.now(timezone.utc).date().isoformat(),
+            "mainEntityOfPage": clean_url,
+            "about": {
+                "@type": "Thing",
+                "name": p["name"],
+                **({"description": p["summary"]} if p.get("summary") else {}),
+            },
+        }, ensure_ascii=False)
+
         body_html = _plant_preview_html(
             title=title, desc=desc, og_image_url=og_image_url,
-            clean_url=clean_url, name=p["name"],
+            clean_url=clean_url, name=p["name"], jsonld=jsonld,
         )
         return HTMLResponse(
             content=body_html,
@@ -468,9 +498,10 @@ def _plant_origin_from_request(request: Request) -> str:
     return f"{proto}://{host}"
 
 
-def _plant_preview_html(*, title, desc, og_image_url, clean_url, name) -> str:
+def _plant_preview_html(*, title, desc, og_image_url, clean_url, name, jsonld="") -> str:
     """Minimal plant-preview HTML — same posture as share preview wrapper."""
     js_url = _js_string_literal(clean_url)
+    schema_block = f'<script type="application/ld+json">{jsonld}</script>' if jsonld else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -493,6 +524,7 @@ def _plant_preview_html(*, title, desc, og_image_url, clean_url, name) -> str:
 <meta name="twitter:description" content="{html.escape(desc)}">
 <meta name="twitter:image" content="{html.escape(og_image_url)}">
 <meta http-equiv="refresh" content="0; url={html.escape(clean_url)}">
+{schema_block}
 <style>
   html, body {{ margin: 0; padding: 0; background: #F7F5F0; color: #1C231A;
     font-family: ui-serif, Georgia, "Times New Roman", serif; height: 100%; }}

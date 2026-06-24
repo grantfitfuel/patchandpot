@@ -465,9 +465,34 @@ def make_router(db) -> APIRouter:
                 f"{' in ' + region_full if region_full else ''}. See what's growing this month."
             )
 
+        # JSON-LD Schema.org — surfaces shared-patch pages as rich results in
+        # Google search. WebPage + a CreativeWork About for the patch itself.
+        import json as _json
+        jsonld = _json.dumps({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": title,
+            "description": desc,
+            "url": clean_url,
+            "image": og_image_url,
+            "author": {"@type": "Person", "name": "A Patch & Pot gardener"},
+            "publisher": {
+                "@type": "Organization",
+                "name": "Patch & Pot",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": f"{public_origin}/logo192.png",
+                },
+            },
+            "datePublished": doc.get("created_at"),
+            "dateModified": doc.get("updated_at") or doc.get("created_at"),
+            "isPartOf": {"@type": "WebSite", "name": "Patch & Pot", "url": public_origin},
+            "primaryImageOfPage": og_image_url,
+        }, ensure_ascii=False)
+
         body_html = _render_preview_html(
             title=title, desc=desc, og_image_url=og_image_url, clean_url=clean_url,
-            patch_name=patch_name, region_full=region_full,
+            patch_name=patch_name, region_full=region_full, jsonld=jsonld,
         )
         return HTMLResponse(
             content=body_html,
@@ -496,9 +521,10 @@ def _origin_from_request(request: Request) -> str:
     return f"{proto}://{host}"
 
 
-def _render_preview_html(*, title, desc, og_image_url, clean_url, patch_name, region_full) -> str:
+def _render_preview_html(*, title, desc, og_image_url, clean_url, patch_name, region_full, jsonld="") -> str:
     """Plain, dependency-free HTML for social crawlers + a JS + meta-refresh
     redirect for humans. Kept deliberately tiny."""
+    schema_block = f'<script type="application/ld+json">{jsonld}</script>' if jsonld else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -521,6 +547,7 @@ def _render_preview_html(*, title, desc, og_image_url, clean_url, patch_name, re
 <meta name="twitter:description" content="{html.escape(desc)}">
 <meta name="twitter:image" content="{html.escape(og_image_url)}">
 <meta http-equiv="refresh" content="0; url={html.escape(clean_url)}">
+{schema_block}
 <style>
   html, body {{ margin: 0; padding: 0; background: #F7F5F0; color: #1C231A;
     font-family: ui-serif, Georgia, "Times New Roman", serif; height: 100%; }}

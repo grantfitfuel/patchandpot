@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Baca panduan {name}",
   "home.plant_of_the_week.views": "{n} tukang kebun membaca minggu ini",
   "home.plant_of_the_week.views_one": "1 tukang kebun membaca minggu ini",
+  "share_view.social.email": "E-mel kepada rakan",
+  "share_view.social.email_subject": "{name} di Patch & Pot",
+  "share_view.social.email_body": "Fikir anda akan menyukai kawasan ini di Patch & Pot — {name}: {url}",
+  "plant.pin_to_pinterest": "Semat ke Pinterest",
+  "plant.pin_description": "Cara menanam {name} di ruang kecil — Patch & Pot",
 
 };
 

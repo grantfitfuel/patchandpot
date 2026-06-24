@@ -679,6 +679,9 @@ const dict = {
   "home.plant_of_the_week.cta": "{name} rehberini oku",
   "home.plant_of_the_week.views": "Bu hafta {n} bahçıvan okuyordu",
   "home.plant_of_the_week.views_one": "Bu hafta 1 bahçıvan okuyordu",
+  "share_view.social.email": "Bir arkadaşına e-posta",
+  "share_view.social.email_subject": "{name} Patch & Pot'ta",
+  "share_view.social.email_body": "Bunun Patch & Pot'taki bu bahçeyi çok seveceğini düşündüm — {name}: {url}",
 
 };
 

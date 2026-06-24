@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Leugh an stiùireadh {name}",
   "home.plant_of_the_week.views": "{n} gàirdean a' leughadh an t-seachdain seo",
   "home.plant_of_the_week.views_one": "1 gàirdean a' leughadh an t-seachdain seo",
+  "share_view.social.email": "Post-d gu caraid",
+  "share_view.social.email_subject": "{name} air Patch & Pot",
+  "share_view.social.email_body": "Smaoinich mi gum biodh gaol agad air an raon seo air Patch & Pot — {name}: {url}",
+  "plant.pin_to_pinterest": "Pinn gu Pinterest",
+  "plant.pin_description": "Mar a thogas tu {name} ann an àitean beag — Patch & Pot",
 
 };
 

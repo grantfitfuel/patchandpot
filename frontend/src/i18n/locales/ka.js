@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "გაიხსენე {name} სახელმძღვანელო",
   "home.plant_of_the_week.views": "{n} მებაღე ამ კვირას კითხულობს",
   "home.plant_of_the_week.views_one": "1 მებაღე ამ კვირას კითხულობს",
+  "share_view.social.email": "ელექტრონული ფოსტა მეგობრისთვის",
+  "share_view.social.email_subject": "{name} Patch & Pot-ზე",
+  "share_view.social.email_body": "ვიფიქრე, რომ მოგეწონებათ ეს ლაქა Patch & Pot-ზე — {name}: {url}",
+  "plant.pin_to_pinterest": "დაამატეთ Pinterest-ში",
+  "plant.pin_description": "{name}-ის მოყვანა მცირე სივრცეებში — Patch & Pot",
 
 };
 

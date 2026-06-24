@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Διάβασε τον οδηγό {name}",
   "home.plant_of_the_week.views": "{n} κηπουροί διαβάζουν αυτήν την εβδομάδα",
   "home.plant_of_the_week.views_one": "1 κηπουρός διαβάζει αυτήν την εβδομάδα",
+  "share_view.social.email": "Email σε φίλο",
+  "share_view.social.email_subject": "{name} στο Patch & Pot",
+  "share_view.social.email_body": "Νόμιζα ότι θα αγαπούσες αυτό το patch στο Patch & Pot — {name}: {url}",
+  "plant.pin_to_pinterest": "Αποθήκευση στο Pinterest",
+  "plant.pin_description": "Πώς να φυτέψετε {name} σε μικρούς χώρους — Patch & Pot",
 
 };
 

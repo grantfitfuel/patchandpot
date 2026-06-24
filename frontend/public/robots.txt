@@ -1,0 +1,15 @@
+# Patch & Pot — robots.txt
+# Dynamic copy with the canonical sitemap URL is served at /api/robots.txt;
+# this static file is the CRA build's fallback so crawlers that fetch the
+# conventional /robots.txt path still get sensible directives.
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /print/
+Disallow: /patrons/manage
+Disallow: /embed/
+Disallow: /api/share/preview/
+Disallow: /api/plants/preview/
+
+Sitemap: https://patchandpot.app/api/sitemap.xml

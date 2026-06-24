@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Aqra l-gwida {name}",
   "home.plant_of_the_week.views": "{n} jardiniera' qed jaqraw din il-ġimgħa",
   "home.plant_of_the_week.views_one": "1 jardinier qed jaqra din il-ġimgħa",
+  "share_view.social.email": "Email lil ħabib",
+  "share_view.social.email_subject": "{name} fuq Patch & Pot",
+  "share_view.social.email_body": "Ħsibt li tħobb dan il-patch fuq Patch & Pot — {name}: {url}",
+  "plant.pin_to_pinterest": "Pin għal Pinterest",
+  "plant.pin_description": "Kif ti grow {name} f'spazji żgħar — Patch & Pot",
 
 };
 

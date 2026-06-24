@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Prečítajte si sprievodcu {name}",
   "home.plant_of_the_week.views": "{n} záhradníkov číta tento týždeň",
   "home.plant_of_the_week.views_one": "1 záhradník číta tento týždeň",
+  "share_view.social.email": "Poslať priateľovi email",
+  "share_view.social.email_subject": "{name} na Patch & Pot",
+  "share_view.social.email_body": "Myslel(a) som, že sa ti tento patch na Patch & Pot bude páčiť — {name}: {url}",
+  "plant.pin_to_pinterest": "Pripnúť na Pinterest",
+  "plant.pin_description": "Ako pestovať {name} na malých priestoroch — Patch & Pot",
 
 };
 

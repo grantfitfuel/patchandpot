@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Կարդացեք {name} ուղեցույցը",
   "home.plant_of_the_week.views": "{n} բանջարաբուծողներ ընթերցում են այս շաբաթ",
   "home.plant_of_the_week.views_one": "1 բանջարաբուծող ընթերցում է այս շաբաթ",
+  "share_view.social.email": "Էլեկտրոնային հասցե բարեկամի համար",
+  "share_view.social.email_subject": "{name} Պիչ & Փոթ-ում",
+  "share_view.social.email_body": "Համենայնդեպս կարծում էի, որ դու կհավանես այս հատվածը Պիչ & Փոթ-ում — {name}: {url}",
+  "plant.pin_to_pinterest": "Նկարել Pinterest-ում",
+  "plant.pin_description": "{name}-ը փոքր տարածքներում աճեցնել — Patch & Pot",
 
 };
 

@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "{name} 가이드 읽기",
   "home.plant_of_the_week.views": "이번 주 {n}명의 정원사들",
   "home.plant_of_the_week.views_one": "이번 주 1명의 정원사",
+  "share_view.social.email": "친구에게 이메일",
+  "share_view.social.email_subject": "{name}의 Patch & Pot",
+  "share_view.social.email_body": "이 패치가 당신에게 좋을 것 같아서 공유해요 — {name}: {url}",
+  "plant.pin_to_pinterest": "Pinterest에 고정하기",
+  "plant.pin_description": "{name}을(를) 작은 공간에서 기르는 방법 — Patch & Pot",
 
 };
 

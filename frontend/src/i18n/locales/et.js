@@ -680,6 +680,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Loe {name} juhendit",
   "home.plant_of_the_week.views": "{n} aednikku loevad sel nädalal",
   "home.plant_of_the_week.views_one": "1 aednik loeb sel nädalal",
+  "share_view.social.email": "Email sõbrale",
+  "share_view.social.email_subject": "{name} on Patch & Pot",
+  "share_view.social.email_body": "Mõtlesin, et sulle meeldib see patch Patch & Pot'is — {name}: {url}",
+  "plant.pin_to_pinterest": "Kinnita Pinteresti",
+  "plant.pin_description": "Kuidas kasvatada {name} väikestes ruumides — Patch & Pot",
 
 };
 

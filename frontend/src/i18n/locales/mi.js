@@ -680,6 +680,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Pānui i te aratohu {name}",
   "home.plant_of_the_week.views": "{n} karihi e pānui ana i tēnei wiki",
   "home.plant_of_the_week.views_one": "1 karihi e pānui ana i tēnei wiki",
+  "share_view.social.email": "Īmā mō tētahi hoa",
+  "share_view.social.email_subject": "{name} i te Patch & Pot",
+  "share_view.social.email_body": "I whakaaro au ka pai koe ki tēnei patch i te Patch & Pot — {name}: {url}",
+  "plant.pin_to_pinterest": "Pīnī ki Pinterest",
+  "plant.pin_description": "Me pehea te tipu i {name} i ngā wāhi iti — Patch & Pot",
 
 };
 

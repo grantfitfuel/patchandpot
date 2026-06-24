@@ -679,6 +679,11 @@ const dict = {
   "home.plant_of_the_week.cta": "Izlasiet {name} ceļvedi",
   "home.plant_of_the_week.views": "{n} dārznieki lasa šonedēļ",
   "home.plant_of_the_week.views_one": "1 dārznieks lasa šonedēļ",
+  "share_view.social.email": "E-pasts draugam",
+  "share_view.social.email_subject": "{name} vietnē Patch & Pot",
+  "share_view.social.email_body": "Domāju, ka tev patiks šis dārzs vietnē Patch & Pot — {name}: {url}",
+  "plant.pin_to_pinterest": "Piespraust pie Pinterest",
+  "plant.pin_description": "Kā audzēt {name} mazās telpās — Patch & Pot",
 
 };
 

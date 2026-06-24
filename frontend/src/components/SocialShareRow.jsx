@@ -128,12 +128,16 @@ export default function SocialShareRow({
   );
 }
 
-function ShareIconLink({ href, label, testId, platformClass, children }) {
+function ShareIconLink({ href, label, testId, platformClass, children, targetBlank = true }) {
+  // mailto: links must open in the user's mail client, not a new tab — so
+  // we let parents opt out of target="_blank" for them.
+  const extraProps = targetBlank
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...extraProps}
       aria-label={label}
       title={label}
       data-testid={testId}

@@ -15,7 +15,7 @@
 - ✅ **Garden QR sticker** (iter 28).
 - ✅ **View counter + Most-loved patches wall** (iter 28).
 - ✅ **"Plant of the week" homepage rail** (iter 30) — closes the loop between plant OG cards and homepage discovery.
-- **P3: Email-a-friend** — add a `mailto:` button to the social row on `/p/:shareId`. No infra needed; ~30 min.
+- ✅ **SEO foundations bundle** (iter 31) — dynamic `/api/sitemap.xml` + `/api/robots.txt` honouring `x-forwarded-host`; JSON-LD Article schema on PlantDetail + WebPage schema on SharedPatch; Pinterest "Save" button on plant pages; "Email a friend" mailto button on share page.
 - **P4: Weekly digest emails** — needs Resend/Postmark integration + unsubscribe handling. Defer until user demand is proven.
 - **P4: Harvest-photo brag cards** — needs photo uploads, storage, moderation. Defer.
 
@@ -28,7 +28,18 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 31 (2026-02-25): ✅ — SEO foundations bundle (+ Email-a-friend)
+- **`/app/backend/routers/seo.py`**: new dynamic `GET /api/sitemap.xml` (urlset with 12 evergreen static routes + per-plant URLs sourced from `core.PLANTS`) and `GET /api/robots.txt` (returns directives + `Sitemap:` line). Both reconstruct the public origin via `x-forwarded-proto` / `x-forwarded-host` so production serves canonical `patchandpot.app` URLs. Mounted at `/api` prefix in `server.py`.
+- **`/app/frontend/public/robots.txt`**: static CRA fallback for crawlers that fetch `/robots.txt` directly.
+- **`PlantDetail.jsx`**: injects a `<script type="application/ld+json" data-jsonld="plant-jsonld">` Article schema (headline, description, image, author=Patch & Pot, datePublished, dateModified) so plant guides surface as Google rich results. Adds a Pinterest "Save" anchor (`data-testid=plant-pinterest-save`) hitting `pinterest.com/pin/create/button/` with `url=/api/plants/preview/<id>` (bot-friendly HTML wrapper) and `media=/api/plants/<id>/og.png`.
+- **`SharedPatch.jsx`**: injects a `<script type="application/ld+json" data-jsonld="share-jsonld">` WebPage schema with `primaryImageOfPage` pointing at the cache-busted OG card.
+- **`SocialShareRow.jsx`**: new "Email a friend" mailto button (`data-testid=share-view-social-email`). `<ShareIconLink>` refactored to accept `targetBlank` prop so the email link opens the user's mail client in-place rather than a new tab.
+- **i18n**: 5 new English keys (`plant.pin_to_pinterest`, `plant.pin_description`, `share_view.social.email`, `share_view.social.email_subject`, `share_view.social.email_body`) translated to all 57 non-English locales via `/app/scripts/translate_plant_pin_keys.py` and `/app/scripts/translate_email_share_keys.py`.
+- **Tests**: testing_agent_v3 iter31 → 12/12 backend pytest green + frontend regression all green after the `targetBlank` fix. Report: `/app/test_reports/iteration_31.json`. New backend tests: `/app/backend/tests/test_seo_iter31.py`.
+
+
 ### Iteration 30 (2026-02-24): ✅ — "Plant of the week" homepage rail (closes the growth loop)
+
 - **Shared visit-tracking helpers** extracted to `core.py`: new `is_visit_bot(request)` and `viewer_fingerprint(request)`. Removed the duplicates from `routers/share.py`; now both `share.py` and `plants.py` debounce visits identically.
 - **`routers/plants.py` — view tracking**: new `_record_plant_view(db, plant_id, fp)` mirrors the `shared_patch_views` pattern. `plant_views` collection (TTL on `expires_at`) for 24h dedup; `plant_stats` collection holds the rolling `view_count_7d` + all-time `view_count`. Catches `pymongo.errors.DuplicateKeyError` specifically rather than swallowing all exceptions (testing-agent code-review fix).
 - **New endpoints**: `GET /api/plants/of-the-week?language={code}` — single most-viewed plant in last 7 days, hydrated for the active locale; returns `{plant: null}` when empty. `GET /api/plants/popular?limit=N&language={code}` — top N. Both registered BEFORE `/plants/{plant_id}` to avoid route shadowing.

@@ -28,6 +28,22 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 36 (2026-02-25): ✅ — Service-worker version bump (patchpot-v4 → v5)
+
+User reported on production: *"Only Pinterest shows. Social kit not appearing."* Investigation:
+
+- ✅ Prod bundle `main.8c90cf32.js` **already contains** all iter33-35 testids (`share-patch-social-kit`, `share-patch-tweet`, `share-patch-story`) — verified by grepping the deployed JS.
+- ✅ Prod API endpoints all live (`/social-kit.zip`, `/captions.json`, `/story.png` return 404 for unknown share_ids, not 404 for missing routes — meaning the routes ARE registered).
+- ❌ User's browser is serving a stale runtime cache from `patchpot-v4` service worker — the SW activates between iter32 (last v3→v4 bump) and iter33/34/35 (no SW bump), so the v4 runtime cache may have stale `/api/share/...` responses being returned as `stale-while-revalidate` per `sw.js:41-54`.
+
+**Fix**: bumped `VERSION` to `patchpot-v5` in `/app/frontend/public/sw.js`. The `activate` handler at line 21-30 evicts any cache key not starting with the current VERSION, so on the user's next visit after a fresh deploy: install fires (`skipWaiting`), activate fires (`clients.claim` + evict all `patchpot-v4-*` caches), next request to `/api/share/patch/.../social-kit.zip` fetches from network into the fresh v5 runtime cache.
+
+**Convention going forward**: bump `sw.js` `VERSION` on every release that adds new API surfaces or changes user-facing UI. Cheap, idempotent, prevents this class of bug entirely.
+
+testing_agent_v3 iter36: backend 13/13 + frontend 100% — share modal still renders all five affordances (embed / QR / social-kit / tweet / social-kit-help) with EN labels and correct hrefs. Report: `/app/test_reports/iteration_36.json`.
+
+
+
 ### Iteration 35 (2026-02-25): ✅ — [Share to Stories / Reels] one-tap mobile share
 
 The mobile-native counterpart to iter34's Tweet button. Uses Web Share API Level 2 (`navigator.share({files,text,url})`) to invoke the OS share sheet on iOS/Android — putting Instagram Stories, Reels, TikTok, WhatsApp Status, Messages, Mail, etc. one tap away. Desktop browsers and older mobiles silently hide the button via `canShare()` feature detection.

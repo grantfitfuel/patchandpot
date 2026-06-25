@@ -4,10 +4,13 @@
 // `kind === "seeds"` is shown in the Seeds slot; the first `kind === "pots"`
 // is shown in the Pots/Compost slot; an extra is used for Tools if available.
 //
-// To monetise, swap the inline `?tag=YOUR_AFFILIATE` placeholders for real
-// affiliate IDs (e.g. Amazon Associates, Awin, ShareASale). Keys are searched
-// case-insensitive; we fall back to a `global` Amazon-search vendor so the
-// section is never empty.
+// Affiliate tags wired in:
+//   - Amazon.co.uk → patchandpot-21 (UK list + qualifying tool searches)
+//   - Amazon.com   → patchandpot-20 (US list + GLOBAL fallback)
+// Other Amazon locales (DE/FR/IT/ES/CA/AU/JP/IN) are non-affiliated until
+// owner signs up for those programmes — replace the `tag=` query when ready.
+// Keys are searched case-insensitive; we fall back to a `global` Amazon-search
+// vendor so the section is never empty.
 
 const enc = (q) => encodeURIComponent(q);
 
@@ -16,6 +19,7 @@ const VENDORS_BY_COUNTRY = {
     { id: "thompson-morgan", name: "Thompson & Morgan", kind: "seeds", url: (q) => `https://www.thompson-morgan.com/search?q=${enc(q + " seeds")}` },
     { id: "suttons", name: "Suttons", kind: "seeds", url: (q) => `https://www.suttons.co.uk/search?q=${enc(q + " seeds")}` },
     { id: "crocus", name: "Crocus", kind: "pots", url: (q) => `https://www.crocus.co.uk/search/?q=${enc(q)}` },
+    { id: "amazon-uk", name: "Amazon UK", kind: "tools", url: (q) => `https://www.amazon.co.uk/s?k=${enc(q + " garden")}&tag=patchandpot-21` },
   ],
   "ireland": [
     { id: "mr-middleton", name: "Mr Middleton", kind: "seeds", url: (q) => `https://www.mrmiddleton.com/search?q=${enc(q + " seeds")}` },
@@ -25,6 +29,7 @@ const VENDORS_BY_COUNTRY = {
     { id: "burpee", name: "Burpee", kind: "seeds", url: (q) => `https://www.burpee.com/search?q=${enc(q + " seeds")}` },
     { id: "botanical-interests", name: "Botanical Interests", kind: "seeds", url: (q) => `https://www.botanicalinterests.com/search?q=${enc(q + " seeds")}` },
     { id: "home-depot", name: "The Home Depot", kind: "pots", url: (q) => `https://www.homedepot.com/s/${enc(q)}` },
+    { id: "amazon-us", name: "Amazon", kind: "tools", url: (q) => `https://www.amazon.com/s?k=${enc(q + " garden")}&tag=patchandpot-20` },
   ],
   "canada": [
     { id: "west-coast-seeds", name: "West Coast Seeds", kind: "seeds", url: (q) => `https://www.westcoastseeds.com/search?q=${enc(q + " seeds")}` },
@@ -69,13 +74,15 @@ const VENDORS_BY_COUNTRY = {
   ],
   "india": [
     { id: "ugaoo", name: "Ugaoo", kind: "seeds", url: (q) => `https://www.ugaoo.com/search?q=${enc(q + " seeds")}` },
-    { id: "amazon-in", name: "Amazon India", kind: "pots", url: (q) => `https://www.amazon.in/s?k=${enc(q + " garden")}&tag=YOUR_AFFILIATE` },
+    { id: "amazon-in", name: "Amazon India", kind: "pots", url: (q) => `https://www.amazon.in/s?k=${enc(q + " garden")}` },
   ],
 };
 
-// Last-resort vendor — always returns *something*.
+// Last-resort vendor — always returns *something*. Falls back to Amazon.com
+// with the patchandpot-20 US tag so unsupported countries still earn referral
+// fees if a visitor buys.
 const GLOBAL = [
-  { id: "amazon-global", name: "Amazon", kind: "seeds", url: (q) => `https://www.amazon.com/s?k=${enc(q + " seeds")}&tag=YOUR_AFFILIATE` },
+  { id: "amazon-global", name: "Amazon", kind: "seeds", url: (q) => `https://www.amazon.com/s?k=${enc(q + " seeds")}&tag=patchandpot-20` },
   { id: "etsy-global", name: "Etsy", kind: "pots", url: (q) => `https://www.etsy.com/search?q=${enc(q + " planter")}` },
 ];
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Flower2, RefreshCw, Sparkles, Loader2 } from "lucide-react";
 import { fetchArrangementSuggestion } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { formatApiError } from "@/lib/formatApiError";
 
 const ROLE_STYLES = {
   focal: "bg-terracotta/10 text-terracotta border-terracotta/30",
@@ -41,7 +42,7 @@ export default function ArrangementSuggester({ region, month, myGardenNames, lan
       );
       setData(result);
     } catch (e) {
-      setError(e?.response?.data?.detail || t("arr.error_default"));
+      setError(formatApiError(e, t("arr.error_default")));
     } finally {
       setLoading(false);
     }

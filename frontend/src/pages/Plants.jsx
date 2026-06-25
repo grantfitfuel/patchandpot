@@ -4,6 +4,7 @@ import { Search, Sun, Droplets, Sprout, Sparkles, Loader2 } from "lucide-react";
 import { fetchPlants, fetchPlantGuide, fetchRecentAIPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import { useI18n } from "@/i18n";
+import { formatApiError } from "@/lib/formatApiError";
 
 const CATEGORIES = ["All", "Vegetable", "Herb", "Leafy green", "Fruit", "Root", "Allium", "Flower"];
 
@@ -42,7 +43,7 @@ export default function PlantsPage() {
       // Cache hit on backend means instant; otherwise this is the slow path.
       navigate(`/plants/ai/${guide.id}?q=${encodeURIComponent(query.trim())}`);
     } catch (e) {
-      const msg = e?.response?.data?.detail || "Couldn't generate a guide for that plant.";
+      const msg = formatApiError(e, "Couldn't generate a guide for that plant.");
       setAiError(msg);
     } finally {
       setGenerating(false);

@@ -1,0 +1,37 @@
+{
+  "summary": "Verified iter40 fix: the new shared helper /app/frontend/src/lib/formatApiError.js fully closes the 'Objects are not valid as a React child' crash class for FastAPI 422 pydantic error arrays. All 4 422 variants (missing plants + empty patch_name, short patch_name 1 char, long patch_name 200 chars, malformed region=null) render as inline human-readable strings (loc: msg format, capped at 3 entries joined with ' · ') inside [data-testid=share-patch-error]; the modal stays mounted, no React #31 crash, no ErrorBoundary. Happy path (London + Tomato + Basil) flows to 'ok' state and exposes the share URL input. Other consumers (/plants/tomato, /patrons/manage, /p/unknown-id) all render without React crashes. Backend regression: 31/31 PASS (test_watercolour_iter37 + test_social_kit_iter33 + test_captions_iter34 + test_story_image_iter35 + test_share_patch) in 394.26s.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/test_reports/pytest/iter40_regression.xml",
+    "/app/backend/tests/test_watercolour_iter37.py",
+    "/app/backend/tests/test_social_kit_iter33.py",
+    "/app/backend/tests/test_captions_iter34.py",
+    "/app/backend/tests/test_story_image_iter35.py",
+    "/app/backend/tests/test_share_patch.py"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "formatApiError.js is well-designed: outer try/catch makes it total (never throws), handles all 9 known shapes (string detail, pydantic v1/v2 array, error/message/msg object, non-axios throws, network errors), caps array output at 3 items to prevent wall-of-text modals, and strips the 'body.' prefix from pydantic loc segments for readability. Single-source helper is the right abstraction.",
+    "All 9 reported call-sites confirmed wired (grep verified): SharePatchModal (2), GuidanceView (1), ArrangementSuggester (1), PatronOptInCard (1), AIPlantDetail (1), PatronsManage (2), Plants (1), SharedPatch (1). FoundingClaimModal uses a different (enriched-Error) pattern but is now safe via JSON.stringify fallback in try/catch.",
+    "Observed rendering for the 4 422 shapes: 'plants: Field required · patch_name: String should have at least 1 character', 'patch_name: String should have at least 2 characters', 'patch_name: String should have at most 30 characters', 'region: Input should be a valid dictionary or object'. All clean strings, no '[object Object]'."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "100% (31/31 regression tests)",
+    "frontend": "100% — 4/4 422 variants render inline strings without React crash; happy path produces valid share URL; 3/3 other consumer pages (/plants/tomato, /patrons/manage, /p/<unknown>) render without crash"
+  },
+  "test_credentials": "n/a",
+  "seed_data_creation": "localStorage seeded via page.add_init_script: patchpot.patches.v1 = {version:1, active_id:'p_test1', patches:[{id:'p_test1', name:'Test patch', ...}]}; patchpot.patch.p_test1.region.v1 = {name:'London', country:'UK', latitude:51.5, longitude:-0.12, climate_zone:'temperate', hemisphere:'N'}; patchpot.patch.p_test1.garden.v1 = [] (empty) for the 4 422 cases, then mutated to [tomato, basil] for the happy-path E test. /api/share/patch intercepted via page.route to inject pydantic 422 array bodies; unrouted for the happy path so a real backend create call succeeded.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iter40 closes the pydantic-detail-array rendering crash class that iter38/39 explicitly flagged as out-of-scope. formatApiError() is the canonical helper for any future error-rendering code (just import { formatApiError } from '@/lib/formatApiError'). All known FastAPI 422 shapes coming from /api/share/patch (empty/short/long patch_name, null region, missing plants) are exercised and confirmed safe. No outstanding crash classes from iters 37-40 remain.",
+  "rca_of_the_issue": "Root cause (iter38/39): nine call-sites across SharePatchModal/PatronsManage/Plants/SharedPatch/ArrangementSuggester/GuidanceView/PatronOptInCard/AIPlantDetail rendered `e?.response?.data?.detail` directly inside JSX. When FastAPI returned 422, `detail` is an ARRAY of pydantic error objects — React then threw 'Objects are not valid as a React child (found: object with keys {type, loc, msg, input, url})'. Fix (iter40): one shared formatApiError(err, fallback) helper in /app/frontend/src/lib/formatApiError.js coerces every observed shape (string / pydantic array / generic object / non-axios error) into a single flat string, with an outer try/catch so it is total. All 9 call-sites now pass error state through this helper. Verification: forced 4 distinct 422 pydantic shapes via page.route — every one renders as a clean human-readable string and the SharePatchModal stays mounted (no React #31, no ErrorBoundary). Happy path and three other consumer pages confirmed regression-free."
+}

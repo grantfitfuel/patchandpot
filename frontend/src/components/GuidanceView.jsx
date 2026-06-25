@@ -4,6 +4,7 @@ import { fetchGuidance } from "@/lib/api";
 import { useCompletedTasks } from "@/hooks/useMyGarden";
 import { useI18n, monthLabel } from "@/i18n";
 import PestImage from "@/components/PestImage";
+import { formatApiError } from "@/lib/formatApiError";
 
 function Section({ icon: Icon, eyebrow, title, children }) {
   return (
@@ -52,7 +53,7 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
       onPhase: setPhase,
     })
       .then((d) => { setData(d); if (onData) onData(d); })
-      .catch((e) => setError(e?.response?.data?.detail || t("guidance.error")))
+      .catch((e) => setError(formatApiError(e, t("guidance.error"))))
       .finally(() => setLoading(false));
      
   }, [region, month, lang, gardenKey]);

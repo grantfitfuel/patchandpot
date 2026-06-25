@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Heart, Check, AlertCircle, ExternalLink } from "lucide-react";
 import { patronOptIn, patronOptOut } from "@/lib/api";
+import { formatApiError } from "@/lib/formatApiError";
 
 /**
  * Post-payment opt-in card surfaced on /checkout/success.
@@ -30,7 +31,7 @@ export default function PatronOptInCard({ sessionId }) {
       await patronOptIn(sessionId, name.trim());
       setPhase("added");
     } catch (e2) {
-      const msg = e2?.response?.data?.detail || "Couldn't save that just now.";
+      const msg = formatApiError(e2, "Couldn't save that just now.");
       setErrorMsg(msg);
       setPhase("error");
     }

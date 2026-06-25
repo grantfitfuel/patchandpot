@@ -4,6 +4,7 @@ import {
   ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff,
   Sparkles, AlertTriangle, HandHelping, Loader2,
 } from "lucide-react";
+import { formatApiError } from "@/lib/formatApiError";
 import { fetchPlantGuide, fetchCachedPlantGuide } from "@/lib/api";
 import TopicImage from "@/components/TopicImage";
 import FeedbackWidget from "@/components/FeedbackWidget";
@@ -37,7 +38,7 @@ export default function AIPlantDetailPage() {
       .then((data) => { if (!cancelled) setPlant(data); })
       .catch((e) => {
         if (cancelled) return;
-        const msg = e?.response?.data?.detail || "Couldn't load this plant guide.";
+        const msg = formatApiError(e, "Couldn't load this plant guide.");
         setError(msg);
       })
       .finally(() => !cancelled && setLoading(false));

@@ -7,6 +7,7 @@ import MonthSelector from "@/components/MonthSelector";
 import PlantImage from "@/components/PlantImage";
 import SocialShareRow from "@/components/SocialShareRow";
 import { useI18n, monthLabel } from "@/i18n";
+import { formatApiError } from "@/lib/formatApiError";
 
 /**
  * Public, read-only preview of a shared patch (URL: /p/:shareId).
@@ -35,7 +36,7 @@ export default function SharedPatchPage() {
       .catch((e) => {
         if (cancelled) return;
         const code = e?.response?.status === 404 ? "not_found" : "error";
-        setState({ status: code, data: null, error: e?.response?.data?.detail || "" });
+        setState({ status: code, data: null, error: formatApiError(e, "") });
       });
     return () => { cancelled = true; };
   }, [shareId]);

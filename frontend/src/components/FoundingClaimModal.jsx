@@ -90,8 +90,17 @@ async function getOrCreateCheckout(packageId) {
       // DevTools access.
       const status = err?.response?.status;
       const detail = err?.response?.data?.detail;
+      // Stringify polymorphic FastAPI `detail` (string | array | object)
+      // so we never embed a raw object in an Error message — which
+      // becomes "[object Object]" or worse, an unrenderable React child.
+      let detailStr = "";
+      if (typeof detail === "string") {
+        detailStr = detail;
+      } else if (detail) {
+        try { detailStr = JSON.stringify(detail).slice(0, 200); } catch { detailStr = ""; }
+      }
       const tag = status ? `HTTP ${status}` : (err?.code || "NETWORK");
-      const enriched = new Error(detail ? `${tag}: ${detail}` : tag);
+      const enriched = new Error(detailStr ? `${tag}: ${detailStr}` : tag);
       enriched.original = err;
       enriched.status = status;
       enriched.tag = tag;

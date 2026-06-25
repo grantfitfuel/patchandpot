@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import {
   ShieldCheck, Heart, Check, AlertCircle, Edit3, Trash2, ArrowRight,
 } from "lucide-react";
+import { formatApiError } from "@/lib/formatApiError";
 import { fetchPatronMe, patronOptIn, patronOptOut } from "@/lib/api";
 
 /**
@@ -47,7 +48,7 @@ export default function PatronsManagePage() {
     } catch (e) {
       const status = e?.response?.status;
       if (status === 404) setLoadError("No paid checkout found for that token. Double-check the receipt link Stripe sent you.");
-      else setLoadError(e?.response?.data?.detail || "Couldn't look that up just now.");
+      else setLoadError(formatApiError(e, "Couldn't look that up just now."));
       setState(null);
     } finally {
       setLoading(false);
@@ -74,7 +75,7 @@ export default function PatronsManagePage() {
       await load(sessionId);
       setAction("done");
     } catch (e2) {
-      setActionError(e2?.response?.data?.detail || "Couldn't save that just now.");
+      setActionError(formatApiError(e2, "Couldn't save that just now."));
       setAction("idle");
     }
   }

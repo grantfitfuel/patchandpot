@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { formatApiError } from "@/lib/formatApiError";
 import { Check, Code2, Copy, Download, ExternalLink, ImageDown, Loader2, Share, Share2, Sprout, Trash2, Twitter, X } from "lucide-react";
 import { createSharedPatch, deleteSharedPatch } from "@/lib/api";
 import { useI18n } from "@/i18n";
@@ -248,8 +249,7 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
       setCached(next);
       setState({ status: "ok", error: "" });
     } catch (e) {
-      const detail = e?.response?.data?.detail || t("share_patch.error_generic");
-      setState({ status: "error", error: detail });
+      setState({ status: "error", error: formatApiError(e, t("share_patch.error_generic")) });
     }
   };
 
@@ -298,8 +298,7 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
       setShowDeleteConfirm(false);
       setState({ status: "idle", error: "" });
     } catch (e) {
-      const detail = e?.response?.data?.detail || t("share_patch.error_generic");
-      setState({ status: "error", error: detail });
+      setState({ status: "error", error: formatApiError(e, t("share_patch.error_generic")) });
     }
   };
 

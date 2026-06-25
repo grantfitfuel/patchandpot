@@ -16,11 +16,20 @@ import { PATCH_KEYS, getActivePatchId, onActiveChange } from "@/hooks/usePatches
 function readGarden() {
   const id = getActivePatchId();
   if (!id) return [];
+  let raw;
   try {
-    return JSON.parse(localStorage.getItem(PATCH_KEYS.garden(id)) || "[]");
+    raw = JSON.parse(localStorage.getItem(PATCH_KEYS.garden(id)) || "[]");
   } catch {
     return [];
   }
+  // Defensive normaliser: filter out anything that isn't a plant-shaped
+  // object with a string id. Older snapshots (pre-iter37) and corrupted
+  // writes can leave null/undefined/'' entries — letting those reach
+  // consumers (MyGardenPage:82 `p.id.startsWith`, GuidanceView, the
+  // share-modal) crashes the whole page via ErrorBoundary. Centralising
+  // the cleanup here means every consumer gets a clean list for free.
+  if (!Array.isArray(raw)) return [];
+  return raw.filter((p) => p && typeof p === "object" && typeof p.id === "string" && p.id.length > 0);
 }
 
 function writeGarden(plants) {

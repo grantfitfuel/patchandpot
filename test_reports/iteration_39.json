@@ -1,0 +1,44 @@
+{
+  "summary": "Verified the iter39 centralised normalisation fix in useMyGarden.readGarden() RESOLVES both the original GuidanceView toLowerCase crash AND the secondary MyGardenPage:82 startsWith crash flagged in iter38. The full 7-shape corrupted seed (a..g) now renders /garden cleanly: only the 3 valid object-shaped entries with string ids (basil, kale, mint) appear in the grid; string/undefined/null/empty entries are silently filtered at the localStorage boundary. Happy-path regression: clean garden renders both Tomato + Basil, and POST /api/guidance receives exactly {\"my_garden\":[\"Tomato\",\"Basil\"]} (verified from request payload capture). Iter37-schema regression: {id:'kale', name_en:'Kale'} renders without crash, the card is present (1 card href /plants/kale), no ErrorBoundary. Backend regression: 18/18 PASS (test_watercolour_iter37 + test_social_kit_iter33 + test_captions_iter34 + test_story_image_iter35) in 318.77s.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "iter37-schema card display in MyGarden grid",
+        "issue": "Card for {id:'kale', name_en:'Kale'} renders but the visible name is empty because MyGarden.jsx:93 reads `{p.name}` directly (no name_en fallback). Page header still says 'tending 1 plant' so user knows it's there, but the tile shows a blank name. GuidanceView personalisation does fall through to name_en correctly. NOT a regression — pre-existing minor display issue. Suggest applying the same `p.name || p.name_en || p.id` fallback at MyGarden.jsx:93 and at lines 116/122 where myGardenNames is built.",
+        "affected_selectors": ["[data-testid=garden-plants-grid] h3"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/test_reports/pytest/iter39_regression.xml",
+    "/app/backend/tests/test_watercolour_iter37.py",
+    "/app/backend/tests/test_social_kit_iter33.py",
+    "/app/backend/tests/test_captions_iter34.py",
+    "/app/backend/tests/test_story_image_iter35.py"
+  ],
+  "action_items": [
+    "OPTIONAL: Apply name_en fallback in MyGarden.jsx:93 (`{p.name || p.name_en || p.id}`) and lines 116/122 (`plants.map(p => p.name || p.name_en || p.id)`) so legacy iter37 garden snapshots show names in the card AND pass them through for ArrangementSuggester. Cosmetic, no crash risk.",
+    "OUT-OF-SCOPE (already flagged in iter38): SharePatchModal still renders FastAPI 422 pydantic error arrays directly, triggering 'Objects are not valid as a React child' console error when the share endpoint rejects an empty/short plants payload. Was reconfirmed in TEST1 (share-create with corrupted seed returns 422). Separate bug class — pydantic detail array rendering."
+  ],
+  "critical_code_review_comments": [
+    "useMyGarden.readGarden() filter (lines 31-32) is clean, well-commented, and applied at the right boundary (localStorage read). Per-element typeof guards + non-empty id check correctly drop all 4 invalid shapes from the iter38 reproduction. The defence-in-depth GuidanceView normaliser (line 28-44) is kept for SharedPatch.jsx and any non-hook caller passing server-side plants — good two-layer design.",
+    "Total diff matches the user's ~10-12 line ask. Minimal, focused, no overreach."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "100% (18/18 regression tests)",
+    "frontend": "100% — all 3 frontend scenarios verified: corrupted full seed (a..g) renders without ErrorBoundary with only valid entries visible; happy path renders both plants + clean guidance payload; iter37 schema renders without crash and personalisation falls through to name_en."
+  },
+  "test_credentials": "n/a",
+  "seed_data_creation": "localStorage seeded via page.add_init_script for three scenarios: (1) p_corrupt patch with all 7 entry shapes a..g + London region, (2) p_happy patch with Tomato + Basil + London region, (3) p_iter37 patch with only {id:'kale', name_en:'Kale'} + London region. Patches index seeded under patchpot.patches.v1 with active_id, garden under patchpot.patch.<id>.garden.v1, region under patchpot.patch.<id>.region.v1.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Both iter37 (GuidanceView toLowerCase) and iter38 (MyGardenPage:82 startsWith) crash classes are CLOSED by the centralised useMyGarden.readGarden filter. The SharePatchModal 422-detail-array rendering crash (separate pre-existing bug) was reconfirmed in console during TEST1 share-create — explicitly out-of-scope this round per the review request, but should be the next fix target. Iter37 schema cards display with empty name in the grid (no name_en fallback at MyGarden.jsx:93) — cosmetic only, no crash.",
+  "rca_of_the_issue": "Iter38 surfaced MyGardenPage:82 `plants.map(p => p.id.startsWith('ai-'))` crash when garden array contained undefined/null/'' entries — because useMyGarden.readGarden previously returned the raw localStorage array. Iter39 fix: filter at the boundary in useMyGarden.js:31-32 — `Array.isArray(raw)` guard + `p && typeof p === 'object' && typeof p.id === 'string' && p.id.length > 0`. Every consumer (MyGardenPage, GuidanceView via plants.map(p=>p.name), ArrangementSuggester, SharePatchModal) now gets a clean list. Verified by re-running iter38's full failure scenario: the page renders, garden-plants-grid contains exactly the 3 valid entries, no ErrorBoundary. GuidanceView's per-component normaliser remains as defence-in-depth for SharedPatch.jsx (server-fed plants array)."
+}

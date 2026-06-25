@@ -122,6 +122,13 @@ export const TERMS_SECTIONS = [
       "<p>You have a <strong>statutory 14-day right to cancel</strong> any digital-content purchase under the Consumer Contracts Regulations 2013 — except that, by purchasing membership and immediately accessing paid content, you may waive that right.</p><p>We add a <strong>30-day no-questions-asked refund</strong> on top of that. If Patch &amp; Pot is not for you within the first 30 days, email <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a> and we will refund you in full.</p>",
   },
   {
+    titleKey: "legal.terms.affiliates.title",
+    title: "Affiliate disclosure",
+    htmlKey: "legal.terms.affiliates.html",
+    html:
+      "<p>Patch &amp; Pot is reader-supported. Some product links in our “Where to source” sections are affiliate links — when you click through and buy, we may earn a small commission at no extra cost to you. These commissions help keep the site running and free for casual readers.</p><p><em>As an Amazon Associate, Patch &amp; Pot earns from qualifying purchases.</em> We also participate in the Awin and ShareASale affiliate networks and may earn commissions from retailers including Crocus, Sarah Raven, Farmer Gracy, Thompson &amp; Morgan, Suttons, Burpee, Botanical Interests and other vendors listed on the site.</p><p>Affiliate links are clearly marked as sponsored in the page source. We only link to retailers we would genuinely use ourselves; the presence of an affiliate link never affects what we recommend.</p>",
+  },
+  {
     titleKey: "legal.terms.ai.title",
     title: "AI-generated content disclaimer",
     htmlKey: "legal.terms.ai.html",

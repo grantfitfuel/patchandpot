@@ -54,6 +54,9 @@ export default function Footer() {
             <Link to="/terms" className="hover:text-terracotta transition-colors" data-testid="footer-terms-link">
               {t("footer.legal.terms")}
             </Link>
+            <Link to="/terms#affiliates" className="hover:text-terracotta transition-colors" data-testid="footer-disclosure-link">
+              {t("footer.legal.disclosure")}
+            </Link>
             <a
               href="mailto:hello@patchandpot.com"
               className="hover:text-terracotta transition-colors"

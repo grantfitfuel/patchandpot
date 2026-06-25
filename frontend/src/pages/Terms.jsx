@@ -53,7 +53,7 @@ export default function TermsPage() {
       />
 
       {TERMS_SECTIONS.map((s) => (
-        <Section key={s.titleKey} title={t(s.titleKey)} html={t(s.htmlKey)} />
+        <Section key={s.titleKey} title={t(s.titleKey)} html={t(s.htmlKey)} slug={s.titleKey} />
       ))}
 
       <div className="mt-14 pt-8 border-t border-border text-sm text-moss">
@@ -63,9 +63,12 @@ export default function TermsPage() {
   );
 }
 
-function Section({ title, html }) {
+function Section({ title, html, slug }) {
+  // Convert "legal.terms.affiliates.title" -> "affiliates" so anchor links like
+  // /terms#affiliates jump to the relevant section (e.g. footer Disclosure link).
+  const anchor = slug ? slug.split(".").slice(-2, -1)[0] : undefined;
   return (
-    <section className="mt-10">
+    <section className="mt-10" id={anchor}>
       <h2 className="font-serif text-2xl text-forest mb-3">{title}</h2>
       <div
         className="text-ink/80 leading-relaxed legal-body"

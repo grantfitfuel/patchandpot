@@ -28,6 +28,26 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 42 (2026-02-25): ✅ — SharePatchModal UX refactor + RENDER_VERSION cache-busting VERIFIED
+
+User: *"The buttons should package and share pre-built stories/reels/posts with the link. Not just a zip of useless never-asked-for crap... share appears way down the middle of the screen, not the top."*
+
+**Refactor**
+- `SharePatchModal.jsx`: ZIP/embed/QR demoted into a collapsible `<details data-testid="share-patch-advanced">`. One-tap social buttons promoted as primary CTAs: Tweet, Facebook, WhatsApp, Pinterest, Email, Instagram Story.
+- Modal layout: `items-start sm:items-center pt-10 sm:p-10` — anchors near top on mobile, centred on desktop. No more "way down the middle on phones".
+- `share-patch-story` button gated on `navigator.canShare({files})` — only visible on mobile capable browsers (iOS Safari, Chrome Android). Desktop users see Tweet/FB/WhatsApp/Pinterest/Email.
+
+**Cache invalidation**
+- `share_social_kit.py:40` adds `RENDER_VERSION = "iter37-watercolour-v1"`.
+- `routers/share.py` story.png + social-kit.zip endpoints now key `find_one` AND `update_one` cache writes by `(share_id, render_version)`. Bumping `RENDER_VERSION` forces fresh AI watercolor renders site-wide, no DB wipe needed.
+
+**Test report**: `/app/test_reports/iteration_42.json` — backend 13/13 (7 new + 6 regression), frontend 11/11 acceptance points. Zero bugs.
+
+**Cost analysis** (delivered to user inline):
+- Marginal cost per active user: $0.05–$0.45/mo (Nano Banana cached per share, Claude Sonnet cached per region/month).
+- Stripe Premium @ £35/lifetime founding tier or recurring subs — net ~95% gross margin.
+- Break-even at ~6 paying users against Emergent hosting baseline.
+
 ### Iteration 40 (2026-02-25): ✅ — Pydantic 422 detail rendering crash class CLOSED
 
 User: *"Just fix it. No room for crashes."* Reconfirmed by iter38/39 testing-agent: nine call-sites across the frontend rendered `e?.response?.data?.detail` directly inside JSX, crashing React with *"Objects are not valid as a React child (found: object with keys {type, loc, msg, input, url})"* whenever FastAPI returned a 422 (validation error → `detail` is an ARRAY of pydantic error objects, not a string).

@@ -27,7 +27,12 @@ export default function SourceLinks({ plant }) {
     const vendors = vendorsForCountry(activeRegion?.country);
     const seedsVendor = vendors.find((v) => v.kind === "seeds");
     const potsVendor = vendors.find((v) => v.kind === "pots");
-    const extraVendor = vendors.find((v) => v !== seedsVendor && v !== potsVendor);
+    // Prefer a vendor explicitly marked `kind === "tools"` (typically Amazon
+    // for the affiliate revenue) and fall back to any non-duplicate vendor
+    // so we always render a third card when one exists.
+    const extraVendor =
+      vendors.find((v) => v.kind === "tools") ||
+      vendors.find((v) => v !== seedsVendor && v !== potsVendor);
     return [
       seedsVendor && { vendor: seedsVendor, slot: "seeds", label: t("source.seeds"), sub: t("source.seeds_sub", { plant: plant.name }), icon: Sprout },
       potsVendor && { vendor: potsVendor, slot: "pots", label: t("source.pots"), sub: t("source.pots_sub"), icon: Package },

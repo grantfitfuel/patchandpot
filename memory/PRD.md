@@ -28,7 +28,27 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
-### Iteration 38–39 (2026-02-25): ✅ — GuidanceView + MyGardenPage crash fix (defensive garden normaliser)
+### Iteration 40 (2026-02-25): ✅ — Pydantic 422 detail rendering crash class CLOSED
+
+User: *"Just fix it. No room for crashes."* Reconfirmed by iter38/39 testing-agent: nine call-sites across the frontend rendered `e?.response?.data?.detail` directly inside JSX, crashing React with *"Objects are not valid as a React child (found: object with keys {type, loc, msg, input, url})"* whenever FastAPI returned a 422 (validation error → `detail` is an ARRAY of pydantic error objects, not a string).
+
+**Fix** — single shared helper `/app/frontend/src/lib/formatApiError.js`. Handles every observed shape:
+- string → returns as-is
+- pydantic v2 array `[{type, loc, msg, input, url}]` → `loc.field: msg`, body-prefix stripped, capped at 3 items joined with ` · `
+- generic object `{message|error|msg}` → that string
+- circular object → outer try/catch returns fallback
+- non-axios `Error` → `err.message`
+- everything else → caller-supplied fallback
+
+Total function — wrapped in an outer try/catch so even malformed input returns the fallback rather than throwing.
+
+**Replaced all 9 callsites** in one pass: `SharePatchModal` (×2), `AIPlantDetail`, `PatronsManage` (×2), `Plants`, `SharedPatch`, `ArrangementSuggester`, `GuidanceView`, `PatronOptInCard`. `FoundingClaimModal` uses an enriched-Error pattern instead — also hardened with `JSON.stringify` in a try/catch.
+
+**SW VERSION bumped** patchpot-v6 → patchpot-v7 (iter convention).
+
+**Tests** — testing_agent_v3 iter40: **backend 31/31 regression + frontend 100%**. Four distinct 422 variants exercised via `page.route` injection (missing plants + empty patch_name; short patch_name; long patch_name; null region) — every one renders as a clean human-readable string inside `[data-testid=share-patch-error]`, modal stays mounted, no React #31, no ErrorBoundary. Happy path + three other consumer pages confirmed regression-free. Report: `/app/test_reports/iteration_40.json`. *"No outstanding crash classes from iters 37–40 remain."*
+
+
 
 User-reported P3: iter37 testing-agent surfaced `GuidanceView.jsx:28` TypeError `Cannot read properties of undefined (reading 'toLowerCase')` when the garden array contained items shaped `{id, name_en}` (the older schema). First fix attempt (iter38) added local normalisation inside `GuidanceView` — verified working for object-shape corruption, but iter38's broader test (undefined/null/'' entries) surfaced a SECOND crash in `MyGardenPage.jsx:82` (`p.id.startsWith('ai-')` on the raw localStorage array).
 
@@ -47,7 +67,24 @@ Every consumer (`MyGardenPage`, `GuidanceView`, `ArrangementSuggester`, `SharePa
 
 **Cosmetic follow-up** flagged by testing-agent (NOT a crash): `MyGarden.jsx:93` reads `{p.name}` directly so iter37 schema cards show an empty title. Add `p.name || p.name_en || p.id` fallback when convenient — non-urgent.
 
-**Reconfirmed pre-existing bug, OUT-OF-SCOPE**: `SharePatchModal` renders FastAPI 422 `detail` (an array of pydantic error objects) as a raw React child → "Objects are not valid as a React child" console error when the share endpoint rejects an empty plants payload. Worth fixing next session.
+**Reconfirmed pre-existing bug** (now fixed in iter40 above): `SharePatchModal` renders FastAPI 422 `detail` (an array of pydantic error objects) as a raw React child → "Objects are not valid as a React child" console error when the share endpoint rejects an empty plants payload.
+
+
+
+### Iteration 38–39 (2026-02-25): ✅ — GuidanceView + MyGardenPage crash fix (defensive garden normaliser)
+
+User-reported P3: iter37 testing-agent surfaced `GuidanceView.jsx:28` TypeError `Cannot read properties of undefined (reading 'toLowerCase')` when the garden array contained items shaped `{id, name_en}` (the older schema). Iter38 added local normalisation inside `GuidanceView`, then iter39 centralised the fix inside `useMyGarden.readGarden()`:
+
+```js
+if (!Array.isArray(raw)) return [];
+return raw.filter((p) =>
+  p && typeof p === "object" && typeof p.id === "string" && p.id.length > 0
+);
+```
+
+Every consumer (`MyGardenPage`, `GuidanceView`, `ArrangementSuggester`, `SharePatchModal`) now gets a pre-filtered list for free. GuidanceView's local normaliser stays as defence-in-depth for `SharedPatch.jsx` which receives a server-fed plants array.
+
+**Tests**: testing_agent_v3 iter39 — 100% frontend across all 3 scenarios + 18/18 backend regression. Report: `/app/test_reports/iteration_39.json`.
 
 
 

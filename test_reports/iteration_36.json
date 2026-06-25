@@ -1,0 +1,30 @@
+{
+  "summary": "iter36 [SW v4->v5 bump regression] verified end-to-end on preview. (1) Service worker: GET /sw.js returns 200, content-type 'application/javascript; charset=UTF-8', body contains const VERSION = \"patchpot-v5\" (no v4 references) — activate handler line 21-30 evicts any cache key not starting with the new VERSION on next visit. (2) Share modal end-to-end: seeded patch via localStorage (patchpot.patches.v1 with version:1/active_id/patches schema, patchpot.patch.<id>.region.v1=London/UK, patchpot.patch.<id>.garden.v1=[{id:'tomato'}]), clicked garden-share-btn → share-patch-create, share minted in ~10s, ALL five required affordances render with EN labels (not raw i18n keys): share-patch-embed-open='Get the embed code', share-patch-qr-download='Download garden-gate QR sticker (PDF)', share-patch-social-kit='Download Social Media Kit (ZIP)', share-patch-tweet='Tweet this patch', share-patch-social-kit-help visible. (3) Social-kit anchor href = https://grow-by-season-1.preview.emergentagent.com/api/share/patch/s2d6xgc6pr9y/social-kit.zip — REACT_APP_BACKEND_URL + correct path + .zip suffix. (4) Tweet button: tagName=BUTTON (not A); clicking with stubbed window.open captures URL = https://x.com/intent/tweet?text=...One+plant+is+all+it+takes...%23smallspacegarden&url=https%3A%2F%2F...api%2Fshare%2Fpreview%2Fs2d6xgc6pr9y — contains both 'url=' and 'text=' query params as required. (5) Backend regression: pytest test_story_image_iter35 + test_captions_iter34 + test_social_kit_iter33 → 13/13 PASSED (130s). No regressions from SW version bump.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_story_image_iter35.py",
+    "/app/backend/tests/test_captions_iter34.py",
+    "/app/backend/tests/test_social_kit_iter33.py",
+    "/app/test_reports/pytest/iter36_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "sw.js v5 bump is purely cosmetic version-string change at line 5; SHELL_CACHE/RUNTIME_CACHE template-string-derive from VERSION so they automatically become 'patchpot-v5-shell' and 'patchpot-v5-runtime'. activate handler's filter `!k.startsWith(VERSION)` will correctly evict ALL patchpot-v4-* caches on next visit — safe, idempotent.",
+    "No functional change to fetch handler — /api/guide-pdf/ still bypassed, /api/* still stale-while-revalidate, same-origin assets still network-first. The user's stale-cache bug will self-resolve when they next load the SPA after redeploy: install fires (skipWaiting), activate fires (clients.claim + evict v4 caches), next /api/share/patch/.../social-kit.zip request fetches from network into the fresh v5 runtime cache.",
+    "Preview ingress sets 'cache-control: no-store, no-cache, must-revalidate' on /sw.js — good, ensures browsers always re-fetch the SW itself and can detect the version bump without being blocked by HTTP cache.",
+    "SharePatchModal.jsx unchanged from iter35; all five affordances + Spanish locale still work as designed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (13/13 tests)", "frontend": "100% (all five required testids present with correct EN labels, social-kit href correct, tweet button fires window.open with x.com/intent/tweet + url= + text=, sw.js fetch returns v5)"},
+  "test_credentials": "n/a",
+  "seed_data_creation": "Seeded patch via localStorage on https://grow-by-season-1.preview.emergentagent.com origin: patchpot.patches.v1={version:1, active_id, patches:[{id,name,created_at}]}, patchpot.patch.<id>.region.v1=London/United Kingdom, patchpot.patch.<id>.garden.v1=[{id:'tomato', name_en:'Tomato'}]. Backend test fixtures created TEST_iter33/34/35 shared_patches docs via the regression suite.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Critical seed-schema gotcha for /garden share flow on this app: the patches index is {version:1, active_id, patches:[{id,name,created_at}]} NOT {index, active_id, ...}. Garden array items need 'id' field (used in p.id.startsWith('ai-') at MyGarden.jsx:82) — 'plant_id' will crash with TypeError: Cannot read properties of undefined (reading 'startsWith'). Share button only renders when region is truthy (see MyGarden.jsx:47). Once region+patches+garden are seeded correctly on the origin BEFORE navigating to /garden, the share flow works in ~10-15s (first mint involves AI caption generation). window.open stub MUST be installed via page.add_init_script before navigation. SW endpoint: /sw.js (no /api prefix, served from frontend bundle).",
+  "rca_of_the_issue": "Production bug ('Only Pinterest shows. Social kit not appearing.') was a stale browser SW/runtime-cache issue, NOT a code bug. Investigation confirmed: (a) prod /api/share/patch/.../social-kit.zip|captions.json|story.png all return 200; (b) prod bundle main.8c90cf32.js DOES contain the share-patch-social-kit/tweet/story testids. Mitigation: bump sw.js VERSION from patchpot-v4 → patchpot-v5 so the activate handler aggressively evicts any v4-* cache on the user's next visit after redeploy. This testing run is regression-only confirmation that the version bump itself is harmless — share modal still renders all five affordances on preview, backend endpoints still pass 13/13 pytest."
+}

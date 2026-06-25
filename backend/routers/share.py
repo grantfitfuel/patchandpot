@@ -33,7 +33,7 @@ from pydantic import BaseModel, Field
 
 from share_og import render_share_og_png
 from share_qr import render_qr_sticker_pdf
-from share_social_kit import build_kit_zip, render_kit_images
+from share_social_kit import RENDER_VERSION, build_kit_zip, render_kit_images
 from share_social_captions import generate_captions
 from core import EMERGENT_LLM_KEY, is_visit_bot, logger, viewer_fingerprint
 
@@ -573,7 +573,7 @@ def make_router(db) -> APIRouter:
 
         version = doc.get("updated_at") or doc.get("created_at") or ""
         cached = await db.shared_patch_story_png.find_one(
-            {"share_id": share_id, "version": version},
+            {"share_id": share_id, "version": version, "render_version": RENDER_VERSION},
             {"_id": 0, "png": 1},
         )
         if cached and cached.get("png"):
@@ -588,10 +588,11 @@ def make_router(db) -> APIRouter:
             )
             png_bytes = kit["reels_story"]
             await db.shared_patch_story_png.update_one(
-                {"share_id": share_id},
+                {"share_id": share_id, "render_version": RENDER_VERSION},
                 {"$set": {
                     "share_id": share_id,
                     "version": version,
+                    "render_version": RENDER_VERSION,
                     "png": png_bytes,
                     "updated_at": datetime.now(timezone.utc).isoformat(),
                 }},
@@ -637,7 +638,7 @@ def make_router(db) -> APIRouter:
 
         version = doc.get("updated_at") or doc.get("created_at") or ""
         cached = await db.shared_patch_social_kit.find_one(
-            {"share_id": share_id, "version": version},
+            {"share_id": share_id, "version": version, "render_version": RENDER_VERSION},
             {"_id": 0, "zip": 1},
         )
         if cached and cached.get("zip"):
@@ -655,11 +656,16 @@ def make_router(db) -> APIRouter:
                 captions=captions,
                 bg_image_bytes=bg,
             )
+            # Upsert by (share_id, render_version) so we keep ONE row per
+            # (share, aesthetic) — no cache stampede across aesthetic
+            # changes; the old letterpress row remains (harmless) until
+            # the next snapshot edit.
             await db.shared_patch_social_kit.update_one(
-                {"share_id": share_id},
+                {"share_id": share_id, "render_version": RENDER_VERSION},
                 {"$set": {
                     "share_id": share_id,
                     "version": version,
+                    "render_version": RENDER_VERSION,
                     "zip": zip_bytes,
                     "updated_at": datetime.now(timezone.utc).isoformat(),
                 }},

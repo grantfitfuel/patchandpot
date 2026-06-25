@@ -314,7 +314,7 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
   return (
     <div
       data-testid="share-patch-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-10 bg-ink/40 backdrop-blur-sm animate-fade-up"
+      className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 pt-10 sm:p-10 bg-ink/40 backdrop-blur-sm animate-fade-up overflow-y-auto"
       onClick={onClose}
     >
       <div

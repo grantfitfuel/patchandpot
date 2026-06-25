@@ -20,12 +20,25 @@ LLM call failed or the budget is exhausted) we render the previous
 letterpress aesthetic so the user still gets a usable kit. We never
 500 the social-kit endpoint over an LLM hiccup.
 
-Public entry points:
-    render_kit_images(patch_name, region_name, plant_count, bg_image_bytes=None)
-        → dict[str, bytes]
-    build_kit_zip(...) → bytes
+CACHE INVALIDATION
+------------------
+`RENDER_VERSION` below is part of every cache key (in `shared_patch_social_kit`
++ `shared_patch_story_png` + `shared_patch_watercolour`). Bump it whenever
+the *renderer* changes in a user-visible way — bumping forces every
+existing cached ZIP/PNG to be regenerated on the next request, regardless
+of whether the underlying snapshot was edited.
+
+Past renderer versions:
+  iter33-letterpress    — original sand-letterpress aesthetic
+  iter37-watercolour-v1 — AI-painted backgrounds with dark gradient panel
 """
 from __future__ import annotations
+
+# Public — used by routers/share.py to namespace cache lookups so an
+# aesthetic change always invalidates stale ZIPs even if the snapshot
+# itself hasn't been edited.
+RENDER_VERSION = "iter37-watercolour-v1"
+
 
 import io
 import zipfile

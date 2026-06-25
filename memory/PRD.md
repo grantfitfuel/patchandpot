@@ -28,7 +28,20 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
-### Iteration 36 (2026-02-25): ✅ — Service-worker version bump (patchpot-v4 → v5)
+### Iteration 37 (2026-02-25): ✅ — Social Media Kit aesthetic redesign (AI watercolours)
+
+User saw iter33's letterpress kit and gave the honest feedback: *"social media download kit is going to need better pictures very boring and dull looking."* After rendering three sample designs side-by-side (bold-type, AI watercolour, stock photo) and grading each with an AI critic on stop-the-scroll potential / brand fit / uniqueness, the user picked **B — AI watercolour**.
+
+- **`backend/share_social_kit.py`** rewritten. New `_compose_watercolour()` composes text over the AI image with a **two-stage gradient** (`0–60%` of panel: alpha 0 → 230 with `t**0.55` curve; `60–100%`: solid 252 alpha) — guarantees text legibility on any painted background. `_prepare_bg()` crops/extends the source square watercolour to each of the four aspect ratios *without ever stretching brush strokes* — centre-crop for 4:5 and 16:9, top-bias crop for 9:16 with a sampled-colour fade-down for the edge case where the scaled square is shorter than target height. `_wordmark_chip()` renders PATCH & POT in a forest pill with a sand stroke — ironclad legibility on any background. `_compose_letterpress()` kept as a fallback path.
+- **`backend/routers/share.py`** — new `_get_or_generate_watercolour(share_id, doc)` helper. Calls **Gemini Nano Banana** (`gemini-3.1-flash-image-preview`) with a prompt that includes the patch's region + top 5 plants. Caches PNG bytes in MongoDB collection `shared_patch_watercolour` keyed on `(share_id, version=updated_at)`. Returns `None` (never raises) on missing key, LLM exception, missing images list, or malformed base64. Both `/story.png` and `/social-kit.zip` use it — single Gemini call per snapshot version regardless of which surface triggers.
+- **Cost envelope**: ~$0.04 in Gemini credits per snapshot version, cached forever. Cold-cache timing: `/story.png` ~14s, `/social-kit.zip` ~25-35s. Warm hit: <2s. Snapshot edit busts both caches automatically via the `version` key.
+- **Bulletproof fallbacks**: per-layout try/except in `_compose_watercolour` — a single corrupt watercolour falls back to letterpress for that specific aspect ratio only, never 500s the whole kit. Verified by `test_corrupt_bg_image_falls_back_silently_per_layout`.
+- **SW VERSION bumped** patchpot-v5 → patchpot-v6 (per the iter36 convention) so users' browsers aggressively evict the iter33-era social-kit ZIP bytes on next deploy and see the new aesthetic.
+- **Tests**: `backend/tests/test_watercolour_iter37.py` (5/5 green: kit ZIP PNGs >400KB watercolour-sized, exact pixel dimensions per layout, watercolour cache shared between `/story.png` and `/social-kit.zip` ZIP-build <12s when both caches warm, letterpress fallback when `bg_image_bytes=None`, per-layout fallback on corrupt bytes). testing_agent_v3 iter37: **backend 18/18 green** including 13 iter33/34/35 regression + 5 new iter37 + an additional direct-endpoint suite the agent wrote covering cache invalidation. Report: `/app/test_reports/iteration_37.json`.
+
+**Pre-existing bug surfaced by testing-agent (not iter37): `GuidanceView` crashes with `TypeError: Cannot read properties of undefined (reading 'toLowerCase')` when the garden array contains items with only `{id, name_en}` and no `name` field. Worth queuing as a separate P3 — adds a guard in GuidanceView's `.map()` call. Doesn't affect iter37 functionality (server-side only) but breaks the testing-agent's interactive smoke flow on `/garden`.
+
+
 
 User reported on production: *"Only Pinterest shows. Social kit not appearing."* Investigation:
 
@@ -41,6 +54,16 @@ User reported on production: *"Only Pinterest shows. Social kit not appearing."*
 **Convention going forward**: bump `sw.js` `VERSION` on every release that adds new API surfaces or changes user-facing UI. Cheap, idempotent, prevents this class of bug entirely.
 
 testing_agent_v3 iter36: backend 13/13 + frontend 100% — share modal still renders all five affordances (embed / QR / social-kit / tweet / social-kit-help) with EN labels and correct hrefs. Report: `/app/test_reports/iteration_36.json`.
+
+
+
+### Iteration 36 (2026-02-25): ✅ — Service-worker version bump (patchpot-v4 → v5)
+
+User reported on production: *"Only Pinterest shows. Social kit not appearing."* Investigation showed the new iter33-35 testids and API endpoints ARE deployed to prod (`main.8c90cf32.js` contains them, `/social-kit.zip` + `/captions.json` + `/story.png` return 404 only for unknown share_ids — routes registered). Root cause: user's browser was serving stale runtime cache from the `patchpot-v4` service worker which activated between iter32 (v3→v4 bump) and iter33/34/35 (no SW bump).
+
+**Fix**: bumped `VERSION` to `patchpot-v5` in `/app/frontend/public/sw.js`. The `activate` handler evicts every cache key not starting with the current VERSION → user's next visit after deploy wipes the v4 runtime cache automatically.
+
+**Convention going forward**: bump `sw.js` `VERSION` on every release that adds new API surfaces or changes user-facing UI.
 
 
 

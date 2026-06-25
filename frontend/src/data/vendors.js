@@ -14,6 +14,17 @@
 
 const enc = (q) => encodeURIComponent(q);
 
+// Awin deep-link helper.
+//   - AWIN_PUB_ID is the Patch & Pot publisher account (set at sign-up).
+//   - awinLink(mid, destinationUrl) wraps any retailer URL in Awin's
+//     click-tracking redirect, attributing the sale to us.
+//   Usage:  url: (q) => awinLink(12345, `https://www.crocus.co.uk/search/?q=${enc(q)}`)
+//   Drop in once each merchant approves the application; until then the
+//   plain destination URL is fine.
+const AWIN_PUB_ID = "2954417";
+const awinLink = (mid, destinationUrl) =>
+  `https://www.awin1.com/cread.php?awinmid=${mid}&awinaffid=${AWIN_PUB_ID}&clickref=patchandpot&ued=${encodeURIComponent(destinationUrl)}`;
+
 const VENDORS_BY_COUNTRY = {
   "united kingdom": [
     { id: "thompson-morgan", name: "Thompson & Morgan", kind: "seeds", url: (q) => `https://www.thompson-morgan.com/search?q=${enc(q + " seeds")}` },

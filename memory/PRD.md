@@ -26,7 +26,18 @@
 - **P4: Consolidate `PlantDetail.jsx` + `AIPlantDetail.jsx` into one component.**
 
 ### Blocked
-- **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
+- **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
+
+### Iteration 43 (2026-02-25): ✅ — Amazon Associates tags wired (UK + US)
+
+User supplied two tags. Wired into `/app/frontend/src/data/vendors.js`:
+- `amazon-uk` (kind=tools) added to United Kingdom vendor list with `&tag=patchandpot-21`.
+- `amazon-us` (kind=tools) added to United States vendor list with `&tag=patchandpot-20`.
+- GLOBAL fallback's Amazon.com link now carries `&tag=patchandpot-20` (was placeholder).
+- India Amazon entry: stripped `&tag=YOUR_AFFILIATE` placeholder (no IN tag yet, kept link clean).
+- All other locales (DE/FR/IT/ES/CA/AU/JP/IN) remain non-affiliated until owner signs up.
+
+Click tracking already in place via `navigator.sendBeacon → POST /api/affiliate/click`. Cards carry `rel="sponsored noopener noreferrer"`.
 
 ### Iteration 42 (2026-02-25): ✅ — SharePatchModal UX refactor + RENDER_VERSION cache-busting VERIFIED
 

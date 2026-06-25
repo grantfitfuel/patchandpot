@@ -1,0 +1,59 @@
+{
+  "summary": "Verified iter38 GuidanceView .toLowerCase crash fix. The defensive normalisation in GuidanceView.jsx:34-41 WORKS — it correctly handles object entries with only {id, name_en} (the original iter37 trigger) and never crashes the toLowerCase pipeline. Happy-path verified: /api/guidance receives a clean ['Tomato','Basil'] string array. HOWEVER, the user-specified full failure scenario (a..g including undefined/null/'' entries) reveals a SEPARATE pre-existing crash in MyGardenPage.jsx:82 (`p.id.startsWith('ai-')`) that triggers BEFORE GuidanceView is even mounted — so the /garden page still blanks (ErrorBoundary) for scenarios (e) undefined, (f) null, (g) empty string. This is outside the GuidanceView fix scope but means the user's stated 'page must render WITHOUT the ErrorBoundary kicking in' acceptance criterion is only partially met. Backend regression: 18/18 PASS (test_watercolour_iter37 + test_social_kit_iter33 + test_captions_iter34 + test_story_image_iter35) in 371s — no backend regression.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "MyGardenPage",
+        "issue": "TypeError: Cannot read properties of undefined (reading 'startsWith') at MyGarden.jsx:82 — plants.map((p) => p.id.startsWith('ai-')) crashes when garden array contains undefined, null, or non-object entries (scenarios e/f/g from the bug report). ErrorBoundary kicks in and blanks the entire /garden page. The GuidanceView fix never gets a chance to run because the parent page crashes first. The useMyGarden hook (frontend/src/hooks/useMyGarden.js line 20) returns the raw localStorage array without any normalisation — same root cause as the GuidanceView issue, just in a different consumer.",
+        "selector": "[data-testid=garden-plants-grid]",
+        "priority": "HIGH"
+      },
+      {
+        "component": "SharePatchModal",
+        "issue": "When POST /api/share/patch returns 422 (validation error — FastAPI returns `detail` as an array of error-objects), SharePatchModal renders the detail directly causing 'Objects are not valid as a React child (found: object with keys {type, loc, msg, input, url})'. Surfaced during the share-modal smoke flow with the iter37 schema {id, name_en} (which results in empty plant names because MyGarden.jsx:135 passes raw `plants` to the modal). Defensive error formatting needed in SharePatchModal — coerce detail to string when it's an array of pydantic errors.",
+        "selector": "[data-testid=share-patch-create]",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "GuidanceView fetch payload with iter37 schema {id, name_en}",
+        "issue": "MyGarden.jsx:116 passes myGarden={plants.map((p) => p.name)} — for the iter37 schema this becomes [undefined, undefined]. The new GuidanceView normalisation correctly filters those to [] and passes null to fetchGuidance (no crash, degraded-but-correct behaviour) BUT the user loses personalised guidance. To keep personalisation for legacy {id, name_en} seeds, MyGarden.jsx should pass the raw plants array (or also fall back to p.name_en) and let GuidanceView's new normaliser pick it up.",
+        "affected_selectors": ["[data-testid=guidance-content]"]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/test_reports/pytest/iter38_regression.xml",
+    "/app/backend/tests/test_watercolour_iter37.py",
+    "/app/backend/tests/test_social_kit_iter33.py",
+    "/app/backend/tests/test_captions_iter34.py",
+    "/app/backend/tests/test_story_image_iter35.py"
+  ],
+  "action_items": [
+    "MyGardenPage line 82: guard `p.id.startsWith('ai-')` — either filter the plants array (skip non-object / id-less entries) inside useMyGarden's readGarden(), or guard the map: `plants.filter(p => p && typeof p === 'object' && typeof p.id === 'string').map(...)`. Centralising the normalisation inside useMyGarden is the cleaner fix and would also unblock ArrangementSuggester / SharePatchModal which receive the same `plants` array.",
+    "SharePatchModal: coerce error.response.data.detail (which is an array of objects for FastAPI 422 responses) into a string before rendering — same pattern as GuidanceView's `e?.response?.data?.detail || t('guidance.error')`.",
+    "MyGarden.jsx line 116 + 122: replace `plants.map((p) => p.name)` with the same fallback chain GuidanceView now uses (p.name || p.name_en || p.id) so legacy seeds keep personalisation."
+  ],
+  "critical_code_review_comments": [
+    "The GuidanceView fix (lines 34-41) is well-scoped and defensive — typeof-checks before property access, falls back through name → name_en → id → '', filters empty strings before lower-casing. Correctly uses gardenNames (not myGarden) on line 51 for the fetchGuidance call. No regression risk.",
+    "Same defensive pattern needs to be applied at the boundary (useMyGarden.readGarden) so EVERY consumer of `plants` is protected — currently the fix is point-local and MyGardenPage / ArrangementSuggester / SharePatchModal still trust the raw shape.",
+    "FastAPI 422 detail handling is missing across the frontend — `e?.response?.data?.detail` is rendered as-is in multiple modals. A small util to format pydantic errors would prevent the 'Objects are not valid as a React child' crash class entirely."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "100% (18/18 regression tests)",
+    "frontend": "GuidanceView crash fix verified working for object-shape corruption (a, b, c, d). Page still crashes for primitive corruption (e undefined, f null, g empty-string) due to a separate MyGardenPage:82 bug. Happy path 100% working — guidance payload is clean strings only."
+  },
+  "test_credentials": "n/a",
+  "seed_data_creation": "localStorage-seeded three patches via page.add_init_script: (1) corrupted-full seed with all 7 entry shapes a-g, (2) clean modern seed {id,name,category}, (3) iter37-only seed {id, name_en}. No backend seed data created.",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Backend is rock-solid (18/18). The GuidanceView normalisation (line 34-41) works as designed — the original iter37 crash trigger (objects with only {id, name_en}) no longer crashes. BUT the test for the FULL user-specified scenario (which includes undefined/null/'' entries) reveals a second, deeper crash in MyGardenPage.jsx:82 — `p.id.startsWith('ai-')` on raw plants array. The proper fix is to normalise inside useMyGarden hook (readGarden), not in each consumer. Also note SharePatchModal crashes on FastAPI 422 detail arrays — separate but related defensive-rendering bug. Once MyGardenPage is hardened, the share-modal smoke flow should be retestable with the iter37 schema.",
+  "rca_of_the_issue": "Original crash (GuidanceView line 28): plants.map((p) => p.name) in MyGarden.jsx:116 returned undefined for iter37-schema entries (`name_en` instead of `name`). GuidanceView then called `p.toLowerCase()` on undefined → TypeError. Fix: gardenNames normaliser at GuidanceView.jsx:34-41 coerces each entry via typeof checks and a name|name_en|id|'' fallback chain, filters empties, then lower-cases. Verified: no crash for object-shape corruption AND the happy path's /api/guidance payload contains clean ['Tomato','Basil']. Residual issue: useMyGarden returns raw localStorage so undefined/null/'' entries still crash MyGardenPage at line 82 — needs upstream filter inside useMyGarden.readGarden()."
+}

@@ -25,7 +25,20 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
   const [phase, setPhase] = useState("idle");  // idle | pending | generating | almost
   const [error, setError] = useState("");
 
-  const gardenKey = (myGarden || []).map((p) => p.toLowerCase()).sort().join(",");
+  // Normalise myGarden to a clean list of lower-cased plant-name strings.
+  // Historically callers passed `plants.map(p => p.name)` but older
+  // localStorage snapshots can yield `undefined` (older schema had
+  // `name_en` instead of `name`) or even raw object entries. Without
+  // this guard, `p.toLowerCase()` crashes the whole component and the
+  // ErrorBoundary blanks the /garden page.
+  const gardenNames = (myGarden || [])
+    .map((p) => {
+      if (typeof p === "string") return p;
+      if (p && typeof p === "object") return p.name || p.name_en || p.id || "";
+      return "";
+    })
+    .filter(Boolean);
+  const gardenKey = gardenNames.map((s) => s.toLowerCase()).sort().join(",");
   const monthKey = `${region?.name || "x"}-${month}-${lang}-${gardenKey}`;
   const { completed, toggle } = useCompletedTasks(monthKey);
 
@@ -35,7 +48,7 @@ export default function GuidanceView({ region, month, view = "all", onData, myGa
     setError("");
     setData(null);
     setPhase("idle");
-    fetchGuidance(region, month, lang, myGarden && myGarden.length ? myGarden : null, {
+    fetchGuidance(region, month, lang, gardenNames.length ? gardenNames : null, {
       onPhase: setPhase,
     })
       .then((d) => { setData(d); if (onData) onData(d); })

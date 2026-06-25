@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatApiError } from "@/lib/formatApiError";
-import { Check, Code2, Copy, Download, ExternalLink, ImageDown, Loader2, Share, Share2, Sprout, Trash2, Twitter, X } from "lucide-react";
+import { Check, ChevronDown, Code2, Copy, Download, ExternalLink, Facebook, ImageDown, Loader2, Mail, MessageCircle, Pin, Share, Share2, Sprout, Trash2, Twitter, X } from "lucide-react";
 import { createSharedPatch, deleteSharedPatch } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
@@ -188,6 +188,55 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
       setSharingStory(false);
     }
   };
+  // Per-platform one-tap share. Every branch ships a ready post: the
+  // platform's own intent URL takes a URL we control, the platform
+  // scrapes our OG card image (the watercolour), and the caption sits
+  // in the text/quote/description param. No "download a ZIP" anywhere.
+  const onSimpleShare = (platform) => {
+    if (!cached?.share_id || !shareUrl) return;
+    const name = cached?.patch_name || "my patch";
+    const tagline = t("share_patch.platforms.default_text", { name });
+    let intent;
+    switch (platform) {
+      case "facebook":
+        // Facebook scrapes the URL — quote is the caption seed.
+        intent = "https://www.facebook.com/sharer/sharer.php"
+          + `?u=${encodeURIComponent(shareUrl)}`
+          + `&quote=${encodeURIComponent(tagline)}`;
+        break;
+      case "whatsapp":
+        // wa.me auto-renders the link as a card with the OG image.
+        intent = "https://wa.me/"
+          + `?text=${encodeURIComponent(`${tagline} ${shareUrl}`)}`;
+        break;
+      case "pinterest": {
+        // Pinterest pins the *image* directly, with caption + URL.
+        const backend = process.env.REACT_APP_BACKEND_URL || "";
+        const media = `${backend}/api/share/patch/${cached.share_id}/og.png`;
+        intent = "https://pinterest.com/pin/create/button/"
+          + `?url=${encodeURIComponent(shareUrl)}`
+          + `&media=${encodeURIComponent(media)}`
+          + `&description=${encodeURIComponent(tagline)}`;
+        break;
+      }
+      case "email":
+        // Mail clients prefill subject + body with the link.
+        intent = "mailto:"
+          + `?subject=${encodeURIComponent(t("share_patch.platforms.email_subject", { name }))}`
+          + `&body=${encodeURIComponent(`${tagline}\n\n${shareUrl}`)}`;
+        break;
+      default:
+        return;
+    }
+    if (platform === "email") {
+      // mailto must use top-level navigation, not a popup.
+      window.location.href = intent;
+      return;
+    }
+    const win = window.open(intent, "_blank", "noopener,noreferrer,width=600,height=560");
+    if (!win) window.location.href = intent;
+  };
+
   // [Tweet this patch] — fetch the AI-written Twitter-tuned caption from
   // the same cache that powers the social-kit ZIP, then pop X's intent
   // URL pre-filled with both the caption text and the patch URL. X will
@@ -449,67 +498,122 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
                 </span>
               </label>
 
-              {/* Embed snippet + QR sticker — collapsed by default so the
-                  primary share flow stays uncluttered. */}
-              <div className="pt-2 flex flex-wrap items-center gap-4">
-                {!showEmbed ? (
+              {/* PRIMARY SHARE ROW — every button = one tap → ready post
+                  with image + caption + link. No "download a ZIP" nonsense.
+                  Mobile users see a "Share to phone" button that fires the
+                  native share sheet (Instagram, TikTok, Stories, etc).      */}
+              <div className="pt-2 space-y-3">
+                <p className="overline text-moss" data-testid="share-patch-platforms-label">
+                  {t("share_patch.platforms.label")}
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   <button
                     type="button"
-                    onClick={() => setShowEmbed(true)}
-                    data-testid="share-patch-embed-open"
+                    onClick={onTweet}
+                    disabled={tweeting}
+                    data-testid="share-patch-tweet"
+                    className="btn-ghost inline-flex items-center justify-center gap-2 px-3 py-2 disabled:opacity-60 disabled:cursor-wait"
+                  >
+                    {tweeting
+                      ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" />
+                      : <Twitter strokeWidth={1.5} className="w-4 h-4" />}
+                    <span className="text-sm">{t("share_patch.platforms.x")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onSimpleShare("facebook")}
+                    data-testid="share-patch-facebook"
+                    className="btn-ghost inline-flex items-center justify-center gap-2 px-3 py-2"
+                  >
+                    <Facebook strokeWidth={1.5} className="w-4 h-4" />
+                    <span className="text-sm">{t("share_patch.platforms.facebook")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onSimpleShare("whatsapp")}
+                    data-testid="share-patch-whatsapp"
+                    className="btn-ghost inline-flex items-center justify-center gap-2 px-3 py-2"
+                  >
+                    <MessageCircle strokeWidth={1.5} className="w-4 h-4" />
+                    <span className="text-sm">{t("share_patch.platforms.whatsapp")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onSimpleShare("pinterest")}
+                    data-testid="share-patch-pinterest"
+                    className="btn-ghost inline-flex items-center justify-center gap-2 px-3 py-2"
+                  >
+                    <Pin strokeWidth={1.5} className="w-4 h-4" />
+                    <span className="text-sm">{t("share_patch.platforms.pinterest")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onSimpleShare("email")}
+                    data-testid="share-patch-email"
+                    className="btn-ghost inline-flex items-center justify-center gap-2 px-3 py-2"
+                  >
+                    <Mail strokeWidth={1.5} className="w-4 h-4" />
+                    <span className="text-sm">{t("share_patch.platforms.email")}</span>
+                  </button>
+                  {canNativeShareFiles && (
+                    <button
+                      type="button"
+                      onClick={onShareStory}
+                      disabled={sharingStory}
+                      data-testid="share-patch-story"
+                      className="btn-ghost inline-flex items-center justify-center gap-2 px-3 py-2 disabled:opacity-60 disabled:cursor-wait"
+                    >
+                      {sharingStory
+                        ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" />
+                        : <Share strokeWidth={1.5} className="w-4 h-4" />}
+                      <span className="text-sm">{t("share_patch.platforms.story")}</span>
+                    </button>
+                  )}
+                </div>
+                <p className="text-xs text-moss/70 leading-relaxed">
+                  {t("share_patch.platforms.help")}
+                </p>
+              </div>
+
+              {/* ADVANCED — power users only. QR sticker, embed code, raw
+                  4-image kit. Hidden behind a disclosure so most users
+                  never see them.                                          */}
+              <details className="pt-2 group" data-testid="share-patch-advanced">
+                <summary className="text-sm text-moss/80 hover:text-forest cursor-pointer inline-flex items-center gap-2 list-none">
+                  <ChevronDown strokeWidth={1.5} className="w-4 h-4 transition-transform group-open:rotate-180" />
+                  {t("share_patch.advanced.toggle")}
+                </summary>
+                <div className="pt-3 flex flex-wrap items-center gap-4">
+                  {!showEmbed ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowEmbed(true)}
+                      data-testid="share-patch-embed-open"
+                      className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
+                    >
+                      <Code2 strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.embed.open")}
+                    </button>
+                  ) : null}
+                  <a
+                    href={qrPdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="share-patch-qr-download"
                     className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
                   >
-                    <Code2 strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.embed.open")}
-                  </button>
-                ) : null}
-                <a
-                  href={qrPdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid="share-patch-qr-download"
-                  className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
-                >
-                  <Download strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.qr.download")}
-                </a>
-                <a
-                  href={socialKitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid="share-patch-social-kit"
-                  className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
-                >
-                  <ImageDown strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.social_kit.download")}
-                </a>
-                <button
-                  type="button"
-                  onClick={onTweet}
-                  disabled={tweeting}
-                  data-testid="share-patch-tweet"
-                  className="text-sm text-moss hover:text-forest inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-wait"
-                >
-                  {tweeting
-                    ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" />
-                    : <Twitter strokeWidth={1.5} className="w-4 h-4" />}
-                  {t("share_patch.tweet.action")}
-                </button>
-                {canNativeShareFiles && (
-                  <button
-                    type="button"
-                    onClick={onShareStory}
-                    disabled={sharingStory}
-                    data-testid="share-patch-story"
-                    className="text-sm text-moss hover:text-forest inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-wait"
+                    <Download strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.qr.download")}
+                  </a>
+                  <a
+                    href={socialKitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="share-patch-social-kit"
+                    className="text-sm text-moss hover:text-forest inline-flex items-center gap-2"
                   >
-                    {sharingStory
-                      ? <Loader2 strokeWidth={1.5} className="w-4 h-4 animate-spin" />
-                      : <Share strokeWidth={1.5} className="w-4 h-4" />}
-                    {t("share_patch.story.action")}
-                  </button>
-                )}
-              </div>
-              <p className="text-xs text-moss/60 leading-relaxed -mt-2" data-testid="share-patch-social-kit-help">
-                {t("share_patch.social_kit.help")}
-              </p>
+                    <ImageDown strokeWidth={1.5} className="w-4 h-4" /> {t("share_patch.social_kit.download")}
+                  </a>
+                </div>
+              </details>
               {showEmbed && (
                 <div className="pt-2 space-y-2" data-testid="share-patch-embed-block">
                   <p className="overline">{t("share_patch.embed.label")}</p>

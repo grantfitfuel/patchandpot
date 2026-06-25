@@ -28,6 +28,29 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — waiting on Amazon network tag(s) from user.
 
+### Iteration 38–39 (2026-02-25): ✅ — GuidanceView + MyGardenPage crash fix (defensive garden normaliser)
+
+User-reported P3: iter37 testing-agent surfaced `GuidanceView.jsx:28` TypeError `Cannot read properties of undefined (reading 'toLowerCase')` when the garden array contained items shaped `{id, name_en}` (the older schema). First fix attempt (iter38) added local normalisation inside `GuidanceView` — verified working for object-shape corruption, but iter38's broader test (undefined/null/'' entries) surfaced a SECOND crash in `MyGardenPage.jsx:82` (`p.id.startsWith('ai-')` on the raw localStorage array).
+
+**Iter39 final fix** — centralised at the boundary inside `useMyGarden.readGarden()`:
+
+```js
+if (!Array.isArray(raw)) return [];
+return raw.filter((p) =>
+  p && typeof p === "object" && typeof p.id === "string" && p.id.length > 0
+);
+```
+
+Every consumer (`MyGardenPage`, `GuidanceView`, `ArrangementSuggester`, `SharePatchModal`) now gets a pre-filtered list for free. The per-component `GuidanceView` normaliser stays as defence-in-depth for `SharedPatch.jsx` which receives a server-fed plants array (not the localStorage-backed hook).
+
+- **Tests**: testing_agent_v3 iter39 — 100% frontend across all 3 scenarios (corrupted full 7-shape seed, happy path with `{id, name, category}`, iter37 schema with only `{id, name_en}`) + 18/18 backend regression. Report: `/app/test_reports/iteration_39.json`.
+
+**Cosmetic follow-up** flagged by testing-agent (NOT a crash): `MyGarden.jsx:93` reads `{p.name}` directly so iter37 schema cards show an empty title. Add `p.name || p.name_en || p.id` fallback when convenient — non-urgent.
+
+**Reconfirmed pre-existing bug, OUT-OF-SCOPE**: `SharePatchModal` renders FastAPI 422 `detail` (an array of pydantic error objects) as a raw React child → "Objects are not valid as a React child" console error when the share endpoint rejects an empty plants payload. Worth fixing next session.
+
+
+
 ### Iteration 37 (2026-02-25): ✅ — Social Media Kit aesthetic redesign (AI watercolours)
 
 User saw iter33's letterpress kit and gave the honest feedback: *"social media download kit is going to need better pictures very boring and dull looking."* After rendering three sample designs side-by-side (bold-type, AI watercolour, stock photo) and grading each with an AI critic on stop-the-scroll potential / brand fit / uniqueness, the user picked **B — AI watercolour**.
@@ -39,23 +62,7 @@ User saw iter33's letterpress kit and gave the honest feedback: *"social media d
 - **SW VERSION bumped** patchpot-v5 → patchpot-v6 (per the iter36 convention) so users' browsers aggressively evict the iter33-era social-kit ZIP bytes on next deploy and see the new aesthetic.
 - **Tests**: `backend/tests/test_watercolour_iter37.py` (5/5 green: kit ZIP PNGs >400KB watercolour-sized, exact pixel dimensions per layout, watercolour cache shared between `/story.png` and `/social-kit.zip` ZIP-build <12s when both caches warm, letterpress fallback when `bg_image_bytes=None`, per-layout fallback on corrupt bytes). testing_agent_v3 iter37: **backend 18/18 green** including 13 iter33/34/35 regression + 5 new iter37 + an additional direct-endpoint suite the agent wrote covering cache invalidation. Report: `/app/test_reports/iteration_37.json`.
 
-**Pre-existing bug surfaced by testing-agent (not iter37): `GuidanceView` crashes with `TypeError: Cannot read properties of undefined (reading 'toLowerCase')` when the garden array contains items with only `{id, name_en}` and no `name` field. Worth queuing as a separate P3 — adds a guard in GuidanceView's `.map()` call. Doesn't affect iter37 functionality (server-side only) but breaks the testing-agent's interactive smoke flow on `/garden`.
-
-
-
-User reported on production: *"Only Pinterest shows. Social kit not appearing."* Investigation:
-
-- ✅ Prod bundle `main.8c90cf32.js` **already contains** all iter33-35 testids (`share-patch-social-kit`, `share-patch-tweet`, `share-patch-story`) — verified by grepping the deployed JS.
-- ✅ Prod API endpoints all live (`/social-kit.zip`, `/captions.json`, `/story.png` return 404 for unknown share_ids, not 404 for missing routes — meaning the routes ARE registered).
-- ❌ User's browser is serving a stale runtime cache from `patchpot-v4` service worker — the SW activates between iter32 (last v3→v4 bump) and iter33/34/35 (no SW bump), so the v4 runtime cache may have stale `/api/share/...` responses being returned as `stale-while-revalidate` per `sw.js:41-54`.
-
-**Fix**: bumped `VERSION` to `patchpot-v5` in `/app/frontend/public/sw.js`. The `activate` handler at line 21-30 evicts any cache key not starting with the current VERSION, so on the user's next visit after a fresh deploy: install fires (`skipWaiting`), activate fires (`clients.claim` + evict all `patchpot-v4-*` caches), next request to `/api/share/patch/.../social-kit.zip` fetches from network into the fresh v5 runtime cache.
-
-**Convention going forward**: bump `sw.js` `VERSION` on every release that adds new API surfaces or changes user-facing UI. Cheap, idempotent, prevents this class of bug entirely.
-
-testing_agent_v3 iter36: backend 13/13 + frontend 100% — share modal still renders all five affordances (embed / QR / social-kit / tweet / social-kit-help) with EN labels and correct hrefs. Report: `/app/test_reports/iteration_36.json`.
-
-
+**Pre-existing bug surfaced by testing-agent (now fixed in iter38–39 above): `GuidanceView` crashes with `TypeError: Cannot read properties of undefined (reading 'toLowerCase')` when the garden array contains items with only `{id, name_en}` and no `name` field.
 
 ### Iteration 36 (2026-02-25): ✅ — Service-worker version bump (patchpot-v4 → v5)
 

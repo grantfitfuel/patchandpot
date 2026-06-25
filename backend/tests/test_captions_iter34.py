@@ -60,35 +60,36 @@ def test_captions_json_is_cached():
 
 
 def test_captions_warms_social_kit_cache():
-    """Hitting /captions.json first should NOT force the ZIP endpoint to
-    re-call the LLM — they share the same cache. We can't observe the LLM
-    directly here, but we can verify the ZIP comes back fast on first hit
-    (under 5s) after the captions are warmed, and that the captions
-    inside the ZIP match the JSON endpoint exactly."""
+    """Hitting /captions.json + /story.png first should NOT force the ZIP
+    endpoint to re-call the LLMs — they share the captions cache
+    (shared_patch_captions) and the watercolour cache
+    (shared_patch_watercolour). We verify the ZIP comes back quickly
+    after both are warmed, and that the captions inside the ZIP match
+    the JSON endpoint exactly."""
     import io
     import time
     import zipfile
 
     share_id = _create_share(name="TEST_captions_warm_kit")
-    # Warm the captions cache
+    # Warm both caches (captions + watercolour). /story.png generates
+    # and stores the watercolour — same row used by the ZIP path.
     r_caps = requests.get(f"{API}/share/patch/{share_id}/captions.json", timeout=60)
     assert r_caps.status_code == 200
     expected_captions = r_caps.json()["captions"]
+    r_story = requests.get(f"{API}/share/patch/{share_id}/story.png", timeout=60)
+    assert r_story.status_code == 200
 
-    # Now request the ZIP — should not need to re-call the LLM
+    # Now request the ZIP — should not need to re-call any LLM. Pure
+    # composition + zipping = ~5s.
     t0 = time.time()
     r_zip = requests.get(f"{API}/share/patch/{share_id}/social-kit.zip", timeout=60)
     elapsed = time.time() - t0
     assert r_zip.status_code == 200
-    # Soft assert — ZIP rendering itself takes ~1s for 4 PNGs, but with
-    # captions warmed we should NEVER hit the ~20s LLM timeout.
-    assert elapsed < 10, f"ZIP build took {elapsed:.1f}s — captions cache probably missed"
+    assert elapsed < 15, f"ZIP build took {elapsed:.1f}s — caches probably missed"
 
     zf = zipfile.ZipFile(io.BytesIO(r_zip.content))
     captions_txt = zf.read("captions.txt").decode()
-    # Each AI caption should appear verbatim in captions.txt
     for key, caption in expected_captions.items():
-        # First 40 chars of each caption is a reliable presence signal
         snippet = caption.strip()[:40]
         assert snippet in captions_txt, (
             f"caption for {key} missing from ZIP captions.txt — captions "

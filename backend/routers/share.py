@@ -33,9 +33,9 @@ from pydantic import BaseModel, Field
 
 from share_og import render_share_og_png
 from share_qr import render_qr_sticker_pdf
-from share_social_kit import build_kit_zip
+from share_social_kit import build_kit_zip, render_kit_images
 from share_social_captions import generate_captions
-from core import is_visit_bot, viewer_fingerprint
+from core import EMERGENT_LLM_KEY, is_visit_bot, logger, viewer_fingerprint
 
 
 _PROFANITY = [
@@ -464,6 +464,97 @@ def make_router(db) -> APIRouter:
         )
         return doc, captions
 
+    async def _get_or_generate_watercolour(share_id: str, doc: dict) -> Optional[bytes]:
+        """Generate (and cache) a painterly watercolour background for this
+        patch via Gemini Nano Banana, keyed on `(share_id, version)`.
+
+        Returns the raw PNG bytes on success, or None if the LLM key
+        is missing / the call fails — callers fall back to the
+        letterpress aesthetic when None is returned. Generation cost is
+        ~$0.04 per snapshot; the cache means a patch only ever pays
+        this once unless the owner edits the snapshot.
+        """
+        version = doc.get("updated_at") or doc.get("created_at") or ""
+        cached = await db.shared_patch_watercolour.find_one(
+            {"share_id": share_id, "version": version},
+            {"_id": 0, "png": 1},
+        )
+        if cached and cached.get("png"):
+            return cached["png"]
+
+        if not EMERGENT_LLM_KEY:
+            return None
+
+        # Build a prompt that captures the patch's region, dominant plants
+        # and a calm gardening-magazine mood. The model output is a
+        # single square watercolour with breathing room for our text
+        # overlay (handled at composition time by the dark gradient panel).
+        region = doc.get("region") or {}
+        region_clause = (region.get("name") or "").strip()
+        country = (region.get("country") or "").strip()
+        location = (
+            f"{region_clause}, {country}" if country and country not in region_clause
+            else (region_clause or "a temperate garden")
+        )
+        plants = doc.get("plants") or []
+        plant_names = [
+            (p.get("name") or p.get("id") or "").strip()
+            for p in plants if (p.get("name") or p.get("id"))
+        ]
+        if plant_names:
+            # Keep the list short — too many subjects make Gemini render
+            # a confusing collage. Top 5 + an "and more" implied via "lush".
+            plant_clause = ", ".join(plant_names[:5])
+        else:
+            plant_clause = "leafy herbs and vegetables"
+
+        prompt = (
+            "Loose, soft watercolour illustration of a sunny kitchen-garden "
+            f"in {location} in late-morning light. Terracotta clay pots "
+            f"holding a small lush patch with {plant_clause}. Painterly "
+            "brush strokes, warm seasonal light, slightly dappled shadows. "
+            "Hand-painted on textured cream paper. No text, no logos, no "
+            "people, no signage. Square composition with extra breathing "
+            "room toward the bottom for a text overlay. Editorial "
+            "gardening-magazine style, calm and inviting, earthy palette."
+        )
+
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            chat = LlmChat(
+                api_key=EMERGENT_LLM_KEY,
+                session_id=f"watercolour-{share_id}",
+                system_message="You are an image generation assistant.",
+            ).with_model(
+                "gemini", "gemini-3.1-flash-image-preview",
+            ).with_params(modalities=["image", "text"])
+            import base64
+            _text, images = await chat.send_message_multimodal_response(
+                UserMessage(text=prompt)
+            )
+        except Exception as e:  # noqa: BLE001 — never break the kit
+            logger.warning("Watercolour gen failed for %s: %r", share_id, e)
+            return None
+        if not images:
+            return None
+
+        try:
+            png_bytes = base64.b64decode(images[0]["data"])
+        except Exception:  # noqa: BLE001 — malformed b64 from upstream
+            return None
+
+        await db.shared_patch_watercolour.update_one(
+            {"share_id": share_id},
+            {"$set": {
+                "share_id": share_id,
+                "version": version,
+                "png": png_bytes,
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+            }},
+            upsert=True,
+        )
+        return png_bytes
+
     @router.get("/share/patch/{share_id}/story.png")
     async def share_story_image(share_id: str, request: Request):
         """Return the 9:16 Reels/Stories teaser as a standalone PNG, so
@@ -488,11 +579,12 @@ def make_router(db) -> APIRouter:
         if cached and cached.get("png"):
             png_bytes = cached["png"]
         else:
-            from share_social_kit import render_kit_images
+            bg = await _get_or_generate_watercolour(share_id, doc)
             kit = render_kit_images(
                 patch_name=doc.get("patch_name") or "My patch",
                 region_name=_format_region(doc.get("region") or {}),
                 plant_count=len(doc.get("plants") or []),
+                bg_image_bytes=bg,
             )
             png_bytes = kit["reels_story"]
             await db.shared_patch_story_png.update_one(
@@ -555,11 +647,13 @@ def make_router(db) -> APIRouter:
             # earlier (or another ZIP download) will already have populated
             # this for free.
             _, captions = await _get_or_generate_captions(share_id, request)
+            bg = await _get_or_generate_watercolour(share_id, doc)
             zip_bytes = build_kit_zip(
                 patch_name=doc.get("patch_name") or "My patch",
                 region_name=_format_region(doc.get("region") or {}),
                 plant_count=len(doc.get("plants") or []),
                 captions=captions,
+                bg_image_bytes=bg,
             )
             await db.shared_patch_social_kit.update_one(
                 {"share_id": share_id},

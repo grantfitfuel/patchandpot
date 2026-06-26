@@ -90,24 +90,28 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     if (open) firstToggleRender.current = true;
   }, [open]);
 
+  // Pretty, human-facing URL — displayed in the modal, copied to clipboard,
+  // pasted into emails and WhatsApp body text. This is the URL users see.
   const shareUrl = useMemo(() => {
-    if (!cached?.share_id) return "";
-    const origin = typeof window !== "undefined" ? window.location.origin : "";
-    // We share the crawler-friendly /api/share/preview/{id} URL — it serves
-    // proper OG/Twitter meta tags up-front so chat / DM / social previews
-    // unfurl into a real card, then redirects humans into the clean SPA
-    // route /p/{id}. The redirect happens via window.location.replace so
-    // recipients see only a single navigation, not a flash.
-    return `${origin}/api/share/preview/${cached.share_id}`;
-  }, [cached]);
-
-  // Direct (clean) URL — surfaced as a secondary "open preview" link so the
-  // owner can verify their patch without going through the redirect.
-  const directUrl = useMemo(() => {
     if (!cached?.share_id) return "";
     const origin = typeof window !== "undefined" ? window.location.origin : "";
     return `${origin}/p/${cached.share_id}`;
   }, [cached]);
+
+  // Crawler-friendly URL — passed *only* to platform share intents (Facebook
+  // `?u=`, Twitter `?url=`, LinkedIn, etc.) so their scrapers land on a
+  // server-rendered page with full og:image + twitter:card meta. The page
+  // meta-refreshes humans onto the pretty `/p/{id}` route. Never shown to
+  // users directly.
+  const crawlerUrl = useMemo(() => {
+    if (!cached?.share_id) return "";
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    return `${origin}/api/share/preview/${cached.share_id}`;
+  }, [cached]);
+
+  // Alias retained so other components (Open-preview button, embed snippet)
+  // keep working without further refactor.
+  const directUrl = shareUrl;
 
   // Iframe-friendly embed URL — designed to be dropped into a blog post via
   // the snippet shown below. Skips header/footer chrome via the /embed/p/
@@ -209,14 +213,16 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     // Prefer the OS-native share sheet on platforms that get hijacked
     // by their own apps (FB, WhatsApp). The user still chooses Facebook
     // / WhatsApp / Messages from the sheet, but the OS hands the data
-    // to the right app with the URL + text intact.
+    // to the right app with the URL + text intact. We pass the
+    // crawler-friendly URL so receiving apps (FB, iMessage, WhatsApp)
+    // scrape proper OG meta and render a watercolour card preview.
     const isMobileHijackedPlatform = platform === "facebook" || platform === "whatsapp";
     if (isMobileHijackedPlatform && typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({
           title: name,
           text: tagline,
-          url: shareUrl,
+          url: crawlerUrl,
         });
         return;
       } catch (e) {
@@ -228,18 +234,22 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     let intent;
     switch (platform) {
       case "facebook":
-        // Desktop fallback only — FB's web sharer on desktop honours `u`.
+        // Desktop fallback only — FB's web sharer honours `u`.
         intent = "https://www.facebook.com/sharer/sharer.php"
-          + `?u=${encodeURIComponent(shareUrl)}`
+          + `?u=${encodeURIComponent(crawlerUrl)}`
           + `&quote=${encodeURIComponent(tagline)}`;
         break;
       case "whatsapp":
-        // Desktop fallback — WhatsApp Web prefills the composer correctly.
+        // Desktop fallback — WhatsApp Web scrapes the URL for an
+        // unfurl card. Pretty URL in the message body, crawler URL
+        // would also work but pretty looks better in the chat.
         intent = "https://wa.me/"
-          + `?text=${encodeURIComponent(`${tagline} ${shareUrl}`)}`;
+          + `?text=${encodeURIComponent(`${tagline} ${crawlerUrl}`)}`;
         break;
       case "pinterest": {
         // Pinterest pins the *image* directly, with caption + URL.
+        // The `url` Pinterest stores against the pin is the human
+        // pretty URL — that's what Pinterest displays under the pin.
         const backend = process.env.REACT_APP_BACKEND_URL || "";
         const media = `${backend}/api/share/patch/${cached.share_id}/og.png`;
         intent = "https://pinterest.com/pin/create/button/"
@@ -249,7 +259,8 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
         break;
       }
       case "email":
-        // Mail clients prefill subject + body with the link.
+        // Mail clients prefill subject + body with the pretty link —
+        // recipients see a clean URL, not the /api/... internal path.
         intent = "mailto:"
           + `?subject=${encodeURIComponent(t("share_patch.platforms.email_subject", { name }))}`
           + `&body=${encodeURIComponent(`${tagline}\n\n${shareUrl}`)}`;
@@ -279,14 +290,21 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
       const backend = process.env.REACT_APP_BACKEND_URL || "";
       const r = await fetch(`${backend}/api/share/patch/${cached.share_id}/captions.json`);
       const json = r.ok ? await r.json() : null;
-      const twitterCaption = json?.captions?.youtube_twitter || "";
-      // Open the intent URL — popup if the browser allows, fallback to
-      // top-level navigation if it's blocked. Tweet text must NOT include
-      // the URL (Twitter appends it separately via &url=, which is what
-      // gives us the unfurled card preview).
+      let twitterCaption = json?.captions?.youtube_twitter || "";
+      // The AI caption sometimes embeds the patch URL inline ("…going. https://patchandpot.app/p/abc").
+      // Twitter's intent appends the URL via `url=` separately, so leaving
+      // it inline produces a duplicate URL in the tweet. Strip any
+      // patchandpot.app links from the caption text before handing it off.
+      twitterCaption = twitterCaption
+        .replace(/https?:\/\/(?:www\.)?patchandpot\.[^\s]+/gi, "")
+        .replace(/\s{2,}/g, " ")
+        .trim();
       const intent = new URL("https://x.com/intent/tweet");
       if (twitterCaption) intent.searchParams.set("text", twitterCaption);
-      intent.searchParams.set("url", shareUrl);
+      // Twitter scrapes the URL we pass — must be the crawler-friendly
+      // preview endpoint that serves og:image + twitter:card meta, not
+      // the SPA route at /p/{id}.
+      intent.searchParams.set("url", crawlerUrl);
       const win = window.open(intent.toString(), "_blank", "noopener,noreferrer,width=600,height=560");
       if (!win) window.location.href = intent.toString();
     } catch (e) {

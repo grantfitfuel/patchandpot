@@ -33,7 +33,7 @@ from pydantic import BaseModel, Field
 
 from share_og import render_share_og_png
 from share_qr import render_qr_sticker_pdf
-from share_social_kit import RENDER_VERSION, build_kit_zip, render_kit_images
+from share_social_kit import RENDER_VERSION, build_kit_zip, render_kit_images, render_share_og_card
 from share_social_captions import generate_captions
 from core import EMERGENT_LLM_KEY, is_visit_bot, logger, viewer_fingerprint
 
@@ -354,36 +354,46 @@ def make_router(db) -> APIRouter:
         )
 
     @router.get("/share/patch/{share_id}/og.png")
-    async def og_card(share_id: str):
-        """Render (and cache) the 1200×630 OG share card for a snapshot."""
+    async def og_card(share_id: str, request: Request):
+        """Render (and cache) the 1200×630 OG share card for a snapshot.
+
+        Uses the AI watercolour as background when available, falling
+        back to the letterpress aesthetic if generation is unavailable.
+        """
         if not share_id or len(share_id) > 40:
             raise HTTPException(404, "Snapshot not found.")
         doc = await db.shared_patches.find_one({"share_id": share_id})
         if not doc:
             raise HTTPException(404, "Snapshot not found.")
 
-        # Cache invalidates on snapshot edit — version key is the updated_at
-        # string itself, which we bumped on every successful update.
+        # Cache invalidates on snapshot edit (version key = updated_at)
+        # AND on renderer aesthetic change (render_version) — so bumping
+        # RENDER_VERSION in share_social_kit.py forces fresh watercolour
+        # OG cards across every existing share link.
         version = doc.get("updated_at") or doc.get("created_at") or ""
         cached = await db.shared_patch_og.find_one(
-            {"share_id": share_id, "version": version},
+            {"share_id": share_id, "version": version, "render_version": RENDER_VERSION},
             {"_id": 0, "png": 1},
         )
         if cached and cached.get("png"):
             png_bytes = cached["png"]
         else:
-            png_bytes = render_share_og_png(
+            # Pull (or generate) the watercolour background for this
+            # snapshot. Returns None silently if the LLM call fails —
+            # render_share_og_card then renders letterpress as a fallback.
+            bg = await _get_or_generate_watercolour(share_id, doc)
+            png_bytes = render_share_og_card(
                 patch_name=doc.get("patch_name") or "A garden",
                 region_name=_format_region(doc.get("region") or {}),
                 plant_count=len(doc.get("plants") or []),
+                bg_image_bytes=bg,
             )
-            # Upsert keyed by (share_id, version). Old versions get pushed
-            # out automatically by the upsert; we keep only the current one.
             await db.shared_patch_og.update_one(
-                {"share_id": share_id},
+                {"share_id": share_id, "render_version": RENDER_VERSION},
                 {"$set": {
                     "share_id": share_id,
                     "version": version,
+                    "render_version": RENDER_VERSION,
                     "png": png_bytes,
                     "updated_at": datetime.now(timezone.utc).isoformat(),
                 }},
@@ -394,11 +404,6 @@ def make_router(db) -> APIRouter:
             content=png_bytes,
             media_type="image/png",
             headers={
-                # Allow CDNs / social caches to keep the card for a day.
-                # Cache busts naturally because the URL changes via the
-                # snapshot's updated_at value once we wire that in below
-                # (?v=…). For now snapshot edits + redeploys are rare so a
-                # 1d cache is fine.
                 "Cache-Control": "public, max-age=86400",
             },
         )

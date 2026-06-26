@@ -108,6 +108,18 @@ _LAYOUTS = (
         sub1_size=44, sub2_size=34, eyebrow_size=28,
         panel_top_frac=0.42,
     ),
+    _Layout(
+        # 1200×630 Open Graph card — what Facebook, iMessage, WhatsApp,
+        # LinkedIn, Slack, Pinterest and Twitter Cards all scrape and
+        # render in their unfurl previews. Sized to fit the 1.91:1 OG spec.
+        # Tighter padding + earlier panel start than the IG/TT layouts
+        # because the canvas is much shorter (630px vs 1080+).
+        key="og_card",
+        width=1200, height=630, padding=54,
+        title_size_max=86, title_size_min=48,
+        sub1_size=28, sub2_size=22, eyebrow_size=18,
+        panel_top_frac=0.34,
+    ),
 )
 
 
@@ -451,6 +463,48 @@ def _compose_letterpress(
 
 
 # ────────────────────────── PUBLIC API ──────────────────────────
+def render_share_og_card(
+    patch_name: str,
+    region_name: str,
+    plant_count: int,
+    bg_image_bytes: Optional[bytes] = None,
+) -> bytes:
+    """Render the 1200×630 Open Graph card for a shared patch.
+
+    This is the image Facebook, iMessage, WhatsApp, LinkedIn, Pinterest,
+    Slack and Twitter Cards all unfurl in link previews. When the AI
+    watercolour is available we use it as the background; otherwise we
+    fall back to the original letterpress aesthetic so the card never
+    breaks even if the LLM call fails.
+    """
+    plant_label = "plant" if plant_count == 1 else "plants"
+    eyebrow = "A SHARED GARDEN"
+    sub1 = f"Growing in {region_name}" if region_name else "Growing somewhere lovely"
+    sub2 = f"{plant_count} {plant_label} tracked  ·  monthly seasonal guide"
+    cta = "OPEN THE GARDEN  →"
+
+    layout = next((l for l in _LAYOUTS if l.key == "og_card"), None)
+    if layout is None:
+        # Defensive: layout was removed at some point — fall back to the
+        # letterpress renderer (defined in share_og.py) so we never 500.
+        from share_og import render_share_og_png
+        return render_share_og_png(patch_name, region_name, plant_count)
+
+    if bg_image_bytes:
+        try:
+            return _compose_watercolour(
+                layout, bg_image_bytes,
+                eyebrow=eyebrow, title=patch_name,
+                sub1=sub1, sub2=sub2, cta=cta,
+            )
+        except Exception:  # noqa: BLE001 — never break the OG endpoint
+            pass
+    return _compose_letterpress(
+        layout,
+        eyebrow=eyebrow, title=patch_name, sub1=sub1, sub2=sub2, cta=cta,
+    )
+
+
 def render_kit_images(
     patch_name: str,
     region_name: str,
@@ -472,6 +526,11 @@ def render_kit_images(
 
     out: Dict[str, bytes] = {}
     for layout in _LAYOUTS:
+        # `og_card` is rendered standalone via render_share_og_card() for
+        # the link-unfurl endpoint — keep it out of the downloadable
+        # social-kit ZIP so users only see the four IG/TT/YT formats.
+        if layout.key == "og_card":
+            continue
         if bg_image_bytes:
             try:
                 out[layout.key] = _compose_watercolour(

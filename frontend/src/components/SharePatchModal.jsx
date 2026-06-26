@@ -90,31 +90,26 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     if (open) firstToggleRender.current = true;
   }, [open]);
 
-  // Pretty, human-facing URL — displayed in the modal, copied to clipboard,
-  // pasted into emails and WhatsApp body text. The `?v=` suffix is a
-  // stable cache-buster: every time we ship a new share-card aesthetic
-  // we bump the value, which makes Facebook / Pinterest / LinkedIn treat
-  // it as a brand-new URL and re-scrape (their preview caches are keyed
-  // on the full URL including query string, and they bake the scraped
-  // image into every post permanently — there's no other way to force
-  // them to forget the old preview).
-  const SHARE_CARD_VERSION = "wc2"; // bump when og.png aesthetic changes
+  // Single canonical URL for both display + sharing. We use the backend
+  // preview endpoint (`/api/share/preview/{id}`) because it:
+  //   1. Serves proper OG / Twitter Card meta to social scrapers
+  //      (Facebook, Pinterest, LinkedIn, iMessage, WhatsApp, Slack…),
+  //      so every link unfurls into the AI-watercolour card.
+  //   2. Meta-refreshes humans to the pretty `/p/{id}` SPA route in
+  //      < 0.5 s, so the visible URL bar lands on `/p/...` almost
+  //      instantly.
+  // The prerender that used to inject OG meta into the SPA shell at
+  // `/p/{id}` is broken on prod, so we route everything through this
+  // backend endpoint until that's restored.
   const shareUrl = useMemo(() => {
     if (!cached?.share_id) return "";
     const origin = typeof window !== "undefined" ? window.location.origin : "";
-    return `${origin}/p/${cached.share_id}?v=${SHARE_CARD_VERSION}`;
+    return `${origin}/api/share/preview/${cached.share_id}`;
   }, [cached]);
 
-  // Crawler-friendly URL — passed *only* to platform share intents
-  // (Facebook `?u=`, Twitter `?url=`, LinkedIn, etc.) so their scrapers
-  // land on the server-rendered preview HTML with proper OG meta. Same
-  // version suffix as `shareUrl` so previously-cached previews are
-  // ignored and a fresh watercolour scrape is forced.
-  const crawlerUrl = useMemo(() => {
-    if (!cached?.share_id) return "";
-    const origin = typeof window !== "undefined" ? window.location.origin : "";
-    return `${origin}/api/share/preview/${cached.share_id}?v=${SHARE_CARD_VERSION}`;
-  }, [cached]);
+  // Alias kept for the (few) sharer-intent code paths that historically
+  // referenced `crawlerUrl` separately. Same URL — single source of truth.
+  const crawlerUrl = shareUrl;
 
   // Alias retained so other components (Open-preview button, embed snippet)
   // keep working without further refactor.

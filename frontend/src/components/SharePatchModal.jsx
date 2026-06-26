@@ -91,22 +91,29 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
   }, [open]);
 
   // Pretty, human-facing URL — displayed in the modal, copied to clipboard,
-  // pasted into emails and WhatsApp body text. This is the URL users see.
+  // pasted into emails and WhatsApp body text. The `?v=` suffix is a
+  // stable cache-buster: every time we ship a new share-card aesthetic
+  // we bump the value, which makes Facebook / Pinterest / LinkedIn treat
+  // it as a brand-new URL and re-scrape (their preview caches are keyed
+  // on the full URL including query string, and they bake the scraped
+  // image into every post permanently — there's no other way to force
+  // them to forget the old preview).
+  const SHARE_CARD_VERSION = "wc2"; // bump when og.png aesthetic changes
   const shareUrl = useMemo(() => {
     if (!cached?.share_id) return "";
     const origin = typeof window !== "undefined" ? window.location.origin : "";
-    return `${origin}/p/${cached.share_id}`;
+    return `${origin}/p/${cached.share_id}?v=${SHARE_CARD_VERSION}`;
   }, [cached]);
 
-  // Crawler-friendly URL — passed *only* to platform share intents (Facebook
-  // `?u=`, Twitter `?url=`, LinkedIn, etc.) so their scrapers land on a
-  // server-rendered page with full og:image + twitter:card meta. The page
-  // meta-refreshes humans onto the pretty `/p/{id}` route. Never shown to
-  // users directly.
+  // Crawler-friendly URL — passed *only* to platform share intents
+  // (Facebook `?u=`, Twitter `?url=`, LinkedIn, etc.) so their scrapers
+  // land on the server-rendered preview HTML with proper OG meta. Same
+  // version suffix as `shareUrl` so previously-cached previews are
+  // ignored and a fresh watercolour scrape is forced.
   const crawlerUrl = useMemo(() => {
     if (!cached?.share_id) return "";
     const origin = typeof window !== "undefined" ? window.location.origin : "";
-    return `${origin}/api/share/preview/${cached.share_id}`;
+    return `${origin}/api/share/preview/${cached.share_id}?v=${SHARE_CARD_VERSION}`;
   }, [cached]);
 
   // Alias retained so other components (Open-preview button, embed snippet)

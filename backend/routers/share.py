@@ -476,7 +476,7 @@ def make_router(db) -> APIRouter:
         """
         version = doc.get("updated_at") or doc.get("created_at") or ""
         cached = await db.shared_patch_watercolour.find_one(
-            {"share_id": share_id, "version": version},
+            {"share_id": share_id, "version": version, "render_version": RENDER_VERSION},
             {"_id": 0, "png": 1},
         )
         if cached and cached.get("png"):
@@ -544,10 +544,11 @@ def make_router(db) -> APIRouter:
             return None
 
         await db.shared_patch_watercolour.update_one(
-            {"share_id": share_id},
+            {"share_id": share_id, "render_version": RENDER_VERSION},
             {"$set": {
                 "share_id": share_id,
                 "version": version,
+                "render_version": RENDER_VERSION,
                 "png": png_bytes,
                 "updated_at": datetime.now(timezone.utc).isoformat(),
             }},

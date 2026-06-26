@@ -37,7 +37,7 @@ from __future__ import annotations
 # Public — used by routers/share.py to namespace cache lookups so an
 # aesthetic change always invalidates stale ZIPs even if the snapshot
 # itself hasn't been edited.
-RENDER_VERSION = "iter37-watercolour-v1"
+RENDER_VERSION = "iter44-watercolour-v2"
 
 
 import io

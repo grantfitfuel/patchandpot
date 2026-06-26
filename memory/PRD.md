@@ -28,6 +28,29 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 44 (2026-02-25): ✅ — Share assets ACTUALLY watercolour now (root-cause fix)
+
+User feedback across multiple iterations: "still line drawing", "Facebook just opens Facebook", "Pinterest is line art", "Twitter has two URLs", "email has the ugly api URL". Every complaint was a symptom of one or both of these:
+
+1. **112 stale watercolour cache documents** in MongoDB from when the LLM key was budget-blocked. Cache key didn't include `render_version`, so stale bytes kept being served. **Fix**: wiped collection + added `render_version` to find AND upsert filter in `_get_or_generate_watercolour` (`routers/share.py:478, 547`).
+2. **og.png was rendering letterpress, NOT the watercolour.** When the iter37 redesign wired the watercolour into the 4 social-kit ZIP sizes + the standalone story.png, it MISSED the 1200×630 OG card endpoint — which is what Facebook, iMessage, WhatsApp, LinkedIn, Pinterest, Twitter Cards and Slack ALL unfurl from. So every "normal" share showed letterpress. **Fix**: added `og_card` layout to `_LAYOUTS` (1200×630, panel_top_frac=0.34) + new `render_share_og_card()` public function that reuses the existing `_compose_watercolour()` compositor + routed `og.png` endpoint through it with watercolour bytes + render_version cache key.
+
+**Other fixes folded in:**
+- SharePatchModal: split `shareUrl` (pretty `/p/{id}` shown to humans, used in clipboard / email body / WhatsApp body) from `crawlerUrl` (`/api/share/preview/{id}` passed to FB/Twitter sharer intents so platforms scrape proper OG meta).
+- Twitter intent: strips inline `patchandpot.app` URLs from the AI caption so the tweet doesn't carry a duplicate link.
+- FB + WhatsApp: native `navigator.share()` on mobile (sidesteps iOS Facebook universal-link interception that was dropping the URL param).
+- Service worker bumped to `patchpot-v9` so iOS Safari pulls in the new JS.
+- Cache `RENDER_VERSION` bumped to `iter44-watercolour-v2` (forces fresh re-render across every existing share link in prod on first view after redeploy).
+
+**Other changes in this session:**
+- Amazon Associates tags wired: `patchandpot-21` (UK) + `patchandpot-20` (US) into vendors.js (`amazon-uk` and `amazon-us` entries + GLOBAL fallback).
+- Awin publisher ID (`2954417`) saved in vendors.js with `awinLink(mid, url)` helper ready for Crocus / Sarah Raven / Farmer Gracy / T&M / Suttons / Marshalls / Dobies merchant IDs.
+- SourceLinks.jsx picker fixed: now prefers `kind === "tools"` for the third slot (was picking Suttons / Botanical Interests over Amazon).
+- About page (`/about`) shipped with editorial process, trust & compliance copy, owner identity (Grant Cameron Anthony, Barrhead).
+- Affiliate disclosure section added to `/terms#affiliates` with verbatim Amazon Associates statement.
+- Footer: new Disclosure + About links.
+- Pricing corrected on Terms / Privacy: 5 tiers (£2.99 / £5 / £9 / £15 / £50) — was stale £5/£25 in EN + Kannada locales.
+
 ### Iteration 43 (2026-02-25): ✅ — Amazon Associates tags wired (UK + US)
 
 User supplied two tags. Wired into `/app/frontend/src/data/vendors.js`:

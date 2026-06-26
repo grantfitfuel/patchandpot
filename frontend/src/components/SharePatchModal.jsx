@@ -192,20 +192,49 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
   // platform's own intent URL takes a URL we control, the platform
   // scrapes our OG card image (the watercolour), and the caption sits
   // in the text/quote/description param. No "download a ZIP" anywhere.
-  const onSimpleShare = (platform) => {
+  //
+  // iOS quirk: `facebook.com/sharer.php` is intercepted by Facebook's
+  // universal link → the FB app opens the feed and silently DROPS the
+  // `u=` param. Same kind of behaviour on WhatsApp's `wa.me`. So on
+  // mobile (where the Web Share API exists) we hand the share off to
+  // the OS-native share sheet instead — the user taps Facebook in the
+  // iOS sheet and FB's own composer receives the URL + caption
+  // correctly. Desktop browsers still use the sharer URL (works fine
+  // because no universal-link interception there).
+  const onSimpleShare = async (platform) => {
     if (!cached?.share_id || !shareUrl) return;
     const name = cached?.patch_name || "my patch";
     const tagline = t("share_patch.platforms.default_text", { name });
+
+    // Prefer the OS-native share sheet on platforms that get hijacked
+    // by their own apps (FB, WhatsApp). The user still chooses Facebook
+    // / WhatsApp / Messages from the sheet, but the OS hands the data
+    // to the right app with the URL + text intact.
+    const isMobileHijackedPlatform = platform === "facebook" || platform === "whatsapp";
+    if (isMobileHijackedPlatform && typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: name,
+          text: tagline,
+          url: shareUrl,
+        });
+        return;
+      } catch (e) {
+        if (e?.name === "AbortError") return; // user dismissed
+        // fall through to the URL intent if Web Share rejects
+      }
+    }
+
     let intent;
     switch (platform) {
       case "facebook":
-        // Facebook scrapes the URL — quote is the caption seed.
+        // Desktop fallback only — FB's web sharer on desktop honours `u`.
         intent = "https://www.facebook.com/sharer/sharer.php"
           + `?u=${encodeURIComponent(shareUrl)}`
           + `&quote=${encodeURIComponent(tagline)}`;
         break;
       case "whatsapp":
-        // wa.me auto-renders the link as a card with the OG image.
+        // Desktop fallback — WhatsApp Web prefills the composer correctly.
         intent = "https://wa.me/"
           + `?text=${encodeURIComponent(`${tagline} ${shareUrl}`)}`;
         break;

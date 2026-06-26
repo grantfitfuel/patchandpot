@@ -404,7 +404,13 @@ def make_router(db) -> APIRouter:
             content=png_bytes,
             media_type="image/png",
             headers={
-                "Cache-Control": "public, max-age=86400",
+                # Short edge cache so a redeploy that changes the OG
+                # aesthetic propagates fast — without this the CDN held
+                # the pre-watercolour letterpress version for 24 h and
+                # kept feeding it to Pinterest / FB scrapers. 60 s is
+                # plenty to absorb sudden FB/Pinterest scrape bursts
+                # while still allowing same-day updates.
+                "Cache-Control": "public, max-age=60",
             },
         )
 

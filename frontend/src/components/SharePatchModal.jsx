@@ -213,18 +213,20 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
     const tagline = t("share_patch.platforms.default_text", { name });
 
     // Prefer the OS-native share sheet on platforms that get hijacked
-    // by their own apps (FB, WhatsApp). The user still chooses Facebook
-    // / WhatsApp / Messages from the sheet, but the OS hands the data
-    // to the right app with the URL + text intact. We pass the
-    // crawler-friendly URL so receiving apps (FB, iMessage, WhatsApp)
-    // scrape proper OG meta and render a watercolour card preview.
+    // by their own apps (FB, WhatsApp). iOS Facebook + WhatsApp + Messenger
+    // only trigger their link-unfurl scrape pipeline when the URL arrives
+    // INSIDE the text body (as a "pasted link"). When the URL is passed via
+    // the structured `url` field of the Web Share API, those apps treat it
+    // as an attached link and post it bare with no card preview. So we
+    // concat the URL into the `text` payload and omit the `url` field —
+    // counter-intuitive, but it's the only way to get FB iOS to render
+    // the watercolour card in the posted status.
     const isMobileHijackedPlatform = platform === "facebook" || platform === "whatsapp";
     if (isMobileHijackedPlatform && typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({
           title: name,
-          text: tagline,
-          url: crawlerUrl,
+          text: `${tagline}\n${crawlerUrl}`,
         });
         return;
       } catch (e) {
@@ -250,10 +252,12 @@ export default function SharePatchModal({ open, onClose, patchId, patchName, reg
         break;
       case "pinterest": {
         // Pinterest pins the *image* directly, with caption + URL.
-        // The `url` Pinterest stores against the pin is the human
-        // pretty URL — that's what Pinterest displays under the pin.
+        // The `?v=wc2` cache-buster forces Pinterest (and our edge CDN) to
+        // treat this as a brand-new image URL — without it, Pinterest's
+        // image fetcher hits the CDN's pre-watercolour cache and pins the
+        // old letterpress card.
         const backend = process.env.REACT_APP_BACKEND_URL || "";
-        const media = `${backend}/api/share/patch/${cached.share_id}/og.png`;
+        const media = `${backend}/api/share/patch/${cached.share_id}/og.png?v=wc2`;
         intent = "https://pinterest.com/pin/create/button/"
           + `?url=${encodeURIComponent(shareUrl)}`
           + `&media=${encodeURIComponent(media)}`

@@ -28,8 +28,11 @@ export default function SocialShareRow({
 
   // Crawler-friendly wrapper URL (preferred for chat / DM sharing)
   const wrapperUrl = `${origin}/api/share/preview/${shareId}`;
-  // Direct image URL for Pinterest's `media` param so the pin includes our card
-  const imageUrl   = `${origin}/api/share/patch/${shareId}/og.png`;
+  // Direct image URL for Pinterest's `media` param. The `?v=wc2`
+  // cache-buster forces Pinterest's image fetcher (and the edge CDN) to
+  // refetch — without it the pre-watercolour cached letterpress card
+  // gets re-served forever, even after the backend has been redeployed.
+  const imageUrl   = `${origin}/api/share/patch/${shareId}/og.png?v=wc2`;
 
   const tagline = regionName
     ? t("share_view.social.tagline_region", { name: patchName, region: regionName })

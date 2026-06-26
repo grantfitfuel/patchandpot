@@ -713,19 +713,18 @@ def make_router(db) -> APIRouter:
         clean_url = f"{public_origin}/p/{share_id}"
 
         # OG image points at our PNG endpoint. Append ?v= so any later edit
-        # of the snapshot triggers a fresh fetch from social-media caches.
-        # We use a hash of the full ISO timestamp (rather than a slice of it)
-        # so two snapshot edits within the same 10s window still produce a
-        # distinct cache-buster token.
+        # of the snapshot — OR any aesthetic re-render — triggers a fresh
+        # fetch from CDN / social-media caches (Facebook, iMessage, Pinterest,
+        # LinkedIn, WhatsApp all cache by full URL including query string).
+        # We hash BOTH the snapshot timestamp AND the RENDER_VERSION so:
+        #   - editing a patch        → version_token changes → cache busts
+        #   - bumping RENDER_VERSION → version_token changes → cache busts
         full_version = doc.get("updated_at") or doc.get("created_at") or ""
-        if full_version:
-            import hashlib
-            version_token = hashlib.sha1(full_version.encode()).hexdigest()[:12]
-        else:
-            version_token = ""
-        og_image_url = f"{public_origin}/api/share/patch/{share_id}/og.png" + (
-            f"?v={version_token}" if version_token else ""
-        )
+        import hashlib
+        version_token = hashlib.sha1(
+            f"{full_version}|{RENDER_VERSION}".encode()
+        ).hexdigest()[:12]
+        og_image_url = f"{public_origin}/api/share/patch/{share_id}/og.png?v={version_token}"
 
         patch_name = doc.get("patch_name") or "A garden"
         region = (doc.get("region") or {}).get("name") or ""

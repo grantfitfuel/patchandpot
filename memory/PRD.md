@@ -28,6 +28,17 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 46 (2026-02-26): ✅ — Ask the Garden cost-optimised (Haiku 4.5 + 7/day cap)
+
+User confirmed the threaded paywalled AI Q&A feature was loss-making at Claude Sonnet 4.5 pricing against the £2.99/mo tier. Three changes shipped:
+
+1. **Model swap**: `/app/backend/routers/ask.py:29` ASK_MODEL changed from `claude-sonnet-4-5-20250929` → `claude-haiku-4-5-20251001`. Vision (photo plant-ID, leaf disease) preserved.
+2. **Daily cap reduced** 10 → 7 in `ask.py:28` (DAILY_QUESTION_CAP) + `Ask.jsx:24` default state + paywall gate copy ("up to 7 questions per day") + frontend page docstring.
+3. **Model name hidden** from all user-facing copy — no more "Claude Sonnet 4.5 vision" leaks in docstrings or UI. Gives freedom to swap providers in future without notice.
+
+Service worker bumped to `patchpot-v15` for cache invalidation. Verified end-to-end with `testing_agent_v3_fork` (iteration_43.json): 12/12 backend pytest (`/app/backend/tests/test_ask_iter43.py`) + 4/4 frontend Playwright scenarios — paywall gate copy + zero model-name leaks, paid UI render + counter, text send + decrement + sidebar, image upload + preview + assistant reply. No bugs. Advisory notes from test agent: (a) consider TTL index on `ask_usage.date` for housekeeping, (b) consider explicit AssistantMessage replay for stronger threading contract, (c) consider catching Anthropic 'Could not process image' upstream error and surfacing a clearer 400 instead of 503 — all backlogged, not blocking.
+
+
 ### Iteration 45 (2026-02-25): ✅ — Sovrn Commerce wired + global Amazon storefronts + share-preview saga closed
 
 **Sovrn Commerce (VigLink) auto-affiliate**

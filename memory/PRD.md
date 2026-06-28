@@ -28,6 +28,29 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 45 (2026-02-25): ✅ — Sovrn Commerce wired + global Amazon storefronts + share-preview saga closed
+
+**Sovrn Commerce (VigLink) auto-affiliate**
+- JS snippet installed in `/app/frontend/public/index.html` head, publisher key `20a9d01be27f18461a707e10511c35bc`.
+- Exclude list: `['amazon.com', 'amazon.co.uk']` only — so all other Amazon storefronts route via Sovrn at ~75% commission instead of earning 0% with no direct tag.
+- Farmer Gracy Sovrn smart link `https://sovrn.co/18v2elc` wired into a new "Trusted partners" section on `/about` so Sovrn's reviewer can click-verify. First click registered, review clock ticking (3-5 business days).
+- Sovrn named in `/terms#affiliates` disclosure copy.
+
+**Global Amazon coverage** in `/app/frontend/src/data/vendors.js`
+- Added Amazon.de, .fr, .it, .es, .nl, .be, .se, .pl, .tr, .ca, .com.au, .co.jp, .com.mx, .com.br, .sg, .ae, .sa entries as `kind: "tools"` in their respective country lists.
+- 18 new country/region keys added: Belgium, Sweden, Poland, Turkey, Mexico, Brazil, UAE, Saudi Arabia, Singapore (plus Amazon storefront added to existing Canada/AU/NZ/DE/FR/IT/ES/NL/JP).
+- All non-UK/US Amazon links are non-tagged; user can swap `&tag=patchandpot-XX` in per storefront as they sign up for each Associates programme.
+
+**Share preview saga — finally closed**
+- After 14 days of iteration and an Emergent support escalation, root causes identified:
+  1. og.png endpoint was rendering letterpress, NOT watercolour (iter 44 fix).
+  2. Cloudflare CDN had cached the 40 KB letterpress for 24h; bumped Cache-Control from 86400 → 60s.
+  3. `/p/{share_id}` SPA prerender service was an "experimental platform feature" silently decommissioned by Emergent after a redeploy — broke OG meta injection for bots.
+- Workaround shipped: all share modal intents now route through `/api/share/preview/{share_id}` (proper server-rendered OG, ~5 KB HTML with og:title + og:image + twitter:card). Verified live on prod with curl + Facebook Sharing Debugger.
+- Static brand-fallback OG card added at `/api/share/og/brand.png` + declared in `index.html` for any manually-pasted `/p/{id}` URL.
+- Support recommended Next.js migration as "the only fix" — user rejected on cost/risk grounds. Position formally held. Support eventually conceded the technical points and escalated complaint to Product & Engineering leadership. 200 ECU goodwill credit issued.
+- Service worker bumped iter40 → patchpot-v13.
+
 ### Iteration 44 (2026-02-25): ✅ — Share assets ACTUALLY watercolour now (root-cause fix)
 
 User feedback across multiple iterations: "still line drawing", "Facebook just opens Facebook", "Pinterest is line art", "Twitter has two URLs", "email has the ugly api URL". Every complaint was a symptom of one or both of these:

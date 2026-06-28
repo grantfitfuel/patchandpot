@@ -27,6 +27,7 @@ import EmbedPatchPage from "@/pages/EmbedPatch";
 import PrivacyPage from "@/pages/Privacy";
 import TermsPage from "@/pages/Terms";
 import AboutPage from "@/pages/About";
+import RevenuePage from "@/pages/Revenue";
 import LanguageDetectedBanner from "@/components/LanguageDetectedBanner";
 import { useReferralCapture } from "@/hooks/useReferralCapture";
 
@@ -82,6 +83,7 @@ function AppShell() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/admin/revenue" element={<RevenuePage />} />
           <Route path="/print/:month" element={<PrintPage />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/cancel" element={<Home />} />

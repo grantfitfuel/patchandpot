@@ -6,7 +6,23 @@ import PlantImage from "@/components/PlantImage";
 import { useI18n } from "@/i18n";
 import { formatApiError } from "@/lib/formatApiError";
 
-const CATEGORIES = ["All", "Vegetable", "Herb", "Leafy green", "Fruit", "Root", "Allium", "Flower"];
+const CATEGORIES = [
+  "All",
+  "Vegetable",
+  "Herb",
+  "Leafy green",
+  "Fruit",
+  "Root",
+  "Allium",
+  "Flower",
+  "Cut flower",
+  "Brassica",
+  "Legume",
+  "Squash",
+  "Sprouts",
+  "Shrub",
+  "Climber",
+];
 
 export default function PlantsPage() {
   const { t, lang } = useI18n();

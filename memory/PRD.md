@@ -28,6 +28,36 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 47 (2026-02-26): ✅ — Plant library expanded 32 → 182 (150 new entries)
+
+User: *"Expand current plant library"* → chose option C (~100 more), then *"Add another 50 cut flowers on top of the 100 additions overall."* → final spec **150 new plants** with full companion data.
+
+**Split shipped**
+- Cut flowers: 72 (dahlia, snapdragon, ranunculus, anemone, lisianthus, ammi, nigella, tulip, narcissus, gladiolus, lilies, iris, freesia, hyacinth, amaryllis, carnation, wallflower, stock, larkspur, scabiosa, sweet william, sweet rocket, honesty, forget-me-not, sweet alyssum, lobelia, petunia, impatiens, tuberous begonia, crocosmia, agapanthus, canna, nerine, tithonia, strawflower, craspedia, amaranthus, celosia, salvia horminum, bells of ireland, annual phlox, monarda, coreopsis, liatris, veronica, nicotiana, cleome, orlaya, didiscus, salpiglossis, matricaria, eucalyptus cinerea, dusty miller, peony, heliopsis, trachelium, iceland poppy, allium globemaster, china aster, gypsophila, statice, sweet sultan, achillea, delphinium, lupin, eremurus, dianthus, cornflower, rudbeckia)
+- Pollinator/wildlife flowers: 14 (echinacea, verbena bonariensis, salvia 'amistad', sedum 'autumn joy', ajuga, agastache, eryngium, foxglove, hellebore, hollyhock, primrose, snowdrop, crocus, scilla)
+- Veg: 18 (legumes, leeks, shallots, onions, fennel bulb, celery, celeriac, chard, pak choi, rocket, watercress, sweetcorn, asparagus)
+- Brassicas: 6 (broccoli, cauliflower, cabbage, brussels, kohlrabi, romanesco)
+- Squash: 4 (pumpkin, butternut, melon, gherkin)
+- Patio fruit: 12 (blueberry, raspberry, blackberry, gooseberry, currants, fig, lemon, dwarf apple/pear/cherry, rhubarb)
+- Herbs: 10 (sage, oregano, lemon balm, dill, fennel-herb, lemongrass, tarragon, bay, lovage, chervil)
+- Sprouting/windowsill: 6 (microgreens, pea shoots, mustard cress, broccoli sprouts, baby leaf, alfalfa)
+- Shrubs/climbers: 8 (rose-shrub, hydrangea, clematis, jasmine, wisteria, camellia, box, honeysuckle)
+
+**Architecture**
+- New file `/app/backend/plants_extra.py` exporting `EXTRA_PLANTS` (150 entries, same schema as core) and `EXTRA_COMPANIONS` (companion id list per new plant; references resolve to both original 32 and new 150).
+- `core.py`: extends `PLANTS` and `COMPANIONS` in-place immediately after the original lists, then rebuilds `PLANT_INDEX`. Diff is 9 lines in `core.py`, keeping the curated 32 readable.
+- Frontend `/plants/Plants.jsx`: `CATEGORIES` array expanded with new chips (Cut flower, Brassica, Legume, Squash, Sprouts, Shrub, Climber). `en.js` adds 7 new `plants.category.*` keys; other 57 locales fall back to English chip labels via the existing 3-tier `t()` fallback.
+
+**Validation**
+- `/api/plants` returns 182 entries (verified via curl + Counter).
+- All 182 companion-reference targets resolve to real plant ids — **0 broken refs**.
+- Existing plant pytest suite (`test_plants_i18n.py`, `test_plant_of_the_week.py`) — **15/15 pass**, no regressions.
+- Plants page filter chips render; clicking "Cut flower" returns the expected 72 cards. Dahlia detail page loads with full schema (sun/water/soil/etc), watercolour image, "Plants well with" section.
+- Service worker bumped patchpot-v17 → patchpot-v18.
+
+**Known cost note**: New plant cards lazy-generate watercolour images via Gemini Nano Banana on first view. Each ~$0.04, cached forever in MongoDB. Worst case if the entire library is browsed once: ~$6 one-time. Cheap and self-limiting.
+
+
 ### Iteration 46 (2026-02-26): ✅ — Ask the Garden cost-optimised (Haiku 4.5 + 7/day cap)
 
 User confirmed the threaded paywalled AI Q&A feature was loss-making at Claude Sonnet 4.5 pricing against the £2.99/mo tier. Three changes shipped:

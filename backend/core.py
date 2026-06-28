@@ -700,6 +700,14 @@ PLANTS = [
 
 PLANT_INDEX = {p["id"]: p for p in PLANTS}
 
+# Merge the extended catalogue (cut flowers, pollinators, more veg/fruit/etc.)
+# from plants_extra.py — kept in a sibling module so the curated 32 above
+# stay short and diff-friendly. PLANT_INDEX is rebuilt to include them.
+from plants_extra import EXTRA_PLANTS, EXTRA_COMPANIONS  # noqa: E402
+
+PLANTS.extend(EXTRA_PLANTS)
+PLANT_INDEX = {p["id"]: p for p in PLANTS}
+
 _PLANT_TRANS_FIELDS = ("name", "category", "summary", "difficulty", "sun", "water", "soil", "edible_part", "tags")
 
 
@@ -803,6 +811,9 @@ COMPANIONS = {
     "geranium": ["lavender", "thyme"],
     "chamomile": ["kale", "basil", "chives"],
 }
+
+# Merge in the EXTRA_COMPANIONS entries for the 150 new plants.
+COMPANIONS.update(EXTRA_COMPANIONS)
 
 COMPANION_REASONS = {
     ("tomato", "basil"): "Classic pairing — basil masks tomato's scent from pests and is said to boost flavour.",

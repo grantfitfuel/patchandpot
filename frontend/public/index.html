@@ -21,16 +21,21 @@
         <!--
           Sovrn Commerce (VigLink) auto-affiliate snippet.
           Rewrites outbound links to ~50k partner merchants into tracked
-          affiliate links automatically. We exclude amazon.* domains so
-          our existing direct Amazon Associates tags (patchandpot-21 for
-          UK, patchandpot-20 for US) keep paying us 100% commission
-          rather than being rerouted through Sovrn for a ~75% cut.
+          affiliate links automatically.
+          We exclude ONLY the two Amazon storefronts where we have our
+          own direct Associates tags (UK + US) so they keep paying 100%
+          commission. Every other Amazon locale (DE, FR, IT, ES, NL, BE,
+          SE, PL, TR, MX, BR, SG, AE, SA, CA, AU, JP, IN) flows through
+          Sovrn at ~75% commission — far better than the 0% we'd earn
+          without direct tags. As we sign up for each regional Amazon
+          Associates programme, just add that storefront to the exclude
+          array and switch the link in vendors.js to its direct tag.
           Approval pending — clicks won't earn until Sovrn approves.
         -->
         <script type="text/javascript">
           var vglnk = {
             key: '20a9d01be27f18461a707e10511c35bc',
-            exclude: ['amazon.com', 'amazon.co.uk', 'amazon.de', 'amazon.fr', 'amazon.it', 'amazon.es', 'amazon.ca', 'amazon.com.au', 'amazon.co.jp', 'amazon.in']
+            exclude: ['amazon.com', 'amazon.co.uk']
           };
           (function(d, t) {
             var s = d.createElement(t);

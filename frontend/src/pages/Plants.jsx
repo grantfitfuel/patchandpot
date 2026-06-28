@@ -6,22 +6,15 @@ import PlantImage from "@/components/PlantImage";
 import { useI18n } from "@/i18n";
 import { formatApiError } from "@/lib/formatApiError";
 
-const CATEGORIES = [
-  "All",
-  "Vegetable",
-  "Herb",
-  "Leafy green",
-  "Fruit",
-  "Root",
-  "Allium",
-  "Flower",
-  "Cut flower",
-  "Brassica",
-  "Legume",
-  "Squash",
-  "Sprouts",
-  "Shrub",
-  "Climber",
+const GROUPS = [
+  { key: "all", label: "plants.group.all", categories: null },
+  { key: "edibles", label: "plants.group.edibles", categories: ["Vegetable", "Brassica", "Legume", "Squash", "Leafy green", "Allium", "Root"] },
+  { key: "herbs", label: "plants.group.herbs", categories: ["Herb"] },
+  { key: "fruit", label: "plants.group.fruit", categories: ["Fruit"] },
+  { key: "flowers", label: "plants.group.flowers", categories: ["Flower"] },
+  { key: "cut-flowers", label: "plants.group.cut-flowers", categories: ["Cut flower"] },
+  { key: "shrubs", label: "plants.group.shrubs", categories: ["Shrub", "Climber"] },
+  { key: "sprouts", label: "plants.group.sprouts", categories: ["Sprouts"] },
 ];
 
 export default function PlantsPage() {
@@ -30,7 +23,7 @@ export default function PlantsPage() {
   const [plants, setPlants] = useState([]);
   const [recent, setRecent] = useState([]);
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All");
+  const [group, setGroup] = useState("all");
   const [generating, setGenerating] = useState(false);
   const [aiError, setAiError] = useState("");
 
@@ -42,8 +35,9 @@ export default function PlantsPage() {
     fetchRecentAIPlants(lang).then((d) => setRecent(d.items || [])).catch(() => {});
   }, [lang]);
 
+  const activeGroup = GROUPS.find((g) => g.key === group) || GROUPS[0];
   const filtered = plants.filter((p) => {
-    if (category !== "All" && p.category !== category) return false;
+    if (activeGroup.categories && !activeGroup.categories.includes(p.category)) return false;
     if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
     return true;
   });
@@ -90,16 +84,16 @@ export default function PlantsPage() {
           />
         </div>
         <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map((c) => (
+          {GROUPS.map((g) => (
             <button
-              key={c}
-              data-testid={`category-${c.toLowerCase().replace(/\s+/g, "-")}`}
-              onClick={() => setCategory(c)}
+              key={g.key}
+              data-testid={`group-${g.key}`}
+              onClick={() => setGroup(g.key)}
               className={`text-xs px-3 py-2 border transition-colors ${
-                category === c ? "bg-forest text-sand border-forest" : "bg-sand text-ink/70 border-border hover:border-forest/40"
+                group === g.key ? "bg-forest text-sand border-forest" : "bg-sand text-ink/70 border-border hover:border-forest/40"
               }`}
             >
-              {catLabel(c)}
+              {t(g.label)}
             </button>
           ))}
         </div>
@@ -146,7 +140,7 @@ export default function PlantsPage() {
                 data-testid={`recent-ai-${r.id}`}
                 className="card-flat px-4 py-3 min-w-[180px] flex-shrink-0 group hover:border-forest/40"
               >
-                <p className="overline">{r.category}</p>
+                <p className="overline">{catLabel(r.category)}</p>
                 <p className="font-serif text-lg text-forest mt-1 truncate">{r.name}</p>
                 <p className="text-xs text-moss mt-1 line-clamp-2 leading-snug">{r.summary}</p>
               </Link>
@@ -167,7 +161,7 @@ export default function PlantsPage() {
               <PlantImage plant={p} />
             </div>
             <div className="p-5 flex flex-col flex-1">
-              <p className="overline">{p.category}</p>
+              <p className="overline">{catLabel(p.category)}</p>
               <h3 className="font-serif text-2xl text-forest mt-2">{p.name}</h3>
               <p className="text-sm text-ink/70 mt-2 flex-1">{p.summary}</p>
               <div className="flex items-center gap-4 mt-4 text-xs text-moss">

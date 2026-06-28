@@ -28,6 +28,22 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 48 (2026-02-26): ✅ — Plant filter grouped + 57-locale translation injection
+
+**Grouped filter (`Plants.jsx`)**
+Filter chips reduced from 15 flat categories to 8 high-level groups: All / Edibles / Herbs / Fruit / Flowers / Cut flowers / Shrubs & climbers / Sprouting. Each group maps to one or more underlying `category` values. Fits in one row on desktop and wraps cleanly on mobile. Per-card category badges now run through `catLabel()` (was using raw English).
+
+**Group label keys** added to `en.js`: `plants.group.{all,edibles,herbs,fruit,flowers,cut-flowers,shrubs,sprouts}` (8 keys).
+
+**57-locale translation injection**
+Wrote a one-shot Python tool at `/app/scripts/inject_plant_category_locales.py` that:
+- Holds curated translations for the 7 `plants.category.*` keys (cut-flower, brassica, legume, squash, sprouts, shrub, climber) AND the 8 `plants.group.*` keys across all 57 non-English locales.
+- Uses a regex anchor on the existing `"plants.category.flower"` line to insert the new block immediately after it — preserves file formatting & is idempotent.
+- All 57 locales updated successfully (`{'ok': 57, 'skip-exists': 0, 'no-anchor': 0}`).
+
+Verified live: DE/JA/AR/FR locales all render translated group chips and per-card category badges. Lint clean across locales/ and Plants.jsx. Service worker bumped to `patchpot-v19`.
+
+
 ### Iteration 47 (2026-02-26): ✅ — Plant library expanded 32 → 182 (150 new entries)
 
 User: *"Expand current plant library"* → chose option C (~100 more), then *"Add another 50 cut flowers on top of the 100 additions overall."* → final spec **150 new plants** with full companion data.

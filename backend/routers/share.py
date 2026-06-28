@@ -352,6 +352,54 @@ def make_router(db) -> APIRouter:
                 "Cache-Control": "public, max-age=86400",
             },
         )
+    @router.get("/share/og/brand.png")
+    async def brand_og_card():
+        """Static brand-fallback OG card.
+
+        Served from the SPA's `index.html` `og:image` meta tag so that
+        if anyone pastes the pretty `/p/{share_id}` URL into a chat (or
+        the URL gets shared via a path that bypasses our crawler-friendly
+        `/api/share/preview/{share_id}` endpoint), social platforms still
+        unfurl a watercolour-style card with the Patch & Pot brand instead
+        of nothing.
+
+        Generated once (letterpress + brand copy), cached forever in
+        `db.shared_patch_og` under the synthetic share_id `__brand__`.
+        """
+        cached = await db.shared_patch_og.find_one(
+            {"share_id": "__brand__", "render_version": RENDER_VERSION},
+            {"_id": 0, "png": 1},
+        )
+        if cached and cached.get("png"):
+            png_bytes = cached["png"]
+        else:
+            png_bytes = render_share_og_card(
+                patch_name="Patch & Pot",
+                region_name="",
+                plant_count=0,
+                bg_image_bytes=None,  # letterpress fallback — no LLM call
+                eyebrow="MINDFUL GARDENING",
+                sub1="Region-aware monthly guides, anywhere",
+                sub2="Edibles · cut flowers · pests · seasonal calendar",
+                cta="patchandpot.app",
+            )
+            await db.shared_patch_og.update_one(
+                {"share_id": "__brand__", "render_version": RENDER_VERSION},
+                {"$set": {
+                    "share_id": "__brand__",
+                    "render_version": RENDER_VERSION,
+                    "png": png_bytes,
+                    "updated_at": datetime.now(timezone.utc).isoformat(),
+                }},
+                upsert=True,
+            )
+        return Response(
+            content=png_bytes,
+            media_type="image/png",
+            headers={"Cache-Control": "public, max-age=3600"},
+        )
+
+
 
     @router.get("/share/patch/{share_id}/og.png")
     async def og_card(share_id: str, request: Request):

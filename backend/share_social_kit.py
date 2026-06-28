@@ -468,6 +468,11 @@ def render_share_og_card(
     region_name: str,
     plant_count: int,
     bg_image_bytes: Optional[bytes] = None,
+    *,
+    eyebrow: Optional[str] = None,
+    sub1: Optional[str] = None,
+    sub2: Optional[str] = None,
+    cta: Optional[str] = None,
 ) -> bytes:
     """Render the 1200×630 Open Graph card for a shared patch.
 
@@ -476,12 +481,15 @@ def render_share_og_card(
     watercolour is available we use it as the background; otherwise we
     fall back to the original letterpress aesthetic so the card never
     breaks even if the LLM call fails.
+
+    Optional keyword overrides let the brand-fallback caller substitute
+    the eyebrow / subtitles / CTA without needing a separate compositor.
     """
     plant_label = "plant" if plant_count == 1 else "plants"
-    eyebrow = "A SHARED GARDEN"
-    sub1 = f"Growing in {region_name}" if region_name else "Growing somewhere lovely"
-    sub2 = f"{plant_count} {plant_label} tracked  ·  monthly seasonal guide"
-    cta = "OPEN THE GARDEN  →"
+    eyebrow = eyebrow or "A SHARED GARDEN"
+    sub1 = sub1 or (f"Growing in {region_name}" if region_name else "Growing somewhere lovely")
+    sub2 = sub2 or f"{plant_count} {plant_label} tracked  ·  monthly seasonal guide"
+    cta = cta or "OPEN THE GARDEN  →"
 
     layout = next((l for l in _LAYOUTS if l.key == "og_card"), None)
     if layout is None:

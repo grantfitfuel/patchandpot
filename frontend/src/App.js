@@ -28,6 +28,7 @@ import PrivacyPage from "@/pages/Privacy";
 import TermsPage from "@/pages/Terms";
 import AboutPage from "@/pages/About";
 import RevenuePage from "@/pages/Revenue";
+import AskPage from "@/pages/Ask";
 import LanguageDetectedBanner from "@/components/LanguageDetectedBanner";
 import { useReferralCapture } from "@/hooks/useReferralCapture";
 
@@ -84,6 +85,7 @@ function AppShell() {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/admin/revenue" element={<RevenuePage />} />
+          <Route path="/ask" element={<AskPage />} />
           <Route path="/print/:month" element={<PrintPage />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/cancel" element={<Home />} />

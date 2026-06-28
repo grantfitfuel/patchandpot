@@ -1,11 +1,21 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Sprout } from "lucide-react";
+import { Sprout, Menu } from "lucide-react";
 import PatchSwitcher from "@/components/PatchSwitcher";
 import LanguageSelector from "@/components/LanguageSelector";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
 import { useI18n } from "@/i18n";
 
 export default function Header() {
   const { t } = useI18n();
+  const [open, setOpen] = useState(false);
 
   const NAV = [
     { to: "/", label: t("nav.home"), key: "home" },
@@ -23,54 +33,55 @@ export default function Header() {
       data-testid="app-header"
       className="border-b border-border bg-sand relative z-20 print:hidden"
     >
-      <div className="container-narrow flex items-center justify-between py-5 gap-6">
+      <div className="container-narrow flex items-center justify-between py-5 gap-4">
         <Link to="/" data-testid="logo-link" className="flex items-center gap-2 text-forest">
           <Sprout strokeWidth={1.5} className="w-6 h-6" />
           <span className="font-serif text-2xl tracking-tight">Patch &amp; Pot</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7 text-ink">
-          {NAV.map((n) => (
-            <NavLink
-              key={n.to}
-              to={n.to}
-              end={n.to === "/"}
-              data-testid={`nav-${n.key}`}
-              className={({ isActive }) =>
-                `text-sm tracking-wide transition-colors ${
-                  isActive ? "text-forest font-medium" : "text-ink/75 hover:text-forest"
-                }`
-              }
-            >
-              {n.label}
-            </NavLink>
-          ))}
-        </nav>
-
         <div className="flex items-center gap-2">
           <LanguageSelector compact />
           <PatchSwitcher />
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <button
+                aria-label="Open menu"
+                data-testid="nav-menu-trigger"
+                className="inline-flex items-center justify-center w-10 h-10 rounded border border-border text-forest hover:bg-surface transition-colors"
+              >
+                <Menu className="w-5 h-5" strokeWidth={1.75} />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72 bg-sand" data-testid="nav-menu-panel">
+              <SheetHeader>
+                <SheetTitle className="font-serif text-2xl text-forest text-left">
+                  Patch &amp; Pot
+                </SheetTitle>
+              </SheetHeader>
+              <nav className="mt-6 flex flex-col gap-1" data-testid="nav-menu-list">
+                {NAV.map((n) => (
+                  <SheetClose asChild key={n.to}>
+                    <NavLink
+                      to={n.to}
+                      end={n.to === "/"}
+                      data-testid={`nav-${n.key}`}
+                      className={({ isActive }) =>
+                        `px-3 py-3 rounded text-base tracking-wide transition-colors ${
+                          isActive
+                            ? "bg-surface text-forest font-medium"
+                            : "text-ink/80 hover:bg-surface hover:text-forest"
+                        }`
+                      }
+                    >
+                      {n.label}
+                    </NavLink>
+                  </SheetClose>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
-
-      {/* Mobile nav */}
-      <nav className="md:hidden border-t border-border overflow-x-auto">
-        <div className="flex gap-5 px-6 py-3 text-sm whitespace-nowrap">
-          {NAV.map((n) => (
-            <NavLink
-              key={n.to}
-              to={n.to}
-              end={n.to === "/"}
-              data-testid={`nav-mobile-${n.key}`}
-              className={({ isActive }) =>
-                isActive ? "text-forest font-medium" : "text-ink/70"
-              }
-            >
-              {n.label}
-            </NavLink>
-          ))}
-        </div>
-      </nav>
     </header>
   );
 }

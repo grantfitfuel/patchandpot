@@ -43,7 +43,7 @@ export default function Footer() {
           <p data-testid="footer-copyright">
             © {COPYRIGHT_RANGE} Grant Cameron Anthony, {t("footer.trading_as")} Patch &amp; Pot. {t("footer.rights")}
           </p>
-          <nav className="flex items-center gap-5">
+          <nav className="flex flex-wrap items-center justify-start md:justify-end gap-x-5 gap-y-2">
             <TipJar />
             <Link to="/about" className="hover:text-terracotta transition-colors" data-testid="footer-about-link">
               {t("footer.legal.about")}

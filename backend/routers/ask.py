@@ -1,8 +1,9 @@
 """Ask the Garden — threaded AI Q&A behind the paywall.
 
-Members only. Hard cap of 10 user-messages per UTC day per access token.
-Supports inline image uploads (Claude Sonnet 4.5 vision) for plant ID, pest
-spotting, leaf-disease diagnosis etc.
+Members only. Hard cap of 7 user-messages per UTC day per access token.
+Supports inline image uploads (vision) for plant ID, pest spotting,
+leaf-disease diagnosis etc. Model is intentionally not surfaced to users
+so we can swap providers freely as pricing shifts.
 
 Storage:
   ask_sessions   {id, access_token, title, created_at, last_message_at}
@@ -25,8 +26,8 @@ from core import make_grant_is_active
 
 logger = logging.getLogger(__name__)
 
-DAILY_QUESTION_CAP = 10
-ASK_MODEL = "claude-sonnet-4-5-20250929"
+DAILY_QUESTION_CAP = 7
+ASK_MODEL = "claude-haiku-4-5-20251001"
 SYSTEM_PROMPT = (
     "You are the friendly, knowledgeable in-house gardening expert for Patch & Pot, "
     "a regional gardening companion app. Answer concisely and warmly. "

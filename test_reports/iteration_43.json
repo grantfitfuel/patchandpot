@@ -1,0 +1,34 @@
+{
+  "summary": "Iter43 — Ask the Garden (paywalled threaded Q&A) full feature matrix verified after model swap to Claude Haiku 4.5 and cap reduction 10→7. Backend: 12/12 pytest PASS in /app/backend/tests/test_ask_iter43.py covering /api/ask/usage (cap=7 + 402 on invalid/empty token), /api/ask/message single-turn (200 + Haiku reply + usage decrement), multi-turn threading (same session_id, GET messages returns 4 chronological), image upload (has_image=true after a 64x64 JPEG round-trip), 429 cap enforcement (count=7 seed → 'Daily limit of 7' in detail), GET sessions sorted desc, DELETE session purges sessions+messages, 400 for >5MB image, 400 for >4000-char message, 400 for empty submission. Frontend Playwright: paywall gate at /ask without paid flag shows 'up to 7 questions per day' + 'Become a member' CTA + zero model-name leaks (no Claude/Haiku/Sonnet/Anthropic). With paid localStorage seeded, /ask shows ask-page + 'X / 7 left today' counter + sidebar + new-chat. Sending text question: user+assistant bubbles render, counter decrements 7→6, input clears, new session appears in sidebar. Image flow: file input under ask-image-btn label accepts JPEG, ask-clear-image preview appears, send produces user bubble with 'photo attached' indicator + assistant reply. Cleaned up 8 test sessions/11 messages and reset usage to 0 after tests.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_ask_iter43.py",
+    "/app/test_reports/pytest/iter43_ask.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "ask.py line 30 ASK_MODEL='claude-haiku-4-5-20251001' and line 29 DAILY_QUESTION_CAP=7 — confirmed wired through both /api/ask/usage response and the 429 detail string. Model name never crosses the API boundary (verified by grepping the rendered page).",
+    "Image rejection edge case: Anthropic returns BadRequest 'Could not process image' for trivially-small images (e.g. 1x1 PNG) and the router correctly converts that to HTTP 503 with a generic 'AI couldn't answer that one' detail. End-users uploading real photos won't hit this, but it's worth noting that synthetic/test images <~few hundred bytes will look like a backend outage in the UI. Consider catching this specific upstream error and surfacing a clearer 'image not readable' 400 instead of 503.",
+    "ask.py:189-191 history replay only re-sends recent USER messages to LlmChat (assistant turns are skipped on the assumption LlmChat reconstructs them). With a stateless LlmChat per request this means the assistant's own prior wording isn't injected — context continuity relies on the user-side question chain alone. In practice the follow-up 'And what about courgettes?' did resolve correctly, but this is a fragile contract; if LlmChat is ever swapped for a pure stateless wrapper, threading will silently degrade. Worth adding an explicit AssistantMessage replay or a docstring note.",
+    "ask_messages collection is wiped per-session on delete but ask_usage docs grow unbounded across dates (one row per access_token per day). Cheap rows, but consider a TTL index on ask_usage.date for housekeeping.",
+    "Frontend Ask.jsx:24 hardcodes default cap=7 — fine because the backend overwrites it on first /usage fetch, but if a future cap change ships backend-only, the first paint will briefly show the stale value. Cosmetic only."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_ask_iter43.py (new)"
+  ],
+  "success_rate": {
+    "backend": "100% (12/12 pytest)",
+    "frontend": "100% on all 4 acceptance scenarios (paywall copy + no-model-leak, paid UI render + counter, text send + decrement + sidebar, image upload + preview + photo-attached indicator + assistant reply)"
+  },
+  "test_credentials": "access_token=test-token-pdf-smoke (already seeded in db.access_grants); frontend keys patchpot.access.v1 + patchpot.access.paid.v1='1'.",
+  "seed_data_creation": "For 429 test, seeded db.ask_usage {access_token: 'test-token-pdf-smoke', date: today UTC, count: 7} via pymongo direct write; reset to 0 in autouse fixture teardown. Post-suite cleanup deleted 8 ask_sessions + 11 ask_messages and reset usage count to 0 so subsequent runs start clean.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Iter43 confirms Ask-the-Garden is production-ready after the Haiku 4.5 swap and 7-question cap. All 12 backend endpoints behave per spec; frontend paywall + chat + image flow all green. If main agent later widens the cap or wants to switch models again, change ask.py:29-30 and re-run /app/backend/tests/test_ask_iter43.py — the test pulls the expected cap from the literal value 7 (will need a 1-line update). Image upload tests must use a JPEG ≥ 64x64 (NOT a 1x1 PNG) because Anthropic's vision endpoint rejects degenerate images with 'Could not process image', surfacing as a 503 from /api/ask/message. Frontend localStorage seed pattern: navigate to root first, set both patchpot.access.v1 and patchpot.access.paid.v1, then navigate to /ask.",
+  "rca_of_the_issue": "No production bugs. One test-only issue: initial image-upload test used a 1x1 PNG which Anthropic rejected with BadRequestError 'Could not process image' → backend correctly translated to 503. Replaced with a 64x64 solid-colour JPEG (Pillow-generated), test now PASS. This is a test-data quirk, not a backend bug."
+}

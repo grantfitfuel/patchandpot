@@ -6,7 +6,7 @@ import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 /**
  * Ask the Garden — threaded, paywalled AI Q&A.
  *
- * Lives at /ask. Members only (gated by access_token). Hard cap of 10
+ * Lives at /ask. Members only (gated by access_token). Hard cap of 7
  * user messages per UTC day per token. Supports image upload (≤5 MB)
  * for plant ID, leaf disease, pest spotting etc.
  *
@@ -21,7 +21,7 @@ export default function AskPage() {
   const [sessions, setSessions] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [usage, setUsage] = useState({ used: 0, cap: 10, remaining: 10 });
+  const [usage, setUsage] = useState({ used: 0, cap: 7, remaining: 7 });
   const [text, setText] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -145,7 +145,7 @@ export default function AskPage() {
           pests, pruning, soil, and propagation. Upload a photo to identify a plant or diagnose a problem.
         </p>
         <p className="text-ink/70 text-sm mb-6">
-          Members can ask up to 10 questions per day, with photo support and threaded follow-ups.
+          Members can ask up to 7 questions per day, with photo support and threaded follow-ups.
         </p>
         <a href="/#pricing" className="btn-primary" data-testid="ask-paywall-cta">
           Become a member

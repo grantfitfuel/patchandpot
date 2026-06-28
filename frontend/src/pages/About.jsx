@@ -164,6 +164,44 @@ export default function AboutPage() {
         </p>
       </section>
 
+      <section className="mt-12" id="trusted-partners">
+        <h2 className="font-serif text-2xl text-forest mb-3 inline-flex items-center gap-2">
+          <Sprout strokeWidth={1.5} className="w-5 h-5 text-terracotta" />
+          Trusted partners
+        </h2>
+        <p className="text-ink/80 leading-relaxed mb-4">
+          Specialist nurseries and retailers we link to from our regional plant pages.
+          Some of these links are affiliate-tracked — see our{" "}
+          <Link to="/terms#affiliates" className="link">affiliate disclosure</Link>.
+        </p>
+        <ul className="space-y-2 text-ink/80 leading-relaxed list-disc pl-5">
+          <li>
+            <a
+              href="https://sovrn.co/18v2elc"
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+              className="link"
+              data-testid="partner-farmer-gracy"
+            >
+              Farmer Gracy
+            </a>
+            {" "}— Dutch bulb specialist (tulips, alliums, lilies, dahlias, amaryllis). Ships UK + EU.
+          </li>
+          <li>
+            <a
+              href="https://www.amazon.co.uk/s?k=garden&amp;tag=patchandpot-21"
+              target="_blank"
+              rel="sponsored noopener noreferrer"
+              className="link"
+              data-testid="partner-amazon-uk"
+            >
+              Amazon UK
+            </a>
+            {" "}— for tools, sundries and one-stop sourcing of harder-to-find items.
+          </li>
+        </ul>
+      </section>
+
       <div className="mt-14 pt-8 border-t border-border text-sm text-moss flex flex-wrap gap-6">
         <Link to="/privacy" className="link" data-testid="about-to-privacy">
           Read the privacy notice →

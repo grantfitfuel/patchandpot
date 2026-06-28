@@ -6,16 +6,70 @@ import PlantImage from "@/components/PlantImage";
 import { useI18n } from "@/i18n";
 import { formatApiError } from "@/lib/formatApiError";
 
+// Each group may declare `subFilters`: a list of {key, label, categories?, tags?}.
+// A sub-filter matches a plant if EITHER its categories include p.category OR
+// any of its tags appear in p.tags. Selecting an additional sub-filter narrows
+// the visible list further (defaults to "all in group" = no sub-filter active).
 const GROUPS = [
   { key: "all", label: "plants.group.all", categories: null },
-  { key: "edibles", label: "plants.group.edibles", categories: ["Vegetable", "Brassica", "Legume", "Squash", "Leafy green", "Allium", "Root"] },
+  {
+    key: "edibles",
+    label: "plants.group.edibles",
+    categories: ["Vegetable", "Brassica", "Legume", "Squash", "Leafy green", "Allium", "Root"],
+    subFilters: [
+      { key: "vegetable", label: "plants.category.vegetable", categories: ["Vegetable"] },
+      { key: "leafy-green", label: "plants.category.leafy-green", categories: ["Leafy green"] },
+      { key: "brassica", label: "plants.category.brassica", categories: ["Brassica"] },
+      { key: "legume", label: "plants.category.legume", categories: ["Legume"] },
+      { key: "squash", label: "plants.category.squash", categories: ["Squash"] },
+      { key: "root", label: "plants.category.root", categories: ["Root"] },
+      { key: "allium", label: "plants.category.allium", categories: ["Allium"] },
+    ],
+  },
   { key: "herbs", label: "plants.group.herbs", categories: ["Herb"] },
   { key: "fruit", label: "plants.group.fruit", categories: ["Fruit"] },
-  { key: "flowers", label: "plants.group.flowers", categories: ["Flower"] },
-  { key: "cut-flowers", label: "plants.group.cut-flowers", categories: ["Cut flower"] },
-  { key: "shrubs", label: "plants.group.shrubs", categories: ["Shrub", "Climber"] },
+  {
+    key: "flowers",
+    label: "plants.group.flowers",
+    categories: ["Flower"],
+    subFilters: [
+      { key: "bulbs", label: "plants.subfilter.bulbs", tags: ["bulb", "corm", "tuber", "rhizome"] },
+      { key: "drought", label: "plants.subfilter.drought", tags: ["drought"] },
+      { key: "shade", label: "plants.subfilter.shade", tags: ["shade"] },
+      { key: "edible-petals", label: "plants.subfilter.edible-petals", tags: ["edible-flower"] },
+      { key: "fragrant", label: "plants.subfilter.fragrant", tags: ["fragrant"] },
+    ],
+  },
+  {
+    key: "cut-flowers",
+    label: "plants.group.cut-flowers",
+    categories: ["Cut flower"],
+    subFilters: [
+      { key: "bulbs", label: "plants.subfilter.bulbs", tags: ["bulb", "corm", "tuber", "rhizome"] },
+      { key: "spires", label: "plants.subfilter.spires", tags: ["spire"] },
+      { key: "fillers", label: "plants.subfilter.fillers", tags: ["filler"] },
+      { key: "fragrant", label: "plants.subfilter.fragrant", tags: ["fragrant"] },
+      { key: "everlasting", label: "plants.subfilter.everlasting", tags: ["everlasting"] },
+      { key: "perennials", label: "plants.subfilter.perennials", tags: ["perennial"] },
+    ],
+  },
+  {
+    key: "shrubs",
+    label: "plants.group.shrubs",
+    categories: ["Shrub", "Climber"],
+    subFilters: [
+      { key: "shrub", label: "plants.category.shrub", categories: ["Shrub"] },
+      { key: "climber", label: "plants.category.climber", categories: ["Climber"] },
+    ],
+  },
   { key: "sprouts", label: "plants.group.sprouts", categories: ["Sprouts"] },
 ];
+
+function matchesSubFilter(p, sf) {
+  if (sf.categories && sf.categories.includes(p.category)) return true;
+  if (sf.tags && sf.tags.some((t) => (p.tags || []).includes(t))) return true;
+  return false;
+}
 
 export default function PlantsPage() {
   const { t, lang } = useI18n();
@@ -24,6 +78,7 @@ export default function PlantsPage() {
   const [recent, setRecent] = useState([]);
   const [query, setQuery] = useState("");
   const [group, setGroup] = useState("all");
+  const [subFilterKey, setSubFilterKey] = useState(null);
   const [generating, setGenerating] = useState(false);
   const [aiError, setAiError] = useState("");
 
@@ -35,9 +90,14 @@ export default function PlantsPage() {
     fetchRecentAIPlants(lang).then((d) => setRecent(d.items || [])).catch(() => {});
   }, [lang]);
 
+  // Reset sub-filter when the parent group changes.
+  useEffect(() => { setSubFilterKey(null); }, [group]);
+
   const activeGroup = GROUPS.find((g) => g.key === group) || GROUPS[0];
+  const activeSub = activeGroup.subFilters?.find((s) => s.key === subFilterKey) || null;
   const filtered = plants.filter((p) => {
     if (activeGroup.categories && !activeGroup.categories.includes(p.category)) return false;
+    if (activeSub && !matchesSubFilter(p, activeSub)) return false;
     if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
     return true;
   });
@@ -98,6 +158,35 @@ export default function PlantsPage() {
           ))}
         </div>
       </div>
+
+      {/* Secondary sub-filter row — only when group has 2+ sub-filters */}
+      {activeGroup.subFilters && activeGroup.subFilters.length > 1 && (
+        <div className="flex flex-wrap gap-2 -mt-4 mb-8 pl-1" data-testid="subfilter-row">
+          <button
+            type="button"
+            data-testid="subfilter-all"
+            onClick={() => setSubFilterKey(null)}
+            className={`text-xs px-2.5 py-1 border rounded-full transition-colors ${
+              subFilterKey === null ? "bg-forest/10 text-forest border-forest" : "bg-transparent text-ink/60 border-border/70 hover:border-forest/40"
+            }`}
+          >
+            {t("plants.subcategory.all")}
+          </button>
+          {activeGroup.subFilters.map((sf) => (
+            <button
+              key={sf.key}
+              type="button"
+              data-testid={`subfilter-${sf.key}`}
+              onClick={() => setSubFilterKey(sf.key)}
+              className={`text-xs px-2.5 py-1 border rounded-full transition-colors ${
+                subFilterKey === sf.key ? "bg-forest/10 text-forest border-forest" : "bg-transparent text-ink/60 border-border/70 hover:border-forest/40"
+              }`}
+            >
+              {t(sf.label)}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Empty state with AI CTA */}
       {showAskCTA && (

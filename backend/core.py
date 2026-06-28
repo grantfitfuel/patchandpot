@@ -10,6 +10,7 @@ Most helpers come in two flavours:
   - factories `make_xxx(db)` that close over the Mongo handle and return the
     function/coroutine the routers actually call.
 """
+import asyncio
 import hashlib
 import json
 import logging
@@ -708,6 +709,10 @@ from plants_extra import EXTRA_PLANTS, EXTRA_COMPANIONS  # noqa: E402
 PLANTS.extend(EXTRA_PLANTS)
 PLANT_INDEX = {p["id"]: p for p in PLANTS}
 
+# Apply lifecycle + hardiness metadata to every plant (mutates in place).
+from plants_meta import apply_meta  # noqa: E402
+apply_meta(PLANTS)
+
 _PLANT_TRANS_FIELDS = ("name", "category", "summary", "difficulty", "sun", "water", "soil", "edible_part", "tags")
 
 
@@ -736,7 +741,15 @@ def make_plants_in_language(db):
             "do NOT change their length significantly. Preserve em-dashes (—), hyphens and "
             "ellipses. Return ONLY valid JSON, no markdown fences."
         )
-        user = f"""Translate the values of this plant catalogue into {language_name}.
+        # 182 plants is too much for a single LLM call within a 60s ingress
+        # window. Split into ~50-plant batches and translate in parallel.
+        plant_ids = list(source.keys())
+        BATCH = 50
+        batches = [plant_ids[i:i + BATCH] for i in range(0, len(plant_ids), BATCH)]
+
+        async def _translate_batch(idx: int, ids: list) -> dict:
+            sub = {pid: source[pid] for pid in ids}
+            sub_user = f"""Translate the values of this plant catalogue into {language_name}.
 
 Rules:
 - Keep the JSON shape EXACTLY the same: every plant id maps to an object with the same fields.
@@ -747,15 +760,23 @@ Rules:
 - Keep "summary" punchy — the same idea, similar length.
 
 Source:
-{json.dumps(source, ensure_ascii=False, indent=2)}
+{json.dumps(sub, ensure_ascii=False, indent=2)}
 
 Return JSON only, in the same shape.
 """
+            return await _llm_json_cheap(system, sub_user, session_id=f"plants-trans-{language}-b{idx}")
+
         try:
-            translated_map = await _llm_json_cheap(system, user, session_id=f"plants-trans-{language}")
+            results = await asyncio.gather(
+                *[_translate_batch(i, b) for i, b in enumerate(batches)]
+            )
         except Exception as e:
             logger.warning("plants translation failed for %s: %s — falling back to English", language, e)
             return PLANTS
+        translated_map = {}
+        for r in results:
+            if isinstance(r, dict):
+                translated_map.update(r)
 
         out = []
         for p in PLANTS:

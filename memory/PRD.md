@@ -28,6 +28,37 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 49 (2026-02-26): ✅ — Sub-filters + lifecycle + hardiness across all 182 plants
+
+User: *"…also a further filter for type vegetable root gourd squash"* → tag/category-based sub-filter row. Then *"important with flowers to know if annual biennial or perennial and also if hardy half-hardy or otherwise"* → enriched all 182 plants with `lifecycle` + `hardiness` metadata, displayed on card subtitle + detail page + as a lifecycle chip row.
+
+**Filter rows shipped (3-tier hierarchy)**
+1. **Group chips** (8): All / Edibles / Herbs / Fruit / Flowers / Cut flowers / Shrubs & climbers / Sprouting.
+2. **Sub-filter chips** (per-group): for *Edibles* → Veg/Brassica/Legume/Squash/Leafy/Allium/Root; for *Flowers* → Bulbs/Drought/Shade/Edible petals/Fragrant; for *Cut flowers* → Bulbs & corms/Spires/Fillers/Fragrant/Everlasting/Perennials; for *Shrubs & climbers* → Shrub/Climber. Mix of category-based and tag-based matching.
+3. **Lifecycle chips** (Annual/Biennial/Perennial) — shown only when the current slice has ≥2 lifecycles present (auto-hides for e.g. patio fruit which are all perennial).
+
+**Data model additions**
+- New `/app/backend/plants_meta.py` exporting `apply_meta(PLANTS)` — maps every plant id to `lifecycle` (annual/biennial/perennial) and `hardiness` (hardy/half-hardy/tender/indoor). Curated for UK-temperate cultivation reality (tomato = tender annual, dahlia = half-hardy perennial, snowdrop = hardy perennial bulb, etc.).
+- Mutates `PLANTS` in place after `EXTRA_PLANTS` are merged in `core.py`. Zero schema drift on the API response.
+
+**Display**
+- Plant card subtitle: "Half-hardy perennial" / "Hardy annual" etc. under the plant name on every catalogue card.
+- Plant detail page: two additional info pills (LIFECYCLE / HARDINESS) alongside sun/water/soil/difficulty/container/edible-part.
+- Sprouts get `hardiness: indoor` → renders "Indoor annual" (no claim about frost behaviour).
+
+**i18n** — 27 new keys translated across all 57 non-English locales via three injector scripts:
+- `inject_plant_subfilter_locales.py` — 9 sub-filter labels.
+- `inject_plant_lifecycle_locales.py` — 12 lifecycle/hardiness keys.
+- Each script is idempotent and regex-anchored to an existing locale entry.
+
+**Backend regression caught & fixed**
+- Old cached translated plant catalogues (`db.guidance_cache` key prefix `plants:`) didn't include the 150 new plants → 404 for new plant detail pages in any non-English language that had been visited before.
+- Cleared 5 stale cached translations (`plants:de/fr/ja/ar/...`).
+- Translation function now **chunks 182 plants into 50-plant batches and calls `_llm_json_cheap` in parallel via `asyncio.gather`** (was a single LLM call that exceeded the 60s ingress timeout). FR catalogue re-translates cold in ~49s, then hits cache.
+
+**Service worker** bumped to `patchpot-v21`. Plant pytest suite still 15/15 pass. Lint clean.
+
+
 ### Iteration 48 (2026-02-26): ✅ — Plant filter grouped + 57-locale translation injection
 
 **Grouped filter (`Plants.jsx`)**

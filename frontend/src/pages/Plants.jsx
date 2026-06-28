@@ -79,6 +79,7 @@ export default function PlantsPage() {
   const [query, setQuery] = useState("");
   const [group, setGroup] = useState("all");
   const [subFilterKey, setSubFilterKey] = useState(null);
+  const [lifecycle, setLifecycle] = useState(null);
   const [generating, setGenerating] = useState(false);
   const [aiError, setAiError] = useState("");
 
@@ -91,16 +92,32 @@ export default function PlantsPage() {
   }, [lang]);
 
   // Reset sub-filter when the parent group changes.
-  useEffect(() => { setSubFilterKey(null); }, [group]);
+  useEffect(() => { setSubFilterKey(null); setLifecycle(null); }, [group]);
 
   const activeGroup = GROUPS.find((g) => g.key === group) || GROUPS[0];
   const activeSub = activeGroup.subFilters?.find((s) => s.key === subFilterKey) || null;
   const filtered = plants.filter((p) => {
     if (activeGroup.categories && !activeGroup.categories.includes(p.category)) return false;
     if (activeSub && !matchesSubFilter(p, activeSub)) return false;
+    if (lifecycle && p.lifecycle !== lifecycle) return false;
     if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
     return true;
   });
+
+  // Only show the lifecycle chip row when at least two lifecycle types
+  // exist within the current group + sub-filter slice. Avoids redundant
+  // chips for e.g. patio fruit (all perennials).
+  const lifecyclesPresent = new Set(
+    plants
+      .filter((p) => {
+        if (activeGroup.categories && !activeGroup.categories.includes(p.category)) return false;
+        if (activeSub && !matchesSubFilter(p, activeSub)) return false;
+        return true;
+      })
+      .map((p) => p.lifecycle)
+      .filter(Boolean)
+  );
+  const showLifecycleRow = lifecyclesPresent.size >= 2;
 
   const catLabel = (c) => t(`plants.category.${c.toLowerCase().replace(/\s+/g, "-")}`);
 
@@ -188,6 +205,38 @@ export default function PlantsPage() {
         </div>
       )}
 
+      {/* Tertiary lifecycle row — Annual / Biennial / Perennial */}
+      {showLifecycleRow && (
+        <div className="flex flex-wrap items-center gap-2 -mt-4 mb-8 pl-1" data-testid="lifecycle-row">
+          <span className="text-[0.65rem] uppercase tracking-widest text-moss/70 mr-1">
+            {t("plants.lifecycle.label")}
+          </span>
+          <button
+            type="button"
+            data-testid="lifecycle-all"
+            onClick={() => setLifecycle(null)}
+            className={`text-xs px-2.5 py-1 border rounded-full transition-colors ${
+              lifecycle === null ? "bg-forest/10 text-forest border-forest" : "bg-transparent text-ink/60 border-border/70 hover:border-forest/40"
+            }`}
+          >
+            {t("plants.subcategory.all")}
+          </button>
+          {["annual", "biennial", "perennial"].filter((lc) => lifecyclesPresent.has(lc)).map((lc) => (
+            <button
+              key={lc}
+              type="button"
+              data-testid={`lifecycle-${lc}`}
+              onClick={() => setLifecycle(lc)}
+              className={`text-xs px-2.5 py-1 border rounded-full transition-colors ${
+                lifecycle === lc ? "bg-forest/10 text-forest border-forest" : "bg-transparent text-ink/60 border-border/70 hover:border-forest/40"
+              }`}
+            >
+              {t(`plants.lifecycle.${lc}`)}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Empty state with AI CTA */}
       {showAskCTA && (
         <div className="card-flat p-8 mb-10 flex flex-col sm:flex-row items-center gap-6" data-testid="ai-plant-cta">
@@ -252,6 +301,14 @@ export default function PlantsPage() {
             <div className="p-5 flex flex-col flex-1">
               <p className="overline">{catLabel(p.category)}</p>
               <h3 className="font-serif text-2xl text-forest mt-2">{p.name}</h3>
+              {(p.hardiness || p.lifecycle) && (
+                <p className="text-xs text-moss mt-1" data-testid={`plant-card-meta-${p.id}`}>
+                  {[
+                    p.hardiness && p.hardiness !== "indoor" ? t(`plants.hardiness.${p.hardiness}`) : (p.hardiness === "indoor" ? t("plants.hardiness.indoor") : null),
+                    p.lifecycle ? t(`plants.lifecycle.${p.lifecycle}`).toLowerCase() : null,
+                  ].filter(Boolean).join(" ")}
+                </p>
+              )}
               <p className="text-sm text-ink/70 mt-2 flex-1">{p.summary}</p>
               <div className="flex items-center gap-4 mt-4 text-xs text-moss">
                 <span className="inline-flex items-center gap-1.5"><Sun className="w-3.5 h-3.5" strokeWidth={1.5} />{p.sun}</span>

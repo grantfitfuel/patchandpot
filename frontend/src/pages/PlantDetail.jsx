@@ -91,6 +91,20 @@ export default function PlantDetailPage() {
             <Spec icon={Sprout} label={t("plant.difficulty")} value={plant.difficulty} />
             <Spec icon={Sprout} label={t("plant.container")} value={plant.container ? t("common.yes") : t("common.no")} />
             <Spec icon={Sprout} label={t("plant.edible_part")} value={plant.edible_part} />
+            {plant.lifecycle && (
+              <Spec
+                icon={Sprout}
+                label={t("plant.lifecycle")}
+                value={t(`plants.lifecycle.${plant.lifecycle}`)}
+              />
+            )}
+            {plant.hardiness && (
+              <Spec
+                icon={Sprout}
+                label={t("plant.hardiness")}
+                value={t(`plants.hardiness.${plant.hardiness}`)}
+              />
+            )}
           </div>
 
           <div className="mt-10 flex flex-wrap gap-3">

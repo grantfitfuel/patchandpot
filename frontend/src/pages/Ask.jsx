@@ -4,11 +4,47 @@ import { Send, Image as ImageIcon, Plus, Trash2, Loader2, X } from "lucide-react
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 
 /**
+ * Downscale and re-encode an image File so it slips under Claude vision's
+ * 5 MB ceiling without the user noticing. Keeps aspect ratio; uses
+ * `createImageBitmap` (handles EXIF orientation natively) and a canvas
+ * to render at the new size. Returns a new JPEG File.
+ */
+async function compressImage(file, { maxEdge = 1600, quality = 0.82, maxBytes = 4.5 * 1024 * 1024 } = {}) {
+  if (file.size <= maxBytes && file.type === "image/jpeg") {
+    // Already small JPEG — no work needed.
+    return file;
+  }
+  const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
+  const { width: w0, height: h0 } = bitmap;
+  const scale = Math.min(1, maxEdge / Math.max(w0, h0));
+  const w = Math.round(w0 * scale);
+  const h = Math.round(h0 * scale);
+  const canvas = document.createElement("canvas");
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close?.();
+
+  // Recompress, dropping quality further if still too big.
+  let q = quality;
+  let blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg", q));
+  while (blob && blob.size > maxBytes && q > 0.4) {
+    q -= 0.1;
+    blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg", q));
+  }
+  if (!blob) throw new Error("toBlob returned null");
+  const name = (file.name || "photo").replace(/\.[a-z0-9]+$/i, "") + ".jpg";
+  return new File([blob], name, { type: "image/jpeg", lastModified: Date.now() });
+}
+
+/**
  * Ask the Garden — threaded, paywalled AI Q&A.
  *
  * Lives at /ask. Members only (gated by access_token). Hard cap of 7
- * user messages per UTC day per token. Supports image upload (≤5 MB)
- * for plant ID, leaf disease, pest spotting etc.
+ * user messages per UTC day per token. Supports image upload (any size —
+ * we downscale + recompress to fit Claude vision's ~5 MB ceiling client-side
+ * so the user never sees the limit) for plant ID, leaf disease, pest
+ * spotting etc.
  *
  * Layout: left sidebar with session history, right pane is the active
  * conversation. Mobile collapses the sidebar into a top dropdown.
@@ -70,14 +106,26 @@ export default function AskPage() {
   }, [messages]);
 
   // ── Image picker ────────────────────────────────────────────────
-  const onPickImage = (e) => {
+  // Phone cameras routinely produce 8-15 MB JPEGs which exceed Claude's
+  // 5 MB vision limit. Rather than reject them, downscale + recompress in
+  // the browser to a max 1600 px longest edge / ~1.5 MB JPEG before upload.
+  // Plant ID needs detail, not megapixels.
+  const onPickImage = async (e) => {
     const f = e.target.files?.[0];
     if (!f) return;
-    if (f.size > 5 * 1024 * 1024) { setError("Image too large — max 5 MB."); return; }
-    setImageFile(f);
-    const reader = new FileReader();
-    reader.onload = () => setImagePreview(reader.result);
-    reader.readAsDataURL(f);
+    setError("");
+    // Allow up to 30 MB raw; we'll compress it down ourselves.
+    if (f.size > 30 * 1024 * 1024) { setError("Image too large — please pick one under 30 MB."); return; }
+    try {
+      const compressed = await compressImage(f, { maxEdge: 1600, quality: 0.82, maxBytes: 4.5 * 1024 * 1024 });
+      setImageFile(compressed);
+      const reader = new FileReader();
+      reader.onload = () => setImagePreview(reader.result);
+      reader.readAsDataURL(compressed);
+    } catch (err) {
+      console.error("image compression failed", err);
+      setError("Couldn't process that image — try a different one.");
+    }
   };
 
   const clearImage = () => { setImageFile(null); setImagePreview(null); };

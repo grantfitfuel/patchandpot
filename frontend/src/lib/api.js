@@ -134,6 +134,10 @@ export const unpromoteAiPlant = (token, plantId) =>
   api
     .post("/admin/unpromote-plant", null, { params: { token, plant_id: plantId } })
     .then((r) => r.data);
+export const clearPlantGuideCache = (token, slug) =>
+  api
+    .post("/admin/clear-plant-guide-cache", null, { params: { token, slug } })
+    .then((r) => r.data);
 // Patrons (public opt-in display)
 export const fetchPatrons = () =>
   api.get("/patrons").then((r) => r.data);

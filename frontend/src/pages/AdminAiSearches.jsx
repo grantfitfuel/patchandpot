@@ -3,10 +3,11 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
   AlertTriangle, CheckCircle2, LogOut, RefreshCw, Sparkles,
-  Undo2, X, ExternalLink, Star,
+  Undo2, X, ExternalLink, Star, Wand2,
 } from "lucide-react";
 import {
-  fetchAdminAiSearches, promoteAiPlant, unpromoteAiPlant,
+  clearPlantGuideCache, fetchAdminAiSearches, fetchPlantGuide,
+  promoteAiPlant, unpromoteAiPlant,
 } from "@/lib/api";
 import AdminTokenGate, { useAdminToken } from "@/components/AdminTokenGate";
 
@@ -322,15 +323,17 @@ export default function AdminAiSearchesPage() {
         <PromoteModal
           item={editing}
           busy={busy === editing.slug}
+          token={token}
           onClose={() => setEditing(null)}
           onSave={onSavePromote}
+          onFlash={flash}
         />
       )}
     </div>
   );
 }
 
-function PromoteModal({ item, busy, onClose, onSave }) {
+function PromoteModal({ item, busy, token, onClose, onSave, onFlash }) {
   const guide = item.guide || {};
   // Default the curated id to the AI slug without its `ai-` prefix so the
   // URL stays clean (e.g. /plants/yarrow rather than /plants/ai-yarrow).
@@ -349,11 +352,48 @@ function PromoteModal({ item, busy, onClose, onSave }) {
     container: guide.container !== false,
     tags: Array.isArray(guide.tags) ? guide.tags.join(", ") : "",
   });
+  const [regenerating, setRegenerating] = useState(false);
 
   const set = (k) => (e) => {
     const v = e?.target?.type === "checkbox" ? e.target.checked : e.target.value;
     setForm((f) => ({ ...f, [k]: v }));
   };
+
+  async function onRegenerate() {
+    // Clear the cached EN guide on the server, then re-POST /plant-guide so
+    // Claude generates a fresh draft. Re-pre-fill the form with the new
+    // values so the admin sees the change immediately. Original form edits
+    // are intentionally overwritten — "Regenerate" is meant to throw the
+    // current draft away.
+    if (!window.confirm(
+      "Regenerate this plant guide from Claude? Your current edits will be replaced with the fresh draft."
+    )) return;
+    setRegenerating(true);
+    try {
+      await clearPlantGuideCache(token, item.slug);
+      const fresh = await fetchPlantGuide(item.query || guide.name || defaultId, "en");
+      setForm({
+        id: defaultId,
+        name: fresh.name || item.query || "",
+        botanical_name: fresh.botanical_name || "",
+        category: CATEGORIES.includes(fresh.category) ? fresh.category : "Other",
+        difficulty: DIFFICULTIES.includes(fresh.difficulty) ? fresh.difficulty : "Medium",
+        sun: SUN_LEVELS.includes(fresh.sun) ? fresh.sun : "Full to partial",
+        water: WATER_LEVELS.includes(fresh.water) ? fresh.water : "Moderate",
+        soil: fresh.soil || "Well-drained",
+        edible_part: fresh.edible_part || "Ornamental",
+        summary: fresh.summary || "",
+        container: fresh.container !== false,
+        tags: Array.isArray(fresh.tags) ? fresh.tags.join(", ") : "",
+      });
+      onFlash?.("Fresh guide generated from Claude.", "ok");
+    } catch (e) {
+      const detail = e?.response?.data?.detail || e?.message || "Regenerate failed.";
+      onFlash?.(detail, "err");
+    } finally {
+      setRegenerating(false);
+    }
+  }
 
   const submit = (e) => {
     e.preventDefault();
@@ -485,23 +525,38 @@ function PromoteModal({ item, busy, onClose, onSave }) {
             Container-friendly (shows on small-space filters)
           </label>
 
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
+          <div className="flex items-center justify-between gap-2 pt-2 border-t border-border">
             <button
               type="button"
-              onClick={onClose}
-              disabled={busy}
-              data-testid="modal-cancel"
-              className="btn-ghost text-sm"
-            >Cancel</button>
-            <button
-              type="submit"
-              disabled={busy}
-              data-testid="modal-save"
-              className="btn-terracotta inline-flex items-center gap-2 text-sm disabled:opacity-50"
+              onClick={onRegenerate}
+              disabled={busy || regenerating}
+              data-testid="modal-regenerate"
+              className="btn-ghost inline-flex items-center gap-2 text-sm disabled:opacity-50"
+              title="Discard the current draft and ask Claude to write a new one"
             >
-              {busy ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Star className="w-4 h-4" />}
-              {busy ? "Saving…" : "Add to curated library"}
+              {regenerating
+                ? <RefreshCw className="w-4 h-4 animate-spin" />
+                : <Wand2 className="w-4 h-4" />}
+              {regenerating ? "Regenerating…" : "Regenerate guide"}
             </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={busy || regenerating}
+                data-testid="modal-cancel"
+                className="btn-ghost text-sm"
+              >Cancel</button>
+              <button
+                type="submit"
+                disabled={busy || regenerating}
+                data-testid="modal-save"
+                className="btn-terracotta inline-flex items-center gap-2 text-sm disabled:opacity-50"
+              >
+                {busy ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Star className="w-4 h-4" />}
+                {busy ? "Saving…" : "Add to curated library"}
+              </button>
+            </div>
           </div>
         </form>
       </div>

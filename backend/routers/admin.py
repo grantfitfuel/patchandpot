@@ -8,6 +8,7 @@ Includes:
 """
 import logging
 import os
+import re
 import uuid
 from datetime import datetime, timezone
 
@@ -397,5 +398,23 @@ def make_router(db) -> APIRouter:
         added = await load_promoted_plants(db)
         await db.guidance_cache.delete_many({"key": {"$regex": "^plants:"}})
         return {"ok": True, "promoted_plants_loaded": added}
+
+    @router.post("/admin/clear-plant-guide-cache")
+    async def admin_clear_plant_guide_cache(token: str, slug: str):
+        """Drop every cached language variant of a single AI plant guide so
+        the very next `/api/plant-guide` call regenerates from Claude. Used
+        by the Promote-AI modal's "Regenerate" button when the admin isn't
+        happy with the stored draft. Returns the number of rows removed.
+
+        Only operates on `ai-*` slugs — refuses to nuke curated plants by
+        accident."""
+        _require_admin(token)
+        slug = (slug or "").strip().lower()
+        if not slug.startswith("ai-"):
+            raise HTTPException(400, "Refusing to clear cache for non-AI slug.")
+        result = await db.guidance_cache.delete_many(
+            {"key": {"$regex": f"^plant-guide:{re.escape(slug)}:"}},
+        )
+        return {"ok": True, "removed": result.deleted_count, "slug": slug}
 
     return router

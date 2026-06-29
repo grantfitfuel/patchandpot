@@ -28,6 +28,34 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 53 (2026-02-26): ✅ — Backfill queue · Unified plant detail · SharePatch refactor
+
+User asked for **A → E → B**: backfill the AI-promote queue from existing cache, consolidate the two plant-detail pages, refactor the giant SharePatchModal.
+
+**A · Backfill AI-promote queue** (`routers/admin.py`)
+- New endpoint `POST /api/admin/backfill-ai-plant-stats` — scans `guidance_cache` for `plant-guide:ai-*:en` rows, seeds `ai_plant_stats` with 1 synthetic view each (uses the cached guide's `name` as the query and the row's `created_at` as the first-viewed timestamp). Marks them `backfilled: true` so admin can tell synthetic rows from real traffic.
+- Idempotent: rows that already have a `view_count` are skipped. Verified: first run seeded 1 + skipped 2; second run seeded 0 + skipped 3.
+
+**E · Unified `PlantDetail.jsx`** (`src/pages/PlantDetail.jsx`)
+- Single page now handles BOTH `/plants/:id` (curated) AND `/plants/ai/:slug` (AI-generated). The component inspects `useParams()` — `params.slug` ⇒ AI flow, `params.id` ⇒ curated flow — and branches accordingly:
+  - Curated: `fetchPlant`, `<PlantImage>`, lifecycle + hardiness specs, Pinterest button, SEO meta + JSON-LD Article schema, `<CompanionsSection>` (DB-curated).
+  - AI: `fetchCachedPlantGuide` (with `?q=` fallback to `fetchPlantGuide`), `<TopicImage>` (Gemini watercolour), AI badge, growing tips, seasonality, problems, AI companion names, warnings, safety disclaimer, `<FeedbackWidget>`, wrapped in `<PremiumGate>`.
+- Sub-components `PlantDetailHero` + `AIPlantExtras` keep the file readable.
+- Deleted `src/pages/AIPlantDetail.jsx` (230 lines). Both routes in `App.js` now point at the unified page.
+- Verified both `/plants/cherry-tomato` (curated) and `/plants/ai/ai-yarrow` (AI): correct sections render, JSON-LD present only on curated, AI badge present only on AI, Pinterest button present only on curated.
+
+**B · `SharePatchModal.jsx` refactor** — 745 → 211 lines
+- Extracted `useSharedPatch` hook (192 lines) covering state, localStorage persistence, URL builders (shareUrl, embedUrl, qrPdfUrl, socialKitUrl), `createOrUpdate`/`removeShare` API calls, and the auto-save-on-toggle effect.
+- Three new sub-components under `src/components/share/`:
+  - `ShareLinkRow.jsx` (106) — URL field + Copy / Open / Native-share / Refresh.
+  - `ShareSocialGrid.jsx` (213) — X / FB / WhatsApp / Pinterest / Email / Stories buttons. Holds the iOS-Facebook unfurl workaround comments + Tweet caption sanitiser + Web Share API Level 2 probe for the Stories button.
+  - `ShareAdvancedBlock.jsx` (104) — `<details>` disclosure with embed snippet, QR PDF, social-kit ZIP.
+- `SharePatchModal.jsx` is now just composition: header, no-region banner, error banner, create CTA, and the three sub-components.
+- Verified end-to-end via browser: open modal → create link → all 12 testids present → expand advanced → open embed → snippet generated. Backend share-preview + og.png still return 200.
+
+**SW bumped** `patchpot-v29` → `patchpot-v30`.
+
+
 ### Iteration 52 (2026-02-26): ✅ — "Recommended for me" rail + 58-locale translation
 
 User: *"P1: Build Recommended for me rail … P2: Translate plants.sort.* keys"*. Shipped both:

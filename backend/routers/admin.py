@@ -417,4 +417,51 @@ def make_router(db) -> APIRouter:
         )
         return {"ok": True, "removed": result.deleted_count, "slug": slug}
 
+    @router.post("/admin/backfill-ai-plant-stats")
+    async def admin_backfill_ai_plant_stats(token: str):
+        """One-shot: seed `ai_plant_stats` from existing
+        `guidance_cache:plant-guide:ai-*:en` rows so the Promote queue isn't
+        empty for popular AI guides that were generated *before* view tracking
+        was wired in (iteration 51). Each pre-existing guide gets a single
+        synthetic view so it's surfaced for triage without being misleadingly
+        ranked above genuinely popular new searches.
+
+        Idempotent — rows that already have a `view_count` are skipped, so
+        re-running won't double-seed."""
+        _require_admin(token)
+        now = datetime.now(timezone.utc).isoformat()
+        seeded = 0
+        skipped = 0
+        cursor = db.guidance_cache.find(
+            {"key": {"$regex": "^plant-guide:ai-[^:]+:en$"}},
+            {"key": 1, "data": 1, "created_at": 1},
+        )
+        async for row in cursor:
+            key = row.get("key") or ""
+            # plant-guide:ai-xxxxx:en  →  slug = ai-xxxxx
+            try:
+                slug = key.split(":", 2)[1]
+            except IndexError:
+                continue
+            if not slug.startswith("ai-"):
+                continue
+            existing = await db.ai_plant_stats.find_one({"slug": slug}, {"_id": 1})
+            if existing:
+                skipped += 1
+                continue
+            data = row.get("data") or {}
+            query = data.get("name") or slug.replace("ai-", "").replace("-", " ")
+            await db.ai_plant_stats.insert_one({
+                "slug": slug,
+                "query": query,
+                "view_count": 1,
+                "view_count_7d": 1,
+                "first_viewed_at": row.get("created_at") or now,
+                "last_viewed_at": row.get("created_at") or now,
+                "promoted": False,
+                "backfilled": True,  # so the admin can tell synthetic rows apart
+            })
+            seeded += 1
+        return {"ok": True, "seeded": seeded, "skipped": skipped}
+
     return router

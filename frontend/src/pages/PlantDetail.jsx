@@ -1,29 +1,89 @@
+/**
+ * Unified plant detail page — serves BOTH curated plants
+ * (`/plants/:id` → e.g. /plants/tomato) and AI-generated guides
+ * (`/plants/ai/:slug` → e.g. /plants/ai/ai-yarrow).
+ *
+ * The two flows share ~80% of the markup (hero image, title, spec grid,
+ * add/remove from garden, tags, SourceLinks). They diverge only on:
+ *   • Data source: `fetchPlant` vs `fetchCachedPlantGuide` + `fetchPlantGuide` fallback.
+ *   • Image: `<PlantImage>` for curated (uses static photo URL) vs
+ *     `<TopicImage>` for AI (Gemini-rendered watercolour on first view).
+ *   • Curated extras: SEO meta + JSON-LD + Pinterest button + CompanionsSection.
+ *   • AI extras: AI badge, growing tips, seasonality, problems, AI companion
+ *     names, warnings, safety disclaimer, FeedbackWidget — wrapped in
+ *     <PremiumGate> because AI guides are a paid feature.
+ *
+ * Routing remains unchanged (two routes in App.js); we just point both at
+ * this single component and branch on `useParams()`.
+ */
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff } from "lucide-react";
-import { fetchPlant } from "@/lib/api";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import {
+  ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff,
+  Sparkles, AlertTriangle, HandHelping, Loader2,
+} from "lucide-react";
+import {
+  fetchPlant, fetchPlantGuide, fetchCachedPlantGuide,
+} from "@/lib/api";
+import { formatApiError } from "@/lib/formatApiError";
 import PlantImage from "@/components/PlantImage";
+import TopicImage from "@/components/TopicImage";
 import CompanionsSection from "@/components/CompanionsSection";
 import SourceLinks from "@/components/SourceLinks";
+import FeedbackWidget from "@/components/FeedbackWidget";
+import PremiumGate from "@/components/PremiumGate";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useI18n } from "@/i18n";
 
 export default function PlantDetailPage() {
-  const { id } = useParams();
+  const params = useParams();
+  // Route /plants/ai/:slug uses `slug`; /plants/:id uses `id`. Whichever is
+  // present tells us which fetch path to follow.
+  const isAi = !!params.slug;
+  const idOrSlug = params.id || params.slug;
+  const [searchParams] = useSearchParams();
+  const queryParam = searchParams.get("q");
+
   const { t, lang } = useI18n();
-  const [plant, setPlant] = useState(null);
-  const [error, setError] = useState("");
   const { has, addPlant, removePlant } = useMyGarden();
 
-  useEffect(() => {
-    fetchPlant(id, lang).then(setPlant).catch(() => setError(t("plant.not_found")));
-  }, [id, lang, t]);
+  const [plant, setPlant] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  // SEO + social-share: dynamic <title>, description, og:image meta tags
-  // pointing at the backend-rendered card so JS-executing crawlers
-  // (Slack/Discord/Telegram) and Google's bot can unfurl this plant page.
   useEffect(() => {
-    if (typeof document === "undefined" || !plant) return;
+    let cancelled = false;
+    setLoading(true);
+    setError("");
+    setPlant(null);
+
+    const loader = isAi
+      ? fetchCachedPlantGuide(idOrSlug, lang).catch(() =>
+          queryParam
+            ? fetchPlantGuide(queryParam, lang)
+            : Promise.reject(new Error("missing-query"))
+        )
+      : fetchPlant(idOrSlug, lang);
+
+    loader
+      .then((data) => { if (!cancelled) setPlant(data); })
+      .catch((e) => {
+        if (cancelled) return;
+        setError(
+          isAi
+            ? formatApiError(e, t("ai_plant.not_found"))
+            : t("plant.not_found")
+        );
+      })
+      .finally(() => { if (!cancelled) setLoading(false); });
+
+    return () => { cancelled = true; };
+  }, [idOrSlug, isAi, queryParam, lang, t]);
+
+  // SEO meta + JSON-LD for curated plants only — AI guides are noindex by
+  // policy (paid gate + content varies between users on regeneration).
+  useEffect(() => {
+    if (isAi || typeof document === "undefined" || !plant) return;
     document.title = `How to grow ${plant.name} — Patch & Pot`;
     const bits = [plant.category, plant.difficulty].filter(Boolean).join("  ·  ");
     const desc = `${bits ? bits + ". " : ""}${plant.summary || `A small-space growing guide for ${plant.name} on Patch & Pot.`}`;
@@ -38,9 +98,7 @@ export default function PlantDetailPage() {
     ensurePlantMeta("og:image:height", "630", "property");
     ensurePlantMeta("twitter:card", "summary_large_image");
     ensurePlantMeta("twitter:image", imgUrl);
-    // JSON-LD Schema.org Article — surfaces this guide as a rich result in
-    // Google search (image + author + difficulty visible alongside the snippet).
-    const jsonld = {
+    ensureJsonLd("plant-jsonld", {
       "@context": "https://schema.org",
       "@type": "Article",
       headline: document.title,
@@ -57,84 +115,176 @@ export default function PlantDetailPage() {
       dateModified: new Date().toISOString().slice(0, 10),
       mainEntityOfPage: window.location.href,
       about: { "@type": "Thing", name: plant.name },
-    };
-    ensureJsonLd("plant-jsonld", jsonld);
-  }, [plant]);
+    });
+  }, [plant, isAi]);
 
-  if (error) return <div className="container-narrow py-16 text-terracotta">{error}</div>;
-  if (!plant) return <div className="container-narrow py-16 text-moss">{t("plant.loading")}</div>;
+  if (loading) {
+    return (
+      <div
+        className="container-narrow py-16 flex items-center gap-3 text-moss"
+        data-testid={isAi ? "ai-plant-loading" : "plant-loading"}
+      >
+        <Loader2 strokeWidth={1.4} className="w-4 h-4 animate-spin" />
+        <span>{isAi ? t("ai_plant.loading") : t("plant.loading")}</span>
+      </div>
+    );
+  }
+  if (error || !plant) {
+    return (
+      <div className="container-narrow py-16">
+        <p
+          className="text-terracotta"
+          data-testid={isAi ? "ai-plant-error-message" : "plant-error"}
+        >
+          {error || (isAi ? t("ai_plant.not_found") : t("plant.not_found"))}
+        </p>
+        <Link to="/plants" className="btn-ghost mt-6 inline-flex">{t("plant.back")}</Link>
+      </div>
+    );
+  }
 
-  const inGarden = has(plant.id);
-
-  return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
-      <Link to="/plants" data-testid="back-to-plants" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
+  const body = (
+    <div
+      className="container-narrow py-12 md:py-16 animate-fade-up"
+      data-testid={isAi ? `ai-plant-${plant.id}` : undefined}
+    >
+      <Link
+        to="/plants"
+        data-testid="back-to-plants"
+        className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8"
+      >
         <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("plant.back")}
       </Link>
 
-      <div className="grid md:grid-cols-12 gap-10">
-        <div className="md:col-span-6">
-          <div className="aspect-square overflow-hidden border border-border">
+      <PlantDetailHero
+        plant={plant}
+        isAi={isAi}
+        inGarden={has(plant.id)}
+        onAdd={() => addPlant(plant)}
+        onRemove={() => removePlant(plant.id)}
+        t={t}
+      />
+
+      {/* Curated-only: companions from the DB-curated list */}
+      {!isAi && <CompanionsSection plantId={plant.id} />}
+
+      {/* AI-only: growing tips, seasonality, problems, companions, warnings */}
+      {isAi && <AIPlantExtras plant={plant} t={t} />}
+
+      <SourceLinks plant={plant} />
+
+      {isAi && (
+        <FeedbackWidget
+          targetType="plant-guide"
+          targetId={plant.id}
+          label="Spot something off?"
+        />
+      )}
+    </div>
+  );
+
+  return isAi ? <PremiumGate>{body}</PremiumGate> : body;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hero section — image + title + specs + actions + tags             */
+/* ------------------------------------------------------------------ */
+function PlantDetailHero({ plant, isAi, inGarden, onAdd, onRemove, t }) {
+  // Curated plants store the Latin name on `botanical`; AI guides store
+  // it on `botanical_name`. Normalise so the hero renders the same.
+  const botanical = plant.botanical || plant.botanical_name || "";
+
+  return (
+    <div className="grid md:grid-cols-12 gap-10">
+      <div className="md:col-span-6">
+        <div className={`aspect-square overflow-hidden border border-border ${isAi ? "bg-surface" : ""}`}>
+          {isAi ? (
+            <TopicImage
+              subject={`a single ${plant.name}${botanical ? ` (${botanical})` : ""} plant, botanical editorial photograph, soft natural light`}
+              cacheKey={`plant-image:${plant.id}`}
+              alt={plant.name}
+              eager
+            />
+          ) : (
             <PlantImage plant={plant} eager />
-          </div>
+          )}
+        </div>
+      </div>
+
+      <div className="md:col-span-6">
+        <div className="flex items-center gap-2 mb-2">
+          {isAi && (
+            <span className="inline-flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase px-2.5 py-1 border border-terracotta/40 text-terracotta">
+              <Sparkles className="w-3 h-3" strokeWidth={1.5} /> AI-generated guide
+            </span>
+          )}
+          <p className="overline">{plant.category}</p>
+        </div>
+        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-1 tracking-tight">{plant.name}</h1>
+        {botanical && (
+          <p
+            className="font-serif italic text-base md:text-lg text-moss/80 mt-2"
+            data-testid="plant-detail-botanical"
+          >
+            {botanical}
+          </p>
+        )}
+        <p className="text-ink/80 mt-5 text-lg leading-relaxed">{plant.summary}</p>
+
+        <div className="grid grid-cols-2 gap-4 mt-8">
+          <Spec icon={Sun} label={t("plant.sun")} value={plant.sun} />
+          <Spec icon={Droplets} label={t("plant.water")} value={plant.water} />
+          <Spec icon={Sprout} label={t("plant.soil")} value={plant.soil} />
+          <Spec icon={Sprout} label={t("plant.difficulty")} value={plant.difficulty} />
+          <Spec
+            icon={Sprout}
+            label={t("plant.container")}
+            value={plant.container ? t("common.yes") : t("common.no")}
+          />
+          <Spec icon={Sprout} label={t("plant.edible_part")} value={plant.edible_part} />
+          {/* Curated-only metadata. AI guides don't return lifecycle/hardiness. */}
+          {!isAi && plant.lifecycle && (
+            <Spec
+              icon={Sprout}
+              label={t("plant.lifecycle")}
+              value={t(`plants.lifecycle.${plant.lifecycle}`)}
+            />
+          )}
+          {!isAi && plant.hardiness && (
+            <Spec
+              icon={Sprout}
+              label={t("plant.hardiness")}
+              value={t(`plants.hardiness.${plant.hardiness}`)}
+            />
+          )}
         </div>
 
-        <div className="md:col-span-6">
-          <p className="overline">{plant.category}</p>
-          <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{plant.name}</h1>
-          {plant.botanical && (
-            <p className="font-serif italic text-base md:text-lg text-moss/80 mt-2" data-testid="plant-detail-botanical">
-              {plant.botanical}
-            </p>
+        <div className="mt-10 flex flex-wrap gap-3">
+          {inGarden ? (
+            <button
+              type="button"
+              data-testid="remove-from-garden"
+              onClick={onRemove}
+              className="btn-ghost inline-flex items-center gap-2"
+            >
+              <HeartOff strokeWidth={1.5} className="w-4 h-4" /> {t("plant.remove")}
+            </button>
+          ) : (
+            <button
+              type="button"
+              data-testid="add-to-garden"
+              onClick={onAdd}
+              className="btn-terracotta inline-flex items-center gap-2"
+            >
+              <Heart strokeWidth={1.5} className="w-4 h-4" /> {t("plant.add")}
+            </button>
           )}
-          <p className="text-ink/80 mt-5 text-lg leading-relaxed">{plant.summary}</p>
-
-          <div className="grid grid-cols-2 gap-4 mt-8">
-            <Spec icon={Sun} label={t("plant.sun")} value={plant.sun} />
-            <Spec icon={Droplets} label={t("plant.water")} value={plant.water} />
-            <Spec icon={Sprout} label={t("plant.soil")} value={plant.soil} />
-            <Spec icon={Sprout} label={t("plant.difficulty")} value={plant.difficulty} />
-            <Spec icon={Sprout} label={t("plant.container")} value={plant.container ? t("common.yes") : t("common.no")} />
-            <Spec icon={Sprout} label={t("plant.edible_part")} value={plant.edible_part} />
-            {plant.lifecycle && (
-              <Spec
-                icon={Sprout}
-                label={t("plant.lifecycle")}
-                value={t(`plants.lifecycle.${plant.lifecycle}`)}
-              />
-            )}
-            {plant.hardiness && (
-              <Spec
-                icon={Sprout}
-                label={t("plant.hardiness")}
-                value={t(`plants.hardiness.${plant.hardiness}`)}
-              />
-            )}
-          </div>
-
-          <div className="mt-10 flex flex-wrap gap-3">
-            {inGarden ? (
-              <button
-                type="button"
-                data-testid="remove-from-garden"
-                onClick={() => removePlant(plant.id)}
-                className="btn-ghost inline-flex items-center gap-2"
-              >
-                <HeartOff strokeWidth={1.5} className="w-4 h-4" /> {t("plant.remove")}
-              </button>
-            ) : (
-              <button
-                type="button"
-                data-testid="add-to-garden"
-                onClick={() => addPlant(plant)}
-                className="btn-terracotta inline-flex items-center gap-2"
-              >
-                <Heart strokeWidth={1.5} className="w-4 h-4" /> {t("plant.add")}
-              </button>
-            )}
-            <Link to="/calendar" data-testid="see-month-guide" className="btn-ghost">
-              {t("plant.see_month")}
-            </Link>
+          <Link to="/calendar" data-testid="see-month-guide" className="btn-ghost">
+            {t("plant.see_month")}
+          </Link>
+          {/* Pinterest pin button is curated-only — AI guides are paid and
+              shouldn't pollute Pinterest with shareable cards. */}
+          {!isAi && (
             <a
               href={pinterestUrl(plant, t)}
               target="_blank"
@@ -149,26 +299,124 @@ export default function PlantDetailPage() {
               </svg>
               {t("plant.pin_to_pinterest")}
             </a>
-          </div>
-
-          {plant.tags && plant.tags.length > 0 && (
-            <div className="mt-10 flex flex-wrap gap-2">
-              {plant.tags.map((t2) => (
-                <span key={t2} className="text-xs px-3 py-1 border border-border bg-surface text-moss tracking-wider uppercase">
-                  {t2}
-                </span>
-              ))}
-            </div>
           )}
         </div>
-      </div>
 
-      <CompanionsSection plantId={plant.id} />
-      <SourceLinks plant={plant} />
+        {plant.tags && plant.tags.length > 0 && (
+          <div className={`flex flex-wrap gap-2 ${isAi ? "mt-8" : "mt-10"}`}>
+            {plant.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-3 py-1 border border-border bg-surface text-moss tracking-wider uppercase"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
+/* ------------------------------------------------------------------ */
+/*  AI-only extras                                                     */
+/* ------------------------------------------------------------------ */
+function AIPlantExtras({ plant, t }) {
+  return (
+    <>
+      {plant.growing && plant.growing.length > 0 && (
+        <section
+          className="mt-16 border-t border-border pt-10 max-w-3xl"
+          data-testid="ai-plant-growing"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <Sprout strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+            <span className="overline">{t("ai_plant.growing_tips")}</span>
+          </div>
+          <ol className="space-y-4">
+            {plant.growing.map((tip, i) => (
+              <li key={tip} className="flex gap-4 leading-relaxed">
+                <span className="font-serif text-2xl text-terracotta flex-shrink-0 w-8">{i + 1}</span>
+                <span className="text-ink/80 pt-1">{tip}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {plant.seasonality && (
+        <section className="mt-12 max-w-3xl">
+          <p className="overline">{t("ai_plant.season")}</p>
+          <p className="font-serif text-2xl text-forest mt-2 leading-snug">
+            {plant.seasonality}
+          </p>
+        </section>
+      )}
+
+      {plant.problems && plant.problems.length > 0 && (
+        <section className="mt-12 max-w-3xl" data-testid="ai-plant-problems">
+          <div className="flex items-center gap-3 mb-5">
+            <AlertTriangle strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+            <span className="overline">{t("ai_plant.common_problems")}</span>
+          </div>
+          <ul className="space-y-4">
+            {plant.problems.map((p) => (
+              <li
+                key={p.name}
+                className="border-b border-border last:border-b-0 pb-4 last:pb-0"
+              >
+                <p className="font-serif text-xl text-forest">{p.name}</p>
+                <p className="text-sm text-ink/80 mt-1">{p.solution}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {plant.companions && plant.companions.length > 0 && (
+        <section className="mt-12 max-w-3xl" data-testid="ai-plant-companions">
+          <div className="flex items-center gap-3 mb-5">
+            <HandHelping strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+            <span className="overline">{t("ai_plant.plants_well_with")}</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {plant.companions.map((c) => (
+              <span key={c} className="px-3 py-2 border border-border bg-surface text-forest text-sm">
+                {c}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {plant.warnings && (
+        <section
+          className="mt-12 max-w-3xl border border-terracotta/40 bg-terracotta/5 p-6"
+          data-testid="ai-plant-warning"
+        >
+          <div className="flex gap-3 items-start">
+            <AlertTriangle strokeWidth={1.4} className="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" />
+            <p className="text-ink/80 leading-relaxed">{plant.warnings}</p>
+          </div>
+        </section>
+      )}
+
+      <p
+        className="mt-16 text-xs text-moss border-t border-border pt-6 max-w-3xl leading-relaxed"
+        data-testid="ai-plant-disclaimer"
+      >
+        This plant guide is generated by AI from publicly available horticultural knowledge.
+        Before eating any part of a plant, cross-check with a trusted local source or grower.
+        Toxicity and edibility vary by variety, growing conditions and individual sensitivity.
+      </p>
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tiny shared helpers                                                */
+/* ------------------------------------------------------------------ */
 function Spec({ icon: Icon, label, value }) {
   return (
     <div className="border-l border-border pl-4">
@@ -192,16 +440,6 @@ function ensurePlantMeta(name, content, attr = "name") {
   el.setAttribute("content", content);
 }
 
-function pinterestUrl(plant, t) {
-  const origin = typeof window !== "undefined" ? window.location.origin : "";
-  const url = `${origin}/api/plants/preview/${plant.id}`;
-  const image = `${origin}/api/plants/${plant.id}/og.png`;
-  const desc = t("plant.pin_description", { name: plant.name });
-  return `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&media=${encodeURIComponent(image)}&description=${encodeURIComponent(desc)}`;
-}
-
-// Inject (or replace) a <script type="application/ld+json"> element by a
-// stable data-tag attribute so React re-renders don't pile up duplicates.
 function ensureJsonLd(tag, data) {
   if (typeof document === "undefined") return;
   let el = document.head.querySelector(`script[data-jsonld="${tag}"]`);
@@ -212,4 +450,12 @@ function ensureJsonLd(tag, data) {
     document.head.appendChild(el);
   }
   el.textContent = JSON.stringify(data);
+}
+
+function pinterestUrl(plant, t) {
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  const url = `${origin}/api/plants/preview/${plant.id}`;
+  const image = `${origin}/api/plants/${plant.id}/og.png`;
+  const desc = t("plant.pin_description", { name: plant.name });
+  return `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&media=${encodeURIComponent(image)}&description=${encodeURIComponent(desc)}`;
 }

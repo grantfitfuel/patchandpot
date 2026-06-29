@@ -3,7 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Search, Sun, Droplets, Sprout, Sparkles, Loader2 } from "lucide-react";
 import { fetchPlants, fetchPlantGuide, fetchRecentAIPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
+import RecommendedRail from "@/components/RecommendedRail";
 import { useI18n } from "@/i18n";
+import { useRegion } from "@/hooks/useRegion";
+import { useMyGarden } from "@/hooks/useMyGarden";
 import { formatApiError } from "@/lib/formatApiError";
 
 // Each group may declare `subFilters`: a list of {key, label, categories?, tags?}.
@@ -74,6 +77,8 @@ function matchesSubFilter(p, sf) {
 export default function PlantsPage() {
   const { t, lang } = useI18n();
   const navigate = useNavigate();
+  const { region } = useRegion();
+  const { plants: myGarden } = useMyGarden();
   const [plants, setPlants] = useState([]);
   const [recent, setRecent] = useState([]);
   const [query, setQuery] = useState("");
@@ -282,6 +287,17 @@ export default function PlantsPage() {
             {generating ? "Growing your guide…" : `Ask about ${query.trim().split(" ")[0]}`}
           </button>
         </div>
+      )}
+
+      {/* Recommended rail — only on the unfiltered default view, so it
+          doesn't fight a user who's already drilled into a category. */}
+      {group === "all" && !subFilterKey && !lifecycle && !query.trim() && (
+        <RecommendedRail
+          plants={plants}
+          region={region}
+          excludeIds={(myGarden || []).map((p) => p?.id).filter(Boolean)}
+          variant="compact"
+        />
       )}
 
       {/* Recently searched AI plants rail */}

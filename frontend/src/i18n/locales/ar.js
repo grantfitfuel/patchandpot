@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "غرّد هذه اللصقة",
   "share_patch.story.action": "شارك في القصص / الريلز",
 
+  "plants.sort.default": "الفرز: مميز",
+  "plants.sort.az": "الفرز: من أ إلى ي",
+  "plants.sort.difficulty": "الفرز: الأسهل أولاً",
+  "plants.sort.lifecycle": "الفرز: حسب دورة الحياة",
+  "recommended.eyebrow": "موصى به لك",
+  "recommended.title": "اختيارات جيدة لـ {season}",
+  "recommended.subtitle": "من مكتبتنا — مُعدة لما يستحق البدء في {month} حيث تنمو في {region}.",
+  "recommended.subtitle_no_region": "من مكتبتنا — مُعدة لما يستحق البدء في {month}. قم بتعيين منطقتك للحصول على اختيارات مصممة وفقًا لمناخك.",
+  "recommended.more": "شاهد جميع النباتات",
+  "recommended.season.spring": "الربيع",
+  "recommended.season.summer": "الصيف",
+  "recommended.season.autumn": "الخريف",
+  "recommended.season.winter": "الشتاء",
 };
-
 export default dict;

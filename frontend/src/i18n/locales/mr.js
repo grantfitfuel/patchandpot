@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "या पॅचला ट्वीट करा",
   "share_patch.story.action": "कथा / रील्स वर सामायिक करा",
 
+  "plants.sort.default": "सॉर्ट: वैशिष्ट्यीकृत",
+  "plants.sort.az": "सॉर्ट: A → Z",
+  "plants.sort.difficulty": "सॉर्ट: सर्वात सोपे प्रथम",
+  "plants.sort.lifecycle": "सॉर्ट: जीवनचक्रानुसार",
+  "recommended.eyebrow": "तुमच्यासाठी शिफारस केलेले",
+  "recommended.title": "{season} साठी चांगले निवडी",
+  "recommended.subtitle": "{region} मध्ये तुम्ही वाढवत असलेल्या {month} मध्ये सुरुवात करण्यायोग्य गोष्टींना समर्पित आमच्या ग्रंथालयातून.",
+  "recommended.subtitle_no_region": "{month} मध्ये सुरुवात करण्यायोग्य गोष्टींना समर्पित आमच्या ग्रंथालयातून. तुमच्या климатानुसार निवडक गोष्टींसाठी तुमचा प्रदेश सेट करा.",
+  "recommended.more": "सर्व वनस्पती पहा",
+  "recommended.season.spring": "वसंत",
+  "recommended.season.summer": "उन्हाळा",
+  "recommended.season.autumn": "हाunate",
+  "recommended.season.winter": "शीतकाल",
 };
-
 export default dict;

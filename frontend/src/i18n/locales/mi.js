@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "Tūhono i tēnei patch",
   "share_patch.story.action": "Tāpirihia ki ngā pūrākau / Rīpene",
 
+  "plants.sort.default": "Tēnā: ngā mea rongonui",
+  "plants.sort.az": "Tēnā: A → Z",
+  "plants.sort.difficulty": "Tēnā: ngā mea kēhi tuatahi",
+  "plants.sort.lifecycle": "Tēnā: e pā ana ki te oranga",
+  "recommended.eyebrow": "E tūtohu ana mōu",
+  "recommended.title": "Ngā kōwhiringa pai mō {season}",
+  "recommended.subtitle": "Mai i tā mātou pūranga — he rānei e pai ana ki te tīmata i te {month} kei te tupu koe i {region}.",
+  "recommended.subtitle_no_region": "Mai i tā mātou pūranga — he rānei e pai ana ki te tīmata i te {month}. Whakaritea tō rohe mō ngā kōwhiringa e hāngai ana ki tō āhuarangi.",
+  "recommended.more": "Tirohia katoa ngā plants",
+  "recommended.season.spring": "puna",
+  "recommended.season.summer": "raumatua",
+  "recommended.season.autumn": "take",
+  "recommended.season.winter": "hotoke",
 };
-
 export default dict;

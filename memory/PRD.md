@@ -28,6 +28,30 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 52 (2026-02-26): ✅ — "Recommended for me" rail + 58-locale translation
+
+User: *"P1: Build Recommended for me rail … P2: Translate plants.sort.* keys"*. Shipped both:
+
+**P1 — `RecommendedRail` component** (`src/components/RecommendedRail.jsx`)
+- Pure client-side scoring on top of the existing `/api/plants` payload — no extra network call, paints instantly with the page.
+- Inputs: `plants`, `region`, `month` (optional override; defaults to current month), `excludeIds` (plant IDs already in the user's active patch), `variant` ("default" | "compact"), `count` (default 4).
+- Region → hemisphere → season mapping (NH/SH). Score blends season-tag match (+5), helpful-trait bonuses (cool-season + winter, drought + summer, autumn bulbs, evergreen, year-round, long-bloom), easy-win signals (beginner, very-easy, fast, productive), and a hard penalty for tender plants in winter so we don't recommend tomatoes in February to a London garden. Excludes plants already in the active patch.
+- Deterministic seeded shuffle (seed = year × 100 + month + hemisphere offset) so the rail rotates monthly without breaking the top score-rank.
+- **Verified**: June (NH London) → Cherry Tomato, Chickpea, Cos Lettuce, Melon. February (NH London) → Camellia, Celeriac, Leek, Parsnip. Winter picks correctly drop tender summer crops.
+- **Mounted on**:
+  - `Calendar.jsx` (Monthly Guide) — between MonthSelector and GuidanceView. Tracks `month` from the MonthSelector so picks update as the user scrubs months.
+  - `Plants.jsx` (Library) — only on the unfiltered default view (`group === "all" && !subFilterKey && !lifecycle && !query.trim()`) so it doesn't fight a user who's already drilled into a category. Uses the compact variant.
+
+**P2 — 58-language translation**
+- New i18n keys: `recommended.eyebrow / title / subtitle / subtitle_no_region / more / season.{spring|summer|autumn|winter}`.
+- Wrote `/app/scripts/translate_recommended_and_sort_keys.py` — reuses the LOCALES + LLM helper from the older `translate_new_keys.py`, but speaks the *new* per-locale layout (`src/i18n/locales/{code}.js`) instead of the legacy monolithic `index.jsx`. Replaces existing key rows or inserts before the closing `};`.
+- Translated all 57 non-EN locales in a single run (57/57 success) — plus the four `plants.sort.*` keys that were carrying English fallback.
+- Sanity-checked DE, FR, JA, ZH, AR, UR, HI, GD, KO, RU. Verified the `{season}` placeholder survived in every locale. Lint passed on all 58 files.
+- **Verified DE in browser**: "EMPFOHLEN FÜR DICH" / "Gute Auswahl für Sommer" / picks named in German.
+
+**SW bumped** `patchpot-v28` → `patchpot-v29`.
+
+
 ### Iteration 51 (2026-02-26): ✅ — Admin "Promote AI search" tool
 
 User: *"a like I asked"* (Option A: finish the AI-promote tool that was queued mid-session). Built the full workflow:

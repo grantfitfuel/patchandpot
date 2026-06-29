@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "ಈ ಪ್ಯಾಚ್ ಅನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ",
   "share_patch.story.action": "ಶೇರ್ ಮಾಡಿ ಕಥೆಗಳು / ರೀಲ್ಸ್",
 
+  "plants.sort.default": "ವರ್ಗೀಕರಣ: ವಿಶೇಷ",
+  "plants.sort.az": "ವರ್ಗೀಕರಣ: A → Z",
+  "plants.sort.difficulty": "ವರ್ಗೀಕರಣ: ಸುಲಭವಾದುದರಿಂದ ಪ್ರಾರಂಭವಾಗಲಿದೆ",
+  "plants.sort.lifecycle": "ವರ್ಗೀಕರಣ: ಜೀವಚಾರದಲ್ಲಿ",
+  "recommended.eyebrow": "ನಿಮಗಾಗಿ ಶಿಫಾರಸು",
+  "recommended.title": "{season} ಗೆ ಉತ್ತಮ ಆಯ್ಕೆಗಳು",
+  "recommended.subtitle": "ನಮ್ಮ ಪುಸ್ತಕಾಲಯದಿಂದ — ನಿಮ್ಮ ಬೆಳೆಯುವ {region} ಸ್ಥಳದಲ್ಲಿ {month} ನಲ್ಲಿ ಆರಂಭಿಸಲು ಪ್ರWorthವಾಗಿದೆ.",
+  "recommended.subtitle_no_region": "ನಮ್ಮ ಪುಸ್ತಕಾಲಯದಿಂದ — {month} ನಲ್ಲಿ ಆರಂಭಿಸಲು ಪ್ರWorthವಾಗಿದೆ ಎಂದು ಹೊಂದಿಸಲಾಗಿದೆ. ನಿಮ್ಮ ಹವಾಮಾನಕ್ಕೆ ಹೊಂದುವ ಆಯ್ಕೆಗಳನ್ನು ಹೊಂದಿಸಲು ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಹೊಂದಿಸು.",
+  "recommended.more": "ಎಲ್ಲಾ ಗಿಡಗಳನ್ನು ನೋಡಿ",
+  "recommended.season.spring": "ಮೂಡಿನ ಕಾಲ",
+  "recommended.season.summer": "ರಾಡಿನ ಕಾಲ",
+  "recommended.season.autumn": "ಊರಕಾಲ",
+  "recommended.season.winter": "ಹರಿದುಕೊಂಡು ಕಾಲ",
 };
-
 export default dict;

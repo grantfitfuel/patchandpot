@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "Twiitige seda plaastrit",
   "share_patch.story.action": "Jaga Lugudesse / Rullidesse",
 
+  "plants.sort.default": "Sorteeri: esitlevad",
+  "plants.sort.az": "Sorteeri: A → Z",
+  "plants.sort.difficulty": "Sorteeri: algajad ees",
+  "plants.sort.lifecycle": "Sorteeri: elutsükli järgi",
+  "recommended.eyebrow": "Soovitatud sulle",
+  "recommended.title": "Hea valik {season} jaoks",
+  "recommended.subtitle": "Meie raamatukogust — kohandatud sellele, mis on väärt algust {month} sinu kasvupiirkonnas {region}.",
+  "recommended.subtitle_no_region": "Meie raamatukogust — kohandatud sellele, mis on väärt algust {month}. Määra oma piirkond, et saada valik, mis on kohandatud sinu kliimale.",
+  "recommended.more": "Vaata kõiki taimi",
+  "recommended.season.spring": " kevad",
+  "recommended.season.summer": " suvi",
+  "recommended.season.autumn": " sügis",
+  "recommended.season.winter": " talv",
 };
-
 export default dict;

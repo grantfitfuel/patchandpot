@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweeta þessa lappar",
   "share_patch.story.action": "Deildu á Sögum / Reels",
 
+  "plants.sort.default": "Flokkun: sýndir",
+  "plants.sort.az": "Flokkun: A → Z",
+  "plants.sort.difficulty": "Flokkun: auðveldustu fyrst",
+  "plants.sort.lifecycle": "Flokkun: eftir lífsferli",
+  "recommended.eyebrow": "Mælt fyrir þig",
+  "recommended.title": "Góðar tillögur fyrir {season}",
+  "recommended.subtitle": "Frá bókasafninu okkar — aðlagað að því sem er þess virði að byrja í {month} þar sem þú að þroska í {region}.",
+  "recommended.subtitle_no_region": "Frá bókasafninu okkar — aðlagað að því sem er þess virði að byrja í {month}. Settu svæðið þitt fyrir tillögur sem eru sérsniðnar að loftslagi þínu.",
+  "recommended.more": "Sjá öll plöntur",
+  "recommended.season.spring": "vor",
+  "recommended.season.summer": "sumar",
+  "recommended.season.autumn": "haust",
+  "recommended.season.winter": "vetur",
 };
-
 export default dict;

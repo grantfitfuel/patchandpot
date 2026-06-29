@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "ਇਸ ਪੈਚ ਨੂੰ ਟਵੀਟ ਕਰੋ",
   "share_patch.story.action": "Share to ਕਹਾਣੀਆਂ / ਰੀਲਜ਼",
 
+  "plants.sort.default": "ਛਾਂਟੋ: ਚੋਟੀ ਦੇ",
+  "plants.sort.az": "ਛਾਂਟੋ: A → Z",
+  "plants.sort.difficulty": "ਛਾਂਟੋ: ਆਸਾਨ ਪਹਿਲਾਂ",
+  "plants.sort.lifecycle": "ਛਾਂਟੋ: ਜੀਵਨ ਚੱਕਰ ਦੇ ਆਧਾਰ 'ਤੇ",
+  "recommended.eyebrow": "ਤੁਹਾਡੇ ਲਈ ਸੁਝਾਏ",
+  "recommended.title": "{season} ਲਈ ਵਧੀਆ ਚੋਣਾਂ",
+  "recommended.subtitle": "ਸਾਡੇ ਲਾਇਬ੍ਰੇਰੀ ਤੋਂ — ਜੋ {month} ਵਿੱਚ ਤੁਹਾਡੇ {region} ਵਿੱਚ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਮੋਤੀਆਂ ਹਨ।",
+  "recommended.subtitle_no_region": "ਸਾਡੇ ਲਾਇਬ੍ਰੇਰੀ ਤੋਂ — ਜੋ {month} ਵਿੱਚ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਮੋਤੀਆਂ ਹਨ। ਆਪਣੇ ਆਰਿਆ ਰੁੱਤ ਲਈ ਚੋਣਾਂ ਦਿਓ।",
+  "recommended.more": "ਸਾਰੇ ਪੌਦੇ ਵੇਖੋ",
+  "recommended.season.spring": "ਬੱਸੰਤ",
+  "recommended.season.summer": "ਗਰਮੀ",
+  "recommended.season.autumn": "ਸਰਦੀਆਂ",
+  "recommended.season.winter": "ਸਰਦੀਆਂ",
 };
-
 export default dict;

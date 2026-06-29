@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweeteld ezt a patch-et",
   "share_patch.story.action": "Megosztás a Történetekhez / Reels-hez",
 
+  "plants.sort.default": "Rendezés: kiemelt",
+  "plants.sort.az": "Rendezés: A → Z",
+  "plants.sort.difficulty": "Rendezés: legkönnyebb elöl",
+  "plants.sort.lifecycle": "Rendezés: életciklus szerint",
+  "recommended.eyebrow": "Ajánlott önnek",
+  "recommended.title": "Jó választások {season} időszakra",
+  "recommended.subtitle": "Könyvtárunkból — a {month} hónapban érdemes kezdeni, ahol {region} területén növeszt.",
+  "recommended.subtitle_no_region": "Könyvtárunkból — a {month} hónapban érdemes kezdeni. Állítsa be a régióját az éghajlatához igazított választásokhoz.",
+  "recommended.more": "Minden növény megtekintése",
+  "recommended.season.spring": "tavasz",
+  "recommended.season.summer": "nyár",
+  "recommended.season.autumn": "ősz",
+  "recommended.season.winter": "tél",
 };
-
 export default dict;

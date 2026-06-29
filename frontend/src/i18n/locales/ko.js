@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "이 패치를 트윗하세요",
   "share_patch.story.action": "Stories / 릴스에 공유하기",
 
+  "plants.sort.default": "정렬: 추천",
+  "plants.sort.az": "정렬: A → Z",
+  "plants.sort.difficulty": "정렬: 가장 쉬운 것부터",
+  "plants.sort.lifecycle": "정렬: 생애 주기별",
+  "recommended.eyebrow": "추천 드립니다",
+  "recommended.title": "{season}을 위한 좋은 선택",
+  "recommended.subtitle": "저희 도서관에서 — {region}에서 자라는 {month}에 시작할 가치가 있는 것들에 맞춰 조정되었습니다.",
+  "recommended.subtitle_no_region": "저희 도서관에서 — {month}에 시작할 가치가 있는 것들에 맞춰 조정되었습니다. 귀하의 기후에 맞는 선택을 위해 지역을 설정하세요.",
+  "recommended.more": "모든 식물 보기",
+  "recommended.season.spring": "봄",
+  "recommended.season.summer": "여름",
+  "recommended.season.autumn": "가을",
+  "recommended.season.winter": "겨울",
 };
-
 export default dict;

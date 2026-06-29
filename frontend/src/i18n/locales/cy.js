@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "Tweetio'r patch hwn",
   "share_patch.story.action": "Rhannwch i Storiau / Reels",
 
+  "plants.sort.default": "Trefnu: wedi eu harddangos",
+  "plants.sort.az": "Trefnu: A → Z",
+  "plants.sort.difficulty": "Trefnu: y rhwyddaf yn gyntaf",
+  "plants.sort.lifecycle": "Trefnu: yn ôl cylch bywyd",
+  "recommended.eyebrow": "Argymelledig i chi",
+  "recommended.title": "Pethau da ar gyfer {season}",
+  "recommended.subtitle": "O’n llyfrgell ni — wedi'i addasu i'r rheini sy'n werth dechrau yn {month} lle rydych chi'n tyfu yn {region}.",
+  "recommended.subtitle_no_region": "O’n llyfrgell ni — wedi'i addasu i'r rheini sy'n werth dechrau yn {month}. Gosodwch eich ardal am ddewis wedi'i deilwra i'ch hinsawdd.",
+  "recommended.more": "Gweld pob planhigyn",
+  "recommended.season.spring": "gwanwyn",
+  "recommended.season.summer": "haf",
+  "recommended.season.autumn": "hydref",
+  "recommended.season.winter": "gwydr",
 };
-
 export default dict;

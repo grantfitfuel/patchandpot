@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "اس پیچ کو ٹویٹ کریں",
   "share_patch.story.action": "شیئر کریں کہانیاں / ریلز",
 
+  "plants.sort.default": "ترتیب: نمایاں",
+  "plants.sort.az": "ترتیب: A → Z",
+  "plants.sort.difficulty": "ترتیب: سب سے آسان پہلے",
+  "plants.sort.lifecycle": "ترتیب: زندگی کے دور کے مطابق",
+  "recommended.eyebrow": "آپ کے لیے تجویز کردہ",
+  "recommended.title": "{season} کے لیے اچھی منتخب کردہ",
+  "recommended.subtitle": "ہماری کتابوں سے — {region} میں اگانے کے مقام کے مطابق {month} میں شروع کرنے کے لائق کیا ہے اس کے مطابق تعدیل شدہ۔",
+  "recommended.subtitle_no_region": "ہماری کتابوں سے — {month} میں شروع کرنے کے لائق کیا ہے اس کے مطابق تعدیل شدہ۔ اپنے علاقے کو ترتیب دیں تاکہ آپکے آب و ہوا کے مطابق منتخب کردہ چیزیں ملیں۔",
+  "recommended.more": "تمام پودے دیکھیں",
+  "recommended.season.spring": "بہار",
+  "recommended.season.summer": "گرمیوں",
+  "recommended.season.autumn": "خزاں",
+  "recommended.season.winter": "سردی",
 };
-
 export default dict;

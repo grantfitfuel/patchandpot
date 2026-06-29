@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "Туитни този патч",
   "share_patch.story.action": "Сподели в Stories / Reels",
 
+  "plants.sort.default": "Сортиране: най-предпочитани",
+  "plants.sort.az": "Сортиране: A → Я",
+  "plants.sort.difficulty": "Сортиране: най-лесни първо",
+  "plants.sort.lifecycle": "Сортиране: по жизнен цикъл",
+  "recommended.eyebrow": "Препоръчано за вас",
+  "recommended.title": "Добри избори за {season}",
+  "recommended.subtitle": "От нашата библиотека — настроена на това, което си струва да започнете през {month}, където отглеждате в {region}.",
+  "recommended.subtitle_no_region": "От нашата библиотека — настроена на това, което си струва да започнете през {month}. Настройте региона си за избори, съобразени с вашия климат.",
+  "recommended.more": "Вижте всички растения",
+  "recommended.season.spring": "пролет",
+  "recommended.season.summer": "лято",
+  "recommended.season.autumn": "есен",
+  "recommended.season.winter": "зима",
 };
-
 export default dict;

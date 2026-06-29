@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweetnij tę łatkę",
   "share_patch.story.action": "Udostępnij na Stories / Reels",
 
+  "plants.sort.default": "Sortuj: wyróżnione",
+  "plants.sort.az": "Sortuj: A → Z",
+  "plants.sort.difficulty": "Sortuj: najłatwiejsze pierwsze",
+  "plants.sort.lifecycle": "Sortuj: według cyklu życia",
+  "recommended.eyebrow": "Zalecane dla Ciebie",
+  "recommended.title": "Dobre wybory na {season}",
+  "recommended.subtitle": "Z naszej biblioteki — dopasowane do tego, co warto zacząć w {month} tam, gdzie rośnie w {region}.",
+  "recommended.subtitle_no_region": "Z naszej biblioteki — dopasowane do tego, co warto zacząć w {month}. Ustaw swój region, aby uzyskać wybory dostosowane do twojego klimatu.",
+  "recommended.more": "Zobacz wszystkie rośliny",
+  "recommended.season.spring": "wiosna",
+  "recommended.season.summer": "lato",
+  "recommended.season.autumn": "jesień",
+  "recommended.season.winter": "zima",
 };
-
 export default dict;

@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Bu patch-i twitlə",
   "share_patch.story.action": "Paylaşmaq üçün Hekayələrə / Reellərə",
 
+  "plants.sort.default": "Sıralama: önə çıxanlar",
+  "plants.sort.az": "Sıralama: A → Z",
+  "plants.sort.difficulty": "Sıralama: ən asan əvvəl",
+  "plants.sort.lifecycle": "Sıralama: böyümə dövrünə görə",
+  "recommended.eyebrow": "Sizə tövsiyə olunur",
+  "recommended.title": "{season} üçün yaxşı seçimlər",
+  "recommended.subtitle": "{region} bölgəsində yetişdirməyə dəyər {month} ayında başlamaq üçün uyğunlaşdırılmış kitabxanamızdan.",
+  "recommended.subtitle_no_region": "{month} ayında başlamağa dəyər şeylər üçün uyğunlaşdırılmış kitabxanamızdan. İqliminizə uyğun seçimlər üçün bölgənizi təyin edin.",
+  "recommended.more": "Bütün bitkiləri görün",
+  "recommended.season.spring": "yay",
+  "recommended.season.summer": "yay",
+  "recommended.season.autumn": "payız",
+  "recommended.season.winter": "qış",
 };
-
 export default dict;

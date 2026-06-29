@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "Pasidalinkite šiuo patch'u",
   "share_patch.story.action": "Dalintis į Istorijas / Reels",
 
+  "plants.sort.default": "Rūšiuoti: rekomenduojami",
+  "plants.sort.az": "Rūšiuoti: A → Z",
+  "plants.sort.difficulty": "Rūšiuoti: lengviausi pirmiausia",
+  "plants.sort.lifecycle": "Rūšiuoti: pagal gyvavimo ciklą",
+  "recommended.eyebrow": "Rekomenduojame jums",
+  "recommended.title": "Geri pasirinkimai {season}",
+  "recommended.subtitle": "Iš mūsų bibliotekos — pritaikyta tam, kas vertinga pradėti {month} jūsų auginamoje {region}.",
+  "recommended.subtitle_no_region": "Iš mūsų bibliotekos — pritaikyta tam, kas vertinga pradėti {month}. Nustatykite savo regioną, kad rinktumėtės pagal savo klimatą.",
+  "recommended.more": "Peržiūrėti visus augalus",
+  "recommended.season.spring": "pavasaris",
+  "recommended.season.summer": "vasara",
+  "recommended.season.autumn": "ruduo",
+  "recommended.season.winter": "žiema",
 };
-
 export default dict;

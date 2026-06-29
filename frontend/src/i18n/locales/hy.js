@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Թվիթել այս պիջակը",
   "share_patch.story.action": "Կիսվել Stories / Reels-ի հետ",
 
+  "plants.sort.default": "Դասավորել.՝ առանձնացվածներ",
+  "plants.sort.az": "Դասավորել.՝ Ա → Ի",
+  "plants.sort.difficulty": "Դասավորել.՝ հեշտերը առաջինը",
+  "plants.sort.lifecycle": "Դասավորել՝ կենսաց(circle) ազդեցություն",
+  "recommended.eyebrow": "Առաջարկվում է ձեզ համար",
+  "recommended.title": "Լավ ընտրություններ {season}-ի համար",
+  "recommended.subtitle": "Մեր գրադարանայինից՝ ադապտացված այն ամենի համար, ինչը արժանի է սկսման {month}-ին, որտեղ դուք աճում եք {region}-ում:",
+  "recommended.subtitle_no_region": "Մեր գրադարանայինից՝ ադապտացված այն ամենի համար, ինչը արժանի է սկսման {month}-ին: Գրանցեք ձեր տարածաշրջանը, որպեսզի ընտրություններ ստանաք ձեր կլիմային համապատասխան:",
+  "recommended.more": "Տեսեք բոլոր բույսերը",
+  "recommended.season.spring": "գարուն",
+  "recommended.season.summer": "ամառ",
+  "recommended.season.autumn": "նստակ",
+  "recommended.season.winter": "ձմեռ",
 };
-
 export default dict;

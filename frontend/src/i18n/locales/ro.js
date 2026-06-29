@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweet acest patch",
   "share_patch.story.action": "Trimite în Stories / Reels",
 
+  "plants.sort.default": "Sortează: prezentate",
+  "plants.sort.az": "Sortează: A → Z",
+  "plants.sort.difficulty": "Sortează: cele mai ușoare mai întâi",
+  "plants.sort.lifecycle": "Sortează: după ciclu de viață",
+  "recommended.eyebrow": "Recomandat pentru tine",
+  "recommended.title": "Alegeri bune pentru {season}",
+  "recommended.subtitle": "Din biblioteca noastră — adaptat la ceea ce merită să începi în {month} unde crești în {region}.",
+  "recommended.subtitle_no_region": "Din biblioteca noastră — adaptat la ceea ce merită să începi în {month}. Setează-ți regiunea pentru alegeri adaptate climatului tău.",
+  "recommended.more": "Vezi toate plantele",
+  "recommended.season.spring": "primăvara",
+  "recommended.season.summer": "vara",
+  "recommended.season.autumn": "toamna",
+  "recommended.season.winter": "iarna",
 };
-
 export default dict;

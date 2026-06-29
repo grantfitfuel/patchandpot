@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "ഈ പാച്ച് ട്വീറ്റ് ചെയ്യുക",
   "share_patch.story.action": "കഥകള്‍ക്കും / റീലുകള്‍ക്കും പങ്കിടുക",
 
+  "plants.sort.default": "വർഗീകരിക്കുക: പ്രധാനം",
+  "plants.sort.az": "വർഗീകരിക്കുക: A → Z",
+  "plants.sort.difficulty": "വർഗീകരിക്കുക: എളുപ്പത്തിൽ ആന്ന് ആദ്യം",
+  "plants.sort.lifecycle": "വർഗീകരിക്കുക: ജീവിതചക്രനുസരിച്ച്",
+  "recommended.eyebrow": "നിനക്ക് ശുപാർശ ചെയ്തതു",
+  "recommended.title": "{season}ക്കായുള്ള നല്ല തിരഞ്ഞെടുപ്പുകൾ",
+  "recommended.subtitle": "{region}ൽ വളർത്തുന്നതിന് {month}യിൽ ആരംഭിക്കാൻ ലാഭപ്രദമായതിനെക്കുറിച്ച് — നമ്മുടെ ലൈബ്രറിയിൽ നിന്നും.",
+  "recommended.subtitle_no_region": "{month}യിൽ ആരംഭിക്കാൻ ലാഭപ്രദമായതിനെക്കുറിച്ച് — നമ്മുടെ ലൈബ്രറിയിൽ നിന്നും. നിങ്ങളുടെ കാലാവസ്ഥയ്ക്കു തീർച്ചയായും അനുയോജ്യമായ തിരഞ്ഞെടുപ്പുകൾക്കായുള്ള നിങ്ങളുടെ പ്രദേശം സജ്ജമാക്കുക.",
+  "recommended.more": "എല്ലാ ചെടികളും കാണുക",
+  "recommended.season.spring": "പൊവർന്ന സമയം",
+  "recommended.season.summer": "ചൂടുന്ന സമയം",
+  "recommended.season.autumn": "മഴക്കാലം",
+  "recommended.season.winter": "ശൈവകാലം",
 };
-
 export default dict;

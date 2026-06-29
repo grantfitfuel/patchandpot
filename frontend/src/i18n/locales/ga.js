@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweeter an phac",
   "share_patch.story.action": "Comhoibrigh le Scéalta / Reels",
 
+  "plants.sort.default": "Sorta: aithneáilte",
+  "plants.sort.az": "Sorta: A → Z",
+  "plants.sort.difficulty": "Sorta: is éasca ar dtús",
+  "plants.sort.lifecycle": "Sorta: de réir timthriall na beatha",
+  "recommended.eyebrow": "Molta duit",
+  "recommended.title": "Péirí maithe do {season}",
+  "recommended.subtitle": "Ónár leabharlann — oiriúnaithe do na rudaí atá fiú a thosú i {month} áit a bhfuil tú ag fás i {region}.",
+  "recommended.subtitle_no_region": "Ónár leabharlann — oiriúnaithe do na rudaí atá fiú a thosú i {month}. Socraigh do réigiún chun péirí a oiriúnadh do do choinníollacha aeroibhe.",
+  "recommended.more": "Féach ar gach planda",
+  "recommended.season.spring": "Earrach",
+  "recommended.season.summer": "Samhradh",
+  "recommended.season.autumn": "Duine",
+  "recommended.season.winter": "Geimhreadh",
 };
-
 export default dict;

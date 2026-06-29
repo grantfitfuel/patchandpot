@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "პოსტე ეს პაჩი",
   "share_patch.story.action": "გაზიარება Stories / Reels-ზე",
 
+  "plants.sort.default": "დღესასწაულები: გამორჩეული",
+  "plants.sort.az": "დღესასწაულები: A → Z",
+  "plants.sort.difficulty": "დღესასწაულები: ადვილები პირველად",
+  "plants.sort.lifecycle": "დღესასწაულები: ცხოვრების ციკლით",
+  "recommended.eyebrow": "გირჩევთ თქვენთვის",
+  "recommended.title": "საყვარელი არჩევანი {season}ისთვის",
+  "recommended.subtitle": "ჩვენი ბიბლიოთეკიდან — მორგებული იმაზე, რაც ღირს დაწყება {month}-ში, სადაც თქვენ ზრდით {region}.",
+  "recommended.subtitle_no_region": "ჩვენი ბიბლიოთეკიდან — მორგებული იმაზე, რაც ღირს დაწყება {month}-ში. დააყენეთ თქვენი რეგიონი, რომ მოიპოვოთ თქვენი კლიმატის მიხედვით შექმნილი არჩევნები.",
+  "recommended.more": "იხილეთ ყველა მცენარე",
+  "recommended.season.spring": "გაზაფხული",
+  "recommended.season.summer": "ზაფხული",
+  "recommended.season.autumn": "შემოდგომა",
+  "recommended.season.winter": "ზამთარი",
 };
-
 export default dict;

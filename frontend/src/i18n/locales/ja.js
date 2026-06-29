@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "このパッチをツイートする",
   "share_patch.story.action": "ストーリーズ / リールにシェア",
 
+  "plants.sort.default": "並べ替え: 特集",
+  "plants.sort.az": "並べ替え: A → Z",
+  "plants.sort.difficulty": "並べ替え: 簡単なものから",
+  "plants.sort.lifecycle": "並べ替え: ライフサイクル別",
+  "recommended.eyebrow": "あなたへのおすすめ",
+  "recommended.title": "{season}の良いセレクション",
+  "recommended.subtitle": "私たちのライブラリから — あなたが{region}で育てている{month}に始める価値のあるものに合わせて調整しました。",
+  "recommended.subtitle_no_region": "私たちのライブラリから — あなたの{month}に始める価値のあるものに合わせて調整しました。気候に合ったセレクションのために地域を設定してください。",
+  "recommended.more": "すべての植物を見る",
+  "recommended.season.spring": "春",
+  "recommended.season.summer": "夏",
+  "recommended.season.autumn": "秋",
+  "recommended.season.winter": "冬",
 };
-
 export default dict;

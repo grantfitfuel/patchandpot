@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweet patch ini",
   "share_patch.story.action": "Kongsi ke Cerita / Gulungan",
 
+  "plants.sort.default": "Susun: pilihan utama",
+  "plants.sort.az": "Susun: A → Z",
+  "plants.sort.difficulty": "Susun: yang paling mudah terlebih dahulu",
+  "plants.sort.lifecycle": "Susun: mengikut kitaran hidup",
+  "recommended.eyebrow": "Disyorkan untuk anda",
+  "recommended.title": "Pilihan baik untuk {season}",
+  "recommended.subtitle": "Dari perpustakaan kami — disesuaikan dengan apa yang berbaloi untuk ditanam pada {month} di mana anda menanam di {region}.",
+  "recommended.subtitle_no_region": "Dari perpustakaan kami — disesuaikan dengan apa yang berbaloi untuk ditanam pada {month}. Tetapkan kawasan anda untuk pilihan yang disesuaikan dengan iklim anda.",
+  "recommended.more": "Lihat semua tumbuhan",
+  "recommended.season.spring": "musim bunga",
+  "recommended.season.summer": "musim panas",
+  "recommended.season.autumn": "musim luruh",
+  "recommended.season.winter": "musim sejuk",
 };
-
 export default dict;

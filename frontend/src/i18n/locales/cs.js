@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweetnout tento patch",
   "share_patch.story.action": "Sdílet na Příběhy / Reels",
 
+  "plants.sort.default": "Seřadit: doporučené",
+  "plants.sort.az": "Seřadit: A → Z",
+  "plants.sort.difficulty": "Seřadit: nejjednodušší na prvním místě",
+  "plants.sort.lifecycle": "Seřadit: podle životního cyklu",
+  "recommended.eyebrow": "Doporučeno pro vás",
+  "recommended.title": "Dobré výběry pro {season}",
+  "recommended.subtitle": "Z naší knihovny — přizpůsobeno tomu, co stojí za to začít v {month}, kde rostete v {region}.",
+  "recommended.subtitle_no_region": "Z naší knihovny — přizpůsobeno tomu, co stojí za to začít v {month}. Nastavte svůj region pro výběry přizpůsobené vašemu klimatu.",
+  "recommended.more": "Zobrazit všechny rostliny",
+  "recommended.season.spring": "jaro",
+  "recommended.season.summer": "léto",
+  "recommended.season.autumn": "podzim",
+  "recommended.season.winter": "zima",
 };
-
 export default dict;

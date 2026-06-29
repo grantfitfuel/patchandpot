@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Twitta dan il-patch",
   "share_patch.story.action": "Ippartja għal Storja / Reels",
 
+  "plants.sort.default": "Sorti: prominenti",
+  "plants.sort.az": "Sorti: A → Z",
+  "plants.sort.difficulty": "Sorti: l-eħxen l-ewwel",
+  "plants.sort.lifecycle": "Sorti: skont il-ciklu tal-ħajja",
+  "recommended.eyebrow": "Rakkomandat għalik",
+  "recommended.title": "Għażliet tajbin għal {season}",
+  "recommended.subtitle": "Mill-librerija tagħna — imwaqqaf għal dak li jiswa jibda f'{month}' fejn qed tikber fil-{region}.",
+  "recommended.subtitle_no_region": "Mill-librerija tagħna — imwaqqaf għal dak li jiswa jibda f'{month}'. Stabbilixxi r-reġjun tiegħek għal għażliet adattati għall-klima tiegħek.",
+  "recommended.more": "Ara l-ankra kollha",
+  "recommended.season.spring": "spring",
+  "recommended.season.summer": "sajf",
+  "recommended.season.autumn": "xitwa",
+  "recommended.season.winter": "raġel",
 };
-
 export default dict;

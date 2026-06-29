@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweeta denna patch",
   "share_patch.story.action": "Dela till Stories / Reels",
 
+  "plants.sort.default": "Sortera: utvalda",
+  "plants.sort.az": "Sortera: A → Ö",
+  "plants.sort.difficulty": "Sortera: lättast först",
+  "plants.sort.lifecycle": "Sortera: efter livscykel",
+  "recommended.eyebrow": "Rekommenderat för dig",
+  "recommended.title": "Bra val för {season}",
+  "recommended.subtitle": "Från vårt bibliotek — anpassat till vad som är värt att börja med i {month} där du odlar i {region}.",
+  "recommended.subtitle_no_region": "Från vårt bibliotek — anpassat till vad som är värt att börja med i {month}. Ställ in din region för val som passar ditt klimat.",
+  "recommended.more": "Se alla växter",
+  "recommended.season.spring": "vår",
+  "recommended.season.summer": "sommar",
+  "recommended.season.autumn": "höst",
+  "recommended.season.winter": "vinter",
 };
-
 export default dict;

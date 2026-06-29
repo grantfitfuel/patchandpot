@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Izvietot šo patch",
   "share_patch.story.action": "Kopīgot uz Stāstiem / Reels",
 
+  "plants.sort.default": "Kārtot: atlase",
+  "plants.sort.az": "Kārtot: A → Z",
+  "plants.sort.difficulty": "Kārtot: vieglākie vispirms",
+  "plants.sort.lifecycle": "Kārtot: pēc dzīves cikla",
+  "recommended.eyebrow": "Ieteikts jums",
+  "recommended.title": "Labi izvēles {season}",
+  "recommended.subtitle": "No mūsu bibliotēkas — pielāgots tam, kas ir vērts sākt {month} tur, kur jūs audzat {region}.",
+  "recommended.subtitle_no_region": "No mūsu bibliotēkas — pielāgots tam, kas ir vērts sākt {month}. Iestatiet savu reģionu, lai iegūtu izvēles, kas pielāgotas jūsu klimatam.",
+  "recommended.more": "Skatīt visus augus",
+  "recommended.season.spring": "pavasaris",
+  "recommended.season.summer": "vasara",
+  "recommended.season.autumn": "rudens",
+  "recommended.season.winter": "ziema",
 };
-
 export default dict;

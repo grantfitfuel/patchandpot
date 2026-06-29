@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweet αυτό το patch",
   "share_patch.story.action": "Μοιραστείτε στα Stories / Ριξιά",
 
+  "plants.sort.default": "Ταξινόμηση: προτεινόμενα",
+  "plants.sort.az": "Ταξινόμηση: Α → Ω",
+  "plants.sort.difficulty": "Ταξινόμηση: με τη μεγαλύτερη ευκολία πρώτα",
+  "plants.sort.lifecycle": "Ταξινόμηση: σύμφωνα με τον κύκλο ζωής",
+  "recommended.eyebrow": "Προτεινόμενα για εσάς",
+  "recommended.title": "Καλά επιλογές για {season}",
+  "recommended.subtitle": "Από τη βιβλιοθήκη μας — προσαρμοσμένο σε ό,τι αξίζει να ξεκινήσετε τον {month} όπου καλλιεργείτε στο {region}.",
+  "recommended.subtitle_no_region": "Από τη βιβλιοθήκη μας — προσαρμοσμένο σε ό,τι αξίζει να ξεκινήσετε τον {month}. Ρυθμίστε την περιοχή σας για επιλογές προσαρμοσμένες στο κλίμα σας.",
+  "recommended.more": "Δείτε όλα τα φυτά",
+  "recommended.season.spring": "άνοιξη",
+  "recommended.season.summer": "καλοκαίρι",
+  "recommended.season.autumn": "φθινόπωρο",
+  "recommended.season.winter": "χειμώνας",
 };
-
 export default dict;

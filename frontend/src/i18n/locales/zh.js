@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "分享这个补丁",
   "share_patch.story.action": "分享至故事 / 短视频",
 
+  "plants.sort.default": "排序：推荐",
+  "plants.sort.az": "排序：A → Z",
+  "plants.sort.difficulty": "排序：从简单到困难",
+  "plants.sort.lifecycle": "排序：按生命周期",
+  "recommended.eyebrow": "为您推荐",
+  "recommended.title": "适合{season}的好选择",
+  "recommended.subtitle": "来自我们的库 — 针对您在{region}的{month}中值得开始的内容进行调整。",
+  "recommended.subtitle_no_region": "来自我们的库 — 针对{month}中值得开始的内容进行调整。设置您的地区以获得根据您的气候量身定制的选择。",
+  "recommended.more": "查看所有植物",
+  "recommended.season.spring": "春季",
+  "recommended.season.summer": "夏季",
+  "recommended.season.autumn": "秋季",
+  "recommended.season.winter": "冬季",
 };
-
 export default dict;

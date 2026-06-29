@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRegion } from "@/hooks/useRegion";
 import MonthSelector from "@/components/MonthSelector";
 import GuidanceView from "@/components/GuidanceView";
 import RegionPicker from "@/components/RegionPicker";
 import PaywallModal from "@/components/PaywallModal";
+import RecommendedRail from "@/components/RecommendedRail";
 import { MapPin, Download, Lock, Loader2, Columns2 } from "lucide-react";
 import { monthlyIllustration } from "@/components/illustrations/MonthlyIllustrations";
 import { useI18n } from "@/i18n";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
-import { seasonalPdfUrl } from "@/lib/api";
+import { seasonalPdfUrl, fetchPlants } from "@/lib/api";
 
 export default function CalendarPage() {
   const { region } = useRegion();
@@ -22,6 +23,16 @@ export default function CalendarPage() {
   const [paywallOpen, setPaywallOpen] = useState(false);
   const [pdfBusy, setPdfBusy] = useState(false);
   const [pdfError, setPdfError] = useState("");
+  // Plants catalogue powers the Recommended-for-you rail (re-used /api/plants
+  // cache from the Plants page if it's already been visited).
+  const [allPlants, setAllPlants] = useState([]);
+  useEffect(() => {
+    let cancelled = false;
+    fetchPlants(lang)
+      .then((data) => { if (!cancelled) setAllPlants(Array.isArray(data) ? data : []); })
+      .catch(() => { /* rail is non-essential; hide silently */ });
+    return () => { cancelled = true; };
+  }, [lang]);
   const MonthlyIllo = monthlyIllustration(month);
 
   async function downloadSeasonalPdf() {
@@ -110,6 +121,13 @@ export default function CalendarPage() {
       <div className="mb-10">
         <MonthSelector month={month} onChange={setMonth} />
       </div>
+
+      <RecommendedRail
+        plants={allPlants}
+        region={region}
+        month={month}
+        excludeIds={(myGarden || []).map((p) => p?.id).filter(Boolean)}
+      />
 
       <GuidanceView region={region} month={month} />
 

@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweettää tämä paikka",
   "share_patch.story.action": "Jaa Stories / Reels",
 
+  "plants.sort.default": "Lajittele: suosituimmat",
+  "plants.sort.az": "Lajittele: A → Ö",
+  "plants.sort.difficulty": "Lajittele: helpoimmasta ensin",
+  "plants.sort.lifecycle": "Lajittele: elinkaaren mukaan",
+  "recommended.eyebrow": "Suositukset sinulle",
+  "recommended.title": "Hyviä valintoja {season}",
+  "recommended.subtitle": "Kirjastostamme — säädetty siihen, mitä kannattaa aloittaa {month} aikana, missä kasvatat {region}.",
+  "recommended.subtitle_no_region": "Kirjastostamme — säädetty siihen, mitä kannattaa aloittaa {month}. Aseta alueesi, jotta valinnat mukautuvat ilmastosi.",
+  "recommended.more": "Katso kaikki kasvit",
+  "recommended.season.spring": "kevät",
+  "recommended.season.summer": "kesä",
+  "recommended.season.autumn": "syksy",
+  "recommended.season.winter": "talvi",
 };
-
 export default dict;

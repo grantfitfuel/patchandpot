@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweeta to obliž",
   "share_patch.story.action": "Deli v Zgodbe / Reels",
 
+  "plants.sort.default": "Razvrsti: izbrano",
+  "plants.sort.az": "Razvrsti: A → Z",
+  "plants.sort.difficulty": "Razvrsti: najlažje najprej",
+  "plants.sort.lifecycle": "Razvrsti: po življenjskem ciklu",
+  "recommended.eyebrow": "Priporočeno zate",
+  "recommended.title": "Izbor za {season}",
+  "recommended.subtitle": "Iz naše knjižnice — prilagojeno temu, kar je vredno začeti v {month}, kjer rasteš v {region}.",
+  "recommended.subtitle_no_region": "Iz naše knjižnice — prilagojeno temu, kar je vredno začeti v {month}. Nastavi svojo regijo za izbore prilagojene tvojemu podnebiju.",
+  "recommended.more": "Oglej si vse rastline",
+  "recommended.season.spring": "pomlad",
+  "recommended.season.summer": "poletje",
+  "recommended.season.autumn": "jesen",
+  "recommended.season.winter": "zima",
 };
-
 export default dict;

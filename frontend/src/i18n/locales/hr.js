@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "Tvitaj ovaj patch",
   "share_patch.story.action": "Podijeli u Priče / Reels",
 
+  "plants.sort.default": "Sortiraj: istaknuto",
+  "plants.sort.az": "Sortiraj: A → Ž",
+  "plants.sort.difficulty": "Sortiraj: najlakše prvo",
+  "plants.sort.lifecycle": "Sortiraj: prema životnom ciklusu",
+  "recommended.eyebrow": "Preporučeno za vas",
+  "recommended.title": "Dobri izbori za {season}",
+  "recommended.subtitle": "Iz naše biblioteke — prilagođeno za ono što vrijedi započeti u {month} gdje uzgajate u {region}.",
+  "recommended.subtitle_no_region": "Iz naše biblioteke — prilagođeno za ono što vrijedi započeti u {month}. Postavite svoju regiju za odabire prilagođene vašoj klimi.",
+  "recommended.more": "Pogledajte sve biljke",
+  "recommended.season.spring": "proljeće",
+  "recommended.season.summer": "ljeto",
+  "recommended.season.autumn": "jesen",
+  "recommended.season.winter": "zima",
 };
-
 export default dict;

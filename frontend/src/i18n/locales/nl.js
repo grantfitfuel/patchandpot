@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweet deze patch",
   "share_patch.story.action": "Deel naar Verhalen / Reels",
 
+  "plants.sort.default": "Sorteren: aanbevolen",
+  "plants.sort.az": "Sorteren: A → Z",
+  "plants.sort.difficulty": "Sorteren: gemakkelijkste eerst",
+  "plants.sort.lifecycle": "Sorteren: op levenscyclus",
+  "recommended.eyebrow": "Aanbevolen voor jou",
+  "recommended.title": "Goede keuzes voor {season}",
+  "recommended.subtitle": "Uit onze bibliotheek — afgestemd op wat het waard is om te beginnen in {month} waar je groeit in {region}.",
+  "recommended.subtitle_no_region": "Uit onze bibliotheek — afgestemd op wat het waard is om te beginnen in {month}. Stel je regio in voor keuzes die zijn afgestemd op jouw klimaat.",
+  "recommended.more": "Bekijk alle planten",
+  "recommended.season.spring": "lente",
+  "recommended.season.summer": "zomer",
+  "recommended.season.autumn": "herfst",
+  "recommended.season.winter": "winter",
 };
-
 export default dict;

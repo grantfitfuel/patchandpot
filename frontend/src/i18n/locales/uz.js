@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Patch & Pot'ni baham ko'ring",
   "share_patch.story.action": "Hikoyalar / Reel'lar bilan ulashing",
 
+  "plants.sort.default": "Tartib: tanlanganlar",
+  "plants.sort.az": "Tartib: A → Z",
+  "plants.sort.difficulty": "Tartib: eng osoni birinchi",
+  "plants.sort.lifecycle": "Tartib: hayot tsikliga ko'ra",
+  "recommended.eyebrow": "Siz uchun tavsiya etiladi",
+  "recommended.title": "{season} uchun yaxshi tanlovlar",
+  "recommended.subtitle": "{region}da o'sayotganingizda {month}da boshlashga arziydigan narsalar — bizning kutubxonamizdan.",
+  "recommended.subtitle_no_region": "{month}da boshlashga arziydigan narsalar — bizning kutubxonamizdan. Iqlimingizga mos tanlovlar uchun mintaqangizni o'rnating.",
+  "recommended.more": "Barcha o'simliklarni ko'rish",
+  "recommended.season.spring": "bahor",
+  "recommended.season.summer": "yoz",
+  "recommended.season.autumn": "kuz",
+  "recommended.season.winter": "qish",
 };
-
 export default dict;

@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "ఈ ప్యాచ్‌ను ట్వీట్ చేయండి",
   "share_patch.story.action": "షేర్ చేయండి కథలు / రీల్స్",
 
+  "plants.sort.default": "వర్గీకరించండి: ప్రత్యేకమైనది",
+  "plants.sort.az": "వర్గీకరించండి: A → Z",
+  "plants.sort.difficulty": "వర్గీకరించండి: సులభమైనది ముందుగా",
+  "plants.sort.lifecycle": "వర్గీకరించండి: జీవితచక్రం ప్రకారం",
+  "recommended.eyebrow": "మీ కొరకు సిఫారసు చేయబడింది",
+  "recommended.title": "{season}కి మంచి ఎంపికలు",
+  "recommended.subtitle": "{region}లో మీకు పెంచడం కొరకు {month}లో ప్రేర్చేయడానికి సరిపోయే వాటిని తీసుకున్న మా లైబ్రరీ నుండి.",
+  "recommended.subtitle_no_region": "{month}లో ప్రేర్చేయడానికి సరిపోయే వాటిని తీసుకున్న మా లైబ్రరీ నుండి. మీ వాతావరణానికి అనుకూలంగా ఎంపికల కొరకు మీ ప్రాంతం సెట్ చేయండి.",
+  "recommended.more": "ఈ అన్ని మొక్కలను చూడండి",
+  "recommended.season.spring": "వసంతం",
+  "recommended.season.summer": "గर्मी",
+  "recommended.season.autumn": "శరదృతువు",
+  "recommended.season.winter": "చలికాలం",
 };
-
 export default dict;

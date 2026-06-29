@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "Твитнуть этот патч",
   "share_patch.story.action": "Поделиться в Истории / Рилс",
 
+  "plants.sort.default": "Сортировать: рекомендованные",
+  "plants.sort.az": "Сортировать: А → Я",
+  "plants.sort.difficulty": "Сортировать: сначала самые простые",
+  "plants.sort.lifecycle": "Сортировать: по жизненному циклу",
+  "recommended.eyebrow": "Рекомендуем для вас",
+  "recommended.title": "Хорошие варианты для {season}",
+  "recommended.subtitle": "Из нашей библиотеки — адаптировано к тому, что стоит начать в {month} в вашем регионе {region}.",
+  "recommended.subtitle_no_region": "Из нашей библиотеки — адаптировано к тому, что стоит начать в {month}. Установите ваш регион для рекомендаций, соответствующих вашему климату.",
+  "recommended.more": "Посмотреть все растения",
+  "recommended.season.spring": "весна",
+  "recommended.season.summer": "лето",
+  "recommended.season.autumn": "осень",
+  "recommended.season.winter": "зима",
 };
-
 export default dict;

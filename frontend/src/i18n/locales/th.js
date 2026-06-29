@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "ทวีตแพตช์นี้",
   "share_patch.story.action": "แชร์ไปที่ Stories / Reels",
 
+  "plants.sort.default": "เรียงลำดับ: ที่แนะนำ",
+  "plants.sort.az": "เรียงลำดับ: A → Z",
+  "plants.sort.difficulty": "เรียงลำดับ: เริ่มต้นจากง่ายที่สุด",
+  "plants.sort.lifecycle": "เรียงลำดับ: ตามวงจรชีวิต",
+  "recommended.eyebrow": "แนะนำสำหรับคุณ",
+  "recommended.title": "ตัวเลือกดีๆ สำหรับ {season}",
+  "recommended.subtitle": "จากห้องสมุดของเรา — ปรับให้เหมาะกับสิ่งที่ควรเริ่มใน {month} ที่คุณกำลังปลูกอยู่ใน {region}.",
+  "recommended.subtitle_no_region": "จากห้องสมุดของเรา — ปรับให้เหมาะกับสิ่งที่ควรเริ่มใน {month}. ตั้งค่าเขตแดนของคุณเพื่อเลือกที่เหมาะกับภูมิอากาศของคุณ.",
+  "recommended.more": "ดูพืชทั้งหมด",
+  "recommended.season.spring": "ฤดูใบไม้ผลิ",
+  "recommended.season.summer": "ฤดูร้อน",
+  "recommended.season.autumn": "ฤดูใบไม้ร่วง",
+  "recommended.season.winter": "ฤดูหนาว",
 };
-
 export default dict;

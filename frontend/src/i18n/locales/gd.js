@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweet am pìos seo",
   "share_patch.story.action": "Roinn gu Sgeulachdan / Reels",
 
+  "plants.sort.default": "Rangachadh: air a mholadh",
+  "plants.sort.az": "Rangachadh: A → Z",
+  "plants.sort.difficulty": "Rangachadh: an fheadhainn as fhasa an toiseach",
+  "plants.sort.lifecycle": "Rangachadh: a rèir beatha",
+  "recommended.eyebrow": "Mholte dhut",
+  "recommended.title": "Raon math airson {season}",
+  "recommended.subtitle": "Bho ar leabhar-bìdh — freagairte ris na tha freagairteach airson tòiseachadh ann an {month} far a bheil thu a' fàs ann an {region}.",
+  "recommended.subtitle_no_region": "Bho ar leabhar-bìdh — freagairte ris na tha freagairteach airson tòiseachadh ann an {month}. Sathaich do roinn airson taghaidhean freagairteach do do ghiùlan.",
+  "recommended.more": "Faic a h-uile plannt",
+  "recommended.season.spring": "earrach",
+  "recommended.season.summer": "samhradh",
+  "recommended.season.autumn": "fiadhach",
+  "recommended.season.winter": "geamhradh",
 };
-
 export default dict;

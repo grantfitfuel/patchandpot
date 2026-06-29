@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "Tweeter bản vá này",
   "share_patch.story.action": "Chia sẻ lên Stories / Reels",
 
+  "plants.sort.default": "Sắp xếp: nổi bật",
+  "plants.sort.az": "Sắp xếp: A → Z",
+  "plants.sort.difficulty": "Sắp xếp: dễ nhất trước",
+  "plants.sort.lifecycle": "Sắp xếp: theo chu kỳ sống",
+  "recommended.eyebrow": "Được gợi ý cho bạn",
+  "recommended.title": "Lựa chọn tốt cho {season}",
+  "recommended.subtitle": "Từ thư viện của chúng tôi — điều chỉnh theo những gì đáng để bắt đầu vào {month} nơi bạn đang trồng ở {region}.",
+  "recommended.subtitle_no_region": "Từ thư viện của chúng tôi — điều chỉnh theo những gì đáng để bắt đầu vào {month}. Đặt khu vực của bạn để có những lựa chọn phù hợp với khí hậu của bạn.",
+  "recommended.more": "Xem tất cả cây trồng",
+  "recommended.season.spring": "mùa xuân",
+  "recommended.season.summer": "mùa hè",
+  "recommended.season.autumn": "mùa thu",
+  "recommended.season.winter": "mùa đông",
 };
-
 export default dict;

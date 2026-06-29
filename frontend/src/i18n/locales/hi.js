@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "इस पैच को ट्वीट करें",
   "share_patch.story.action": "शेयर करें Stories / Reels",
 
+  "plants.sort.default": "छांटें: प्रमुख",
+  "plants.sort.az": "छांटें: A → Z",
+  "plants.sort.difficulty": "छांटें: सबसे आसान पहले",
+  "plants.sort.lifecycle": "छांटें: जीवनचक्र के अनुसार",
+  "recommended.eyebrow": "आपके लिए अनुशंसित",
+  "recommended.title": "{season} के लिए अच्छे विकल्प",
+  "recommended.subtitle": "हमारे पुस्तकालय से — {month} में {region} में आपको शुरुआत करने के लिए क्या उपयुक्त है, के अनुसार।",
+  "recommended.subtitle_no_region": "हमारे पुस्तकालय से — {month} में शुरुआत करने के लिए क्या उपयुक्त है, के अनुसार। अपने जलवायु के लिए अनुकूलित विकल्पों के लिए अपना क्षेत्र सेट करें।",
+  "recommended.more": "सभी पौधों को देखें",
+  "recommended.season.spring": "बसंत",
+  "recommended.season.summer": "गर्मी",
+  "recommended.season.autumn": "पतझड़",
+  "recommended.season.winter": "सर्दी",
 };
-
 export default dict;

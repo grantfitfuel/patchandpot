@@ -726,6 +726,18 @@ const dict = {
   "share_patch.tweet.action": "I-Tweet ang patch na ito",
   "share_patch.story.action": "Ibahagi sa Kwento / Reel",
 
+  "plants.sort.default": "Ayusin: tampok",
+  "plants.sort.az": "Ayusin: A → Z",
+  "plants.sort.difficulty": "Ayusin: pinakamadali muna",
+  "plants.sort.lifecycle": "Ayusin: ayon sa siklo ng buhay",
+  "recommended.eyebrow": "Inirerekomenda para sa iyo",
+  "recommended.title": "Magandang pagpili para sa {season}",
+  "recommended.subtitle": "Mula sa aming aklatan — naitune sa kung ano ang sulit simulan sa {month} kung saan ka nagtatanim sa {region}.",
+  "recommended.subtitle_no_region": "Mula sa aming aklatan — naitune sa kung ano ang sulit simulan sa {month}. Itakda ang iyong rehiyon para sa mga pagpili na akma sa iyong klima.",
+  "recommended.more": "Tingnan ang lahat ng halaman",
+  "recommended.season.spring": "tagsibol",
+  "recommended.season.summer": "tag-init",
+  "recommended.season.autumn": "taglagas",
+  "recommended.season.winter": "taglamig",
 };
-
 export default dict;

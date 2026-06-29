@@ -725,6 +725,18 @@ const dict = {
   "share_patch.tweet.action": "இப்பாட் ஐ ட்வீட் செய்",
   "share_patch.story.action": "கதை / ரீல்ஸ் பகிர்",
 
+  "plants.sort.default": "வகை: முன்னணி",
+  "plants.sort.az": "வகை: A → Z",
+  "plants.sort.difficulty": "வகை: எளிதானவை முதலில்",
+  "plants.sort.lifecycle": "வகை: வாழ்கைச்செயல் படி",
+  "recommended.eyebrow": "உங்களுக்கு பரிந்துரைக்கப்படுகிறது",
+  "recommended.title": "{season} க்கான நல்ல தேர்வுகள்",
+  "recommended.subtitle": "{region} இல் நீங்கள் வளர்த்துக்கொண்டிருக்கும் {month} இல் தேவைப்படும் வித விதைகளை அடிப்படையாகக் கொண்டு எங்கள் நூலகத்தில் இருந்து —",
+  "recommended.subtitle_no_region": "{month} இல் தேவையாக உள்ள விதிகளை அடிப்படையாகக் கொண்டு எங்கள் நூலகத்தில் இருந்து — உங்கள் காட்சி அமைப்பு உங்கள் நாங்கள் வைத்திய விதிவிலக்கு செய்திருக்கும் விதிகளை தேர்வு செய்யுங்கள்.",
+  "recommended.more": "அனைத்து செடிகள் பார்க்க",
+  "recommended.season.spring": "வசந்தம்",
+  "recommended.season.summer": "கோடை",
+  "recommended.season.autumn": "செயற்காலம்",
+  "recommended.season.winter": "குளிர்காலம்",
 };
-
 export default dict;

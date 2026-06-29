@@ -709,6 +709,11 @@ from plants_extra import EXTRA_PLANTS, EXTRA_COMPANIONS  # noqa: E402
 PLANTS.extend(EXTRA_PLANTS)
 PLANT_INDEX = {p["id"]: p for p in PLANTS}
 
+# Second expansion (150 more): variants + pollinator-friendly additions.
+from plants_extra_v2 import EXTRA_PLANTS_V2, EXTRA_COMPANIONS_V2  # noqa: E402
+PLANTS.extend(EXTRA_PLANTS_V2)
+PLANT_INDEX = {p["id"]: p for p in PLANTS}
+
 # Apply lifecycle + hardiness metadata to every plant (mutates in place).
 from plants_meta import apply_meta  # noqa: E402
 apply_meta(PLANTS)
@@ -835,6 +840,8 @@ COMPANIONS = {
 
 # Merge in the EXTRA_COMPANIONS entries for the 150 new plants.
 COMPANIONS.update(EXTRA_COMPANIONS)
+# Merge in the v2 expansion companions (another 150).
+COMPANIONS.update(EXTRA_COMPANIONS_V2)
 
 COMPANION_REASONS = {
     ("tomato", "basil"): "Classic pairing — basil masks tomato's scent from pests and is said to boost flavour.",

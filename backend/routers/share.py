@@ -459,6 +459,13 @@ def make_router(db) -> APIRouter:
                 # plenty to absorb sudden FB/Pinterest scrape bursts
                 # while still allowing same-day updates.
                 "Cache-Control": "public, max-age=60",
+                # Cloudflare doesn't honour Cache-Control on /api/* responses
+                # by default — CDN-Cache-Control is the explicit CDN directive
+                # that tells the edge to cache the og.png for 60s. Without
+                # this header the OG image bypasses the edge and hits origin
+                # every scrape, and a stale image can linger for hours past
+                # what the browser cache says.
+                "CDN-Cache-Control": "max-age=60",
             },
         )
 

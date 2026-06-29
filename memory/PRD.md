@@ -28,6 +28,20 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 50 (2026-02-26): ✅ — Library 182 → 332 + Cloudflare cache header fix
+
+**Part A — +150 plants**: 50 edibles (tomato/pepper variants, lettuce varieties, Asian greens, herb cultivars, root veg, perennial veg), 50 pollinator flowers (asters, hardy geraniums, salvias, more lavenders, alliums, bulbs, hellebores), 50 cut flowers (dahlia/sunflower/sweet pea/tulip/peony variants, pollinator-friendly cut flowers).
+- New file `/app/backend/plants_extra_v2.py` (`EXTRA_PLANTS_V2` + `EXTRA_COMPANIONS_V2`).
+- `plants_meta.py` extended with 150 lifecycle/hardiness + 150 botanical names.
+- Wired into `core.py`. Total: **332 plants, 0 missing metadata, 0 broken refs**.
+
+**Support email action item**: Added `CDN-Cache-Control: max-age=60` to `/api/share/patch/{share_id}/og.png` response in `routers/share.py:461`. Tells Cloudflare's edge to honour the cache for proxied `/api/*` images (the platform-level Cache-Control header wasn't being respected by Cloudflare for proxied responses).
+
+**Deferred to next turn**: Part B — admin "Promote AI search" tool with review modal (user confirmed option b).
+
+Service worker bumped `patchpot-v24` → `patchpot-v25`. Lint clean.
+
+
 ### Iteration 49 (2026-02-26): ✅ — Sub-filters + lifecycle + hardiness across all 182 plants
 
 User: *"…also a further filter for type vegetable root gourd squash"* → tag/category-based sub-filter row. Then *"important with flowers to know if annual biennial or perennial and also if hardy half-hardy or otherwise"* → enriched all 182 plants with `lifecycle` + `hardiness` metadata, displayed on card subtitle + detail page + as a lifecycle chip row.

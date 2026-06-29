@@ -21,7 +21,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.cors import CORSMiddleware
 
 from cache_refresh import schedule_monthly_refresh
-from core import Region, refresh_ai_budget_state
+from core import Region, load_promoted_plants, refresh_ai_budget_state
 from seed_deep_dives import seed_deep_dives
 from sentry_init import init_sentry
 from services_guidance import make_generate_and_cache_guidance
@@ -127,14 +127,26 @@ async def start_scheduler():
     except Exception as e:  # noqa: BLE001
         logger.warning("AI budget refresh failed at startup: %s", e)
 
+    # Merge admin-promoted AI plants into the in-memory PLANTS catalogue so
+    # they appear in /api/plants and /api/plants/{id} on the very next call.
+    try:
+        added = await load_promoted_plants(db)
+        logger.info("Loaded %d promoted plant(s) from Mongo into PLANTS", added)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("load_promoted_plants failed at startup: %s", e)
+
     # TTL index on shared_patch_views — visit-debounce keys expire after
     # 24h, so a single fan refreshing the page only counts once per day.
     try:
         await db.shared_patch_views.create_index("expires_at", expireAfterSeconds=0)
         await db.plant_views.create_index("expires_at", expireAfterSeconds=0)
+        await db.ai_plant_views.create_index("expires_at", expireAfterSeconds=0)
         await db.shared_patches.create_index([("list_publicly", 1), ("view_count_7d", -1)])
         await db.plant_stats.create_index([("view_count_7d", -1)])
         await db.plant_stats.create_index([("plant_id", 1)], unique=True)
+        await db.ai_plant_stats.create_index([("view_count_7d", -1)])
+        await db.ai_plant_stats.create_index([("slug", 1)], unique=True)
+        await db.promoted_plants.create_index([("plant.id", 1)], unique=True)
         logger.info("share/plant view TTL + popular-wall indexes ensured")
     except Exception as e:  # noqa: BLE001
         logger.warning("share/plant view indexes setup failed: %s", e)
@@ -152,9 +164,13 @@ async def start_scheduler():
                 {"view_count_7d": {"$gt": 0}},
                 {"$set": {"view_count_7d": 0}},
             )
+            r3 = await db.ai_plant_stats.update_many(
+                {"view_count_7d": {"$gt": 0}},
+                {"$set": {"view_count_7d": 0}},
+            )
             logger.info(
-                "weekly view_count_7d decay reset %d patches, %d plants",
-                r1.modified_count, r2.modified_count,
+                "weekly view_count_7d decay reset %d patches, %d plants, %d ai-plants",
+                r1.modified_count, r2.modified_count, r3.modified_count,
             )
         except Exception as e:  # noqa: BLE001
             logger.warning("weekly view decay failed: %s", e)

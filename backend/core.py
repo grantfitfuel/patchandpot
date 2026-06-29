@@ -718,6 +718,78 @@ PLANT_INDEX = {p["id"]: p for p in PLANTS}
 from plants_meta import apply_meta  # noqa: E402
 apply_meta(PLANTS)
 
+# IDs of plants that came from the admin "Promote AI search" tool (sourced
+# from the `promoted_plants` Mongo collection at startup via
+# `load_promoted_plants`). Kept as a set so the admin UI can flag them and
+# the un-promote endpoint can find them. Curated plants from the static
+# `plants_extra*` modules are NOT in this set.
+PROMOTED_PLANT_IDS: set = set()
+
+
+async def load_promoted_plants(db) -> int:
+    """Merge admin-promoted plants from Mongo into the in-memory PLANTS list.
+
+    Called once at app startup. Idempotent — running again replaces any
+    previously-loaded promoted plants with the current DB state so admin
+    edits show up after a restart without leaving stale rows.
+
+    All mutations are in-place (no rebinding of PLANTS / PLANT_INDEX /
+    PROMOTED_PLANT_IDS) because other modules `from core import …` these
+    names — rebinding would orphan the imported references.
+    """
+    cursor = db.promoted_plants.find({}, {"_id": 0, "plant": 1})
+    rows = await cursor.to_list(length=2000)
+    # Drop any previously-loaded promoted rows so we re-merge cleanly.
+    if PROMOTED_PLANT_IDS:
+        PLANTS[:] = [p for p in PLANTS if p["id"] not in PROMOTED_PLANT_IDS]
+    PROMOTED_PLANT_IDS.clear()
+    added = 0
+    for row in rows:
+        p = row.get("plant") or {}
+        pid = p.get("id")
+        if not pid or pid in PLANT_INDEX:
+            # Skip duplicates that collide with the static catalogue —
+            # the static entry always wins so a careless promote can't
+            # silently overwrite a hand-curated plant.
+            continue
+        PLANTS.append(p)
+        PROMOTED_PLANT_IDS.add(pid)
+        added += 1
+    apply_meta(PLANTS)
+    PLANT_INDEX.clear()
+    PLANT_INDEX.update({p["id"]: p for p in PLANTS})
+    return added
+
+
+def merge_promoted_plant(plant: dict) -> None:
+    """Add a single promoted plant to the in-memory PLANTS list right after
+    the admin saves it, so the next /api/plants response includes it without
+    a restart. Caller is responsible for upserting the row to Mongo first."""
+    pid = plant.get("id")
+    if not pid:
+        return
+    # Remove any previous in-memory copy (re-promote / edit case).
+    PLANTS[:] = [p for p in PLANTS if p["id"] != pid]
+    PLANTS.append(plant)
+    PROMOTED_PLANT_IDS.add(pid)
+    apply_meta(PLANTS)
+    PLANT_INDEX.clear()
+    PLANT_INDEX.update({p["id"]: p for p in PLANTS})
+
+
+def remove_promoted_plant(plant_id: str) -> bool:
+    """Drop a promoted plant from the in-memory list. Returns True if the
+    plant was present and removed, False otherwise. Caller is responsible
+    for deleting the Mongo row separately."""
+    if plant_id not in PROMOTED_PLANT_IDS:
+        return False
+    PLANTS[:] = [p for p in PLANTS if p["id"] != plant_id]
+    PROMOTED_PLANT_IDS.discard(plant_id)
+    PLANT_INDEX.clear()
+    PLANT_INDEX.update({p["id"]: p for p in PLANTS})
+    return True
+
+
 _PLANT_TRANS_FIELDS = ("name", "category", "summary", "difficulty", "sun", "water", "soil", "edible_part", "tags")
 
 

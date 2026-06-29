@@ -195,7 +195,7 @@ def make_router(db) -> APIRouter:
         return await _cached_image(cache_key, prompt, session=f"pest-img-{safe_key}-{uuid.uuid4()}")
 
     @router.post("/plant-guide")
-    async def generate_plant_guide(req: PlantGuideRequest):
+    async def generate_plant_guide(req: PlantGuideRequest, request: Request):
         """Generate (or return cached) AI plant guide for ANY plant — even ones not
         in the curated database."""
         name = (req.query or "").strip()
@@ -210,8 +210,16 @@ def make_router(db) -> APIRouter:
 
         slug = _plant_slug(name)
         cache_key = f"plant-guide:{slug}:{language}"
+        # Track AI plant searches for the admin "Promote" tool. We track on
+        # every successful POST (cache hits included) so popular guides bubble
+        # up. 24h fingerprint dedup keeps a single user refreshing from
+        # inflating the counter. Curated lookups (returned below) are skipped.
+        track_view = not is_visit_bot(request)
+        track_fp = viewer_fingerprint(request) if track_view else ""
         cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
         if cached:
+            if track_view:
+                await _record_ai_plant_view(db, slug, name, track_fp)
             return cached["data"]
 
         for p in PLANTS:
@@ -317,6 +325,8 @@ Return JSON only."""
             "key": cache_key, "data": data,
             "created_at": datetime.now(timezone.utc).isoformat(),
         })
+        if track_view:
+            await _record_ai_plant_view(db, slug, name, track_fp)
         return data
 
     @router.get("/plant-guide/{slug}")
@@ -596,3 +606,49 @@ async def _record_plant_view(db, plant_id: str, fp: str) -> None:
         )
     except Exception as e:  # noqa: BLE001
         logger.warning("plant_stats increment failed: %s", e)
+
+
+
+async def _record_ai_plant_view(db, slug: str, query: str, fp: str) -> None:
+    """24h-debounced view counter for AI-generated plant guides. Powers the
+    admin 'Promote AI search' tool — popular AI guides surface so they can
+    be reviewed and added to the permanent curated library.
+
+    Mirrors `_record_plant_view`: an insert into a TTL collection guards the
+    increment so the same viewer refreshing doesn't inflate counts.
+    """
+    if not slug.startswith("ai-"):
+        return
+    from pymongo.errors import DuplicateKeyError
+    now = datetime.now(timezone.utc)
+    expires_at = now + timedelta(hours=24)
+    try:
+        await db.ai_plant_views.insert_one({
+            "_id": f"{slug}:{fp}",
+            "slug": slug,
+            "viewed_at": now.isoformat(),
+            "expires_at": expires_at,
+        })
+    except DuplicateKeyError:
+        return
+    except Exception as e:  # noqa: BLE001
+        logger.warning("ai_plant_views insert failed (skipping counter): %s", e)
+        return
+    try:
+        await db.ai_plant_stats.update_one(
+            {"slug": slug},
+            {
+                "$inc": {"view_count": 1, "view_count_7d": 1},
+                "$set": {
+                    "last_viewed_at": now.isoformat(),
+                    "query": query,
+                },
+                "$setOnInsert": {
+                    "first_viewed_at": now.isoformat(),
+                    "promoted": False,
+                },
+            },
+            upsert=True,
+        )
+    except Exception as e:  # noqa: BLE001
+        logger.warning("ai_plant_stats increment failed: %s", e)

@@ -20,6 +20,7 @@ import LearnLandingPage from "@/pages/LearnLanding";
 import CheckoutSuccess from "@/pages/CheckoutSuccess";
 import AdminAiUsagePage from "@/pages/AdminAiUsage";
 import AdminReferralsPage from "@/pages/AdminReferrals";
+import AdminAiSearchesPage from "@/pages/AdminAiSearches";
 import PatronsPage from "@/pages/Patrons";
 import PatronsManagePage from "@/pages/PatronsManage";
 import SharedPatchPage from "@/pages/SharedPatch";
@@ -90,6 +91,7 @@ function AppShell() {
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/cancel" element={<Home />} />
           <Route path="/admin/ai-usage" element={<AdminAiUsagePage />} />
+          <Route path="/admin/ai-searches" element={<AdminAiSearchesPage />} />
           <Route path="/admin/referrals" element={<AdminReferralsPage />} />
           <Route path="/patrons" element={<PatronsPage />} />
           <Route path="/patrons/manage" element={<PatronsManagePage />} />

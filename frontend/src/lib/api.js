@@ -118,6 +118,22 @@ export const fetchAdminReferrals = (token, days = 30) =>
   api
     .get("/admin/referrals", { params: { token, days } })
     .then((r) => r.data);
+// Admin: AI plant searches — top AI-generated guides by 7-day views.
+// Powers the /admin/ai-searches "Promote" workflow.
+export const fetchAdminAiSearches = (token, { limit = 50, includePromoted = false } = {}) =>
+  api
+    .get("/admin/ai-searches", {
+      params: { token, limit, include_promoted: includePromoted },
+    })
+    .then((r) => r.data);
+export const promoteAiPlant = (token, payload) =>
+  api
+    .post("/admin/promote-plant", payload, { params: { token } })
+    .then((r) => r.data);
+export const unpromoteAiPlant = (token, plantId) =>
+  api
+    .post("/admin/unpromote-plant", null, { params: { token, plant_id: plantId } })
+    .then((r) => r.data);
 // Patrons (public opt-in display)
 export const fetchPatrons = () =>
   api.get("/patrons").then((r) => r.data);

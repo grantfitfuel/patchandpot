@@ -33,7 +33,7 @@ export default function AdminTokenGate({ title, blurb, onSubmit, testIdPrefix = 
   const [draft, setDraft] = useState("");
   return (
     <div className="container-narrow py-20 max-w-md" data-testid={`${testIdPrefix}-gate`}>
-      <Helmet><title>{title} — Patch & Pot</title><meta name="robots" content="noindex" /></Helmet>
+      <Helmet><title>{`${title} — Patch & Pot`}</title><meta name="robots" content="noindex" /></Helmet>
       <div className="flex items-center gap-3 mb-3">
         <Lock strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
         <span className="overline">Internal</span>

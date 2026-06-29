@@ -9,15 +9,42 @@ Includes:
 import logging
 import os
 import uuid
+from datetime import datetime, timezone
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Body, HTTPException
+from pydantic import BaseModel, Field
 
 from cache_refresh import get_cron_status, refresh_monthly_guidance
-from core import FLOWER_PORTRAITS, Region, make_cached_image
+from core import (
+    FLOWER_PORTRAITS, PLANT_INDEX, PROMOTED_PLANT_IDS, Region,
+    load_promoted_plants, make_cached_image, merge_promoted_plant,
+    remove_promoted_plant,
+)
 from seed_deep_dives import seed_deep_dives
 from services_guidance import make_generate_and_cache_guidance
 
 logger = logging.getLogger(__name__)
+
+
+class PromotePlantPayload(BaseModel):
+    """Curated-plant fields the admin can edit in the promote modal before
+    saving. `id` defaults to the AI slug stripped of its `ai-` prefix so
+    the URL stays clean (e.g. `ai-yarrow` → `yarrow`). `source_slug` is the
+    original AI slug — we keep it on the row for traceability + to flag the
+    matching `ai_plant_stats` row as promoted."""
+    id: str = Field(..., min_length=2, max_length=80)
+    source_slug: str = Field(..., min_length=2, max_length=120)
+    name: str = Field(..., min_length=1, max_length=120)
+    botanical_name: str = ""
+    category: str = "Other"
+    difficulty: str = "Medium"
+    sun: str = "Full to partial"
+    water: str = "Moderate"
+    soil: str = "Well-drained"
+    edible_part: str = "Ornamental"
+    summary: str = ""
+    container: bool = True
+    tags: list[str] = []
 
 
 def _require_admin(token: str):
@@ -232,5 +259,143 @@ def make_router(db) -> APIRouter:
             "total_revenue_gbp": round(total_revenue, 2),
             "sources": ranked,
         }
+
+    @router.get("/admin/ai-searches")
+    async def admin_ai_searches(token: str, limit: int = 50, include_promoted: bool = False):
+        """List the top AI-generated plant guides by 7-day views, joined with
+        the cached EN guide JSON so the admin UI can preview the content
+        before promoting. Powers `/admin/ai-searches`.
+
+        Set `include_promoted=true` to also include already-promoted slugs
+        (useful for the "Promoted" tab); otherwise they're filtered out so
+        the queue stays focused on candidates.
+        """
+        _require_admin(token)
+        limit = max(1, min(int(limit or 50), 200))
+        query: dict = {}
+        if not include_promoted:
+            query["promoted"] = {"$ne": True}
+        cursor = (
+            db.ai_plant_stats.find(query, {"_id": 0})
+            .sort([("view_count_7d", -1), ("view_count", -1)])
+            .limit(limit)
+        )
+        rows = await cursor.to_list(length=limit)
+        items = []
+        for row in rows:
+            slug = row.get("slug")
+            if not slug:
+                continue
+            guide = await db.guidance_cache.find_one(
+                {"key": f"plant-guide:{slug}:en"},
+                {"_id": 0, "data": 1, "created_at": 1},
+            )
+            data = (guide or {}).get("data") or {}
+            items.append({
+                "slug": slug,
+                "query": row.get("query") or data.get("name") or slug,
+                "view_count": int(row.get("view_count") or 0),
+                "view_count_7d": int(row.get("view_count_7d") or 0),
+                "last_viewed_at": row.get("last_viewed_at"),
+                "first_viewed_at": row.get("first_viewed_at"),
+                "promoted": bool(row.get("promoted")),
+                "promoted_plant_id": row.get("promoted_plant_id"),
+                "guide": data,  # full EN guide JSON for the review modal
+                "guide_cached_at": (guide or {}).get("created_at"),
+            })
+        return {"items": items, "count": len(items)}
+
+    @router.post("/admin/promote-plant")
+    async def admin_promote_plant(token: str, payload: PromotePlantPayload = Body(...)):
+        """Promote an AI-generated plant guide into the permanent curated
+        catalogue. Stores the (admin-edited) curated row in `promoted_plants`,
+        merges it into the in-memory PLANTS list, flags the `ai_plant_stats`
+        row as promoted, and invalidates the translated `plants:{lang}` cache
+        so non-EN catalogues rebuild with the new plant included.
+        """
+        _require_admin(token)
+        plant_id = payload.id.strip().lower()
+        if not plant_id:
+            raise HTTPException(400, "Plant id required")
+        # Guard against clobbering a hand-curated plant from plants_extra*.
+        if plant_id in PLANT_INDEX and plant_id not in PROMOTED_PLANT_IDS:
+            raise HTTPException(
+                409,
+                f"A curated plant with id '{plant_id}' already exists. "
+                "Pick a different id (e.g. add a suffix).",
+            )
+
+        plant = {
+            "id": plant_id,
+            "name": payload.name.strip(),
+            "category": payload.category,
+            "difficulty": payload.difficulty,
+            "sun": payload.sun,
+            "water": payload.water,
+            "soil": payload.soil,
+            "container": bool(payload.container),
+            "edible_part": payload.edible_part,
+            "summary": payload.summary.strip(),
+            "tags": [t.strip() for t in (payload.tags or []) if t and t.strip()],
+        }
+        if payload.botanical_name and payload.botanical_name.strip():
+            plant["botanical_name"] = payload.botanical_name.strip()
+
+        now = datetime.now(timezone.utc).isoformat()
+        await db.promoted_plants.update_one(
+            {"plant.id": plant_id},
+            {
+                "$set": {
+                    "plant": plant,
+                    "source_slug": payload.source_slug,
+                    "updated_at": now,
+                },
+                "$setOnInsert": {"created_at": now},
+            },
+            upsert=True,
+        )
+        merge_promoted_plant(plant)
+
+        # Flag the ai_plant_stats row so the admin UI can move it out of the
+        # "candidates" queue without losing the historical view count.
+        await db.ai_plant_stats.update_one(
+            {"slug": payload.source_slug},
+            {"$set": {"promoted": True, "promoted_plant_id": plant_id, "promoted_at": now}},
+        )
+        # Invalidate translated catalogues so the new plant shows up in every
+        # language. Cheap — they regenerate lazily on the next /api/plants hit.
+        await db.guidance_cache.delete_many({"key": {"$regex": "^plants:"}})
+        return {"ok": True, "plant": plant, "promoted_id": plant_id}
+
+    @router.post("/admin/unpromote-plant")
+    async def admin_unpromote_plant(token: str, plant_id: str):
+        """Reverse a promotion: drop the row from `promoted_plants`, remove
+        from the in-memory PLANTS list and re-open it as a candidate."""
+        _require_admin(token)
+        plant_id = plant_id.strip().lower()
+        if plant_id not in PROMOTED_PLANT_IDS:
+            raise HTTPException(404, f"'{plant_id}' is not a promoted plant.")
+        row = await db.promoted_plants.find_one({"plant.id": plant_id}, {"source_slug": 1})
+        await db.promoted_plants.delete_one({"plant.id": plant_id})
+        remove_promoted_plant(plant_id)
+        if row and row.get("source_slug"):
+            await db.ai_plant_stats.update_one(
+                {"slug": row["source_slug"]},
+                {"$set": {"promoted": False}, "$unset": {"promoted_plant_id": "", "promoted_at": ""}},
+            )
+        # Invalidate translated catalogues — the un-promoted plant should
+        # disappear from non-EN /api/plants responses too.
+        await db.guidance_cache.delete_many({"key": {"$regex": "^plants:"}})
+        return {"ok": True, "removed": plant_id}
+
+    @router.post("/admin/reload-promoted-plants")
+    async def admin_reload_promoted_plants(token: str):
+        """Re-read all promoted plants from Mongo. Useful if you edited the
+        DB directly (e.g. shell mongosh) and want the running app to pick
+        up the changes without a supervisor restart."""
+        _require_admin(token)
+        added = await load_promoted_plants(db)
+        await db.guidance_cache.delete_many({"key": {"$regex": "^plants:"}})
+        return {"ok": True, "promoted_plants_loaded": added}
 
     return router

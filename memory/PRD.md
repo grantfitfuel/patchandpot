@@ -28,6 +28,36 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 51 (2026-02-26): ✅ — Admin "Promote AI search" tool
+
+User: *"a like I asked"* (Option A: finish the AI-promote tool that was queued mid-session). Built the full workflow:
+
+**Backend** (`routers/plants.py`, `routers/admin.py`, `core.py`, `server.py`)
+- `_record_ai_plant_view(db, slug, query, fp)` helper in `routers/plants.py` — 24h fingerprint-debounced counter for `ai-*` slug fetches. Wired into the `/plant-guide` POST handler so every successful guide fetch (cache hit AND fresh generation) bumps `view_count` + `view_count_7d` on `ai_plant_stats` keyed by slug. TTL collection `ai_plant_views` guards against single-user inflation. Bot UAs skipped.
+- New endpoints in `routers/admin.py` (all token-gated):
+  - `GET  /api/admin/ai-searches?limit=&include_promoted=` — joins `ai_plant_stats` with the cached EN guide JSON for the review modal.
+  - `POST /api/admin/promote-plant` — body is the (edited) curated row; upserts into `promoted_plants` collection, mutates in-memory PLANTS list via `merge_promoted_plant`, flags the source `ai_plant_stats` row as promoted, and invalidates translated `plants:{lang}` catalogues so non-EN responses rebuild with the new plant.
+  - `POST /api/admin/unpromote-plant?plant_id=` — reverses a promotion.
+  - `POST /api/admin/reload-promoted-plants` — re-reads from Mongo without a supervisor restart.
+- `core.py`: introduces `PROMOTED_PLANT_IDS` set + `load_promoted_plants(db)` / `merge_promoted_plant(plant)` / `remove_promoted_plant(plant_id)` helpers. All in-place mutations so other modules that did `from core import PLANTS, PLANT_INDEX` keep working — no rebinding.
+- `server.py` startup: calls `load_promoted_plants(db)`, ensures TTL/unique indexes for `ai_plant_views`, `ai_plant_stats`, `promoted_plants`, and adds `ai_plant_stats.view_count_7d` to the weekly Monday decay job (alongside `shared_patches` + `plant_stats`).
+
+**Frontend** (`pages/AdminAiSearches.jsx`, `App.js`, `lib/api.js`)
+- New page `/admin/ai-searches` with token gate, **Candidates / Promoted** tabs, sortable list ranked by 7-day views, **Preview** + **Promote…** / **Unpromote** actions per row.
+- `PromoteModal` — full editable form (Curated ID, Common name, Botanical name, Summary, Category, Difficulty, Sun, Water, Soil, Edible part, Tags, Container-friendly). Pre-fills from the cached AI guide with sensible defaults; defaults the curated ID to the slug stripped of its `ai-` prefix so URLs stay clean.
+- Cross-links from `/admin/ai-usage` ("→ Promote AI searches") for navigation between admin dashboards.
+- API helpers: `fetchAdminAiSearches`, `promoteAiPlant`, `unpromoteAiPlant`.
+
+**Side-fix**: `AdminTokenGate.jsx` had `<title>{title} — Patch & Pot</title>` which produces multiple Helmet children and crashed the page through the ErrorBoundary (existing bug — `/admin/referrals` was also affected). Wrapped in a template literal so it's a single string child.
+
+**SW bumped** `patchpot-v26` → `patchpot-v27`.
+
+**Verified end-to-end (UI + curl)**:
+1. AI plant guide fetch increments view count → row appears in `/admin/ai-searches`.
+2. Promote modal saves → toast confirms → row moves to Promoted tab → plant appears in `/api/plants?language=en` immediately (no restart).
+3. Unpromote → plant disappears from `/api/plants` → row moves back to Candidates.
+
+
 ### Iteration 50 (2026-02-26): ✅ — Library 182 → 332 + Cloudflare cache header fix
 
 **Part A — +150 plants**: 50 edibles (tomato/pepper variants, lettuce varieties, Asian greens, herb cultivars, root veg, perennial veg), 50 pollinator flowers (asters, hardy geraniums, salvias, more lavenders, alliums, bulbs, hellebores), 50 cut flowers (dahlia/sunflower/sweet pea/tulip/peony variants, pollinator-friendly cut flowers).

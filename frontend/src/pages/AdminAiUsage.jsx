@@ -118,6 +118,13 @@ export default function AdminAiUsagePage() {
           >
             → See referral attribution
           </Link>
+          <Link
+            to="/admin/ai-searches"
+            data-testid="admin-link-ai-searches"
+            className="text-sm text-moss hover:text-terracotta underline-offset-4 hover:underline mt-2 ml-4 inline-block"
+          >
+            → Promote AI searches
+          </Link>
         </div>
         <div className="flex items-center gap-2">
           <div className="inline-flex border border-border bg-surface" role="tablist">

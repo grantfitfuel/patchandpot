@@ -82,6 +82,11 @@ export default function PlantDetailPage() {
         <div className="md:col-span-6">
           <p className="overline">{plant.category}</p>
           <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{plant.name}</h1>
+          {plant.botanical && (
+            <p className="font-serif italic text-base md:text-lg text-moss/80 mt-2" data-testid="plant-detail-botanical">
+              {plant.botanical}
+            </p>
+          )}
           <p className="text-ink/80 mt-5 text-lg leading-relaxed">{plant.summary}</p>
 
           <div className="grid grid-cols-2 gap-4 mt-8">

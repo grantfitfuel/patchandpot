@@ -301,6 +301,11 @@ export default function PlantsPage() {
             <div className="p-5 flex flex-col flex-1">
               <p className="overline">{catLabel(p.category)}</p>
               <h3 className="font-serif text-2xl text-forest mt-2">{p.name}</h3>
+              {p.botanical && (
+                <p className="font-serif italic text-xs text-moss/80 mt-0.5" data-testid={`plant-card-botanical-${p.id}`}>
+                  {p.botanical}
+                </p>
+              )}
               {(p.hardiness || p.lifecycle) && (
                 <p className="text-xs text-moss mt-1" data-testid={`plant-card-meta-${p.id}`}>
                   {[

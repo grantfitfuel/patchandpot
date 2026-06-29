@@ -77,6 +77,7 @@ export default function PlantsPage() {
   const [plants, setPlants] = useState([]);
   const [recent, setRecent] = useState([]);
   const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState("default");
   const [group, setGroup] = useState("all");
   const [subFilterKey, setSubFilterKey] = useState(null);
   const [lifecycle, setLifecycle] = useState(null);
@@ -96,13 +97,24 @@ export default function PlantsPage() {
 
   const activeGroup = GROUPS.find((g) => g.key === group) || GROUPS[0];
   const activeSub = activeGroup.subFilters?.find((s) => s.key === subFilterKey) || null;
-  const filtered = plants.filter((p) => {
+  const baseFiltered = plants.filter((p) => {
     if (activeGroup.categories && !activeGroup.categories.includes(p.category)) return false;
     if (activeSub && !matchesSubFilter(p, activeSub)) return false;
     if (lifecycle && p.lifecycle !== lifecycle) return false;
     if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
     return true;
   });
+
+  const DIFFICULTY_ORDER = { "Very easy": 0, "Easy": 1, "Medium": 2, "Hard": 3 };
+  const LIFECYCLE_ORDER = { "annual": 0, "biennial": 1, "perennial": 2 };
+  const filtered = (() => {
+    if (sortBy === "default") return baseFiltered;
+    const arr = [...baseFiltered];
+    if (sortBy === "az") arr.sort((a, b) => a.name.localeCompare(b.name));
+    else if (sortBy === "difficulty") arr.sort((a, b) => (DIFFICULTY_ORDER[a.difficulty] ?? 9) - (DIFFICULTY_ORDER[b.difficulty] ?? 9));
+    else if (sortBy === "lifecycle") arr.sort((a, b) => (LIFECYCLE_ORDER[a.lifecycle] ?? 9) - (LIFECYCLE_ORDER[b.lifecycle] ?? 9) || a.name.localeCompare(b.name));
+    return arr;
+  })();
 
   // Only show the lifecycle chip row when at least two lifecycle types
   // exist within the current group + sub-filter slice. Avoids redundant
@@ -160,6 +172,17 @@ export default function PlantsPage() {
             className="w-full pl-10 pr-3 py-3 bg-sand border border-border focus:border-forest outline-none text-ink"
           />
         </div>
+        <select
+          data-testid="plants-sort"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="text-xs px-3 py-2 bg-sand border border-border text-ink/80 cursor-pointer hover:border-forest/40 focus:border-forest outline-none"
+        >
+          <option value="default">{t("plants.sort.default")}</option>
+          <option value="az">{t("plants.sort.az")}</option>
+          <option value="difficulty">{t("plants.sort.difficulty")}</option>
+          <option value="lifecycle">{t("plants.sort.lifecycle")}</option>
+        </select>
         <div className="flex flex-wrap gap-2">
           {GROUPS.map((g) => (
             <button

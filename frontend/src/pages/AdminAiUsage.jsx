@@ -172,7 +172,7 @@ export default function AdminAiUsagePage() {
         </div>
       )}
 
-      {data && <UsageBoard data={data} />}
+      {data && <UsageBoard data={data} token={token} />}
       {!data && !error && loading && (
         <p className="text-ink/60 text-sm">Loading…</p>
       )}
@@ -180,7 +180,7 @@ export default function AdminAiUsagePage() {
   );
 }
 
-function UsageBoard({ data }) {
+function UsageBoard({ data, token }) {
   const { calls, relative_cost_units, budget, window_days, plant_guide_daily } = data;
   const totalCalls = (calls.sonnet?.total || 0) + (calls.haiku?.total || 0) + (calls.images || 0);
   const cap = budget?.monthly_cap_gbp || 0;
@@ -237,7 +237,7 @@ function UsageBoard({ data }) {
           <div className="mt-5 pt-5 border-t border-border flex flex-wrap items-end gap-x-6 gap-y-2"
                data-testid="admin-plant-guide-daily">
             <div>
-              <p className="overline">Today's new AI plant guides</p>
+              <p className="overline">Today&apos;s new AI plant guides</p>
               <p className="font-serif text-2xl text-forest mt-1">
                 {plant_guide_daily.used_today}
                 <span className="text-ink/50 text-base"> / {plant_guide_daily.limit}</span>
@@ -306,7 +306,117 @@ function UsageBoard({ data }) {
           </p>
         </div>
       </section>
+
+      <AskUsageReset token={token} />
     </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ask-the-Garden daily-counter reset                                 */
+/*  Lets an operator zero a member's ask_usage rows directly from the  */
+/*  admin UI — no need to drop to curl. Single date or full wipe.      */
+/* ------------------------------------------------------------------ */
+function AskUsageReset({ token }) {
+  const backend = process.env.REACT_APP_BACKEND_URL;
+  const [accessToken, setAccessToken] = useState("");
+  const [date, setDate] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [result, setResult] = useState(null);
+  const [err, setErr] = useState(null);
+
+  async function clear() {
+    if (!accessToken.trim()) {
+      setErr("Member access_token is required.");
+      return;
+    }
+    if (!window.confirm(
+      date
+        ? `Clear ask_usage for date ${date} for this member?`
+        : "Wipe ALL ask_usage rows for this member?"
+    )) return;
+    setBusy(true);
+    setErr(null);
+    setResult(null);
+    try {
+      const params = new URLSearchParams({ token, access_token: accessToken.trim() });
+      if (date) params.set("date", date.trim());
+      const r = await fetch(`${backend}/api/admin/ask/clear-usage?${params.toString()}`, {
+        method: "POST",
+        cache: "no-store",
+      });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j?.detail || `HTTP ${r.status}`);
+      setResult(j);
+    } catch (e) {
+      setErr(e?.message || "Failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <section className="card-flat p-6 mt-6" data-testid="admin-ask-usage-reset">
+      <div className="flex items-center gap-3 mb-3">
+        <RefreshCw strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+        <span className="overline">Reset Ask-the-Garden counter</span>
+      </div>
+      <p className="text-sm text-ink/70 mb-4 max-w-2xl">
+        Wipe a member&apos;s daily question counter. Leave date blank to wipe every row for that member,
+        or fill it in (YYYY-MM-DD) to clear just one day. Uses the admin token already signed in above.
+      </p>
+
+      <div className="grid sm:grid-cols-[1fr_180px_auto] gap-3 mb-3">
+        <input
+          data-testid="ask-reset-access-token"
+          type="text"
+          placeholder="Member access_token"
+          value={accessToken}
+          onChange={(e) => setAccessToken(e.target.value)}
+          className="w-full px-3 py-2 text-sm border border-border bg-sand font-mono"
+        />
+        <input
+          data-testid="ask-reset-date"
+          type="text"
+          placeholder="YYYY-MM-DD (optional)"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="w-full px-3 py-2 text-sm border border-border bg-sand font-mono"
+        />
+        <button
+          type="button"
+          data-testid="ask-reset-submit"
+          onClick={clear}
+          disabled={busy}
+          className="px-4 py-2 text-xs uppercase tracking-wider bg-forest text-sand hover:bg-forest/85 disabled:opacity-50"
+        >
+          {busy ? "Clearing…" : "Clear"}
+        </button>
+      </div>
+
+      {err && (
+        <p className="text-sm text-red-700 mt-2" data-testid="ask-reset-error">{err}</p>
+      )}
+      {result && (
+        <div className="mt-3 text-sm" data-testid="ask-reset-result">
+          <p className="text-forest">
+            ✓ Removed {result.rows_removed} row(s). Scope: {result.scope}.
+          </p>
+          {result.remaining_rows?.length ? (
+            <div className="mt-2">
+              <p className="overline text-[0.6rem] mb-1">Remaining ask_usage history</p>
+              <ul className="font-mono text-xs text-ink/85 space-y-0.5">
+                {result.remaining_rows.map((row) => (
+                  <li key={row.date}>{row.date} → count={row.count}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <p className="text-xs text-moss italic mt-2">No ask_usage rows remain for this member.</p>
+          )}
+        </div>
+      )}
+    </section>
   );
 }
 

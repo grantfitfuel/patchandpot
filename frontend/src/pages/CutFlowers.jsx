@@ -112,7 +112,7 @@ export default function CutFlowersPage() {
                 <div className="p-5 flex flex-col flex-1">
                   <p className="overline">{t(`cut.role.${d.arrangement_role}`)}</p>
                   <h3 className="font-serif text-2xl text-forest mt-1.5">{p.name}</h3>
-                  <p className="text-sm text-moss mt-1" data-testid={`cut-card-vase-${p.id}`}>
+                  <p className="text-sm text-moss mt-1" data-testid={`cut-card-meta-${p.id}`}>
                     {t("cut.vase_days_value", { days: d.vase_days })} ·{" "}
                     {t(`cut.conditioning.${d.conditioning}`)}
                   </p>

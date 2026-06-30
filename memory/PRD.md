@@ -28,6 +28,28 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 59 (2026-06-30): ✅ — Regrow from Scraps + Cut Flowers (full ship)
+
+User: *"3"* + *"All"* + *"Expand cut flowers section"* — picked the parallel build for both features. *"A"* (current iteration) — confirmed full plan including dedicated landing pages and 58-locale translation.
+
+**Backend** (already wired in prior session): `/app/backend/plants_regrow.py` (34 entries) + `/app/backend/plants_cut_flower.py` (27 entries), consumed by `apply_regrow_meta()` / `apply_cut_flower_meta()` in `core.py`. The merged catalogue exposes 31 plants with `regrow_from_scrap: True` + a `regrow{}` sub-object (method, instructions, days_to_first_harvest, yield_summary, worth_it 1–5★, family_friendly, notes) and 22 plants with `cut_flower: True` + a `cut_flower_data{}` sub-object (vase_days, cut_at_stage, conditioning, cut_and_come_again, arrangement_role, dries_well, notes).
+
+**Frontend** (this iteration)
+- **`Plants.jsx`** — Added a third "Special collections" chip row beneath the lifecycle row with two terracotta-accented toggle buttons: `data-testid="special-regrow"` and `data-testid="special-cut-flower"`. Independent of group/sub-filter (a Veg user can find regrowable veg without leaving the Edibles group). Clicking the same chip toggles it off; clicking the other one replaces the active filter. `RecommendedRail` now also hides while a special filter is active.
+- **`PlantDetail.jsx`** — Two new section components below `CompanionsSection`:
+  - `RegrowSection` (`data-testid="plant-regrow-section"`) — 4-cell spec grid (method · first harvest · ⭐ rating · kid-friendly) plus full instructions, expected yield and an "Honest note" callout. Renders only when `!isAi && plant.regrow`.
+  - `CutFlowerSection` (`data-testid="plant-cutflower-section"`) — 4-cell spec grid (vase days · conditioning · arrangement role · cut & come again) plus the exact stage to cut at, optional "Dries well" line, and an "Honest note" callout. Renders only when `!isAi && plant.cut_flower_data`.
+- **`/regrow-from-scraps` landing page** (`pages/RegrowFromScraps.jsx`) — H1 + intro, 4 method filter chips (all / water-first / water-only / soil-only), grid sorted by 5★ first. Cards show the method overline, name, ⭐ rating, yield summary, days-to-first-harvest meta line, optional Kid-friendly corner badge.
+- **`/cut-flowers` landing page** (`pages/CutFlowers.jsx`) — H1 + intro, 6 role filter chips (all / focal / spike / filler / foliage / umbel), sort dropdown (longest vase life ↓ default · A→Z), grid of 22 cards. Each card shows role overline, name, `{N} days · {conditioning}` meta line, cut-at-stage description, optional "Dries well" footer line, optional terracotta "Cut & come again" corner badge.
+- **`App.js`** — Two new routes registered: `/regrow-from-scraps` and `/cut-flowers`.
+
+**i18n** — 60 new keys in `en.js` (`plants.special.*` × 5, `regrow.*` × 22, `cut.*` × 33). Translation script `/app/scripts/translate_regrow_and_cutflower_keys.py` reuses the standard LOCALES + translate_keys_for + upsert_into_locale_file pipeline. All 57 non-EN locales successfully translated and injected (verified DE: `regrow.title="Wachstum aus Abfällen"`, `cut.title="Schnittblumen"`; verified JA: `regrow.title="スクラップから再生"`, `cut.title="切り花"`).
+
+**SW** bumped `patchpot-v32` → `patchpot-v33`.
+
+**Verified end-to-end** via `testing_agent_v3_fork` iter44: **backend 11/11 pytest PASS** (regrow/cut-flower data shapes, DE locale preserves sub-objects, regression on cherry-tomato + 333 plants total), **frontend Playwright PASS** on every acceptance scenario (special chips toggle 333→31/22, dahlia detail shows cut-flower section, basil detail shows regrow section, tomato shows neither, /regrow-from-scraps shows 31 cards default with sort by ★, /cut-flowers shows 22 cards default with sort by vase-life, sort dropdown re-orders alphabetically, i18n keys present in de.js). Zero functional issues. One cosmetic testid naming collision flagged and fixed (`cut-card-vase-{id}` → `cut-card-meta-{id}`).
+
+
 ### Iteration 58 (2026-02-26): ✅ — Structured event logging
 
 User: *"A"* (chose structured JSON logging from the menu, dropped weekly email digest from roadmap).

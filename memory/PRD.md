@@ -28,6 +28,30 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 57 (2026-02-26): ✅ — P3 + P4 refactor pass
+
+User: *"P3: Refactor routers/admin.py + pdf_seasonal.py. P4: Migrate @app.on_event → lifespan."*
+
+**P4 — Lifespan migration** (`server.py`: 312 → 213 lines)
+- Replaced the deprecated `@app.on_event("startup")` + `@app.on_event("shutdown")` decorators with a single `@asynccontextmanager` `lifespan` function passed to `FastAPI(lifespan=...)`. Modern FastAPI pattern, no behavioural change.
+- Extracted index-creation into a private `_ensure_db_indexes()` helper and the weekly view-count decay job into `_decay_weekly_views()` so the lifespan body stays readable.
+- Verified no `DeprecationWarning` in startup logs; all initial state messages match pre-refactor output.
+
+**P3a — `pdf_seasonal.py` refactor** (273 → 311 lines, mostly docstrings)
+- The 170-line `build_seasonal_pdf` is now a 30-line composition of six named section builders (`_section_cover`, `_section_plant_now`, `_section_harvest`, `_section_tasks`, `_section_pests`, `_section_my_notes_grid`, `_footer`). Each takes a shared `story` list and a `styles` dict — adding a new section is now one line in the main function.
+- Verified end-to-end via direct `build_seasonal_pdf(...)` call: 13348-byte PDF with valid `%PDF-` magic header generated from a sample guidance dict.
+
+**P3b — `routers/admin.py` split into package** (613 single-file lines → 5 files, max 297 lines each)
+- Converted `routers/admin.py` into `routers/admin/` package. Externally invisible — `from routers import admin as admin_router; admin_router.make_router(db)` still works because Python prefers the package over a same-named module.
+- Sub-modules grouped by intent:
+  - `_shared.py` (39 lines): `require_admin` + `PromotePlantPayload`
+  - `_maintenance.py` (73): refresh-guidance, cron-status, seed-deep-dives, prune, prewarm
+  - `_observability.py` (297): ai-usage, referrals, profit-margin
+  - `_curation.py` (228): ai-searches, promote-plant, unpromote-plant, reload, clear-cache, backfill
+  - `__init__.py` (36): `make_router(db)` composer that wires each `register_*_routes()` onto the same router
+- Verified all 5 endpoints still respond 200 (ai-usage, referrals, profit-margin, ai-searches, cron-status) post-refactor. Backend startup clean, lint clean.
+
+
 ### Iteration 56 (2026-02-26): ✅ — Homepage "Popular plants" rail + 58-locale translation
 
 User: *"Yes"* (to my suggestion of a public popular-plants rail as the next sensible follow-up to the rate limit). Drives discovery toward already-cached AI content (cheap traffic) and creates a flywheel.

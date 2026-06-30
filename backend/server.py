@@ -12,9 +12,11 @@ Wiring order:
 """
 import logging
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
 from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -60,8 +62,117 @@ mongo_url = os.environ["MONGO_URL"]
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ["DB_NAME"]]
 
+# ───────────────────────── Background tasks ─────────────────────────
+# Scheduler + cached guidance generator are created at module scope so the
+# admin endpoints (which import this module) can introspect job state, but
+# they're started/stopped from inside the lifespan context below.
+scheduler = AsyncIOScheduler()
+_generate_and_cache_guidance = make_generate_and_cache_guidance(db)
+
+
+async def _ensure_db_indexes() -> None:
+    """Idempotent index creation. Called once at startup."""
+    await db.shared_patch_views.create_index("expires_at", expireAfterSeconds=0)
+    await db.plant_views.create_index("expires_at", expireAfterSeconds=0)
+    await db.ai_plant_views.create_index("expires_at", expireAfterSeconds=0)
+    # Rate-limit ledger for `/plant-guide` Sonnet generations. We keep 7
+    # days of history so the admin can spot trends; the in-route count
+    # only ever looks at today's day_key.
+    await db.ai_plant_gen_log.create_index([("day", 1)])
+    await db.ai_plant_gen_log.create_index(
+        "created_at", expireAfterSeconds=7 * 24 * 3600,
+    )
+    await db.shared_patches.create_index([("list_publicly", 1), ("view_count_7d", -1)])
+    await db.plant_stats.create_index([("view_count_7d", -1)])
+    await db.plant_stats.create_index([("plant_id", 1)], unique=True)
+    await db.ai_plant_stats.create_index([("view_count_7d", -1)])
+    await db.ai_plant_stats.create_index([("slug", 1)], unique=True)
+    await db.promoted_plants.create_index([("plant.id", 1)], unique=True)
+
+
+async def _decay_weekly_views() -> None:
+    """Weekly Monday-03:00-UTC reset of `view_count_7d` so the homepage
+    'Most-loved patches THIS WEEK' wall and 'Plant of the week' rail reflect
+    recent traffic rather than cumulative all-time views."""
+    try:
+        r1 = await db.shared_patches.update_many(
+            {"view_count_7d": {"$gt": 0}}, {"$set": {"view_count_7d": 0}},
+        )
+        r2 = await db.plant_stats.update_many(
+            {"view_count_7d": {"$gt": 0}}, {"$set": {"view_count_7d": 0}},
+        )
+        r3 = await db.ai_plant_stats.update_many(
+            {"view_count_7d": {"$gt": 0}}, {"$set": {"view_count_7d": 0}},
+        )
+        logger.info(
+            "weekly view_count_7d decay reset %d patches, %d plants, %d ai-plants",
+            r1.modified_count, r2.modified_count, r3.modified_count,
+        )
+    except Exception as e:  # noqa: BLE001
+        logger.warning("weekly view decay failed: %s", e)
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    """Startup + shutdown in a single context manager — the modern FastAPI
+    pattern, replacing the deprecated `@app.on_event("startup"|"shutdown")`
+    decorators. Yielding hands control back to FastAPI; code after the
+    yield runs on shutdown.
+
+    Failure of any individual init step never aborts boot — every block is
+    wrapped so a missing optional dependency (e.g. deep-dive seed) can't
+    take the API offline.
+    """
+    # ── startup ──────────────────────────────────────────────────────────
+    schedule_monthly_refresh(scheduler, db, _generate_and_cache_guidance, Region)
+    scheduler.add_job(
+        _decay_weekly_views,
+        CronTrigger(day_of_week="mon", hour=3, minute=0),
+        id="shared_patch_weekly_view_decay",
+        replace_existing=True,
+    )
+    scheduler.start()
+    logger.info(
+        "APScheduler started — next monthly guidance refresh: %s",
+        scheduler.get_job("guidance_monthly_refresh").next_run_time,
+    )
+
+    try:
+        result = await seed_deep_dives(db, overwrite=False)
+        logger.info("deep-dive auto-seed: %s", result)
+    except Exception as e:  # noqa: BLE001
+        logger.exception("deep-dive auto-seed failed: %s", e)
+
+    try:
+        state = await refresh_ai_budget_state(db)
+        logger.info("AI budget initial state: %s", state)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("AI budget refresh failed at startup: %s", e)
+
+    try:
+        added = await load_promoted_plants(db)
+        logger.info("Loaded %d promoted plant(s) from Mongo into PLANTS", added)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("load_promoted_plants failed at startup: %s", e)
+
+    try:
+        await _ensure_db_indexes()
+        logger.info("share/plant view TTL + popular-wall indexes ensured")
+    except Exception as e:  # noqa: BLE001
+        logger.warning("DB indexes setup failed: %s", e)
+
+    yield
+
+    # ── shutdown ─────────────────────────────────────────────────────────
+    try:
+        scheduler.shutdown(wait=False)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("scheduler shutdown failed: %s", e)
+    client.close()
+
+
 # ───────────────────────── FastAPI app ─────────────────────────
-app = FastAPI(title="Patch & Pot API")
+app = FastAPI(title="Patch & Pot API", lifespan=lifespan)
 api_router = APIRouter(prefix="/api")
 
 
@@ -100,101 +211,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# ───────────────────────── Background tasks ─────────────────────────
-scheduler = AsyncIOScheduler()
-_generate_and_cache_guidance = make_generate_and_cache_guidance(db)
-
-
-@app.on_event("startup")
-async def start_scheduler():
-    """Schedule the monthly AI guidance refresher and idempotently seed the
-    staff-authored deep dives. Both are safe to run on every boot."""
-    schedule_monthly_refresh(scheduler, db, _generate_and_cache_guidance, Region)
-    scheduler.start()
-    logger.info(
-        "APScheduler started — next monthly guidance refresh: %s",
-        scheduler.get_job("guidance_monthly_refresh").next_run_time,
-    )
-    try:
-        result = await seed_deep_dives(db, overwrite=False)
-        logger.info("deep-dive auto-seed: %s", result)
-    except Exception as e:  # noqa: BLE001
-        logger.exception("deep-dive auto-seed failed: %s", e)
-    try:
-        state = await refresh_ai_budget_state(db)
-        logger.info("AI budget initial state: %s", state)
-    except Exception as e:  # noqa: BLE001
-        logger.warning("AI budget refresh failed at startup: %s", e)
-
-    # Merge admin-promoted AI plants into the in-memory PLANTS catalogue so
-    # they appear in /api/plants and /api/plants/{id} on the very next call.
-    try:
-        added = await load_promoted_plants(db)
-        logger.info("Loaded %d promoted plant(s) from Mongo into PLANTS", added)
-    except Exception as e:  # noqa: BLE001
-        logger.warning("load_promoted_plants failed at startup: %s", e)
-
-    # TTL index on shared_patch_views — visit-debounce keys expire after
-    # 24h, so a single fan refreshing the page only counts once per day.
-    try:
-        await db.shared_patch_views.create_index("expires_at", expireAfterSeconds=0)
-        await db.plant_views.create_index("expires_at", expireAfterSeconds=0)
-        await db.ai_plant_views.create_index("expires_at", expireAfterSeconds=0)
-        # Rate-limit ledger for `/plant-guide` Sonnet generations. We keep
-        # 7 days of history (the 7d in the index) so the admin can spot
-        # trends; the in-route count only ever looks at today's day_key.
-        await db.ai_plant_gen_log.create_index([("day", 1)])
-        await db.ai_plant_gen_log.create_index(
-            "created_at", expireAfterSeconds=7 * 24 * 3600,
-        )
-        await db.shared_patches.create_index([("list_publicly", 1), ("view_count_7d", -1)])
-        await db.plant_stats.create_index([("view_count_7d", -1)])
-        await db.plant_stats.create_index([("plant_id", 1)], unique=True)
-        await db.ai_plant_stats.create_index([("view_count_7d", -1)])
-        await db.ai_plant_stats.create_index([("slug", 1)], unique=True)
-        await db.promoted_plants.create_index([("plant.id", 1)], unique=True)
-        logger.info("share/plant view TTL + popular-wall indexes ensured")
-    except Exception as e:  # noqa: BLE001
-        logger.warning("share/plant view indexes setup failed: %s", e)
-
-    # Weekly decay of view_count_7d so the homepage 'Most-loved patches
-    # THIS WEEK' wall and 'Plant of the week' rail actually reflect recent
-    # traffic rather than cumulative all-time views. Runs every Monday 03:00 UTC.
-    async def _decay_weekly_views():
-        try:
-            r1 = await db.shared_patches.update_many(
-                {"view_count_7d": {"$gt": 0}},
-                {"$set": {"view_count_7d": 0}},
-            )
-            r2 = await db.plant_stats.update_many(
-                {"view_count_7d": {"$gt": 0}},
-                {"$set": {"view_count_7d": 0}},
-            )
-            r3 = await db.ai_plant_stats.update_many(
-                {"view_count_7d": {"$gt": 0}},
-                {"$set": {"view_count_7d": 0}},
-            )
-            logger.info(
-                "weekly view_count_7d decay reset %d patches, %d plants, %d ai-plants",
-                r1.modified_count, r2.modified_count, r3.modified_count,
-            )
-        except Exception as e:  # noqa: BLE001
-            logger.warning("weekly view decay failed: %s", e)
-
-    from apscheduler.triggers.cron import CronTrigger
-    scheduler.add_job(
-        _decay_weekly_views,
-        CronTrigger(day_of_week="mon", hour=3, minute=0),
-        id="shared_patch_weekly_view_decay",
-        replace_existing=True,
-    )
-
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    try:
-        scheduler.shutdown(wait=False)
-    except Exception as e:  # noqa: BLE001
-        logger.warning("scheduler shutdown failed: %s", e)
-    client.close()

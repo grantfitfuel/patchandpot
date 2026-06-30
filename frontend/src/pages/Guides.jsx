@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Sprout, LayoutGrid, Recycle, Flower2,
-  HandHelping, FileDown, Lock,
+  HandHelping, FileDown, Lock, Lightbulb,
 } from "lucide-react";
 import { useI18n } from "@/i18n";
 import { usePaywall } from "@/hooks/usePaywall";
@@ -41,14 +41,181 @@ const GUIDES = {
     image:
       "https://images.unsplash.com/photo-1765558290832-f50b7fab8f36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwzfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
     sections: [
-      { type: "prose", title: "Grow up, not out",
-        body: "Cucumbers, beans and even small squashes will happily climb a trellis or a strung line. A 30 cm pot at the base can yield a metre of growing space straight up." },
-      { type: "prose", title: "Rail planters & hanging baskets",
-        body: "Strawberries, trailing thyme and tumbling tomatoes thrive in baskets — they spill, they look beautiful, and they free up your floor." },
-      { type: "prose", title: "Crates and recycled containers",
-        body: "Wooden wine crates lined with hessian make perfect shallow herb gardens. Drill drainage holes in old buckets and tins — anything with depth and drainage can grow food." },
-      { type: "prose", title: "Stacked towers",
-        body: "DIY vertical towers using stacked pots or fabric pocket planters give you 6–10 plants in the footprint of one." },
+      { type: "prose", title: "The honest small-space mindset",
+        body: "A 2 m² balcony will never out-yield an allotment — but it can absolutely feed you fresh herbs, salads, soft fruit and a meaningful summer of tomatoes if you stop trying to copy a country garden. The single biggest mistake is putting too many plants in too-small pots. One thriving 30 L tomato in a sunny corner beats five sulky 5 L tomatoes squeezed onto a railing. Pick fewer plants, give them deeper soil, and grow up." },
+
+      { type: "tags", items: ["Grow up, not out", "Vertical wall gardens", "Edges & rails", "Light is the limit", "Deeper > wider"] },
+
+      { type: "tipsgrid", title: "The four ways to find more space",
+        items: [
+          { t: "Up — climbers & trellis",
+            b: "Anything that grows on a vine can climb out of its pot's footprint. Cucumbers, climbing beans, sweet peas and even small squashes will go vertical with a single bamboo wigwam. A 30 cm pot can yield a metre of plant straight up." },
+          { t: "Sideways — rails & hooks",
+            b: "Railing planters double your growing area without taking floor space. Hooks under window ledges hold hanging baskets for strawberries, tumbling tomatoes and trailing herbs." },
+          { t: "Stacked — tiered shelves",
+            b: "A simple 3-tier metal plant stand turns one square metre of floor into three square metres of growing area. Put sun-lovers on top, leafy greens on the bottom." },
+          { t: "Hidden — windowsills indoors",
+            b: "Don't forget the sill inside the kitchen. Microgreens, herbs and chilli plants all crop on a bright indoor windowsill year-round." },
+        ],
+      },
+
+      { type: "steps", title: "Build a vertical wall garden (the highest-yield small-space build)",
+        items: [
+          "Pick the wall — a south or west-facing exterior wall, sheltered from the worst wind. Check what's behind it: solid masonry holds anchors; cladding or hollow plasterboard won't.",
+          "Choose the system: (a) pocket planters — fabric or felt pouches that hang from a batten, lightest, perfect for renters; (b) modular pots on a rail — rigid, refillable, last for years; (c) horizontal pallet — a heat-treated (HT-stamped) pallet stood upright and lined with weed fabric, biggest yield, free.",
+          "Mount a horizontal pressure-treated batten high on the wall with rust-proof screws into anchors rated for at least 30 kg per fixing — a fully-watered wall garden weighs 80–150 kg per square metre.",
+          "Line the back with breathable weed fabric or pond liner so water doesn't run down the wall and stain the brickwork. Leave a 2–3 cm air gap between the planter and the wall for airflow (stops mildew and damp).",
+          "Fill with a light peat-free compost mix (50% compost, 30% coir, 20% perlite) — heavy soil tears pockets and overloads the wall.",
+          "Install drip irrigation along the top row from day one. Hand-watering a wall garden is misery and the bottom plants always die first — a £20 timer-fed drip kit is the difference between thriving and dead.",
+          "Plant top rows with shallow-rooted trailers (strawberries, thyme, oregano, alyssum), middle rows with leafy crops (lettuce, mizuna, spinach, chard), and the bottom row with herbs that tolerate wetter feet (mint, parsley, chives — they catch all the drainage above them).",
+        ],
+        footer: "Renting? Use a freestanding A-frame pallet or a wall-leaning ladder planter — both give you the vertical yield without drilling a single hole. Move the whole thing when you move out.",
+      },
+
+      { type: "list", title: "What thrives on a vertical wall (and what to skip)",
+        items: [
+          "Best: strawberries (everbearing), lettuce, rocket, mizuna, chard, spinach, parsley, thyme, oregano, mint, chives, sage, alyssum, nasturtium, viola.",
+          "Good with care: bush basil, dwarf french beans, small chillies, trailing tumbling tomatoes (top row only).",
+          "Skip: anything that gets tall and top-heavy (cordon tomatoes, peppers, kale), root crops (carrots, beetroot — not enough soil depth), and Mediterranean herbs that hate the wet feet of a bottom row (rosemary, lavender — pot them separately).",
+          "Pollinator strip: dedicate the top row to alyssum + nasturtium + viola. They pull bees and hoverflies in, which then visit your edible rows below.",
+        ],
+      },
+
+      { type: "table", title: "Container sizes that actually work",
+        note: "If you take one thing from this guide: depth matters more than width. Most beginners underpot tomatoes.",
+        headers: ["Container", "Soil volume", "Best for", "How many plants"],
+        rows: [
+          ["Window box", "5–7 L", "Lettuce, radish, chives, parsley, viola", "3–5"],
+          ["Round 20 cm pot", "3–4 L", "One basil, one chilli, one mint, herb cuttings", "1"],
+          ["Round 30 cm pot", "10–12 L", "Bush tomato (small), salad bowl, pepper", "1"],
+          ["Round 40 cm pot", "25–30 L", "Cordon tomato, courgette, climbing bean wigwam", "1 (or 1 tomato + 1 basil)"],
+          ["Trough 60 × 25 cm", "20 L", "Cut-and-come-again salads, herb collection", "5–6"],
+          ["Grow bag (40 L)", "40 L", "Two cordon tomatoes or one courgette", "1–2"],
+          ["Half-barrel (60 cm)", "80–100 L", "Compact apple, dwarf peach, blueberry pair", "1 shrub or 2 cordons"],
+          ["Hanging basket 30 cm", "8–10 L", "Tumbling tomato, trailing thyme, strawberries", "3–5"],
+        ],
+      },
+
+      { type: "list", title: "Crops that genuinely earn their pot space",
+        items: [
+          "Salad leaves (loose-leaf, oak-leaf, mizuna) — sown every 3 weeks, cut-and-come-again, 6+ harvests per pot per season.",
+          "Soft herbs (basil, coriander, parsley, mint) — fresh herbs cost £2 a packet at the shop; a pot pays for itself in 3 weeks.",
+          "Chillies & sweet peppers — handle small pots well, ornamental, productive, dry well for winter use.",
+          "Bush cherry tomatoes — sized for pots, faster than cordons, a single plant gives 80–120 fruit.",
+          "Strawberries (everbearing) — perfect in hanging baskets; fruit June through October.",
+          "Climbing French beans — vertical, prolific, beautiful flowers, pick young and they keep producing.",
+          "Spring onions & radish — fast, shallow-rooted, ideal between bigger plants as 'gap fillers'.",
+        ],
+      },
+
+      { type: "list", title: "Crops that struggle in pots (skip or scale down)",
+        items: [
+          "Sweetcorn — needs a block of 9+ plants for pollination; no room.",
+          "Brussels sprouts & full-size cabbages — top-heavy, slow, need huge soil volume and a long season.",
+          "Maincrop potatoes — possible in big tubs but you'll get a meal, not a winter store. Skip unless it's purely for the joy.",
+          "Pumpkins & big winter squashes — one plant covers 6 m² on the ground; not balcony-friendly.",
+          "Asparagus & rhubarb — beautiful perennials but they need a permanent dedicated bed.",
+        ],
+      },
+
+      { type: "steps", title: "Build a 2-pot vertical wigwam (cucumbers, beans, sweet peas)",
+        items: [
+          "Choose a 30–40 cm pot with deep drainage holes. Fill ¾ with peat-free compost and a handful of slow-release feed.",
+          "Push 4 × 1.8 m bamboo canes into the soil, evenly spaced around the rim. Tie the tops together with garden twine to form a wigwam.",
+          "Sow 2 seeds or plant 2 plug plants at the base of each cane (thin to one per cane after they sprout).",
+          "Train the first 2 leaves of each plant gently around the cane. Self-clinging crops (sweet peas, cucumbers) take over after that; runner beans need re-tying weekly.",
+          "Water deeply 2× per week (daily in heatwaves). A 40 L pot at full vine load drinks roughly 2 L per day in midsummer.",
+        ],
+        footer: "Stability matters: on a windy balcony, wedge bricks against the windward side of the pot or lash the wigwam to a railing.",
+      },
+
+      { type: "steps", title: "Set up a railing planter (the small-space cheat code)",
+        items: [
+          "Pick a railing planter with a proper saddle bracket — not just hooks. A 5 L box full of soil weighs ~7 kg wet.",
+          "Always hang on the INSIDE of a balcony rail (gravity pulls them onto your floor, not 4 floors below).",
+          "Fill with a 50:50 mix of peat-free compost and coir for lightness. Add slow-release fertiliser at the recommended dose.",
+          "Plant trailing edges (thyme, oregano, alyssum, tumbling tomato) and tall centres (basil, chives, parsley) for a 3-D effect.",
+          "Water in the morning, never the evening — wet leaves overnight invite mildew.",
+        ],
+        footer: "Local rules: some flats and councils ban window-side planters. Check your lease before you mount one over a public pavement.",
+      },
+
+      { type: "list", title: "Hanging basket — the right way",
+        items: [
+          "Pick a 30 cm minimum diameter basket. Smaller ones dry out in hours and yields collapse.",
+          "Use a coir liner, NOT a moss liner — coir holds moisture longer and rots less.",
+          "Plant 3–5 plants: one trailing edible (tumbling tomato or strawberry), 2 trailing fillers (thyme, oregano), 1–2 upright centres (basil, chilli).",
+          "Add water-retaining gel crystals at planting (a pinch goes a long way). Lifesaver in hot weeks.",
+          "Lift the basket every 2–3 days — if it feels light, soak it in a bucket of water for 5 minutes rather than top-watering.",
+        ],
+      },
+
+      { type: "prose", title: "Light: the one thing you cannot fake",
+        body: "Most edible crops need 6+ hours of direct sun to fruit (tomatoes, peppers, courgettes, beans). 4–6 hours will produce mixed results — small fruit, late ripening. Below 4 hours, switch to leafy crops only: lettuce, spinach, chard, kale, mint, parsley, chives. North-facing balconies (south-facing in the southern hemisphere) get the least light — and that's OK. Lean into it: build a beautiful shade-tolerant salad garden instead of a mediocre tomato corner. Track your sun by leaving a plate or chalk mark on the balcony for a sunny day, then mark where it stays bright at 10am, 1pm and 4pm. That's your map." },
+
+      { type: "table", title: "Crops by light level",
+        headers: ["Sun hours", "Best crops", "Won't work well"],
+        rows: [
+          ["6+ hours direct", "Tomatoes, peppers, chillies, courgettes, beans, basil, strawberries", "—"],
+          ["4–6 hours direct", "Salads, chard, beetroot, dwarf french beans, peas, mint, parsley, chives", "Tomatoes (small/late), peppers, basil (leggy)"],
+          ["2–4 hours direct", "Lettuce, spinach, mizuna, kale, mint, parsley, sorrel, chives, microgreens", "Anything that fruits"],
+          ["Bright shade (no direct)", "Mint, parsley, chervil, microgreens, hostas (edible shoots), wild garlic", "Everything that fruits or sweetens"],
+        ],
+      },
+
+      { type: "table", title: "Watering rhythm by container size",
+        note: "Hot, windy balconies dry pots 2–3× faster than sheltered ones. Always finger-test before watering.",
+        headers: ["Container", "Cool weather", "Warm weather", "Heatwave"],
+        rows: [
+          ["Hanging basket 30 cm", "Daily", "1–2× per day", "2× per day + soak"],
+          ["20 cm pot", "Every 2–3 days", "Daily", "1–2× per day"],
+          ["40 cm pot / grow bag", "Twice a week", "Every 2 days", "Daily"],
+          ["Half-barrel 60 cm", "Once a week", "Twice a week", "Every 2 days"],
+        ],
+      },
+
+      { type: "list", title: "Wind, weight & balcony safety",
+        items: [
+          "A 40 L pot full of wet soil weighs ~50 kg. Check your balcony load rating before clustering multiple big tubs.",
+          "Use pot feet to stop puddling on tiles — saves the surface and the downstairs neighbour.",
+          "On exposed balconies, group pots in clusters (they shelter each other) and stake any climbers low and tight.",
+          "Saucers under pots are great in summer (water reservoir), terrible in winter (root rot). Lift them off in October.",
+          "If your balcony is a wind tunnel, build a windbreak with a tall climbing screen (sweet peas, runner beans) on the windward side — the plants themselves become your shelter.",
+        ],
+      },
+
+      { type: "table", title: "Troubleshooting — when small spaces fight back",
+        headers: ["Symptom", "Cause", "Fix"],
+        rows: [
+          ["Tomato leaves curl up and go pale", "Pot too small or root-bound; soil temperature swings", "Re-pot one size up; add a 2 cm mulch layer to even out heat."],
+          ["Lettuce bolts in 3 weeks", "Pot in full afternoon sun; soil drying repeatedly", "Move to a 2–4 hour spot; sow successionally every 3 weeks for fresh leaves."],
+          ["Hanging basket goes crispy by noon", "Basket too small / no water-retentive gel", "Soak the whole basket weekly; switch to a 35 cm basket; add coir + gel crystals."],
+          ["Tall climbers fall over in wind", "Pot too light at the base", "Wedge bricks inside the pot's bottom for ballast; lash the cane wigwam to the rail."],
+          ["Powdery mildew on cucumber leaves", "Wet evenings + poor airflow", "Water in the morning only; thin out leaves; pinch tips to open the canopy."],
+          ["Chilli flowers but no fruit forms", "Not enough pollinator visits on a high balcony", "Tap the flower stems gently at midday, or use a soft brush to dab between flowers (hand-pollinate)." ],
+        ],
+      },
+
+      { type: "prose", title: "The 4-pot starter plan (if you only have a tiny balcony)",
+        body: "Pot 1 — 40 L: one cordon tomato + basil at the base (best summer crop in a small space). Pot 2 — 30 cm hanging basket: tumbling tomato or strawberries (steals zero floor space). Pot 3 — 60 cm trough on a railing: cut-and-come-again salads, sown in 3 patches 3 weeks apart for a 4-month harvest. Pot 4 — 30 cm pot: a single chilli or sweet pepper plant (ornamental, productive, freezes well). Total cost: ~£40. Total food: enough fresh salad and herbs from May to October, plus 80+ tomatoes and a year's worth of chilli — for less than a single weekly veg-box delivery." },
+
+      { type: "list", title: "Five small-space rules worth remembering",
+        items: [
+          "Deeper pots beat wider pots — root depth = drought resilience.",
+          "Grow up before you grow out. Vertical is free real estate.",
+          "Pick fewer crops, treat them better. One healthy tomato beats four sad ones.",
+          "Water in the morning. Wet leaves overnight is mildew's invitation.",
+          "Match the crop to the light, not the other way around. You can't make a north-facing balcony grow tomatoes.",
+        ],
+      },
+
+      { type: "cta",
+        href: "/plants",
+        eyebrow: "Browse 332 plants",
+        title: "Find plants sized for your space",
+        body: "Every plant in the catalogue is tagged with the smallest pot size that still produces well. Filter by herb, leafy, fruit, or special collections and pick what fits your sunniest corner.",
+        cta: "Open the plant library",
+      },
     ],
   },
 
@@ -60,14 +227,110 @@ const GUIDES = {
     image:
       "https://images.unsplash.com/photo-1580133318324-f2f76d987dd8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1NzR8MHwxfHNlYXJjaHwxfHxwbGFudCUyMGxlYWYlMjBjbG9zZSUyMHVwJTIwdGV4dHVyZXxlbnwwfHx8fDE3ODE0NjI5MzJ8MA&ixlib=rb-4.1.0&q=85",
     sections: [
-      { type: "prose", title: "Spring onions in water",
-        body: "Save the white root ends. Stand them in a glass of water on a bright sill, change the water every other day — new green shoots in 3–5 days, ready to snip in a week." },
-      { type: "prose", title: "Lettuce, celery & bok choy bases",
-        body: "Plant the core in shallow soil with the cut side up, just below the surface. Keep moist — new leaves emerge from the centre." },
-      { type: "prose", title: "Garlic & ginger",
-        body: "A sprouting clove pushed into soil pointy-side up will give you a green garlic shoot. Sprouted ginger rhizomes love warmth and humidity." },
-      { type: "prose", title: "Herbs from cuttings",
-        body: "Basil, mint and rosemary root readily in water. Snip a 10 cm stem, strip the lower leaves, pop it in water, transplant once roots are 3 cm long." },
+      { type: "cta",
+        href: "/regrow-from-scraps",
+        eyebrow: "Browse the catalogue",
+        title: "31 plants, hand-graded for honesty",
+        body: "Every plant in this guide is rated 1–5★ on whether it's actually worth the windowsill space. Browse all 31 with method, expected yield and days-to-first-harvest.",
+        cta: "Open the regrow catalogue",
+      },
+
+      { type: "prose", title: "What 'regrow' actually means",
+        body: "Most kitchen scraps will sprout — it's keeping them alive past the novelty week that separates a real harvest from a sad bowl of slime. There are three honest paths: stems that root in water and transfer to soil (basil, mint), bases that resprout new leaves from a stub (lettuce, spring onion, celery), and rhizomes or eyes that grow a whole new plant from a node (potato, ginger, garlic). The trick is matching the right method to the right scrap." },
+
+      { type: "tipsgrid", title: "Setting up — three things you need",
+        items: [
+          { t: "A clean glass jar or jam jar", b: "Cloudy water is bacteria; bacteria is why most cuttings rot. Scrub the jar with hot soapy water before you start, and rinse it out every time you change the water." },
+          { t: "Bright, indirect light", b: "South-facing sill if you live in the north hemisphere. Avoid direct hot afternoon sun on a glass jar — it cooks roots and grows algae. East-facing is perfect." },
+          { t: "Tepid filtered or rested water", b: "Cold tap water shocks the cut; chlorinated water inhibits root growth. Fill a jug, leave overnight, then use. Change the water every 2–3 days." },
+        ],
+      },
+
+      { type: "table", title: "Honest method ratings — top 12 to actually grow",
+        note: "Ratings combine effort vs. yield vs. how long the plant keeps producing. 5★ = better than buying. 1★ = a cute experiment but not a meal.",
+        headers: ["Plant", "Method", "First harvest", "Worth it"],
+        rows: [
+          ["Spring onion (scallion)", "Water then soil", "5–7 days", "★★★★★"],
+          ["Basil cutting", "Water then soil", "10–14 days roots", "★★★★★"],
+          ["Mint cutting", "Water then soil", "7–10 days roots", "★★★★★"],
+          ["Lettuce base", "Soil only", "10–14 days", "★★★☆☆"],
+          ["Celery base", "Water then soil", "14–21 days", "★★★☆☆"],
+          ["Pak choi / bok choy base", "Water then soil", "10–14 days", "★★★★☆"],
+          ["Coriander stems", "Water then soil", "10–14 days roots", "★★★★☆"],
+          ["Garlic clove (sprouted)", "Soil only", "10–14 days (green)", "★★★☆☆"],
+          ["Ginger rhizome", "Soil only", "21–30 days", "★★★☆☆"],
+          ["Potato (sprouted eye)", "Soil only", "8–10 weeks", "★★★★☆"],
+          ["Sweet potato slip", "Water then soil", "14–21 days", "★★★★☆"],
+          ["Pineapple top", "Soil only", "18–24 months", "★☆☆☆☆"],
+        ],
+      },
+
+      { type: "steps", title: "The water-then-soil method (basil, mint, coriander, scallions)",
+        items: [
+          "Pick a healthy 8–12 cm tip cutting with at least 3 leaf nodes; snip just below a node with sharp clean scissors.",
+          "Strip the lower 2/3 of leaves so only the top 2–4 stay. Submerged leaves rot fast and ruin the water.",
+          "Stand the cutting in a glass jar with 4–5 cm of tepid water. Change every 2–3 days.",
+          "Wait for roots to reach 3–5 cm — usually 7–14 days. Don't rush; weak roots fail in soil.",
+          "Transplant into a 9 cm pot of peat-free compost. Water in deeply, keep humid for the first week (a clear bag over the top helps).",
+        ],
+        footer: "Why two stages? Water roots are fragile and white; soil roots are tougher and brown. Letting them grow in water first means you can SEE progress before committing to a pot.",
+      },
+
+      { type: "steps", title: "The base-resprout method (lettuce, celery, pak choi)",
+        items: [
+          "Keep the bottom 3–4 cm of the head intact, including the woody core.",
+          "Sit it cut-side up in a shallow saucer with just 1 cm of water — enough to touch the base, not submerge it.",
+          "Place on a bright sill and refresh the water daily. You'll see new green leaves in the centre within 4–7 days.",
+          "Once the new leaves are 3–4 cm tall, plant the whole base in shallow soil with the new shoots above ground.",
+          "Harvest cut-and-come-again style from the outside leaves — one base will give 2–3 small harvests before it bolts.",
+        ],
+        footer: "Honest note: a regrown lettuce won't ever match a fresh seed-grown plant for volume — but it gets you garnish-sized leaves in 10 days, for free.",
+      },
+
+      { type: "list", title: "Best kid-friendly regrows (fast wins)",
+        items: [
+          "Spring onion in a shot glass — visible green within 48 hours, eaten in a week.",
+          "Avocado pit suspended on toothpicks — takes a month but the visual is magic.",
+          "Sweet potato slips on a windowsill — the leaves alone are edible and trail beautifully.",
+          "A sprouted garlic clove — sturdy green shoots that taste like mild garlic, perfect for snipping into pasta.",
+          "Lentil microgreens (technically not a scrap, but uses dried lentils from the cupboard) — green shoots in 4 days.",
+        ],
+      },
+
+      { type: "table", title: "Troubleshooting — when it goes wrong",
+        headers: ["Symptom", "Cause", "Fix"],
+        rows: [
+          ["Water turns cloudy in a day", "Bacterial bloom from submerged leaves or old water", "Strip more leaves, rinse the jar with hot water, switch to bottled water for the first week."],
+          ["Stem rots at the waterline", "Stem damaged when cut, or jar too warm", "Re-cut 2 cm above the rot with a clean knife. Move to a cooler spot out of direct sun."],
+          ["White fuzzy mould on cutting", "High humidity + low airflow", "Throw it out. Don't try to save it — the mould has already reached the inner stem."],
+          ["Roots form but plant dies in soil", "Transplant shock — water roots can't drink from soil", "Pot up sooner (3 cm roots, not 10 cm). Cover with a clear bag for 4–5 days. Keep out of direct sun for 2 weeks."],
+          ["Slow / no roots after 3 weeks", "Cutting too woody, or no node in water", "Re-cut just below a node. Soft green cuttings root 3–4× faster than woody ones."],
+          ["Lettuce base goes slimy", "Water level too high", "Only 1 cm of water — the base wicks moisture up; it doesn't need to sit in a puddle."],
+        ],
+      },
+
+      { type: "prose", title: "What WON'T work (sorry Pinterest)",
+        body: "Mango pits sprout but take 5–8 years to fruit indoors and rarely produce. Apple seeds sprout but the resulting tree is genetically random and almost always inedible. Tomato seeds from a supermarket tomato will sprout but most are F1 hybrids — the fruit, if any, won't match the parent. Onion bulbs from the bag will sprout green but the bulb itself is done; you'll get scallion-sized shoots, not new onions. Save your sill space for things that pay you back." },
+
+      { type: "list", title: "Pro moves for serious regrowers",
+        items: [
+          "Rotate your sill — every plant prefers a different intensity. Basil wants bright; lettuce wants cool.",
+          "Use rainwater or filtered water for water-stage rooting if your tap water is heavily chlorinated.",
+          "Once a cutting roots, keep the parent and use it as a 'mother' for endless future cuttings — one good basil plant can spawn 30 new ones across a season.",
+          "Keep a rooting jar going year-round. Even in winter, you'll always have something fresh to snip into a meal.",
+        ],
+      },
+
+      { type: "prose", title: "The honest takeaway",
+        body: "Regrowing is at its best for soft herbs, alliums and leafy bases — the things you use a little of, often, and pay over the odds for at the shop. It's a fun hobby for tomatoes and pineapples but not a real food source. Pick three workhorses (spring onion, basil, mint), nail them, and you'll save more than the cost of every gardening book you ever bought." },
+
+      { type: "cta",
+        href: "/regrow-from-scraps",
+        eyebrow: "Browse all 31",
+        title: "See every plant ranked by yield",
+        body: "Now you've read the theory — see all 31 regrowable plants in the catalogue, each with full method, expected yield, days-to-harvest, and an honest 1–5★ rating.",
+        cta: "Open the regrow catalogue",
+      },
     ],
   },
 
@@ -84,9 +347,40 @@ const GUIDES = {
       { label: "Arranging & Colour Guide (PDF)", href: `${API_BASE}/api/guide-pdf/arranging-and-colour-guide` },
     ],
     sections: [
+      { type: "cta",
+        href: "/cut-flowers",
+        eyebrow: "Browse the catalogue",
+        title: "22 vase-tested cut flowers",
+        body: "Every flower in the catalogue has honest vase-life in days, the exact stage to cut at, and how to condition each stem — sorted by longest-lasting first.",
+        cta: "Open the cut-flower catalogue",
+      },
+
       { type: "prose", title: "Why grow cut flowers?",
         body: "Flowers brighten rooms, mark the seasons, and offer mindful, steady routines — sow, water, pick, arrange. They also feed bees and hoverflies, making edible crops nearby more productive." },
       { type: "tags", items: ["Low-cost joy", "Pollinator-friendly", "Mindful routine", "Any space works"] },
+
+      { type: "vasetips", title: "What to add to your vase (and what to skip)",
+        intro: "There's a real chemistry to keeping cut flowers fresh — sugar to feed the bloom, a mild acid to keep water flowing up the stem, and a touch of bleach to stop the bacteria that block it. Skip the pennies, vodka and hairspray you'll see online — none of it outperforms what's already in your kitchen.",
+        items: [
+          { t: "Make your own flower food",
+            b: "Per litre of cool water: 1 tsp sugar (food), 1 tsp white vinegar OR 2 tsp lemon juice (acid, helps stems drink), and ¼ tsp household bleach (kills the bacteria that clog stems). It outperforms most sachets and costs nothing." },
+          { t: "Refresh every 2 days",
+            b: "Empty the vase, rinse off any slime, refill with fresh food-and-water. Cloudy water is bacteria — and bacteria is the single biggest reason flowers wilt early." },
+          { t: "Re-cut stems at a 45° angle",
+            b: "Cut 1–2 cm off every stem at a 45° angle under running water before they go in the vase, and again every refill. The angle gives more surface area to drink; an underwater cut stops air bubbles blocking the stem." },
+          { t: "Strip any leaves below the water",
+            b: "Submerged leaves rot fast and turn the water into bacterial soup within a day. Take everything off the bottom third of the stem — even if it feels brutal." },
+          { t: "Keep them cool",
+            b: "Out of direct sun, away from radiators, off the top of the TV. Florists store flowers at 2–5 °C overnight; mimic this by moving the vase to a cool hallway or porch before bed." },
+          { t: "Away from the fruit bowl",
+            b: "Ripening fruit (bananas, apples, tomatoes especially) gives off ethylene — a gas that signals petals to age. A bouquet next to a fruit bowl can die in half the time." },
+          { t: "Spring bulbs like cold water",
+            b: "Tulips, daffodils, hyacinths and ranunculus last longest in cold water — and tulips will keep growing in the vase, so leave room for them to stretch 5–10 cm taller." },
+          { t: "Start with a spotless vase",
+            b: "Scrub the vase with hot soapy water (or a quick swish of bleach solution) before every arrangement. Last week's bacteria film is invisible — and it'll halve the life of your fresh stems." },
+        ],
+        footer: "One caveat: daffodil and narcissus stems leak a sap that's toxic to other flowers. Stand them on their own for 6 hours in fresh water before adding to a mixed arrangement, and don't re-cut once mixed.",
+      },
 
       { type: "prose", title: "Grow anywhere: containers beyond pots",
         body: "Improvised and upcycled containers work beautifully — sturdy tins and food buckets with 4–6 drainage holes, wooden fruit crates lined with hessian, colanders and old drawers, even guttering runs on fences for trailing violas and alyssum. Stability first: use wide bases and ties for balconies and rails, and add bricks in the bottom for wind safety." },
@@ -190,6 +484,14 @@ const GUIDES = {
 
       { type: "prose", title: "Shortcut",
         body: "When in doubt, sow later. A strong May planting often beats a weak early start." },
+
+      { type: "cta",
+        href: "/cut-flowers",
+        eyebrow: "Browse all 22",
+        title: "See every cut flower with full vase-life data",
+        body: "Now you've read the theory — see all 22 vase-tested cut flowers, each with honest vase-life in days, the exact stage to cut at, and how to condition each stem.",
+        cta: "Open the cut-flower catalogue",
+      },
     ],
   },
 
@@ -456,6 +758,83 @@ function SectionBlock({ section }) {
           ))}
         </div>
         {section.footer && <p className="text-sm text-moss mt-5 italic">{section.footer}</p>}
+      </section>
+    );
+  }
+
+  if (section.type === "vasetips") {
+    // Numbered grid of tips — used for the "What to add to your vase" section.
+    return (
+      <section className="border-y border-border py-10" data-testid="guide-vasetips">
+        <div className="flex items-center gap-3 mb-2">
+          <Lightbulb strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+          <p className="overline">Make flowers last longer</p>
+        </div>
+        {section.title && (
+          <h2 className="font-serif text-3xl md:text-4xl text-forest tracking-tight mb-3">
+            {section.title}
+          </h2>
+        )}
+        {section.intro && (
+          <p className="text-ink/75 max-w-2xl leading-relaxed mb-8">{section.intro}</p>
+        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
+          {section.items.map((tip, i) => (
+            <div key={tip.t} className="flex gap-3">
+              <span className="font-serif text-2xl text-terracotta flex-shrink-0 w-7 leading-none mt-1">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 className="font-serif text-lg text-forest leading-snug">{tip.t}</h3>
+                <p className="text-sm text-ink/75 mt-1.5 leading-relaxed">{tip.b}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        {section.footer && (
+          <p className="text-xs text-moss mt-8 italic max-w-2xl">{section.footer}</p>
+        )}
+      </section>
+    );
+  }
+
+  if (section.type === "tipsgrid") {
+    // Compact 3-up tip cards — used inside Regrow for "Setting up" etc.
+    return (
+      <section>
+        {section.title && <h2 className="font-serif text-3xl text-forest mb-5">{section.title}</h2>}
+        <div className="grid sm:grid-cols-3 gap-5">
+          {section.items.map((tip) => (
+            <div key={tip.t} className="card-flat p-5">
+              <h3 className="font-serif text-xl text-forest leading-snug">{tip.t}</h3>
+              <p className="text-sm text-ink/75 mt-3 leading-relaxed">{tip.b}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (section.type === "cta") {
+    // Inline CTA panel that links to the rich data catalogue page.
+    return (
+      <section className="bg-forest text-sand px-6 py-8 sm:px-8 sm:py-10" data-testid={`guide-cta-${(section.href || '').replace(/\//g, '')}`}>
+        {section.eyebrow && (
+          <p className="overline text-sand/70">{section.eyebrow}</p>
+        )}
+        <h2 className="font-serif text-3xl md:text-4xl text-sand tracking-tight mt-2">
+          {section.title}
+        </h2>
+        {section.body && (
+          <p className="text-sand/85 leading-relaxed mt-3 max-w-2xl">{section.body}</p>
+        )}
+        <Link
+          to={section.href}
+          className="mt-6 inline-flex items-center gap-2 bg-sand text-forest px-5 py-3 text-sm tracking-wider uppercase hover:bg-white transition-colors"
+        >
+          {section.cta || "Open"}
+          <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+        </Link>
       </section>
     );
   }

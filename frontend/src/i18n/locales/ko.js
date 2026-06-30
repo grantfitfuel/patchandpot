@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "여름",
   "recommended.season.autumn": "가을",
   "recommended.season.winter": "겨울",
+  "home.popular.eyebrow": "이번 주 가장 많이 본",
+  "home.popular.title": "다른 정원사들이 계획하는 것들",
+  "home.popular.body": "지난 일주일 동안 사람들이 가장 많이 찾아본 식물들. Patch & Pot 커뮤니티의 계절별 식물에 대한 빠른 창을 제공합니다.",
+  "home.popular.more": "전체 라이브러리 둘러보기",
+  "home.popular.views_label": "{count} 회 조회됨 이번 주",
 };
 export default dict;

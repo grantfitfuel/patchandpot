@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": " suvi",
   "recommended.season.autumn": " sügis",
   "recommended.season.winter": " talv",
+  "home.popular.eyebrow": "Selle nädala kõige vaadatumad",
+  "home.popular.title": "Mida teised aednikud planeerivad",
+  "home.popular.body": "Taimed, mida inimesed on viimase seitsme päeva jooksul kõige sagedamini otsinud. Kiire ülevaade sellest, mis on hooajal laiemas Patch & Pot kogukonnas.",
+  "home.popular.more": "Sirvi kogu raamatukogu",
+  "home.popular.views_label": "{count} vaatamist sel nädalal",
 };
 export default dict;

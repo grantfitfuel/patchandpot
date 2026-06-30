@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "καλοκαίρι",
   "recommended.season.autumn": "φθινόπωρο",
   "recommended.season.winter": "χειμώνας",
+  "home.popular.eyebrow": "Περισσότερες προβολές αυτή την εβδομάδα",
+  "home.popular.title": "Τι σχεδιάζουν άλλοι κηπουροί",
+  "home.popular.body": "Τα φυτά που αναζητούν οι άνθρωποι πιο συχνά τις τελευταίες επτά ημέρες. Μια γρήγορη ματιά σε ό,τι είναι στη σεζόν για την ευρύτερη κοινότητα του Patch & Pot.",
+  "home.popular.more": "Περιηγηθείτε στην πλήρη βιβλιοθήκη",
+  "home.popular.views_label": "{count} προβολές αυτή την εβδομάδα",
 };
 export default dict;

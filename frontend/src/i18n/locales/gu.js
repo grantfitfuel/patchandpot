@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "ઉનાળો",
   "recommended.season.autumn": "સાળા",
   "recommended.season.winter": "ಶರદકાલ",
+  "home.popular.eyebrow": "આઆઠમાં સૌથી વધુ જોવામાં આવેલા",
+  "home.popular.title": "બીજા મગાડાવાળાઓ શું યોજી રહ્યા છે",
+  "home.popular.body": "છેલ્લા સાત દિવસોમાં લોકો જે છોડો વિશે વધુ આપડે છે તે. Patch & Pot સમુદાય માટે નું ઉગે છે, આ પ્રાપ્તિ માંનું ઝલક.",
+  "home.popular.more": "પૂર્ણ માર્ક લેક્શન બતાવા",
+  "home.popular.views_label": "{count} આ અઠવાડિયે જોવામાં આવ્યું",
 };
 export default dict;

@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "ਗਰਮੀ",
   "recommended.season.autumn": "ਸਰਦੀਆਂ",
   "recommended.season.winter": "ਸਰਦੀਆਂ",
+  "home.popular.eyebrow": "ਇਸ ਹਫਤੇ ਦੇ ਸਭ ਤੋਂ ਵੱਧ ਦਿਸਦੇ",
+  "home.popular.title": "ਹੋਰ ਮਾਲੀ ਕੀ ਥਾਂ ਪਾਉਂਦੇ ਹਨ",
+  "home.popular.body": "ਪਿਛਲੇ ਸੱਤ ਦਿਨਾਂ ਵਿੱਚ ਲੋਕਾਂ ਦੁਆਰਾ ਕਿੱਥੇ ਕਮਾਈਆਂ ਜਾਂਦੀਆਂ ਬੌਟੀਆਂ। Patch & Pot ਭਾਈਚਾਰੇ ਲਈ ਰੁਝਾਨਾਂ ਵਿੱਚ ਇੱਕ ਚਿਣ੍ਹ ਹੁਣੇ ਦੇ ਲਈ ਤੇਜ਼ ਝਲਕ।",
+  "home.popular.more": "ਪੂਰੀ ਲਾਇਬ੍ਰੇਰੀ ਬ੍ਰਾਊਜ਼ ਕਰੋ",
+  "home.popular.views_label": "{count} ਇਸ ਹਫਤੇ ਦੇ ਦਿੱਖ",
 };
 export default dict;

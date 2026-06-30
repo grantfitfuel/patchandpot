@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": "лето",
   "recommended.season.autumn": "осень",
   "recommended.season.winter": "зима",
+  "home.popular.eyebrow": "Самые просматриваемые на этой неделе",
+  "home.popular.title": "Что планируют другие садоводы",
+  "home.popular.body": "Растения, которые люди искали чаще всего за последние семь дней. Быстрый взгляд на то, что сейчас в сезоне для большей общины Patch & Pot.",
+  "home.popular.more": "Просмотреть полную библиотеку",
+  "home.popular.views_label": "{count} просмотров на этой неделе",
 };
 export default dict;

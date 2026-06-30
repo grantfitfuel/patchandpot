@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "musim panas",
   "recommended.season.autumn": "musim gugur",
   "recommended.season.winter": "musim dingin",
+  "home.popular.eyebrow": "Paling banyak dilihat minggu ini",
+  "home.popular.title": "Apa yang direncanakan oleh tukang kebun lainnya",
+  "home.popular.body": "Tanaman yang paling sering dicari orang dalam tujuh hari terakhir. Sebuah jendela cepat ke dalam apa yang sedang musim untuk komunitas Patch & Pot yang lebih luas.",
+  "home.popular.more": "Telusuri seluruh perpustakaan",
+  "home.popular.views_label": "{count} tampilan minggu ini",
 };
 export default dict;

@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "ചൂടുന്ന സമയം",
   "recommended.season.autumn": "മഴക്കാലം",
   "recommended.season.winter": "ശൈവകാലം",
+  "home.popular.eyebrow": "ഈ ആഴ്ച ശ്രദ്ധിക്കപ്പെട്ടത്",
+  "home.popular.title": "മറ്റു തോട്ടക്കാരൻമാർ ആസൂത്രിക്കുന്നതു എന്ത്",
+  "home.popular.body": "കഴിഞ്ഞ ഏഴുദിവസങ്ങളിലുടനീളം ആളുകൾ ഏറ്റവും അധികം തിരഞ്ഞെടുത്ത സർവ്വവികസിത ചെടികൾ. Patch & Pot സമൂഹത്തിന് ലഭിക്കുന്ന മാറ്റത്തോടാനുബന്ധമായ ഒരു പ്രായോഗിക ശ്രദ്ധ.",
+  "home.popular.more": "പൂർണ്ണ ലൈബ്രറി ബ്രൗസ് ചെയ്യുക",
+  "home.popular.views_label": "{count} ഈ ആഴ്ച കാഴ്ചകൾ",
 };
 export default dict;

@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "kesä",
   "recommended.season.autumn": "syksy",
   "recommended.season.winter": "talvi",
+  "home.popular.eyebrow": "Eniten katsottu tällä viikolla",
+  "home.popular.title": "Mitä muut puutarhurit suunnittelevat",
+  "home.popular.body": "Kasvit, joita ihmiset ovat etsineet eniten viimeisen seitsemän päivän aikana. Nopea katsaus siihen, mitä on sesongissa laajemman Patch & Pot -yhteisön keskuudessa.",
+  "home.popular.more": "Selaa koko kirjastoa",
+  "home.popular.views_label": "{count} katselukertaa tällä viikolla",
 };
 export default dict;

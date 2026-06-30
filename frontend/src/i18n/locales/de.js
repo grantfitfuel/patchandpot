@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "Sommer",
   "recommended.season.autumn": "Herbst",
   "recommended.season.winter": "Winter",
+  "home.popular.eyebrow": "Die meistgesehenen diese Woche",
+  "home.popular.title": "Was andere Gärtner planen",
+  "home.popular.body": "Die Pflanzen, die in den letzten sieben Tagen am häufigsten gesucht wurden. Ein kurzer Einblick in das, was für die breitere Patch & Pot Gemeinschaft Saison hat.",
+  "home.popular.more": "Die gesamte Bibliothek durchsuchen",
+  "home.popular.views_label": "{count} Aufrufe diese Woche",
 };
 export default dict;

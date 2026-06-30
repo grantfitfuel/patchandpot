@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "গ্রীষ্ম",
   "recommended.season.autumn": "শরৎ",
   "recommended.season.winter": "শীত",
+  "home.popular.eyebrow": "এই সপ্তাহের সবচেয়ে দেখা",
+  "home.popular.title": "অন্যান্য মালীদের পরিকল্পনা",
+  "home.popular.body": "গত সাত দিনে সবচেয়ে বেশি লোক যেসব গাছপালা খুঁজছে। Patch & Pot সম্প্রদায়ের জন্য মৌসুমী গাছপালা সম্পর্কে একটি দ্রুত জানালো।",
+  "home.popular.more": "পূর্ণ গ্রন্থাগার ব্রাউজ করুন",
+  "home.popular.views_label": "{count} এই সপ্তাহে দেখা",
 };
 export default dict;

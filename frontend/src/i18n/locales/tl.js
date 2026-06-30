@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": "tag-init",
   "recommended.season.autumn": "taglagas",
   "recommended.season.winter": "taglamig",
+  "home.popular.eyebrow": "Pinakapinos sa linggong ito",
+  "home.popular.title": "Ano ang pinaplano ng iba pang mga hardinero",
+  "home.popular.body": "Ang mga halaman na madalas tinitingnan ng mga tao sa nakaraang pitong araw. Isang mabilis na tanawin kung ano ang nasa panahon para sa mas malawak na komunidad ng Patch & Pot.",
+  "home.popular.more": "Suriin ang buong aklatan",
+  "home.popular.views_label": "{count} na pananaw sa linggong ito",
 };
 export default dict;

@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "ರಾಡಿನ ಕಾಲ",
   "recommended.season.autumn": "ಊರಕಾಲ",
   "recommended.season.winter": "ಹರಿದುಕೊಂಡು ಕಾಲ",
+  "home.popular.eyebrow": "ಈ ವಾರ ಅತ್ಯధಿಕ ವೀಕ್ಷಣೆ ಮಾಡಲಾಗಿದೆ",
+  "home.popular.title": "ಇಲ್ಲಿಯ ಇತರ ಉದ್ಯಾನಕಾರೆಲ್ಲರ ಯೋಜನೆಗಳು",
+  "home.popular.body": "ಅಂಧ್ರದಲ್ಲಿ ಕಳೆದ ಏಳು ದಿನಗಳಲ್ಲಿ ಜನರು ಹೆಚ್ಚು ಹುಡುಕುತ್ತಿರುವ ಸಸ್ಯಗಳು. Patch & Pot ಸಮುದಾಯದ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಪ್ರಮಣವನ್ನು ನೋಡಲು ಶೀಘ್ರವೀಕ್ಷೆ.",
+  "home.popular.more": "ಪೂರ್ಣ ಗ್ರಂಥಾಲಯವನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ",
+  "home.popular.views_label": "{count} ಈ ವಾರ ವೀಕ್ಷಣೆಗಳು",
 };
 export default dict;

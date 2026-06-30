@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "mùa hè",
   "recommended.season.autumn": "mùa thu",
   "recommended.season.winter": "mùa đông",
+  "home.popular.eyebrow": "Xem nhiều nhất trong tuần này",
+  "home.popular.title": "Những gì mà các người làm vườn khác đang lên kế hoạch",
+  "home.popular.body": "Những loại cây mà mọi người tìm kiếm nhiều nhất trong bảy ngày qua. Một cái nhìn nhanh về những gì đang vào mùa tại cộng đồng rộng lớn hơn của Patch & Pot.",
+  "home.popular.more": "Duyệt toàn bộ thư viện",
+  "home.popular.views_label": "{count} lượt xem trong tuần này",
 };
 export default dict;

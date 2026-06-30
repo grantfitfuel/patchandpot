@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "nyár",
   "recommended.season.autumn": "ősz",
   "recommended.season.winter": "tél",
+  "home.popular.eyebrow": "Legnépszerűbb a héten",
+  "home.popular.title": "Miket terveznek más kertészek",
+  "home.popular.body": "A növények, amelyeket az emberek a leggyakrabban keresnek az elmúlt hét napban. Gyors betekintés abba, mi van idényben a Patch & Pot közösség számára.",
+  "home.popular.more": "Böngéssz a teljes könyvtárban",
+  "home.popular.views_label": "{count} megtekintés a héten",
 };
 export default dict;

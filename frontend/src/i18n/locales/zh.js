@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "夏季",
   "recommended.season.autumn": "秋季",
   "recommended.season.winter": "冬季",
+  "home.popular.eyebrow": "本周最受欢迎",
+  "home.popular.title": "其他园丁的计划",
+  "home.popular.body": "在过去七天内，人们最常查阅的植物。快速了解Patch & Pot社区中当前的季节植物。",
+  "home.popular.more": "浏览完整库",
+  "home.popular.views_label": "{count} 次观看本周",
 };
 export default dict;

@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "ամառ",
   "recommended.season.autumn": "նստակ",
   "recommended.season.winter": "ձմեռ",
+  "home.popular.eyebrow": "Այս շաբաթ ամենաշատը դիտված",
+  "home.popular.title": "Ինչ ծրագրեր են ունեցել մյուս ոռոգողները",
+  "home.popular.body": "Ան pflախտների մարդիկ ավելի հաճախ են որոնում վերջին յոթ օրերի ընթացքում: Շ快速 արանք դուրս այն, ինչ առիթի է լայն Patch & Pot համայնքի համար:",
+  "home.popular.more": "Դիտեք ամբողջ գրադարանը",
+  "home.popular.views_label": "{count} դիտում այս շաբաթ",
 };
 export default dict;

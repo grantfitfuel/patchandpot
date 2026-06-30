@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "sommer",
   "recommended.season.autumn": "høst",
   "recommended.season.winter": "vinter",
+  "home.popular.eyebrow": "Mest sett denne uken",
+  "home.popular.title": "Hva andre gartnere planlegger",
+  "home.popular.body": "Plantene folk har søkt mest etter de siste sju dagene. Et raskt innblikk i hva som er i sesong for den bredere Patch & Pot-kommunen.",
+  "home.popular.more": "Bla gjennom hele biblioteket",
+  "home.popular.views_label": "{count} visninger denne uken",
 };
 export default dict;

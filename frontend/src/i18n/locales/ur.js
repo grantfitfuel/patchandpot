@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "گرمیوں",
   "recommended.season.autumn": "خزاں",
   "recommended.season.winter": "سردی",
+  "home.popular.eyebrow": "اس ہفتے سب سے زیادہ دیکھی جانے والی",
+  "home.popular.title": "دیگر باغبان کیا منصوبہ بنا رہے ہیں",
+  "home.popular.body": "وہ پودے جن کے بارے میں لوگوں نے پچھلے سات دنوں میں سب سے زیادہ تلاش کی۔ Patch & Pot کی وسیع تر کمیونٹی کے لیے موجودہ موسم میں کیا ہے اس کی ایک جھلک۔",
+  "home.popular.more": "مکمل لائبریری براؤز کریں",
+  "home.popular.views_label": "اس ہفتے {count} نظارے",
 };
 export default dict;

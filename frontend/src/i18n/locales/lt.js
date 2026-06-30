@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": "vasara",
   "recommended.season.autumn": "ruduo",
   "recommended.season.winter": "žiema",
+  "home.popular.eyebrow": "Populiariausi šią savaitę",
+  "home.popular.title": "Ką planuoja kiti sodininkai",
+  "home.popular.body": "Augalai, kuriuos žmonės šiuo metu dažniausiai ieško per pastarąsias septynias dienas. Greitas žvilgsnis į tai, kas yra sezono metu platesnei Patch & Pot bendruomenei.",
+  "home.popular.more": "Naršykite visą biblioteką",
+  "home.popular.views_label": "{count} peržiūros šią savaitę",
 };
 export default dict;

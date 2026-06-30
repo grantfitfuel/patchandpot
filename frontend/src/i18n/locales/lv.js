@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "vasara",
   "recommended.season.autumn": "rudens",
   "recommended.season.winter": "ziema",
+  "home.popular.eyebrow": "Visvairāk skatītie šonedēļ",
+  "home.popular.title": "Ko plāno citi dārznieki",
+  "home.popular.body": "Augi, kurus cilvēki pēdējās septiņās dienās ir meklējuši visbiežāk. Ātra ieskats, kas šobrīd ir sezonā plašākai Patch & Pot kopienai.",
+  "home.popular.more": "Pārlūkojiet visu bibliotēku",
+  "home.popular.views_label": "{count} skatījumi šonedēļ",
 };
 export default dict;

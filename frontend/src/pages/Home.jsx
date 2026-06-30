@@ -9,6 +9,7 @@ import FoundingBanner from "@/components/FoundingBanner";
 import EmbedFoundingSnippet from "@/components/EmbedFoundingSnippet";
 import MostLovedPatches from "@/components/MostLovedPatches";
 import PlantOfTheWeek from "@/components/PlantOfTheWeek";
+import PopularPlants from "@/components/PopularPlants";
 import {
   NoticeIllustration,
   SlowIllustration,
@@ -199,6 +200,8 @@ export default function Home() {
       {!paid && <EmbedFoundingSnippet />}
 
       <PlantOfTheWeek />
+
+      <PopularPlants />
 
       <MostLovedPatches />
 

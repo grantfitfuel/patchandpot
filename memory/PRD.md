@@ -28,6 +28,25 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 56 (2026-02-26): ✅ — Homepage "Popular plants" rail + 58-locale translation
+
+User: *"Yes"* (to my suggestion of a public popular-plants rail as the next sensible follow-up to the rate limit). Drives discovery toward already-cached AI content (cheap traffic) and creates a flywheel.
+
+**Component** `src/components/PopularPlants.jsx`
+- Reads `/api/plants/popular?language={lang}&limit=8` (endpoint already existed, fed by the same `plant_stats.view_count_7d` counter that powers `<PlantOfTheWeek>`).
+- 4-column responsive grid (2 on mobile, 4 on desktop), uses `<PlantImage>` for thumbnails, displays per-card view count as a small eye-icon badge.
+- Hides itself if fewer than 4 plants have view data — so a quiet week doesn't show a lonely rail. (Loading state also renders nothing rather than skeleton spinners; the rail just appears when ready.)
+- Mounted on `Home.jsx` between `<PlantOfTheWeek>` and `<MostLovedPatches>` — placed deliberately *before* the patches rail so plant discovery comes first.
+
+**i18n**
+- New keys: `home.popular.{eyebrow|title|body|more|views_label}`.
+- Translated into all 57 non-EN locales using a new script `/app/scripts/translate_home_popular_keys.py` (reuses the same Claude helper + per-locale injector as the previous translation runs). 57/57 succeeded. Lint passed on all 58 files. Verified DE, FR, JA, AR sound natural.
+
+**Verified live** in preview: rail rendered 7 cards (Tomato 10 views, Basil 8, Chamomile 6, Marigold 1, Dahlia 1, Lavender 1, Strawberry 1) with proper view counts + category/difficulty metadata.
+
+**SW bumped** `patchpot-v31` → `patchpot-v32`.
+
+
 ### Iteration 55 (2026-02-26): ✅ — Daily rate limit on new AI plant guides
 
 User: *"A"* (after confirming circuit-breaker had tripped at £16.77 / £15.00 on production from real engagement plus some dev testing). Picked the 25/day-conservative option.

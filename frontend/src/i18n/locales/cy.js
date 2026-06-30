@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": "haf",
   "recommended.season.autumn": "hydref",
   "recommended.season.winter": "gwydr",
+  "home.popular.eyebrow": "Y rhai mwyaf wedi'u gweld yr wythnos hon",
+  "home.popular.title": "Beth mae garddwynwyr eraill yn ei gynllunio",
+  "home.popular.body": "Y planhigion y mae pobl wedi bod yn chwilio amdanynt fwyaf yn y saith diwrnod diwethaf. Ffenest gyflym i beth sydd yn seasons ar gyfer cymuned ehangach Patch & Pot.",
+  "home.popular.more": "Archwilio'r llyfrgell llawn",
+  "home.popular.views_label": "{count} golygfeydd yr wythnos hon",
 };
 export default dict;

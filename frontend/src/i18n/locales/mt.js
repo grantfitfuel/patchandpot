@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "sajf",
   "recommended.season.autumn": "xitwa",
   "recommended.season.winter": "raġel",
+  "home.popular.eyebrow": "L-aktar magħrufa din il-ġimgħa",
+  "home.popular.title": "X'ħuti tal-ġardina qed jippjanaw",
+  "home.popular.body": "Il-pjanti li l-annimali qed ifittxu l-aktar spiss fl-aħħar sebat ijiem. Finestra rapida għal dak li jinsab fi żmien għall-komunità usa ta' Patch & Pot.",
+  "home.popular.more": "Iċċekka l-librerija sħiħa",
+  "home.popular.views_label": "{count} viżjonijiet din il-ġimgħa",
 };
 export default dict;

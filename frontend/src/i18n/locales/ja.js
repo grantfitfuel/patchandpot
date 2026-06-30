@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": "夏",
   "recommended.season.autumn": "秋",
   "recommended.season.winter": "冬",
+  "home.popular.eyebrow": "今週の最も閲覧された",
+  "home.popular.title": "他のガーデナーが計画していること",
+  "home.popular.body": "この7日間で最もよく検索された植物。Patch & Potコミュニティ全体の今の季節を垣間見ることができます。",
+  "home.popular.more": "全ライブラリをブラウズ",
+  "home.popular.views_label": "{count} 回今週閲覧されました",
 };
 export default dict;

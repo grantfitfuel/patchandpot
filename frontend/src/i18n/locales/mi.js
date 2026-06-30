@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": "raumatua",
   "recommended.season.autumn": "take",
   "recommended.season.winter": "hotoke",
+  "home.popular.eyebrow": "Nā te hunga e tirohia ana i tēnei wiki",
+  "home.popular.title": "Ngā whakaaro a ētahi atu kaitaonga",
+  "home.popular.body": "Ngā maara e titirohia ana e te tangata i te nuinga i ngā rangi e whitu kua hipa. He matapakitanga tere ki ngā mea e whakamahia ana i tēnei wā mō te hapori whānui o Patch & Pot.",
+  "home.popular.more": "Tirohia te whare pukapuka katoa",
+  "home.popular.views_label": "{count} tirohanga i tēnei wiki",
 };
 export default dict;

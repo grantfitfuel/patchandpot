@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "الصيف",
   "recommended.season.autumn": "الخريف",
   "recommended.season.winter": "الشتاء",
+  "home.popular.eyebrow": "الأكثر مشاهدة هذا الأسبوع",
+  "home.popular.title": "ما يخطط له الحدائق الآخرون",
+  "home.popular.body": "النباتات التي يبحث عنها الناس بشكل متكرر في الأيام السبعة الماضية. لمحة سريعة عن ما هو في الموسم لمجتمع Patch & Pot الأوسع.",
+  "home.popular.more": "تصفح المكتبة الكاملة",
+  "home.popular.views_label": "{count} مشاهدة هذا الأسبوع",
 };
 export default dict;

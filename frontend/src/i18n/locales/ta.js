@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "கோடை",
   "recommended.season.autumn": "செயற்காலம்",
   "recommended.season.winter": "குளிர்காலம்",
+  "home.popular.eyebrow": "இந்த வாரத்தில் அதிகமாகப் பார்த்தது",
+  "home.popular.title": "மற்ற தோட்டக்காரர்கள் திட்டமிடுவது என்ன",
+  "home.popular.body": "கடந்த ஏழு நாட்களில் மக்களால் அதிகமாக தேடும் செடிகள். Patch & Pot சமூகர் காணொளியில் என்ன பருத்தி காட்சியாக இருக்கிறது என்பதைப் பற்றிய ஒரு விரைவு நேரம்.",
+  "home.popular.more": "முழு நூலகத்தை உலாவவும்",
+  "home.popular.views_label": "{count} பார்வைகள் இந்த வாரம்",
 };
 export default dict;

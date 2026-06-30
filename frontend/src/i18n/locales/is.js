@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "sumar",
   "recommended.season.autumn": "haust",
   "recommended.season.winter": "vetur",
+  "home.popular.eyebrow": "Mest skoðuð þessa vikuna",
+  "home.popular.title": "Hvað aðrir garðyrkjumenn eru að plana",
+  "home.popular.body": "Plönturnar sem fólk hefur leitað að oftast síðastliðna sjö daga. Fljótlegur gluggi inn í hvað er í tísku fyrir breiðari Patch & Pot samfélagið.",
+  "home.popular.more": "Skoða öll efni",
+  "home.popular.views_label": "{count} skoðanir þessa vikuna",
 };
 export default dict;

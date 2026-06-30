@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "yoz",
   "recommended.season.autumn": "kuz",
   "recommended.season.winter": "qish",
+  "home.popular.eyebrow": "Bu haftada eng ko'p qaralgan",
+  "home.popular.title": "Boshqa bog'bonlar nima rejalashtirayotganini",
+  "home.popular.body": "Oxirgi yetti kun ichida odamlar eng ko'p qidirgan o'simliklar. Patch & Pot jamoasi uchun faqat qishloqdan o'tib ketadigan noyob vaqt.",
+  "home.popular.more": "To'liq kutubxonani ko'ring",
+  "home.popular.views_label": "{count} marta bu haftada",
 };
 export default dict;

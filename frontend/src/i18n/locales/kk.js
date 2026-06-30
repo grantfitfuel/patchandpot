@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "жаз",
   "recommended.season.autumn": "күз",
   "recommended.season.winter": "қыс",
+  "home.popular.eyebrow": "Осы аптада ең көп қаралған",
+  "home.popular.title": "Басқа бағбандар не жоспарлап отыр",
+  "home.popular.body": "Адамдар соңғы жеті күнде жиі іздейтін өсімдіктер. Patch & Pot қауымдастығы үшін маусымда не бар екенін жылдам көру.",
+  "home.popular.more": "Толық кітапхананы қарап шығу",
+  "home.popular.views_label": "{count} қарау осы аптада",
 };
 export default dict;

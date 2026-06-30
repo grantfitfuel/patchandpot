@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "vara",
   "recommended.season.autumn": "toamna",
   "recommended.season.winter": "iarna",
+  "home.popular.eyebrow": "Cele mai vizualizate săptămâna aceasta",
+  "home.popular.title": "Ce planifică alți grădinari",
+  "home.popular.body": "Plantele pe care oamenii le caută cel mai des în ultimele șapte zile. O fereastră rapidă în ceea ce este în sezon pentru întreaga comunitate Patch & Pot.",
+  "home.popular.more": "Răsfoiește întreaga bibliotecă",
+  "home.popular.views_label": "{count} vizualizări săptămâna aceasta",
 };
 export default dict;

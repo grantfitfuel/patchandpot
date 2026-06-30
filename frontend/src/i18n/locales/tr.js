@@ -736,5 +736,10 @@ const dict = {
   "recommended.season.summer": "yaz",
   "recommended.season.autumn": "sonbahar",
   "recommended.season.winter": "kış",
+  "home.popular.eyebrow": "Bu hafta en çok görüntülenenler",
+  "home.popular.title": "Diğer bahçıvanların planları",
+  "home.popular.body": "Son yedi gün içinde en çok aranan bitkiler. Daha geniş Patch & Pot topluluğu için mevsiminde olanların hızlı bir incelemesi.",
+  "home.popular.more": "Tam kütüphaneyi göz atın",
+  "home.popular.views_label": "{count} bu hafta görüntülenme",
 };
 export default dict;

@@ -739,5 +739,10 @@ const dict = {
   "recommended.season.summer": "ljeto",
   "recommended.season.autumn": "jesen",
   "recommended.season.winter": "zima",
+  "home.popular.eyebrow": "Najgledanije ovaj tjedan",
+  "home.popular.title": "Što drugi vrtlari planiraju",
+  "home.popular.body": "Biljke koje su ljudi najčešće tražili u posljednjih sedam dana. Kratak pregled onoga što je u sezoni za širu zajednicu Patch & Pot.",
+  "home.popular.more": "Pogledajte cijelu biblioteku",
+  "home.popular.views_label": "{count} pregleda ovaj tjedan",
 };
 export default dict;

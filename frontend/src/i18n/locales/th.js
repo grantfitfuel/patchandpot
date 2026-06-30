@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "ฤดูร้อน",
   "recommended.season.autumn": "ฤดูใบไม้ร่วง",
   "recommended.season.winter": "ฤดูหนาว",
+  "home.popular.eyebrow": "ที่มีผู้ชมมากที่สุดในสัปดาห์นี้",
+  "home.popular.title": "สิ่งที่ชาวสวนคนอื่นกำลังวางแผน",
+  "home.popular.body": "พืชที่ผู้คนค้นหามากที่สุดในช่วงเจ็ดวันที่ผ่านมา เป็นหน้าต่างที่รวดเร็วเข้าสู่สิ่งที่อยู่ในฤดูกาลสำหรับชุมชน Patch & Pot ที่กว้างขึ้น",
+  "home.popular.more": "เรียกดูห้องสมุดทั้งหมด",
+  "home.popular.views_label": "{count} การชมในสัปดาห์นี้",
 };
 export default dict;

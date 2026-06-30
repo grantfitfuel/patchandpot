@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "ზაფხული",
   "recommended.season.autumn": "შემოდგომა",
   "recommended.season.winter": "ზამთარი",
+  "home.popular.eyebrow": "ამ კვირაში ყველაზე პოპულარული",
+  "home.popular.title": "რა გეგმები აქვთ სხვა მებოსტნეებს",
+  "home.popular.body": "რეგულარულად პოპულარულ მცენარეებზე ინფორმაცია ბოლო შვიდი დღის განმავლობაში. მოკლე მიმოხილვა იმისა, რაც სეზონზეა Patch & Pot საზოგადოების ფართო ასუფთავებისთვის.",
+  "home.popular.more": "გადაიხედეთ სრულ ბიბლიოთეკაში",
+  "home.popular.views_label": "{count} ნახვა ამ კვირაში",
 };
 export default dict;

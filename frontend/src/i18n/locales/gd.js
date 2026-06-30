@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "samhradh",
   "recommended.season.autumn": "fiadhach",
   "recommended.season.winter": "geamhradh",
+  "home.popular.eyebrow": "As motha a bhitheas air na seachdain seo",
+  "home.popular.title": "Dè tha gàrraidhearan eile a' dealbhadh",
+  "home.popular.body": "Na plants a tha daoine air a bhith a' sireadh as trice anns na seachdain mu dheireadh. Uinneag ghoirid a-steach do na tha ann an seusan airson a’ phoball fharsaing de Patch & Pot.",
+  "home.popular.more": "Seall air an leabharlann fhoillseachaidh",
+  "home.popular.views_label": "{count} seallaidhean an t-seachdain seo",
 };
 export default dict;

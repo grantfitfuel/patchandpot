@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "Samhradh",
   "recommended.season.autumn": "Duine",
   "recommended.season.winter": "Geimhreadh",
+  "home.popular.eyebrow": "Is é an méid leis chuardach an tseachtain seo",
+  "home.popular.title": "Cad atá á bplainéad ag garraíodóirí eile",
+  "home.popular.body": "Na plandaí atá ag daoine ag lorg is minice sna seacht lá atá caite. Fuinneog ghoirid isteach ar cad atá i séasúr don phobal níos leithne Patch & Pot.",
+  "home.popular.more": "Breathnaigh ar an leabharlann iomlán",
+  "home.popular.views_label": "{count} radhairc an tseachtain seo",
 };
 export default dict;

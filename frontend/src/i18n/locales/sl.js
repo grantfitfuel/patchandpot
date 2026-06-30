@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "poletje",
   "recommended.season.autumn": "jesen",
   "recommended.season.winter": "zima",
+  "home.popular.eyebrow": "Najbolj gledano ta teden",
+  "home.popular.title": "Kaj načrtujejo drugi vrtnarji",
+  "home.popular.body": "Rastline, ki jih ljudje najpogosteje iščejo v zadnjih sedmih dneh. Hiter vpogled v to, kaj je v sezoni za širšo skupnost Patch & Pot.",
+  "home.popular.more": "Brskanje po celotni knjižnici",
+  "home.popular.views_label": "{count} ogledov ta teden",
 };
 export default dict;

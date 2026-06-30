@@ -738,5 +738,10 @@ const dict = {
   "recommended.season.summer": "గर्मी",
   "recommended.season.autumn": "శరదృతువు",
   "recommended.season.winter": "చలికాలం",
+  "home.popular.eyebrow": "ఈ వారంలో అత్యధికంగా చూసినవి",
+  "home.popular.title": "ఇతర తోటగాళ్లు ఏది ప్రణాళిక చేస్తున్నారు",
+  "home.popular.body": "గత ఏడాదిలో అత్యధికంగా చూస్తున్న మొక్కలు. Patch & Pot సముదాయానికి ప్రస్తుత కాలంలో ఏమి అందుబాటులో ఉన్నదనే దానికి తేలికగా ఒక దూర దర్శనం.",
+  "home.popular.more": "పూర్తి గ్రంథాలయాన్ని తనిఖీ చేయండి",
+  "home.popular.views_label": "{count} ఈ వారంలో వీక్షణలు",
 };
 export default dict;

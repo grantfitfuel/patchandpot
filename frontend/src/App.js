@@ -8,6 +8,8 @@ import CalendarComparePage from "@/pages/CalendarCompare";
 import WellbeingPage from "@/pages/Wellbeing";
 import PlantsPage from "@/pages/Plants";
 import PlantDetailPage from "@/pages/PlantDetail";
+import RegrowFromScrapsPage from "@/pages/RegrowFromScraps";
+import CutFlowersPage from "@/pages/CutFlowers";
 import PestControlPage from "@/pages/PestControl";
 import MyGardenPage from "@/pages/MyGarden";
 import GuidesPage from "@/pages/Guides";
@@ -71,6 +73,8 @@ function AppShell() {
           <Route path="/plants" element={<PlantsPage />} />
           <Route path="/plants/ai/:slug" element={<PlantDetailPage />} />
           <Route path="/plants/:id" element={<PlantDetailPage />} />
+          <Route path="/regrow-from-scraps" element={<RegrowFromScrapsPage />} />
+          <Route path="/cut-flowers" element={<CutFlowersPage />} />
           <Route path="/pests" element={<PestControlPage />} />
           <Route path="/garden" element={<MyGardenPage />} />
           <Route path="/guides" element={<GuidesPage />} />

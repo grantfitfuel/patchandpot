@@ -271,6 +271,38 @@ export default function PlantsPage() {
         </div>
       )}
 
+      {/* Special-collection chips — independent of group/sub-filter so a user
+          can find regrowable plants regardless of which group they belong to.
+          The pair link out to the dedicated landing pages for SEO; clicking
+          the chip itself narrows the catalogue in place. */}
+      <div className="flex flex-wrap items-center gap-2 -mt-4 mb-8 pl-1" data-testid="special-row">
+        <span className="text-[0.65rem] uppercase tracking-widest text-moss/70 mr-1">
+          {t("plants.special.label")}
+        </span>
+        <button
+          type="button"
+          data-testid="special-regrow"
+          onClick={() => setSpecialFilter(specialFilter === "regrow" ? null : "regrow")}
+          className={`text-xs px-2.5 py-1 border rounded-full inline-flex items-center gap-1.5 transition-colors ${
+            specialFilter === "regrow" ? "bg-terracotta/10 text-terracotta border-terracotta" : "bg-transparent text-ink/60 border-border/70 hover:border-terracotta/40"
+          }`}
+        >
+          <Recycle className="w-3 h-3" strokeWidth={1.6} />
+          {t("plants.special.regrow")}
+        </button>
+        <button
+          type="button"
+          data-testid="special-cut-flower"
+          onClick={() => setSpecialFilter(specialFilter === "cut-flower" ? null : "cut-flower")}
+          className={`text-xs px-2.5 py-1 border rounded-full inline-flex items-center gap-1.5 transition-colors ${
+            specialFilter === "cut-flower" ? "bg-terracotta/10 text-terracotta border-terracotta" : "bg-transparent text-ink/60 border-border/70 hover:border-terracotta/40"
+          }`}
+        >
+          <Flower2 className="w-3 h-3" strokeWidth={1.6} />
+          {t("plants.special.cut-flower")}
+        </button>
+      </div>
+
       {/* Empty state with AI CTA */}
       {showAskCTA && (
         <div className="card-flat p-8 mb-10 flex flex-col sm:flex-row items-center gap-6" data-testid="ai-plant-cta">
@@ -297,7 +329,7 @@ export default function PlantsPage() {
 
       {/* Recommended rail — only on the unfiltered default view, so it
           doesn't fight a user who's already drilled into a category. */}
-      {group === "all" && !subFilterKey && !lifecycle && !query.trim() && (
+      {group === "all" && !subFilterKey && !lifecycle && !specialFilter && !query.trim() && (
         <RecommendedRail
           plants={plants}
           region={region}

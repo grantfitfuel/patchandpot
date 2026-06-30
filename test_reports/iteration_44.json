@@ -1,0 +1,37 @@
+{
+  "summary": "Iter44 — Regrow from Scraps + Cut Flowers feature: full backend + frontend acceptance verified. Backend pytest 11/11 PASS covering (a) GET /api/plants?language=en returns 31 regrow plants each with regrow{method,instructions,days_to_first_harvest,yield_summary,worth_it}, (b) 22 cut-flower plants each with cut_flower_data{vase_days,cut_at_stage,conditioning,cut_and_come_again,arrangement_role}, (c) tomato negative case (no flags, no sub-objects), (d) DE locale preserves both sub-objects on all 31 regrow + 22 cut-flower plants, (e) regression: 333 total plants + cherry-tomato still present. Frontend Playwright PASS on all acceptance scenarios: /plants special-row chips toggle correctly (333→31 regrow, 333→22 cut-flower, toggles OFF correctly); /plants/dahlia renders cut-flower section with '7 days' vase life + 'Warm water hold' conditioning + 'Focal' role + 'Cut when fully open' stage + honest 'seed' note, NO regrow section; /plants/basil renders regrow section with 'Root in water, transfer to soil' method, 5★ rating, days_to_first_harvest, plant-regrow-instructions testid (181 chars), Kid-friendly badge present, NO cut-flower section; /plants/tomato renders NEITHER section. /regrow-from-scraps: H1='Regrow from Scraps', all 4 method chips present, 31 default cards, 'Soil only' narrows to 2, click first card (basil) navigates to /plants/basil. /cut-flowers: H1='Cut Flowers', all 6 role chips, sort <select> dropdown, 22 unique parent cut-card-{id} links (the 44 raw matches include nested cut-card-vase-{id} <p> meta testids — confirmed NOT a bug, parent Link count = 22), 15 'Cut & come again' badges visible, sort change to A→Z re-orders (statice→ammi-majus). i18n DE keys regrow.title='Wachstum aus Abfällen', cut.title='Schnittblumen', plants.special.regrow + plants.special.cut-flower all present in /app/frontend/src/i18n/locales/de.js (verified by grep). DE /api/plants payload preserves regrow/cut_flower_data sub-objects on all flagged plants (apply_*_meta runs post-translation merge). Calendar regression: loads cleanly, no error elements.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/cut-flowers", "issues": ["Cosmetic only: the meta-line <p> inside each card uses data-testid='cut-card-vase-{id}' which collides under a prefix-match selector with the parent link's 'cut-card-{id}'. Visible UI is correct (22 cards), but the nested testid inflates ^= queries to 44. Consider renaming nested testid to e.g. cut-card-meta-{id} or vase-meta-{id} to avoid the prefix collision and align with how Plants.jsx uses plant-card-meta-{id} / plant-card-botanical-{id}."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_regrow_cutflower_iter44.py",
+    "/app/test_reports/pytest/iter44_regrow_cf.xml"
+  ],
+  "action_items": [
+    "(Cosmetic) Rename cut-card-vase-{id} → cut-card-meta-{id} in /app/frontend/src/pages/CutFlowers.jsx line 115 to avoid prefix-selector collision with parent cut-card-{id} link.",
+    "(Minor) /regrow-from-scraps?lang=de query string does NOT switch the i18n locale — the H1 stayed in English. The de.js translations exist and the task spec's OR condition is satisfied, but if URL-driven locale switching is expected as a user-facing affordance for sharing localized SEO landing pages, wire ?lang= into the i18n context on mount."
+  ],
+  "critical_code_review_comments": [
+    "CutFlowers.jsx line 115 — nested data-testid='cut-card-vase-{p.id}' on a <p> element collides with prefix-match queries against the parent <Link data-testid='cut-card-{p.id}'>. Recommend renaming to cut-card-meta-{p.id} for consistency with the equivalent Plants.jsx pattern.",
+    "PlantDetail.jsx RegrowSection/CutFlowerSection — conditional render uses `!isAi && plant.regrow` / `!isAi && plant.cut_flower_data`. Verified working: dahlia (curated, cf only) renders only cf section, basil (curated, regrow only) renders only regrow, tomato (curated, neither) renders neither. AI guides correctly excluded.",
+    "core.py apply_regrow_meta + apply_cut_flower_meta wired so non-EN payloads retain the rich sub-objects via dict(p) merge — verified on DE: 31/31 regrow and 22/22 cut-flower plants retain their sub-objects. This is the right pattern and means the new landing pages will work for any locale.",
+    "i18n de.js (and presumably the other 56 locales the translation script ran for) has regrow.title, cut.title, plants.special.regrow, plants.special.cut-flower as non-English strings — verified via grep.",
+    "Regression unaffected: total plant count still 333, calendar still loads, cherry-tomato curated guide still present.",
+    "Optional follow-up: Consider exposing a count badge on the special-row chips (e.g. 'Regrow from scraps (31)') so users know the size of the curated collection before clicking — currently they only learn it after the filter applies."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_regrow_cutflower_iter44.py (new)"
+  ],
+  "success_rate": {"backend": "100% (11/11 pytest)", "frontend": "100% on all acceptance scenarios — /plants chips, /plants/dahlia, /plants/basil, /plants/tomato, /regrow-from-scraps, /cut-flowers, i18n, calendar regression"},
+  "test_credentials": "Not required for this iteration (no auth-gated endpoints in scope). Admin token not exercised.",
+  "seed_data_creation": "None — curated data is static via /app/backend/plants_regrow.py and /app/backend/plants_cut_flower.py.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iter44 ships 'Regrow from Scraps' + 'Cut Flowers' frontend on top of already-wired backend curated data. Acceptance is fully green. Only two cosmetic notes: (1) nested cut-card-vase-{id} testid collides with parent under prefix queries — visible UI still correct; (2) ?lang=de URL query does not switch UI locale on landing pages — de.js translations exist so SEO-OK. Test file lives at /app/backend/tests/test_regrow_cutflower_iter44.py and can be re-run as a 4-second smoke whenever core.py or the curated data files change.",
+  "rca of the issue": "N/A — no functional bugs detected. The two cosmetic notes (testid prefix collision on CutFlowers.jsx:115 and absence of URL-driven locale switching on /regrow-from-scraps?lang=de) are documented under action_items as low-priority cleanup."
+}

@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff,
-  Sparkles, AlertTriangle, HandHelping, Loader2,
+  Sparkles, AlertTriangle, HandHelping, Loader2, Recycle, Flower2, Scissors,
 } from "lucide-react";
 import {
   fetchPlant, fetchPlantGuide, fetchCachedPlantGuide,
@@ -167,6 +167,16 @@ export default function PlantDetailPage() {
 
       {/* Curated-only: companions from the DB-curated list */}
       {!isAi && <CompanionsSection plantId={plant.id} />}
+
+      {/* Curated-only: regrow-from-scraps deep-dive (only on plants where
+          we have hand-curated method/yield/rating data). */}
+      {!isAi && plant.regrow && <RegrowSection regrow={plant.regrow} t={t} />}
+
+      {/* Curated-only: vase-tested cut-flower data (only on plants where we
+          have hand-curated vase-days, conditioning and arrangement role). */}
+      {!isAi && plant.cut_flower_data && (
+        <CutFlowerSection data={plant.cut_flower_data} t={t} />
+      )}
 
       {/* AI-only: growing tips, seasonality, problems, companions, warnings */}
       {isAi && <AIPlantExtras plant={plant} t={t} />}
@@ -411,6 +421,122 @@ function AIPlantExtras({ plant, t }) {
         Toxicity and edibility vary by variety, growing conditions and individual sensitivity.
       </p>
     </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Regrow-from-scraps deep-dive (curated only)                        */
+/* ------------------------------------------------------------------ */
+function RegrowSection({ regrow, t }) {
+  const stars = Math.max(1, Math.min(5, regrow.worth_it || 0));
+  return (
+    <section
+      className="mt-16 border-t border-border pt-10 max-w-3xl"
+      data-testid="plant-regrow-section"
+    >
+      <div className="flex items-center gap-3 mb-5">
+        <Recycle strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+        <span className="overline">{t("regrow.detail.heading")}</span>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <Spec
+          icon={Sprout}
+          label={t("regrow.method")}
+          value={t(`regrow.method.${regrow.method}`)}
+        />
+        <Spec
+          icon={Sprout}
+          label={t("regrow.days_to_first_harvest")}
+          value={t("regrow.days_value", { days: regrow.days_to_first_harvest })}
+        />
+        <Spec
+          icon={Sprout}
+          label={t("regrow.worth_it")}
+          value={`${"★".repeat(stars)}${"☆".repeat(5 - stars)}`}
+        />
+        {regrow.family_friendly && (
+          <Spec icon={Sprout} label={t("regrow.kid_friendly")} value={t("common.yes")} />
+        )}
+      </div>
+
+      <div className="space-y-5">
+        <div>
+          <p className="overline mb-2">{t("regrow.instructions")}</p>
+          <p className="text-ink/85 leading-relaxed" data-testid="plant-regrow-instructions">
+            {regrow.instructions}
+          </p>
+        </div>
+        <div>
+          <p className="overline mb-2">{t("regrow.yield")}</p>
+          <p className="text-ink/85 leading-relaxed">{regrow.yield_summary}</p>
+        </div>
+        {regrow.notes && (
+          <div className="border-l-2 border-terracotta/50 pl-4">
+            <p className="overline mb-1">{t("regrow.notes")}</p>
+            <p className="text-sm text-moss leading-relaxed">{regrow.notes}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Cut-flower vase-life deep-dive (curated only)                      */
+/* ------------------------------------------------------------------ */
+function CutFlowerSection({ data, t }) {
+  return (
+    <section
+      className="mt-16 border-t border-border pt-10 max-w-3xl"
+      data-testid="plant-cutflower-section"
+    >
+      <div className="flex items-center gap-3 mb-5">
+        <Scissors strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+        <span className="overline">{t("cut.detail.heading")}</span>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <Spec
+          icon={Flower2}
+          label={t("cut.vase_days")}
+          value={t("cut.vase_days_value", { days: data.vase_days })}
+        />
+        <Spec
+          icon={Flower2}
+          label={t("cut.conditioning")}
+          value={t(`cut.conditioning.${data.conditioning}`)}
+        />
+        <Spec
+          icon={Flower2}
+          label={t("cut.role")}
+          value={t(`cut.role.${data.arrangement_role}`)}
+        />
+        <Spec
+          icon={Flower2}
+          label={t("cut.cut_and_come_again")}
+          value={data.cut_and_come_again ? t("common.yes") : t("cut.one_shot")}
+        />
+      </div>
+
+      <div className="space-y-5">
+        <div>
+          <p className="overline mb-2">{t("cut.cut_at_stage")}</p>
+          <p className="text-ink/85 leading-relaxed" data-testid="plant-cutflower-stage">
+            {data.cut_at_stage}
+          </p>
+        </div>
+        {data.dries_well && (
+          <p className="text-sm text-forest italic">{t("cut.dries_well")}</p>
+        )}
+        {data.notes && (
+          <div className="border-l-2 border-terracotta/50 pl-4">
+            <p className="overline mb-1">{t("cut.notes")}</p>
+            <p className="text-sm text-moss leading-relaxed">{data.notes}</p>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 

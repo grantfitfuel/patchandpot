@@ -1,14 +1,33 @@
 // Patch & Pot — minimal offline-capable service worker.
-// Caches the app shell + API responses for the current month so users can
+// Caches the app shell + read-mostly content API responses so users can
 // pull up their region's guide even without connection.
 // Bump VERSION on any cache-invalidating release.
-const VERSION = "patchpot-v35";
+const VERSION = "patchpot-v36";
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
 const SHELL_ASSETS = [
   "/",
   "/manifest.json",
+];
+
+// Endpoints that hold per-user, real-time state must NEVER be cached —
+// stale data here directly causes user-visible bugs. Examples:
+//   • /api/ask/usage — daily question counter (was showing yesterday's count)
+//   • /api/ask/sessions, /api/ask/sessions/*/messages — chat history
+//   • /api/grant/*    — membership status
+//   • /api/billing/*  — Stripe state
+//   • /api/checkout/* — Stripe state
+//   • /api/admin/*    — never cache admin pages
+// All other /api/* (guidance, plants, plant-image, share OG …) are still
+// stale-while-revalidated because they're effectively static per-month.
+const NEVER_CACHE_PATH_PREFIXES = [
+  "/api/ask/",
+  "/api/grant",
+  "/api/billing",
+  "/api/checkout",
+  "/api/admin/",
+  "/api/guide-pdf/",   // large binaries; always fresh from network
 ];
 
 self.addEventListener("install", (event) => {
@@ -20,13 +39,30 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
+    (async () => {
+      // Drop every cache from a prior VERSION.
+      const keys = await caches.keys();
+      await Promise.all(
         keys.filter((k) => !k.startsWith(VERSION)).map((k) => caches.delete(k))
-      )
-    )
+      );
+      // Belt-and-braces: also purge any stale per-user entries that may have
+      // been written into the CURRENT version's runtime cache before this
+      // never-cache list existed (i.e. on first activation after this fix).
+      try {
+        const runtime = await caches.open(RUNTIME_CACHE);
+        const reqs = await runtime.keys();
+        await Promise.all(
+          reqs.map((r) => {
+            const path = new URL(r.url).pathname;
+            return NEVER_CACHE_PATH_PREFIXES.some((p) => path.startsWith(p))
+              ? runtime.delete(r)
+              : Promise.resolve();
+          })
+        );
+      } catch { /* noop */ }
+      await self.clients.claim();
+    })()
   );
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -35,11 +71,11 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(req.url);
 
-  // API: stale-while-revalidate for /api/guidance, /api/plants, /api/plant-image.
-  // EXCLUDE /api/guide-pdf — large binary PDFs, served straight from network so
-  // upstream changes always reach the user without hitting the SW cache.
   if (url.pathname.startsWith("/api/")) {
-    if (url.pathname.startsWith("/api/guide-pdf/")) return;
+    // Pass through (no cache) for user-state endpoints.
+    if (NEVER_CACHE_PATH_PREFIXES.some((p) => url.pathname.startsWith(p))) return;
+
+    // Stale-while-revalidate for read-mostly content endpoints.
     event.respondWith(
       caches.open(RUNTIME_CACHE).then(async (cache) => {
         const cached = await cache.match(req);

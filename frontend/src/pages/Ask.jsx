@@ -77,7 +77,12 @@ export default function AskPage() {
   const fetchUsage = async () => {
     if (!accessToken) return;
     try {
-      const r = await fetch(`${backend}/api/ask/usage?access_token=${encodeURIComponent(accessToken)}`);
+      // Force-bypass any intermediate cache (browser HTTP, service worker)
+      // because this is a per-user counter that MUST be fresh every load.
+      const r = await fetch(
+        `${backend}/api/ask/usage?access_token=${encodeURIComponent(accessToken)}&_=${Date.now()}`,
+        { cache: "no-store" }
+      );
       if (r.ok) setUsage(await r.json());
     } catch {/* noop */}
   };
@@ -95,6 +100,20 @@ export default function AskPage() {
       fetchSessions();
       fetchUsage();
     }
+  }, [accessToken, isPaying]);
+
+  // Refetch the daily counter whenever the tab regains focus or visibility
+  // — fixes the case where a user keeps the PWA open across midnight and
+  // sees yesterday's count until they manually reload.
+  useEffect(() => {
+    if (!accessToken || !isPaying) return;
+    const refresh = () => { if (document.visibilityState === "visible") fetchUsage(); };
+    document.addEventListener("visibilitychange", refresh);
+    window.addEventListener("focus", refresh);
+    return () => {
+      document.removeEventListener("visibilitychange", refresh);
+      window.removeEventListener("focus", refresh);
+    };
   }, [accessToken, isPaying]);
 
   useEffect(() => {

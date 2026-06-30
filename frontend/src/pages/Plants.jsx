@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Search, Sun, Droplets, Sprout, Sparkles, Loader2 } from "lucide-react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Search, Sun, Droplets, Sprout, Sparkles, Loader2, Recycle, Flower2 } from "lucide-react";
 import { fetchPlants, fetchPlantGuide, fetchRecentAIPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import RecommendedRail from "@/components/RecommendedRail";
@@ -86,6 +86,10 @@ export default function PlantsPage() {
   const [group, setGroup] = useState("all");
   const [subFilterKey, setSubFilterKey] = useState(null);
   const [lifecycle, setLifecycle] = useState(null);
+  // Niche filters (regrow-from-scraps, cut-flower garden) live alongside
+  // group/sub-filter — they're independent toggles, not part of the
+  // category taxonomy.
+  const [specialFilter, setSpecialFilter] = useState(null);
   const [generating, setGenerating] = useState(false);
   const [aiError, setAiError] = useState("");
 
@@ -106,6 +110,8 @@ export default function PlantsPage() {
     if (activeGroup.categories && !activeGroup.categories.includes(p.category)) return false;
     if (activeSub && !matchesSubFilter(p, activeSub)) return false;
     if (lifecycle && p.lifecycle !== lifecycle) return false;
+    if (specialFilter === "regrow" && !p.regrow_from_scrap) return false;
+    if (specialFilter === "cut-flower" && !p.cut_flower) return false;
     if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
     return true;
   });

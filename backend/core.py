@@ -730,7 +730,11 @@ PLANT_INDEX = {p["id"]: p for p in PLANTS}
 
 # Apply lifecycle + hardiness metadata to every plant (mutates in place).
 from plants_meta import apply_meta  # noqa: E402
+from plants_regrow import apply_regrow_meta  # noqa: E402
+from plants_cut_flower import apply_cut_flower_meta  # noqa: E402
 apply_meta(PLANTS)
+apply_regrow_meta(PLANTS)
+apply_cut_flower_meta(PLANTS)
 
 # IDs of plants that came from the admin "Promote AI search" tool (sourced
 # from the `promoted_plants` Mongo collection at startup via
@@ -770,6 +774,8 @@ async def load_promoted_plants(db) -> int:
         PROMOTED_PLANT_IDS.add(pid)
         added += 1
     apply_meta(PLANTS)
+    apply_regrow_meta(PLANTS)
+    apply_cut_flower_meta(PLANTS)
     PLANT_INDEX.clear()
     PLANT_INDEX.update({p["id"]: p for p in PLANTS})
     return added
@@ -787,6 +793,8 @@ def merge_promoted_plant(plant: dict) -> None:
     PLANTS.append(plant)
     PROMOTED_PLANT_IDS.add(pid)
     apply_meta(PLANTS)
+    apply_regrow_meta(PLANTS)
+    apply_cut_flower_meta(PLANTS)
     PLANT_INDEX.clear()
     PLANT_INDEX.update({p["id"]: p for p in PLANTS})
 

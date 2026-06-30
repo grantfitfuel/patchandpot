@@ -58,6 +58,8 @@ export default function AskPage() {
   const [activeId, setActiveId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [usage, setUsage] = useState({ used: 0, cap: 7, remaining: 7 });
+  const [audit, setAudit] = useState(null);
+  const [auditOpen, setAuditOpen] = useState(false);
   const [text, setText] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -200,6 +202,21 @@ export default function AskPage() {
     } catch {/* noop */}
   };
 
+  // ── "What counted?" audit drawer ────────────────────────────────
+  // Surfaces the raw timestamps + daily-usage rows so the user can verify
+  // the counter against what's actually in the DB.
+  const onOpenAudit = async () => {
+    setAuditOpen(true);
+    setAudit(null);
+    try {
+      const r = await fetch(
+        `${backend}/api/ask/audit?access_token=${encodeURIComponent(accessToken)}&_=${Date.now()}`,
+        { cache: "no-store" }
+      );
+      if (r.ok) setAudit(await r.json());
+    } catch {/* noop */}
+  };
+
   // ── Paywall gate ────────────────────────────────────────────────
   if (!isPaying) {
     return (
@@ -227,10 +244,85 @@ export default function AskPage() {
       <p className="overline">Members</p>
       <div className="flex items-baseline justify-between mt-2 mb-4">
         <h1 className="font-serif text-3xl text-forest">Ask the Garden</h1>
-        <span className="text-sm text-moss tabular-nums" data-testid="ask-usage-counter">
-          {usage.remaining} / {usage.cap} left today
-        </span>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            data-testid="ask-audit-btn"
+            onClick={onOpenAudit}
+            className="text-xs text-moss underline underline-offset-2 hover:text-forest"
+          >
+            What counted?
+          </button>
+          <span className="text-sm text-moss tabular-nums" data-testid="ask-usage-counter">
+            {usage.remaining} / {usage.cap} left today
+          </span>
+        </div>
       </div>
+
+      {auditOpen && (
+        <div
+          data-testid="ask-audit-drawer"
+          className="mb-6 border border-border rounded p-4 bg-sand/60 text-sm"
+        >
+          <div className="flex items-baseline justify-between mb-3">
+            <p className="overline">Your question history (last 14 days)</p>
+            <button
+              type="button"
+              onClick={() => setAuditOpen(false)}
+              className="text-xs text-moss hover:text-forest"
+              data-testid="ask-audit-close"
+            >
+              Close
+            </button>
+          </div>
+          {!audit ? (
+            <p className="text-moss italic">Loading…</p>
+          ) : (
+            <>
+              <p className="text-xs text-moss mb-3">
+                The counter today reads against UTC date{" "}
+                <span className="font-mono text-ink">{audit.today_key_utc}</span>. Server
+                time now is{" "}
+                <span className="font-mono text-ink">{audit.now_utc}</span>. Daily
+                cap is {audit.cap}.
+              </p>
+
+              <p className="overline text-[0.6rem] mb-1">Daily-usage rows (what the counter reads)</p>
+              {audit.usage_rows?.length ? (
+                <ul className="mb-4 font-mono text-xs text-ink/85 space-y-0.5" data-testid="audit-usage-rows">
+                  {audit.usage_rows.map((u) => (
+                    <li key={u.date}>
+                      <span className={u.date === audit.today_key_utc ? "text-terracotta" : ""}>
+                        {u.date}
+                      </span>{" "}
+                      → count={u.count} (updated {u.updated_at || "—"})
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-moss italic mb-4">No usage rows on file.</p>
+              )}
+
+              <p className="overline text-[0.6rem] mb-1">Every user-message you&apos;ve sent (newest first)</p>
+              {audit.user_messages?.length ? (
+                <ul className="space-y-1.5 max-h-[40vh] overflow-y-auto" data-testid="audit-messages">
+                  {audit.user_messages.map((m, i) => (
+                    <li key={i} className="border-l-2 border-border pl-3">
+                      <div className="font-mono text-xs text-moss">{m.created_at}</div>
+                      <div className="text-ink/85">
+                        <span className="text-moss">{m.session_title}: </span>
+                        {m.preview}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-moss italic">No messages on file.</p>
+              )}
+            </>
+          )}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6">
         {/* Sidebar */}

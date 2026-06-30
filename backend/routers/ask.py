@@ -138,6 +138,51 @@ def make_router(db) -> APIRouter:
         await db.ask_sessions.delete_one({"id": session_id, "access_token": token})
         return {"deleted": True}
 
+    @router.get("/ask/audit")
+    async def ask_audit(response: Response, access_token: str = ""):
+        """Returns every user-message timestamp + every daily-usage row stored
+        for the caller's token. This is the user-facing 'show me what counted'
+        view — it lets the user reconcile what the counter says with what's
+        actually been logged. No admin token needed; gated by membership only,
+        and only ever shows the caller's own data."""
+        token = await _guard(access_token)
+        for k, v in _NO_STORE.items():
+            response.headers[k] = v
+
+        # User messages — what was actually sent through Ask the Garden
+        # against this token, newest first. We collect session titles too so
+        # the user can spot which thread each question came from.
+        sess_cursor = db.ask_sessions.find(
+            {"access_token": token}, {"_id": 0, "id": 1, "title": 1}
+        )
+        titles = {s["id"]: s.get("title", "") async for s in sess_cursor}
+        msg_cursor = db.ask_messages.find(
+            {"session_id": {"$in": list(titles.keys())}, "role": "user"},
+            {"_id": 0, "session_id": 1, "content": 1, "created_at": 1},
+        ).sort("created_at", -1).limit(50)
+        messages = []
+        async for m in msg_cursor:
+            messages.append({
+                "created_at": m.get("created_at") or "",
+                "session_title": titles.get(m.get("session_id"), ""),
+                "preview": (m.get("content") or "")[:120],
+            })
+
+        # Daily-usage rows — exactly what the counter reads. Newest first.
+        usage_cursor = db.ask_usage.find(
+            {"access_token": token},
+            {"_id": 0, "date": 1, "count": 1, "updated_at": 1},
+        ).sort("date", -1).limit(14)
+        usage = [u async for u in usage_cursor]
+
+        return {
+            "today_key_utc": _today_key(),
+            "now_utc": datetime.now(timezone.utc).isoformat(),
+            "cap": DAILY_QUESTION_CAP,
+            "usage_rows": usage,
+            "user_messages": messages,
+        }
+
     @router.post("/ask/message")
     async def post_message(
         access_token: str = Form(...),

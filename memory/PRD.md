@@ -28,6 +28,22 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 54 (2026-02-26): ✅ — Net-margin row on `/admin/revenue`
+
+User: *"Wire up profit margin"* — after I flagged that Stripe fees eat more than AI does at current volume.
+
+**Backend** — new endpoint `GET /api/admin/profit-margin?token=&days=30` (token-gated, default 30 days, capped at 365). Returns:
+- `stripe`: `{gross_gbp, fees_gbp, transaction_count, tip_gbp, fee_pct, fee_flat_gbp}` — fees estimated from UK Standard pricing (1.5% + £0.20 per txn), overrideable via `STRIPE_FEE_PCT` / `STRIPE_FEE_FLAT_GBP` env vars.
+- `affiliate_earnings_gbp` — sum of `affiliate_earnings.amount` whose `period_end` falls in the window.
+- `ai_spend_gbp` — Sonnet/Haiku/image cache-row counts × per-row weights from `core.py` (same algorithm as the budget circuit-breaker, just parameterised on `days`).
+- `ai_calls` breakdown.
+- `gross_total_gbp` / `net_profit_gbp` / `margin_pct`.
+
+**Frontend** — Added a "Net margin" section at the top of `/admin/revenue` (above the per-network rollup). Renders 5 columns: Stripe gross · Affiliate · Stripe fees · AI spend · **Net profit** (large + bold + tone-aware colour). Verified live: gross £35 (1 founding sale), −£0.73 fees, −£5.53 AI, **net £28.74 → 82.1% margin** on the 90-day window.
+
+**SW bumped** `patchpot-v30` → `patchpot-v31`.
+
+
 ### Iteration 53 (2026-02-26): ✅ — Backfill queue · Unified plant detail · SharePatch refactor
 
 User asked for **A → E → B**: backfill the AI-promote queue from existing cache, consolidate the two plant-detail pages, refactor the giant SharePatchModal.

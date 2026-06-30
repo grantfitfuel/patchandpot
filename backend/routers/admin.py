@@ -464,4 +464,136 @@ def make_router(db) -> APIRouter:
             seeded += 1
         return {"ok": True, "seeded": seeded, "skipped": skipped}
 
+    @router.get("/admin/profit-margin")
+    async def admin_profit_margin(token: str, days: int = 30):
+        """Net-margin summary over the last `days`. Combines four data sources:
+
+          1. Gross Stripe revenue (paid + access_granted txns in window).
+          2. Stripe fees (estimated — Stripe doesn't expose actual fees via
+             the Checkout Session API). Defaults to UK Standard pricing:
+             1.5% + £0.20 per successful charge. Tweak via env vars
+             STRIPE_FEE_PCT / STRIPE_FEE_FLAT_GBP if the user has a
+             non-default Stripe plan.
+          3. Affiliate earnings logged in `affiliate_earnings` whose
+             `period_end` falls in the window. (We use period_end so a payout
+             logged for "Jan" doesn't artificially boost "Feb" net.)
+          4. Estimated AI spend from `guidance_cache` + `image_cache` row
+             counts using the same per-row weights `refresh_ai_budget_state`
+             uses (Sonnet £0.03, Haiku £0.008, image £0.03).
+
+        Multi-currency note: every figure is normalised to GBP. Stripe txns
+        report amount in pence so we divide; affiliate earnings rows are
+        flagged with their own currency but we treat USD/EUR ≈ GBP at a
+        flat 1:1 because the volumes are tiny — adding live FX would be
+        overkill. Numbers are guidance, not accounting.
+        """
+        from datetime import datetime, timedelta, timezone
+        from core import AI_COST_SONNET_GBP, AI_COST_HAIKU_GBP, AI_COST_IMAGE_GBP
+
+        _require_admin(token)
+        days = max(1, min(int(days), 365))
+        since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+
+        # Stripe fees default to UK Standard pricing.
+        fee_pct = float(os.environ.get("STRIPE_FEE_PCT", "0.015") or 0.015)
+        fee_flat = float(os.environ.get("STRIPE_FEE_FLAT_GBP", "0.20") or 0.20)
+
+        # 1. Gross Stripe revenue. We use the SAME query as the referrals
+        #    endpoint so the two dashboards never disagree.
+        cursor = db.payment_transactions.find(
+            {
+                "created_at": {"$gte": since},
+                "payment_status": "paid",
+                "access_granted": True,
+            },
+            {"_id": 0, "amount": 1, "package_id": 1, "currency": 1},
+        )
+        txns = await cursor.to_list(length=10000)
+        gross_stripe = round(sum(float(r.get("amount") or 0) for r in txns), 2)
+        # Tip-jar revenue is part of gross — it's still real money. We
+        # report it as a separate line so the admin can see how much of
+        # gross came from "thank-you" payments vs paid access grants.
+        tip_revenue = round(
+            sum(
+                float(r.get("amount") or 0)
+                for r in txns if r.get("package_id") == "tip"
+            ),
+            2,
+        )
+        # 2. Stripe fees: 1.5% + 20p per successful charge.
+        stripe_fees = round(gross_stripe * fee_pct + fee_flat * len(txns), 2)
+
+        # 3. Affiliate earnings whose `period_end` falls in the window.
+        since_date = since[:10]  # YYYY-MM-DD
+        aff_cursor = db.affiliate_earnings.find(
+            {"period_end": {"$gte": since_date}},
+            {"_id": 0, "amount": 1, "currency": 1},
+        )
+        aff_rows = await aff_cursor.to_list(length=5000)
+        affiliate_earnings = round(sum(float(r.get("amount") or 0) for r in aff_rows), 2)
+
+        # 4. AI spend — same per-row weights as the budget circuit breaker.
+        sonnet_base = await db.guidance_cache.count_documents({
+            "kind": "guidance-base", "language": "en", "created_at": {"$gte": since},
+        })
+        haiku_base = await db.guidance_cache.count_documents({
+            "kind": "guidance-base", "language": {"$ne": "en"}, "created_at": {"$gte": since},
+        })
+        haiku_garden = await db.guidance_cache.count_documents({
+            "kind": "guidance",
+            "my_garden": {"$exists": True, "$not": {"$size": 0}},
+            "created_at": {"$gte": since},
+        })
+        pg_total = await db.guidance_cache.count_documents({
+            "key": {"$regex": "^plant-guide:ai-"}, "created_at": {"$gte": since},
+        })
+        pg_en = await db.guidance_cache.count_documents({
+            "key": {"$regex": "^plant-guide:ai-.*:en$"}, "created_at": {"$gte": since},
+        })
+        arrangements = await db.arrangement_cache.count_documents({"created_at": {"$gte": since}})
+        masterclasses = await db.generated_masterclasses.count_documents({"created_at": {"$gte": since}})
+        images = await db.image_cache.count_documents({"created_at": {"$gte": since}})
+
+        sonnet_total = sonnet_base + pg_en + arrangements + masterclasses
+        haiku_total = haiku_base + haiku_garden + (pg_total - pg_en)
+        ai_spend = round(
+            sonnet_total * AI_COST_SONNET_GBP
+            + haiku_total * AI_COST_HAIKU_GBP
+            + images * AI_COST_IMAGE_GBP,
+            2,
+        )
+
+        net_profit = round(gross_stripe + affiliate_earnings - stripe_fees - ai_spend, 2)
+        gross_total = round(gross_stripe + affiliate_earnings, 2)
+        margin_pct = round((net_profit / gross_total * 100), 1) if gross_total > 0 else None
+
+        return {
+            "window_days": days,
+            "since": since,
+            "stripe": {
+                "gross_gbp": gross_stripe,
+                "fees_gbp": stripe_fees,
+                "transaction_count": len(txns),
+                "tip_gbp": tip_revenue,
+                "fee_pct": fee_pct,
+                "fee_flat_gbp": fee_flat,
+            },
+            "affiliate_earnings_gbp": affiliate_earnings,
+            "ai_spend_gbp": ai_spend,
+            "ai_calls": {
+                "sonnet": sonnet_total,
+                "haiku": haiku_total,
+                "images": images,
+            },
+            "gross_total_gbp": gross_total,
+            "net_profit_gbp": net_profit,
+            "margin_pct": margin_pct,
+            "note": (
+                "Stripe fees estimated from UK Standard pricing — set "
+                "STRIPE_FEE_PCT / STRIPE_FEE_FLAT_GBP env vars to override. "
+                "Affiliate earnings rolled up by period_end date. "
+                "AI spend extrapolated from cache-row counts × per-row weights."
+            ),
+        }
+
     return router

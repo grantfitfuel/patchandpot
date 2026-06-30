@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { ExternalLink, Trash2 } from "lucide-react";
+import { ExternalLink, Trash2, TrendingUp, TrendingDown } from "lucide-react";
 
 /**
  * Admin-only revenue dashboard.
@@ -34,6 +34,7 @@ export default function RevenuePage() {
   const [token, setToken] = useState(() => sessionStorage.getItem("patchpot-admin-token") || "");
   const [days, setDays] = useState(90);
   const [data, setData] = useState(null);
+  const [profit, setProfit] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -66,6 +67,16 @@ export default function RevenuePage() {
       const json = await r.json();
       setData(json);
       sessionStorage.setItem("patchpot-admin-token", token);
+      // Profit margin runs in parallel — failure here shouldn't break
+      // the rest of the dashboard, so we swallow errors quietly.
+      try {
+        const pr = await fetch(
+          `${backend}/api/admin/profit-margin?days=${days}&token=${encodeURIComponent(token)}`,
+        );
+        if (pr.ok) setProfit(await pr.json());
+      } catch (e) {
+        console.warn("profit-margin fetch failed", e);
+      }
     } catch (e) {
       setError(e?.message || "Failed to load.");
     } finally {
@@ -166,6 +177,63 @@ export default function RevenuePage() {
       <p className="text-ink/70 text-sm mb-8">
         Clicks tracked live. Earnings entered manually when payouts land (Amazon Associates and Sovrn don’t share an API).
       </p>
+
+      {/* Net margin — Stripe + affiliate revenue minus Stripe fees + AI spend */}
+      {profit && (
+        <section className="mb-12" data-testid="revenue-profit-margin">
+          <h2 className="font-serif text-2xl text-forest mb-1">Net margin</h2>
+          <p className="text-ink/60 text-xs mb-4">
+            Gross income minus Stripe processing fees and estimated AI spend over the window.
+          </p>
+          <div className="border border-border bg-surface/40 p-5">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 items-end">
+              <ProfitFigure
+                label="Stripe gross"
+                value={profit.stripe.gross_gbp}
+                subtitle={`${profit.stripe.transaction_count} txn${profit.stripe.transaction_count === 1 ? "" : "s"}`}
+                tone="positive"
+              />
+              <ProfitFigure
+                label="Affiliate"
+                value={profit.affiliate_earnings_gbp}
+                subtitle="Logged payouts"
+                tone="positive"
+              />
+              <ProfitFigure
+                label="Stripe fees"
+                value={-profit.stripe.fees_gbp}
+                subtitle={`${(profit.stripe.fee_pct * 100).toFixed(2)}% + £${profit.stripe.fee_flat_gbp.toFixed(2)}/txn`}
+                tone="negative"
+              />
+              <ProfitFigure
+                label="AI spend"
+                value={-profit.ai_spend_gbp}
+                subtitle={`${profit.ai_calls.sonnet} Sonnet · ${profit.ai_calls.haiku} Haiku · ${profit.ai_calls.images} img`}
+                tone="negative"
+              />
+              <ProfitFigure
+                label="Net profit"
+                value={profit.net_profit_gbp}
+                subtitle={
+                  profit.margin_pct !== null
+                    ? `${profit.margin_pct.toFixed(1)}% margin`
+                    : "—"
+                }
+                tone={profit.net_profit_gbp >= 0 ? "positive-strong" : "negative-strong"}
+                large
+              />
+            </div>
+            {profit.stripe.tip_gbp > 0 && (
+              <p className="text-xs text-ink/55 mt-4">
+                Tip jar contributed £{profit.stripe.tip_gbp.toFixed(2)} of the Stripe gross.
+              </p>
+            )}
+            <p className="text-[11px] text-ink/45 mt-3 leading-relaxed">
+              {profit.note}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Per-network rollup */}
       <section className="mb-12">
@@ -342,6 +410,38 @@ export default function RevenuePage() {
           Sovrn report <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
+    </div>
+  );
+}
+
+function ProfitFigure({ label, value, subtitle, tone = "neutral", large = false }) {
+  const toneCls = {
+    positive: "text-forest",
+    "positive-strong": "text-forest font-semibold",
+    negative: "text-terracotta/85",
+    "negative-strong": "text-terracotta font-semibold",
+    neutral: "text-ink",
+  }[tone] || "text-ink";
+  // Show explicit minus sign for negative-tone rows even if the upstream
+  // value was already negative (avoids "--0.73" rendering).
+  const abs = Math.abs(value);
+  const prefix = value < 0 ? "−" : "";
+  const Icon = tone === "negative" || tone === "negative-strong" ? TrendingDown : TrendingUp;
+  return (
+    <div
+      className="flex flex-col"
+      data-testid={`profit-fig-${label.toLowerCase().replace(/\s+/g, "-")}`}
+    >
+      <div className="flex items-center gap-1.5 text-xs text-ink/55 uppercase tracking-wider">
+        <Icon strokeWidth={1.6} className="w-3 h-3" />
+        {label}
+      </div>
+      <div className={`tabular-nums ${large ? "text-3xl font-serif" : "text-xl"} ${toneCls} mt-1`}>
+        {prefix}£{abs.toFixed(2)}
+      </div>
+      {subtitle && (
+        <div className="text-[11px] text-ink/50 mt-0.5 leading-snug">{subtitle}</div>
+      )}
     </div>
   );
 }

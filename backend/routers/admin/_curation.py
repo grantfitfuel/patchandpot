@@ -19,6 +19,7 @@ from core import (
     PLANT_INDEX, PROMOTED_PLANT_IDS, load_promoted_plants,
     merge_promoted_plant, remove_promoted_plant,
 )
+from eventlog import emit
 
 from ._shared import PromotePlantPayload, require_admin
 
@@ -129,6 +130,13 @@ def register_curation_routes(router: APIRouter, db) -> None:
         # Invalidate translated catalogues so the new plant shows up in every
         # language. Cheap — they regenerate lazily on the next /api/plants hit.
         await db.guidance_cache.delete_many({"key": {"$regex": "^plants:"}})
+        emit(
+            "admin.promote.ok",
+            plant_id=plant_id,
+            source_slug=payload.source_slug,
+            name=plant["name"],
+            category=plant["category"],
+        )
         return {"ok": True, "plant": plant, "promoted_id": plant_id}
 
     @router.post("/admin/unpromote-plant")
@@ -150,6 +158,8 @@ def register_curation_routes(router: APIRouter, db) -> None:
         # Invalidate translated catalogues — the un-promoted plant should
         # disappear from non-EN /api/plants responses too.
         await db.guidance_cache.delete_many({"key": {"$regex": "^plants:"}})
+        emit("admin.unpromote.ok", plant_id=plant_id,
+             source_slug=(row or {}).get("source_slug"))
         return {"ok": True, "removed": plant_id}
 
     @router.post("/admin/reload-promoted-plants")
@@ -178,6 +188,7 @@ def register_curation_routes(router: APIRouter, db) -> None:
         result = await db.guidance_cache.delete_many(
             {"key": {"$regex": f"^plant-guide:{re.escape(slug)}:"}},
         )
+        emit("admin.regenerate.cache_cleared", slug=slug, rows_removed=result.deleted_count)
         return {"ok": True, "removed": result.deleted_count, "slug": slug}
 
     @router.post("/admin/backfill-ai-plant-stats")
@@ -225,4 +236,5 @@ def register_curation_routes(router: APIRouter, db) -> None:
                 "backfilled": True,
             })
             seeded += 1
+        emit("admin.backfill.ai_plant_stats", seeded=seeded, skipped=skipped)
         return {"ok": True, "seeded": seeded, "skipped": skipped}

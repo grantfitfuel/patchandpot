@@ -273,6 +273,7 @@ async def refresh_ai_budget_state(db) -> dict:
         + image_count * AI_COST_IMAGE_GBP,
         2,
     )
+    was_over = _BUDGET_STATE.get("over_budget")
     _BUDGET_STATE["estimated_gbp"] = estimated
     _BUDGET_STATE["over_budget"] = estimated >= AI_MONTHLY_BUDGET_GBP
     _BUDGET_STATE["checked_at"] = _time.time()
@@ -281,6 +282,19 @@ async def refresh_ai_budget_state(db) -> dict:
             "AI budget exceeded: estimated £%.2f >= cap £%.2f — new generations will 503",
             estimated, AI_MONTHLY_BUDGET_GBP,
         )
+        # Emit a structured event only on the edge — i.e. the first refresh
+        # that observed the breach. Avoids spamming the event stream every
+        # time a job re-checks an already-over budget.
+        if not was_over:
+            from eventlog import emit
+            emit("ai.budget.over",
+                 estimated_gbp=estimated, cap_gbp=AI_MONTHLY_BUDGET_GBP,
+                 sonnet=sonnet_count, haiku=haiku_count, images=image_count)
+    elif was_over and not _BUDGET_STATE["over_budget"]:
+        # Recovered (new month / cap raised / cache rotation). Worth knowing.
+        from eventlog import emit
+        emit("ai.budget.recovered",
+             estimated_gbp=estimated, cap_gbp=AI_MONTHLY_BUDGET_GBP)
     return dict(_BUDGET_STATE)
 
 

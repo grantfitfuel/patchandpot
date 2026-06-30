@@ -22,6 +22,7 @@ from core import (
     is_visit_bot, viewer_fingerprint,
     make_cached_image, make_plants_in_language, make_translate_companion_reasons,
 )
+from eventlog import emit
 from share_og import render_plant_og_png
 
 logger = logging.getLogger(__name__)
@@ -242,6 +243,8 @@ def make_router(db) -> APIRouter:
             day_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")
             gen_today = await db.ai_plant_gen_log.count_documents({"day": day_key})
             if gen_today >= daily_limit:
+                emit("ai.plant_guide.rate_limited", slug=slug, query=name,
+                     language=language, gen_today=gen_today, limit=daily_limit)
                 raise HTTPException(
                     429,
                     f"We've hit today's AI plant-guide limit ({daily_limit} new plants). "
@@ -310,6 +313,9 @@ Return JSON only."""
                 "language": gen_language,
                 "created_at": datetime.now(timezone.utc),
             })
+            emit("ai.plant_guide.generated", slug=slug, query=name,
+                 language=gen_language, gen_today_after=gen_today + 1,
+                 limit=daily_limit)
             # Cache the EN source so future languages can translate cheaply.
             if gen_language == "en":
                 await db.guidance_cache.insert_one({

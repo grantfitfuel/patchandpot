@@ -28,6 +28,30 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 58 (2026-02-26): ✅ — Structured event logging
+
+User: *"A"* (chose structured JSON logging from the menu, dropped weekly email digest from roadmap).
+
+**New helper** `/app/backend/eventlog.py` (53 lines)
+- `emit(event_name, **fields)` writes a one-line JSON record to a dedicated `pp.events` logger. Inherits root log config so events stream to the same stdout uvicorn captures — any future log aggregator (Datadog / Logtail / Better Stack) can scoop them out with one filter.
+- Auto-coerces datetimes, lists, dicts, ObjectId-likes to JSON-safe primitives. Never crashes a request — wrapped fallback emits printf-style line if `json.dumps` chokes.
+- No new dependency. Stays a no-op in tests (uses standard `logging`, captured by `caplog`).
+
+**Wired event emission at 7 business-significant sites**:
+- `ai.plant_guide.generated` — every successful Sonnet generation of a new AI plant guide (slug, query, language, gen_today_after, limit).
+- `ai.plant_guide.rate_limited` — 429 returned after daily limit hit.
+- `ai.budget.over` — edge-triggered on the FIRST refresh that observes the breach (spam-proof — doesn't fire every check while still over).
+- `ai.budget.recovered` — when the cap is lifted or rolls over.
+- `admin.promote.ok` — plant promoted to curated library.
+- `admin.unpromote.ok` — promotion reversed.
+- `admin.regenerate.cache_cleared` — "Regenerate guide" admin action.
+- `admin.backfill.ai_plant_stats` — backfill ran (seeded / skipped counts).
+- `checkout.created` — Stripe checkout session opened.
+- `checkout.paid` — first transition from `access_granted: false → true` (idempotent — fires once per session).
+
+**Verified end-to-end**: triggered each event type via curl + admin endpoints; all four observed events emitted as one-line JSON with timestamp and structured fields. Lint clean.
+
+
 ### Iteration 57 (2026-02-26): ✅ — P3 + P4 refactor pass
 
 User: *"P3: Refactor routers/admin.py + pdf_seasonal.py. P4: Migrate @app.on_event → lifespan."*

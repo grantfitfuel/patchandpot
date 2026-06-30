@@ -11,6 +11,8 @@ from fastapi import APIRouter, HTTPException, Request
 
 from emergentintegrations.payments.stripe.checkout import CheckoutSessionRequest
 
+from eventlog import emit
+
 from core import (
     AccessCheckRequest, CheckoutRequest,
     DEFAULT_PACKAGE_ID, FOUNDING_TOTAL, PAYWALL_PACKAGES,
@@ -82,6 +84,9 @@ def make_router(db) -> APIRouter:
             "created_at": datetime.now(timezone.utc).isoformat(),
             "access_granted": False,
         })
+        emit("checkout.created",
+             session_id=session.session_id, package_id=pkg["id"],
+             amount=pkg["amount"], currency=pkg["currency"])
         return {"url": session.url, "session_id": session.session_id, "package_id": pkg["id"]}
 
     @router.get("/checkout/status/{session_id}")
@@ -109,6 +114,10 @@ def make_router(db) -> APIRouter:
             )
             if flipped.modified_count == 1:
                 pkg_id = txn.get("package_id") or (status.metadata or {}).get("package_id") or DEFAULT_PACKAGE_ID
+                emit("checkout.paid",
+                     session_id=session_id, package_id=pkg_id,
+                     amount=txn.get("amount"), currency=txn.get("currency"),
+                     ref=txn.get("ref"))
                 # Tip purchases are pure gratitude — no access grant created.
                 if pkg_id != "tip":
                     await db.access_grants.update_one(

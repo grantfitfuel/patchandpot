@@ -183,6 +183,19 @@ def make_router(db) -> APIRouter:
             "user_messages": messages,
         }
 
+    @router.post("/ask/reset-today")
+    async def reset_today(response: Response, access_token: str = ""):
+        """Member-triggered reset of today's question counter for the caller's
+        own token. The user is paying for the membership and is allowed to
+        override their own daily cap when the counter looks wrong — this is
+        a trust-restoration tool, not a security hole. Limited to today's
+        row (one date string) so it can't be used to wipe historical data."""
+        token = await _guard(access_token)
+        for k, v in _NO_STORE.items():
+            response.headers[k] = v
+        result = await db.ask_usage.delete_many({"access_token": token, "date": _today_key()})
+        return {"reset": True, "rows_removed": result.deleted_count, "date": _today_key()}
+
     @router.post("/ask/message")
     async def post_message(
         access_token: str = Form(...),

@@ -158,6 +158,13 @@ def make_router(db) -> APIRouter:
         # Images — Nano Banana.
         images = await db.image_cache.count_documents({"created_at": {"$gte": since}})
 
+        # Today's `/plant-guide` rate-limit usage — surfaces to the admin so
+        # they can spot a viral day before the next 503 hits.
+        from datetime import datetime as _dt, timezone as _tz
+        today_key = _dt.now(_tz.utc).strftime("%Y-%m-%d")
+        guide_today = await db.ai_plant_gen_log.count_documents({"day": today_key})
+        guide_daily_limit = int(os.environ.get("AI_PLANT_GUIDE_DAILY_LIMIT", "25") or 25)
+
         sonnet_calls = sonnet_base + plant_guide_en + arrangements + masterclasses
         haiku_calls = haiku_base_trans + garden_personalised + plant_guide_other
         units = round(
@@ -198,6 +205,12 @@ def make_router(db) -> APIRouter:
                 "estimated_30d_gbp": budget_state.get("estimated_gbp"),
                 "over_budget": budget_state.get("over_budget"),
                 "enabled": AI_MONTHLY_BUDGET_GBP > 0,
+            },
+            "plant_guide_daily": {
+                "used_today": guide_today,
+                "limit": guide_daily_limit,
+                "remaining": max(0, guide_daily_limit - guide_today),
+                "day_key_utc": today_key,
             },
             "note": (
                 "Units are proportional, not currency. Sonnet ≈ 4× Haiku per call. "

@@ -141,6 +141,13 @@ async def start_scheduler():
         await db.shared_patch_views.create_index("expires_at", expireAfterSeconds=0)
         await db.plant_views.create_index("expires_at", expireAfterSeconds=0)
         await db.ai_plant_views.create_index("expires_at", expireAfterSeconds=0)
+        # Rate-limit ledger for `/plant-guide` Sonnet generations. We keep
+        # 7 days of history (the 7d in the index) so the admin can spot
+        # trends; the in-route count only ever looks at today's day_key.
+        await db.ai_plant_gen_log.create_index([("day", 1)])
+        await db.ai_plant_gen_log.create_index(
+            "created_at", expireAfterSeconds=7 * 24 * 3600,
+        )
         await db.shared_patches.create_index([("list_publicly", 1), ("view_count_7d", -1)])
         await db.plant_stats.create_index([("view_count_7d", -1)])
         await db.plant_stats.create_index([("plant_id", 1)], unique=True)

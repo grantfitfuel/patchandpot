@@ -181,7 +181,7 @@ export default function AdminAiUsagePage() {
 }
 
 function UsageBoard({ data }) {
-  const { calls, relative_cost_units, budget, window_days } = data;
+  const { calls, relative_cost_units, budget, window_days, plant_guide_daily } = data;
   const totalCalls = (calls.sonnet?.total || 0) + (calls.haiku?.total || 0) + (calls.images || 0);
   const cap = budget?.monthly_cap_gbp || 0;
   const used = budget?.estimated_30d_gbp || 0;
@@ -233,6 +233,23 @@ function UsageBoard({ data }) {
             data-testid="admin-budget-bar"
           />
         </div>
+        {plant_guide_daily && (
+          <div className="mt-5 pt-5 border-t border-border flex flex-wrap items-end gap-x-6 gap-y-2"
+               data-testid="admin-plant-guide-daily">
+            <div>
+              <p className="overline">Today's new AI plant guides</p>
+              <p className="font-serif text-2xl text-forest mt-1">
+                {plant_guide_daily.used_today}
+                <span className="text-ink/50 text-base"> / {plant_guide_daily.limit}</span>
+              </p>
+            </div>
+            <p className="text-xs text-ink/60 max-w-md leading-relaxed">
+              Hard ceiling on uncached Sonnet generations. Once we hit it, novel
+              plant searches return a friendly 429 until UTC midnight. Cached
+              plants keep serving normally.
+            </p>
+          </div>
+        )}
       </section>
 
       {/* Per-engine call breakdown. */}

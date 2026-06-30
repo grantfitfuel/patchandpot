@@ -28,6 +28,26 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 55 (2026-02-26): ✅ — Daily rate limit on new AI plant guides
+
+User: *"A"* (after confirming circuit-breaker had tripped at £16.77 / £15.00 on production from real engagement plus some dev testing). Picked the 25/day-conservative option.
+
+**Backend** (`routers/plants.py`, `routers/admin.py`, `server.py`)
+- Hard ceiling on novel `/plant-guide` Sonnet generations: max **25 new uncached guides per UTC day**. Cache hits, curated lookups, and Haiku translations into other languages all skip the counter (they're free or near-free).
+- Limit configurable via `AI_PLANT_GUIDE_DAILY_LIMIT` env var (default 25).
+- New collection `ai_plant_gen_log` records `{day, slug, language, created_at}` per successful Sonnet generation. TTL index expires rows after 7 days.
+- Over-limit returns HTTP 429 with friendly detail: *"We've hit today's AI plant-guide limit (25 new plants). Existing plant pages still work — try again tomorrow, or pick a plant from the catalogue."* — surfaces directly through `formatApiError` to the Plants page UI without any frontend changes.
+- Side-effect-free: the counter only increments on a *successful* Sonnet call (the `unknown: true` early-return path skips it so misspellings don't burn slots).
+- `/admin/ai-usage` now returns a `plant_guide_daily: {used_today, limit, remaining, day_key_utc}` block.
+
+**Frontend** (`AdminAiUsage.jsx`)
+- Added a "Today's new AI plant guides" mini-section below the monthly budget bar showing `used_today / limit`. Surfaces the daily ceiling at a glance so a viral day is visible before it hits the cap.
+
+**Verified end-to-end**:
+- With `AI_PLANT_GUIDE_DAILY_LIMIT=2`: first 2 novel plants generated normally; 3rd + 4th returned the friendly 429; cached plants still served 200; curated plants still served 200; admin dashboard showed `{used_today: 2, limit: 2, remaining: 0}`.
+- Reset env to default 25 after testing. Cleaned up test rows (cache + stats + image).
+
+
 ### Iteration 54 (2026-02-26): ✅ — Net-margin row on `/admin/revenue`
 
 User: *"Wire up profit margin"* — after I flagged that Stripe fees eat more than AI does at current volume.

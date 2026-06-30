@@ -233,6 +233,22 @@ def make_router(db) -> APIRouter:
         en_cached = await db.guidance_cache.find_one({"key": en_key}, {"_id": 0})
 
         if language == "en" or not en_cached:
+            # Daily rate limit on NEW Sonnet generations. Cache hits never
+            # count — this is the safety net that stops a viral day from
+            # blowing through the monthly budget cap. Once we hit the limit,
+            # subsequent novel queries get a friendly 429 until tomorrow;
+            # cached plants keep serving normally for everyone.
+            daily_limit = int(os.environ.get("AI_PLANT_GUIDE_DAILY_LIMIT", "25") or 25)
+            day_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            gen_today = await db.ai_plant_gen_log.count_documents({"day": day_key})
+            if gen_today >= daily_limit:
+                raise HTTPException(
+                    429,
+                    f"We've hit today's AI plant-guide limit ({daily_limit} new plants). "
+                    "Existing plant pages still work — try again tomorrow, or pick a plant "
+                    "from the catalogue.",
+                )
+
             system = (
                 "You are a careful horticulturalist creating concise, accurate plant care guides "
                 "for small-space gardeners. Stick to widely-accepted advice. If asked about a plant "
@@ -285,6 +301,15 @@ Return JSON only."""
                     404,
                     f"Couldn't find reliable information on '{name}'. Try a more common name.",
                 )
+            # Charge the rate-limit ledger only after a SUCCESSFUL Sonnet
+            # generation — "unknown" responses don't burn a slot because
+            # we don't end up caching anything.
+            await db.ai_plant_gen_log.insert_one({
+                "day": day_key,
+                "slug": slug,
+                "language": gen_language,
+                "created_at": datetime.now(timezone.utc),
+            })
             # Cache the EN source so future languages can translate cheaply.
             if gen_language == "en":
                 await db.guidance_cache.insert_one({

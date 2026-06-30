@@ -217,18 +217,6 @@ export default function AskPage() {
     } catch {/* noop */}
   };
 
-  const onResetToday = async () => {
-    if (!window.confirm("Reset today's question counter back to zero?")) return;
-    try {
-      await fetch(`${backend}/api/ask/reset-today?access_token=${encodeURIComponent(accessToken)}`, {
-        method: "POST",
-        cache: "no-store",
-      });
-      await fetchUsage();
-      await onOpenAudit();
-    } catch {/* noop */}
-  };
-
   // ── Paywall gate ────────────────────────────────────────────────
   if (!isPaying) {
     return (
@@ -278,24 +266,14 @@ export default function AskPage() {
         >
           <div className="flex items-baseline justify-between mb-3">
             <p className="overline">Your question history (last 14 days)</p>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={onResetToday}
-                data-testid="ask-audit-reset"
-                className="text-xs text-terracotta underline underline-offset-2 hover:opacity-80"
-              >
-                Reset today&apos;s count
-              </button>
-              <button
-                type="button"
-                onClick={() => setAuditOpen(false)}
-                className="text-xs text-moss hover:text-forest"
-                data-testid="ask-audit-close"
-              >
-                Close
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setAuditOpen(false)}
+              className="text-xs text-moss hover:text-forest"
+              data-testid="ask-audit-close"
+            >
+              Close
+            </button>
           </div>
           {!audit ? (
             <p className="text-moss italic">Loading…</p>

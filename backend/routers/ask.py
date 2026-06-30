@@ -18,7 +18,7 @@ import uuid
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional
 
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Response
 from pydantic import BaseModel, Field
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent
@@ -80,15 +80,30 @@ def make_router(db) -> APIRouter:
         created_at: str
 
     # ── Endpoints ──────────────────────────────────────────────────────
+    # Cache-Control header used on every per-user dynamic endpoint. Forces
+    # *every* layer (browser HTTP cache, service worker, Emergent ingress
+    # proxy/CDN, any future Varnish) to skip caching. This is the bulletproof
+    # fix to the "/ask/usage returns yesterday's count" bug — header beats
+    # config, every time.
+    _NO_STORE = {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        "Pragma": "no-cache",
+        "Expires": "0",
+    }
+
     @router.get("/ask/usage")
-    async def get_usage(access_token: str = ""):
+    async def get_usage(response: Response, access_token: str = ""):
         token = await _guard(access_token)
         used = await _usage_count(token)
+        for k, v in _NO_STORE.items():
+            response.headers[k] = v
         return {"used": used, "cap": DAILY_QUESTION_CAP, "remaining": max(0, DAILY_QUESTION_CAP - used)}
 
     @router.get("/ask/sessions", response_model=List[SessionOut])
-    async def list_sessions(access_token: str = ""):
+    async def list_sessions(response: Response, access_token: str = ""):
         token = await _guard(access_token)
+        for k, v in _NO_STORE.items():
+            response.headers[k] = v
         cursor = db.ask_sessions.find(
             {"access_token": token},
             {"_id": 0, "id": 1, "title": 1, "created_at": 1, "last_message_at": 1},

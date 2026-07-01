@@ -287,6 +287,25 @@ export default function AskPage() {
                 cap is {audit.cap}.
               </p>
 
+              <button
+                type="button"
+                data-testid="copy-access-token"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(accessToken);
+                    alert("Your access token has been copied to the clipboard.");
+                  } catch {
+                    // Fallback for older iOS Safari that blocks clipboard API
+                    // outside a direct user gesture (rare). Show the token
+                    // in a prompt so the user can long-press-copy manually.
+                    window.prompt("Your access token (long-press to copy):", accessToken);
+                  }
+                }}
+                className="mb-4 text-xs text-forest underline underline-offset-2 hover:opacity-80"
+              >
+                Copy my access token
+              </button>
+
               <p className="overline text-[0.6rem] mb-1">Daily-usage rows (what the counter reads)</p>
               {audit.usage_rows?.length ? (
                 <ul className="mb-4 font-mono text-xs text-ink/85 space-y-0.5" data-testid="audit-usage-rows">

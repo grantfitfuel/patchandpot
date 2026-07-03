@@ -33,13 +33,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Legal strip — required for UK consumer / GDPR compliance.
-          Bottom padding gives the floating "Made with Emergent" platform
-          badge ~64px of clearance at the bottom-right so it never sits on
-          top of the legal nav links. Desktop has more horizontal room so
-          we ease the padding back on md+. */}
+      {/* Legal strip — required for UK consumer / GDPR compliance. */}
       <div className="border-t border-border">
-        <div className="container-narrow py-5 pb-20 md:pb-5 md:pr-44 flex flex-wrap items-center justify-between gap-4 text-xs text-moss">
+        <div className="container-narrow py-5 flex flex-wrap items-center justify-between gap-4 text-xs text-moss">
           <p data-testid="footer-copyright">
             © {COPYRIGHT_RANGE} Grant Cameron Anthony, {t("footer.trading_as")} Patch &amp; Pot. {t("footer.rights")}
           </p>

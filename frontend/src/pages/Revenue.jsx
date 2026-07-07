@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { ExternalLink, Trash2, TrendingUp, TrendingDown } from "lucide-react";
 
@@ -174,6 +175,13 @@ export default function RevenuePage() {
           <option value={365}>Last year</option>
         </select>
       </div>
+      <Link
+        to="/admin"
+        data-testid="admin-back-hub"
+        className="text-sm text-moss hover:text-terracotta underline-offset-4 hover:underline mb-6 inline-block"
+      >
+        ← Admin hub
+      </Link>
       <p className="text-ink/70 text-sm mb-8">
         Clicks tracked live. Earnings entered manually when payouts land (Amazon Associates and Sovrn don’t share an API).
       </p>

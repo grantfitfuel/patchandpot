@@ -295,3 +295,61 @@ def register_observability_routes(router: APIRouter, db) -> None:
                 "AI spend extrapolated from cache-row counts × per-row weights."
             ),
         }
+
+    @router.get("/admin/geo")
+    async def admin_geo(token: str, days: int = 30):
+        """First-party geographic breakdown of API traffic. Aggregates the
+        `visits` collection (written by the http middleware in `server.py`).
+        No third-party analytics; all data stays in Mongo. TTL-purged after
+        90 days by the collection's index.
+
+        Returns:
+          • range               window in days (clamped 1–90)
+          • total_visits        raw request count in the window
+          • total_with_country  how many carried a geo header (rest are anon)
+          • top_countries       [{country, visits}] descending
+          • daily_series        [{day, visits}] last N days for a trend chart
+        """
+        require_admin(token)
+        days = max(1, min(int(days), 90))
+        since = datetime.now(timezone.utc) - timedelta(days=days)
+
+        total_visits = await db.visits.count_documents({"ts": {"$gte": since}})
+        total_with_country = await db.visits.count_documents({
+            "ts": {"$gte": since}, "country": {"$ne": None},
+        })
+
+        top_pipeline = [
+            {"$match": {"ts": {"$gte": since}, "country": {"$ne": None}}},
+            {"$group": {"_id": "$country", "visits": {"$sum": 1}}},
+            {"$sort": {"visits": -1}},
+            {"$limit": 25},
+            {"$project": {"_id": 0, "country": "$_id", "visits": 1}},
+        ]
+        top_countries = [row async for row in db.visits.aggregate(top_pipeline)]
+
+        daily_pipeline = [
+            {"$match": {"ts": {"$gte": since}}},
+            {"$group": {
+                "_id": {"$dateToString": {"format": "%Y-%m-%d", "date": "$ts"}},
+                "visits": {"$sum": 1},
+            }},
+            {"$sort": {"_id": 1}},
+            {"$project": {"_id": 0, "day": "$_id", "visits": 1}},
+        ]
+        daily_series = [row async for row in db.visits.aggregate(daily_pipeline)]
+
+        return {
+            "range_days": days,
+            "since": since.isoformat(),
+            "total_visits": total_visits,
+            "total_with_country": total_with_country,
+            "top_countries": top_countries,
+            "daily_series": daily_series,
+            "note": (
+                "First-party analytics. Country is derived from the ingress "
+                "layer's geo header (Cloudflare / Vercel / Fly). No IP DB, no "
+                "cookies, no third-party tracking. Rows auto-purge after 90 days."
+            ),
+        }
+

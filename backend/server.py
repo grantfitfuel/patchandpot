@@ -13,6 +13,7 @@ Wiring order:
 import logging
 import os
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -88,6 +89,10 @@ async def _ensure_db_indexes() -> None:
     await db.ai_plant_stats.create_index([("view_count_7d", -1)])
     await db.ai_plant_stats.create_index([("slug", 1)], unique=True)
     await db.promoted_plants.create_index([("plant.id", 1)], unique=True)
+    # First-party geo analytics — 90-day TTL so the collection never grows
+    # unboundedly. `ts` is a real BSON date so the TTL monitor honours it.
+    await db.visits.create_index("ts", expireAfterSeconds=90 * 24 * 3600)
+    await db.visits.create_index([("country", 1)])
 
 
 async def _decay_weekly_views() -> None:
@@ -211,3 +216,47 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# ── First-party visit tracking (no third party) ────────────────
+# Logs one lightweight record per /api/* request to the `visits` collection:
+#   { ts: datetime (UTC), country: "GB" | null, path: "/api/…" }
+# Country is derived from whichever geo-header the ingress layer already
+# forwards (Cloudflare / Fly / Vercel / generic). No server-side IP DB, no
+# personal data, no cookies. A TTL index in cache_refresh strips rows over
+# 90 days so this can never balloon.
+_GEO_HEADERS = (
+    "cf-ipcountry",
+    "x-vercel-ip-country",
+    "x-country",
+    "x-appengine-country",
+)
+_TRACK_PREFIXES = ("/api/",)
+_TRACK_SKIP_SUBSTR = ("/admin/", "/healthz", "/share/og/", "/plant-image/")
+
+
+@app.middleware("http")
+async def _log_visit(request, call_next):
+    resp = await call_next(request)
+    try:
+        path = request.url.path
+        if any(path.startswith(p) for p in _TRACK_PREFIXES) and not any(
+            s in path for s in _TRACK_SKIP_SUBSTR
+        ):
+            country = None
+            for h in _GEO_HEADERS:
+                v = request.headers.get(h)
+                if v:
+                    country = v.upper()[:2]
+                    break
+            if country == "XX":  # some CDNs use XX for unknown
+                country = None
+            await db.visits.insert_one({
+                "ts": datetime.now(timezone.utc),
+                "country": country,
+                "path": path[:80],
+            })
+    except Exception:  # noqa: BLE001
+        # Analytics MUST NEVER break a request path.
+        pass
+    return resp

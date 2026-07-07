@@ -22,6 +22,8 @@ import CheckoutSuccess from "@/pages/CheckoutSuccess";
 import AdminAiUsagePage from "@/pages/AdminAiUsage";
 import AdminReferralsPage from "@/pages/AdminReferrals";
 import AdminAiSearchesPage from "@/pages/AdminAiSearches";
+import AdminGeoPage from "@/pages/AdminGeo";
+import AdminHomePage from "@/pages/AdminHome";
 import PatronsPage from "@/pages/Patrons";
 import PatronsManagePage from "@/pages/PatronsManage";
 import SharedPatchPage from "@/pages/SharedPatch";
@@ -88,6 +90,7 @@ function AppShell() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/admin" element={<AdminHomePage />} />
           <Route path="/admin/revenue" element={<RevenuePage />} />
           <Route path="/ask" element={<AskPage />} />
           <Route path="/print/:month" element={<PrintPage />} />
@@ -96,6 +99,7 @@ function AppShell() {
           <Route path="/admin/ai-usage" element={<AdminAiUsagePage />} />
           <Route path="/admin/ai-searches" element={<AdminAiSearchesPage />} />
           <Route path="/admin/referrals" element={<AdminReferralsPage />} />
+          <Route path="/admin/geo" element={<AdminGeoPage />} />
           <Route path="/patrons" element={<PatronsPage />} />
           <Route path="/patrons/manage" element={<PatronsManagePage />} />
           <Route path="/p/:shareId" element={<SharedPatchPage />} />

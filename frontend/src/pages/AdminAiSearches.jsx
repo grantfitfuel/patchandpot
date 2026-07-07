@@ -135,18 +135,11 @@ export default function AdminAiSearchesPage() {
           </h1>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm">
             <Link
-              to="/admin/ai-usage"
-              data-testid="admin-link-usage"
+              to="/admin"
+              data-testid="admin-back-hub"
               className="text-moss hover:text-terracotta underline-offset-4 hover:underline"
             >
-              → AI usage
-            </Link>
-            <Link
-              to="/admin/referrals"
-              data-testid="admin-link-referrals"
-              className="text-moss hover:text-terracotta underline-offset-4 hover:underline"
-            >
-              → Referrals
+              ← Admin hub
             </Link>
           </div>
         </div>

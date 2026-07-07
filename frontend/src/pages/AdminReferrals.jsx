@@ -62,11 +62,11 @@ export default function AdminReferralsPage() {
           <p className="overline">Admin · Internal</p>
           <h1 className="font-serif text-4xl md:text-5xl text-forest mt-2">Referrals</h1>
           <Link
-            to="/admin/ai-usage"
-            data-testid="admin-link-ai-usage"
+            to="/admin"
+            data-testid="admin-back-hub"
             className="text-sm text-moss hover:text-terracotta underline-offset-4 hover:underline mt-2 inline-block"
           >
-            → See AI usage &amp; budget
+            ← Admin hub
           </Link>
         </div>
         <div className="flex items-center gap-2">

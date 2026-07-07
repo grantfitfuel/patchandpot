@@ -112,18 +112,11 @@ export default function AdminAiUsagePage() {
           <p className="overline">Admin · Internal</p>
           <h1 className="font-serif text-4xl md:text-5xl text-forest mt-2">AI usage</h1>
           <Link
-            to="/admin/referrals"
-            data-testid="admin-link-referrals"
+            to="/admin"
+            data-testid="admin-back-hub"
             className="text-sm text-moss hover:text-terracotta underline-offset-4 hover:underline mt-2 inline-block"
           >
-            → See referral attribution
-          </Link>
-          <Link
-            to="/admin/ai-searches"
-            data-testid="admin-link-ai-searches"
-            className="text-sm text-moss hover:text-terracotta underline-offset-4 hover:underline mt-2 ml-4 inline-block"
-          >
-            → Promote AI searches
+            ← Admin hub
           </Link>
         </div>
         <div className="flex items-center gap-2">

@@ -825,5 +825,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Dechreuwch gyda fas heb fleth",
   "cut.tips.clean_vase.body": "Crogwch y fas gyda dŵr poeth a sebon (neu swigen gyflym o ddŵr glanhau) cyn pob trefniant. Mae ffilm bacteria wythnos diwethaf yn anweledig — a bydd yn hanner oes eich dail ffres.",
   "cut.tips.footnote": "Un rhybudd: mae stymau cennin pedr a narcissus yn rhyddhau sap sy'n wenwynig i flodau eraill. Gadewch iddynt sefyll ar eu pennau eu hunain am 6 awr mewn dŵr ffres cyn eu hychwanegu at drefniant cymysg, ac peidiwch â'i dorri unwaith y bydd yn gymysg.",
+  "source.local.title": "Siopwch leol yn gyntaf",
+  "source.local.body": "Mae'r planhigion gorau yn dod o gareg wirioneddol — rhywun sy'n gwybod eich pridd, eich hinsawdd, a gall ddweud wrthych os yw amrywiad yn llwyddo ar eich stryd. Ceisiwch ganolfan ardd leol cyn y dewisiadau ar-lein isod. Mae'n cefnogi tyfwyr bach.",
+  "source.local.cta": "Dewch o hyd i garegion ger fi",
 };
 export default dict;

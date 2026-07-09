@@ -825,5 +825,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Alusta puhta vaasiga",
   "cut.tips.clean_vase.body": "Pese vaasi kuuma seebi veega (või tee kiire loputus pleegituslahusega) enne iga seadistust. Eelmise nädala bakterikile on nähtamatu — ja see lühendab su värskete varte eluiga poole võrra.",
   "cut.tips.footnote": "Üks hoiatus: nartsissi ja daffodilide varred eritavad mahla, mis on teistele lilladele mürgine. Hoia neid eraldi 6 tundi värskes vees, enne kui lisad need segakimbusse, ja ära lõika neid uuesti, kui need on segatud.",
+  "source.local.title": "Osta esmalt kohalikult",
+  "source.local.body": "Parimad taimed tulevad tõelisest lasteaiast — keegi, kes tunneb teie mulda, teie kliimat ja oskab öelda, kas mingi sort tõeliselt teie tänaval õitseb. Proovige kohalikke aianduskeskusi enne allolevaid veebivalikuid. See toetab väikseid kasvatajaid.",
+  "source.local.cta": "Leia lasteaiad minu lähedal",
 };
 export default dict;

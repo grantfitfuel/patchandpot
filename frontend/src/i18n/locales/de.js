@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Beginnen Sie mit einer makellosen Vase",
   "cut.tips.clean_vase.body": "Reinigen Sie die Vase mit heißem Seifenwasser (oder einem schnellen Schwenk mit einer Bleichlösung) vor jeder Anordnung. Der Bakterienfilm von letzter Woche ist unsichtbar — und er halbiert die Lebensdauer Ihrer frischen Stiele.",
   "cut.tips.footnote": "Eine Ausnahme: Narzissen- und Narcissusstängel sondern einen Saft ab, der für andere Blumen giftig ist. Stellen Sie sie 6 Stunden lang in frisches Wasser, bevor Sie sie zu einer gemischten Anordnung hinzufügen, und schneiden Sie sie nicht erneut, sobald sie gemischt sind.",
+  "source.local.title": "Zuerst lokal einkaufen",
+  "source.local.body": "Die besten Pflanzen stammen aus einer echten Baumschule — von jemandem, der deinen Boden, dein Klima kennt und dir sagen kann, ob eine Sorte tatsächlich in deiner Straße gedeiht. Probiere ein lokales Gartencenter, bevor du die untenstehenden Online-Optionen wählst. Es unterstützt kleine Betriebe.",
+  "source.local.cta": "Baumschulen in meiner Nähe finden",
 };
 export default dict;

@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Začnite s čisto vazo",
   "cut.tips.clean_vase.body": "Skrabite vazo z vročo milnico (ali hitro iskanje raztopine belila) pred vsakim aranžmajem. Bakterijska plast prejšnjega tedna je nevidna — in skrajša življenjsko dobo vaših svežih stebel na polovico.",
   "cut.tips.footnote": "Ena opomba: stebla narcis in narcisa puščajo sok, ki je strupen za druge cvetove. Pustite jih stati same 6 ur v sveži vodi, preden jih dodate v mešan aranžma, in jih ne reže več, ko so pomešani.",
+  "source.local.title": "Najprej kupujte pri lokalnih prodajalcih",
+  "source.local.body": "Najboljše rastline prihajajo iz pravega vrtnega centra — nekdo, ki pozna vašo prst, vaše podnebje in vam lahko pove, ali se sorta dejansko dobro počuti na vaši ulici. Pred možnostmi spodaj poskusite lokalni vrtnarski center. Podpora majhnim pridelovalcem je ključna.",
+  "source.local.cta": "Najdi vrtnarske centre blizu mene",
 };
 export default dict;

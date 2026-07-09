@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Börja med en fläckfri vas",
   "cut.tips.clean_vase.body": "Skrubba vasen med varmt tvålat vatten (eller en snabb sväng av blekmedelslösning) innan varje arrangemang. Förra veckans bakteriefilm är osynlig — och den halverar livslängden på dina färska stjälkar.",
   "cut.tips.footnote": "En varning: påsklilje- och narcissblommor läcker en sav som är giftig för andra blommor. Ställ dem ensamma i friskt vatten i 6 timmar innan du lägger till dem i ett blandat arrangemang, och klipp inte om dem när de är blandade.",
+  "source.local.title": "Handla lokalt först",
+  "source.local.body": "De bästa växterna kommer från en riktig plantskola — någon som känner till din jord, ditt klimat och kan berätta om en sort faktiskt trivs på din gata. Prova en lokal trädgårdsbutik innan de nedan angivna onlinealternativen. Det håller små odlare vid liv.",
+  "source.local.cta": "Hitta plantskolor nära mig",
 };
 export default dict;

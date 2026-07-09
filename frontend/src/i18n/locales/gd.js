@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Tòisich le vase gun ghalar",
   "cut.tips.clean_vase.body": "Nigh an vase le uisge teth le sabhs (no leig swish luath de dh’uisge bleachd) mus cuir thu a’ freagairteachadh. Chan fhaic thu film bacteria na seachdain roimhe — agus dh’fhaodadh e beatha do phònairean ùr a choimeasgadh.",
   "cut.tips.footnote": "Aon freagairte: bidh clachan daffodil agus narcissus a’ leigeil a-mach leathad a tha tàmailteach do flòraichean eile. Cuir ann an uisge ùr am faighinn tout dìreach airson 6 uairean mus cuir thu iad ann an freagairteachadh measgaichte, agus na gearr e a-rithist nuair a tha iad air an measgachadh.",
+  "source.local.title": "Mion-reic ionadail an toiseach",
+  "source.local.body": "Tha na plants as fheàrr a' tighinn bho neach-raoin fìor — cuideigin a tha eòlach air do phuirt, do chlimat, agus a dh'fhaodas innse dhut a bheil measgachadh air leth a' fàs gu math air do shràid. Feuch mion-reicear gàirnealaire ionadail mus dèan thu sgrùdadh air na roghainnean air-loidhne gu h-ìosal. Cuidichidh e le bhith a' cumail gnìomhachasan beaga aig an àm.",
+  "source.local.cta": "Lorg mion-reicearan faisg orm",
 };
 export default dict;

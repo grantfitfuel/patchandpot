@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Tosaigh le vása gan smacht",
   "cut.tips.clean_vase.body": "Scrúdaigh an vása le huisce te le gallchnó (nó le cniot cónachta le tuiscint éiteán) roimh gach socrú. Is invisibhile é scannán baictérach na seachtaine seo caite — agus déanfaidh sé leath de shaol do shíol úr.",
   "cut.tips.footnote": "Nóta amháin: leagann síolta daffodil agus narcissus greamadh atá tocsaineach do bláthanna eile. Coimeád iad le chéile ar a n-aon feadh 6 uair san uisce úr sula dtugtar isteach iad i socrú measctha, agus ná ghearr athuair iad tar éis measctha.",
+  "source.local.title": "Siopa áitiúil ar dtús",
+  "source.local.body": "Tagann na plandaí is fearr ó gairdín fíor — duine a bhfuil fhios aige/aici faoi do thalamh, do chlimat, agus atá in ann a insint duit an féidir le speiceas áirithe dul i bhfeidhm go maith ar do shráid. Bain try le lárionad gairdín áitiúil sula mbíonn na roghanna ar líne thíos. Cuireann sé leanúnachas ar fáil do thacaigh beaga.",
+  "source.local.cta": "Faigh na gairdíní in aice liom",
 };
 export default dict;

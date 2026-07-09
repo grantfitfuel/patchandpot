@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Start med en plettfri vase",
   "cut.tips.clean_vase.body": "Skrubb vasen med varmt såpevann (eller en rask skylling med blekemiddeloppløsning) før hver arrangement. Bakteriefilmen fra forrige uke er usynlig — og den vil halvere levetiden til stilkene dine.",
   "cut.tips.footnote": "Én advarsel: påskelilje- og narcissusstilker lekker en saft som er giftig for andre blomster. La dem stå alene i 6 timer i friskt vann før de legges til i en blandet bukett, og ikke kutt dem på nytt når de er blandet.",
+  "source.local.title": "Handle lokalt først",
+  "source.local.body": "De beste plantene kommer fra et ekte plantesenter — noen som kjenner jorda di, klimaet ditt, og kan fortelle deg om en variant faktisk trives på gaten din. Prøv et lokalt hagesenter før de nettbaserte alternativene nedenfor. Det holder små produsenter i gang.",
+  "source.local.cta": "Finn plantesentre nær meg",
 };
 export default dict;

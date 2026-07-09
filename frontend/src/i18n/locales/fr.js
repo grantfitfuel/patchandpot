@@ -825,5 +825,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Commencez avec un vase impeccable",
   "cut.tips.clean_vase.body": "Frottez le vase avec de l'eau chaude savonneuse (ou un rapide rinçage à la solution d'eau de javel) avant chaque arrangement. Le film bactérien de la semaine dernière est invisible — et il réduira de moitié la durée de vie de vos tiges fraîches.",
   "cut.tips.footnote": "Une mise en garde : les tiges de jonquille et de narcisse libèrent une sève qui est toxique pour d'autres fleurs. Placez-les seules pendant 6 heures dans de l'eau fraîche avant de les ajouter à un arrangement mixte, et ne les recoupez pas une fois mélangées.",
+  "source.local.title": "Achetez local d'abord",
+  "source.local.body": "Les meilleures plantes proviennent d'une vraie pépinière — quelqu'un qui connaît votre sol, votre climat, et peut vous dire si une variété prospère vraiment dans votre rue. Essayez un centre de jardinage local avant les options en ligne ci-dessous. Cela permet de soutenir les petits producteurs.",
+  "source.local.cta": "Trouvez des pépinières près de chez moi",
 };
 export default dict;

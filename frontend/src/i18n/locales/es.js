@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Comienza con un jarrón impecable",
   "cut.tips.clean_vase.body": "Frota el jarrón con agua caliente y jabonosa (o un rápido enjuague con solución de lejía) antes de cada arreglo. La película de bacterias de la semana pasada es invisible, y acortará a la mitad la vida de tus tallos frescos.",
   "cut.tips.footnote": "Una advertencia: los tallos de narciso y narcisos sueltan una savia que es tóxica para otras flores. Manténlos solos durante 6 horas en agua fresca antes de añadirlos a un arreglo mixto, y no los vuelvas a cortar una vez mezclados.",
+  "source.local.title": "Compra local primero",
+  "source.local.body": "Las mejores plantas provienen de un vivero real — alguien que conoce tu suelo, tu clima y puede decirte si una variedad realmente prospera en tu calle. Prueba un centro de jardinería local antes de las opciones en línea a continuación. Ayuda a que los pequeños cultivadores continúen.",
+  "source.local.cta": "Encontrar viveros cerca de mí",
 };
 export default dict;

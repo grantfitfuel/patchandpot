@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Comece com um vaso limpo",
   "cut.tips.clean_vase.body": "Esfregue o vaso com água quente e sabão (ou uma rápida enxaguada com solução de cloro) antes de cada arranjo. O filme de bactérias da semana passada é invisível — e isso reduzirá pela metade a vida dos seus caules frescos.",
   "cut.tips.footnote": "Uma ressalva: caules de narciso e daffodils liberam um néctar que é tóxico para outras flores. Deixe-os sozinhos por 6 horas em água fresca antes de adicionar a um arranjo misto, e não recorte novamente uma vez misturados.",
+  "source.local.title": "Compre local em primeiro lugar",
+  "source.local.body": "As melhores plantas vêm de um viveiro de verdade — alguém que conhece seu solo, seu clima e pode te dizer se uma variedade realmente prospera na sua rua. Experimente um centro de jardinagem local antes das opções online abaixo. Isso ajuda a manter os pequenos produtores ativos.",
+  "source.local.cta": "Encontre viveiros perto de mim",
 };
 export default dict;

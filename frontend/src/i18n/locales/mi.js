@@ -825,5 +825,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Tīmatahia me te puawai pātea",
   "cut.tips.clean_vase.body": "Pūrei te puawai i te wai pihanga pātea (i runga i te painga o te whakawhitinga o te kiri) i mua i ia whakaritenga. Ko te kiri o ngā pūtau i te wiki e haere ake nei, kāore e taea te kite — ā, ka haurua te ora o ngā tauira hou.",
   "cut.tips.footnote": "Kotahi te whakamōhio: ka rua ngā kokonga o ngā taratara me ngā narcissus i te sap e pā kino ana ki ētahi atu putiputi. Tuia rātau i a rātou anō mō te 6 haora i te wai hou i mua i te taapiri ki te whakahouta, ā, kaua e whakatika anō i te wā e pā ana.",
+  "source.local.title": "Hoko i ngā kaitono tūmatanui",
+  "source.local.body": "Ko ngā tipu pai te mea e puta mai ana i tētahi nursery pono — tētahi e mōhio ana ki tō whenua, tō rangi, ā, ka taea te kōrero ki a koe mēnā ka tupu tētahi momo i runga i tō tiriti. Tēnā tirohia tētahi pokapū māra i mua i ngā kōwhiringa ipurangi kei raro iho. Ka pārekareka tēnei i ngā kaipōti iti.",
+  "source.local.cta": "Kōwhiria ngā nursery kei te pā ahau",
 };
 export default dict;

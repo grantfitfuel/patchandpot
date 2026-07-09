@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Bắt đầu với một bình hoa sạch sẽ",
   "cut.tips.clean_vase.body": "Chà rửa bình với nước xà phòng nóng (hoặc một chút dung dịch thuốc tẩy) trước mỗi lần sắp xếp. Màng vi khuẩn của tuần trước là vô hình — và nó sẽ làm giảm một nửa tuổi thọ của các cành hoa tươi của bạn.",
   "cut.tips.footnote": "Một điều cần lưu ý: cành của thủy tiên và narcissus tiết ra một loại nhựa độc hại cho các loài hoa khác. Để chúng đứng riêng trong nước sạch trong 6 giờ trước khi thêm vào một sắp xếp hỗn hợp, và không cắt lại một khi đã hòa trộn.",
+  "source.local.title": "Mua sắm địa phương trước tiên",
+  "source.local.body": "Những cây tốt nhất đến từ một vườn ươm thực thụ — người thực sự hiểu đất của bạn, khí hậu của bạn và có thể cho bạn biết liệu một giống cây nào đó có thực sự phát triển tốt trên phố của bạn không. Hãy thử một trung tâm làm vườn địa phương trước khi tham khảo các tùy chọn trực tuyến bên dưới. Điều này giúp các nhà sản xuất nhỏ tồn tại.",
+  "source.local.cta": "Tìm vườn ươm gần tôi",
 };
 export default dict;

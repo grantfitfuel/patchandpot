@@ -822,5 +822,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Lekesiz bir vazoyla başlayın",
   "cut.tips.clean_vase.body": "Her aranjman öncesinde vazoyu sıcak sabunlu suyla (veya hızlıca bir çamaşır suyu çözeltisiyle) ovalayın. Geçen haftadan kalma bakteri filmi görünmezdir — ve bu, taze dallarınızın ömrünü yarıya indirir.",
   "cut.tips.footnote": "Bir uyarı: nergis ve narcisus sapları diğer çiçekler için zehirli olan bir öz suyu sızdırır. Bunları karışık bir aranjmana eklemeden önce taze suda 6 saat kendi başlarına bekletin ve karıştıktan sonra yeniden kesmeyin.",
+  "source.local.title": "Öncelikle yerel satın alın",
+  "source.local.body": "En iyi bitkiler gerçek bir fidanlıktan gelir — toprağınızı, ikliminizi bilen ve bir çeşidin gerçekten sokağınızda yetişip yetişmeyeceğini söyleyebilen birisi. Aşağıdaki çevrimiçi seçeneklerden önce yerel bir bahçe merkezini deneyin. Küçük üreticileri destekler.",
+  "source.local.cta": "Bana yakın fidanlıkları bul",
 };
 export default dict;

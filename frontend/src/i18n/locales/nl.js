@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Begin met een vlekkeloze vaas",
   "cut.tips.clean_vase.body": "Schrob de vaas met heet sop of een snelle spoeling met bleekoplossing voordat je elke arrangement maakt. De bacteriënfilm van vorige week is onzichtbaar — en daarmee halveer je de levensduur van je verse stelen.",
   "cut.tips.footnote": "Een kanttekening: narcissen- en narcissenstelen lekken een sap dat giftig is voor andere bloemen. Zet ze 6 uur op zichzelf in vers water voordat je ze aan een gemengd boeket toevoegt, en snijd ze niet opnieuw nadat ze gemengd zijn.",
+  "source.local.title": "Koop eerst lokaal",
+  "source.local.body": "De beste planten komen van een echte kwekerij — iemand die jouw bodem, jouw klimaat kent en je kan vertellen of een variëteit daadwerkelijk gedijt op jouw straat. Probeer een lokale tuincentrum voordat je naar de online opties hieronder kijkt. Het ondersteunt kleine telers.",
+  "source.local.cta": "Vind kwekerijen bij mij in de buurt",
 };
 export default dict;

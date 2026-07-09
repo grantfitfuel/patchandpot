@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Inizia con un vaso impeccabile",
   "cut.tips.clean_vase.body": "Strofina il vaso con acqua calda e sapone (o un rapido risciacquo con una soluzione di candeggina) prima di ogni composizione. Il film batterico della scorsa settimana è invisibile — e dimezzerà la vita dei tuoi gambi freschi.",
   "cut.tips.footnote": "Una nota: gli steli di narciso e narcissi rilasciano una linfa tossica per altri fiori. Lasciali in piedi da soli per 6 ore in acqua fresca prima di aggiungerli a una composizione mista, e non recidere di nuovo una volta mescolati.",
+  "source.local.title": "Acquista locale prima",
+  "source.local.body": "Le migliori piante provengono da un vivaio reale — qualcuno che conosce il tuo terreno, il tuo clima e può dirti se una varietà prospera realmente nella tua strada. Prova un giardino locale prima delle opzioni online qui sotto. Aiuta i piccoli coltivatori.",
+  "source.local.cta": "Trova vivaio vicino a me",
 };
 export default dict;

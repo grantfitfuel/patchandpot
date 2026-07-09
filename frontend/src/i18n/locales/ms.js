@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Mula dengan pasu yang bersih",
   "cut.tips.clean_vase.body": "Sikat pasu dengan air sabun panas (atau cepat sikat dengan larutan pemutih) sebelum setiap susunan. Filem bakteria minggu lepas tidak dapat dilihat — dan ia akan memendekkan hayat batang segar anda.",
   "cut.tips.footnote": "Satu amaran: batang daffodil dan narcissus mengeluarkan getah yang toksik kepada bunga lain. Letakkan mereka sendiri selama 6 jam dalam air segar sebelum ditambah ke dalam susunan campuran, dan jangan potong semula setelah dicampur.",
+  "source.local.title": "Beli tempatan dahulu",
+  "source.local.body": "Tumbuhan terbaik datang dari pusat semaian sebenar — seseorang yang tahu tanah anda, iklim anda, dan boleh memberitahu anda jika varieti benar-benar berkembang di jalan anda. Cuba pusat taman tempatan sebelum pilihan dalam talian di bawah. Ia membantu penghasil kecil untuk terus beroperasi.",
+  "source.local.cta": "Cari pusat semaian berhampiran saya",
 };
 export default dict;

@@ -825,5 +825,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Pradėkite nuo švarios vazos",
   "cut.tips.clean_vase.body": "Išplaukite vazą karštu muiluotu vandeniu (arba greitai pamirkite chloro tirpale) prieš kiekvieną kompoziciją. Praėjusios savaitės bakterijų filmas yra nematomas — ir jis perpus sumažins jūsų šviežių stiebų gyvavimo trukmę.",
   "cut.tips.footnote": "Vienas įspėjimas: narcizų ir narcizų stiebai išskiria sultis, kurios yra toksiškos kitoms gėlėms. Laikykite juos atskirai 6 valandas švariame vandenyje prieš pridedant prie mišrios kompozicijos, ir neperpjaukite dar kartą, kai jie bus sumaišyti.",
+  "source.local.title": "Pirkite vietoje pirmiausia",
+  "source.local.body": "Geriausios augalai ateina iš tikros sodininkystės — kažkas, kas žino jūsų dirvožemį, jūsų klimatą ir gali pasakyti, ar tam tikra veislė iš tikrųjų auga jūsų gatvėje. Išbandykite vietinį sodininkystės centrą prieš žemiau pateiktas internetines galimybes. Tai palaiko mažus augintojus.",
+  "source.local.cta": "Raskite sodininkystes šalia manęs",
 };
 export default dict;

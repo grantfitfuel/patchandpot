@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Začněte s bezvadnou vázou",
   "cut.tips.clean_vase.body": "Vázu důkladně umyjte horkou mýdlovou vodou (nebo rychlým propláchnutím bělidlem) před každou aranžmá. Bakteriální film z minulého týdne je neviditelný — a zkrátí život vašich čerstvých stonků na polovinu.",
   "cut.tips.footnote": "Jedna poznámka: stonky narcisů a narcisy uvolňují mízu, která je toxická pro jiné květiny. Nechte je stát samostatně po dobu 6 hodin ve čerstvé vodě, než je přidáte do smíšené aranžmá, a po smíchání je už nepřistřihávejte.",
+  "source.local.title": "Nakupujte místní jako první",
+  "source.local.body": "Nejlepší rostliny pocházejí z opravdové školky — od někoho, kdo zná vaši půdu, vaše klima a dokáže vám říct, zda daný druh skutečně prosperuje na vaší ulici. Vyzkoušejte místní zahradní centrum před níže uvedenými online možnostmi. Podporuje to malé pěstitele.",
+  "source.local.cta": "Najít školky blízko mě",
 };
 export default dict;

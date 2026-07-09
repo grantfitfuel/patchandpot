@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Începe cu o vaza impecabilă",
   "cut.tips.clean_vase.body": "Curăță vaza cu apă caldă săpunosă (sau o scurtă clătire cu soluție de înălbitor) înainte de fiecare aranjament. Pelicula de bacterii de săptămâna trecută este invizibilă — și va reduce la jumătate durata de viață a tulpinilor tale proaspete.",
   "cut.tips.footnote": "O avertizare: tulpinile de narcis și narcise eliberează un suc care este toxic pentru celelalte flori. Stai-le singure timp de 6 ore în apă proaspătă înainte de a le adăuga într-un aranjament mixt și nu le re-tăia odată ce sunt amestecate.",
+  "source.local.title": "Cumpără local mai întâi",
+  "source.local.body": "Cele mai bune plante vin de la o pepinieră adevărată — cineva care cunoaște solul tău, clima ta și poate să-ți spună dacă o varietate prosperă cu adevărat pe strada ta. Încearcă un centru de grădinărit local înainte de opțiunile online de mai jos. Ajută crescătorii mici să rămână în activitate.",
+  "source.local.cta": "Găsește pepinieri aproape de mine",
 };
 export default dict;

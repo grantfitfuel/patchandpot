@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Toza vazadan boshlang",
   "cut.tips.clean_vase.body": "Har bir aranjirovka oldidan vazani issiq sovunli suv bilan (yoki tezlik bilan blek eritmasi bilan) yuvib tashlang. O'tgan haftadagi bakteriyalar filmi ko'rinmaydi — va bu yangi shoxlaringizning umrini yarmiga qisqartiradi.",
   "cut.tips.footnote": "Bir muhim nuqta: narxish va dafna shoxlari boshqalar uchun zaharli bo'lgan suyuqlikni chiqaradi. Ularni aralash bezakga qo'shishdan oldin 6 soat davomida yangi suvda alohida ushlab turing va aralashgandan keyin yana kesmang.",
+  "source.local.title": "Avvalo mahalliy xarid qiling",
+  "source.local.body": "Eng yaxshi o'simliklar haqiqiy va nurseriesdan keladi - sizning tuprog'ingizni, iqlimingizni biladigan va turli xil iqlimda haqiqatan ham o'sadiganligini aytib bera oladigan kishi. Pastda ko'rsatilgan onlayn variantlardan oldin mahalliy bog' markazini sinab ko'ring. Bu kichik yetishtiruvchilarni faoliyatda saqlab qoladi.",
+  "source.local.cta": "Mening yaqinimdagi o'simlikchiliklarni toping",
 };
 export default dict;

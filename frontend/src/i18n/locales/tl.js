@@ -825,5 +825,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Magsimula sa isang malinis na vase",
   "cut.tips.clean_vase.body": "Urugin ang vase gamit ang mainit na sabon at tubig (o isang mabilis na hugas ng bleach solution) bago ang bawat ayos. Ang bakterya na naipon noong nakaraang linggo ay hindi nakikita — at mapapahina nito ang buhay ng iyong mga sariwang stem.",
   "cut.tips.footnote": "Isang babala: ang mga stem ng daffodil at narcissus ay naglalabas ng sap na nakakalason sa ibang mga bulaklak. Ihinto sila sa sarili nilang tubig sa loob ng 6 na oras bago idagdag sa isang halo-halong grupo, at huwag muling putulin kapag halo-halo na.",
+  "source.local.title": "Mamili muna ng lokal",
+  "source.local.body": "Ang pinakamahuhusay na halaman ay nagmumula sa tunay na punlaan — ang isang tao na nakakaalam ng iyong lupa, iyong klima, at makakapagsabi kung ang isang uri ay talagang namumuhay sa iyong kalye. Subukan ang isang lokal na sentro ng hardin bago ang mga online na opsyon sa ibaba. Nakakatulong ito sa maliliit na growers na magpatuloy.",
+  "source.local.cta": "Hanapin ang mga punlaan malapit sa akin",
 };
 export default dict;

@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Ibda b'vaza mingħajr tbati",
   "cut.tips.clean_vase.body": "Ippulimenti l-vaza bl-ilma sħun u sapun (jew ma' swish ta' soluzzjoni ta' bleach) qabel kull arranġament. Il-filtru tal-batterji tal-ġimgħa li għaddiet huwa invisibbli — u se jnaqqas il-ħajja tal-ġbir fresk tiegħek.",
   "cut.tips.footnote": "Waħda caveat: il-wajer tad-daffodil u n-narcissus joħloq sap li huwa tossiku għal fjuri oħra. Istaħbta minnhom waħedhom għal 6 sigħat f'ilma frish qabel iżżidhom ma' arranġament miksur, u mhux reċentement taqa' wara li jkunu miksura.",
+  "source.local.title": "Ixtri lokal għall-ewwel",
+  "source.local.body": "Il-aqwa pjanti jiġu minn serra vera — xi ħadd li jaf dwar il-ħamrija tiegħek, il-klima tiegħek, u jista' jgħidlek jekk varjetà tassew tikber fit-triq tiegħek. Ipprova ċ-ċentru tal-ġardinaġġ lokali qabel ma l-għażliet online hawn taħt. Dan iżomm il-produtturi żgħar ħaj.",
+  "source.local.cta": "Sabbi s-sirjanijiet qrib tiegħi",
 };
 export default dict;

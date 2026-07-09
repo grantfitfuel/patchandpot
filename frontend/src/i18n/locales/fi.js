@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Aloita tahrattomalla maljakolla",
   "cut.tips.clean_vase.body": "Hankaa maljakko kuumalla saippuavedellä (tai nopealla valkaisuliuoskuuralla) ennen jokaista asetelmaa. Viime viikon bakteerilevy on näkymätön — ja se puolittaa tuoreiden varsiesi eliniän.",
   "cut.tips.footnote": "Yksi varoitus: narsissin ja narsissilajikkeiden varret vuotavat myrkyllistä nestettä, joka on haitallista muille kukille. Anna niiden seisoa erikseen 6 tuntia tuoreessa vedessä ennen kuin lisäät ne sekoitettuun asetelmaan, äläkä leikkaa uudelleen sekoitettuna.",
+  "source.local.title": "Shoppaile ensin paikallisesti",
+  "source.local.body": "Parhaat kasvit tulevat oikeasta taimitarhasta — johonkin, joka tuntee maasi, ilmastosi ja voi kertoa, kukoistaako tietty lajike todella kadullasi. Kokeile paikallista puutarhakauppaa ennen alla olevia verkkovaihtoehtoja. Se pitää pienet kasvattajat toiminnassa.",
+  "source.local.cta": "Löydä taimitarhoja läheltäni",
 };
 export default dict;

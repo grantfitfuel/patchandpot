@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Təmiz bir vaza ilə başlayın",
   "cut.tips.clean_vase.body": "Hər düzəlişdən əvvəl vazanı isti sabunlu su (və ya tez bir şəkildə ağardıcı məhlul) ilə yaxşıca yuyun. Keçən həftənin bakteriya filmi görünməzdir — və bu, təzə saplarınızın ömrünü yarıya endirəcək.",
   "cut.tips.footnote": "Bir qeyd: nərgiz və narcissus sapları başqa çiçəklər üçün zəhərli bir Azərbaycanlı olan süni sızdırır. Onları qarışıq düzəlişə əlavə etmədən əvvəl təzə suda 6 saat tək saxlayın və qarışıq olduqda yenidən kəsməyin.",
+  "source.local.title": "İlk olaraq yerli alış-veriş edin",
+  "source.local.body": "Ən yaxşı bitkilər həqiqi uşaq bağçasından gəlir — sizin torpağınızı, iqliminizi bilən və bir növün sizin küçənizdə realmente inkişaf edib-etməyəcəyini deyə bilən biri. Aşağıdakı onlayn variantlardan əvvəl yerli bağça mərkəzini sınayın. Bu, kiçik istehsalçıların işini davam etdirir.",
+  "source.local.cta": "Mənim yaxınlığımda uşaq bağçalarını tapın",
 };
 export default dict;

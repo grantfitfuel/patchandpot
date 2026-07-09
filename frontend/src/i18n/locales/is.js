@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Byrjaðu á blettalausum vasa",
   "cut.tips.clean_vase.body": "Burstaðu vasa með heitu sápuvatni (eða fljótu skoli af bleikulausn) fyrir hvert nýtt skipulag. Sýkingarskáldin frá síðustu viku eru ósýnileg — og það mun helminga líftíma ferska stilkanna þinna.",
   "cut.tips.footnote": "Einn fyrirvara: gulu völlurnar og narcissus stilkar leka safi sem er eitrað fyrir önnur blóm. Láttu þau standa ein og sér í fersku vatni í 6 klukkustundir áður en þú bætir þeim í blandaðan búnað, og ekki klippa aftur eftir að þau eru blönduð.",
+  "source.local.title": "Verslaðu fyrst hjá staðbundnum",
+  "source.local.body": "Bestu plönturnar koma frá raunverulegu gróðri — einhver sem þekkir jarðveginn þinn, loftslagið þitt, og getur sagt þér hvort afbrigði þristir raunverulega á götunni þinni. Prófaðu staðbundna garðamiðstöð áður en þú skoðar valkostina á netinu hér að neðan. Þetta heldur lífi hjá smáframleiðendum.",
+  "source.local.cta": "Finndu gróðra minn nálægt mér",
 };
 export default dict;

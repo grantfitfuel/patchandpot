@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Zacznij od nieskazitelnego wazonu",
   "cut.tips.clean_vase.body": "Szoruj wazon gorącą, mydlaną wodą (lub szybko przepłucz roztworem wybielacza) przed każdym układem. Bakterie z zeszłego tygodnia są niewidoczne — a skrócą życie twoich świeżych łodyg o połowę.",
   "cut.tips.footnote": "Jedna uwaga: łodygi żonkili i narcyzów wydzielają sok, który jest toksyczny dla innych kwiatów. Postaw je osobno na 6 godzin w świeżej wodzie przed dodaniem do mieszanej kompozycji, i nie przycinaj ponownie po zmieszaniu.",
+  "source.local.title": "Kupuj lokalnie najpierw",
+  "source.local.body": "Najlepsze rośliny pochodzą z prawdziwej szkółki — kogoś, kto zna twoją glebę, twój klimat i potrafi powiedzieć, czy dana odmiana naprawdę rośnie na twojej ulicy. Spróbuj lokalnego centrum ogrodniczego przed opcjami online poniżej. To wspiera małych hodowców.",
+  "source.local.cta": "Znajdź szkółki w mojej okolicy",
 };
 export default dict;

@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Kezdj egy makulátlan vázával",
   "cut.tips.clean_vase.body": "Tisztítsd meg a vázát forró szappanos vízzel (vagy egy gyors öblítéssel klóroldattal) minden egyes elrendezés előtt. A múlt heti baktériumfilm láthatatlan — és a friss szárak élettartamát a felére csökkenti.",
   "cut.tips.footnote": "Egy észrevétel: a nárcisz és a nárcisz szárak olyan nedvet bocsátanak ki, ami mérgező más virágokra. Hagyj nekik 6 órát friss vízben, mielőtt egy vegyes elrendezéshez adnád őket, és ne vágd újra, miután össze lett keverve.",
+  "source.local.title": "Vásárolj először helyben",
+  "source.local.body": "A legjobb növények egy igazi kertészetből származnak — valakitől, aki ismeri a talajodat, az éghajlatodat, és meg tudja mondani, hogy egy fajta valóban jól növekszik-e az utcádon. Próbálj ki egy helyi kertészeti központot, mielőtt az alábbi online lehetőségekre lépnél. Támogatja a kis termelőket.",
+  "source.local.cta": "Találj hozzám közel eső kertészeteket",
 };
 export default dict;

@@ -824,5 +824,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Sāciet ar tīru vāzi",
   "cut.tips.clean_vase.body": "Ieskrubējiet vāzi ar karstu ziepjūdeni (vai ātri izskalojiet ar balināšanas šķīdumu) pirms katra sakārtojuma. Pagājušās nedēļas baktēriju plēve ir neredzama — un tā samazinās jūsu svaigo kātu dzīves ilgumu uz pusi.",
   "cut.tips.footnote": "Viens ierobežojums: narcišu un narcispuķu kāti izdala sulu, kas ir toksiska citiem ziediem. Novietojiet tos atsevišķi 6 stundas svaigā ūdenī pirms pievienošanas jauktajam sakārtojumam, un negrieziet vēlreiz, kad tie ir sajaukti.",
+  "source.local.title": "Iepērcies vietēji vispirms",
+  "source.local.body": "Labākās augi nāk no īsta sēklkopības — kāda, kas zina tavu augsni, tavu klimatu un var teikt, vai dažādas patiešām var attīstīties tavā ielā. Izmēģini vietējo dārzkopības centru pirms zemāk esošajiem tiešsaistes variantiem. Tas atbalsta mazus audzētājus.",
+  "source.local.cta": "Atrod tuvākās sēklkopības",
 };
 export default dict;

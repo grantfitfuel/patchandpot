@@ -825,5 +825,8 @@ const dict = {
   "cut.tips.clean_vase.title": "Započnite s besprijekornom vazom",
   "cut.tips.clean_vase.body": "Operite vazu vrućom sapunicom (ili brzo isperite otopinom izbijelivača) prije svake aranžmane. Bakterijska filmska tvar od prošlog tjedna je nevidljiva — i skratit će život vašim svježim stabljikama za polovicu.",
   "cut.tips.footnote": "Jedna napomena: stabljike narcisa i dafodila ispuštaju sok koji je toksičan za druge cvjetove. Ostavite ih same na 6 sati u svježoj vodi prije nego dodate u mješoviti aranžman, i ne režite ponovo kada su pomiješani.",
+  "source.local.title": "Kupujte lokalno prvo",
+  "source.local.body": "Najbolje biljke dolaze iz pravog rasadnika — od nekoga tko poznaje vašu zemlju, vašu klimu i može vam reći hoće li neka sorta zapravo dobro rasti na vašoj ulici. Pokušajte s lokalnim vrtlarijom prije nego što pogledate online opcije u nastavku. To pomaže malim proizvođačima.",
+  "source.local.cta": "Pronađite rasadnike u blizini",
 };
 export default dict;

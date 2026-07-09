@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ExternalLink, Sprout, Package, Info, Sparkles } from "lucide-react";
+import { ExternalLink, Sprout, Package, Info, Sparkles, Store } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
 import { vendorsForCountry } from "@/data/vendors";
 import { fetchVendorBlurbs } from "@/lib/api";
@@ -102,6 +102,8 @@ export default function SourceLinks({ plant }) {
         </span>
       </div>
 
+      <ShopLocalNudge t={t} country={activeRegion?.country} plantName={plant.name} />
+
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {cards.map((c) => (
           <VendorCard
@@ -117,6 +119,55 @@ export default function SourceLinks({ plant }) {
         ))}
       </div>
     </section>
+  );
+}
+
+/**
+ * "Shop local first" nudge.
+ *
+ * Appears above the online vendor grid, encourages the reader to try a
+ * nearby garden centre or nursery for the current plant before clicking
+ * through to Amazon/Crocus. Deep-links to a Google Maps search for
+ * "<plant> nursery near me" scoped to the user's country, which gives a
+ * live map of local options — no accounts, no data collection.
+ *
+ * We intentionally sit this ABOVE the affiliate cards. It costs us a
+ * little affiliate click-through, but it's the right thing to do for
+ * small-business gardening and it aligns with the "reader-supported"
+ * ethos the privacy notice already commits to.
+ */
+function ShopLocalNudge({ t, country, plantName }) {
+  const query = encodeURIComponent(
+    `${plantName} garden centre nursery${country ? " " + country : " near me"}`,
+  );
+  const mapsUrl = `https://www.google.com/maps/search/${query}`;
+  return (
+    <div
+      data-testid="shop-local-nudge"
+      className="mb-6 p-5 border border-forest/25 bg-forest/[0.04] flex flex-col sm:flex-row sm:items-center gap-4"
+    >
+      <div className="flex-shrink-0 w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center">
+        <Store strokeWidth={1.4} className="w-5 h-5 text-forest" />
+      </div>
+      <div className="flex-1">
+        <p className="font-serif text-lg text-forest leading-snug">
+          {t("source.local.title")}
+        </p>
+        <p className="text-sm text-ink/75 mt-1 leading-relaxed">
+          {t("source.local.body")}
+        </p>
+      </div>
+      <a
+        href={mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-testid="shop-local-cta"
+        className="flex-shrink-0 inline-flex items-center gap-1.5 text-xs uppercase tracking-wider px-4 py-2 bg-forest text-sand hover:bg-forest/85 transition-colors"
+      >
+        {t("source.local.cta")}
+        <ExternalLink strokeWidth={1.5} className="w-3 h-3" />
+      </a>
+    </div>
   );
 }
 

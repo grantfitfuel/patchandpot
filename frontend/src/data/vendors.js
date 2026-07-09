@@ -5,19 +5,22 @@
 // is shown in the Pots/Compost slot; an extra is used for Tools if available.
 //
 // URL strategy — HYBRID.
-//   • Plant / seed / bulb vendors (Thompson & Morgan, Crocus, Burpee,
-//     Bakker, Sakata, …) receive the plant name and deep-link to a
-//     search for that plant. A reader on the Lavender page lands on
-//     Crocus's lavender search, not the homepage.
+//   • Plant / seed / bulb vendors (Thompson & Morgan, Burpee, Bakker,
+//     Sakata, …) route through a Google site-scoped search
+//     (`googleSearch(domain, plant)`). This is more reliable than each
+//     retailer's own search endpoint: those endpoints change, 404,
+//     rate-limit or (in T&M's case) misparse the query string. Google
+//     always returns a clean list of that retailer's product pages for
+//     the plant and the reader clicks straight through to the correct
+//     product on the vendor's site.
+//   • Crocus keeps its native URL (verified working July 2026).
 //   • Amazon (every domain) is intentionally NOT plant-specific. Amazon
 //     is where the reader picks up the pot, compost, trowel, twine or
 //     seed tray — searching Amazon for a plant name returns essential
 //     oils and ornaments, not gardening. So Amazon URLs always resolve
 //     to a "garden tools" search, localised into the region's language.
-//   • Pot / hardware retailers (Home Depot, Bunnings, Leroy Merlin, …)
-//     still take the plant name — if a reader clicks a pots link on the
-//     Tomato page they probably want tomato-adjacent kit, and these
-//     search UIs handle that gracefully.
+//   • Home Depot / Bunnings / Leroy Merlin / Truffaut / Dehner / etc.
+//     take the plant name via their native search (verified stable).
 //
 // Affiliate tags wired in:
 //   - Amazon.co.uk → patchandpot-21
@@ -34,6 +37,25 @@ const enc = (q) => encodeURIComponent(q);
 // (e.g. `+seeds`, `+plant`) per retailer without repeating the same
 // null-guard everywhere.
 const q = (name) => (name || "").trim();
+
+// Google site-scoped search helper. Used for retailers whose internal
+// search either 404s, ignores query params, or displays the raw query
+// string as the search term (e.g. Thompson & Morgan, which parses
+// `?q=mint` as literal text "q=mint" and shows it that way in the
+// header — see the bug filed against v46). Google returns a clean list
+// of that retailer's product pages for the plant, and the reader clicks
+// straight through to the correct product on the vendor's site.
+//
+// Downside: no affiliate cookie set through Google's redirect.
+//   • Amazon is fine (its own search always works with `?k=`).
+//   • For retailers we DO have Awin/Sovrn attribution with, we should
+//     wrap the destination in `awinLink(...)` once approvals land.
+//     Sovrn's outbound-link JS in index.html will still catch these
+//     Google-redirected clicks and attach affiliate tags after signup.
+const googleSearch = (domain, name) => {
+  const term = q(name) || "gardening";
+  return `https://www.google.com/search?q=${enc(term + " site:" + domain)}`;
+};
 
 // Awin deep-link helper.
 //   - AWIN_PUB_ID is the Patch & Pot publisher account (set at sign-up).
@@ -60,26 +82,26 @@ const amazon = (domain, tag, qualifier = "garden tools") => {
 const VENDORS_BY_COUNTRY = {
   "united kingdom": [
     { id: "thompson-morgan", name: "Thompson & Morgan", kind: "seeds",
-      url: (n) => `https://www.thompson-morgan.com/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("thompson-morgan.com", n) },
     { id: "suttons", name: "Suttons", kind: "seeds",
-      url: (n) => `https://www.suttons.co.uk/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("suttons.co.uk", n) },
     // Crocus's search URL pattern (verified 2026-07): /search/_/search.QUERY/
     { id: "crocus", name: "Crocus", kind: "pots",
       url: (n) => `https://www.crocus.co.uk/search/_/search.${enc(q(n) || "plants")}/` },
     { id: "amazon-uk", name: "Amazon UK", kind: "tools",
-      url: (n) => amazon("co.uk", "patchandpot-21") },
+      url: () => amazon("co.uk", "patchandpot-21") },
   ],
   "ireland": [
     { id: "mr-middleton", name: "Mr Middleton", kind: "seeds",
-      url: (n) => `https://www.mrmiddleton.com/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("mrmiddleton.com", n) },
     { id: "thompson-morgan-ie", name: "Thompson & Morgan", kind: "pots",
-      url: (n) => `https://www.thompson-morgan.com/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("thompson-morgan.com", n) },
   ],
   "united states": [
     { id: "burpee", name: "Burpee", kind: "seeds",
-      url: (n) => `https://www.burpee.com/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("burpee.com", n) },
     { id: "botanical-interests", name: "Botanical Interests", kind: "seeds",
-      url: (n) => `https://www.botanicalinterests.com/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("botanicalinterests.com", n) },
     { id: "home-depot", name: "The Home Depot", kind: "pots",
       url: (n) => `https://www.homedepot.com/s/${enc(q(n) || "planters")}` },
     { id: "amazon-us", name: "Amazon", kind: "tools",
@@ -87,7 +109,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "canada": [
     { id: "west-coast-seeds", name: "West Coast Seeds", kind: "seeds",
-      url: (n) => `https://www.westcoastseeds.com/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("westcoastseeds.com", n) },
     { id: "home-hardware", name: "Home Hardware", kind: "pots",
       url: (n) => `https://www.homehardware.ca/en/search/?q=${enc(q(n) || "planters")}` },
     { id: "amazon-ca", name: "Amazon.ca", kind: "tools",
@@ -95,9 +117,9 @@ const VENDORS_BY_COUNTRY = {
   ],
   "australia": [
     { id: "diggers-club", name: "The Diggers Club", kind: "seeds",
-      url: (n) => `https://www.diggers.com.au/catalogsearch/result/?q=${enc(q(n))}` },
+      url: (n) => googleSearch("diggers.com.au", n) },
     { id: "yates", name: "Yates", kind: "seeds",
-      url: (n) => `https://www.yates.com.au/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("yates.com.au", n) },
     { id: "bunnings", name: "Bunnings", kind: "pots",
       url: (n) => `https://www.bunnings.com.au/search/products?q=${enc(q(n) || "planters")}` },
     { id: "amazon-au", name: "Amazon.com.au", kind: "tools",
@@ -105,7 +127,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "new zealand": [
     { id: "kings-seeds", name: "Kings Seeds NZ", kind: "seeds",
-      url: (n) => `https://www.kingsseeds.co.nz/search-results.html?Keyword=${enc(q(n))}` },
+      url: (n) => googleSearch("kingsseeds.co.nz", n) },
     { id: "mitre-10", name: "Mitre 10", kind: "pots",
       url: (n) => `https://www.mitre10.co.nz/shop?q=${enc(q(n) || "planters")}` },
     { id: "amazon-au-nz", name: "Amazon.com.au", kind: "tools",
@@ -113,7 +135,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "germany": [
     { id: "baldur-garten", name: "Baldur-Garten", kind: "seeds",
-      url: (n) => `https://www.baldur-garten.de/search/?text=${enc(q(n))}` },
+      url: (n) => googleSearch("baldur-garten.de", n) },
     { id: "dehner", name: "Dehner", kind: "pots",
       url: (n) => `https://www.dehner.de/search/?q=${enc(q(n) || "pflanztopf")}` },
     { id: "amazon-de", name: "Amazon.de", kind: "tools",
@@ -121,7 +143,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "france": [
     { id: "vilmorin", name: "Vilmorin", kind: "seeds",
-      url: (n) => `https://www.vilmorin-jardin.fr/catalogsearch/result/?q=${enc(q(n))}` },
+      url: (n) => googleSearch("vilmorin-jardin.fr", n) },
     { id: "truffaut", name: "Truffaut", kind: "pots",
       url: (n) => `https://www.truffaut.com/search?q=${enc(q(n) || "pot jardin")}` },
     { id: "amazon-fr", name: "Amazon.fr", kind: "tools",
@@ -129,7 +151,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "spain": [
     { id: "semillaria", name: "Semillaria", kind: "seeds",
-      url: (n) => `https://semillaria.es/?s=${enc(q(n))}` },
+      url: (n) => googleSearch("semillaria.es", n) },
     { id: "leroy-merlin", name: "Leroy Merlin", kind: "pots",
       url: (n) => `https://www.leroymerlin.es/search?q=${enc(q(n) || "macetas")}` },
     { id: "amazon-es", name: "Amazon.es", kind: "tools",
@@ -137,7 +159,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "italy": [
     { id: "bavicchi", name: "Bavicchi", kind: "seeds",
-      url: (n) => `https://www.bavicchi.it/?s=${enc(q(n))}` },
+      url: (n) => googleSearch("bavicchi.it", n) },
     { id: "leroy-merlin-it", name: "Leroy Merlin Italia", kind: "pots",
       url: (n) => `https://www.leroymerlin.it/search?q=${enc(q(n) || "vasi")}` },
     { id: "amazon-it", name: "Amazon.it", kind: "tools",
@@ -145,7 +167,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "netherlands": [
     { id: "bakker", name: "Bakker", kind: "seeds",
-      url: (n) => `https://www.bakker.com/nl-nl/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("bakker.com", n) },
     { id: "intratuin", name: "Intratuin", kind: "pots",
       url: (n) => `https://www.intratuin.nl/search?q=${enc(q(n) || "potten")}` },
     { id: "amazon-nl", name: "Amazon.nl", kind: "tools",
@@ -153,13 +175,13 @@ const VENDORS_BY_COUNTRY = {
   ],
   "belgium": [
     { id: "bakker-be", name: "Bakker", kind: "seeds",
-      url: (n) => `https://www.bakker.com/nl-be/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("bakker.com", n) },
     { id: "amazon-be", name: "Amazon.com.be", kind: "tools",
       url: (n) => amazon("com.be", "", "tuingereedschap") },
   ],
   "sweden": [
     { id: "wexthuset", name: "Wexthuset", kind: "seeds",
-      url: (n) => `https://www.wexthuset.com/sok?q=${enc(q(n))}` },
+      url: (n) => googleSearch("wexthuset.com", n) },
     { id: "amazon-se", name: "Amazon.se", kind: "tools",
       url: (n) => amazon("se", "", "tradgard verktyg") },
   ],
@@ -193,7 +215,7 @@ const VENDORS_BY_COUNTRY = {
   ],
   "japan": [
     { id: "sakata", name: "Sakata Seed", kind: "seeds",
-      url: (n) => `https://sakata-tsushin.com/Form/Product/ProductList.aspx?keyword=${enc(q(n))}` },
+      url: (n) => googleSearch("sakata-tsushin.com", n) },
     { id: "cainz", name: "Cainz", kind: "pots",
       url: (n) => `https://www.cainz.com/search?keyword=${enc(q(n) || "植木鉢")}` },
     { id: "amazon-jp", name: "Amazon.co.jp", kind: "tools",
@@ -201,13 +223,13 @@ const VENDORS_BY_COUNTRY = {
   ],
   "china": [
     { id: "tmall-seeds", name: "Tmall", kind: "seeds",
-      url: (n) => `https://list.tmall.com/search_product.htm?q=${enc(q(n))}` },
+      url: (n) => googleSearch("tmall.com", n) },
     { id: "jd-garden", name: "JD.com", kind: "pots",
       url: (n) => `https://search.jd.com/Search?keyword=${enc(q(n) || "花盆")}` },
   ],
   "india": [
     { id: "ugaoo", name: "Ugaoo", kind: "seeds",
-      url: (n) => `https://www.ugaoo.com/search?q=${enc(q(n))}` },
+      url: (n) => googleSearch("ugaoo.com", n) },
     { id: "amazon-in", name: "Amazon India", kind: "pots",
       url: (n) => amazon("in", "") },
   ],

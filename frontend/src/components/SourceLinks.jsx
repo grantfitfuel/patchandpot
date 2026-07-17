@@ -100,7 +100,7 @@ export default function SourceLinks({ plant }) {
           plant nurseries with affiliate links (Sovrn rejected our
           application). The most honest, useful action for the reader is
           a real garden centre near them, so we lead with that. */}
-      <ShopLocalNudge t={t} country={activeRegion?.country} plantName={plant.name} />
+      <ShopLocalNudge t={t} region={activeRegion} plantName={plant.name} />
 
       {/* Amazon (kit only) as a small secondary card. Amazon isn't a
           plant nursery — it's where readers pick up the pot, compost,
@@ -140,19 +140,41 @@ export default function SourceLinks({ plant }) {
  * "Shop local first" — the hero of the Where-to-source section.
  *
  * Two local-discovery buttons via Google Maps:
- *   • Plants  → "<plant> garden centre nursery <country>"
- *   • Tools   → "ironmonger hardware store <country>"
- * Both keep small local businesses alive and give the reader the right
- * expertise for each need. No accounts, no data collection, no affiliate.
+ *   • Plants  → "<plant> garden centre nursery <locality>"
+ *   • Tools   → "ironmonger hardware store <locality>"
+ * The Google Maps URL is anchored on the region's lat/lng (via the
+ * `@lat,lng,13z` suffix) so results are pinned to the user's actual
+ * town, not just their country. The locality name (region.name →
+ * region.admin → region.country) is also included in the query text
+ * so the reader sees the search term they'd have typed themselves.
+ *
+ * No accounts, no data collection, no affiliate.
  */
-function ShopLocalNudge({ t, country, plantName }) {
-  const region = country ? " " + country : " near me";
+function ShopLocalNudge({ t, region, plantName }) {
+  const locality =
+    (region?.name && region.name.trim()) ||
+    (region?.admin && region.admin.trim()) ||
+    (region?.country && region.country.trim()) ||
+    "";
+  // Google Maps anchor: `/maps/search/<query>/@<lat>,<lng>,13z`.
+  // 13z = town-level zoom (roughly 5 mile radius) — the right scale for
+  // finding a garden centre or ironmonger you'd actually drive to.
+  const anchor =
+    Number.isFinite(region?.latitude) && Number.isFinite(region?.longitude)
+      ? `/@${region.latitude},${region.longitude},13z`
+      : "";
   const nurseryUrl =
     "https://www.google.com/maps/search/" +
-    encodeURIComponent(`${plantName} garden centre nursery${region}`);
+    encodeURIComponent(
+      `${plantName} garden centre nursery${locality ? " near " + locality : ""}`,
+    ) +
+    anchor;
   const ironmongerUrl =
     "https://www.google.com/maps/search/" +
-    encodeURIComponent(`ironmonger hardware store${region}`);
+    encodeURIComponent(
+      `ironmonger hardware store${locality ? " near " + locality : ""}`,
+    ) +
+    anchor;
   return (
     <div
       data-testid="shop-local-nudge"
@@ -169,6 +191,11 @@ function ShopLocalNudge({ t, country, plantName }) {
           <p className="text-sm text-ink/80 mt-2 leading-relaxed">
             {t("source.local.body")}
           </p>
+          {locality && (
+            <p className="text-xs text-moss mt-2" data-testid="shop-local-locality">
+              {t("source.local.searching_near", { locality })}
+            </p>
+          )}
           <div className="flex flex-wrap gap-3 mt-5">
             <a
               href={nurseryUrl}

@@ -266,6 +266,7 @@ const dict = {
   "source.local.body": "The best plants come from a real nursery, and the best trowel comes from the old-fashioned ironmonger down the road — people who know their stock and can advise. Try local first, both for the plant and the kit. It keeps small growers and small hardware shops alive.",
   "source.local.cta": "Find nurseries near me",
   "source.local.tools_cta": "Find ironmongers near me",
+  "source.local.searching_near": "Searching near {locality}",
   "source.tools.blurb": "For pots, compost, seed trays, twine and other kit — Amazon has the essentials if the local option isn't right. Not a plant nursery; use the local map above for the plant itself.",
   "print.intro": "Your monthly gardening sheet, ready to print or save as PDF.",
   "print.action.print": "Print / Save as PDF",

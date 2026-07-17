@@ -139,41 +139,60 @@ export default function SourceLinks({ plant }) {
 /**
  * "Shop local first" — the hero of the Where-to-source section.
  *
- * Deep-links to a Google Maps search for "<plant> garden centre nursery
- * <country>". Gives the reader a live map of nearby options. No accounts,
- * no data collection, no affiliate — just the right action.
+ * Two local-discovery buttons via Google Maps:
+ *   • Plants  → "<plant> garden centre nursery <country>"
+ *   • Tools   → "ironmonger hardware store <country>"
+ * Both keep small local businesses alive and give the reader the right
+ * expertise for each need. No accounts, no data collection, no affiliate.
  */
 function ShopLocalNudge({ t, country, plantName }) {
-  const query = encodeURIComponent(
-    `${plantName} garden centre nursery${country ? " " + country : " near me"}`,
-  );
-  const mapsUrl = `https://www.google.com/maps/search/${query}`;
+  const region = country ? " " + country : " near me";
+  const nurseryUrl =
+    "https://www.google.com/maps/search/" +
+    encodeURIComponent(`${plantName} garden centre nursery${region}`);
+  const ironmongerUrl =
+    "https://www.google.com/maps/search/" +
+    encodeURIComponent(`ironmonger hardware store${region}`);
   return (
     <div
       data-testid="shop-local-nudge"
-      className="p-6 sm:p-8 border-2 border-forest/40 bg-forest/[0.06] flex flex-col sm:flex-row sm:items-center gap-5"
+      className="p-6 sm:p-8 border-2 border-forest/40 bg-forest/[0.06]"
     >
-      <div className="flex-shrink-0 w-14 h-14 bg-forest text-sand rounded-full flex items-center justify-center">
-        <Store strokeWidth={1.4} className="w-7 h-7" />
+      <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+        <div className="flex-shrink-0 w-14 h-14 bg-forest text-sand rounded-full flex items-center justify-center">
+          <Store strokeWidth={1.4} className="w-7 h-7" />
+        </div>
+        <div className="flex-1">
+          <p className="font-serif text-2xl text-forest leading-snug">
+            {t("source.local.title")}
+          </p>
+          <p className="text-sm text-ink/80 mt-2 leading-relaxed">
+            {t("source.local.body")}
+          </p>
+          <div className="flex flex-wrap gap-3 mt-5">
+            <a
+              href={nurseryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="shop-local-cta"
+              className="inline-flex items-center gap-2 text-sm uppercase tracking-wider px-5 py-3 bg-forest text-sand hover:bg-forest/85 transition-colors"
+            >
+              {t("source.local.cta")}
+              <ExternalLink strokeWidth={1.5} className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href={ironmongerUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="shop-local-tools-cta"
+              className="inline-flex items-center gap-2 text-sm uppercase tracking-wider px-5 py-3 border-2 border-forest text-forest hover:bg-forest hover:text-sand transition-colors"
+            >
+              {t("source.local.tools_cta")}
+              <ExternalLink strokeWidth={1.5} className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
       </div>
-      <div className="flex-1">
-        <p className="font-serif text-2xl text-forest leading-snug">
-          {t("source.local.title")}
-        </p>
-        <p className="text-sm text-ink/80 mt-2 leading-relaxed">
-          {t("source.local.body")}
-        </p>
-      </div>
-      <a
-        href={mapsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-testid="shop-local-cta"
-        className="flex-shrink-0 inline-flex items-center gap-2 text-sm uppercase tracking-wider px-5 py-3 bg-forest text-sand hover:bg-forest/85 transition-colors"
-      >
-        {t("source.local.cta")}
-        <ExternalLink strokeWidth={1.5} className="w-3.5 h-3.5" />
-      </a>
     </div>
   );
 }

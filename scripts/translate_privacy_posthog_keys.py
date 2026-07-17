@@ -54,14 +54,17 @@ base.NEW_KEYS = {
     ),
     "source.local.title": "Shop local first",
     "source.local.body": (
-        "The best plants come from a real nursery \u2014 someone who knows your soil, "
-        "your climate, and can tell you if a variety actually thrives on your street. "
-        "Try a local garden centre before the online options below. It keeps small growers going."
+        "The best plants come from a real nursery, and the best trowel comes from "
+        "the old-fashioned ironmonger down the road \u2014 people who know their "
+        "stock and can advise. Try local first, both for the plant and the kit. "
+        "It keeps small growers and small hardware shops alive."
     ),
     "source.local.cta": "Find nurseries near me",
+    "source.local.tools_cta": "Find ironmongers near me",
     "source.tools.blurb": (
-        "For pots, compost, seed trays, twine and other kit \u2014 Amazon has the essentials. "
-        "Not a plant nursery; use the local map above for the plant itself."
+        "For pots, compost, seed trays, twine and other kit \u2014 Amazon has the "
+        "essentials if the local option isn't right. Not a plant nursery; use the "
+        "local map above for the plant itself."
     ),
 }
 

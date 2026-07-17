@@ -89,52 +89,59 @@ export default function SourceLinks({ plant }) {
 
   return (
     <section className="mt-16 border-t border-border pt-12" data-testid="source-links">
-      <div className="flex items-baseline justify-between gap-4 mb-6 flex-wrap">
-        <div>
-          <p className="overline">{t("source.eyebrow")}</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-forest mt-2 leading-tight">
-            {t("source.title", { country: activeRegion?.country || activeRegion?.name || "" })}
-          </h2>
-        </div>
-        <span className="text-xs text-moss inline-flex items-center gap-1.5 max-w-xs">
-          <Info strokeWidth={1.5} className="w-3.5 h-3.5 flex-shrink-0" />
-          {t("source.disclosure")}
-        </span>
+      <div className="mb-6">
+        <p className="overline">{t("source.eyebrow")}</p>
+        <h2 className="font-serif text-3xl md:text-4xl text-forest mt-2 leading-tight">
+          {t("source.title", { country: activeRegion?.country || activeRegion?.name || "" })}
+        </h2>
       </div>
 
+      {/* Shop-Local is now the HERO — we deliberately no longer surface
+          plant nurseries with affiliate links (Sovrn rejected our
+          application). The most honest, useful action for the reader is
+          a real garden centre near them, so we lead with that. */}
       <ShopLocalNudge t={t} country={activeRegion?.country} plantName={plant.name} />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {cards.map((c) => (
-          <VendorCard
-            key={c.vendor.id}
-            card={c}
-            plantName={plant.name}
-            blurb={blurbs[c.vendor.id]}
-            blurbsLoading={blurbsLoading}
-            cta={t("source.cta")}
-            region={activeRegion}
-            language={lang}
-          />
-        ))}
-      </div>
+      {/* Amazon (kit only) as a small secondary card. Amazon isn't a
+          plant nursery — it's where readers pick up the pot, compost,
+          seed tray, twine. We keep it because it's the only remaining
+          affiliate revenue stream on the site, and the reader may
+          genuinely need those consumables to grow this plant. */}
+      {cards.length > 0 && (
+        <div className="mt-8 pt-8 border-t border-border/60">
+          <p className="text-xs text-moss inline-flex items-center gap-1.5 mb-4">
+            <Info strokeWidth={1.5} className="w-3.5 h-3.5 flex-shrink-0" />
+            {t("source.tools.blurb")}
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {cards.map((c) => (
+              <VendorCard
+                key={c.vendor.id}
+                card={c}
+                plantName={plant.name}
+                blurb={blurbs[c.vendor.id]}
+                blurbsLoading={blurbsLoading}
+                cta={t("source.cta")}
+                region={activeRegion}
+                language={lang}
+              />
+            ))}
+          </div>
+          <p className="text-[0.65rem] text-moss mt-3 italic">
+            {t("source.disclosure")}
+          </p>
+        </div>
+      )}
     </section>
   );
 }
 
 /**
- * "Shop local first" nudge.
+ * "Shop local first" — the hero of the Where-to-source section.
  *
- * Appears above the online vendor grid, encourages the reader to try a
- * nearby garden centre or nursery for the current plant before clicking
- * through to Amazon/Crocus. Deep-links to a Google Maps search for
- * "<plant> nursery near me" scoped to the user's country, which gives a
- * live map of local options — no accounts, no data collection.
- *
- * We intentionally sit this ABOVE the affiliate cards. It costs us a
- * little affiliate click-through, but it's the right thing to do for
- * small-business gardening and it aligns with the "reader-supported"
- * ethos the privacy notice already commits to.
+ * Deep-links to a Google Maps search for "<plant> garden centre nursery
+ * <country>". Gives the reader a live map of nearby options. No accounts,
+ * no data collection, no affiliate — just the right action.
  */
 function ShopLocalNudge({ t, country, plantName }) {
   const query = encodeURIComponent(
@@ -144,16 +151,16 @@ function ShopLocalNudge({ t, country, plantName }) {
   return (
     <div
       data-testid="shop-local-nudge"
-      className="mb-6 p-5 border border-forest/25 bg-forest/[0.04] flex flex-col sm:flex-row sm:items-center gap-4"
+      className="p-6 sm:p-8 border-2 border-forest/40 bg-forest/[0.06] flex flex-col sm:flex-row sm:items-center gap-5"
     >
-      <div className="flex-shrink-0 w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center">
-        <Store strokeWidth={1.4} className="w-5 h-5 text-forest" />
+      <div className="flex-shrink-0 w-14 h-14 bg-forest text-sand rounded-full flex items-center justify-center">
+        <Store strokeWidth={1.4} className="w-7 h-7" />
       </div>
       <div className="flex-1">
-        <p className="font-serif text-lg text-forest leading-snug">
+        <p className="font-serif text-2xl text-forest leading-snug">
           {t("source.local.title")}
         </p>
-        <p className="text-sm text-ink/75 mt-1 leading-relaxed">
+        <p className="text-sm text-ink/80 mt-2 leading-relaxed">
           {t("source.local.body")}
         </p>
       </div>
@@ -162,10 +169,10 @@ function ShopLocalNudge({ t, country, plantName }) {
         target="_blank"
         rel="noopener noreferrer"
         data-testid="shop-local-cta"
-        className="flex-shrink-0 inline-flex items-center gap-1.5 text-xs uppercase tracking-wider px-4 py-2 bg-forest text-sand hover:bg-forest/85 transition-colors"
+        className="flex-shrink-0 inline-flex items-center gap-2 text-sm uppercase tracking-wider px-5 py-3 bg-forest text-sand hover:bg-forest/85 transition-colors"
       >
         {t("source.local.cta")}
-        <ExternalLink strokeWidth={1.5} className="w-3 h-3" />
+        <ExternalLink strokeWidth={1.5} className="w-3.5 h-3.5" />
       </a>
     </div>
   );

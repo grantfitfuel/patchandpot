@@ -34,9 +34,6 @@ base.NEW_KEYS = {
         "</li>"
         "<li><strong>Anthropic, OpenAI, Google</strong> (AI providers) — used to generate monthly guidance, masterclasses and plant images on request. We do not pass them your email, location, or identity; only the gardening topic or region/month being requested."
         "</li>"
-        "<li><strong>Sovrn Commerce</strong> (affiliate link tracking) — may rewrite outbound product links to add affiliate tracking, in exchange for a small commission we receive if you subsequently buy. See "
-        "<a class=\\\"link\\\" href=\\\"https://www.sovrn.com/privacy-policy/\\\" target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\">sovrn.com/privacy-policy</a>."
-        "</li>"
         "<li><strong>Our hosting provider</strong> — runs the application servers and the MongoDB database that caches generated content."
         "</li>"
         "</ul>"
@@ -47,9 +44,24 @@ base.NEW_KEYS = {
         "<ul>"
         "<li><strong>Strictly necessary local storage</strong> for your region, language, \u201cMy Garden\u201d list, and paywall access token.</li>"
         "<li><strong>A service worker cache</strong> so the site loads quickly and works offline. Caches no personal data.</li>"
-        "<li><strong>Sovrn Commerce</strong> may set an affiliate-attribution cookie when you click an outbound product link, so any resulting purchase is credited to us.</li>"
         "<li><strong>Stripe Checkout</strong> sets its own session cookies during payment; these are governed by Stripe\u2019s privacy notice.</li>"
         "</ul>"
+    ),
+    "legal.terms.affiliates.html": (
+        "<p>Patch &amp; Pot is reader-supported. The links in our \u201cFor pots, tools &amp; compost\u201d section on plant pages are Amazon affiliate links \u2014 when you click through and buy, we may earn a small commission at no extra cost to you. These commissions help keep the site running and free for casual readers.</p>"
+        "<p><em>As an Amazon Associate, Patch &amp; Pot earns from qualifying purchases</em> on Amazon.co.uk and Amazon.com.</p>"
+        "<p>We do not participate in any other affiliate network. We do not link to plant nurseries for commission \u2014 instead we surface a live map of local garden centres and nurseries near the reader, which we do not monetise. The presence of an affiliate link never affects what we recommend.</p>"
+    ),
+    "source.local.title": "Shop local first",
+    "source.local.body": (
+        "The best plants come from a real nursery \u2014 someone who knows your soil, "
+        "your climate, and can tell you if a variety actually thrives on your street. "
+        "Try a local garden centre before the online options below. It keeps small growers going."
+    ),
+    "source.local.cta": "Find nurseries near me",
+    "source.tools.blurb": (
+        "For pots, compost, seed trays, twine and other kit \u2014 Amazon has the essentials. "
+        "Not a plant nursery; use the local map above for the plant itself."
     ),
 }
 

@@ -31,7 +31,7 @@ def make_router(db) -> APIRouter:
         slot: Optional[str] = None  # "seeds" | "pots" | "tools"
 
     class EarningsEntry(BaseModel):
-        # Network code: "amazon-uk", "amazon-us", "sovrn", "awin-crocus", etc.
+        # Network code: "amazon-uk", "amazon-us", "amazon-other", etc.
         network: str = Field(..., min_length=1, max_length=64)
         amount: float = Field(..., ge=0)
         currency: str = Field("GBP", min_length=3, max_length=3)
@@ -141,17 +141,18 @@ def make_router(db) -> APIRouter:
             earnings_by_network[key] = earnings_by_network.get(key, 0) + (row.get("amount") or 0)
 
         # Per-network rollup: clicks + earnings + EPC.
-        # Routing matches the Sovrn exclude config in index.html — only
-        # amazon-uk and amazon-us are direct (full 100% commission).
-        # Every other outbound click (all other Amazon storefronts +
-        # every non-Amazon retailer) is auto-monetised by the Sovrn JS
-        # snippet at ~75% commission.
+        # After the July 2026 pruning, only two direct Amazon Associates
+        # tags remain (UK + US). Every other outbound click goes to
+        # Amazon with no tag configured yet — grouped as "amazon-other"
+        # so we can measure demand but know it currently earns £0.
         def to_network(vendor_id: str) -> str:
             if vendor_id == "amazon-uk":
                 return "amazon-uk"
             if vendor_id == "amazon-us":
                 return "amazon-us"
-            return "sovrn"
+            if vendor_id.startswith("amazon-"):
+                return "amazon-other"
+            return vendor_id or "(unknown)"
 
         clicks_by_network: dict = {}
         for vendor_id, count in clicks_by_vendor.items():

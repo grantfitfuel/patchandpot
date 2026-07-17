@@ -43,7 +43,7 @@ export const PRIVACY_SECTIONS = [
     title: "Who we share data with",
     htmlKey: "legal.privacy.share.html",
     html:
-      "<p>We use a small, intentionally minimal set of trusted processors:</p><ul><li><strong>Stripe</strong> (payment processing) — see <a class=\"link\" href=\"https://stripe.com/privacy\" target=\"_blank\" rel=\"noreferrer noopener\">stripe.com/privacy</a>.</li><li><strong>Anthropic, OpenAI, Google</strong> (AI providers) — used to generate monthly guidance, masterclasses and plant images on request. We do not pass them your email, location, or identity; only the gardening topic or region/month being requested.</li><li><strong>Sovrn Commerce</strong> (affiliate link tracking) — may rewrite outbound product links to add affiliate tracking, in exchange for a small commission we receive if you subsequently buy. See <a class=\"link\" href=\"https://www.sovrn.com/privacy-policy/\" target=\"_blank\" rel=\"noreferrer noopener\">sovrn.com/privacy-policy</a>.</li><li><strong>Our hosting provider</strong> — runs the application servers and the MongoDB database that caches generated content.</li></ul><p>We do <strong>not</strong> sell your data, share it with advertisers, or pass it to data brokers. We do not run any advertising trackers, fingerprinting scripts, or third-party analytics.</p>",
+      "<p>We use a small, intentionally minimal set of trusted processors:</p><ul><li><strong>Stripe</strong> (payment processing) — see <a class=\"link\" href=\"https://stripe.com/privacy\" target=\"_blank\" rel=\"noreferrer noopener\">stripe.com/privacy</a>.</li><li><strong>Anthropic, OpenAI, Google</strong> (AI providers) — used to generate monthly guidance, masterclasses and plant images on request. We do not pass them your email, location, or identity; only the gardening topic or region/month being requested.</li><li><strong>Our hosting provider</strong> — runs the application servers and the MongoDB database that caches generated content.</li></ul><p>We do <strong>not</strong> sell your data, share it with advertisers, or pass it to data brokers. We do not run any advertising trackers, fingerprinting scripts, or third-party analytics.</p>",
   },
   {
     titleKey: "legal.privacy.transfers.title",
@@ -78,7 +78,7 @@ export const PRIVACY_SECTIONS = [
     title: "Cookies & local storage",
     htmlKey: "legal.privacy.cookies.html",
     html:
-      "<p>We do not use marketing or advertising cookies. We use:</p><ul><li><strong>Strictly necessary local storage</strong> for your region, language, “My Garden” list, and paywall access token.</li><li><strong>A service worker cache</strong> so the site loads quickly and works offline. Caches no personal data.</li><li><strong>Sovrn Commerce</strong> may set an affiliate-attribution cookie when you click an outbound product link, so any resulting purchase is credited to us.</li><li><strong>Stripe Checkout</strong> sets its own session cookies during payment; these are governed by Stripe’s privacy notice.</li></ul>",
+      "<p>We do not use marketing or advertising cookies. We use:</p><ul><li><strong>Strictly necessary local storage</strong> for your region, language, “My Garden” list, and paywall access token.</li><li><strong>A service worker cache</strong> so the site loads quickly and works offline. Caches no personal data.</li><li><strong>Stripe Checkout</strong> sets its own session cookies during payment; these are governed by Stripe’s privacy notice.</li></ul>",
   },
   {
     titleKey: "legal.privacy.changes.title",
@@ -126,7 +126,7 @@ export const TERMS_SECTIONS = [
     title: "Affiliate disclosure",
     htmlKey: "legal.terms.affiliates.html",
     html:
-      "<p>Patch &amp; Pot is reader-supported. Some product links in our “Where to source” sections are affiliate links — when you click through and buy, we may earn a small commission at no extra cost to you. These commissions help keep the site running and free for casual readers.</p><p><em>As an Amazon Associate, Patch &amp; Pot earns from qualifying purchases.</em> We also participate in the Awin and ShareASale affiliate networks and may earn commissions from retailers including Crocus, Farmer Gracy, Thompson &amp; Morgan, Suttons, Burpee, Botanical Interests and other vendors listed on the site.</p><p>Affiliate links are clearly marked as sponsored in the page source. We only link to retailers we would genuinely use ourselves; the presence of an affiliate link never affects what we recommend.</p>",
+      "<p>Patch &amp; Pot is reader-supported. The links in our “For pots, tools &amp; compost” section on plant pages are Amazon affiliate links — when you click through and buy, we may earn a small commission at no extra cost to you. These commissions help keep the site running and free for casual readers.</p><p><em>As an Amazon Associate, Patch &amp; Pot earns from qualifying purchases</em> on Amazon.co.uk and Amazon.com.</p><p>We do not participate in any other affiliate network. We do not link to plant nurseries for commission — instead we surface a live map of local garden centres and nurseries near the reader, which we do not monetise. The presence of an affiliate link never affects what we recommend.</p>",
   },
   {
     titleKey: "legal.terms.ai.title",

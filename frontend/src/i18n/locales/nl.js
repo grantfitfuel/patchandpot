@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Annuleren",
   "journal.tag_placeholder": "Tomaat, rozen, courgette…",
   "journal.tag_filter_all": "Alle labels",
+  "nav.journal": "Agenda",
 
 };
 export default dict;

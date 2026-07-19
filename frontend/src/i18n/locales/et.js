@@ -1032,6 +1032,7 @@ const dict = {
   "journal.tag_cancel": "Tühista",
   "journal.tag_placeholder": "Tomat, roosid, suvikõrvits…",
   "journal.tag_filter_all": "Kõik silti",
+  "nav.journal": "Päevik",
 
 };
 export default dict;

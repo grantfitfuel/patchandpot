@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Hætta við",
   "journal.tag_placeholder": "Tómatar, rósir, grasker…",
   "journal.tag_filter_all": "Öll merki",
+  "nav.journal": "Dagbók",
 
 };
 export default dict;

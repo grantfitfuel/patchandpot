@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "მოხსნა",
   "journal.tag_placeholder": "პომიდვარი, ვარდები, ყვავილი…",
   "journal.tag_filter_all": "ყველა ტეგი",
+  "nav.journal": "დღიური",
 
 };
 export default dict;

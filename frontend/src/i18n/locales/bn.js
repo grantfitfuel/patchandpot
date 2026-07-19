@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "বাতিল করুন",
   "journal.tag_placeholder": "টমেটো, গোলাপ, কাঁচা মরিচ…",
   "journal.tag_filter_all": "সব ট্যাগ",
+  "nav.journal": "জার্নাল",
 
 };
 export default dict;

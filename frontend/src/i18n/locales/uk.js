@@ -1032,6 +1032,7 @@ const dict = {
   "journal.tag_cancel": "Скасувати",
   "journal.tag_placeholder": "Помідор, троянди, цукіні…",
   "journal.tag_filter_all": "Усі ярлики",
+  "nav.journal": "Щоденник",
 
 };
 export default dict;

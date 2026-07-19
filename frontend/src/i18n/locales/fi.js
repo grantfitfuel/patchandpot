@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Peruuta",
   "journal.tag_placeholder": "Tomaatti, ruusut, kesäkurpitsa…",
   "journal.tag_filter_all": "Kaikki tunnisteet",
+  "nav.journal": "Päiväkirja",
 
 };
 export default dict;

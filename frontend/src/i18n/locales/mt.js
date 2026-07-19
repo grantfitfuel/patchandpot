@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Iċċaħħad",
   "journal.tag_placeholder": "Tadam, roża, żukkini…",
   "journal.tag_filter_all": "Lit-tagi kollha",
+  "nav.journal": "Gurnal",
 
 };
 export default dict;

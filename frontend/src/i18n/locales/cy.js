@@ -1032,6 +1032,7 @@ const dict = {
   "journal.tag_cancel": "Diddymu",
   "journal.tag_placeholder": "Tomato, rhosynnau, courgette…",
   "journal.tag_filter_all": "Pawb y tagiau",
+  "nav.journal": "Blynyddiad",
 
 };
 export default dict;

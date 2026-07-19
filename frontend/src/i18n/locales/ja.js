@@ -1032,6 +1032,7 @@ const dict = {
   "journal.tag_cancel": "キャンセル",
   "journal.tag_placeholder": "トマト、バラ、ズッキーニ…",
   "journal.tag_filter_all": "すべてのタグ",
+  "nav.journal": "ジャーナル",
 
 };
 export default dict;

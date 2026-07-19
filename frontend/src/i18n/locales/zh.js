@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "取消",
   "journal.tag_placeholder": "番茄、玫瑰、西葫芦…",
   "journal.tag_filter_all": "所有标签",
+  "nav.journal": "日志",
 
 };
 export default dict;

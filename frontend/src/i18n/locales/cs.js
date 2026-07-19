@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Zrušit",
   "journal.tag_placeholder": "Rajče, růže, cuketa…",
   "journal.tag_filter_all": "Všechny štítky",
+  "nav.journal": "Deník",
 
 };
 export default dict;

@@ -1032,6 +1032,7 @@ const dict = {
   "journal.tag_cancel": "Atšaukti",
   "journal.tag_placeholder": "Pomidoras, rožės, cukinija…",
   "journal.tag_filter_all": "Visos etiketės",
+  "nav.journal": "Dienoraštis",
 
 };
 export default dict;

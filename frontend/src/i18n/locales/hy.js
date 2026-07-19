@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Չեղարկել",
   "journal.tag_placeholder": "Պոմիդոր, վարդեր, ձվածեղ…",
   "journal.tag_filter_all": "Բոլոր պիտակները",
+  "nav.journal": "Հանգոչ",
 
 };
 export default dict;

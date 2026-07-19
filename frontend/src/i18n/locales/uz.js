@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Bekor qilish",
   "journal.tag_placeholder": "Pomidor, atirgullar, qovoq…",
   "journal.tag_filter_all": "Barcha yorliqlar",
+  "nav.journal": "Jurnal",
 
 };
 export default dict;

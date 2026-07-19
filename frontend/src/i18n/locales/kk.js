@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Бас тарту",
   "journal.tag_placeholder": "Қызанақ, раушан, цуккини…",
   "journal.tag_filter_all": "Барлық тегтер",
+  "nav.journal": "Күнделік",
 
 };
 export default dict;

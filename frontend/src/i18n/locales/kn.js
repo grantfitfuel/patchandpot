@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "ರದ್ದುಗೊಳಿಸಿ",
   "journal.tag_placeholder": "ಟೊಮೆಟೋ, ಗುಲಾಬಿ, ಕೊಬ್ಬರಿ…",
   "journal.tag_filter_all": "ಎಲ್ಲಾ ತಲೆಕಟ್ಟುಗಳು",
+  "nav.journal": "ಜರ್ನಲ್",
 
 };
 export default dict;

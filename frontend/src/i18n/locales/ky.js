@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Жокко чыгаруу",
   "journal.tag_placeholder": "Помидор, розалар, цуккини…",
   "journal.tag_filter_all": "Бардык тагдар",
+  "nav.journal": "Журнал",
 
 };
 export default dict;

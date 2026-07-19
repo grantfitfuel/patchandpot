@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Mégse",
   "journal.tag_placeholder": "Paradicsom, rózsák, cukkini…",
   "journal.tag_filter_all": "Összes címke",
+  "nav.journal": "Napló",
 
 };
 export default dict;

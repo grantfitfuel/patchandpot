@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "إلغاء",
   "journal.tag_placeholder": "طماطم، زهور، كوسة…",
   "journal.tag_filter_all": "جميع العلامات",
+  "nav.journal": "مفكرة",
 
 };
 export default dict;

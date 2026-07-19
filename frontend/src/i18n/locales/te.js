@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "రద్దు చేయండి",
   "journal.tag_placeholder": "టమాటో, పైుట్టు, కూరగాయలు…",
   "journal.tag_filter_all": "అన్నీ ట్యాగ్లు",
+  "nav.journal": "రోజువారీ",
 
 };
 export default dict;

@@ -1032,6 +1032,7 @@ const dict = {
   "journal.tag_cancel": "Tūkino",
   "journal.tag_placeholder": "Tāmato, rongonui, kūkū…",
   "journal.tag_filter_all": "Katoa ngā kāinga",
+  "nav.journal": "Papakāinga",
 
 };
 export default dict;

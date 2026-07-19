@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "റദ്ദാക്കുക",
   "journal.tag_placeholder": "ടോമാറ്റോ, റോസ്, കൂറ്ജറ്റ്…",
   "journal.tag_filter_all": "എല്ലാ താഗുകളും",
+  "nav.journal": "ജേർണൽ",
 
 };
 export default dict;

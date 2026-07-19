@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "ยกเลิก",
   "journal.tag_placeholder": "มะเขือเทศ, กุหลาบ, ซูกินี…",
   "journal.tag_filter_all": "แท็กรวมทั้งหมด",
+  "nav.journal": "บันทึก",
 
 };
 export default dict;

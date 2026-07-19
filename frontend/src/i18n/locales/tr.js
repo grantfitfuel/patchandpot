@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "İptal",
   "journal.tag_placeholder": "Domates, güller, kabak…",
   "journal.tag_filter_all": "Tüm etiketler",
+  "nav.journal": "Günlük",
 
 };
 export default dict;

@@ -1032,6 +1032,7 @@ const dict = {
   "journal.tag_cancel": "Otkaži",
   "journal.tag_placeholder": "Rajčica, ruže, tikvice…",
   "journal.tag_filter_all": "Sve oznake",
+  "nav.journal": "Dnevnik",
 
 };
 export default dict;

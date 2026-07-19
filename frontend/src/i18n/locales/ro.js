@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Anulează",
   "journal.tag_placeholder": "Roșie, trandafiri, dovlecei…",
   "journal.tag_filter_all": "Toate etichetele",
+  "nav.journal": "Jurnal",
 
 };
 export default dict;

@@ -267,6 +267,13 @@ export default function AskPage() {
           </p>
         </div>
         <div className="flex items-center gap-3">
+          <Link
+            to="/journal"
+            data-testid="ask-journal-link"
+            className="text-xs text-moss underline underline-offset-2 hover:text-forest"
+          >
+            View journal
+          </Link>
           <button
             type="button"
             data-testid="ask-audit-btn"

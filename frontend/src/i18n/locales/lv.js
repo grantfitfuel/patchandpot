@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "Atcelt",
   "journal.tag_placeholder": "Tomāti, rozes, cukini...",
   "journal.tag_filter_all": "Visas birkas",
+  "nav.journal": "Dienasgrāmata",
 
 };
 export default dict;

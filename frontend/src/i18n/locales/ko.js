@@ -1031,6 +1031,7 @@ const dict = {
   "journal.tag_cancel": "취소",
   "journal.tag_placeholder": "토마토, 장미, 호박…",
   "journal.tag_filter_all": "모든 태그",
+  "nav.journal": "일지",
 
 };
 export default dict;

@@ -28,7 +28,30 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
-### Iteration 60 (2026-07-19): ✅ — Grow Anywhere theme + Recipes with Nano-Banana images
+### Iteration 61 (2026-07-19): ✅ — Bouquet From Your Patch (with in-bloom confirmation)
+
+User picked: **"Bouquet From Your Patch: Add an in-bloom picker that arranges a bouquet from what you can cut right now and generates a watercolour share card"** and explicitly added: **"Rely on confirmation of what actually is in bloom"** — we do NOT guess from month/region; the user has to tick what's currently blooming.
+
+**Backend**
+- **`/app/backend/routers/bouquet.py`** — New router exposing `POST /api/bouquet/image`. Builds a Nano-Banana watercolour illustration prompt from the user's confirmed plant list ("A soft, loose watercolour illustration of a hand-tied garden bouquet in a low stoneware jug on cream linen…"), cached under `bouquet-image:<hash>` where hash is SHA-1 of the sorted plant list — so identical bouquets from different users share one image.
+- Reuses the existing `POST /api/arrangement/suggest` for the copy (title, intro, stems, build steps, tip) — we just pass the confirmed-in-bloom subset as `my_garden` so the arrangement is guaranteed to use ONLY what the user says is blooming.
+
+**Frontend**
+- **`/app/frontend/src/pages/Bouquet.jsx`** — Two-step flow at `/bouquet`:
+  1. **Pick** — a candidate grid seeded from user's My Garden ∩ (cut-flower ∪ flower) plants, falling back to the full cut-flower catalogue if their garden is empty. Each candidate is a tap-to-toggle card with terracotta highlight when selected. A live "N confirmed in bloom" counter, and a freeform "Add another (dill flower, weed, herb…)" input so foraged / weed / herb-flower stems that aren't in the catalogue can still be added.
+  2. **Result** — big watercolour image at top, arrangement title + intro, vase & mechanic cards, stems (with role, count, cutting tip), numbered build steps, tip. Buttons: "Try a different arrangement" (regenerates via existing arrangement endpoint with `regenerate=true`), "Share this bouquet" (Web Share API with image attached when supported, clipboard fallback), "Explore cut-flower plants" back-link.
+- Registered `/bouquet` route in `App.js`, added top-nav link in `Header.jsx`.
+- Added `fetchBouquetImage(plants)` helper in `/lib/api.js`.
+
+**i18n**
+- Added ~24 new keys to `en.js` (`nav.bouquet`, `bouquet.eyebrow`, `bouquet.pick.*`, `bouquet.result.*`) and swept all 57 non-English locales via `/app/scripts/translate_bouquet_keys.py`.
+
+**Cache**
+- `sw.js` VERSION bumped `v52 → v53`.
+
+**Design note:** the "confirm what's in bloom" copy is deliberately explicit ("We won't guess. Tick the plants you can actually cut in your garden today") because the whole differentiator is trust — we're not another AI that hallucinates a July peony in a November garden.
+
+
 
 User picked: **"expand the grow anywhere theme"** (P3 pot litres/depth broadened into a full space-first browse hub) + **"Include recipe page like patchandpot.com/recipes.html"** + **"pictures with the recipes use nano banana with the ingredients list"** + iteratively refined the golden-beet recipe image ("thin round slices cut by a sharp knife or mandolin" → also for the orange). Follow-on P3 pot-litre/depth work is now fully absorbed into this.
 
@@ -55,8 +78,32 @@ User picked: **"expand the grow anywhere theme"** (P3 pot litres/depth broadened
 **Notable QA loop:** the golden-beet salad image was iterated twice — first pass showed rustic wedges, then thin mandolin rounds of beetroot only, final version shows both the beetroot AND orange sliced paper-thin into alternating overlapping circles. The prompt logic (method step → image plating cue) is now generic across all recipes.
 
 
+### Iteration 60 (2026-07-19): ✅ — Grow Anywhere hub + Recipes with Nano-Banana food photos
 
-User: *"3"* + *"All"* + *"Expand cut flowers section"* — picked the parallel build for both features. *"A"* (current iteration) — confirmed full plan including dedicated landing pages and 58-locale translation.
+User picked: **"First expand the grow anywhere theme. Not just regular pots"** + all situation options (windowsill, workplace, balcony, rooftop, buckets, crates, wall crevices, water-jar, hanging basket, vertical, raised bed, grow-bag, shady corner), rules-based + AI-fill data population, dedicated landing page, then explicitly added **"Include recipe page like patchandpot.com/recipes.html"** and **"Pictures with the recipes use nano banana with the ingredients list"**.
+
+**Backend**
+- `/app/backend/plants_grow_anywhere.py` — new meta module attaching `grow_anywhere[]`, `min_pot_litres`, `min_pot_depth_cm` to every plant. 13 canonical situations. Rules by category × tags × sun × water × lifecycle plus `_OVERRIDES` for edge cases (tomato → bucket/grow-bag, sunflower NOT windowsill, rosemary → wall-crevice, carrot → deep pots only).
+- `/app/backend/routers/recipes.py` — new `POST /api/recipes/{id}/image` endpoint using Nano Banana. Prompt built from title + first-8 ingredients + method step or `plating` hint, cached under `recipe-image:<id>`.
+
+**Frontend**
+- `pages/GrowAnywhere.jsx` + `/grow-anywhere` route — hero + 5 grouped situation tile sections with live plant counts.
+- `Plants.jsx` — reads `?situation=` from URL, filters library, adds compact chip row above special collections.
+- `PlantDetail.jsx` — adds "SMALLEST POT: {n} L" and "ROOT DEPTH: {n} cm" spec cells + a `GrowAnywhereSection` panel with per-situation blurbs cross-linking back to `/grow-anywhere?highlight=<id>`.
+- `pages/Recipes.jsx` + `/recipes` route — 11 hand-curated recipes across 4 sections, each with lazy Nano-Banana image cover, meta bar, ingredients/method columns, diet chips, "From your patch" plant cross-links, allergen key + waste-less tips.
+- `data/recipes.js` — recipe corpus with optional `plating` field for image control.
+- `components/RecipeImage.jsx` — mirror of PlantImage (IntersectionObserver lazy load + in-memory cache).
+- `Header.jsx` — added Grow Anywhere and Recipes top-nav links.
+
+**i18n** — ~65 new keys in `en.js`, swept all 57 non-EN locales via `/app/scripts/translate_grow_anywhere_and_recipes_keys.py`.
+
+**SW** bumped `v51 → v52`.
+
+
+### Iteration 59 (2026-06-30): ✅ — Regrow from Scraps + Cut Flowers (full ship)
+
+
+
 
 **Backend** (already wired in prior session): `/app/backend/plants_regrow.py` (34 entries) + `/app/backend/plants_cut_flower.py` (27 entries), consumed by `apply_regrow_meta()` / `apply_cut_flower_meta()` in `core.py`. The merged catalogue exposes 31 plants with `regrow_from_scrap: True` + a `regrow{}` sub-object (method, instructions, days_to_first_harvest, yield_summary, worth_it 1–5★, family_friendly, notes) and 22 plants with `cut_flower: True` + a `cut_flower_data{}` sub-object (vase_days, cut_at_stage, conditioning, cut_and_come_again, arrangement_role, dries_well, notes).
 

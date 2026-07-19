@@ -12,6 +12,7 @@ import RegrowFromScrapsPage from "@/pages/RegrowFromScraps";
 import CutFlowersPage from "@/pages/CutFlowers";
 import GrowAnywherePage from "@/pages/GrowAnywhere";
 import RecipesPage from "@/pages/Recipes";
+import BouquetPage from "@/pages/Bouquet";
 import PestControlPage from "@/pages/PestControl";
 import MyGardenPage from "@/pages/MyGarden";
 import GuidesPage from "@/pages/Guides";
@@ -81,6 +82,7 @@ function AppShell() {
           <Route path="/cut-flowers" element={<CutFlowersPage />} />
           <Route path="/grow-anywhere" element={<GrowAnywherePage />} />
           <Route path="/recipes" element={<RecipesPage />} />
+          <Route path="/bouquet" element={<BouquetPage />} />
           <Route path="/pests" element={<PestControlPage />} />
           <Route path="/garden" element={<MyGardenPage />} />
           <Route path="/guides" element={<GuidesPage />} />

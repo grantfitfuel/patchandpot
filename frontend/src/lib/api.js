@@ -213,6 +213,8 @@ export const fetchLearnOgMeta = (topic, language = "en") =>
 // "What's in your garden right now" arrangement suggester.
 export const fetchArrangementSuggestion = (payload, regenerate = false) =>
   api.post("/arrangement/suggest", payload, { params: { regenerate } }).then((r) => r.data);
+export const fetchBouquetImage = (plants) =>
+  api.post("/bouquet/image", { plants }).then((r) => r.data);
 
 // ────────────────── Share my patch ──────────────────
 export const createSharedPatch = (payload) =>

@@ -22,6 +22,7 @@ export default function Header() {
     { to: "/calendar", label: t("nav.calendar"), key: "calendar" },
     { to: "/plants", label: t("nav.plants"), key: "plants" },
     { to: "/grow-anywhere", label: t("nav.grow_anywhere"), key: "grow-anywhere" },
+    { to: "/bouquet", label: t("nav.bouquet"), key: "bouquet" },
     { to: "/recipes", label: t("nav.recipes"), key: "recipes" },
     { to: "/masterclasses", label: t("nav.masterclasses"), key: "masterclasses" },
     { to: "/garden", label: t("nav.garden"), key: "garden" },

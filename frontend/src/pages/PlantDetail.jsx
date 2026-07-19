@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff,
-  Sparkles, AlertTriangle, HandHelping, Loader2, Recycle, Flower2, Scissors, MapPin,
+  Sparkles, AlertTriangle, HandHelping, Loader2, Recycle, Flower2, Scissors, MapPin, ChefHat,
 } from "lucide-react";
 import {
   fetchPlant, fetchPlantGuide, fetchCachedPlantGuide,
@@ -35,6 +35,7 @@ import PremiumGate from "@/components/PremiumGate";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useI18n } from "@/i18n";
 import { getSituation } from "@/data/growAnywhere";
+import { RECIPES } from "@/data/recipes";
 
 export default function PlantDetailPage() {
   const params = useParams();
@@ -175,6 +176,10 @@ export default function PlantDetailPage() {
       {!isAi && plant.grow_anywhere && plant.grow_anywhere.length > 0 && (
         <GrowAnywhereSection situations={plant.grow_anywhere} t={t} />
       )}
+
+      {/* Curated-only: recipes that actually use this plant. Cross-link
+          back into /recipes?ingredient=<id>. Silent when nothing matches. */}
+      {!isAi && <CookWithThisSection plantId={plant.id} t={t} />}
 
       {/* Curated-only: regrow-from-scraps deep-dive (only on plants where
           we have hand-curated method/yield/rating data). */}
@@ -445,6 +450,53 @@ function AIPlantExtras({ plant, t }) {
     </>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/*  Cook with this — recipes that use this plant (cross-link)          */
+/* ------------------------------------------------------------------ */
+function CookWithThisSection({ plantId, t }) {
+  const recipes = RECIPES.filter((r) => (r.uses || []).includes(plantId));
+  if (recipes.length === 0) return null;
+  return (
+    <section
+      className="mt-16 border-t border-border pt-10 max-w-3xl"
+      data-testid="plant-cook-with-section"
+    >
+      <div className="flex items-center gap-3 mb-3">
+        <ChefHat strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+        <span className="overline">{t("plants.cook_with.heading")}</span>
+      </div>
+      <p className="text-moss text-sm mb-6 leading-relaxed max-w-2xl">
+        {t("plants.cook_with.subheading")}
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {recipes.slice(0, 6).map((r) => (
+          <Link
+            key={r.id}
+            to={`/recipes?id=${r.id}`}
+            data-testid={`plant-recipe-${r.id}`}
+            className="card-flat p-4 group hover:border-forest/40 flex flex-col"
+          >
+            <p className="font-serif text-lg text-forest leading-tight">{r.title}</p>
+            <p className="text-[0.65rem] uppercase tracking-widest text-moss mt-2">
+              {r.time} · {r.serves}
+            </p>
+          </Link>
+        ))}
+      </div>
+      {recipes.length > 6 && (
+        <Link
+          to={`/recipes?ingredient=${plantId}`}
+          data-testid="plant-cook-with-all"
+          className="mt-6 inline-block text-xs text-terracotta hover:underline"
+        >
+          {t("plants.cook_with.see_all", { n: recipes.length })} →
+        </Link>
+      )}
+    </section>
+  );
+}
+
 
 /* ------------------------------------------------------------------ */
 /*  Regrow-from-scraps deep-dive (curated only)                        */

@@ -28,6 +28,39 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 63 (2026-07-19): ✅ — Recipes as a feature: "A real reason to grow"
+
+User picked: **"All and more. Make it a feature. A real reason to grow"** + **"Preserves to carry through winter"** — turned the modest recipes list into a proper flagship feature that connects growing↔cooking in both directions.
+
+**Content (`/app/frontend/src/data/recipes.js`)** — 11 → **38 recipes** across 5 sections.
+- Salads: +4 (Nasturtium & Cucumber Ribbon · Warm Lentil & Chard · Radish/Pea Shoot/Feta · Panzanella)
+- Mains: +6 (One-Pan Herby Chickpeas · Kale-Garlic-Chilli Spaghetti · Roast Squash & Sage Traybake · Chard & Ricotta Tart · Sweet Potato Rösti · Pea Shoot & Mint Frittata · Garden Tomato Shakshuka)
+- Sides & Soups: +4 (Nettle & Potato Soup · Wild Garlic Butter · Roasted Cherry Tomato Confit · Silky Courgette Soup)
+- Sweet & Snacks: +4 (Elderflower Cordial · Rhubarb & Ginger Compote · Lavender Shortbread · Nasturtium Pesto)
+- **NEW SECTION: Preserves for Winter (11 recipes)** — the emotional core of the feature. Herb oil cubes · Basil pesto cubes · Oven-dried tomatoes in oil · Tomato passata · Green tomato chutney · Chilli jam · Chilli vinegar · Bramble jelly · Rhubarb & ginger jam · Herb salt · Beetroot pickle · Rosehip syrup. Explicitly framed as "bottle summer while it's cheap — every jar is a reason to plant more next spring".
+- Every recipe now carries a `season` array (spring/summer/autumn/winter/all) and a `uses` array of plant ids for cross-linking. Preserves are pinned as always-in-season because either you're making them from a glut or eating them out of the pantry.
+
+**Frontend feature build**
+- **`Recipes.jsx`** — hero reframed ("A real reason to grow"). New two-row filter bar:
+  1. **Show**: All / In season now (auto-detects the current month → season) / From my garden (intersects `uses[]` with `useMyGarden`)
+  2. **Diet**: All / V / VG / GF / DF
+- New `?ingredient=<plant_id>` URL param filter with a dismissible chip at the top ("Showing recipes that use basil ×")
+- New "Preserves for Winter" section with a subhead blurb about carrying summer through January
+- Empty state when no recipes match a combined filter set
+- **`PlantDetail.jsx`** — new **CookWithThisSection** below the Grow-Anywhere panel. Every curated plant now shows a grid of up to 6 recipes that use it, with a "See all N recipes →" cross-link to `/recipes?ingredient=<id>`. Confirmed with basil → 6 shown, 8 total.
+
+**i18n** — 13 new/reworded keys in `en.js` (recipe.eyebrow reframed, recipe.section.preserves, recipe.section.preserves_blurb, recipe.filter.{show, in_season, my_garden, ingredient, clear}, recipe.empty, plants.cook_with.{heading, subheading, see_all}). Swept all 57 non-English locales via `/app/scripts/translate_recipe_feature_keys.py`.
+
+**Cache**
+- `sw.js` VERSION bumped `v54 → v55`.
+
+**Verified**
+- 42 recipe cards rendered on `/recipes` (38 recipes × their sections)
+- "In season now" (Feb → winter) narrowed to 31 (winter recipes + preserves + all-season staples)
+- `?ingredient=basil` deep-link filtered to 8 recipes with visible dismiss chip
+- Basil plant page shows the new Cook With This grid
+
+
 ### Iteration 62 (2026-07-19): ✅ — Recipe images: native browser cache across refreshes
 
 User said: **"Recipe images keep them in cache so they don't recost on refresh"** — worried each page refresh was re-downloading the ~1 MB base64 blobs (LLM cost was already zero on repeat via Mongo, but bandwidth cost was still recurring).

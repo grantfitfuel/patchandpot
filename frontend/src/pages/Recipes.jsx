@@ -11,40 +11,84 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Leaf, Printer, ArrowLeft, ChefHat, Clock, Users, Flame } from "lucide-react";
+import { Leaf, ChefHat, Clock, Users, Flame, X, Sparkles } from "lucide-react";
 import { useI18n } from "@/i18n";
 import { RECIPES, SECTIONS } from "@/data/recipes";
 import RecipeImage from "@/components/RecipeImage";
+import { useMyGarden } from "@/hooks/useMyGarden";
+
+// Rough month → season lookup for the "in season now" filter. Northern
+// hemisphere for now — southern-hemisphere users still get the "all"
+// bucket, and we can flip on region later.
+const MONTH_TO_SEASON = [
+  "winter","winter","spring","spring","spring","summer",
+  "summer","summer","autumn","autumn","autumn","winter",
+];
 
 export default function RecipesPage() {
   const { t } = useI18n();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const focus = searchParams.get("id") || null;
+  const ingredient = searchParams.get("ingredient") || null;
+  const { plants: myGarden } = useMyGarden();
+
   const [dietFilter, setDietFilter] = useState(null);
+  // "quick" filter: null | "in-season" | "my-garden"
+  const [quickFilter, setQuickFilter] = useState(null);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.title = "Recipes — Patch & Pot";
     ensureMeta(
       "description",
-      "Budget-friendly dishes that lean on balcony and windowsill harvests. Allergen labelled, one-pan where we can, and every recipe cross-links to the plants it uses.",
+      "A real reason to grow. Every recipe uses something you can raise at home — glut-solvers, quick meals from a windowsill, preserves that carry summer through the winter.",
     );
   }, []);
 
   useEffect(() => {
     if (!focus || typeof document === "undefined") return;
-    // Scroll to the focussed recipe after paint. Use requestAnimationFrame
-    // rather than a setTimeout so we don't fight the router transition.
     requestAnimationFrame(() => {
       const el = document.getElementById(`recipe-${focus}`);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }, [focus]);
 
+  const currentSeason = MONTH_TO_SEASON[new Date().getMonth()];
+  const gardenIds = useMemo(() => new Set(myGarden.map((p) => p.id)), [myGarden]);
+
+  const ingredientRecipe = useMemo(() => {
+    if (!ingredient) return null;
+    // The label to show for the chip: prefer a real recipe's `uses` entry
+    // (already a plant id) — just prettify it.
+    return ingredient.replace(/-/g, " ");
+  }, [ingredient]);
+
+  const clearIngredient = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("ingredient");
+    setSearchParams(params, { replace: true });
+  };
+
   const filtered = useMemo(() => {
-    if (!dietFilter) return RECIPES;
-    return RECIPES.filter((r) => (r.diet || []).includes(dietFilter));
-  }, [dietFilter]);
+    return RECIPES.filter((r) => {
+      if (dietFilter && !(r.diet || []).includes(dietFilter)) return false;
+      if (quickFilter === "in-season") {
+        const s = r.season || ["all"];
+        // Preserves are always "in season" (either you're making them
+        // from a glut, or eating them in January) — see recipes.js note.
+        if (!s.includes(currentSeason) && !s.includes("all") && r.section !== "preserves") return false;
+      }
+      if (quickFilter === "my-garden") {
+        const uses = r.uses || [];
+        if (!uses.some((id) => gardenIds.has(id))) return false;
+      }
+      if (ingredient) {
+        const uses = r.uses || [];
+        if (!uses.includes(ingredient)) return false;
+      }
+      return true;
+    });
+  }, [dietFilter, quickFilter, ingredient, currentSeason, gardenIds]);
 
   const bySection = useMemo(() => {
     const grouped = {};
@@ -54,6 +98,8 @@ export default function RecipesPage() {
     }
     return grouped;
   }, [filtered]);
+
+  const totalMatches = filtered.length;
 
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
@@ -65,11 +111,53 @@ export default function RecipesPage() {
         <p className="mt-4 text-ink/75 leading-relaxed">{t("recipe.intro")}</p>
       </div>
 
+      {ingredient && (
+        <div
+          data-testid="recipe-ingredient-chip"
+          className="mb-6 inline-flex items-center gap-2 border border-terracotta/40 bg-terracotta/5 text-terracotta px-3 py-1.5 rounded-full text-xs"
+        >
+          <Sparkles className="w-3.5 h-3.5" strokeWidth={1.6} />
+          <span>{t("recipe.filter.ingredient", { ingredient: ingredientRecipe })}</span>
+          <button
+            type="button"
+            onClick={clearIngredient}
+            data-testid="recipe-ingredient-clear"
+            className="ml-1 hover:opacity-70"
+            aria-label={t("recipe.filter.clear")}
+          >
+            <X className="w-3.5 h-3.5" strokeWidth={1.8} />
+          </button>
+        </div>
+      )}
+
+      {/* Quick filter row */}
+      <div className="flex flex-wrap items-center gap-2 mb-3" data-testid="recipe-quick-row">
+        <span className="text-[0.65rem] uppercase tracking-widest text-moss/70 mr-1">
+          {t("recipe.filter.show")}
+        </span>
+        {[
+          { id: null,          label: t("recipe.filter.all") },
+          { id: "in-season",   label: t("recipe.filter.in_season") },
+          { id: "my-garden",   label: t("recipe.filter.my_garden") },
+        ].map((opt) => (
+          <button
+            key={opt.id || "all"}
+            type="button"
+            data-testid={`recipe-quick-${opt.id || "all"}`}
+            onClick={() => setQuickFilter(opt.id)}
+            className={`text-xs px-2.5 py-1 border rounded-full transition-colors ${
+              quickFilter === opt.id
+                ? "bg-forest/10 text-forest border-forest"
+                : "bg-transparent text-ink/60 border-border/70 hover:border-forest/40"
+            }`}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+
       {/* Diet filter chips */}
-      <div
-        className="flex flex-wrap items-center gap-2 mb-10"
-        data-testid="recipe-diet-row"
-      >
+      <div className="flex flex-wrap items-center gap-2 mb-8" data-testid="recipe-diet-row">
         <span className="text-[0.65rem] uppercase tracking-widest text-moss/70 mr-1">
           {t("recipe.filter.label")}
         </span>
@@ -96,14 +184,27 @@ export default function RecipesPage() {
         ))}
       </div>
 
+      {totalMatches === 0 && (
+        <div className="card-flat p-6 mb-10 text-sm text-moss" data-testid="recipe-empty">
+          {t("recipe.empty")}
+        </div>
+      )}
+
       {SECTIONS.map((section) => {
         const rows = bySection[section.id] || [];
         if (rows.length === 0) return null;
         return (
           <section key={section.id} className="mb-16" data-testid={`recipe-section-${section.id}`}>
-            <h2 className="font-serif text-3xl text-forest tracking-tight mb-8">
-              {t(section.labelKey)}
-            </h2>
+            <div className="mb-6">
+              <h2 className="font-serif text-3xl text-forest tracking-tight">
+                {t(section.labelKey)}
+              </h2>
+              {section.id === "preserves" && (
+                <p className="mt-2 text-sm text-moss max-w-xl">
+                  {t("recipe.section.preserves_blurb")}
+                </p>
+              )}
+            </div>
             <div className="space-y-10">
               {rows.map((r) => (
                 <RecipeCard key={r.id} recipe={r} t={t} focussed={focus === r.id} />

@@ -1,0 +1,37 @@
+{
+  "summary": "Iteration 46 — verified companion-reasons i18n fix (`v2` cache key + stronger LLM prompt). 8/8 backend tests pass. No English pest tokens leak in gd/cy/fr companion reasons. Nasturtium 'aphid' regression (reported bug) is fixed — Gaelic reason now reads 'Bidh nasturtium a\\' tharruing dhìobhran-dhubha air falbh bhon tomato agad.' English endpoint still natural. Cache-hit path returns byte-identical body. /api/plants?language=gd returns 300+ plants with no pest-word leaks.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "/api/plants/{slug}/companions?language=<new-lang>",
+        "issue": "First-hit LLM translation for a fresh language can exceed Cloudflare's ~100s edge timeout (502 origin_bad_gateway on Welsh cold-hit during this run). Origin completes successfully and caches; subsequent hits are instant. Consider (a) warming cache via a background job for supported languages, or (b) returning English placeholder immediately then background-translating."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_companion_i18n_iter46.py",
+    "/app/test_reports/pytest/pytest_iter46_results.xml"
+  ],
+  "action_items": [
+    "Optional: pre-warm guidance_cache for popular language×plant pairs to avoid first-hit CF 502s (LLM call can take >60s on cold Welsh/Gaelic requests)."
+  ],
+  "critical_code_review_comments": [
+    "core.py::make_translate_companion_reasons — cache key now includes ':v2:' version suffix, good pattern for future prompt bumps. Prompt explicitly enumerates pest / companion / beneficial-insect vocabulary — solid mitigation.",
+    "No fallback if LLM returns malformed / partial JSON — if a future prompt regresses, reasons_map lookup silently falls back to the English reason (line 1002-1004). Consider logging when reasons_map is missing an id so future partial-translation regressions are visible in logs.",
+    "guidance_cache has no TTL — old v1 rows already purged manually. Consider a background cleanup for :v1: keys, or auto-expire index on `created_at`."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_companion_i18n_iter46.py (new)"
+  ],
+  "success_rate": {"backend": "100% (8/8)", "frontend": "n/a"},
+  "seed_data_creation": "None — tests call live endpoints only. First gd/cy call warmed the guidance_cache via LLM; fr was already cached.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Companion-reasons cache key is now `companion-reasons:{lang}:v2:{sorted-ids}`. If prompt/logic changes again, bump to v3 or wipe cache. Cold LLM translation for a new (language, plant) pair can hit Cloudflare's ~100s timeout and return 502 — retry once (origin has usually stored the row by then). Test file at /app/backend/tests/test_companion_i18n_iter46.py serves as regression coverage."
+}

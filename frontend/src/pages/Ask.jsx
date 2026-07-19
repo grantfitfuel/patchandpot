@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Send, Image as ImageIcon, Plus, Trash2, Loader2, X } from "lucide-react";
+import { Send, Image as ImageIcon, Plus, Trash2, Loader2, X, ArrowRight } from "lucide-react";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 
 /**
@@ -238,6 +239,18 @@ export default function AskPage() {
         <a href="/#pricing" className="btn-primary" data-testid="ask-paywall-cta">
           Become a member
         </a>
+        <div className="mt-6 text-sm">
+          <Link
+            to="/ask/popular"
+            className="text-terracotta hover:underline inline-flex items-center gap-1.5"
+            data-testid="ask-paywall-popular-link"
+          >
+            Or browse {" "}
+            <span className="underline">common gardening questions</span>{" "}
+            people have already asked
+            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
+          </Link>
+        </div>
       </div>
     );
   }

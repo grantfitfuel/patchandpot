@@ -146,6 +146,31 @@ def make_router(db) -> APIRouter:
             response.headers[k] = v
         return {"used": used, "cap": DAILY_QUESTION_CAP, "remaining": max(0, DAILY_QUESTION_CAP - used)}
 
+    @router.get("/ask/popular")
+    async def get_popular_questions(response: Response, limit: int = 50):
+        """PUBLIC (no paywall) — the top N cached Q&A pairs by hit count.
+
+        Only entries with `hits >= 1` are exposed, i.e. the same question
+        was asked by at least two different members. That's the safety /
+        privacy threshold: idiosyncratic one-off questions never leak.
+        First-turn questions only (prior_hash is null) so we can display
+        them without needing the parent conversation.
+
+        Publicly cacheable for an hour — the list barely changes minute
+        to minute, and this is meant to be an SEO-friendly evergreen
+        page.
+        """
+        limit = max(1, min(int(limit or 50), 100))
+        cursor = db.ask_cache.find(
+            {"hits": {"$gte": 1}, "prior_hash": None},
+            {"_id": 0, "key": 1, "question_normalized": 1, "answer": 1,
+             "hits": 1, "first_asked_at": 1, "last_asked_at": 1},
+        ).sort("hits", -1).limit(limit)
+        rows = [r async for r in cursor]
+        # Public — safe to cache in browsers and CDNs for a while.
+        response.headers["Cache-Control"] = "public, max-age=3600, stale-while-revalidate=86400"
+        return {"count": len(rows), "questions": rows}
+
     @router.get("/ask/sessions", response_model=List[SessionOut])
     async def list_sessions(response: Response, access_token: str = ""):
         token = await _guard(access_token)

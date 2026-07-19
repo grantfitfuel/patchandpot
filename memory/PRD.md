@@ -28,6 +28,35 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 66 (2026-07-19): ✅ — Public "Common questions" page at /ask/popular
+
+User: **"pipe the top_reused_questions output into a public 'Common questions' page at /ask/popular — instant answers with zero LLM cost, huge SEO surface area, and it turns the cache into a compounding content asset."** Built exactly that.
+
+**Backend** (`/app/backend/routers/ask.py`)
+- New `GET /api/ask/popular?limit=N` — **PUBLIC, no paywall**. Serves top cached Q&A pairs by hit count.
+- Two safety rules baked into the query:
+  1. `hits >= 1` — only surfaces questions asked by at least two different members. One-off, personal, or idiosyncratic questions never leak.
+  2. `prior_hash == null` — only first-turn questions. Follow-ups are context-dependent and don't make sense in isolation.
+- Response is browser + CDN cacheable for 1 hour with `stale-while-revalidate: 24h` — the list barely changes minute to minute, and this is meant to be an SEO surface.
+
+**Frontend** (`/app/frontend/src/pages/AskPopular.jsx`, new route `/ask/popular`)
+- Hero: eyebrow "COMMON QUESTIONS" + h1 *"What everyone asks Nàdar"* + honest intro copy ("Every one here has been asked at least twice — no fluff, no one-offs — just the honest gardening problems people actually run into. Free to browse, no sign-up.")
+- Search box (client-side filter over question + answer text) with clear button.
+- Expand-all / Collapse-all controls.
+- Each Q renders as a collapsible card — icon + question (first-letter capitalised, trailing "?" ensured), "asked N times" chip, click-to-expand answer with `whitespace-pre-wrap` so markdown-lookalike bullets survive.
+- Empty state distinguishes "no popular questions yet" vs "nothing matches your search".
+- Big CTA at the bottom: *"Ask your own question — become a member"* → `/ask`.
+- Reverse link too: the `/ask` paywall page now has "Or browse common gardening questions people have already asked" pointing to `/ask/popular` so non-members have a free entry point.
+- Proper `<title>` + `<meta name="description">` for SEO.
+
+**i18n** — 15 new `askpop.*` keys added to `en.js` and swept into all 57 non-EN locales via `/app/scripts/translate_askpop_keys.py`.
+
+**Cache**
+- `sw.js` VERSION bumped `v56 → v57`.
+
+**Compounding content asset:** every future cache hit is one more count on the "asked N times" chip, and every unique question threshold-crossed is a new evergreen SEO page — zero marginal LLM cost, zero editorial effort.
+
+
 ### Iteration 65 (2026-07-19): ✅ — Global Q&A cache for Ask Nàdar
 
 User: **"Remember every question and answer to reduce repeat LLM calls"** — added a persistent, global (all-users) Q&A cache that shortcircuits Claude when someone asks a question the app has already answered.

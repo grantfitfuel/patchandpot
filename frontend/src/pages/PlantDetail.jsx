@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, Sun, Droplets, Sprout, Heart, HeartOff,
-  Sparkles, AlertTriangle, HandHelping, Loader2, Recycle, Flower2, Scissors,
+  Sparkles, AlertTriangle, HandHelping, Loader2, Recycle, Flower2, Scissors, MapPin,
 } from "lucide-react";
 import {
   fetchPlant, fetchPlantGuide, fetchCachedPlantGuide,
@@ -34,6 +34,7 @@ import FeedbackWidget from "@/components/FeedbackWidget";
 import PremiumGate from "@/components/PremiumGate";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { useI18n } from "@/i18n";
+import { getSituation } from "@/data/growAnywhere";
 
 export default function PlantDetailPage() {
   const params = useParams();
@@ -168,6 +169,13 @@ export default function PlantDetailPage() {
       {/* Curated-only: companions from the DB-curated list */}
       {!isAi && <CompanionsSection plantId={plant.id} />}
 
+      {/* Curated-only: "Where can I grow this?" — bridges to the
+          /grow-anywhere landing hub. Only renders when we have at least
+          one ideal situation on the plant. */}
+      {!isAi && plant.grow_anywhere && plant.grow_anywhere.length > 0 && (
+        <GrowAnywhereSection situations={plant.grow_anywhere} t={t} />
+      )}
+
       {/* Curated-only: regrow-from-scraps deep-dive (only on plants where
           we have hand-curated method/yield/rating data). */}
       {!isAi && plant.regrow && <RegrowSection regrow={plant.regrow} t={t} />}
@@ -265,6 +273,20 @@ function PlantDetailHero({ plant, isAi, inGarden, onAdd, onRemove, t }) {
               icon={Sprout}
               label={t("plant.hardiness")}
               value={t(`plants.hardiness.${plant.hardiness}`)}
+            />
+          )}
+          {!isAi && plant.min_pot_litres && (
+            <Spec
+              icon={Sprout}
+              label={t("plants.pot_litres")}
+              value={t("plants.pot_litres_value", { litres: plant.min_pot_litres })}
+            />
+          )}
+          {!isAi && plant.min_pot_depth_cm && (
+            <Spec
+              icon={Sprout}
+              label={t("plants.pot_depth")}
+              value={t("plants.pot_depth_value", { depth: plant.min_pot_depth_cm })}
             />
           )}
         </div>
@@ -427,6 +449,52 @@ function AIPlantExtras({ plant, t }) {
 /* ------------------------------------------------------------------ */
 /*  Regrow-from-scraps deep-dive (curated only)                        */
 /* ------------------------------------------------------------------ */
+function GrowAnywhereSection({ situations, t }) {
+  return (
+    <section
+      className="mt-16 border-t border-border pt-10 max-w-3xl"
+      data-testid="plant-grow-anywhere-section"
+    >
+      <div className="flex items-center gap-3 mb-3">
+        <MapPin strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
+        <span className="overline">{t("plants.grow_where.heading")}</span>
+      </div>
+      <p className="text-moss text-sm mb-6 leading-relaxed max-w-2xl">
+        {t("plants.grow_where.subheading")}
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {situations.map((sid) => {
+          const meta = getSituation(sid);
+          if (!meta) return null;
+          const Icon = meta.icon;
+          return (
+            <Link
+              key={sid}
+              to={`/grow-anywhere?highlight=${sid}`}
+              data-testid={`plant-situation-${sid}`}
+              className="card-flat p-4 flex gap-3 group hover:border-forest/40"
+            >
+              <Icon
+                strokeWidth={1.4}
+                className="w-5 h-5 text-forest flex-shrink-0 mt-1"
+              />
+              <div className="flex-1">
+                <p className="font-serif text-lg text-forest leading-tight">
+                  {t(`grow.situation.${sid}.label`)}
+                </p>
+                <p className="text-xs text-moss mt-1 leading-snug">
+                  {t(`grow.situation.${sid}.blurb`)}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+
 function RegrowSection({ regrow, t }) {
   const stars = Math.max(1, Math.min(5, regrow.worth_it || 0));
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Search, Sun, Droplets, Sprout, Sparkles, Loader2, Recycle, Flower2 } from "lucide-react";
+import { Search, Sun, Droplets, Sprout, Sparkles, Loader2, Recycle, Flower2, MapPin } from "lucide-react";
 import { fetchPlants, fetchPlantGuide, fetchRecentAIPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import RecommendedRail from "@/components/RecommendedRail";
@@ -8,6 +8,7 @@ import { useI18n } from "@/i18n";
 import { useRegion } from "@/hooks/useRegion";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { formatApiError } from "@/lib/formatApiError";
+import { SITUATIONS } from "@/data/growAnywhere";
 
 // Each group may declare `subFilters`: a list of {key, label, categories?, tags?}.
 // A sub-filter matches a plant if EITHER its categories include p.category OR
@@ -79,6 +80,7 @@ export default function PlantsPage() {
   const navigate = useNavigate();
   const { region } = useRegion();
   const { plants: myGarden } = useMyGarden();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [plants, setPlants] = useState([]);
   const [recent, setRecent] = useState([]);
   const [query, setQuery] = useState("");
@@ -90,6 +92,15 @@ export default function PlantsPage() {
   // group/sub-filter — they're independent toggles, not part of the
   // category taxonomy.
   const [specialFilter, setSpecialFilter] = useState(null);
+  // Grow-Anywhere situation filter — driven by ?situation=windowsill in the
+  // URL so the /grow-anywhere landing tiles link straight in.
+  const situation = searchParams.get("situation") || null;
+  const setSituation = (next) => {
+    const params = new URLSearchParams(searchParams);
+    if (next) params.set("situation", next);
+    else params.delete("situation");
+    setSearchParams(params, { replace: true });
+  };
   const [generating, setGenerating] = useState(false);
   const [aiError, setAiError] = useState("");
 
@@ -112,6 +123,7 @@ export default function PlantsPage() {
     if (lifecycle && p.lifecycle !== lifecycle) return false;
     if (specialFilter === "regrow" && !p.regrow_from_scrap) return false;
     if (specialFilter === "cut-flower" && !p.cut_flower) return false;
+    if (situation && !(p.grow_anywhere || []).includes(situation)) return false;
     if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
     return true;
   });
@@ -270,6 +282,49 @@ export default function PlantsPage() {
           ))}
         </div>
       )}
+
+      {/* Grow-Anywhere situation filter — mirrors /grow-anywhere landing.
+          Rendered as a compact chip row so it doesn't dominate the page. */}
+      <div className="flex flex-wrap items-center gap-2 -mt-4 mb-8 pl-1" data-testid="situation-row">
+        <span className="text-[0.65rem] uppercase tracking-widest text-moss/70 mr-1 inline-flex items-center gap-1">
+          <MapPin className="w-3 h-3" strokeWidth={1.6} />
+          {t("plants.grow_where.label")}
+        </span>
+        <button
+          type="button"
+          data-testid="situation-all"
+          onClick={() => setSituation(null)}
+          className={`text-xs px-2.5 py-1 border rounded-full transition-colors ${
+            situation === null ? "bg-forest/10 text-forest border-forest" : "bg-transparent text-ink/60 border-border/70 hover:border-forest/40"
+          }`}
+        >
+          {t("plants.grow_where.clear")}
+        </button>
+        {SITUATIONS.map((s) => {
+          const Icon = s.icon;
+          return (
+            <button
+              key={s.id}
+              type="button"
+              data-testid={`situation-${s.id}`}
+              onClick={() => setSituation(situation === s.id ? null : s.id)}
+              className={`text-xs px-2.5 py-1 border rounded-full inline-flex items-center gap-1.5 transition-colors ${
+                situation === s.id ? "bg-forest/10 text-forest border-forest" : "bg-transparent text-ink/60 border-border/70 hover:border-forest/40"
+              }`}
+            >
+              <Icon className="w-3 h-3" strokeWidth={1.6} />
+              {t(`grow.situation.${s.id}.label`)}
+            </button>
+          );
+        })}
+        <Link
+          to="/grow-anywhere"
+          data-testid="situation-explore-link"
+          className="text-xs px-2.5 py-1 border rounded-full border-dashed border-border/70 text-moss hover:text-forest hover:border-forest/40"
+        >
+          {t("grow.explore_all")} →
+        </Link>
+      </div>
 
       {/* Special-collection chips — independent of group/sub-filter so a user
           can find regrowable plants regardless of which group they belong to.

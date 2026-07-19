@@ -96,6 +96,16 @@ export const fetchPlantImage = (plant) =>
   api.post("/plant-image", { plant_id: plant.id, plant_name: plant.name }).then((r) => r.data);
 export const fetchPestImage = (name) =>
   api.post("/pest-image", { name }).then((r) => r.data);
+export const fetchRecipeImage = (recipe) =>
+  api
+    .post(`/recipes/${recipe.id}/image`, {
+      id: recipe.id,
+      title: recipe.title,
+      ingredients: recipe.ingredients,
+      method: recipe.method,
+      plating: recipe.plating,
+    })
+    .then((r) => r.data);
 export const searchRegions = (q) =>
   api.get("/regions/search", { params: { q } }).then((r) => r.data);
 export const reverseGeocode = (lat, lon) =>

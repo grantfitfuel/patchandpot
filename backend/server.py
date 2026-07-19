@@ -43,6 +43,7 @@ from routers import (
     patrons as patrons_router,
     pdf as pdf_router,
     plants as plants_router,
+    recipes as recipes_router,
     regions as regions_router,
     seo as seo_router,
     share as share_router,
@@ -195,6 +196,7 @@ app.include_router(feedback_router.make_router(db), prefix="/api")
 app.include_router(affiliate_router.make_router(db), prefix="/api")
 app.include_router(checkout_router.make_router(db), prefix="/api")
 app.include_router(plants_router.make_router(db), prefix="/api")
+app.include_router(recipes_router.make_router(db), prefix="/api")
 app.include_router(guidance_router.make_router(db), prefix="/api")
 app.include_router(arrangement_router.make_router(db), prefix="/api")
 app.include_router(pdf_router.make_router(db), prefix="/api")

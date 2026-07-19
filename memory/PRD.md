@@ -28,7 +28,33 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
-### Iteration 59 (2026-06-30): ✅ — Regrow from Scraps + Cut Flowers (full ship)
+### Iteration 60 (2026-07-19): ✅ — Grow Anywhere theme + Recipes with Nano-Banana images
+
+User picked: **"expand the grow anywhere theme"** (P3 pot litres/depth broadened into a full space-first browse hub) + **"Include recipe page like patchandpot.com/recipes.html"** + **"pictures with the recipes use nano banana with the ingredients list"** + iteratively refined the golden-beet recipe image ("thin round slices cut by a sharp knife or mandolin" → also for the orange). Follow-on P3 pot-litre/depth work is now fully absorbed into this.
+
+**Backend**
+- **`/app/backend/plants_grow_anywhere.py`** — New meta module attaching THREE fields to every plant at load time: `grow_anywhere` (list of ideal-situation ids), `min_pot_litres`, `min_pot_depth_cm`. 13 canonical situations: `windowsill · workplace · balcony · rooftop · shady-corner · hanging-basket · wall-crevice · vertical-wall · grow-bag · bucket · crate · raised-bed · water-jar`. Rules-based (category × tags × sun × water × lifecycle) plus a hand-curated `_OVERRIDES` dict for special cases (tomato → bucket/grow-bag, sunflower NOT windowsill, rosemary → wall-crevice, etc.). Applied in `core.py` right after regrow/cut-flower meta AND in `merge_promoted_plant()`.
+- **`/app/backend/routers/recipes.py`** — New router exposing `POST /api/recipes/{id}/image`. Uses `make_cached_image(db)` (same helper as PlantImage/PestImage) to generate Nano Banana editorial food-photo images cached in `image_cache` under `recipe-image:<id>`. Prompt is built server-side from title + first-8 ingredients + `plating` hint or first method step, so the image renders the dish the way the recipe tells you to make it. Registered in `server.py`.
+
+**Frontend**
+- **`/app/frontend/src/data/growAnywhere.js`** — Mirror of backend SITUATIONS list with lucide icons + section groupings (small_indoors / outdoors_small / creative / bigger / no_soil).
+- **`/app/frontend/src/pages/GrowAnywhere.jsx`** + `App.js` route → new `/grow-anywhere` landing hub. Hero + 5 grouped tile sections. Each tile is a link to `/plants?situation=<id>` with live plant counts derived client-side from `/api/plants`. `?highlight=<id>` from PlantDetail cross-links puts a terracotta ring on the tile.
+- **`Plants.jsx`** — Reads `?situation=` from URL and filters the plant grid by `p.grow_anywhere.includes(situation)`. New compact "Grow where?" chip row above the special-collection chips with all 13 situations + "All spaces" clear + "Explore the plant library" link back to `/grow-anywhere`.
+- **`PlantDetail.jsx`** — Two new cells in the spec grid (`SMALLEST POT: {n} L`, `ROOT DEPTH: {n} cm`) and a new `GrowAnywhereSection` panel below Companions showing every ideal situation with icon + i18n blurb, each linking to `/grow-anywhere?highlight=<id>`.
+- **`/app/frontend/src/data/recipes.js`** — 11 hand-curated recipes across 4 sections (Quick Salads · Simple Mains · Soups & Sides · Sweet & Snacks). Each recipe carries id, section, title, time, serves, kcal, macros, diet tags (V/VG/GF/DF/can-gf), ingredients, method, `uses[]` (plant ids for cross-links) and optional `plating` override for image generation.
+- **`/app/frontend/src/pages/Recipes.jsx`** + `App.js` route + Header nav → new `/recipes` page: hero, diet filter chips (V/VG/GF/DF/All), grouped recipe cards each with Nano-Banana image at top, meta bar, ingredients + method columns, diet tags, "From your patch" plant cross-link chips. Allergen key + waste-less tips at the bottom.
+- **`/app/frontend/src/components/RecipeImage.jsx`** — Mirrors `PlantImage.jsx` shape: IntersectionObserver lazy load, in-memory + in-flight caches, ChefHat placeholder while generating. `?id=` deep-linkable so plant→recipe → back works.
+- **`Header.jsx`** — Added top-nav links for **Grow Anywhere** and **Recipes**.
+
+**i18n**
+- Added ~65 new keys to `en.js` (nav, plants.grow_where.*, plants.pot_*, grow.*, recipe.*) and swept all 57 non-English locales via `/app/scripts/translate_grow_anywhere_and_recipes_keys.py`.
+
+**Cache**
+- `sw.js` VERSION bumped `v51 → v52`.
+
+**Notable QA loop:** the golden-beet salad image was iterated twice — first pass showed rustic wedges, then thin mandolin rounds of beetroot only, final version shows both the beetroot AND orange sliced paper-thin into alternating overlapping circles. The prompt logic (method step → image plating cue) is now generic across all recipes.
+
+
 
 User: *"3"* + *"All"* + *"Expand cut flowers section"* — picked the parallel build for both features. *"A"* (current iteration) — confirmed full plan including dedicated landing pages and 58-locale translation.
 

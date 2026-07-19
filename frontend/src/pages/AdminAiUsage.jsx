@@ -352,7 +352,7 @@ function AskUsageReset({ token }) {
     <section className="card-flat p-6 mt-6" data-testid="admin-ask-usage-reset">
       <div className="flex items-center gap-3 mb-3">
         <RefreshCw strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-        <span className="overline">Reset Ask-the-Garden counter</span>
+        <span className="overline">Reset Ask Nàdar counter</span>
       </div>
       <p className="text-sm text-ink/70 mb-4 max-w-2xl">
         Wipe a member&apos;s daily question counter. Leave date blank to wipe every row for that member,

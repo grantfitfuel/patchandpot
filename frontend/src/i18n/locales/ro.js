@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot este susținut de cititori. Linkurile din secțiunea “Pentru ghivece, unelte &amp; compost” de pe paginile plantelor sunt linkuri de afiliat Amazon — când faceți clic și cumpărați, putem câștiga un mic comision fără costuri suplimentare pentru dvs. Aceste comisioane ajută la menținerea site-ului funcțional și gratuit pentru cititorii ocazionali.</p><p><em>Ca Asociat Amazon, Patch &amp; Pot câștigă din achiziții calificate</em> pe Amazon.co.uk și Amazon.com.</p><p>Nu participăm la nicio altă rețea de afiliere. Nu facem legături către pepiniere de plante pentru comision — în schimb, oferim o hartă live a centrelor de grădină și pepinierelor locale aproape de cititor, pe care nu o monetizăm. Prezența unui link de afiliat nu afectează niciodată ceea ce recomandăm.</p>",
   "source.tools.blurb": "Pentru ghivece, compost, tăvi pentru semințe, sfoară și alte unelte — Amazon are esențialele dacă opțiunea locală nu este potrivită. Nu este o pepinieră de plante; folosiți harta locală de mai sus pentru plantă.",
   "source.local.tools_cta": "Găsește fierari aproape de mine",
-  "nav.ask": "Întreabă",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Caut în apropiere de {locality}",
   "footer.legal.disclosure": "Divulgare",
   "footer.legal.about": "Despre",

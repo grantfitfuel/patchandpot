@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot je podporovaný čitateľmi. Odkazy v našej sekcii „Na kvetináče, náradie &amp; kompost“ na stránkach rastlín sú affiliate odkazy Amazon — keď na ne kliknete a zakúpite, môžeme získať malú províziu bez ďalších nákladov pre vás. Tieto provízie pomáhajú udržať stránku funkčnú a zdarma pre občasných čitateľov.</p><p><em>Ako partner Amazonu, Patch &amp; Pot získava z oprávnených nákupov</em> na Amazon.co.uk a Amazon.com.</p><p>Nezúčastňujeme sa žiadnej inej affiliate siete. Neprepájame sa na rastlinné škôlky pre províziu — namiesto toho zverejňujeme živú mapu miestnych záhradných centier a škôlok blízko čitateľa, ktorú neinzerujeme. Prítomnosť affiliate odkazu nikdy neovplyvňuje to, čo odporúčame.</p>",
   "source.tools.blurb": "Na kvetináče, kompost, seed trays, twine a iné vybavenie — Amazon má základné veci, ak lokálna možnosť nie je vhodná. Nie je to škôlka; použite lokálnu mapu vyššie pre samotnú rastlinu.",
   "source.local.tools_cta": "Nájdite železiarstva blízko mňa",
-  "nav.ask": "Opýtaj sa",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Hľadám v blízkosti {locality}",
   "footer.legal.disclosure": "Zverejnenie",
   "footer.legal.about": "O nás",

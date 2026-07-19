@@ -28,6 +28,23 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 64 (2026-07-19): ✅ — Ask reframed as "Ask Nàdar"
+
+User: **"Reframe Ask the Garden as ask Nàdar"** — the AI Q&A feature now has a proper persona and name (Nàdar = Scottish Gaelic for "nature").
+
+**Backend** (`/app/backend/routers/ask.py`)
+- `SYSTEM_PROMPT` rewritten to introduce Nàdar as the persona: "You are Nàdar (pronounced NAA-dar — Scottish Gaelic for 'nature'), the friendly, knowledgeable in-house gardening companion for Patch & Pot… you have the patient, unhurried voice of a seasoned gardener who has seen the same seasons come round for decades." Explicit guard against the model constantly announcing its own name.
+- 402 paywall error string updated: "Ask the Garden is a paid feature" → "Ask Nàdar is a paid feature".
+
+**Frontend**
+- **`Ask.jsx`** — all three "Ask the Garden" strings replaced with "Ask Nàdar". Paywall + member landing both now show a small subtitle line *"Nàdar · Nature, in Scottish Gaelic"* under the h1, and the paywall intro copy is reframed as *"A patient, knowledgeable garden mentor — Nàdar answers questions… with the voice of someone who has seen the same seasons come round for decades."* Document title, placeholder text, and starter blurb ("Ask Nàdar anything garden-related…") all updated.
+- **`AdminAiUsage.jsx`** — admin counter-reset label updated too.
+
+**i18n** — `nav.ask` set to "Ask Nàdar" (verbatim, kept identical across every locale — it's a persona / brand name). Wrote `/app/scripts/translate_ask_nadar_keys.py` which upserts the label directly without an LLM call so the persona is stable across all 58 locales including CJK / RTL scripts.
+
+**SW** bumped `v55 → v56`.
+
+
 ### Iteration 63 (2026-07-19): ✅ — Recipes as a feature: "A real reason to grow"
 
 User picked: **"All and more. Make it a feature. A real reason to grow"** + **"Preserves to carry through winter"** — turned the modest recipes list into a proper flagship feature that connects growing↔cooking in both directions.

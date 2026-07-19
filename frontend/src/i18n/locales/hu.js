@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>A Patch &amp; Pot olvasók támogatják. A növényoldalaink „Cserép, szerszámok &amp; komposzt” szekciójában található linkek Amazon affiliate linkek — amikor rákattintasz és vásárolsz, kis jutalékot kereshetünk, anélkül, hogy ez neked bármilyen extra költséget jelentene. Ezek a jutalékok segítenek abban, hogy a webhely folyamatosan működjön és ingyenesen elérhető maradjon a hétköznapi olvasók számára.</p><p><em>Amazon társprogamként a Patch &amp; Pot jogosult vásárlások után keres</em> az Amazon.co.uk-n és Amazon.com-on.</p><p>Nem veszünk részt más affiliate hálózatban. Nem linkelünk növénykertészetekhez jutalékért — ehelyett egy élő térképet biztosítunk a helyi kertközpontokról és faiskolákról, amelyeket nem monetizálunk. Az affiliate linkek jelenléte soha nem befolyásolja azt, amit ajánlunk.</p>",
   "source.tools.blurb": "Cseréphez, komposzthoz, vetőlapokhoz, kötözőzsinórokhoz és egyéb felszereléshez — az Amazon az alapvető dolgokkal rendelkezik, ha a helyi lehetőség nem megfelelő. Nem növényfaiskola; a növényhez használd a fent található helyi térképet.",
   "source.local.tools_cta": "Találj vasszerelőket a közelemben",
-  "nav.ask": "Kérdés",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Keresés itt: {locality}",
   "footer.legal.disclosure": "Nyilatkozat",
   "footer.legal.about": "Rólunk",

@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot ir lasītāju atbalstīta. Saites mūsu \"Pots, rīki &amp; komposts\" sadaļā uz augu lapām ir Amazon saistītās saites — kad jūs nospiedīsiet un iegādāsieties, mēs varam nopelnīt mazu komisiju, kas jums nekas papildus nemaksā. Šīs komisijas palīdz uzturēt vietni aktīvu un bez maksas ikdienas lasītājiem.</p><p><em>Kā Amazon asociētais, Patch &amp; Pot nopelna no atbilstošiem pirkumiem</em> Amazon.co.uk un Amazon.com.</p><p>Mēs nepiedalāmies nevienā citā saistītajā tīklā. Mēs saistāmies ne ar augu bērnistēm, lai saņemtu komisiju — vietā tam mēs piedāvājam dzīvu karti par vietējiem dārza centriem un bērnistēm tuvumā, ko mēs nenododam monetizācijai. Saistītās saites klātbūtne nekad neietekmē mūsu ieteikumus.</p>",
   "source.tools.blurb": "Par podiem, kompostu, sēklu traukiem, auklām un citiem rīkiem — Amazon ir nepieciešamie, ja vietējā opcija nav piemērota. Nevis augu bērnistē; izmantojiet augšējo vietējās kartes iespējām pašam augam.",
   "source.local.tools_cta": "Atrodiet dzelzceriņus tuvumā",
-  "nav.ask": "Uzdot jautājumu",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Meklēšana tuvumā {locality}",
   "footer.legal.disclosure": "Atklāšana",
   "footer.legal.about": "Par",

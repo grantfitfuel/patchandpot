@@ -831,7 +831,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot e tautokohia ana e ngā kaipānui. Ko ngā hono i roto i tā mātou wāhanga “Mō ngā ipu, taputapu &amp; kompo” i runga i ngā whārangi plant he hono kāhui Amazon — i te wā e pā ai koe, e hoko ai, ka taea e mātou te riro i tētahi kāinga iti kāore e utua e koe. E awhina ana ēnei kāinga ki te pupuri i te pae e rere ana me te kore utu mō ngā kaipānui e pā ana.</p><p><em>Hei Kāore Amazon, ka riro mai i a Patch &amp; Pot te utu e tika ana</em> i runga i Amazon.co.uk me Amazon.com.</p><p>Kāore mātou e whai wāhi ki tētahi atu kāhui kāinga. Kāore mātou e hono ki ngā pākaha plant mō te kāinga — engari, ka tūtohu mātou i tētahi mapi ora o ngā pokapū kari me ngā pākaha i te taha o te kaipānui, kāore hoki e whakangao atu.</p>",
   "source.tools.blurb": "Mō ngā ipu, kompo, pūtau kikī, kōmaka me ērā atu taputapu — he mea whai a Amazon mēnā kāore te kōwhiringa o te rohe e tika ana. Kāore he pokanga tipu; whakamahia te mapi o te rohe i runga mō te tipu anake.",
   "source.local.tools_cta": "Kimihia ngā kōhatu rino i te taha o au",
-  "nav.ask": "Tāpae",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "E rapu ana i te {locality}",
   "footer.legal.disclosure": "Whakawhiwhi",
   "footer.legal.about": "Mo te tahi",

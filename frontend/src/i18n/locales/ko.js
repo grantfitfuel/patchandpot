@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot은 독자 지원을 받습니다. 식물 페이지의 “화분, 도구 및 퇴비” 섹션에 있는 링크는 아마존 제휴 링크입니다 — 클릭 후 구매하실 경우, 귀하에게 추가 비용 없이 작은 수수료를 받을 수 있습니다. 이러한 수수료는 사이트를 운영하고 일반 독자에게 무료로 제공하는 데 도움을 줍니다.</p><p><em>아마존 어소시에이트로서 Patch &amp; Pot은 Amazon.co.uk 및 Amazon.com에서 자격이 있는 구매로부터 수익을 얻습니다</em>.</p><p>우리는 다른 어떤 제휴 네트워크에도 참여하지 않습니다. 우리는 수수료를 위한 식물 묘목 상점에 링크하지 않습니다 — 대신, 우리는 독자 근처의 지역 정원 센터 및 묘목에 대한 실시간 지도를 제공합니다. 제휴 링크의 존재는 우리가 추천하는 것에 전혀 영향을 미치지 않습니다.</p>",
   "source.tools.blurb": "화분, 퇴비, 씨앗 트레이, 노끈 및 기타 장비를 위해 — 지역 옵션이 적합하지 않다면 아마존에서 필수품을 찾을 수 있습니다. 식물 묘목이 아니며, 식물 자체는 위의 지역 지도를 사용하세요.",
   "source.local.tools_cta": "내 근처의 철물점 찾기",
-  "nav.ask": "질문하기",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "{locality} 근처 검색 중",
   "footer.legal.disclosure": "공시",
   "footer.legal.about": "소개",

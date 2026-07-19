@@ -831,7 +831,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot on lugejate toetatud. Meie \"Pottide, tööriistade ja komposti\" sektsiooni lingid taimede lehtedel on Amazon'i siduslingid — kui klõpsate ja ostate, võime teenida väikest komisjonitasu ilma, et see teid rohkem maksaks. Need komisjonitasud aitavad hoida saiti uuendatuna ja tasuta juhuslikele lugejatele.</p><p><em>Amazon'i partnerina teenib Patch &amp; Pot kvalifitseeruvatelt ostudelt</em> Amazon.co.uk ja Amazon.com.</p><p>Me ei osale üheski muus sidusnetivõrgus. Me ei linki taimekasvandustele komisjoni saamiseks — hoopis lisame aktiivse kaardi kohalike aia- ja taimede keskustest, mida me ei monetiseeri. Siduslingi olemasolu ei mõjuta kunagi seda, mida me soovitame.</p>",
   "source.tools.blurb": "Pottide, komposti, seemnealuste, nööride ja muu varustuse jaoks — Amazonil on hädavajalikud asjad, kui kohalik valik ei sobi. Ei ole taimede kasvataja; kasuta kohaliku kaardi ülaltoodud taime jaoks.",
   "source.local.tools_cta": "Leia raudkauplused minu lähedal",
-  "nav.ask": "Küsi",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Otsin läheduses {locality}",
   "footer.legal.disclosure": "Avalikustamine",
   "footer.legal.about": "Teave",

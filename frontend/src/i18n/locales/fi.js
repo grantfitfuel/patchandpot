@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot on lukijatuettu. Linkit ”Pottien, työkalujen &amp; kompostin” osiossa kasvisivuilla ovat Amazonin affiliate-linkkejä — kun klikkaat ja ostat, saatamme ansaita pienen komission ilman lisäkustannuksia sinulle. Nämä komissiot auttavat pitämään sivuston toiminnassa ja ilmaisena satunnaisille lukijoille.</p><p><em>Amazon-kumppanina Patch &amp; Pot ansaitsee oikeutetuista ostoista</em> Amazon.co.uk:ssa ja Amazon.com:ssa.</p><p>Emme osallistu mihinkään muuhun affiliate-verkostoon. Emme linkitä kasvitukkureihin komission vuoksi — sen sijaan esittelemme reaaliaikaisen kartan paikallisista puutarhakeskuksista ja taimitarhoista lukijan lähellä, jota emme rahastoi. Affiliate-linkin läsnäolo ei koskaan vaikuta suositteluamme.</p>",
   "source.tools.blurb": "Pottien, kompostin, siemenlaattojen, narujen ja muiden välineiden osalta — Amazon tarjoaa tarpeelliset tuotteet, jos paikallinen vaihtoehto ei ole oikea. Ei taimitarha; käytä yllä olevaa paikallista karttaa itse kasvelle.",
   "source.local.tools_cta": "Löydä rautakauppoja lähelläni",
-  "nav.ask": "Kysy",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Etsitään lähellä {locality}",
   "footer.legal.disclosure": "Ilmoitus",
   "footer.legal.about": "Tietoa",

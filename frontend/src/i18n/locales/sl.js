@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot je podprt s strani bralcev. Povezave v našem razdelku \"Za lonce, orodja &amp; kompost\" na straneh rastlin so Amazonove partnerske povezave — ko kliknete in kupite, lahko zaslužimo majhno provizijo brez dodatnih stroškov za vas. Te provizije pomagajo, da spletna stran deluje in ostane brezplačna za občasne bralce.</p><p><em>Kot partner Amazona, Patch &amp; Pot zasluži od upravičenih nakupov</em> na Amazon.co.uk in Amazon.com.</p><p>Ne sodelujemo v nobeni drugi partnerski mreži. Ne povezujemo se z vrtnarskimi vrtnarijami za provizijo — namesto tega prikazujemo živ zemljevid lokalnih vrtnarskih centrov in vrtnarij v bližini bralca, ki ga ne monetiziramo. Prisotnost partnerske povezave nikoli ne vpliva na naše priporočilo.</p>",
   "source.tools.blurb": "Za lonce, kompost, pladnje za semena, vrv in drugo opremo — Amazon ima osnovne stvari, če lokalna možnost ni prava. Ni vrtnarija; uporabite zgornji lokalni zemljevid za samo rastlino.",
   "source.local.tools_cta": "Najdi špecerije blizu mene",
-  "nav.ask": "Vprašaj",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Iščem v bližini {locality}",
   "footer.legal.disclosure": "Razkritje",
   "footer.legal.about": "O nas",

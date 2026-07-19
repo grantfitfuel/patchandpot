@@ -831,7 +831,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot podržavaju čitatelji. Linkovi u našoj sekciji “Za saksije, alate &amp; kompost” na stranicama biljaka su Amazon affiliate linkovi — kada kliknete i kupite, možemo zaraditi malu proviziju bez dodatnih troškova za vas. Ove provizije pomažu održavanju stranice i besplatnoj dostupnosti za povremene čitatelje.</p><p><em>Kao Amazon Associate, Patch &amp; Pot zarađuje od kvalificiranih kupnji</em> na Amazon.co.uk i Amazon.com.</p><p>Ne sudjelujemo u niti jednoj drugoj affiliate mreži. Ne linkamo na rasadnike biljaka za proviziju — umjesto toga, prikazujemo živu kartu lokalnih vrtnih centara i rasadnika u blizini čitatelja, koju ne monetiziramo. Prisutnost affiliate linka nikada ne utječe na ono što preporučujemo.</p>",
   "source.tools.blurb": "Za saksije, kompost, posude za sjeme, konopac i drugu opremu — Amazon ima bitne stvari ako lokalna opcija nije odgovarajuća. Nije rasadnik biljaka; koristite lokalnu kartu iznad za samu biljku.",
   "source.local.tools_cta": "Pronađite željeznicare u blizini",
-  "nav.ask": "Pitaj",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Traženje u blizini {locality}",
   "footer.legal.disclosure": "Objava",
   "footer.legal.about": "O nama",

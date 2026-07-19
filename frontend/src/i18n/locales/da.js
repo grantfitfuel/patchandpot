@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot er understøttet af læsere. Links i vores sektion “Til potter, værktøj &amp; kompost” på plante-siderne er Amazon affiliate-links — når du klikker videre og køber, kan vi tjene en lille kommission uden ekstra omkostninger for dig. Disse kommissioner hjælper med at holde siden kørende og gratis for casual læsere.</p><p><em>Som Amazon Associate tjener Patch &amp; Pot fra kvalificerede køb</em> på Amazon.co.uk og Amazon.com.</p><p>Vi deltager ikke i noget andet affiliate-netværk. Vi linker ikke til planteskoler for kommission — i stedet viser vi et live kort over lokale havecentre og planteskoler nær læseren, som vi ikke monetiserer. Tilstedeværelsen af et affiliate-link påvirker aldrig, hvad vi anbefaler.</p>",
   "source.tools.blurb": "Til potter, kompost, frøbakker, snor og andet udstyr — Amazon har det essentielle, hvis den lokale mulighed ikke er rigtig. Ikke en planteskole; brug det lokale kort ovenfor til selve planten.",
   "source.local.tools_cta": "Find jernhandlere nær mig",
-  "nav.ask": "Spørg",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Søger nær {locality}",
   "footer.legal.disclosure": "Offentliggørelse",
   "footer.legal.about": "Om",

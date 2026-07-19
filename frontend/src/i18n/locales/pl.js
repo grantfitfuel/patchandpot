@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot jest wspierane przez czytelników. Linki w sekcji „Do doniczek, narzędzi i kompostu” na stronach roślin to linki partnerskie Amazon — gdy klikniesz i dokonasz zakupu, możemy zarobić niewielką prowizję bez dodatkowych kosztów dla Ciebie. Te prowizje pomagają utrzymać stronę w działaniu i bezpłatną dla okazjonalnych czytelników.</p><p><em>Jako partner Amazon, Patch &amp; Pot zarabia na kwalifikujących zakupach</em> na Amazon.co.uk i Amazon.com.</p><p>Nie uczestniczymy w żadnej innej sieci partnerskiej. Nie łączymy się z szkółkami roślinnymi w zamian za prowizję — zamiast tego prezentujemy na żywo mapę lokalnych centrów ogrodniczych i szkółek w pobliżu czytelnika, której nie monetyzujemy. Obecność linku partnerskiego nigdy nie wpływa na to, co rekomendujemy.</p>",
   "source.tools.blurb": "Do doniczek, kompostu, tac nasiennych, sznurka i innych akcesoriów — Amazon ma niezbędne rzeczy, jeśli lokalna opcja nie jest odpowiednia. To nie jest szkółka roślin; użyj lokalnej mapy powyżej, aby znaleźć roślinę.",
   "source.local.tools_cta": "Znajdź żelaznych handlarzy w pobliżu",
-  "nav.ask": "Zapytaj",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Szukam w pobliżu {locality}",
   "footer.legal.disclosure": "Ujawnienie",
   "footer.legal.about": "O nas",

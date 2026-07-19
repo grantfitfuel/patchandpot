@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot wordt ondersteund door lezers. De links in onze sectie “Voor potten, gereedschappen &amp; compost” op plantpagina's zijn Amazon-affiliatelinks — wanneer u doorklikt en koopt, kunnen we een kleine commissie verdienen zonder extra kosten voor u. Deze commissies helpen de website draaiende te houden en gratis voor occasionele lezers.</p><p><em>Als Amazon Associate verdient Patch &amp; Pot aan gekwalificeerde aankopen</em> op Amazon.co.uk en Amazon.com.</p><p>We nemen niet deel aan andere affiliate netwerken. We linken niet naar plantenkwekerijen voor commissie — in plaats daarvan tonen we een live kaart van lokale tuincentra en kwekerijen in de buurt van de lezer, die we niet monetiseren. De aanwezigheid van een affiliatelink heeft nooit invloed op wat we aanbevelen.</p>",
   "source.tools.blurb": "Voor potten, compost, zaaitrays, touw en ander gereedschap — Amazon heeft de basisbenodigdheden als de lokale optie niet geschikt is. Geen plantenkwekerij; gebruik de lokale kaart hierboven voor de plant zelf.",
   "source.local.tools_cta": "Vind ijzerhandelaren bij mij in de buurt",
-  "nav.ask": "Vraag",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Zoeken in de buurt van {locality}",
   "footer.legal.disclosure": "Openbaarmaking",
   "footer.legal.about": "Over",

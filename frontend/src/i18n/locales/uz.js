@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot o'quvchilardan qo'llab-quvvatlanadi. O'simlik sahifalaridagi “Gulzorlarga, asboblar &amp; kompost” bo'limidagi havolalar Amazon affiliate havolalari — siz bosganingizda va xarid qilganingizda, biz sizga qo'shimcha xarijatsiz kichik komissiya olamiz. Bu komissiyalar sayti ishini davom ettirishga va tasodifiy o'quvchilar uchun bepul saqlashga yordam beradi.</p><p><em>Amazon Assotsiyasi sifatida, Patch &amp; Pot Amazon.co.uk va Amazon.com da malakali xaridlar dan daromad oladi</em>.</p><p>Biz boshqa affiliate tarmoqlarida ishtirok etmaymiz. Biz komissiya uchun o'simlik turar joylariga havola bermaymiz — o'rniga o'quvchiga yaqin joydagi mahalliy bog' markazlari va o'simlik mushaklariga jonli xarita ko'rsatiladi, biz uni monetizatsiya qilmaymiz. Affiliate havolasining mavjudligi taklif qilayotganlarimizga hech qanday ta'sir qilmaydi.</p>",
   "source.tools.blurb": "Gulzorlarga, kompostga, urug' taxtalariga, ipga va boshqa jihozlarga — agar mahalliy variant to'g'ri bo'lmasa, Amazon zarur narsalar bilan ta'minlaydi. O'simlik turar joyi emas; o'simlik uchun yuqoridagi mahalliy xaritadan foydalaning.",
   "source.local.tools_cta": "Mening atrofimda temir do'konlarni toping",
-  "nav.ask": "Soʻralar",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "{locality} yaqinida qidiryapmiz",
   "footer.legal.disclosure": "Ochish",
   "footer.legal.about": "Haqqida",

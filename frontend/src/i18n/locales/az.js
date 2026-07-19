@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot oxucular tərəfindən dəstəklənir. Bitki səhifələrimizdəki “Qazanın, alətlərin &amp; kompostun” bölməsindəki linklər Amazon affiliate linkləridir — siz keçib alanda, sizə əlavə bir xərc olmadan kiçik bir komissiya qazana bilərik. Bu komissiyalar, saytı işlək saxlamağa və təsadüfi oxucular üçün pulsuz etməyə kömək edir.</p><p><em>Amazon Assosiasiyası olaraq, Patch &amp; Pot kvalifikasiya edilən alışlardan qazanc əldə edir</em> Amazon.co.uk və Amazon.com.</p><p>Biz heç bir digər affiliate şəbəkəsində iştirak etmirik. Biz komissiya üçün bitki uşaq yerlərinə link vermirik — əvəzinə oxucunun yaxınlığındakı yerli bağ mərkəzləri və uşaq yerlərinin canlı xəritəsini təqdim edirik, bunu monetizasiya etmirik. Affiliate linkinin mövcudluğu bizim tövsiyələrimizi heç vaxt təsir etmir.</p>",
   "source.tools.blurb": "Qazanlar, kompost, toxum qutuları, ip və digər avadanlıqlar üçün — yerli seçim doğru olmadıqda Amazon zəruri olanları təqdim edir. Bitki uşaq yeri deyil; bitki üçün yuxarıdakı yerli xəritədən istifadə edin.",
   "source.local.tools_cta": "Mənim yanımda dəmirçiləri tapın",
-  "nav.ask": "Sual ver",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "{locality} yaxınlığında axtarılır",
   "footer.legal.disclosure": "Məlumat",
   "footer.legal.about": "Haqqında",

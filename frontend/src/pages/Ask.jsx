@@ -38,7 +38,7 @@ async function compressImage(file, { maxEdge = 1600, quality = 0.82, maxBytes = 
 }
 
 /**
- * Ask the Garden — threaded, paywalled AI Q&A.
+ * Ask Nàdar — threaded, paywalled AI Q&A.
  *
  * Lives at /ask. Members only (gated by access_token). Hard cap of 7
  * user messages per UTC day per token. Supports image upload (any size —
@@ -221,15 +221,19 @@ export default function AskPage() {
   if (!isPaying) {
     return (
       <div className="container-narrow py-14 max-w-xl text-center" data-testid="ask-paywall">
-        <Helmet><title>Ask the Garden · Patch & Pot</title></Helmet>
+        <Helmet><title>Ask Nàdar · Patch & Pot</title></Helmet>
         <p className="overline">Members</p>
-        <h1 className="font-serif text-4xl text-forest mt-2 mb-4">Ask the Garden</h1>
+        <h1 className="font-serif text-4xl text-forest mt-2 mb-2">Ask Nàdar</h1>
+        <p className="text-[0.65rem] uppercase tracking-widest text-moss/70 mb-4">
+          Nàdar · <em className="not-italic">Nature</em>, in Scottish Gaelic
+        </p>
         <p className="text-ink/80 mb-6">
-          A friendly, knowledgeable AI gardener — answers questions on edibles, cut flowers,
-          pests, pruning, soil, and propagation. Upload a photo to identify a plant or diagnose a problem.
+          A patient, knowledgeable garden mentor — Nàdar answers questions on edibles, cut flowers,
+          pests, pruning, soil and propagation with the voice of someone who has seen the same
+          seasons come round for decades. Upload a photo to identify a plant or diagnose a problem.
         </p>
         <p className="text-ink/70 text-sm mb-6">
-          Members can ask up to 7 questions per day, with photo support and threaded follow-ups.
+          Members can ask Nàdar up to 7 questions per day, with photo support and threaded follow-ups.
         </p>
         <a href="/#pricing" className="btn-primary" data-testid="ask-paywall-cta">
           Become a member
@@ -240,10 +244,15 @@ export default function AskPage() {
 
   return (
     <div className="container-narrow py-8 max-w-5xl" data-testid="ask-page">
-      <Helmet><title>Ask the Garden · Patch & Pot</title></Helmet>
+      <Helmet><title>Ask Nàdar · Patch & Pot</title></Helmet>
       <p className="overline">Members</p>
       <div className="flex items-baseline justify-between mt-2 mb-4">
-        <h1 className="font-serif text-3xl text-forest">Ask the Garden</h1>
+        <div>
+          <h1 className="font-serif text-3xl text-forest">Ask Nàdar</h1>
+          <p className="text-[0.65rem] uppercase tracking-widest text-moss/70 mt-1">
+            Nàdar · <em className="not-italic">Nature</em>, in Scottish Gaelic
+          </p>
+        </div>
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -370,7 +379,7 @@ export default function AskPage() {
           <div className="flex-1 min-h-[300px] md:max-h-[60vh] md:overflow-y-auto border border-border rounded p-4 bg-white/40" data-testid="ask-messages">
             {messages.length === 0 && (
               <div className="text-ink/50 text-sm space-y-2">
-                <p>Ask anything garden-related. A few starters:</p>
+                <p>Ask Nàdar anything garden-related. A few starters:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Why are my rose leaves turning black?</li>
                   <li>Can I grow dahlias in pots in Scotland?</li>
@@ -417,7 +426,7 @@ export default function AskPage() {
               }}
               rows={2}
               maxLength={4000}
-              placeholder={usage.remaining === 0 ? "Daily limit reached — back tomorrow." : "Ask anything garden-related…"}
+              placeholder={usage.remaining === 0 ? "Daily limit reached — back tomorrow." : "Ask Nàdar anything garden-related…"}
               className="flex-1 border border-border rounded px-3 py-2 text-sm resize-none focus:outline-none focus:border-forest"
               disabled={sending || usage.remaining === 0}
               data-testid="ask-input"

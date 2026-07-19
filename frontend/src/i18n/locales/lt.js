@@ -831,7 +831,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot remiasi skaitytojais. Nuorodos mūsų “Dėl vazonų, įrankių &amp; komposto” skyriuje augalų puslapiuose yra Amazon partnerių nuorodos — kai paspausite ir nusipirksite, galime gauti nedidelį komisinį mokestį, kuris jums nekainuoja papildomai. Šie komisiniai padeda palaikyti svetainę ir ją nemokamai teikti atsitiktiniams skaitytojams.</p><p><em>Kaip Amazon partneris, Patch &amp; Pot uždirba iš kvalifikuotų pirkinių</em> Amazon.co.uk ir Amazon.com.</p><p>Mes nedalyvaujame jokioje kitoje partnerių tinkle. Mes nesiejame su augalų sėklomis dėl komisinių — vietoj to mes pateikiame gyvą vietos sodų centrų ir sėklų sąrašą šalia skaitytojo, kurio monetizuoti neplanuojame. Partnerių nuorodos buvimas niekada nepaveikia to, ką rekomenduojame.</p>",
   "source.tools.blurb": "Dėl vazonų, komposto, sėklų dėžių, virvių ir kitų įrankių — Amazon turi būtinus dalykus, jei vietinis variantas netinka. Ne sodo centras; naudokite aukščiau esantį vietinį žemėlapį pačiam augalui.",
   "source.local.tools_cta": "Rasti geležies parduotuves šalia manęs",
-  "nav.ask": "Klausti",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Ieškoma šalia {locality}",
   "footer.legal.disclosure": "Atskleidimas",
   "footer.legal.about": "Apie",

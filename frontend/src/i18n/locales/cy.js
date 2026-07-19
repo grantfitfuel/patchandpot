@@ -831,7 +831,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Mae Patch &amp; Pot yn cael ei gefnogi gan ddarllenwyr. Mae'r dolenni yn ein rhan “Ar gyfer potiau, offer &amp; compost” ar dudalennau planhigion yn ddolenni cysylltiadol Amazon — pan fyddwch yn clicio drwodd a phrynu, gallwn ennill comisiwn bach heb unrhyw gost ychwanegol i chi. Mae'r comisiynau hyn yn helpu i gadw'r safle'n rhedeg ac yn rhad ac am ddim i ddarllenwyr dros dro.</p><p><em>Fel Cymdeithion Amazon, mae Patch &amp; Pot yn ennill o brynu sy'n cymryd rhan</em> ar Amazon.co.uk ac Amazon.com.</p><p>Nid ydym yn cymryd rhan mewn unrhyw rwydwaith cysylltiadol arall. Nid ydym yn dolenni i nurswr planhigion ar gyfer comisiwn — yn lle hynny, rydym yn arddangos map byw o ganolfannau gardd lleol a nurswr sy'n agos at y darllenwr, sydd ddim yn elwa. Ni fydd presenoldeb dolen gysylltiad yn effeithio ar yr hyn a argymhellwn.</p>",
   "source.tools.blurb": "Ar gyfer potiau, compost, trayiau hadau, twine a kitiau eraill — mae Amazon gyda'r hanfodion os nad yw'r opsiwn lleol yn iawn. Nid nurswr planhigion; defnyddiwch y map lleol uchod ar gyfer y planhigyn ei hun.",
   "source.local.tools_cta": "Dewch o hyd i siopau cyffyrddau ger fi",
-  "nav.ask": "Gofynn",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Yn chwilio ger {locality}",
   "footer.legal.disclosure": "Datganiad",
   "footer.legal.about": "Ynghylch",

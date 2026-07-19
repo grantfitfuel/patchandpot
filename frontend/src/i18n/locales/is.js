@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot er styrkt af lesendum. Tengslin í “Fyrir pottana, verkfærin &amp; moldina” kaflanum á plöntusíðum eru Amazon tengd tengsl — þegar þú smellir á þau og kaupir, gætum við unnið sér inn litla þóknun án frekari kostnaðar fyrir þig. Þessar þóknanir hjálpa til við að halda síðunni í gangi og frjálsri fyrir venjuleg lesendur.</p><p><em>Sem Amazon samstarfsaðili, vinnur Patch &amp; Pot peninga af réttum kaupum</em> á Amazon.co.uk og Amazon.com.</p><p>Við tökum ekki þátt í neinu öðru samstarfsneti. Við tengjum ekki við plöntuparaði vegna þóknunar — í staðinn sýnum við lifandi kort af staðbundnum garðamiðstöðvum og plöntufyrirtækjum nálægt lesandanum, sem við monetizum ekki. Tilst presence af samstarfstengli hefur aldrei áhrif á það sem við mælum með.</p>",
   "source.tools.blurb": "Fyrir pottana, moldina, sáðplötur, streng og annan búnað — Amazon hefur það sem þarf ef staðbundin valkosturinn passar ekki. Ekki plöntugarður; notaðu staðbundna kortið hér að ofan fyrir plöntuna sjálfa.",
   "source.local.tools_cta": "Finndu járnafyrirtæki nálægt mér",
-  "nav.ask": "Spyrja",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Leita að {locality}",
   "footer.legal.disclosure": "Afhjúpun",
   "footer.legal.about": "Um",

@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot disokong oleh pembaca. Pautan dalam bahagian “Untuk pasu, alat &amp; kompos” pada halaman tumbuhan adalah pautan afiliasi Amazon — apabila anda mengklik dan membeli, kami mungkin memperoleh sedikit komisen tanpa kos tambahan kepada anda. Komisen ini membantu menjaga laman web berjalan dan bebas untuk pembaca santai.</p><p><em>Sebagai Rakan Kongsi Amazon, Patch &amp; Pot memperoleh daripada pembelian yang layak</em> di Amazon.co.uk dan Amazon.com.</p><p>Kami tidak menyertai sebarang rangkaian afiliasi lain. Kami tidak menghubungkan kepada pembekal tumbuhan untuk komisen — sebaliknya, kami memaparkan peta langsung pusat taman dan pembekal tempatan berhampiran pembaca, yang tidak kami monetisasi. Kehadiran pautan afiliasi tidak pernah menjejaskan apa yang kami syorkan.</p>",
   "source.tools.blurb": "Untuk pasu, kompos, dulang benih, tali dan peralatan lain — Amazon mempunyai barangan asas jika pilihan tempatan tidak sesuai. Bukan pembekal tumbuhan; gunakan peta tempatan di atas untuk tumbuhan itu sendiri.",
   "source.local.tools_cta": "Cari penjual besi berhampiran saya",
-  "nav.ask": "Tanya",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Mencari dekat {locality}",
   "footer.legal.disclosure": "Pendedahan",
   "footer.legal.about": "Tentang",

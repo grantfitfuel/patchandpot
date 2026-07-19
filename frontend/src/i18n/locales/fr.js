@@ -831,7 +831,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot est soutenu par les lecteurs. Les liens dans notre section “Pour pots, outils &amp; compost” sur les pages de plantes sont des liens affiliés Amazon — lorsque vous cliquez et achetez, nous pouvons toucher une petite commission sans coût supplémentaire pour vous. Ces commissions aident à faire fonctionner le site et à le rendre gratuit pour les lecteurs occasionnels.</p><p><em>En tant qu'associé Amazon, Patch &amp; Pot gagne sur les achats éligibles</em> sur Amazon.co.uk et Amazon.com.</p><p>Nous ne participons à aucun autre réseau d'affiliation. Nous ne sommes pas liés aux pépinières de plantes pour des commissions — à la place, nous affichons une carte en direct des centres de jardinage et des pépinières locaux proches du lecteur, que nous ne monétisons pas. La présence d'un lien affilié n'affecte jamais ce que nous recommandons.</p>",
   "source.tools.blurb": "Pour les pots, le compost, les plateaux à graines, la ficelle et d'autres équipements — Amazon dispose des essentiels si l'option locale n'est pas adéquate. Ce n'est pas une pépinière de plantes ; utilisez la carte locale ci-dessus pour la plante elle-même.",
   "source.local.tools_cta": "Trouvez des quincailleries près de chez moi",
-  "nav.ask": "Demander",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Recherche près de {locality}",
   "footer.legal.disclosure": "Divulgation",
   "footer.legal.about": "À propos",

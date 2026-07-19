@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot是由读者支持的。我们植物页面上“用于花盆、工具和堆肥”部分的链接是亚马逊的联盟链接——当您点击并购买时，我们可能会获得少量佣金，而您无需支付额外费用。这些佣金有助于维持网站的运行，并为普通读者提供免费内容。</p><p><em>作为亚马逊联盟会员，Patch &amp; Pot通过合格购买获得收益</em>，适用于Amazon.co.uk和Amazon.com。</p><p>我们不参与任何其他联盟网络。我们不链接到植物苗圃以获取佣金——相反，我们提供当地园艺中心和苗圃的实时地图，供读者使用，我们不从中获利。联盟链接的存在绝不会影响我们的推荐。</p>",
   "source.tools.blurb": "对于花盆、堆肥、育苗盆、麻绳和其他工具——如果本地选项不合适，亚马逊提供必需品。不是植物苗圃；请使用上面的本地地图查找植物本身。",
   "source.local.tools_cta": "查找附近的铁匠铺",
-  "nav.ask": "询问",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "在 {locality} 附近搜索",
   "footer.legal.disclosure": "披露",
   "footer.legal.about": "关于",

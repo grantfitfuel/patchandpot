@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Tá Patch &amp; Pot tacaíocht ag léitheoirí. Is iontrálacha suímh Amazon na naisc inár section “Do photaí, uirlisí &amp; comhoiriúnacht” ar leathanach plandaí — nuair a chliceálann tú tríd agus a cheannach, is féidir linn coimisiún beag a bhaint amach gan aon chostas breise duitse. Cuireann na coimisiún seo ar chumas an láithreáin a choinneáil ag rith agus saor in aisce do léitheoirí gnáth.</p><p><em>Mar Comhoibritheoir Amazon, bíonn Patch &amp; Pot ag táirgeadh ó cheannach comhoiriúnach</em> ar Amazon.co.uk agus Amazon.com.</p><p>Ní ghlacaimid páirt in aon líonra comhtháite eile. Ní nascthaimid le gairdíní plandaí le haghaidh coimisiún — in ionad sin, cuirimid léarscáil gníomhach de lárionaid gairdín agus gairdín plandaí áitiúla gar don léitheoir, nach n-éilímid airgead. Ní chuireann an láithreacht naisc comhtháite isteach ar an méid a mholaimid.</p>",
   "source.tools.blurb": "Do photaí, comhoiriúnacht, drón planda, snáithe agus trealamh eile — tá na bunriachtanais ag Amazon, má tá an rogha áitiúil mícheart. Níl sé i ngairdín plandaí; úsáid an léarscáil áitiúil thuas don phlanda féin.",
   "source.local.tools_cta": "Faigh ghrúpaí iarainn gar dom",
-  "nav.ask": "Ceist",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Ag cuardach in aice le {locality}",
   "footer.legal.disclosure": "Nochtadh",
   "footer.legal.about": "Maidir le",

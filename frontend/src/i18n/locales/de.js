@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot wird von den Lesern unterstützt. Die Links in unserem Abschnitt „Für Töpfe, Werkzeuge &amp; Kompost“ auf den Pflanzen-Seiten sind Amazon-Affiliate-Links – wenn Sie darauf klicken und kaufen, können wir eine kleine Provision ohne zusätzliche Kosten für Sie verdienen. Diese Provisionen helfen, die Seite am Laufen zu halten und sie für gelegentliche Leser kostenlos zu machen.</p><p><em>Als Amazon-Partner verdient Patch &amp; Pot an berechtigten Käufen</em> auf Amazon.co.uk und Amazon.com.</p><p>Wir nehmen nicht an anderen Affiliate-Netzwerken teil. Wir verlinken nicht zu Pflanzenkindergärten für Provisionen – stattdessen zeigen wir eine Live-Karte von lokalen Gartencentern und Baumschulen in der Nähe des Lesers, die wir nicht monetarisieren. Die Präsenz eines Affiliate-Links beeinflusst nie unsere Empfehlungen.</p>",
   "source.tools.blurb": "Für Töpfe, Kompost, Saatkisten, Schnur und andere Ausstattungen – Amazon hat das Nötigste, falls die lokale Option nicht geeignet ist. Kein Pflanzenkindergarten; verwenden Sie die lokale Karte oben für die Pflanze selbst.",
   "source.local.tools_cta": "Eisenwarenhändler in meiner Nähe finden",
-  "nav.ask": "Fragen",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Suche in der Nähe von {locality}",
   "footer.legal.disclosure": "Offenlegung",
   "footer.legal.about": "Über",

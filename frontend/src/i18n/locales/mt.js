@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot huwa appoġġjat mir-ruħ tal-qarrej. Il-links fil-sezzjoni “Għall-kontenituri, għodda &amp; kompost” fuq il-paġni tal-pjanti huma links ta' affiljazzjoni ta' Amazon — meta tikklikkja u tixtri, nistgħu niksbu kommissjoni żgħira bla spiża addizzjonali għalik. Dawn il-kommissjonijiet jgħinu biex il-ġġir tal-web isalva u jibqa' b'xejn għal qarrejja ma' jkunx impenjattiv.</p><p><em> Bħala Assocjat tal-Amazon, Patch &amp; Pot jispiċċa minn xiri kwalifikati</em> fuq Amazon.co.uk u Amazon.com.</p><p>Ma nipparteċipaw f'kull netwerk ta' affiljazzjoni ieħor. Ma naqsmux links ma' nursers tal-pjanti għal kommissjoni — minflok, nuruhom mapa ħajja tas-centri tal-ġardina u nursers lokali qrib il-qarrej, li ma nmonetizzawx. Il-preżenza ta' link ta' affiljazzjoni qatt ma taffettwa dak li nirrakkomandaw.</p>",
   "source.tools.blurb": "Għall-kontenituri, kompost, trays ta' siġar, ħarir u kit ieħor — Amazon għandu l-ħtiġijiet jekk l-għażla lokali mhix korretta. Mhuwiex nursery tal-pjanti; uża l-mappa lokali hawn fuq għall-pjant innifsek.",
   "source.local.tools_cta": "Fittex irċa qrib lili",
-  "nav.ask": "Staqsi",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Qed nitħaddem qrib {locality}",
   "footer.legal.disclosure": "Dikjarazzjoni",
   "footer.legal.about": "Dwar",

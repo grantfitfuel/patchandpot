@@ -828,7 +828,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot, okuyucu desteklidir. Bitki sayfalarındaki “Saksılar, aletler ve kompost” bölümündeki bağlantılar Amazon iştirak bağlantılarıdır — tıkladığınızda ve satın aldığınızda, size ekstra bir maliyet olmadan küçük bir komisyon kazanabiliriz. Bu komisyonlar, siteyi çalışır durumda tutmaya ve gündelik okuyucular için ücretsiz tutmaya yardımcı olur.</p><p><em>Bir Amazon Ortağı olarak, Patch &amp; Pot nitelikli satın alımlardan gelir elde eder</em> Amazon.co.uk ve Amazon.com üzerinde.</p><p>Başka herhangi bir iştirak ağına katılmıyoruz. Komisyon için bitki fidanlıklarına bağlantı vermiyoruz — bunun yerine okuyucuya yakın yerel bahçe merkezlerinin ve fidanlıklarının canlı haritasını sunuyoruz, ki bunu da para kazanmak için kullanmıyoruz. Bir iştirak bağlantısının varlığı, neyi tavsiye ettiğimizi asla etkilemez.</p>",
   "source.tools.blurb": "Saksılar, kompost, tohum tepsileri, ip ve diğer araçlar için — yerel seçenek doğru değilse Amazon gerekli olan her şeyi sunar. Bir bitki fidanlığı değildir; bitki için yukarıdaki yerel haritayı kullanın.",
   "source.local.tools_cta": "Bana yakın demircileri bul",
-  "nav.ask": "Sor",
+  "nav.ask": "Ask Nàdar",
   "plant.pin_to_pinterest": "Pinterest'e Çiğneme",
   "plant.pin_description": "{name} bitkisini küçük alanlarda nasıl yetiştireceğinizi öğrenin — Patch & Pot",
   "source.local.searching_near": "{locality} yakınında arama yapılıyor",

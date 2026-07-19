@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Tha Patch &amp; Pot air a thogail le taic luchd-leughaidh. Tha na ceanglaichean anns a' chuid “Airson poitean, innealan &amp; compost” air duilleagan planntrais nan ceanglaichean affiliate Amazon — nuair a chi thu troimhe agus ceannaich, dh' fhaodadh sinn lasachadh beag a chosnadh gun chosgais a bharrachd dhut. Tha na lasachaidhean seo a' cuideachadh le bhith a' cumail an làraich ag obair agus saor airson luchd-leughaidh àbhaisteach.</p><p><em>Mar neach-comhoireach Amazon, tha Patch &amp; Pot a' cosnadh bho cheannach a tha freagairteach</em> air Amazon.co.uk agus Amazon.com.</p><p>Chan eil sinn a' gabhail pàirt ann an lìonra comhoireachaidh sam bith eile. Chan eil sinn a' cur ceanglaichean gu nurseries planntrais airson lasachadh — an àite sin tha sinn a' toirt seachad mapa beò de chion-lagha gàrraichean agus nurseries ionadail faisg air an leughadair, nach eil sinn a' monetise. Cha dìochuimhnich ceangal comhoireachaidh a' toirt buaidh air na tha sinn a' mholadh.</p>",
   "source.tools.blurb": "Airson poitean, compost, trays sìol, twine agus trealamh eile — tha Amazon a' toirt seachad na h-adhbharan ma tha an roghainn ionadail na freagairte fìor. Chan e nursery planntrais; cleachd am mapa ionadail gu h-àrd airson an planntrais fhèin.",
   "source.local.tools_cta": "Lorg luchd-ionmhais faisg orm",
-  "nav.ask": "Faighneachd",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "A' lorg faisg air {locality}",
   "footer.legal.disclosure": "Freagairtean",
   "footer.legal.about": "Mu dheidhinn",

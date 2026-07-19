@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot es apoyado por los lectores. Los enlaces en nuestra sección “Para macetas, herramientas y compost” en las páginas de plantas son enlaces de afiliados de Amazon; cuando haces clic y compras, podríamos ganar una pequeña comisión sin costo adicional para ti. Estas comisiones ayudan a mantener el sitio en funcionamiento y gratuito para los lectores ocasionales.</p><p><em>Como Asociado de Amazon, Patch &amp; Pot gana de compras elegibles</em> en Amazon.co.uk y Amazon.com.</p><p>No participamos en ninguna otra red de afiliados. No enlazamos a viveros de plantas por comisión; en su lugar, mostramos un mapa en vivo de centros de jardinería y viveros locales cerca del lector, lo cual no monetizamos. La presencia de un enlace de afiliado nunca afecta nuestras recomendaciones.</p>",
   "source.tools.blurb": "Para macetas, compost, bandejas de semillas, cordel y otros artículos — Amazon tiene lo esencial si la opción local no es adecuada. No es un vivero de plantas; usa el mapa local arriba para la planta en sí.",
   "source.local.tools_cta": "Encuentra ferreterías cerca de mí",
-  "nav.ask": "Preguntar",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Buscando cerca de {locality}",
   "footer.legal.disclosure": "Divulgación",
   "footer.legal.about": "Acerca de",

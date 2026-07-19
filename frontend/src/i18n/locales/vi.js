@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot được hỗ trợ bởi người đọc. Các liên kết trong phần “Cho chậu, công cụ &amp; phân trộn” trên các trang cây là liên kết liên kết Amazon — khi bạn nhấp vào và mua hàng, chúng tôi có thể nhận một khoản hoa hồng nhỏ mà không tốn thêm chi phí cho bạn. Những khoản hoa hồng này giúp duy trì trang web hoạt động và miễn phí cho những người đọc bình thường.</p><p><em>Với tư cách là một thành viên Amazon Associate, Patch &amp; Pot kiếm tiền từ những giao dịch đủ điều kiện</em> trên Amazon.co.uk và Amazon.com.</p><p>Chúng tôi không tham gia vào bất kỳ mạng liên kết nào khác. Chúng tôi không liên kết với các vườn ươm cây để kiếm hoa hồng — thay vào đó, chúng tôi cung cấp một bản đồ trực tiếp của các trung tâm làm vườn và vườn ươm địa phương gần người đọc, mà chúng tôi không kiếm tiền từ đó. Sự hiện diện của một liên kết liên kết không bao giờ ảnh hưởng đến những gì chúng tôi đề xuất.</p>",
   "source.tools.blurb": "Đối với chậu, phân trộn, khay hạt, dây và các thiết bị khác — Amazon có những thứ thiết yếu nếu tùy chọn địa phương không phù hợp. Không phải là vườn ươm cây; hãy sử dụng bản đồ địa phương phía trên cho chính cây.",
   "source.local.tools_cta": "Tìm cửa hàng sắt gần tôi",
-  "nav.ask": "Hỏi",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Đang tìm kiếm gần {locality}",
   "footer.legal.disclosure": "Tiết lộ",
   "footer.legal.about": "Về chúng tôi",

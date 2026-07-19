@@ -830,7 +830,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Patch &amp; Pot stöds av läsare. Länkarna i vår “För krukor, verktyg &amp; kompost”-sektion på växtsidor är Amazon-affiliatelänkar — när du klickar igenom och handlar kan vi tjäna en liten provision utan extra kostnad för dig. Dessa provisioner hjälper till att hålla sidan igång och gratis för tillfälliga läsare.</p><p><em>Som en Amazon Associate tjänar Patch &amp; Pot på kvalificerade köp</em> på Amazon.co.uk och Amazon.com.</p><p>Vi deltar inte i något annat affiliatenätverk. Vi länkar inte till plantskolor för provision — istället presenterar vi en livekarta över lokala trädgårdscentra och plantskolor nära läsaren, som vi inte monetiserar. Närvaron av en affiliatelänk påverkar aldrig vad vi rekommenderar.</p>",
   "source.tools.blurb": "För krukor, kompost, fröbrickor, snöre och annan utrustning — Amazon har det nödvändiga om alternativet på plats inte är rätt. Inte en plantskola; använd den lokala kartan ovan för själva växten.",
   "source.local.tools_cta": "Hitta järnaffärer nära mig",
-  "nav.ask": "Fråga",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Söker nära {locality}",
   "footer.legal.disclosure": "Upplysning",
   "footer.legal.about": "Om",

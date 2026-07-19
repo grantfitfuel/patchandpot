@@ -831,7 +831,7 @@ const dict = {
   "legal.terms.affiliates.html": "<p>Ang Patch &amp; Pot ay suportado ng mga mambabasa. Ang mga link sa aming seksyon na \"Para sa mga paso, kagamitan &amp; compost\" sa mga pahina ng halaman ay mga Amazon affiliate links — kapag nag-click ka at bumili, maaari kaming kumita ng maliit na komisyon nang walang karagdagang gastos sa iyo. Ang mga komisyon na ito ay tumutulong upang mapanatili ang operasyon ng site at maging libre para sa mga casual readers.</p><p><em>Bilang isang Amazon Associate, kumikita ang Patch &amp; Pot mula sa mga kwalipikadong pagbili</em> sa Amazon.co.uk at Amazon.com.</p><p>Hindi kami lumalahok sa anumang iba pang affiliate network. Hindi kami naglalagay ng link sa mga plant nurseries para sa komisyon — sa halip, ipinamamalas namin ang isang live na mapa ng mga lokal na garden centre at mga nursery malapit sa mambabasa, na hindi namin monetise. Ang pagkakaroon ng affiliate link ay hindi kailanman nakakaapekto sa aming inirerekomenda.</p>",
   "source.tools.blurb": "Para sa mga paso, compost, seed trays, twine at ibang kagamitan — may mga pangunahing kailangan ang Amazon kung hindi ang lokal na pagpipilian ay tama. Hindi isang plant nursery; gamitin ang lokal na mapa sa itaas para sa mismong halaman.",
   "source.local.tools_cta": "Maghanap ng mga ironmonger malapit sa akin",
-  "nav.ask": "Magtanong",
+  "nav.ask": "Ask Nàdar",
   "source.local.searching_near": "Naghahanap malapit sa {locality}",
   "footer.legal.disclosure": "Pahayag",
   "footer.legal.about": "Tungkol",

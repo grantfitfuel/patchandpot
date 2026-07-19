@@ -98,12 +98,14 @@ def register_maintenance_routes(router: APIRouter, db) -> None:
 
     @router.get("/admin/ask/cache-stats")
     async def admin_ask_cache_stats(token: str):
-        """Q&A cache observability — total entries, total reuses (hits) and
-        the top 20 most-asked questions by hit count. A row's `hits` is 0
-        the first time it's asked; each subsequent reuse increments it
-        AND represents one LLM call we avoided."""
+        """Q&A cache observability — total entries, total reuses (hits),
+        moderation counts, and the top 20 most-asked questions by hit
+        count. A row's `hits` is 0 the first time it's asked; each
+        subsequent reuse increments it AND represents one LLM call we
+        avoided."""
         require_admin(token)
         total = await db.ask_cache.count_documents({})
+        hidden = await db.ask_cache.count_documents({"hidden": True})
         agg_cursor = db.ask_cache.aggregate([
             {"$group": {"_id": None, "hits": {"$sum": "$hits"}}}
         ])
@@ -111,14 +113,35 @@ def register_maintenance_routes(router: APIRouter, db) -> None:
         total_hits = int(agg[0]["hits"]) if agg else 0
         top_cursor = db.ask_cache.find(
             {"hits": {"$gt": 0}},
-            {"_id": 0, "question_normalized": 1, "hits": 1, "last_asked_at": 1},
+            {"_id": 0, "key": 1, "question_normalized": 1, "hits": 1,
+             "hidden": 1, "last_asked_at": 1},
         ).sort("hits", -1).limit(20)
         top = [r async for r in top_cursor]
         return {
             "total_entries": total,
+            "hidden_entries": hidden,
             "total_llm_calls_avoided": total_hits,
             "top_reused_questions": top,
         }
+
+    @router.post("/admin/ask/hide/{key}")
+    async def admin_hide_ask_cache_entry(key: str, token: str, hide: bool = True):
+        """Manually flip an entry's `hidden` flag. Use for content that
+        the auto-guards didn't catch (personal-info leakage, weirdly
+        skewed answers, whatever). Pass `hide=false` to un-hide.
+        Returns the row's new state."""
+        require_admin(token)
+        result = await db.ask_cache.update_one(
+            {"key": key},
+            {"$set": {"hidden": bool(hide)}},
+        )
+        if result.matched_count == 0:
+            return {"ok": False, "reason": "key not found"}
+        row = await db.ask_cache.find_one(
+            {"key": key},
+            {"_id": 0, "key": 1, "question_normalized": 1, "hidden": 1, "hits": 1},
+        )
+        return {"ok": True, "row": row}
 
     @router.post("/admin/ask/clear-cache")
     async def admin_clear_ask_cache(token: str):

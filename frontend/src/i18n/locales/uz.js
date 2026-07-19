@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "O'z savolingizni so'rang",
   "askpop.cta.blurb": "A'zolar Nàdar dan kuniga 7 ta savol so'rashlari, o'simlik identifikatsiyasi yoki zararkunanda tashxisi uchun fotosuratlar yuklashlari va istalgan vaqtda mavzuni davom ettirishlari mumkin.",
   "askpop.cta.button": "A'zoga aylanish",
+  "askpop.permalink": "Ushbu savolni alohida sahifada ochish",
+  "askpop.single.back": "Barcha savollarga qaytish",
+  "askpop.single.not_found_title": "Savol topilmadi",
+  "askpop.single.not_found_blurb": "Ushbu savol olib tashlangan bo'lishi mumkin yoki jamoatchilikka ko'rsatish uchun etarlicha marta berilmagan. Buning o'rniga umumiy savollar ro'yxatini ko'ring.",
 };
 export default dict;

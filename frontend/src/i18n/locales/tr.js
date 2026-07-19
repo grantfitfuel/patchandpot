@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Kendi probleminizi sorun",
   "askpop.cta.blurb": "Üyeler Nàdar'a günde 7 soruya kadar sorabilir, bitki tanımlama veya haşere teşhisi için fotoğraf yükleyebilir ve istedikleri zaman konuya devam edebilirler.",
   "askpop.cta.button": "Üye olun",
+  "askpop.permalink": "Bu soruyu kendi sayfasında aç",
+  "askpop.single.back": "Tüm sorulara geri dön",
+  "askpop.single.not_found_title": "Soru bulunamadı",
+  "askpop.single.not_found_blurb": "Bu soru kaldırılmış olabilir ya da henüz halka açık olarak görünmesi için yeterince sık sorulmamış olabilir. Bunun yerine tam sık sorulan sorular listesini gözden geçirin.",
 };
 export default dict;

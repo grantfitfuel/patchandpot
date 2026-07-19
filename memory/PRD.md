@@ -28,6 +28,50 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 67 (2026-07-19): ✅ — Popular Q&A sitemap + per-question pages + safety rails
+
+User: **"Auto-add every popular question URL to /sitemap.xml so search engines discover new evergreen content as it accumulates"** — but explicitly asked for safety rails before we open the door to arbitrary user-generated URLs.
+
+**Safety rails (backend, `routers/ask.py`)**
+1. **`hidden` field** on every `ask_cache` entry (default `false`). Filters out every public surface: `/api/ask/popular`, `/api/ask/popular/{slug}`, and the sitemap URL list.
+2. **`should_auto_hide(question, answer)`** heuristic runs at cache-save time:
+   - Answer starts with (or contains near the start) one of a curated set of refusal markers ("I can't help", "I don't know", "as an AI", "outside gardening", "I cannot answer", …) → `hidden=True`. LLM refusals aren't useful evergreen content and often signal an off-topic ask.
+   - Question contains any keyword from a small blocklist (profanity, crypto/politics, self-harm markers) → `hidden=True`.
+3. **Higher sitemap threshold**: sitemap ships only `hits >= 2` (asked by 3+ members). The public `/ask/popular` list still uses `hits >= 1`, but the sitemap is intentionally more curated — a stronger signal to Google that the intent is genuinely evergreen.
+4. **Admin `POST /api/admin/ask/hide/{key}?token=…&hide=true|false`** to manually flip an entry's `hidden` flag for cases the auto-guards missed (personal-info leakage, weirdly skewed answers, etc.). Confirmed end-to-end that hiding an entry immediately drops it from the sitemap + public list + slug endpoint.
+
+**Sitemap** (`routers/seo.py`)
+- `make_router(db=None)` — takes the Mongo handle so it can query `ask_cache` for popular URLs.
+- Static routes list extended with the recent flagship pages: `/grow-anywhere`, `/recipes`, `/bouquet`, `/ask/popular`.
+- Popular question URLs auto-added (up to 500, ordered by hits desc). Each is `/ask/popular/{slug}` where `slug = question_slug(question_normalized, key)` = kebab of first 60 chars + 6-char key prefix.
+- Wrapped in a try/except so a missing collection never breaks the sitemap.
+
+**Per-question landing** (frontend, `pages/AskPopularQuestion.jsx`)
+- New route `/ask/popular/:slug`. Fetches from the new `GET /api/ask/popular/{slug}` endpoint (same safety filters applied server-side).
+- **FAQPage JSON-LD schema** injected into `<head>` on mount, torn down on unmount — one clean structured-data node per question, so Google can render a rich result. Verified: `{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[...]}` present in the served HTML.
+- 404 state with a proper "not found" landing that bounces back to `/ask/popular`.
+- Big h1 with question, "asked N times" chip, full answer with `whitespace-pre-wrap`, "Ask your own question" CTA.
+- Doc `<title>` and `<meta description>` set from the question + first 155 chars of the answer.
+
+**AskPopular.jsx** — every expanded card now shows a small "Open this question on its own page" permalink that routes to the new per-slug page. Slug shipped via the list-endpoint response.
+
+**Admin `cache-stats`** now includes a `hidden_entries` count and each row's `hidden` flag so the operator can see moderation state at a glance.
+
+**i18n** — 4 new keys added to `en.js` (`askpop.permalink`, `askpop.single.{back, not_found_title, not_found_blurb}`) and sweeping into all 57 non-EN locales via `/app/scripts/translate_askpop_single_keys.py`.
+
+**Cache**
+- `sw.js` VERSION bumped `v57 → v58`.
+
+**Verified end-to-end**
+- Sitemap includes `/ask/popular` + one `/ask/popular/how-do-i-prune-tomatoes-703928` after bumping `hits` to 3.
+- `GET /api/ask/popular/how-do-i-prune-tomatoes-703928` returns the full 1181-char answer; bogus slug → 404.
+- Admin `hide=true` → slug endpoint 404s, `/api/ask/popular` count drops to 0, sitemap loses the entry. `hide=false` restores everything.
+- `should_auto_hide()` catches: "I can't help" (true), "As an AI, I cannot answer" (true), "best crypto to buy" question (true), normal pruning Q&A (false).
+- FAQPage JSON-LD present in the rendered per-question HTML.
+
+**Topic clustering deferred**: user was open to it *with safety measures*, so the same `hidden` flag + auto-hide guard will apply when we build clustered topic landing pages — no dilution risk from unvetted questions.
+
+
 ### Iteration 66 (2026-07-19): ✅ — Public "Common questions" page at /ask/popular
 
 User: **"pipe the top_reused_questions output into a public 'Common questions' page at /ask/popular — instant answers with zero LLM cost, huge SEO surface area, and it turns the cache into a compounding content asset."** Built exactly that.

@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Fiafraigh d’ceilg féin",
   "askpop.cta.blurb": "Is féidir le baill fiafraí de Nàdar suas le 7 gceist sa lá, grianghraif a uaslódáil le haghaidh aitheantas plandaí nó diagnóisis feithíoch, agus an téacs a thógáil suas arís nuair is maith leo.",
   "askpop.cta.button": "Éireann le ball",
+  "askpop.permalink": "Oscail an ceist seo ar a leathanach féin",
+  "askpop.single.back": "Ar ais chuig na ceisteanna uile",
+  "askpop.single.not_found_title": "Níor bhuail an ceist",
+  "askpop.single.not_found_blurb": "D'fhéadfadh an ceist seo a bheith bainte nó níor cuireadh i dtaithí go leor uaireanta go fóill chun a bheith le feiceáil go poiblí. Brabhsáil liosta na gceist choitianta ina ionad.",
 };
 export default dict;

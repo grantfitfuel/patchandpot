@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Haz tu propia pregunta",
   "askpop.cta.blurb": "Los miembros pueden hacerle a Nàdar hasta 7 preguntas al día, subir fotos para identificación de plantas o diagnóstico de plagas, y retomar el hilo cuando quieran.",
   "askpop.cta.button": "Conviértete en miembro",
+  "askpop.permalink": "Abre esta pregunta en su propia página",
+  "askpop.single.back": "Volver a todas las preguntas",
+  "askpop.single.not_found_title": "Pregunta no encontrada",
+  "askpop.single.not_found_blurb": "Es posible que esta pregunta haya sido eliminada o que no se haya preguntado suficiente veces aún para aparecer públicamente. En su lugar, navega por la lista completa de preguntas comunes.",
 };
 export default dict;

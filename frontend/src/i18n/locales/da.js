@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Stil dit eget spørgsmål",
   "askpop.cta.blurb": "Medlemmer kan stille Nàdar op til 7 spørgsmål om dagen, uploade fotos til planteidentifikation eller skadedyrsdiagnose, og tage tråden op igen, når de ønsker.",
   "askpop.cta.button": "Bliv medlem",
+  "askpop.permalink": "Åbn dette spørgsmål på sin egen side",
+  "askpop.single.back": "Tilbage til alle spørgsmål",
+  "askpop.single.not_found_title": "Spørgsmål ikke fundet",
+  "askpop.single.not_found_blurb": "Dette spørgsmål kan være blevet fjernet, eller det er ikke blevet stillet nok gange til at vises offentligt. Gennemse i stedet den fulde liste over almindelige spørgsmål.",
 };
 export default dict;

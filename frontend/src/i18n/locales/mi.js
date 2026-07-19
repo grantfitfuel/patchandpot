@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "Pātaihia tō pātai ake",
   "askpop.cta.blurb": "Ka taea e ngā mema te pātai ki a Nàdar ki ngā pātai e 7 i te rā, te tuku whakaahua mō te tautuhi i ngā tipu, me te whiriwhiri i te kōrero i ngā wā e pai ai rātou.",
   "askpop.cta.button": "Kia mema",
+  "askpop.permalink": "Huakina tēnei pātai i tāna ake whārangi",
+  "askpop.single.back": "Hoki ki ngā pātai katoa",
+  "askpop.single.not_found_title": "Kāore i kitea te pātai",
+  "askpop.single.not_found_blurb": "Tēnei pātai tērā pea kua tangohia, kāore rānei e kīia hei i te wā e tika ana mō te whakaatu tūmatanui. Tirohia te rārangi pātai tūmomo katoa hei wātea.",
 };
 export default dict;

@@ -70,6 +70,81 @@ def _cache_key(prior_user_texts: list[str], question: str) -> str:
         + [_normalize_question(question)]
     )
     return hashlib.sha1(payload.encode("utf-8")).hexdigest()[:24]
+
+
+_SLUG_RE = re.compile(r"[^a-z0-9]+")
+
+
+def question_slug(question_normalized: str, key: str) -> str:
+    """URL-safe slug derived from the normalised question, disambiguated
+    with a short hash suffix so two similar questions can't collide.
+
+    e.g.  "how do i prune tomatoes" + key "ab12…"
+          → "how-do-i-prune-tomatoes-ab12ef"
+    """
+    base = _SLUG_RE.sub("-", (question_normalized or "question").strip("-")).strip("-")
+    base = base[:60].strip("-") or "question"
+    suffix = (key or "")[:6] or "xxxxxx"
+    return f"{base}-{suffix}"
+
+
+# ─── Safety rails for the public /ask/popular surface ──────────────
+# Every cache entry surfaced publicly has to pass THREE guards:
+#   1. `hits >= 1` (asked by ≥ 2 members) — already enforced in queries.
+#   2. `hidden != True`             — admin-set or auto-set moderation flag.
+#   3. Auto-flagged at save time if the question or answer trips one of
+#      the heuristic filters below.
+#
+# The filters are deliberately conservative — we'd rather hide a real
+# gardening question that trips a false positive than surface a bad one.
+# Admins can flip `hidden` back on any individual entry via
+# POST /api/admin/ask/hide/{key} (see routers/admin/_maintenance.py).
+
+# Answers where the model refused / punted → not useful evergreen SEO
+# content, hide them.
+_ANSWER_REFUSAL_MARKERS = (
+    "i can't help",
+    "i cannot help",
+    "i'm not able to",
+    "i am not able to",
+    "i don't know",
+    "i do not know",
+    "outside my expertise",
+    "outside gardening",
+    "not a gardening question",
+    "off-topic",
+    "i'm sorry, but i can",
+    "i cannot answer",
+    "i can't answer",
+    "as an ai",
+    "i cannot provide",
+)
+
+# Blunt off-topic / unsafe keyword guard on the QUESTION. Any hit → hide.
+# Kept intentionally short; false positives are cheap (the question
+# still gets answered privately for the paying member — we just don't
+# publish it). Add to this list as edge cases surface.
+_QUESTION_BLOCKLIST = (
+    # profanity / slurs — a placeholder set; extend as needed
+    "fuck", "shit", "cunt", "bitch",
+    # obvious off-topic
+    "porn", "sex", "gambling", "crypto", "bitcoin", "ethereum",
+    "politics", "election", "vote",
+    # dangerous / medical
+    "suicide", "kill myself", "overdose", "poison someone",
+    "recipe for meth",
+)
+
+
+def should_auto_hide(question_normalized: str, answer: str) -> bool:
+    """Return True if this Q&A should be hidden from the public list."""
+    q = (question_normalized or "").lower()
+    a = (answer or "").lower().lstrip()[:400]  # only inspect the answer opening
+    if any(term in q for term in _QUESTION_BLOCKLIST):
+        return True
+    if any(a.startswith(m) or m in a[:200] for m in _ANSWER_REFUSAL_MARKERS):
+        return True
+    return False
 SYSTEM_PROMPT = (
     "You are Nàdar (pronounced NAA-dar — Scottish Gaelic for \"nature\"), "
     "the friendly, knowledgeable in-house gardening companion for Patch & Pot, "
@@ -162,14 +237,47 @@ def make_router(db) -> APIRouter:
         """
         limit = max(1, min(int(limit or 50), 100))
         cursor = db.ask_cache.find(
-            {"hits": {"$gte": 1}, "prior_hash": None},
+            {"hits": {"$gte": 1}, "prior_hash": None, "hidden": {"$ne": True}},
             {"_id": 0, "key": 1, "question_normalized": 1, "answer": 1,
              "hits": 1, "first_asked_at": 1, "last_asked_at": 1},
         ).sort("hits", -1).limit(limit)
         rows = [r async for r in cursor]
+        for r in rows:
+            r["slug"] = question_slug(r.get("question_normalized", ""), r.get("key", ""))
         # Public — safe to cache in browsers and CDNs for a while.
         response.headers["Cache-Control"] = "public, max-age=3600, stale-while-revalidate=86400"
         return {"count": len(rows), "questions": rows}
+
+    @router.get("/ask/popular/{slug}")
+    async def get_popular_question_by_slug(slug: str, response: Response):
+        """PUBLIC — one cached Q&A by slug for the individual /ask/popular/<slug>
+        landing page. Same safety rules as the list endpoint (hits >= 1,
+        first-turn only) so a private one-off can never be reached even
+        by guessing the URL.
+
+        Slugs are deterministic — `<kebab-question>-<6-char key prefix>`
+        — so we resolve by scanning candidate rows whose key starts with
+        the suffix (short, indexed prefix scan) and verifying the full
+        slug matches. Fast enough for a modest cache.
+        """
+        # 6-char suffix is the last hyphen-separated chunk of the slug.
+        parts = slug.rsplit("-", 1)
+        if len(parts) < 2 or not parts[1]:
+            raise HTTPException(404, "Question not found")
+        key_prefix = parts[1]
+        cursor = db.ask_cache.find(
+            {"key": {"$regex": f"^{re.escape(key_prefix)}"},
+             "hits": {"$gte": 1}, "prior_hash": None, "hidden": {"$ne": True}},
+            {"_id": 0, "key": 1, "question_normalized": 1, "answer": 1,
+             "hits": 1, "first_asked_at": 1, "last_asked_at": 1},
+        ).limit(5)
+        rows = [r async for r in cursor]
+        for r in rows:
+            if question_slug(r.get("question_normalized", ""), r.get("key", "")) == slug:
+                r["slug"] = slug
+                response.headers["Cache-Control"] = "public, max-age=3600, stale-while-revalidate=86400"
+                return r
+        raise HTTPException(404, "Question not found")
 
     @router.get("/ask/sessions", response_model=List[SessionOut])
     async def list_sessions(response: Response, access_token: str = ""):
@@ -388,11 +496,13 @@ def make_router(db) -> APIRouter:
             # ── Populate the cache (only text-only turns) ──────────────
             if cache_key and answer:
                 now_iso_cache = datetime.now(timezone.utc).isoformat()
+                q_norm = _normalize_question(text)
+                auto_hidden = should_auto_hide(q_norm, answer)
                 await db.ask_cache.update_one(
                     {"key": cache_key},
                     {
                         "$setOnInsert": {
-                            "question_normalized": _normalize_question(text),
+                            "question_normalized": q_norm,
                             "prior_hash": hashlib.sha1(
                                 "\n---\n".join(_normalize_question(t) for t in prior_user_texts).encode("utf-8"),
                             ).hexdigest()[:16] if prior_user_texts else None,
@@ -400,6 +510,7 @@ def make_router(db) -> APIRouter:
                             "model": ASK_MODEL,
                             "first_asked_at": now_iso_cache,
                             "hits": 0,
+                            "hidden": auto_hidden,
                         },
                         "$set": {"last_asked_at": now_iso_cache},
                     },

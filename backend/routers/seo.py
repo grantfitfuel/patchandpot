@@ -18,6 +18,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import PlainTextResponse, Response
 
 from core import PLANTS
+from routers.ask import question_slug
 
 
 # Static "evergreen" routes that should appear in the sitemap. Everything
@@ -33,6 +34,10 @@ _STATIC_ROUTES = [
     ("/garden",               "monthly", 0.6),
     ("/guides",               "weekly",  0.8),
     ("/masterclasses",        "weekly",  0.8),
+    ("/grow-anywhere",        "weekly",  0.8),
+    ("/recipes",              "weekly",  0.8),
+    ("/bouquet",              "monthly", 0.6),
+    ("/ask/popular",          "daily",   0.7),
     ("/patrons",              "monthly", 0.5),
     ("/privacy",              "yearly",  0.3),
     ("/terms",                "yearly",  0.3),
@@ -52,7 +57,7 @@ def _origin_from_request(request: Request) -> str:
     return f"{proto}://{host}"
 
 
-def make_router() -> APIRouter:
+def make_router(db=None) -> APIRouter:
     router = APIRouter(tags=["seo"])
 
     @router.get("/sitemap.xml")
@@ -79,6 +84,27 @@ def make_router() -> APIRouter:
             slug = p.get("id")
             if slug:
                 add(f"/plants/{slug}", 0.8, "monthly")
+
+        # Popular Q&A pages — the compounding SEO asset. Each entry that
+        # has cleared the hits >= 2 threshold gets its own crawlable URL.
+        # (The public /ask/popular page uses hits >= 1, but the sitemap
+        # is intentionally more curated — three separate members asking
+        # the same thing is a stronger signal to Google that this is
+        # evergreen intent worth indexing.) Hidden entries are excluded.
+        # This is deliberately NOT clustered into topic landing pages —
+        # each question is its own atomic answer and we let Google decide
+        # which are worth ranking. See PRD iter 66 note.
+        if db is not None:
+            try:
+                cursor = db.ask_cache.find(
+                    {"hits": {"$gte": 2}, "prior_hash": None, "hidden": {"$ne": True}},
+                    {"_id": 0, "key": 1, "question_normalized": 1, "last_asked_at": 1},
+                ).sort("hits", -1).limit(500)
+                async for row in cursor:
+                    slug = question_slug(row.get("question_normalized", ""), row.get("key", ""))
+                    add(f"/ask/popular/{slug}", 0.6, "monthly")
+            except Exception:  # noqa: BLE001 — sitemap must not fail if the collection is missing
+                pass
 
         tree = ET.ElementTree(urlset)
         buf = BytesIO()

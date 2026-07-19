@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Faighneachd don cheist fhèin",
   "askpop.cta.blurb": "Faodaidh buill Nàdar a bhith a’ faighneachd suas ri 7 cheist gach latha, dealbhan a luchdachadh suas airson ID phlannta no diagnose a' phuist, agus an threath a thogail a-rithist uair sam bith a tha iad ag iarraidh.",
   "askpop.cta.button": "Thig a bhith nad bhall",
+  "askpop.permalink": "Fhosgail an ceist seo air a duilleig eile",
+  "askpop.single.back": "Tilg air ais don uile cheistean",
+  "askpop.single.not_found_title": "Cha deach an ceist a lorg",
+  "askpop.single.not_found_blurb": "Faodaidh an ceist seo a bhith air a thoirt am follais no cha deach iarraidh oirre gu leòr a dh'innseadh gu poblach. Seallaibh liosta na ceistean cumanta làn an àite sin.",
 };
 export default dict;

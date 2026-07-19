@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "Gofyn eich cwestiwn eich hun",
   "askpop.cta.blurb": "Gall aelodau ofyn i Nàdar hyd at 7 cwestiwn y dydd, llwytho i fyny lluniau ar gyfer adnabod planhigyn neu ddiagnosis pryfed, a chymryd y ddeialog yn ôl pan bynnag maen nhw'n dymuno.",
   "askpop.cta.button": "Dewch yn aelod",
+  "askpop.permalink": "Agor y cwestiwn hwn ar ei thudalen ei hun",
+  "askpop.single.back": "Yn ôl i'r holl gwestiynau",
+  "askpop.single.not_found_title": "Nid yw'r cwestiwn wedi'i ddod o hyd",
+  "askpop.single.not_found_blurb": "Efallai bod y cwestiwn hwn wedi'i ddileu neu nad ydynt wedi'u gofyn digon o weithiau eto i ymddangos yn gyhoeddus. Browsiwch y rhestr llawn o gwestiynau cyffredin yn lle hynny.",
 };
 export default dict;

@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "자신의 질문하기",
   "askpop.cta.blurb": "회원은 Nàdar에게 하루에 최대 7개의 질문을 할 수 있으며, 식물 식별이나 해충 진단을 위한 사진을 업로드하고, 원하는 때에 대화를 다시 시작할 수 있습니다.",
   "askpop.cta.button": "회원 가입하기",
+  "askpop.permalink": "이 질문을 개별 페이지에서 열기",
+  "askpop.single.back": "모든 질문으로 돌아가기",
+  "askpop.single.not_found_title": "질문을 찾을 수 없습니다",
+  "askpop.single.not_found_blurb": "이 질문은 삭제되었거나 아직 공개적으로 나타나기 충분히 많이 질문되지 않았을 수 있습니다. 대신 전체 일반 질문 목록을 확인하세요.",
 };
 export default dict;

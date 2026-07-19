@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Ställ din egen fråga",
   "askpop.cta.blurb": "Medlemmar kan ställa Nàdar upp till 7 frågor om dagen, ladda upp foton för växtidentifiering eller skadedjursdiagnos, och återuppta tråden när de vill.",
   "askpop.cta.button": "Bli medlem",
+  "askpop.permalink": "Öppna denna fråga på sin egen sida",
+  "askpop.single.back": "Tillbaka till alla frågor",
+  "askpop.single.not_found_title": "Fråga hittades inte",
+  "askpop.single.not_found_blurb": "Denna fråga kan ha tagits bort eller har ännu inte ställts tillräckligt många gånger för att synas offentligt. Bläddra istället i hela listan med vanliga frågor.",
 };
 export default dict;

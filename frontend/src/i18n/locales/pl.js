@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Zadaj swoje własne pytanie",
   "askpop.cta.blurb": "Członkowie mogą zadawać Nàdarowi do 7 pytań dziennie, przesyłać zdjęcia do identyfikacji roślin lub diagnozy szkodników oraz wracać do wątku, kiedy tylko zechcą.",
   "askpop.cta.button": "Zostań członkiem",
+  "askpop.permalink": "Otwórz to pytanie na osobnej stronie",
+  "askpop.single.back": "Powrót do wszystkich pytań",
+  "askpop.single.not_found_title": "Pytanie nie znalezione",
+  "askpop.single.not_found_blurb": "To pytanie mogło zostać usunięte lub nie zostało jeszcze zadane wystarczająco dużo razy, aby pojawić się publicznie. Zamiast tego przeglądaj pełną listę najczęstszych pytań.",
 };
 export default dict;

@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Stel je eigen vraag",
   "askpop.cta.blurb": "Leden kunnen Nàdar tot 7 vragen per dag stellen, foto's uploaden voor plantenidentificatie of plaagddiagnose, en het gesprek op elk moment weer oppakken.",
   "askpop.cta.button": "Word lid",
+  "askpop.permalink": "Open deze vraag op een aparte pagina",
+  "askpop.single.back": "Terug naar alle vragen",
+  "askpop.single.not_found_title": "Vraag niet gevonden",
+  "askpop.single.not_found_blurb": "Deze vraag is mogelijk verwijderd of is nog niet vaak genoeg gesteld om openbaar te verschijnen. Bekijk in plaats daarvan de volledige lijst met veelvoorkomende vragen.",
 };
 export default dict;

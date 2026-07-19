@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Ajukan pertanyaan Anda sendiri",
   "askpop.cta.blurb": "Anggota dapat mengajukan hingga 7 pertanyaan sehari kepada Nàdar, mengunggah foto untuk identifikasi tanaman atau diagnosis hama, dan melanjutkan percakapan kapan saja mereka mau.",
   "askpop.cta.button": "Jadilah anggota",
+  "askpop.permalink": "Buka pertanyaan ini di halaman terpisah",
+  "askpop.single.back": "Kembali ke semua pertanyaan",
+  "askpop.single.not_found_title": "Pertanyaan tidak ditemukan",
+  "askpop.single.not_found_blurb": "Pertanyaan ini mungkin telah dihapus atau belum ditanyakan cukup sering untuk muncul secara publik. Telusuri daftar pertanyaan umum yang lengkap sebagai gantinya.",
 };
 export default dict;

@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Tanya soalan anda sendiri",
   "askpop.cta.blurb": "Ahli boleh bertanya kepada Nàdar sehingga 7 soalan sehari, memuat naik foto untuk pengenalan tumbuhan atau diagnosis perosak, dan menyambung semula perbincangan bila-bila masa mereka suka.",
   "askpop.cta.button": "Jadi ahli",
+  "askpop.permalink": "Buka soalan ini di halaman tersendiri",
+  "askpop.single.back": "Kembali ke semua soalan",
+  "askpop.single.not_found_title": "Soalan tidak ditemui",
+  "askpop.single.not_found_blurb": "Soalan ini mungkin telah dipadam atau belum ditanya cukup kali untuk muncul secara awam. Layari senarai soalan umum yang lengkap sebagai ganti.",
 };
 export default dict;

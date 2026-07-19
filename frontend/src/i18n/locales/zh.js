@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "提问",
   "askpop.cta.blurb": "会员每天可以向 Nàdar 提问最多 7 个问题，上传植物识别或病虫害诊断的照片，并随时继续讨论。",
   "askpop.cta.button": "成为会员",
+  "askpop.permalink": "在独立页面打开此问题",
+  "askpop.single.back": "返回所有问题",
+  "askpop.single.not_found_title": "未找到问题",
+  "askpop.single.not_found_blurb": "该问题可能已被删除，或者还没有被提出足够多次以至于公开显示。请浏览完整的常见问题列表。",
 };
 export default dict;

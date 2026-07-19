@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "Užduokite savo klausimą",
   "askpop.cta.blurb": "Nariai gali užduoti Nàdar iki 7 klausimų per dieną, įkelti nuotraukas augalų identifikavimui ar kenkėjų diagnostikai ir bet kada tęsti temą, kai jiems patinka.",
   "askpop.cta.button": "Tapti nariu",
+  "askpop.permalink": "Atidarykite šį klausimą jo pačiu puslapyje",
+  "askpop.single.back": "Atgal į visus klausimus",
+  "askpop.single.not_found_title": "Klausimas nerastas",
+  "askpop.single.not_found_blurb": "Šis klausimas galėjo būti pašalintas arba dar nebuvo užduotas pakankamai kartų, kad pasirodytų viešai. Peržiūrėkite visą dažniausiai užduodamų klausimų sąrašą.",
 };
 export default dict;

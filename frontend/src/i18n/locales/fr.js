@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "Posez votre propre question",
   "askpop.cta.blurb": "Les membres peuvent poser jusqu'à 7 questions par jour à Nàdar, télécharger des photos pour l'identification des plantes ou le diagnostic des ravageurs, et reprendre le fil quand ils le souhaitent.",
   "askpop.cta.button": "Devenez membre",
+  "askpop.permalink": "Ouvrir cette question sur sa propre page",
+  "askpop.single.back": "Retour à toutes les questions",
+  "askpop.single.not_found_title": "Question non trouvée",
+  "askpop.single.not_found_blurb": "Cette question a peut-être été supprimée ou n'a pas encore été posée suffisamment de fois pour apparaître en public. Parcourez plutôt la liste complète des questions courantes.",
 };
 export default dict;

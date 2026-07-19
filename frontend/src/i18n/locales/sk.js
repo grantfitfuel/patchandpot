@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Položte svoju vlastnú otázku",
   "askpop.cta.blurb": "Členovia môžu položiť Nàdarovi až 7 otázok denne, nahrať fotografie na identifikáciu rastlín alebo diagnostiku škodcov a kedykoľvek pokračovať v konverzácii.",
   "askpop.cta.button": "Stať sa členom",
+  "askpop.permalink": "Otvorená táto otázka na samostatnej stránke",
+  "askpop.single.back": "Späť na všetky otázky",
+  "askpop.single.not_found_title": "Otázka nenájdená",
+  "askpop.single.not_found_blurb": "Táto otázka mohla byť odstránená alebo ešte nebola položená dostatočne veľa krát, aby sa objavila verejne. Prejdite si plný zoznam bežných otázok.",
 };
 export default dict;

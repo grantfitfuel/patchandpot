@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "Postavite svoje vlastito pitanje",
   "askpop.cta.blurb": "Članovi mogu postaviti Nàdaru do 7 pitanja dnevno, učitati fotografije za identifikaciju biljaka ili dijagnostiku štetočina, i nastaviti raspravu kad god žele.",
   "askpop.cta.button": "Postani član",
+  "askpop.permalink": "Otvorite ovo pitanje na njegovoj vlastitoj stranici",
+  "askpop.single.back": "Natrag na sva pitanja",
+  "askpop.single.not_found_title": "Pitanje nije pronađeno",
+  "askpop.single.not_found_blurb": "Ovo pitanje moglo je biti uklonjeno ili još nije postavljeno dovoljno puta da bi se javno prikazalo. Pregledajte cijeli popis često postavljanih pitanja umjesto toga.",
 };
 export default dict;

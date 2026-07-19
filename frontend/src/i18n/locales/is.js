@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Spyrja þín eigin spurningu",
   "askpop.cta.blurb": "Meðlimir geta spurt Nàdar allt að 7 spurningar á dag, hlaðið upp myndum til að bera kennsl á plöntur eða greina skaðvalda, og taka þráðinn upp aftur hvenær sem er.",
   "askpop.cta.button": "Gerast meðlimur",
+  "askpop.permalink": "Opna þetta spurningu á eigin síðu",
+  "askpop.single.back": "Til baka á allar spurningar",
+  "askpop.single.not_found_title": "Spurning fannst ekki",
+  "askpop.single.not_found_blurb": "Þessi spurning gæti hafa verið fjarlægð eða hefur ekki verið spurt nóg sinn í að hún birtist opinberlega. Skoðaðu fulla listann yfir algengar spurningar í staðinn.",
 };
 export default dict;

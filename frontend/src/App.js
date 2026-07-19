@@ -14,6 +14,7 @@ import GrowAnywherePage from "@/pages/GrowAnywhere";
 import RecipesPage from "@/pages/Recipes";
 import BouquetPage from "@/pages/Bouquet";
 import AskPopularPage from "@/pages/AskPopular";
+import AskPopularQuestionPage from "@/pages/AskPopularQuestion";
 import PestControlPage from "@/pages/PestControl";
 import MyGardenPage from "@/pages/MyGarden";
 import GuidesPage from "@/pages/Guides";
@@ -85,6 +86,7 @@ function AppShell() {
           <Route path="/recipes" element={<RecipesPage />} />
           <Route path="/bouquet" element={<BouquetPage />} />
           <Route path="/ask/popular" element={<AskPopularPage />} />
+          <Route path="/ask/popular/:slug" element={<AskPopularQuestionPage />} />
           <Route path="/pests" element={<PestControlPage />} />
           <Route path="/garden" element={<MyGardenPage />} />
           <Route path="/guides" element={<GuidesPage />} />

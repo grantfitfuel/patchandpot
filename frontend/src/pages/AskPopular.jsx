@@ -222,6 +222,15 @@ function QuestionCard({ row, open, onToggle, t }) {
               {row.answer}
             </div>
           </div>
+          {row.slug && (
+            <Link
+              to={`/ask/popular/${row.slug}`}
+              className="mt-3 inline-block text-xs text-terracotta hover:underline"
+              data-testid={`askpop-permalink-${row.key}`}
+            >
+              {t("askpop.permalink")} →
+            </Link>
+          )}
         </div>
       )}
     </article>

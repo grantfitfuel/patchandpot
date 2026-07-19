@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Stellen Sie Ihre eigene Frage",
   "askpop.cta.blurb": "Mitglieder können Nàdar bis zu 7 Fragen pro Tag stellen, Fotos zur Pflanzenbestimmung oder Schädlingserkennung hochladen und das Thema jederzeit wieder aufnehmen.",
   "askpop.cta.button": "Mitglied werden",
+  "askpop.permalink": "Öffne diese Frage auf ihrer eigenen Seite",
+  "askpop.single.back": "Zurück zu allen Fragen",
+  "askpop.single.not_found_title": "Frage nicht gefunden",
+  "askpop.single.not_found_blurb": "Diese Frage wurde möglicherweise entfernt oder wurde noch nicht oft genug gestellt, um öffentlich angezeigt zu werden. Durchsuchen Sie stattdessen die vollständige Liste der häufigsten Fragen.",
 };
 export default dict;

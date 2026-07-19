@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "Magtanong ng sarili mong tanong",
   "askpop.cta.blurb": "Maaaring magtanong ang mga miyembro kay Nàdar ng hanggang 7 tanong sa isang araw, mag-upload ng mga larawan para sa pagtukoy ng halaman o diagnosis ng peste, at muling kunin ang thread kahit kailan nila gusto.",
   "askpop.cta.button": "Maging miyembro",
+  "askpop.permalink": "Buksan ang tanong na ito sa sariling pahina",
+  "askpop.single.back": "Bumalik sa lahat ng tanong",
+  "askpop.single.not_found_title": "Tanong hindi natagpuan",
+  "askpop.single.not_found_blurb": "Maaaring natanggal na ang tanong na ito o hindi pa ito nahihiling nang sapat na beses upang lumabas nang publiko. Tingnan na lang ang buong listahan ng karaniwang tanong.",
 };
 export default dict;

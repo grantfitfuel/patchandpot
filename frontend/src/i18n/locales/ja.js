@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "自分の質問を聞く",
   "askpop.cta.blurb": "会員はNàdarに1日に最大7つの質問を尋ねられ、植物の特定や害虫の診断のために写真をアップロードし、好きなときにスレッドを再開できます。",
   "askpop.cta.button": "会員になる",
+  "askpop.permalink": "この質問を独自のページで開く",
+  "askpop.single.back": "すべての質問に戻る",
+  "askpop.single.not_found_title": "質問が見つかりません",
+  "askpop.single.not_found_blurb": "この質問は削除されたか、まだ十分な回数尋ねられていないため、公開されていない可能性があります。代わりに、一般的な質問のリスト全体を閲覧してください。",
 };
 export default dict;

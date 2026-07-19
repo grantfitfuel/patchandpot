@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Pune propria întrebare",
   "askpop.cta.blurb": "Membrii pot pune lui Nàdar până la 7 întrebări pe zi, încărca fotografii pentru identificarea plantelor sau diagnosticul dăunătorilor și pot relua firul de discuție ori de câte ori doresc.",
   "askpop.cta.button": "Devino membru",
+  "askpop.permalink": "Deschide această întrebare pe propria pagină",
+  "askpop.single.back": "Înapoi la toate întrebările",
+  "askpop.single.not_found_title": "Întrebare negăsită",
+  "askpop.single.not_found_blurb": "Această întrebare ar fi putut fi eliminată sau nu a fost întrebată suficient de multe ori pentru a apărea public. Răsfoiește întreaga listă de întrebări frecvente în schimb.",
 };
 export default dict;

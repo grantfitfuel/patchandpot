@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Staqsi mistoqsija tiegħek",
   "askpop.cta.blurb": "Il-membri jistgħu jistaqsu lil Nàdar sa 7 mistoqsijiet kuljum, jgħollu ritratti għal identifikazzjoni tal-pjanta jew dijanjosi tal-ġemm, u jerġgħu jkomplu l-thread meta riedu.",
   "askpop.cta.button": "Is-siġra membru",
+  "askpop.permalink": "Aħbar din il-mistoqsija fuq il-paġna tagħha stess",
+  "askpop.single.back": "Lura għall-mistoqsijiet kollha",
+  "askpop.single.not_found_title": "Mistoqsija ma nstabetx",
+  "askpop.single.not_found_blurb": "Din il-mistoqsija jista' tkun ġiet imħassra jew għadha ma ġietx staqsija biżżejjed biex tidher pubblikkament. Iċċekkja l-lista sħiħa tal-mistoqsijiet komuni minflok.",
 };
 export default dict;

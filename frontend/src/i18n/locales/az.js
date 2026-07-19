@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Öz sualınızı verin",
   "askpop.cta.blurb": "İştirakçılar Nàdar-a gündə 7 sual verə bilər, bitki tanıma və ya zərərli orqanizmlərin diaqnozu üçün şəkil yükləyə bilər və istədikləri vaxt müzakirəyə qayıda bilərlər.",
   "askpop.cta.button": "İştirakçı olun",
+  "askpop.permalink": "Bu sualı öz səhifəsində aç",
+  "askpop.single.back": "Bütün suallara geri",
+  "askpop.single.not_found_title": "Sual tapılmadı",
+  "askpop.single.not_found_blurb": "Bu sual silinmiş ola bilər və ya hələ kifayət qədər dəfə soruşulmamışdır ki, ictimai şəkildə görünsün. Bunun əvəzinə tam ümumi suallar siyahısını gözdən keçirin.",
 };
 export default dict;

@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Tedd fel a saját kérdésedet",
   "askpop.cta.blurb": "A tagok naponta akár 7 kérdést is feltehetnek Nàdarnak, feltölthetnek fényképeket a növény azonosításához vagy kártevő diagnózishoz, és bármikor visszatérhetnek a témához.",
   "askpop.cta.button": "Legyél tag",
+  "askpop.permalink": "Nyissa meg ezt a kérdést saját oldalon",
+  "askpop.single.back": "Vissza az összes kérdéshez",
+  "askpop.single.not_found_title": "A kérdés nem található",
+  "askpop.single.not_found_blurb": "Lehetséges, hogy ezt a kérdést eltávolították, vagy még nem kérdezték meg elégszer ahhoz, hogy nyilvánosan megjelenjen. Használja a teljes gyakori kérdések listát helyette.",
 };
 export default dict;

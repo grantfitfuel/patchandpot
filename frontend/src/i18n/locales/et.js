@@ -992,5 +992,9 @@ const dict = {
   "askpop.cta.title": "Küsi oma küsimust",
   "askpop.cta.blurb": "Liikmed saavad Nàdarilt küsida kuni 7 küsimust päevas, üles laadida fotosid taime tuvastamiseks või kahjurite määramiseks ning alustada teemat uuesti, kui soovivad.",
   "askpop.cta.button": "Saa liikmeks",
+  "askpop.permalink": "Avage see küsimus oma lehelt",
+  "askpop.single.back": "Tagasi kõigi küsimuste juurde",
+  "askpop.single.not_found_title": "Küsimust ei leitud",
+  "askpop.single.not_found_blurb": "See küsimus võib olla eemaldatud või pole seda piisavalt kordi küsitud, et avalikult näidata. Sirvige selle asemel täielikku levinud küsimuste loendit.",
 };
 export default dict;

@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Kysy oma kysymyksesi",
   "askpop.cta.blurb": "Jäsenet voivat kysyä Nàdarelta jopa 7 kysymystä päivässä, ladata valokuvia kasvin tunnistamiseksi tai tuholaisdiagnoosiksi ja jatkaa keskustelua milloin tahansa.",
   "askpop.cta.button": "Liity jäseneksi",
+  "askpop.permalink": "Avaa tämä kysymys omalla sivullaan",
+  "askpop.single.back": "Takaisin kaikkiin kysymyksiin",
+  "askpop.single.not_found_title": "Kysymystä ei löytynyt",
+  "askpop.single.not_found_blurb": "Tämä kysymys on voinut tulla poistettua tai sitä ei ole vielä kysytty tarpeeksi monta kertaa, että se näkyisi julkisesti. Selaa sen sijaan koko yleisten kysymysten luetteloa.",
 };
 export default dict;

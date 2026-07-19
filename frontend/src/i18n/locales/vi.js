@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Hãy hỏi câu hỏi của riêng bạn",
   "askpop.cta.blurb": "Các thành viên có thể hỏi Nàdar tối đa 7 câu hỏi mỗi ngày, tải lên ảnh để nhận diện cây hoặc chẩn đoán sâu bệnh, và tiếp tục thảo luận bất cứ lúc nào họ thích.",
   "askpop.cta.button": "Trở thành thành viên",
+  "askpop.permalink": "Mở câu hỏi này trên trang riêng",
+  "askpop.single.back": "Quay lại tất cả câu hỏi",
+  "askpop.single.not_found_title": "Không tìm thấy câu hỏi",
+  "askpop.single.not_found_blurb": "Câu hỏi này có thể đã bị xóa hoặc chưa được hỏi đủ nhiều lần để xuất hiện công khai. Hãy duyệt danh sách câu hỏi thường gặp đầy đủ thay vào đó.",
 };
 export default dict;

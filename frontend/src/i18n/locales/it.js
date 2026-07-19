@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Fai la tua domanda",
   "askpop.cta.blurb": "I membri possono porre a Nàdar fino a 7 domande al giorno, caricare foto per l'identificazione delle piante o la diagnosi dei parassiti, e riprendere la conversazione quando vogliono.",
   "askpop.cta.button": "Diventa un membro",
+  "askpop.permalink": "Apri questa domanda nella sua pagina",
+  "askpop.single.back": "Torna a tutte le domande",
+  "askpop.single.not_found_title": "Domanda non trovata",
+  "askpop.single.not_found_blurb": "Questa domanda potrebbe essere stata rimossa oppure non è stata ancora posta abbastanza volte per apparire pubblicamente. Consulta invece l'elenco completo delle domande comuni.",
 };
 export default dict;

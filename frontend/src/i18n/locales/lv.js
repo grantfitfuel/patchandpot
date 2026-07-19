@@ -991,5 +991,9 @@ const dict = {
   "askpop.cta.title": "Uzdodiet savu jautājumu",
   "askpop.cta.blurb": "Biedri var uzdot Nàdar līdz 7 jautājumiem dienā, augšupielādēt fotogrāfijas auga identifikācijai vai kaitēkļu diagnostikai un atkal atsākt diskusiju, kad vien vēlas.",
   "askpop.cta.button": "Kļūt par biedru",
+  "askpop.permalink": "Atvērt šo jautājumu tās pašas lapas",
+  "askpop.single.back": "Atpakaļ uz visiem jautājumiem",
+  "askpop.single.not_found_title": "Jautājums netika atrasts",
+  "askpop.single.not_found_blurb": "Šis jautājums varētu būt izdzēsts vai vēl nav uzdots pietiekami daudz reižu, lai parādītos publiski. Apskatiet pilnu biežo jautājumu sarakstu.",
 };
 export default dict;

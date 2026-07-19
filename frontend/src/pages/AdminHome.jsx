@@ -7,7 +7,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
-  Globe2, BarChart3, Sparkles, GitBranch, DollarSign, LogOut, ExternalLink,
+  Globe2, BarChart3, Sparkles, GitBranch, DollarSign, LogOut, ExternalLink, ShieldCheck,
 } from "lucide-react";
 import AdminTokenGate, { useAdminToken } from "@/components/AdminTokenGate";
 
@@ -22,6 +22,8 @@ const CARDS = [
     blurb: "Turn popular AI-generated plant guides into permanent curated ones." },
   { to: "/admin/referrals",   icon: GitBranch,  title: "Referral attribution",
     blurb: "Which embeds, blogs and deep links actually convert to paid checkouts." },
+  { to: "/admin/ask-review",  icon: ShieldCheck, title: "Ask Nàdar review queue",
+    blurb: "Approve or permanent-hide answers flagged by refusal filters or down-votes." },
 ];
 
 export default function AdminHomePage() {

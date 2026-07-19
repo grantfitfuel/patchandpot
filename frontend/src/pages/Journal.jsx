@@ -1,29 +1,32 @@
 /**
- * /journal — Nàdar Journal.
+ * /journal — Nàdar Journal with pinning + plant tagging.
  *
  * Members-only. Pulls every session + message the user has ever had
- * with Nàdar and lays them out as a chronological garden notebook.
- * All the data already exists in `ask_sessions` + `ask_messages` —
- * this is a new READ view, not new storage.
+ * with Nàdar. Overlay of per-entry metadata (pin + tag) is fetched
+ * separately from /api/ask/journal/meta and merged in.
  *
- * Client-side search across question + answer, sorted newest-first
- * with a "grouped by date" affordance. Each Q&A card shows the
- * question, the date, and the answer in `whitespace-pre-wrap`.
+ * Pins float to the top. Client-side search across question + answer.
+ * Tag is a free-form string; frontend surfaces My-Garden plant names
+ * as suggestions in a native <datalist>.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Calendar, MessageCircle, Search, X, Sparkles, ArrowRight } from "lucide-react";
+import { BookOpen, Calendar, MessageCircle, Search, X, Sparkles, ArrowRight, Pin, PinOff, Tag } from "lucide-react";
 import axios from "axios";
 import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
+import { useMyGarden } from "@/hooks/useMyGarden";
 
 export default function JournalPage() {
   const { t } = useI18n();
   const { paid } = usePaywall();
-  const [entries, setEntries] = useState([]); // [{date, question, answer, session_id}]
+  const { plants: gardenPlants } = useMyGarden();
+  const [entries, setEntries] = useState([]); // [{date, question, answer, session_id, id}]
+  const [meta, setMeta] = useState({});       // { [user_message_id]: {pinned, tag} }
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
+  const [tagFilter, setTagFilter] = useState("");
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -39,10 +42,19 @@ export default function JournalPage() {
 
     (async () => {
       try {
-        const sessRes = await axios.get(`${API}/ask/sessions`, { params: { access_token: token } });
+        const [sessRes, metaRes] = await Promise.all([
+          axios.get(`${API}/ask/sessions`, { params: { access_token: token } }),
+          axios.get(`${API}/ask/journal/meta`, { params: { access_token: token } })
+            .catch(() => ({ data: { meta: [] } })),
+        ]);
         const sessions = sessRes.data || [];
+        const metaRows = metaRes.data?.meta || [];
+        const metaMap = {};
+        for (const m of metaRows) {
+          metaMap[m.user_message_id] = { pinned: !!m.pinned, tag: m.tag || "" };
+        }
+        setMeta(metaMap);
         const all = [];
-        // Fetch messages for each session in parallel (small N)
         await Promise.all(sessions.map(async (s) => {
           try {
             const msgRes = await axios.get(`${API}/ask/sessions/${s.id}/messages`, { params: { access_token: token } });
@@ -72,14 +84,67 @@ export default function JournalPage() {
     })();
   }, [paid]);
 
+  const updateMeta = useCallback(async (entry, patch) => {
+    const token = getStoredAccessToken();
+    if (!token) return;
+    // Optimistic UI so the user sees the change instantly.
+    setMeta((m) => ({
+      ...m,
+      [entry.id]: { ...(m[entry.id] || {}), ...patch },
+    }));
+    try {
+      await axios.post(`${API}/ask/journal/meta`, {
+        user_message_id: entry.id,
+        session_id: entry.session_id,
+        ...patch,
+      }, { params: { access_token: token } });
+    } catch (_e) {
+      // Roll back on failure — not fatal, but keeps state honest.
+      setMeta((m) => {
+        const copy = { ...m };
+        delete copy[entry.id];
+        return copy;
+      });
+    }
+  }, []);
+
+  const togglePin = (entry) => {
+    const cur = meta[entry.id]?.pinned || false;
+    updateMeta(entry, { pinned: !cur });
+  };
+
+  const setTag = (entry, tag) => {
+    updateMeta(entry, { tag });
+  };
+
+  const allTags = useMemo(() => {
+    const s = new Set();
+    Object.values(meta).forEach((m) => { if (m.tag) s.add(m.tag); });
+    gardenPlants.forEach((p) => { if (p.name) s.add(p.name); });
+    return [...s].sort();
+  }, [meta, gardenPlants]);
+
   const filtered = useMemo(() => {
-    if (!query.trim()) return entries;
-    const q = query.trim().toLowerCase();
-    return entries.filter((e) =>
-      (e.question || "").toLowerCase().includes(q) ||
-      (e.answer || "").toLowerCase().includes(q)
-    );
-  }, [entries, query]);
+    let rows = entries;
+    if (tagFilter) {
+      rows = rows.filter((e) => (meta[e.id]?.tag || "") === tagFilter);
+    }
+    if (query.trim()) {
+      const q = query.trim().toLowerCase();
+      rows = rows.filter((e) =>
+        (e.question || "").toLowerCase().includes(q) ||
+        (e.answer || "").toLowerCase().includes(q) ||
+        (meta[e.id]?.tag || "").toLowerCase().includes(q)
+      );
+    }
+    // Pinned first (stable within group).
+    return [...rows].sort((a, b) => {
+      const pa = meta[a.id]?.pinned ? 1 : 0;
+      const pb = meta[b.id]?.pinned ? 1 : 0;
+      if (pa !== pb) return pb - pa;
+      return 0;
+    });
+  }, [entries, query, meta, tagFilter]);
 
   if (!paid) {
     return (
@@ -95,33 +160,58 @@ export default function JournalPage() {
     );
   }
 
+  const pinnedCount = Object.values(meta).filter((m) => m.pinned).length;
+
   return (
     <div className="container-narrow py-12 md:py-16 max-w-3xl animate-fade-up">
       <div className="mb-8">
         <p className="overline">{t("journal.eyebrow")}</p>
         <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("journal.title")}</h1>
         <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{t("journal.intro")}</p>
+        {pinnedCount > 0 && (
+          <p className="mt-3 text-xs text-moss inline-flex items-center gap-1.5" data-testid="journal-pinned-count">
+            <Pin strokeWidth={1.5} className="w-3.5 h-3.5 text-terracotta" fill="currentColor" />
+            {pinnedCount} pinned
+          </p>
+        )}
       </div>
 
-      <div className="mb-8 relative max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-moss" strokeWidth={1.6} />
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={t("journal.search_placeholder")}
-          data-testid="journal-search"
-          className="w-full border border-border/70 rounded pl-9 pr-9 py-2 text-sm focus:outline-none focus:border-forest/50 bg-white"
-        />
-        {query && (
-          <button
-            type="button"
-            onClick={() => setQuery("")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-moss hover:text-terracotta"
-            data-testid="journal-search-clear"
+      <datalist id="journal-tag-suggestions">
+        {allTags.map((t) => <option key={t} value={t} />)}
+      </datalist>
+
+      <div className="mb-8 flex flex-wrap gap-3 items-center">
+        <div className="relative flex-1 min-w-[220px] max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-moss" strokeWidth={1.6} />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t("journal.search_placeholder")}
+            data-testid="journal-search"
+            className="w-full border border-border/70 rounded pl-9 pr-9 py-2 text-sm focus:outline-none focus:border-forest/50 bg-white"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-moss hover:text-terracotta"
+              data-testid="journal-search-clear"
+            >
+              <X className="w-4 h-4" strokeWidth={1.8} />
+            </button>
+          )}
+        </div>
+        {allTags.length > 0 && (
+          <select
+            value={tagFilter}
+            onChange={(e) => setTagFilter(e.target.value)}
+            data-testid="journal-tag-filter"
+            className="border border-border/70 rounded px-2 py-2 text-sm bg-white text-ink"
           >
-            <X className="w-4 h-4" strokeWidth={1.8} />
-          </button>
+            <option value="">All tags</option>
+            {allTags.map((tg) => <option key={tg} value={tg}>{tg}</option>)}
+          </select>
         )}
       </div>
 
@@ -137,23 +227,59 @@ export default function JournalPage() {
       )}
 
       <div className="space-y-6" data-testid="journal-list">
-        {filtered.map((e) => (
-          <article key={e.id} className="card-flat p-5" data-testid={`journal-entry-${e.id}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <Calendar strokeWidth={1.6} className="w-3.5 h-3.5 text-moss" />
-              <span className="text-[0.65rem] uppercase tracking-widest text-moss/80">
-                {formatDate(e.date)}
-              </span>
-            </div>
-            <p className="font-serif text-xl text-forest leading-snug">{e.question}</p>
-            {e.answer && (
-              <div className="mt-4 flex gap-3">
-                <MessageCircle strokeWidth={1.4} className="w-4 h-4 text-forest flex-shrink-0 mt-1" />
-                <div className="text-sm text-ink/85 leading-relaxed whitespace-pre-wrap flex-1">{e.answer}</div>
+        {filtered.map((e) => {
+          const m = meta[e.id] || {};
+          const pinned = !!m.pinned;
+          return (
+            <article
+              key={e.id}
+              className={`card-flat p-5 relative ${pinned ? "border-terracotta/40 ring-1 ring-terracotta/10" : ""}`}
+              data-testid={`journal-entry-${e.id}`}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <Calendar strokeWidth={1.6} className="w-3.5 h-3.5 text-moss" />
+                <span className="text-[0.65rem] uppercase tracking-widest text-moss/80">
+                  {formatDate(e.date)}
+                </span>
+                {m.tag && (
+                  <span className="ml-1 inline-flex items-center gap-1 text-[0.65rem] uppercase tracking-widest text-terracotta bg-terracotta/10 px-1.5 py-0.5" data-testid={`journal-tag-badge-${e.id}`}>
+                    <Tag strokeWidth={1.8} className="w-3 h-3" />
+                    {m.tag}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => togglePin(e)}
+                  data-testid={`journal-pin-${e.id}`}
+                  className="ml-auto text-moss hover:text-terracotta transition-colors"
+                  aria-label={pinned ? "Unpin entry" : "Pin entry"}
+                  title={pinned ? "Unpin" : "Pin to top"}
+                >
+                  {pinned ? (
+                    <Pin strokeWidth={1.6} className="w-4 h-4 text-terracotta" fill="currentColor" />
+                  ) : (
+                    <PinOff strokeWidth={1.6} className="w-4 h-4" />
+                  )}
+                </button>
               </div>
-            )}
-          </article>
-        ))}
+
+              <p className="font-serif text-xl text-forest leading-snug">{e.question}</p>
+
+              {e.answer && (
+                <div className="mt-4 flex gap-3">
+                  <MessageCircle strokeWidth={1.4} className="w-4 h-4 text-forest flex-shrink-0 mt-1" />
+                  <div className="text-sm text-ink/85 leading-relaxed whitespace-pre-wrap flex-1">{e.answer}</div>
+                </div>
+              )}
+
+              <TagEditor
+                entryId={e.id}
+                initial={m.tag || ""}
+                onSave={(v) => setTag(e, v)}
+              />
+            </article>
+          );
+        })}
       </div>
 
       <section className="mt-16 border-t border-border pt-10">
@@ -170,6 +296,68 @@ export default function JournalPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+/**
+ * Inline tag editor. Uses a shared <datalist id="journal-tag-suggestions">
+ * (rendered once at page level) so users get autocomplete on their own
+ * My-Garden plant names + any tag they've used before. Free-text values
+ * are also accepted — the datalist is suggestion-only.
+ */
+function TagEditor({ entryId, initial, onSave }) {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(initial);
+  useEffect(() => { setValue(initial); }, [initial]);
+
+  if (!editing) {
+    return (
+      <button
+        type="button"
+        onClick={() => setEditing(true)}
+        data-testid={`journal-tag-edit-${entryId}`}
+        className="mt-4 text-[0.65rem] uppercase tracking-widest text-moss hover:text-terracotta inline-flex items-center gap-1"
+      >
+        <Tag strokeWidth={1.6} className="w-3 h-3" />
+        {initial ? "Edit tag" : "Add plant tag"}
+      </button>
+    );
+  }
+  return (
+    <form
+      className="mt-4 flex items-center gap-2"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSave(value.trim());
+        setEditing(false);
+      }}
+    >
+      <Tag strokeWidth={1.6} className="w-3.5 h-3.5 text-moss" />
+      <input
+        type="text"
+        autoFocus
+        list="journal-tag-suggestions"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Tomato, roses, courgette…"
+        data-testid={`journal-tag-input-${entryId}`}
+        className="border border-border rounded px-2 py-1 text-xs bg-white focus:outline-none focus:border-forest/50 min-w-[160px]"
+      />
+      <button
+        type="submit"
+        data-testid={`journal-tag-save-${entryId}`}
+        className="text-[0.65rem] uppercase tracking-widest text-forest hover:text-terracotta"
+      >
+        Save
+      </button>
+      <button
+        type="button"
+        onClick={() => { setValue(initial); setEditing(false); }}
+        className="text-[0.65rem] uppercase tracking-widest text-moss hover:text-terracotta"
+      >
+        Cancel
+      </button>
+    </form>
   );
 }
 

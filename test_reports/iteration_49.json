@@ -1,0 +1,40 @@
+{
+  "summary": "Iteration 49 — validated all three shipped features: (1) Admin Ask Review Queue backend + UI, (2) Journal pinning/tagging backend + UI, (3) i18n key presence across sample locales. 14/14 backend pytest cases pass, all frontend flows work end-to-end. Original pending-review DB entry ('how do i prune tomatoes') left untouched — decision cycle tests use a seeded TEST_ key.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_ask_review_journal_iter49.py",
+    "/app/test_reports/pytest/iter49_results.xml"
+  ],
+  "action_items": [
+    "MINOR i18n leak: /app/frontend/src/i18n/locales/ka.js line 1006 has `\"feedback.prompt\": \"Was this helpful?\"` — untranslated English string in Georgian locale. All other 56 non-EN locales are properly translated for this key. Suggest translating to Georgian (e.g. 'ეს დაგეხმარათ?').",
+    "OPTIONAL enhancement: Journal.jsx has hardcoded English strings in the TagEditor (`Add plant tag`, `Edit tag`, `Save`, `Cancel`, `Tomato, roses, courgette…`) and on the paid page (`{n} pinned`, `Unpin entry`, `Pin to top`, `Unpin`). These bypass the i18n system. Not blocking (English is a valid fallback and 28-key sweep target keys are all present) but a follow-up sweep should add journal.pin/journal.unpin/journal.tag_add/journal.tag_edit/journal.tag_save/journal.tag_cancel/journal.tag_placeholder/journal.pinned_count keys."
+  ],
+  "critical_code_review_comments": [
+    "ADMIN AUTH SHAPE INCONSISTENCY: /api/admin/ask/pending-review + /api/admin/ask/review/{key} accept `token` as a QUERY-STRING param (require_admin(token)). The frontend uses axios params: { token } so it lands in the URL. Sending an admin bearer via query string appears in access logs, browser history, and referrer headers — a mild secret-hygiene concern. Consider header-based (X-Admin-Token) auth or POST body across all admin endpoints going forward.",
+    "OWNERSHIP CHECK ORDER in POST /api/ask/journal/meta (routers/ask.py:465-476): the code first checks `ask_sessions` ownership, then checks the message belongs to that session — but does NOT verify the message's `role == 'user'` will actually match when it's the SAME user message id owned by another session. Not exploitable in practice (session-scoped ids), but the docstring says 'be a user turn' — the check enforces role='user' via the query, which is fine. Minor: return 403 rather than 404 when session belongs to another token, so callers can distinguish 'never existed' from 'not yours' — right now both are 404 which is standard practice, so this is a style nit.",
+    "AdminAskReview.jsx doesn't gracefully handle the case where a decide() call returns a network error mid-flight — the entry stays in the UI (not removed) but `busy` clears; user can retry, which is fine, but the toast surfaces the raw error message which could be a long stringified Axios error. Consider a friendlier fallback.",
+    "Journal.jsx pin/tag UI mutations are optimistic-only when the API succeeds — no local rollback if the POST /api/ask/journal/meta returns non-2xx. The updateMeta path (not shown here) should guard against a failed write so the visual pin state doesn't drift from the DB.",
+    "Test residue risk: the module-scoped seeded_session fixture creates ask_sessions/ask_messages/ask_journal_meta rows via pymongo but only cleans up at yield-teardown. If a test crashes hard between yield and teardown, TEST_ artefacts linger. Consider a session-level `autouse=True` autotouch fixture that wipes `{id: /^TEST_/}` at session start AND end."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_ask_review_journal_iter49.py (new — 14 tests)"
+  ],
+  "success_rate": {
+    "backend": "100% (14/14)",
+    "frontend": "100% — admin queue page, admin card link, journal paywall CTA, journal entry, pin toggle, tag add/save/badge, tag filter dropdown all verified"
+  },
+  "test_credentials": "Admin token: patchpot-admin-d3f8a2b9c4 (query param `?token=…`). Paid access token: test-token-pdf-smoke (seeded in access_grants). Frontend paid-user simulation: localStorage.setItem('patchpot.access.v1','test-token-pdf-smoke') + localStorage.setItem('patchpot.access.paid.v1','1').",
+  "seed_data_creation": "Backend tests: seed then clean up TEST_ prefixed ask_sessions/ask_messages/ask_cache/ask_journal_meta rows within their own scope. Frontend UI test: seeded 'TEST_journal_sess_ui' with one user + assistant message pair; also cleaned up post-run. No lingering artefacts in DB (verified 0 TEST_ rows post-test).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Regression test file at /app/backend/tests/test_ask_review_journal_iter49.py covers admin queue + journal meta + cascade delete in ~2.5s. All fixtures use sync pymongo (motor+asyncio.run causes 'Event loop is closed' across tests — do NOT switch back to motor here). The pending-review DB has ONE real entry (key=70392868508b7eb486d6c9a2, 'how do i prune tomatoes') seeded from production traffic — tests deliberately avoid mutating it so the admin queue always has a demo row. If future tests need to hide that key, restore via `db.ask_cache.update_one({key: '70392868508b7eb486d6c9a2'}, {$set: {hidden: False, pending_review: True}})`. i18n verification: 3 sample keys (topics.eyebrow, journal.title, feedback.prompt) verified across all 57 non-EN locales — one English-copy leak found in ka.js/feedback.prompt.",
+  "rca of the issue": "n/a — feature validation only, no bugs to RCA. Only follow-ups are (a) ka.js feedback.prompt translation gap and (b) hardcoded English strings in Journal.jsx pinning/tagging chrome (see action_items)."
+}

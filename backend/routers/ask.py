@@ -417,7 +417,80 @@ def make_router(db) -> APIRouter:
             raise HTTPException(404, "Session not found.")
         await db.ask_messages.delete_many({"session_id": session_id})
         await db.ask_sessions.delete_one({"id": session_id, "access_token": token})
+        # Wipe any journal metadata (pins / tags) tied to those messages.
+        await db.ask_journal_meta.delete_many(
+            {"access_token": token, "session_id": session_id}
+        )
         return {"deleted": True}
+
+    # ── Journal metadata: pinning + plant tags ─────────────────────────
+    # Stored in a small side collection keyed on (access_token, user_message_id)
+    # so we never mutate the immutable ask_messages transcript. Unlimited
+    # pins per member. Tag is a free-form string (frontend surfaces My-Garden
+    # plant names as suggestions but the user can type anything). Empty tag
+    # means "no tag".
+
+    class JournalMetaIn(BaseModel):
+        user_message_id: str
+        session_id: str
+        pinned: Optional[bool] = None
+        tag: Optional[str] = None  # None = leave unchanged; "" = clear
+
+    @router.get("/ask/journal/meta")
+    async def get_journal_meta(response: Response, access_token: str = ""):
+        """Return every {user_message_id, pinned, tag} row for the caller's
+        token so the Journal page can render pins and tags in a single
+        round-trip. Pins-only, tags-only, or empty rows all live here."""
+        token = await _guard(access_token)
+        for k, v in _NO_STORE.items():
+            response.headers[k] = v
+        cursor = db.ask_journal_meta.find(
+            {"access_token": token},
+            {"_id": 0, "user_message_id": 1, "pinned": 1, "tag": 1,
+             "updated_at": 1},
+        )
+        rows = [r async for r in cursor]
+        return {"count": len(rows), "meta": rows}
+
+    @router.post("/ask/journal/meta")
+    async def upsert_journal_meta(body: JournalMetaIn, access_token: str = ""):
+        """Upsert pin/tag metadata for one journal entry. Both `pinned`
+        and `tag` are optional; passing None leaves the current value
+        alone (partial update). Verifies the message actually belongs
+        to the caller before writing anything."""
+        token = await _guard(access_token)
+        # Ownership check: the session must belong to this token, and the
+        # message must belong to that session and be a user turn. Cheap
+        # two-lookup guard — journal is not a hot path.
+        sess = await db.ask_sessions.find_one(
+            {"id": body.session_id, "access_token": token},
+            {"_id": 1},
+        )
+        if not sess:
+            raise HTTPException(404, "Session not found.")
+        msg = await db.ask_messages.find_one(
+            {"id": body.user_message_id, "session_id": body.session_id, "role": "user"},
+            {"_id": 1},
+        )
+        if not msg:
+            raise HTTPException(404, "Message not found.")
+
+        set_fields: dict = {"updated_at": datetime.now(timezone.utc).isoformat()}
+        if body.pinned is not None:
+            set_fields["pinned"] = bool(body.pinned)
+        if body.tag is not None:
+            set_fields["tag"] = (body.tag or "").strip()[:60]
+        await db.ask_journal_meta.update_one(
+            {"access_token": token, "user_message_id": body.user_message_id},
+            {"$set": set_fields,
+             "$setOnInsert": {"session_id": body.session_id}},
+            upsert=True,
+        )
+        row = await db.ask_journal_meta.find_one(
+            {"access_token": token, "user_message_id": body.user_message_id},
+            {"_id": 0, "user_message_id": 1, "pinned": 1, "tag": 1},
+        )
+        return {"ok": True, "row": row}
 
     @router.get("/ask/audit")
     async def ask_audit(response: Response, access_token: str = ""):

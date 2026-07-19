@@ -3,7 +3,7 @@ cron also runs, plus the one-shot image prewarmer."""
 import logging
 import uuid
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from cache_refresh import get_cron_status, refresh_monthly_guidance
 from core import FLOWER_PORTRAITS, Region, make_cached_image
@@ -140,6 +140,53 @@ def register_maintenance_routes(router: APIRouter, db) -> None:
         row = await db.ask_cache.find_one(
             {"key": key},
             {"_id": 0, "key": 1, "question_normalized": 1, "hidden": 1, "hits": 1},
+        )
+        return {"ok": True, "row": row}
+
+    @router.get("/admin/ask/pending-review")
+    async def admin_ask_pending_review(token: str):
+        """Return every cache entry that was auto-flagged for a human look
+        (`pending_review: true`). These are answers that triggered the
+        heuristic filters (refusals / block-list) at save time OR were
+        auto-hidden by the down-vote threshold in vote_popular(). Each
+        entry ships with everything an admin needs to make a snap
+        decision — the full question, the full answer, hit count, and
+        the current hidden state — so no follow-up round-trips are
+        required. One-tap unhide / permanent-hide buttons live on the
+        frontend."""
+        require_admin(token)
+        cursor = db.ask_cache.find(
+            {"pending_review": True},
+            {"_id": 0, "key": 1, "question_normalized": 1, "answer": 1,
+             "hits": 1, "hidden": 1, "up_votes": 1, "down_votes": 1,
+             "first_asked_at": 1, "last_asked_at": 1},
+        ).sort("last_asked_at", -1).limit(200)
+        rows = [r async for r in cursor]
+        return {"count": len(rows), "entries": rows}
+
+    @router.post("/admin/ask/review/{key}")
+    async def admin_ask_review_decision(key: str, token: str, decision: str):
+        """Resolve a pending-review entry with a one-tap decision.
+        `decision=unhide`  → hidden=False, pending_review=False (approve, publish).
+        `decision=hide`    → hidden=True,  pending_review=False (permanent-hide).
+        Both options clear the review flag so the entry drops out of the
+        queue."""
+        require_admin(token)
+        if decision not in ("unhide", "hide"):
+            raise HTTPException(400, "decision must be 'unhide' or 'hide'")
+        result = await db.ask_cache.update_one(
+            {"key": key},
+            {"$set": {
+                "hidden": decision == "hide",
+                "pending_review": False,
+            }},
+        )
+        if result.matched_count == 0:
+            return {"ok": False, "reason": "key not found"}
+        row = await db.ask_cache.find_one(
+            {"key": key},
+            {"_id": 0, "key": 1, "question_normalized": 1,
+             "hidden": 1, "pending_review": 1, "hits": 1},
         )
         return {"ok": True, "row": row}
 

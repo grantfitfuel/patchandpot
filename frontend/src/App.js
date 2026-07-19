@@ -29,6 +29,7 @@ import CheckoutSuccess from "@/pages/CheckoutSuccess";
 import AdminAiUsagePage from "@/pages/AdminAiUsage";
 import AdminReferralsPage from "@/pages/AdminReferrals";
 import AdminAiSearchesPage from "@/pages/AdminAiSearches";
+import AdminAskReviewPage from "@/pages/AdminAskReview";
 import AdminGeoPage from "@/pages/AdminGeo";
 import AdminHomePage from "@/pages/AdminHome";
 import PatronsPage from "@/pages/Patrons";
@@ -113,6 +114,7 @@ function AppShell() {
           <Route path="/checkout/cancel" element={<Home />} />
           <Route path="/admin/ai-usage" element={<AdminAiUsagePage />} />
           <Route path="/admin/ai-searches" element={<AdminAiSearchesPage />} />
+          <Route path="/admin/ask-review" element={<AdminAskReviewPage />} />
           <Route path="/admin/referrals" element={<AdminReferralsPage />} />
           <Route path="/admin/geo" element={<AdminGeoPage />} />
           <Route path="/patrons" element={<PatronsPage />} />

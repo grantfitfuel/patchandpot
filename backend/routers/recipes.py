@@ -1,24 +1,40 @@
 """Recipes router.
 
-Currently exposes a single endpoint: `POST /api/recipes/{recipe_id}/image`
-which generates (or returns a cached) Nano-Banana AI food-photo image for
-one recipe. The recipe id + title + ingredient list are sent in the body
-so we don't have to maintain a Python-side copy of the recipe corpus —
-the frontend is the source of truth for /src/data/recipes.js.
+Two endpoints, working as a pair:
 
-The response shape mirrors PlantImage / PestImage:
-    {"image": "data:image/png;base64,...", "cached": true|false}
+    POST /api/recipes/{id}/image
+        body: { id, title, ingredients, method?, plating? }
+        → { image: "data:image/...", cached: true|false }
+
+    GET  /api/recipes/{id}/image.jpg
+        → raw image/jpeg with `Cache-Control: public, max-age=2592000, immutable`
+        → 404 if the image hasn't been generated yet (POST first)
+
+The GET endpoint is the one used by the browser `<img>` tag on `/recipes`,
+so once an image has been generated (cached in Mongo) the SAME url stays
+stable and every subsequent refresh hits the browser's HTTP cache —
+zero bandwidth AND zero Gemini cost on repeat visits.
+
+Recipe body is only required for the POST-warm call. That warm call is
+made once by the frontend when the GET 404s; after that it's pure GET.
 """
+import base64
 import logging
 import re
 import uuid
 
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import Response
 from pydantic import BaseModel, Field
 
 from core import make_cached_image
 
 logger = logging.getLogger(__name__)
+
+# One month — the recipe corpus is hand-curated + rarely changes, and if
+# we ever want to invalidate we can bump the recipe id or add a `?v=`
+# query param.
+_IMAGE_CACHE_CONTROL = "public, max-age=2592000, immutable"
 
 
 class RecipeImageRequest(BaseModel):
@@ -79,6 +95,40 @@ def make_router(db) -> APIRouter:
         )
         return await _cached_image(
             cache_key, prompt, session=f"recipe-img-{safe_id}-{uuid.uuid4()}"
+        )
+
+    @router.get("/{recipe_id}/image.jpg")
+    async def get_recipe_image(recipe_id: str):
+        """Serve the cached recipe image as raw bytes with a strong
+        Cache-Control header so browsers store it across refreshes.
+
+        Returns 404 if the image hasn't been generated yet — the frontend
+        will then POST to warm the cache and retry."""
+        safe_id = re.sub(r"[^a-z0-9-]+", "", recipe_id.lower())
+        if not safe_id or safe_id != recipe_id:
+            raise HTTPException(400, "Invalid recipe id")
+
+        cached = await db.image_cache.find_one(
+            {"key": f"recipe-image:{safe_id}"}, {"_id": 0, "image": 1}
+        )
+        if not cached:
+            raise HTTPException(404, "Image not yet generated")
+
+        # `image` is a data-URL: "data:image/jpeg;base64,....". Split into
+        # mime + payload, decode, return the raw bytes.
+        data_url = cached["image"]
+        try:
+            header, b64 = data_url.split(",", 1)
+            mime = header.split(":", 1)[1].split(";", 1)[0] or "image/jpeg"
+            body = base64.b64decode(b64)
+        except Exception as e:  # noqa: BLE001
+            logger.error("recipe image decode failed for %s: %s", safe_id, e)
+            raise HTTPException(500, "Cached image corrupt")
+
+        return Response(
+            content=body,
+            media_type=mime,
+            headers={"Cache-Control": _IMAGE_CACHE_CONTROL},
         )
 
     return router

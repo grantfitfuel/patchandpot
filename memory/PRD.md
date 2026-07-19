@@ -28,6 +28,29 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 62 (2026-07-19): ✅ — Recipe images: native browser cache across refreshes
+
+User said: **"Recipe images keep them in cache so they don't recost on refresh"** — worried each page refresh was re-downloading the ~1 MB base64 blobs (LLM cost was already zero on repeat via Mongo, but bandwidth cost was still recurring).
+
+**Backend** (`/app/backend/routers/recipes.py`)
+- Kept the existing `POST /api/recipes/{id}/image` for warming (needs the recipe body to build the prompt) — now used only when the GET 404s.
+- Added `GET /api/recipes/{id}/image.jpg` which reads the cached data-URL from Mongo, decodes the base64 back to raw bytes, and returns them as an `image/jpeg` `Response` with `Cache-Control: public, max-age=2592000, immutable`. 404 if not yet warmed.
+
+**Frontend** (`components/RecipeImage.jsx` — full rewrite)
+- Uses the GET url as `<img src>` directly instead of POSTing for a base64 JSON blob.
+- Placeholder now overlays the img via absolute-positioning instead of using `display:none` — the previous version was stopping the browser from fetching at all when combined with `loading="lazy"`.
+- On img-error (which will happen the first time a recipe image is ever requested), fires ONE warm POST with the full recipe body, then re-sets `src` with a `?v=<timestamp>` cache-buster to trigger a fresh GET. `tried` state guards against retry loops.
+
+**Cache stack (in production only — preview ingress strips Cache-Control)**
+1. Service worker RUNTIME_CACHE (stale-while-revalidate) — already caches all GET /api/* except the NEVER_CACHE prefixes.
+2. Browser HTTP cache — respects `public, max-age=2592000, immutable` for a full month.
+3. Mongo `image_cache` — still the source of truth for the generated JPEG bytes; survives server restarts and shared across all users.
+
+Verified via localhost:8001 that the origin serves the correct headers (`cache-control: public, max-age=2592000, immutable · content-type: image/jpeg · content-length: ~1 MB`) and that a fresh page load renders the golden-beet salad image correctly.
+
+**SW** bumped `v53 → v54`.
+
+
 ### Iteration 61 (2026-07-19): ✅ — Bouquet From Your Patch (with in-bloom confirmation)
 
 User picked: **"Bouquet From Your Patch: Add an in-bloom picker that arranges a bouquet from what you can cut right now and generates a watercolour share card"** and explicitly added: **"Rely on confirmation of what actually is in bloom"** — we do NOT guess from month/region; the user has to tick what's currently blooming.

@@ -1,32 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import { ChefHat } from "lucide-react";
-import { fetchRecipeImage } from "@/lib/api";
-
-const cache = new Map();
-const inflight = new Map();
+import axios from "axios";
+import { API } from "@/lib/api";
 
 /**
- * Recipe image with lazy loading via IntersectionObserver.
- * Generates via Nano Banana on first call; cached server-side in MongoDB
- * under the key `recipe-image:<id>` (see /app/backend/routers/recipes.py).
+ * Recipe image — lazy loaded, browser-cached across refreshes.
  *
- * The generation prompt is built server-side from the recipe title + a
- * shortlist of the first ingredients, so image quality is stable
- * regardless of what the client sends.
+ * Instead of POSTing for a base64 JSON blob on every mount (which the
+ * browser can never HTTP-cache), we point `<img src>` straight at
+ * `GET /api/recipes/{id}/image.jpg`. The server responds with raw JPEG
+ * bytes and `Cache-Control: public, max-age=2592000, immutable`, so the
+ * browser stores it natively and every refresh is 0 requests, 0 bytes,
+ * 0 Gemini cost.
+ *
+ * If the GET returns 404 (image not yet generated), we make a one-shot
+ * POST to warm the server cache, then swap the src to re-fetch. All
+ * subsequent visitors of the same recipe hit the cached bytes.
  */
 export default function RecipeImage({ recipe, className = "" }) {
-  const [src, setSrc] = useState(cache.get(recipe.id) || null);
-  const [loading, setLoading] = useState(false);
+  const baseUrl = `${API}/recipes/${recipe.id}/image.jpg`;
+  const [src, setSrc] = useState(null);
   const [inView, setInView] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [warming, setWarming] = useState(false);
+  const [tried, setTried] = useState(false); // one-shot warm guard
   const ref = useRef(null);
 
-  // Lazy-load on visibility
+  // Lazy-load via IntersectionObserver
   useEffect(() => {
-    if (src) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
-    }
+    if (typeof IntersectionObserver === "undefined") { setInView(true); return; }
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
@@ -40,63 +42,62 @@ export default function RecipeImage({ recipe, className = "" }) {
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [src]);
+  }, []);
 
-  // Auto-fetch when visible
+  // Kick off the actual image request once visible
   useEffect(() => {
-    if (!inView || src) return;
-    if (cache.has(recipe.id)) {
-      setSrc(cache.get(recipe.id));
-      return;
+    if (!inView) return;
+    setSrc(baseUrl);
+  }, [inView, baseUrl]);
+
+  // If the <img> load fails, assume the cache is cold — POST to warm
+  // then swap src with a cache-buster to re-request.
+  const handleError = async () => {
+    if (warming || tried) { setLoading(false); return; }
+    setTried(true);
+    setWarming(true);
+    try {
+      await axios.post(`${API}/recipes/${recipe.id}/image`, {
+        id: recipe.id,
+        title: recipe.title,
+        ingredients: recipe.ingredients,
+        method: recipe.method,
+        plating: recipe.plating,
+      }, { timeout: 90000 });
+      // Re-fetch the (now cached) image bytes.
+      setSrc(`${baseUrl}?v=${Date.now()}`);
+    } catch (_e) {
+      setLoading(false);
+    } finally {
+      setWarming(false);
     }
-    let cancelled = false;
-    setLoading(true);
-
-    let req = inflight.get(recipe.id);
-    if (!req) {
-      req = fetchRecipeImage(recipe)
-        .then((r) => r.image)
-        .finally(() => inflight.delete(recipe.id));
-      inflight.set(recipe.id, req);
-    }
-
-    req
-      .then((image) => {
-        if (cancelled) return;
-        cache.set(recipe.id, image);
-        setSrc(image);
-      })
-      .catch(() => {})
-      .finally(() => !cancelled && setLoading(false));
-
-    return () => {
-      cancelled = true;
-    };
-  }, [inView, recipe, src]);
+  };
 
   return (
     <div
       ref={ref}
-      className={`w-full h-full ${className}`}
+      className={`w-full h-full relative ${className}`}
       data-testid={`recipe-image-wrap-${recipe.id}`}
     >
-      {src ? (
+      {src && (
         <img
           src={src}
           alt={recipe.title}
           data-testid={`recipe-image-${recipe.id}`}
           className="object-cover w-full h-full"
-          loading="lazy"
+          onLoad={() => setLoading(false)}
+          onError={handleError}
         />
-      ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center bg-surface text-moss">
+      )}
+      {(!src || loading) && (
+        <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-surface text-moss">
           <ChefHat
             strokeWidth={1.2}
-            className={`w-8 h-8 ${loading ? "animate-pulse opacity-70" : "opacity-50"}`}
+            className={`w-8 h-8 ${(loading || warming) ? "animate-pulse opacity-70" : "opacity-50"}`}
           />
-          {loading && (
+          {(loading || warming) && (
             <span className="text-[11px] tracking-wider uppercase mt-3">
-              Plating…
+              {warming ? "Plating…" : "Loading…"}
             </span>
           )}
         </div>

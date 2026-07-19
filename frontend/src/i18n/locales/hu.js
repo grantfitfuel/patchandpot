@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Paradicsom, rózsák, cukkini…",
   "journal.tag_filter_all": "Összes címke",
   "nav.journal": "Napló",
+  "nav.topics": "Témák",
+  "nav.popular": "Gyakori kérdések",
 
 };
 export default dict;

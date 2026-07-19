@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Tómatar, rósir, grasker…",
   "journal.tag_filter_all": "Öll merki",
   "nav.journal": "Dagbók",
+  "nav.topics": "Efni",
+  "nav.popular": "Algengar",
 
 };
 export default dict;

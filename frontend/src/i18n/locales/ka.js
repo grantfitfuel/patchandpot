@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "პომიდვარი, ვარდები, ყვავილი…",
   "journal.tag_filter_all": "ყველა ტეგი",
   "nav.journal": "დღიური",
+  "nav.topics": "თემები",
+  "nav.popular": "შეკითხვები",
 
 };
 export default dict;

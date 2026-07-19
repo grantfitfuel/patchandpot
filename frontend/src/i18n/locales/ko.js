@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "토마토, 장미, 호박…",
   "journal.tag_filter_all": "모든 태그",
   "nav.journal": "일지",
+  "nav.topics": "주제",
+  "nav.popular": "자주 묻는 질문",
 
 };
 export default dict;

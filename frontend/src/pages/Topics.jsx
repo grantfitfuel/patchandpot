@@ -18,6 +18,7 @@ import { ArrowLeft, ArrowRight, Sparkles, HelpCircle, Layers } from "lucide-reac
 import axios from "axios";
 import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import NadarSurfacesNav from "@/components/NadarSurfacesNav";
 
 export function TopicsIndexPage() {
   const { t } = useI18n();
@@ -40,6 +41,7 @@ export function TopicsIndexPage() {
 
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
+      <NadarSurfacesNav active="topics" />
       <div className="mb-10 max-w-2xl">
         <p className="overline">{t("topics.eyebrow")}</p>
         <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">

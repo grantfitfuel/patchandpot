@@ -2,7 +2,7 @@
 // Caches the app shell + read-mostly content API responses so users can
 // pull up their region's guide even without connection.
 // Bump VERSION on any cache-invalidating release.
-const VERSION = "patchpot-v62";
+const VERSION = "patchpot-v64";
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 

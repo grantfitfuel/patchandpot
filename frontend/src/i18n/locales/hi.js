@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "टमाटर, गुलाब, कौरजेट…",
   "journal.tag_filter_all": "सभी टैग",
   "nav.journal": "जर्नल",
+  "nav.topics": "विषय",
+  "nav.popular": "प्रश्न",
 
 };
 export default dict;

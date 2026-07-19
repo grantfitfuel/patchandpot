@@ -1033,6 +1033,8 @@ const dict = {
   "journal.tag_placeholder": "Помідор, троянди, цукіні…",
   "journal.tag_filter_all": "Усі ярлики",
   "nav.journal": "Щоденник",
+  "nav.topics": "Теми",
+  "nav.popular": "Теми",
 
 };
 export default dict;

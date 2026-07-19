@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Pomidor, atirgullar, qovoq…",
   "journal.tag_filter_all": "Barcha yorliqlar",
   "nav.journal": "Jurnal",
+  "nav.topics": "Mavzular",
+  "nav.popular": "Mavzular",
 
 };
 export default dict;

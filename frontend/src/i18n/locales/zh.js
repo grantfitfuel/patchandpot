@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "番茄、玫瑰、西葫芦…",
   "journal.tag_filter_all": "所有标签",
   "nav.journal": "日志",
+  "nav.topics": "主题",
+  "nav.popular": "常见问题",
 
 };
 export default dict;

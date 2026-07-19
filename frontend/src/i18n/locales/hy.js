@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Պոմիդոր, վարդեր, ձվածեղ…",
   "journal.tag_filter_all": "Բոլոր պիտակները",
   "nav.journal": "Հանգոչ",
+  "nav.topics": "Մարմիններ",
+  "nav.popular": "Հարցեր",
 
 };
 export default dict;

@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Rajče, růže, cuketa…",
   "journal.tag_filter_all": "Všechny štítky",
   "nav.journal": "Deník",
+  "nav.topics": "Témata",
+  "nav.popular": "Otázky",
 
 };
 export default dict;

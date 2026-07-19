@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Roșie, trandafiri, dovlecei…",
   "journal.tag_filter_all": "Toate etichetele",
   "nav.journal": "Jurnal",
+  "nav.topics": "Subiecte",
+  "nav.popular": "Întrebări",
 
 };
 export default dict;

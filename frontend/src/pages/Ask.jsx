@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Send, Image as ImageIcon, Plus, Trash2, Loader2, X, ArrowRight } from "lucide-react";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
+import NadarSurfacesNav from "@/components/NadarSurfacesNav";
 
 /**
  * Downscale and re-encode an image File so it slips under Claude vision's
@@ -239,15 +240,21 @@ export default function AskPage() {
         <a href="/#pricing" className="btn-primary" data-testid="ask-paywall-cta">
           Become a member
         </a>
-        <div className="mt-6 text-sm">
+        <div className="mt-6 text-sm flex flex-col gap-2 items-start">
           <Link
             to="/ask/popular"
             className="text-terracotta hover:underline inline-flex items-center gap-1.5"
             data-testid="ask-paywall-popular-link"
           >
-            Or browse {" "}
-            <span className="underline">common gardening questions</span>{" "}
-            people have already asked
+            Browse common gardening questions
+            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
+          </Link>
+          <Link
+            to="/topics"
+            className="text-terracotta hover:underline inline-flex items-center gap-1.5"
+            data-testid="ask-paywall-topics-link"
+          >
+            Or explore questions by topic
             <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
           </Link>
         </div>
@@ -258,6 +265,7 @@ export default function AskPage() {
   return (
     <div className="container-narrow py-8 max-w-5xl" data-testid="ask-page">
       <Helmet><title>Ask Nàdar · Patch & Pot</title></Helmet>
+      <NadarSurfacesNav active="ask" />
       <p className="overline">Members</p>
       <div className="flex items-baseline justify-between mt-2 mb-4">
         <div>
@@ -266,14 +274,7 @@ export default function AskPage() {
             Nàdar · <em className="not-italic">Nature</em>, in Scottish Gaelic
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <Link
-            to="/journal"
-            data-testid="ask-journal-link"
-            className="text-xs text-moss underline underline-offset-2 hover:text-forest"
-          >
-            View journal
-          </Link>
+        <div className="flex items-center gap-3 flex-wrap">
           <button
             type="button"
             data-testid="ask-audit-btn"

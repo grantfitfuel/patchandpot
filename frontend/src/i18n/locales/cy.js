@@ -1033,6 +1033,8 @@ const dict = {
   "journal.tag_placeholder": "Tomato, rhosynnau, courgette…",
   "journal.tag_filter_all": "Pawb y tagiau",
   "nav.journal": "Blynyddiad",
+  "nav.topics": "Pynciau",
+  "nav.popular": "Pynciau",
 
 };
 export default dict;

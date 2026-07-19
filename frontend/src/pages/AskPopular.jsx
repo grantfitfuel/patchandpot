@@ -17,6 +17,7 @@ import { HelpCircle, MessageCircle, Search, X, ArrowRight, Sparkles } from "luci
 import axios from "axios";
 import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import NadarSurfacesNav from "@/components/NadarSurfacesNav";
 
 export default function AskPopularPage() {
   const { t } = useI18n();
@@ -66,6 +67,7 @@ export default function AskPopularPage() {
 
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up">
+      <NadarSurfacesNav active="popular" />
       <div className="mb-8 max-w-2xl">
         <p className="overline">{t("askpop.eyebrow")}</p>
         <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">

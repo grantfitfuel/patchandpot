@@ -1033,6 +1033,8 @@ const dict = {
   "journal.tag_placeholder": "Tāmato, rongonui, kūkū…",
   "journal.tag_filter_all": "Katoa ngā kāinga",
   "nav.journal": "Papakāinga",
+  "nav.topics": "Raupapa",
+  "nav.popular": "Pātai",
 
 };
 export default dict;

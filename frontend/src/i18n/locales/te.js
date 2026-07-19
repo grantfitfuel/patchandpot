@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "టమాటో, పైుట్టు, కూరగాయలు…",
   "journal.tag_filter_all": "అన్నీ ట్యాగ్లు",
   "nav.journal": "రోజువారీ",
+  "nav.topics": "శైలులు",
+  "nav.popular": "ప్రసిద్ధమైన ప్రశ్నలు",
 
 };
 export default dict;

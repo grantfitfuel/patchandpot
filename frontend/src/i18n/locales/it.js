@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Pomodoro, rose, zucchine…",
   "journal.tag_filter_all": "Tutte le etichette",
   "nav.journal": "Diario",
+  "nav.topics": "Argomenti",
+  "nav.popular": "Domande",
 
 };
 export default dict;

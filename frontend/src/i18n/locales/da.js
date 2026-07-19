@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Tomat, roser, zucchini…",
   "journal.tag_filter_all": "Alle etiketter",
   "nav.journal": "Dagbog",
+  "nav.topics": "Emner",
+  "nav.popular": "Emner",
 
 };
 export default dict;

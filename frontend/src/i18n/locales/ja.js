@@ -1033,6 +1033,8 @@ const dict = {
   "journal.tag_placeholder": "トマト、バラ、ズッキーニ…",
   "journal.tag_filter_all": "すべてのタグ",
   "nav.journal": "ジャーナル",
+  "nav.topics": "トピック",
+  "nav.popular": "よくある質問",
 
 };
 export default dict;

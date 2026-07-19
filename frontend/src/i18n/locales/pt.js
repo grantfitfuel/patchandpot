@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Tomate, rosas, abobrinha…",
   "journal.tag_filter_all": "Todas as etiquetas",
   "nav.journal": "Diário",
+  "nav.topics": "Tópicos",
+  "nav.popular": "Tópicos",
 
 };
 export default dict;

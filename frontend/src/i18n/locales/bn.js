@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "টমেটো, গোলাপ, কাঁচা মরিচ…",
   "journal.tag_filter_all": "সব ট্যাগ",
   "nav.journal": "জার্নাল",
+  "nav.topics": "বিষয়",
+  "nav.popular": "প্রশ্নগুলি",
 
 };
 export default dict;

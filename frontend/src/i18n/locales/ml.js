@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "ടോമാറ്റോ, റോസ്, കൂറ്ജറ്റ്…",
   "journal.tag_filter_all": "എല്ലാ താഗുകളും",
   "nav.journal": "ജേർണൽ",
+  "nav.topics": "വിഷയങ്ങൾ",
+  "nav.popular": "പ്രശ്നങ്ങൾ",
 
 };
 export default dict;

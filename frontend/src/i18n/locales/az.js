@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Pomidor, gül, balqabaq…",
   "journal.tag_filter_all": "Bütün etiketlər",
   "nav.journal": "Günlük",
+  "nav.topics": "Mövzular",
+  "nav.popular": "Mövzular",
 
 };
 export default dict;

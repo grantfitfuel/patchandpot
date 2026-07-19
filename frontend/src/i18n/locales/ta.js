@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "தக்காளி, ரோஜா, நெத்திலி…",
   "journal.tag_filter_all": "எல்லா குறிச்சொற்கள்",
   "nav.journal": "நியாயம்",
+  "nav.topics": "தலவுகள்",
+  "nav.popular": "கேள்விகள்",
 
 };
 export default dict;

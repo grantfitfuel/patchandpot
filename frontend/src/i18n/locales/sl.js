@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Paradižnik, vrtnice, bučke…",
   "journal.tag_filter_all": "Vse oznake",
   "nav.journal": "Dnevnik",
+  "nav.topics": "Teme",
+  "nav.popular": "Vprašanja",
 
 };
 export default dict;

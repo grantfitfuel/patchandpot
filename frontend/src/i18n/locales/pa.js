@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "ਟਮਾਟਰ, ਗੁਲਾਬ, ਨੀਵਿਆ…",
   "journal.tag_filter_all": "ਸਾਰੇ ਟੈਗ",
   "nav.journal": "ਜਰਨਲ",
+  "nav.topics": "ਵਿਸ਼ੇ",
+  "nav.popular": "ਸਵਾਲ",
 
 };
 export default dict;

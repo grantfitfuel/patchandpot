@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Domates, güller, kabak…",
   "journal.tag_filter_all": "Tüm etiketler",
   "nav.journal": "Günlük",
+  "nav.topics": "Konu",
+  "nav.popular": "Sıkça Sorulan",
 
 };
 export default dict;

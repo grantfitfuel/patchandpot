@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Tadam, roża, żukkini…",
   "journal.tag_filter_all": "Lit-tagi kollha",
   "nav.journal": "Gurnal",
+  "nav.topics": "Suġġetti",
+  "nav.popular": "Suġġetti",
 
 };
 export default dict;

@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Rajčinové, ruže, cuketa…",
   "journal.tag_filter_all": "Všetky označenia",
   "nav.journal": "Deník",
+  "nav.topics": "Témy",
+  "nav.popular": "Témy",
 
 };
 export default dict;

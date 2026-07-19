@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Ντομάτα, τριαντάφυλλα, κολοκύθι…",
   "journal.tag_filter_all": "Όλες οι ετικέτες",
   "nav.journal": "Ημερολόγιο",
+  "nav.topics": "Θέματα",
+  "nav.popular": "Θέματα",
 
 };
 export default dict;

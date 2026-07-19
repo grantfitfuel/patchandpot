@@ -1033,6 +1033,8 @@ const dict = {
   "journal.tag_placeholder": "Tomat, roosid, suvikõrvits…",
   "journal.tag_filter_all": "Kõik silti",
   "nav.journal": "Päevik",
+  "nav.topics": "Teemad",
+  "nav.popular": "Teemad",
 
 };
 export default dict;

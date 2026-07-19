@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Қызанақ, раушан, цуккини…",
   "journal.tag_filter_all": "Барлық тегтер",
   "nav.journal": "Күнделік",
+  "nav.topics": "Тақырыптар",
+  "nav.popular": "Сұрақтар",
 
 };
 export default dict;

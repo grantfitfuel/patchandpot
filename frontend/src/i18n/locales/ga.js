@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Domh, rósanna, courgette…",
   "journal.tag_filter_all": "Gach gTagann",
   "nav.journal": "Dialann",
+  "nav.topics": "Ábhair",
+  "nav.popular": "Ceisteanna",
 
 };
 export default dict;

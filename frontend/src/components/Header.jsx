@@ -27,6 +27,7 @@ export default function Header() {
     { to: "/masterclasses", label: t("nav.masterclasses"), key: "masterclasses" },
     { to: "/garden", label: t("nav.garden"), key: "garden" },
     { to: "/ask", label: t("nav.ask"), key: "ask" },
+    { to: "/topics", label: t("nav.topics"), key: "topics" },
     { to: "/journal", label: t("nav.journal"), key: "journal" },
     { to: "/wellbeing", label: t("nav.wellbeing"), key: "wellbeing" },
     { to: "/guides", label: t("nav.guides"), key: "guides" },

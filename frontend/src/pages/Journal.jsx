@@ -17,6 +17,7 @@ import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 import { useMyGarden } from "@/hooks/useMyGarden";
+import NadarSurfacesNav from "@/components/NadarSurfacesNav";
 
 export default function JournalPage() {
   const { t } = useI18n();
@@ -164,6 +165,7 @@ export default function JournalPage() {
 
   return (
     <div className="container-narrow py-12 md:py-16 max-w-3xl animate-fade-up">
+      <NadarSurfacesNav active="journal" />
       <div className="mb-8">
         <p className="overline">{t("journal.eyebrow")}</p>
         <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("journal.title")}</h1>

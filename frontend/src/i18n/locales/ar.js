@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "طماطم، زهور، كوسة…",
   "journal.tag_filter_all": "جميع العلامات",
   "nav.journal": "مفكرة",
+  "nav.topics": "مواضيع",
+  "nav.popular": "أسئلة شائعة",
 
 };
 export default dict;

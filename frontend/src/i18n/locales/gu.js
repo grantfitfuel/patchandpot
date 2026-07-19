@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "ટામેટાં, ગુલાબ, તોરાઈ…",
   "journal.tag_filter_all": "બધા ટૅગ્સ",
   "nav.journal": "ડાયરી",
+  "nav.topics": "વિષય",
+  "nav.popular": "પ્રશ્નો",
 
 };
 export default dict;

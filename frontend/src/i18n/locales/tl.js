@@ -1033,6 +1033,8 @@ const dict = {
   "journal.tag_placeholder": "Sibuyas, rosas, courgette…",
   "journal.tag_filter_all": "Lahat ng tag",
   "nav.journal": "Talaarawan",
+  "nav.topics": "Mga Paksa",
+  "nav.popular": "Mga Tanong",
 
 };
 export default dict;

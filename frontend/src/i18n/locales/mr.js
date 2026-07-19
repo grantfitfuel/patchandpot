@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "टोमॅटो, गुलाब, झुकीनी…",
   "journal.tag_filter_all": "सर्व टॅग",
   "nav.journal": "जर्नल",
+  "nav.topics": "विषय",
+  "nav.popular": "सामान्य प्रश्न",
 
 };
 export default dict;

@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Cà chua, hoa hồng, bí xanh…",
   "journal.tag_filter_all": "Tất cả nhãn",
   "nav.journal": "Nhật ký",
+  "nav.topics": "Chủ đề",
+  "nav.popular": "Chủ đề",
 
 };
 export default dict;

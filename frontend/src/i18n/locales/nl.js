@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Tomaat, rozen, courgette…",
   "journal.tag_filter_all": "Alle labels",
   "nav.journal": "Agenda",
+  "nav.topics": "Onderwerpen",
+  "nav.popular": "Veelgestelde",
 
 };
 export default dict;

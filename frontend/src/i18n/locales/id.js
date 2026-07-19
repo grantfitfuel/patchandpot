@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Tomat, mawar, zucchini…",
   "journal.tag_filter_all": "Semua label",
   "nav.journal": "Jurnal",
+  "nav.topics": "Topik",
+  "nav.popular": "Topik",
 
 };
 export default dict;

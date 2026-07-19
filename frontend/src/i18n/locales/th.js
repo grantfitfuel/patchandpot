@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "มะเขือเทศ, กุหลาบ, ซูกินี…",
   "journal.tag_filter_all": "แท็กรวมทั้งหมด",
   "nav.journal": "บันทึก",
+  "nav.topics": "หัวข้อ",
+  "nav.popular": "คำถามทั่วไป",
 
 };
 export default dict;

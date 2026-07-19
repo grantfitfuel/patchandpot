@@ -1032,6 +1032,8 @@ const dict = {
   "journal.tag_placeholder": "Tomāti, rozes, cukini...",
   "journal.tag_filter_all": "Visas birkas",
   "nav.journal": "Dienasgrāmata",
+  "nav.topics": "Tēmas",
+  "nav.popular": "Tēmas",
 
 };
 export default dict;

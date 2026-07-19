@@ -95,6 +95,10 @@ async def _ensure_db_indexes() -> None:
     # unboundedly. `ts` is a real BSON date so the TTL monitor honours it.
     await db.visits.create_index("ts", expireAfterSeconds=90 * 24 * 3600)
     await db.visits.create_index([("country", 1)])
+    # Ask-Nàdar Q&A cache — unique-key index for O(1) lookups and a
+    # secondary `hits` index for admin observability ("top asked").
+    await db.ask_cache.create_index([("key", 1)], unique=True)
+    await db.ask_cache.create_index([("hits", -1)])
 
 
 async def _decay_weekly_views() -> None:

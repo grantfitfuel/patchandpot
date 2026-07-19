@@ -10,10 +10,21 @@ Storage:
   ask_messages   {id, session_id, role: "user"|"assistant", content,
                   image_b64?, mime_type?, created_at}
   ask_usage      {access_token, date: "YYYY-MM-DD", count}
+  ask_cache      {key, question_normalized, prior_hash, answer, model,
+                  hits, first_asked_at, last_asked_at}
+    – Global Q&A cache. Populated on every LLM reply where the exchange
+      is deterministic enough to reuse safely (no image on the current
+      turn AND no image anywhere in the session history). Two users
+      asking the exact same question in the same conversational
+      context get identical answers without spending a second LLM call.
+      Not scoped per-user by design — this is a knowledge cache, not a
+      privacy boundary.
 """
 import base64
+import hashlib
 import logging
 import os
+import re
 import uuid
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional
@@ -28,6 +39,37 @@ logger = logging.getLogger(__name__)
 
 DAILY_QUESTION_CAP = 7
 ASK_MODEL = "claude-haiku-4-5-20251001"
+
+
+# ─── Q&A cache helpers ──────────────────────────────────────────────
+def _normalize_question(text: str) -> str:
+    """Aggressively normalise a question so trivial punctuation / casing /
+    spacing differences don't blow the cache.
+
+    "How do I prune tomatoes?"  ==  "how do I prune tomatoes"
+                                ==  "  How   do i prune tomatoes ! "
+    """
+    if not text:
+        return ""
+    q = re.sub(r"\s+", " ", text.strip().lower())
+    q = re.sub(r"[.!?…,;:\s\"'`]+$", "", q)
+    return q
+
+
+def _cache_key(prior_user_texts: list[str], question: str) -> str:
+    """Stable short hash of the whole conversational state.
+
+    We fold in every prior USER turn (assistant replies are a
+    deterministic function of them so we don't need to hash them
+    separately). This means the cache also serves follow-up
+    turns — as long as the sequence of user questions matches
+    verbatim, the same answer is safe to reuse.
+    """
+    payload = "\n---\n".join(
+        [_normalize_question(t) for t in prior_user_texts]
+        + [_normalize_question(question)]
+    )
+    return hashlib.sha1(payload.encode("utf-8")).hexdigest()[:24]
 SYSTEM_PROMPT = (
     "You are Nàdar (pronounced NAA-dar — Scottish Gaelic for \"nature\"), "
     "the friendly, knowledgeable in-house gardening companion for Patch & Pot, "
@@ -254,38 +296,90 @@ def make_router(db) -> APIRouter:
         history_cursor = db.ask_messages.find({"session_id": session_id}).sort("created_at", -1).limit(8)
         prior = [doc async for doc in history_cursor][::-1][:-1]  # drop the just-inserted user msg
 
+        # ── Q&A cache lookup (skip if any image is involved) ──────────
+        # We only trust the cache when the whole exchange is text-only:
+        # a photo of a leaf is inherently unique so an answer keyed on
+        # question text alone would be wrong.
+        session_has_image = image_b64 is not None or any(m.get("image_b64") for m in prior)
+        prior_user_texts = [
+            (m.get("content") or "")
+            for m in prior
+            if m.get("role") == "user"
+        ]
+        cache_key = None
+        cache_hit = None
+        if not session_has_image and text.strip():
+            cache_key = _cache_key(prior_user_texts, text)
+            cache_hit = await db.ask_cache.find_one({"key": cache_key}, {"_id": 0})
+
         api_key = os.environ.get("EMERGENT_LLM_KEY")
         if not api_key:
             raise HTTPException(503, "AI temporarily unavailable.")
 
-        try:
-            chat = LlmChat(
-                api_key=api_key,
-                session_id=f"ask-{session_id}",
-                system_message=SYSTEM_PROMPT,
-            ).with_model("anthropic", ASK_MODEL)
+        if cache_hit:
+            # Serve the cached answer verbatim. Still counts against the
+            # user's daily quota (they asked a full question either way)
+            # and still writes into their session so the thread is
+            # readable end-to-end. LLM cost: zero.
+            answer = cache_hit["answer"]
+            await db.ask_cache.update_one(
+                {"key": cache_key},
+                {
+                    "$inc": {"hits": 1},
+                    "$set": {"last_asked_at": datetime.now(timezone.utc).isoformat()},
+                },
+            )
+            logger.info("ask_message cache hit key=%s hits=%s", cache_key, cache_hit.get("hits", 0) + 1)
+        else:
+            try:
+                chat = LlmChat(
+                    api_key=api_key,
+                    session_id=f"ask-{session_id}",
+                    system_message=SYSTEM_PROMPT,
+                ).with_model("anthropic", ASK_MODEL)
 
-            # Replay history as alternating user/assistant turns.
-            for h in prior:
-                msg_text = h.get("content") or ""
-                if h.get("role") == "user":
-                    await chat.send_message(UserMessage(text=msg_text or "(image only)"))
-                # Assistant turns are already part of LlmChat's internal history
-                # once we've sent the corresponding user message; we don't push
-                # them back manually (the library handles that on first reply).
+                # Replay history as alternating user/assistant turns.
+                for h in prior:
+                    msg_text = h.get("content") or ""
+                    if h.get("role") == "user":
+                        await chat.send_message(UserMessage(text=msg_text or "(image only)"))
+                    # Assistant turns are already part of LlmChat's internal history
+                    # once we've sent the corresponding user message; we don't push
+                    # them back manually (the library handles that on first reply).
 
-            # Now send the *new* user message (with image if present).
-            file_contents = []
-            if image_b64:
-                file_contents.append(ImageContent(image_base64=image_b64))
-            response = await chat.send_message(UserMessage(
-                text=text or "Please identify what you see in this photo.",
-                file_contents=file_contents or None,
-            ))
-            answer = response.text if hasattr(response, "text") else str(response)
-        except Exception as e:  # noqa: BLE001 — surface a useful message
-            logger.warning("ask_message LLM call failed: %s", e)
-            raise HTTPException(503, "AI couldn't answer that one — try again in a moment.") from e
+                # Now send the *new* user message (with image if present).
+                file_contents = []
+                if image_b64:
+                    file_contents.append(ImageContent(image_base64=image_b64))
+                response = await chat.send_message(UserMessage(
+                    text=text or "Please identify what you see in this photo.",
+                    file_contents=file_contents or None,
+                ))
+                answer = response.text if hasattr(response, "text") else str(response)
+            except Exception as e:  # noqa: BLE001 — surface a useful message
+                logger.warning("ask_message LLM call failed: %s", e)
+                raise HTTPException(503, "AI couldn't answer that one — try again in a moment.") from e
+
+            # ── Populate the cache (only text-only turns) ──────────────
+            if cache_key and answer:
+                now_iso_cache = datetime.now(timezone.utc).isoformat()
+                await db.ask_cache.update_one(
+                    {"key": cache_key},
+                    {
+                        "$setOnInsert": {
+                            "question_normalized": _normalize_question(text),
+                            "prior_hash": hashlib.sha1(
+                                "\n---\n".join(_normalize_question(t) for t in prior_user_texts).encode("utf-8"),
+                            ).hexdigest()[:16] if prior_user_texts else None,
+                            "answer": answer,
+                            "model": ASK_MODEL,
+                            "first_asked_at": now_iso_cache,
+                            "hits": 0,
+                        },
+                        "$set": {"last_asked_at": now_iso_cache},
+                    },
+                    upsert=True,
+                )
 
         # ── Persist assistant reply + bump usage + touch session ──────
         asst_id = uuid.uuid4().hex[:16]

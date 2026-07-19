@@ -28,6 +28,31 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 65 (2026-07-19): ✅ — Global Q&A cache for Ask Nàdar
+
+User: **"Remember every question and answer to reduce repeat LLM calls"** — added a persistent, global (all-users) Q&A cache that shortcircuits Claude when someone asks a question the app has already answered.
+
+**Backend** (`/app/backend/routers/ask.py`)
+- New Mongo collection `ask_cache` — `{key, question_normalized, prior_hash, answer, model, hits, first_asked_at, last_asked_at}`. Unique index on `key`, secondary index on `hits` for observability.
+- `_normalize_question(text)` — aggressively lowercases / collapses whitespace / strips trailing punctuation so trivial cosmetic changes don't blow the cache.
+- `_cache_key(prior_user_texts, question)` — SHA-1 hash of ALL prior user turns + the current question (24-char short-hash). This means the cache serves follow-ups too — as long as the sequence of user questions matches verbatim, the same answer is safe to reuse.
+- **Safety rule: skip cache when ANY image is involved** in the current turn or anywhere in the session history. Photos of leaves / pests are unique per user, so answers keyed on text alone would be wrong.
+- **Cache still bumps daily quota** — a member asking the same question a second time still uses one of their 7 daily credits. Cache reduces backend LLM cost, not user throughput. Explicit design decision.
+- LLM call and cache save wrapped in one branch; cache hit branch runs an atomic `$inc` on `hits` and stamps `last_asked_at`.
+- Indexes added in `server.py` startup: `ask_cache.key` (unique) + `ask_cache.hits` (desc, for "top reused questions").
+
+**Admin observability** (`routers/admin/_maintenance.py`)
+- `GET /api/admin/ask/cache-stats?token=…` — returns `{total_entries, total_llm_calls_avoided, top_reused_questions[20]}`.
+- `POST /api/admin/ask/clear-cache?token=…` — nukes the cache. Documented as "use sparingly" since every entry is a paid LLM call.
+
+**Verified end-to-end**
+- 1st Q ("how do I prune tomatoes"): **4907 ms** — real Claude call, 1181-char answer.
+- 2nd Q ("How  do I PRUNE tomatoes?" — different case, extra space, trailing ?): **150 ms** cache hit, identical 1181-char answer. **33× speedup, zero LLM cost.**
+- 3rd Q ("When should I sow basil?"): fresh LLM call, new cache entry — no collision.
+- Cache stats: `{total_entries: 2, total_llm_calls_avoided: 1}`.
+- Daily usage still at 3/7 after all three (quota respected).
+
+
 ### Iteration 64 (2026-07-19): ✅ — Ask reframed as "Ask Nàdar"
 
 User: **"Reframe Ask the Garden as ask Nàdar"** — the AI Q&A feature now has a proper persona and name (Nàdar = Scottish Gaelic for "nature").

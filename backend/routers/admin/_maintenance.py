@@ -96,3 +96,36 @@ def register_maintenance_routes(router: APIRouter, db) -> None:
             "remaining_rows": remaining,
         }
 
+    @router.get("/admin/ask/cache-stats")
+    async def admin_ask_cache_stats(token: str):
+        """Q&A cache observability — total entries, total reuses (hits) and
+        the top 20 most-asked questions by hit count. A row's `hits` is 0
+        the first time it's asked; each subsequent reuse increments it
+        AND represents one LLM call we avoided."""
+        require_admin(token)
+        total = await db.ask_cache.count_documents({})
+        agg_cursor = db.ask_cache.aggregate([
+            {"$group": {"_id": None, "hits": {"$sum": "$hits"}}}
+        ])
+        agg = [r async for r in agg_cursor]
+        total_hits = int(agg[0]["hits"]) if agg else 0
+        top_cursor = db.ask_cache.find(
+            {"hits": {"$gt": 0}},
+            {"_id": 0, "question_normalized": 1, "hits": 1, "last_asked_at": 1},
+        ).sort("hits", -1).limit(20)
+        top = [r async for r in top_cursor]
+        return {
+            "total_entries": total,
+            "total_llm_calls_avoided": total_hits,
+            "top_reused_questions": top,
+        }
+
+    @router.post("/admin/ask/clear-cache")
+    async def admin_clear_ask_cache(token: str):
+        """Nuke the global Q&A cache. Use sparingly — every entry is a
+        real LLM call we won't need to spend again. Kept for cases where
+        the model gets swapped or an answer needs to be regenerated."""
+        require_admin(token)
+        result = await db.ask_cache.delete_many({})
+        return {"rows_removed": result.deleted_count}
+

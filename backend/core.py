@@ -955,12 +955,56 @@ COMPANION_REASONS = {
 
 def make_translate_companion_reasons(db):
     """Factory: returns `async _translate_companion_reasons(items, language)`."""
+    # Hand-curated glossary of correct pest / beneficial-insect terms in
+    # low-resource languages. Claude Haiku fabricates plausible-looking
+    # words in these languages (a user reported "dhìobhran-dhubha" being
+    # served for "aphid" in Scottish Gaelic, 2026-07 — that word doesn't
+    # exist; it resembles "dòbhran" = otter). Even Sonnet benefits from
+    # having the canonical terms spelled out. Extend this dict as more
+    # low-resource cases surface.
+    LOW_RESOURCE_GLOSSARY = {
+        "gd": {  # Scottish Gaelic
+            "aphid":       "leumadair-luibh",
+            "whitefly":    "cuileag-gheal",
+            "greenfly":    "cuileag-uaine",
+            "blackfly":    "cuileag-dhubh",
+            "slug":        "seilcheag",
+            "snail":       "seilcheag chochlach",
+            "caterpillar": "burras",
+            "ladybird":    "daol-Dhè",
+            "hoverfly":    "cuileag-luaithre",
+        },
+        "cy": {  # Welsh
+            "aphid":       "pryf blewog / llyslau",
+            "whitefly":    "pryf gwyn",
+            "greenfly":    "llyslau gwyrdd",
+            "slug":        "gwlithen",
+            "snail":       "malwoden",
+            "caterpillar": "lindysyn",
+            "ladybird":    "buwch goch gota",
+        },
+        "ga": {  # Irish
+            "aphid":       "aifid",
+            "whitefly":    "cuileog bhán",
+            "slug":        "drúchtín",
+            "snail":       "seilide",
+            "caterpillar": "bolb",
+            "ladybird":    "bóín Dé",
+        },
+        "mi": {  # Māori
+            "aphid":       "kutukutu",
+            "slug":        "mokohuka",
+            "snail":       "ngata",
+            "caterpillar": "anuhe",
+        },
+    }
+
     async def _translate_companion_reasons(items: list, language: str) -> list:
         language_name = LANG_NAMES[language]
         # Cache key includes a version suffix so we can invalidate previously
         # cached translations that leaked English pest vocabulary. Bump the
         # suffix ("v2", "v3", …) whenever the translation prompt below changes.
-        cache_key = f"companion-reasons:{language}:v2:{':'.join(sorted(i['id'] for i in items))}"
+        cache_key = f"companion-reasons:{language}:v3:{':'.join(sorted(i['id'] for i in items))}"
         cached = await db.guidance_cache.find_one({"key": cache_key}, {"_id": 0})
         if cached:
             reasons_map = cached["data"]
@@ -968,23 +1012,31 @@ def make_translate_companion_reasons(db):
             source = {i["id"]: i.get("reason") for i in items if i.get("reason")}
             if not source:
                 return items
-            # We explicitly enumerate pest & flower vocabulary in the prompt
-            # because the LLM otherwise leaks the English word into an
-            # otherwise-translated sentence (e.g. "a' tàladh aphids air falbh"
-            # in Scottish Gaelic — reported by a member 2026-07). Listing
-            # the words makes the LLM confront each one individually and
-            # dramatically improves fidelity for low-resource languages.
+            # Inject the correct-word glossary for low-resource languages —
+            # LLMs (even Sonnet) fabricate plausible-looking Gaelic and Welsh.
+            glossary = LOW_RESOURCE_GLOSSARY.get(language, {})
+            glossary_line = ""
+            if glossary:
+                pairs = "; ".join(f"{en} = {tr}" for en, tr in glossary.items())
+                glossary_line = (
+                    f"\nUse EXACTLY these translations for these terms — do not "
+                    f"invent alternatives, do not translate word-by-word:\n{pairs}\n"
+                )
             system = (
                 "You are a professional gardening translator. Translate every "
                 "word into the target language — never leave English terms "
-                "inside an otherwise-translated sentence. Pest names (aphid, "
-                "whitefly, greenfly, blackfly, spider mite, slug, snail, "
-                "caterpillar, cabbage-white, carrot fly), companion-plant "
-                "names (nasturtium, marigold, calendula, basil, chives, "
-                "borage) and beneficial insects (ladybird, ladybug, "
-                "hoverfly, lacewing) MUST be translated into the target "
-                "language. Return ONLY a JSON object mapping the same keys "
-                "to translated values."
+                "inside an otherwise-translated sentence, and never fabricate "
+                "words that only look like they belong to the target language. "
+                "Pest names (aphid, whitefly, greenfly, blackfly, spider mite, "
+                "slug, snail, caterpillar, cabbage-white, carrot fly), "
+                "companion-plant names (nasturtium, marigold, calendula, "
+                "basil, chives, borage) and beneficial insects (ladybird, "
+                "ladybug, hoverfly, lacewing) MUST be translated into the "
+                "target language using established, published vocabulary. "
+                "If unsure, keep the English word in italics rather than "
+                "coin a new one. Return ONLY a JSON object mapping the "
+                "same keys to translated values."
+                + glossary_line
             )
             user = (
                 f"Translate these companion-planting reasons into {language_name}. "
@@ -993,7 +1045,11 @@ def make_translate_companion_reasons(db):
                 "Return JSON with the same keys.\n\n"
                 f"{json.dumps(source, ensure_ascii=False, indent=2)}"
             )
-            reasons_map = await _llm_json_cheap(system, user, session_id=f"companion-reasons-{language}")
+            # Use full Sonnet (not Haiku) for translation — this text is
+            # highly visible and Haiku hallucinates in low-resource languages
+            # (Gaelic, Welsh, Irish, Māori). The ~4× cost is worth it for
+            # copy that gets rendered on every plant detail page.
+            reasons_map = await _llm_json(system, user, session_id=f"companion-reasons-{language}")
             await db.guidance_cache.insert_one({
                 "key": cache_key,
                 "data": reasons_map,

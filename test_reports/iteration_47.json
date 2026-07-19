@@ -1,0 +1,33 @@
+{
+  "summary": "Iteration 47 — verified the follow-up fix for the fabricated Gaelic 'dhìobhran-dhubha' (aphid) bug. Sonnet-via-`_llm_json` + hand-curated LOW_RESOURCE_GLOSSARY + cache-key bump to v3 all working end-to-end. 7/7 pytest tests pass in 12.8s. Nasturtium gd reason now: \"Tha an t-àilleag a' tàladh leumadairean-luibh air falbh o na tomàtothan agad.\" — contains canonical 'leumadair' root; no 'dhìobhran' / 'dòbhran' leaks. Marigold gd reason contains 'cuileagan-geala' (whitefly). Welsh, French and English paths all clean. Cache-hit path returns byte-identical body. /api/plants?language=gd returns 300+ plants with zero english pest-token leaks.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_companion_i18n_iter47.py",
+    "/app/test_reports/pytest/pytest_iter47_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "core.py::make_translate_companion_reasons — cache key now `companion-reasons:{lang}:v3:{sorted-ids}`; version-suffix pattern is a clean way to invalidate on prompt change.",
+    "LOW_RESOURCE_GLOSSARY is defined inside the factory closure — cheap to build once per process (which it is, since the factory is called once at startup), but consider extracting to module level for readability and easier extension.",
+    "Cy glossary entry maps 'aphid' → 'pryf blewog / llyslau' (two alternates separated by ' / '). The LLM currently passes the string through verbatim in Welsh reasons (visible as 'pryf blewog / llyslau i ffwrdd o'ch tomatos'). Reads slightly awkwardly to a native speaker — consider picking a single canonical form or wrapping alternates in parentheses.",
+    "No TTL / auto-expiry on guidance_cache — pre-v3 rows were manually purged. Suggest a TTL index on `created_at` (or a startup sweep of stale version keys) so future cache-key bumps don't need manual mongo intervention.",
+    "If the LLM returns partial/malformed JSON, `reasons_map` silently falls back to the English reason (line 1058-1060). A single logger.warning when an id is missing from reasons_map would surface future regressions quickly."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_companion_i18n_iter47.py (new)"
+  ],
+  "success_rate": {"backend": "100% (7/7)", "frontend": "n/a — backend only per request"},
+  "seed_data_creation": "None — tests hit live endpoints. Cache was already warm from prior runs (calls returned in <1s each).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Companion-reasons cache key is `companion-reasons:{lang}:v3:{sorted-ids}` and Sonnet is used (not Haiku). LOW_RESOURCE_GLOSSARY covers gd/cy/ga/mi. If prompt or glossary changes, bump to v4 and either purge pre-v4 rows or wait for cache miss. Regression file at /app/backend/tests/test_companion_i18n_iter47.py covers gd canonical-vocab (leumadair, cuileag-gheal), cy/fr no-english-leak, en still natural, cache-hit determinism, and /api/plants gd payload smoke.",
+  "rca of the issue": "Root cause of the reported bug (fabricated 'dhìobhran-dhubha'): Haiku was invoked via `_llm_json_cheap` for companion-reason translation and hallucinated a plausible-looking Gaelic word by garbling 'dòbhran' (otter). Mitigation applied by main agent and confirmed by these tests: (a) switched to Sonnet via `_llm_json`, (b) injected a canonical published-vocabulary glossary (aphid=leumadair-luibh, whitefly=cuileag-gheal, …) into the system prompt for gd/cy/ga/mi, (c) bumped cache-key v2→v3 and purged pre-v3 rows so cached fabrications don't re-serve."
+}

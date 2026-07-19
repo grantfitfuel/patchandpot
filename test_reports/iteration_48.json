@@ -1,0 +1,36 @@
+{
+  "summary": "Iteration 48 — verified the full i18n sweep. All 57 non-EN locale files now contain exactly the 863 top-level keys defined in en.js (0 missing). The 9 recently-added keys (footer.legal.about, footer.legal.disclosure, home.plant_of_the_week.eyebrow, source.local.title/body/cta/tools_cta/searching_near, share_view.views) are present, non-empty, and actually translated (not English fallback) in all four low-resource languages (gd, cy, ga, mi). Backend companion-reasons regression from iter 47 still holds: /api/plants/tomato/companions?language=gd returns 'leumadair' for aphid and no English tokens; ga has no English pest leaks; /api/plants?language=ga returns 300+ plants with zero English pest-token leaks. 69/69 pytest tests pass in 8.94s (57 locale-completeness + 8 low-resource content + 4 backend regression).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_i18n_sweep_iter48.py",
+    "/app/test_reports/pytest/pytest_iter48_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "scripts/i18n_audit.py uses a naive '^\\s*\"([^\"]+)\"\\s*:' line-start regex (line 49) which misses concatenated keys — e.g. it under-counts every non-EN locale by 1–2 keys (home.plant_of_the_week.eyebrow, share_view.views). Recommend switching to the substring pattern '\"([^\"\\\\]+)\"\\s*:\\s*\"' used in the iter-48 test file to avoid future false-positive MISSING reports.",
+    "gd/source.local.cta still contains the English loanword 'nurseries' ('Lorg nurseries faisg orm'). Not an English-fallback failure per se (rest of sentence is Gaelic) but a native reviewer would expect 'lios-lusan' or 'plannt-lios'. Non-blocking; flag for a native pass.",
+    "mi/home.plant_of_the_week.eyebrow value ' tipu o te wiki' has a leading space and drops the definite article — expected 'Te tipu o te wiki'. Cosmetic; likely a translation-pipeline glitch.",
+    "58 locale files @ ~870 lines each are single monolithic dictionaries. They exceed the 700-line file-size threshold from code-review guidelines. Consider splitting by feature-namespace (nav.*, footer.*, plant.*, source.*) once the file count justifies the refactor.",
+    "translate_keys_for pipeline (scripts/i18n_sweep_fix.py) auto-writes without a diff-preview flag. For 57 files × 9 keys = 513 auto-writes, a --dry-run mode surfacing the proposed translations would catch cases like the mi/eyebrow leading-space bug before landing."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_i18n_sweep_iter48.py (new)"
+  ],
+  "success_rate": {
+    "backend": "100% (69/69)",
+    "frontend": "n/a — backend only per request"
+  },
+  "seed_data_creation": "None — locale completeness tests parse files on disk; backend regression tests hit live endpoints (cache warm from iter 47).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Locale-completeness sweep is now automated at /app/backend/tests/test_i18n_sweep_iter48.py::TestLocaleCompleteness (57 parametrised tests, one per non-EN locale). Uses the robust '\"([^\"\\\\]+)\"\\s*:\\s*\"' pattern to find all 863 keys regardless of line concatenation — do NOT switch to the naive line-start regex. Low-resource-lang content checks live in TestLowResourceRecentlyAddedKeys — extend RECENTLY_ADDED_KEYS list as new keys are shipped. Backend regressions (leumadair for gd aphid, no english leaks in ga/gd) piggyback on the same file and complete in <2s each thanks to the v3 cache. If cache is bumped again, expect first-call latency of 5-10s per language.",
+  "rca of the issue": "Original user bug: English words leaking into translated UI copy across 58 locales. Root cause: a batch of ~9 recently-added keys (footer.legal.*, home.plant_of_the_week.*, source.local.*, share_view.views, share_patch.*) were only added to en.js and never propagated — the i18n runtime fell back to the English source at render time. Mitigation applied by E1 (this iter): scripts/i18n_audit.py + scripts/i18n_sweep_fix.py identified the missing keys and auto-injected translations via the existing translate_keys_for pipeline into all 57 non-EN locale files. Verification (this iter): 69/69 tests confirm 0 missing keys across 57 locales and 4/4 low-resource languages have properly translated (non-fallback) content for every recently-added key."
+}

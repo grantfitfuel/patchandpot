@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "اپنی نوٹ بک میں شامل کریں",
   "journal.cta.blurb": "ہر سوال جو آپ نàدار سے پوچھتے ہیں، خود بخود یہاں آجاتا ہے، ٹائم اسٹیمپ کے ساتھ، تاکہ اگلے سال آپ واپس جا کر دیکھ سکیں کہ کیا کام آیا۔",
   "journal.cta.button": "نàدار سے پوچھیں",
+  "journal.pinned_count": "{n} پننڈ",
+  "journal.pin": "اوپر پننڈ کریں",
+  "journal.unpin": "پننڈ ہٹا دیں",
+  "journal.tag_add": "پودے کا ٹیگ شامل کریں",
+  "journal.tag_edit": "ٹیگ میں ترمیم کریں",
+  "journal.tag_save": "محفوظ کریں",
+  "journal.tag_cancel": "منسوخ کریں",
+  "journal.tag_placeholder": "ٹماٹر، گلاب، زُکینی…",
+  "journal.tag_filter_all": "تمام ٹیگ",
 
 };
 export default dict;

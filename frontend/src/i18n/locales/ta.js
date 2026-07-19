@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "உங்கள் குறிப்புக்கு சேர்க்கவும்",
   "journal.cta.blurb": "நீங்கள் Nàdar க்கு கேட்ட ஒவ்வொரு கேள்வியும் தானாகவே இங்கே வந்தால், நேரத்தை குறிப்பதாக, அடுத்த ஆண்டு நீங்கள் என்ன வேலை செய்தது என்பதைத் திருப்பிப் பார்க்க முடியும்.",
   "journal.cta.button": "Nàdar க்கு கேளுங்கள்",
+  "journal.pinned_count": "{n} முத்திரை கட்டப்பட்டது",
+  "journal.pin": "மூலையை மேலே வைக்கவும்",
+  "journal.unpin": "மூலையை மேலே வைக்காதிருத்து",
+  "journal.tag_add": "தாவர குறிச்சொல்லை சேர்க்கவும்",
+  "journal.tag_edit": "குறிச்சொல்லை திருத்தவும்",
+  "journal.tag_save": "சேர்த்து வைத்திருங்கள்",
+  "journal.tag_cancel": "ரத்து செய்யவும்",
+  "journal.tag_placeholder": "தக்காளி, ரோஜா, நெத்திலி…",
+  "journal.tag_filter_all": "எல்லா குறிச்சொற்கள்",
 
 };
 export default dict;

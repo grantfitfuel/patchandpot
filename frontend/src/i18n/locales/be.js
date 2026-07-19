@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Дадаць у ваш блокнот",
   "journal.cta.blurb": "Кожнае пытанне, якое вы задаеце Nàdar, аўтаматычна трапляе сюды з часовым штампам, так што ў наступным годзе вы зможаце вярнуцца да таго, што зарабляла.",
   "journal.cta.button": "Задаць Nàdar",
+  "journal.pinned_count": "{n} закрэслена",
+  "journal.pin": "Закрепіць уверсе",
+  "journal.unpin": "Сняць закрэсленне",
+  "journal.tag_add": "Дадаць этыкетку расліны",
+  "journal.tag_edit": "Рэдагаваць этыкетку",
+  "journal.tag_save": "Захаваць",
+  "journal.tag_cancel": "Скасаваць",
+  "journal.tag_placeholder": "Памідоры, ружы, цукіні…",
+  "journal.tag_filter_all": "Усе этыкеткі",
 
 };
 export default dict;

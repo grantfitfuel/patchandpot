@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "เพิ่มลงในสมุดบันทึกของคุณ",
   "journal.cta.blurb": "ทุกคำถามที่คุณถาม Nàdar จะถูกบันทึกโดยอัตโนมัติโดยมีป้ายเวลา ดังนั้นปีหน้าคุณสามารถย้อนกลับไปดูว่าสิ่งใดได้ผล",
   "journal.cta.button": "ถาม Nàdar",
+  "journal.pinned_count": "{n} ที่ติดไว้",
+  "journal.pin": "ติดบนสุด",
+  "journal.unpin": "ยกเลิกการติด",
+  "journal.tag_add": "เพิ่มแท็กพืช",
+  "journal.tag_edit": "แก้ไขแท็ก",
+  "journal.tag_save": "บันทึก",
+  "journal.tag_cancel": "ยกเลิก",
+  "journal.tag_placeholder": "มะเขือเทศ, กุหลาบ, ซูกินี…",
+  "journal.tag_filter_all": "แท็กรวมทั้งหมด",
 
 };
 export default dict;

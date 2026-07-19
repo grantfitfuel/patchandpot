@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Cuir ris an leabhar-làimhe agad",
   "journal.cta.blurb": "Gach ceist a chuireas tu gu Nàdar tha e a' falbh a-nis an seo, air a chomharrachadh le àm, gus an ath-bhliadhna faodaidh tu leum air ais gu na dh’obraich.",
   "journal.cta.button": "Faigh Nàdar",
+  "journal.pinned_count": "{n} air an cur nan àite",
+  "journal.pin": "Cur gu mullach",
+  "journal.unpin": "A thoirt air falbh",
+  "journal.tag_add": "Cuir taga plant",
+  "journal.tag_edit": "Deasaich taga",
+  "journal.tag_save": "Glèidh",
+  "journal.tag_cancel": "Càin",
+  "journal.tag_placeholder": "Tomàti, ròsan, courgette…",
+  "journal.tag_filter_all": "Gach taga",
 
 };
 export default dict;

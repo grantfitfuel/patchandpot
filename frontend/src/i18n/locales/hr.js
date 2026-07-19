@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Dodajte u svoju bilježnicu",
   "journal.cta.blurb": "Svako pitanje koje postavite Nàdaru automatski se ovdje pohranjuje, s vremenskim oznakom, tako da sljedeće godine možete lako pronaći što je funkcioniralo.",
   "journal.cta.button": "Pitajte Nàdara",
+  "journal.pinned_count": "{n} prikazanih",
+  "journal.pin": "Zakvači na vrh",
+  "journal.unpin": "Ukloni zakačenost",
+  "journal.tag_add": "Dodaj oznaku biljke",
+  "journal.tag_edit": "Uredi oznaku",
+  "journal.tag_save": "Spremi",
+  "journal.tag_cancel": "Otkaži",
+  "journal.tag_placeholder": "Rajčica, ruže, tikvice…",
+  "journal.tag_filter_all": "Sve oznake",
 
 };
 export default dict;

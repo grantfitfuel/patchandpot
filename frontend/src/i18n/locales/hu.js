@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Add hozzá a jegyzetfüzetedhez",
   "journal.cta.blurb": "Minden kérdés, amit Nàdarnak felteszel, automatikusan ide kerül, időbélyeggel, így jövőre visszanézhetsz, mi működött.",
   "journal.cta.button": "Kérdezd Nàdart",
+  "journal.pinned_count": "{n} rögzített",
+  "journal.pin": "Rögzítés a tetejére",
+  "journal.unpin": "Rögzítés megszüntetése",
+  "journal.tag_add": "Növény címke hozzáadása",
+  "journal.tag_edit": "Címke szerkesztése",
+  "journal.tag_save": "Mentés",
+  "journal.tag_cancel": "Mégse",
+  "journal.tag_placeholder": "Paradicsom, rózsák, cukkini…",
+  "journal.tag_filter_all": "Összes címke",
 
 };
 export default dict;

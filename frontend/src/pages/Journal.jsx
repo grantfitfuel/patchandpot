@@ -171,7 +171,7 @@ export default function JournalPage() {
         {pinnedCount > 0 && (
           <p className="mt-3 text-xs text-moss inline-flex items-center gap-1.5" data-testid="journal-pinned-count">
             <Pin strokeWidth={1.5} className="w-3.5 h-3.5 text-terracotta" fill="currentColor" />
-            {pinnedCount} pinned
+            {t("journal.pinned_count").replace("{n}", pinnedCount)}
           </p>
         )}
       </div>
@@ -209,7 +209,7 @@ export default function JournalPage() {
             data-testid="journal-tag-filter"
             className="border border-border/70 rounded px-2 py-2 text-sm bg-white text-ink"
           >
-            <option value="">All tags</option>
+            <option value="">{t("journal.tag_filter_all")}</option>
             {allTags.map((tg) => <option key={tg} value={tg}>{tg}</option>)}
           </select>
         )}
@@ -252,8 +252,8 @@ export default function JournalPage() {
                   onClick={() => togglePin(e)}
                   data-testid={`journal-pin-${e.id}`}
                   className="ml-auto text-moss hover:text-terracotta transition-colors"
-                  aria-label={pinned ? "Unpin entry" : "Pin entry"}
-                  title={pinned ? "Unpin" : "Pin to top"}
+                  aria-label={pinned ? t("journal.unpin") : t("journal.pin")}
+                  title={pinned ? t("journal.unpin") : t("journal.pin")}
                 >
                   {pinned ? (
                     <Pin strokeWidth={1.6} className="w-4 h-4 text-terracotta" fill="currentColor" />
@@ -276,6 +276,7 @@ export default function JournalPage() {
                 entryId={e.id}
                 initial={m.tag || ""}
                 onSave={(v) => setTag(e, v)}
+                t={t}
               />
             </article>
           );
@@ -305,7 +306,7 @@ export default function JournalPage() {
  * My-Garden plant names + any tag they've used before. Free-text values
  * are also accepted — the datalist is suggestion-only.
  */
-function TagEditor({ entryId, initial, onSave }) {
+function TagEditor({ entryId, initial, onSave, t }) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(initial);
   useEffect(() => { setValue(initial); }, [initial]);
@@ -319,7 +320,7 @@ function TagEditor({ entryId, initial, onSave }) {
         className="mt-4 text-[0.65rem] uppercase tracking-widest text-moss hover:text-terracotta inline-flex items-center gap-1"
       >
         <Tag strokeWidth={1.6} className="w-3 h-3" />
-        {initial ? "Edit tag" : "Add plant tag"}
+        {initial ? t("journal.tag_edit") : t("journal.tag_add")}
       </button>
     );
   }
@@ -339,7 +340,7 @@ function TagEditor({ entryId, initial, onSave }) {
         list="journal-tag-suggestions"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Tomato, roses, courgette…"
+        placeholder={t("journal.tag_placeholder")}
         data-testid={`journal-tag-input-${entryId}`}
         className="border border-border rounded px-2 py-1 text-xs bg-white focus:outline-none focus:border-forest/50 min-w-[160px]"
       />
@@ -348,14 +349,14 @@ function TagEditor({ entryId, initial, onSave }) {
         data-testid={`journal-tag-save-${entryId}`}
         className="text-[0.65rem] uppercase tracking-widest text-forest hover:text-terracotta"
       >
-        Save
+        {t("journal.tag_save")}
       </button>
       <button
         type="button"
         onClick={() => { setValue(initial); setEditing(false); }}
         className="text-[0.65rem] uppercase tracking-widest text-moss hover:text-terracotta"
       >
-        Cancel
+        {t("journal.tag_cancel")}
       </button>
     </form>
   );

@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Προσθέστε στο σημειωματάριό σας",
   "journal.cta.blurb": "Κάθε ερώτηση που ρωτάτε την Nàdar καταλήγει αυτόματα εδώ, με χρονοσήμανση, ώστε την επόμενη χρονιά να μπορείτε να ανατρέξετε σε ό,τι λειτούργησε.",
   "journal.cta.button": "Ρωτήστε την Nàdar",
+  "journal.pinned_count": "{n} καρφωμένα",
+  "journal.pin": "Καρφίτσωμα στην κορυφή",
+  "journal.unpin": "Αφαίρεση καρφιτσώματος",
+  "journal.tag_add": "Προσθήκη ετικέτας φυτού",
+  "journal.tag_edit": "Επεξεργασία ετικέτας",
+  "journal.tag_save": "Αποθήκευση",
+  "journal.tag_cancel": "Ακύρωση",
+  "journal.tag_placeholder": "Ντομάτα, τριαντάφυλλα, κολοκύθι…",
+  "journal.tag_filter_all": "Όλες οι ετικέτες",
 
 };
 export default dict;

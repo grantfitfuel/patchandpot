@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Cuireann le do leabhar nótaí",
   "journal.cta.blurb": "Cuireann gach ceist a chuardaigh tú ó Nàdar go huathoibríoch anseo, le stampáil ama, ionas gur féidir leat athbhreithniú a dhéanamh ar an méid a oibrigh an bhliain seo chugainn.",
   "journal.cta.button": "Cuir ceist ar Nàdar",
+  "journal.pinned_count": "{n} greamaithe",
+  "journal.pin": "Greamaigh go barr",
+  "journal.unpin": "Bain greamadh",
+  "journal.tag_add": "Cuir gTagann planda",
+  "journal.tag_edit": "Cuir in eagar gTagann",
+  "journal.tag_save": "Sábháil",
+  "journal.tag_cancel": "Cealaigh",
+  "journal.tag_placeholder": "Domh, rósanna, courgette…",
+  "journal.tag_filter_all": "Gach gTagann",
 
 };
 export default dict;

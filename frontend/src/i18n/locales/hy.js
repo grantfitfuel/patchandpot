@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Ավելացնել ձեր նոթատետրում",
   "journal.cta.blurb": "Յուրաքանչյուր հարց, որ Դուք հարցնեք Նàդարին, ավտոմատ կերպով տեղակայվում է այստեղ, ժամանակի համարը նշված, որպեսզի հաջորդ տարի կարողանաք վերադառնալ այն, ինչ օգտագործվել է:",
   "journal.cta.button": "Հարցրե՛ք Նàդարին",
+  "journal.pinned_count": "{n} կցված",
+  "journal.pin": "Կցել վերևում",
+  "journal.unpin": "Հանել կցվածը",
+  "journal.tag_add": "Ավելացնել բույսի պիտակ",
+  "journal.tag_edit": "Խմբագրել պիտակը",
+  "journal.tag_save": "Պահպանել",
+  "journal.tag_cancel": "Չեղարկել",
+  "journal.tag_placeholder": "Պոմիդոր, վարդեր, ձվածեղ…",
+  "journal.tag_filter_all": "Բոլոր պիտակները",
 
 };
 export default dict;

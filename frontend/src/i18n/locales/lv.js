@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Pievienot piezīmju grāmatai",
   "journal.cta.blurb": "Katrs jautājums, ko jūs uzdodat Nàdar, automātiski nonāk šeit, ar laika zīmogu, lai nākamgad jūs varētu atgriezties pie tā, kas darbojās.",
   "journal.cta.button": "Uzdodiet Nàdar",
+  "journal.pinned_count": "{n} piesprausts",
+  "journal.pin": "Piespraust augšpusē",
+  "journal.unpin": "Atbrīvot piespraudi",
+  "journal.tag_add": "Pievienot auga birku",
+  "journal.tag_edit": "Rediģēt birku",
+  "journal.tag_save": "Saglabāt",
+  "journal.tag_cancel": "Atcelt",
+  "journal.tag_placeholder": "Tomāti, rozes, cukini...",
+  "journal.tag_filter_all": "Visas birkas",
 
 };
 export default dict;

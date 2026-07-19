@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "আপনার নোটবুকে যোগ করুন",
   "journal.cta.blurb": "আপনি নাডারকে যে প্রতিটি প্রশ্ন করেন তা স্বয়ংক্রিয়ভাবে এখানে জমা হয়, সময়মতো চিহ্নিত হয়, তাই পরের বছর আপনি দেখতে পারেন কি কার্যকর হয়েছে।",
   "journal.cta.button": "নাডারকে জিজ্ঞাসা করুন",
+  "journal.pinned_count": "{n} পিন করা হয়েছে",
+  "journal.pin": "শীর্ষে পিন করুন",
+  "journal.unpin": "পিন অপসারণ করুন",
+  "journal.tag_add": "গাছের ট্যাগ যোগ করুন",
+  "journal.tag_edit": "ট্যাগ সম্পাদনা করুন",
+  "journal.tag_save": "সংরক্ষণ করুন",
+  "journal.tag_cancel": "বাতিল করুন",
+  "journal.tag_placeholder": "টমেটো, গোলাপ, কাঁচা মরিচ…",
+  "journal.tag_filter_all": "সব ট্যাগ",
 
 };
 export default dict;

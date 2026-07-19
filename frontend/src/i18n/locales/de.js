@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "In dein Notizbuch hinzufügen",
   "journal.cta.blurb": "Jede Frage, die du Nàdar stellst, landet automatisch hier, mit Zeitstempel, sodass du nächstes Jahr zurückblicken kannst, was funktioniert hat.",
   "journal.cta.button": "Frag Nàdar",
+  "journal.pinned_count": "{n} angeheftet",
+  "journal.pin": "Oben anheften",
+  "journal.unpin": "Lösen",
+  "journal.tag_add": "Pflanzenetikett hinzufügen",
+  "journal.tag_edit": "Etikett bearbeiten",
+  "journal.tag_save": "Speichern",
+  "journal.tag_cancel": "Abbrechen",
+  "journal.tag_placeholder": "Tomate, Rosen, Zucchini…",
+  "journal.tag_filter_all": "Alle Etiketten",
 
 };
 export default dict;

@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Bættu við í dagbókina þína",
   "journal.cta.blurb": "Öll spurningin sem þú spyrð Nàdar lendir sjálfkrafa hér, tímastimplað, svo næsta ár geturðu flett aftur til þess sem virkaði.",
   "journal.cta.button": "Spyrðu Nàdar",
+  "journal.pinned_count": "{n} fest",
+  "journal.pin": "Festa efst",
+  "journal.unpin": "Affesta",
+  "journal.tag_add": "Bæta við plöntumerki",
+  "journal.tag_edit": "Breita merki",
+  "journal.tag_save": "Vista",
+  "journal.tag_cancel": "Hætta við",
+  "journal.tag_placeholder": "Tómatar, rósir, grasker…",
+  "journal.tag_filter_all": "Öll merki",
 
 };
 export default dict;

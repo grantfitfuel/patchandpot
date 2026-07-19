@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "أضف إلى دفتر ملاحظاتك",
   "journal.cta.blurb": "كل سؤال تطرحه على نàدار يُسجل تلقائياً هنا، معtimestamp، حتى تتمكن من العودة إلى ما نجح في العام المقبل.",
   "journal.cta.button": "اسأل نàدار",
+  "journal.pinned_count": "{n} مثبت",
+  "journal.pin": "تثبيت في الأعلى",
+  "journal.unpin": "إلغاء التثبيت",
+  "journal.tag_add": "إضافة علامة نبات",
+  "journal.tag_edit": "تعديل العلامة",
+  "journal.tag_save": "حفظ",
+  "journal.tag_cancel": "إلغاء",
+  "journal.tag_placeholder": "طماطم، زهور، كوسة…",
+  "journal.tag_filter_all": "جميع العلامات",
 
 };
 export default dict;

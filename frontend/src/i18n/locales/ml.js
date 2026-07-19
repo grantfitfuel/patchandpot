@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "നിങ്ങളുടെ notebook-ൽ ചേർക്കുക",
   "journal.cta.blurb": "നിങ്ങൾ Nàdar-ന് നൽകിയ ഓരോ ചോദ്യം സ്വയം ഇവിടെ എത്തുന്നു, timestamped, അതിനാൽ അടുത്ത വർഷം നിങ്ങൾ എന്ത് പ്രവർത്തിച്ചതാണ് എന്നതിലേക്ക് തിരിയ്ക്കാൻ കഴിയും.",
   "journal.cta.button": "Nàdar-െ ചോദിക്കുക",
+  "journal.pinned_count": "{n} പിടിച്ചു",
+  "journal.pin": "ശീർഷകത്തിലേക്ക് പിടിക്കൂ",
+  "journal.unpin": "വിട്ടുക",
+  "journal.tag_add": "സസ്യത്തഗം ചേർക്കുക",
+  "journal.tag_edit": "തഗം എഡിറ്റ് ചെയ്യുക",
+  "journal.tag_save": "സംരക്ഷിക്കുക",
+  "journal.tag_cancel": "റദ്ദാക്കുക",
+  "journal.tag_placeholder": "ടോമാറ്റോ, റോസ്, കൂറ്ജറ്റ്…",
+  "journal.tag_filter_all": "എല്ലാ താഗുകളും",
 
 };
 export default dict;

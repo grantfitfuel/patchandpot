@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Добавете към бележника си",
   "journal.cta.blurb": "Всеки въпрос, който зададете на Нàдар, автоматично попада тук, с отметка, така че следващата година да можете да се върнете към това, което е сработило.",
   "journal.cta.button": "Попитайте Нàдар",
+  "journal.pinned_count": "{n} закрепени",
+  "journal.pin": "Закрепи в горната част",
+  "journal.unpin": "Премахни закрепването",
+  "journal.tag_add": "Добави етикет за растение",
+  "journal.tag_edit": "Редактирай етикет",
+  "journal.tag_save": "Запази",
+  "journal.tag_cancel": "Отмени",
+  "journal.tag_placeholder": "Домати, рози, тиквички…",
+  "journal.tag_filter_all": "Всички етикети",
 
 };
 export default dict;

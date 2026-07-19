@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Pridėti prie savo užrašų knygelės",
   "journal.cta.blurb": "Kiekvienas klausimas, kurį užduodate Nàdar, automatiškai pateks čia, pažymėtas laiku, todėl kitais metais galėsite sugrįžti prie to, kas pasiteisino.",
   "journal.cta.button": "Klauskite Nàdar",
+  "journal.pinned_count": "{n} prisegtų",
+  "journal.pin": "Prisegti prie viršaus",
+  "journal.unpin": "Atsegti",
+  "journal.tag_add": "Pridėti augalo etiketę",
+  "journal.tag_edit": "Redaguoti etiketę",
+  "journal.tag_save": "Išsaugoti",
+  "journal.tag_cancel": "Atšaukti",
+  "journal.tag_placeholder": "Pomidoras, rožės, cukinija…",
+  "journal.tag_filter_all": "Visos etiketės",
 
 };
 export default dict;

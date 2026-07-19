@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Agregar a tu cuaderno",
   "journal.cta.blurb": "Cada pregunta que hagas a Nàdar se guarda automáticamente aquí, con hora y fecha, para que el próximo año puedas volver a ver lo que funcionó.",
   "journal.cta.button": "Preguntar a Nàdar",
+  "journal.pinned_count": "{n} fijados",
+  "journal.pin": "Fijar en la parte superior",
+  "journal.unpin": "Desfijar",
+  "journal.tag_add": "Añadir etiqueta de planta",
+  "journal.tag_edit": "Editar etiqueta",
+  "journal.tag_save": "Guardar",
+  "journal.tag_cancel": "Cancelar",
+  "journal.tag_placeholder": "Tomate, rosas, calabacín…",
+  "journal.tag_filter_all": "Todas las etiquetas",
 
 };
 export default dict;

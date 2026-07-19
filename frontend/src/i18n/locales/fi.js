@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Lisää muistiinpanokirjaasi",
   "journal.cta.blurb": "Jokainen kysymys, jonka kysyt Nàdarilta, tulee automaattisesti tänne, aikaleimattuna, jotta ensi vuonna voit palata siihen, mikä toimi.",
   "journal.cta.button": "Kysy Nàdarilta",
+  "journal.pinned_count": "{n} kiinnitetty",
+  "journal.pin": "Kiinnitä ylös",
+  "journal.unpin": "Poista kiinnitys",
+  "journal.tag_add": "Lisää kasvitunniste",
+  "journal.tag_edit": "Muokkaa tunnistetta",
+  "journal.tag_save": "Tallenna",
+  "journal.tag_cancel": "Peruuta",
+  "journal.tag_placeholder": "Tomaatti, ruusut, kesäkurpitsa…",
+  "journal.tag_filter_all": "Kaikki tunnisteet",
 
 };
 export default dict;

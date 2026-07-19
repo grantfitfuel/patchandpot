@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "ノートに追加",
   "journal.cta.blurb": "Nàdarに尋ねたすべての質問は自動的にここに記録され、タイムスタンプ付きになるので、来年はうまくいったことをさかのぼって確認できます。",
   "journal.cta.button": "Nàdarに尋ねる",
+  "journal.pinned_count": "{n} 件がピン留めされています",
+  "journal.pin": "トップにピン留め",
+  "journal.unpin": "ピン留め解除",
+  "journal.tag_add": "植物のタグを追加",
+  "journal.tag_edit": "タグを編集",
+  "journal.tag_save": "保存",
+  "journal.tag_cancel": "キャンセル",
+  "journal.tag_placeholder": "トマト、バラ、ズッキーニ…",
+  "journal.tag_filter_all": "すべてのタグ",
 
 };
 export default dict;

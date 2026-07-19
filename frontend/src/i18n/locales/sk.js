@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Pridať do vášho zápisníka",
   "journal.cta.blurb": "Každá otázka, ktorú položíte Nàdar, automaticky skončí tu, s časovým pečiatkou, takže sa môžete vrátiť k tomu, čo fungovalo, budúci rok.",
   "journal.cta.button": "Spýtajte sa Nàdar",
+  "journal.pinned_count": "{n} pripnuté",
+  "journal.pin": "Pripnúť na vrchol",
+  "journal.unpin": "Odpripnúť",
+  "journal.tag_add": "Pridať označenie rastliny",
+  "journal.tag_edit": "Upraviť označenie",
+  "journal.tag_save": "Uložiť",
+  "journal.tag_cancel": "Zrušiť",
+  "journal.tag_placeholder": "Rajčinové, ruže, cuketa…",
+  "journal.tag_filter_all": "Všetky označenia",
 
 };
 export default dict;

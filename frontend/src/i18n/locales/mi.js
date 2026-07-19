@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Tāpiri ki tō pānui",
   "journal.cta.blurb": "Ngā pātai katoa i pātai koe ki a Nàdar ka whakatakotoria ki konei, e tāngia ana te wā, nā reira i te tau e tū mai ana ka taea e koe te tirohia ngā mea i pērā.",
   "journal.cta.button": "Pātai ki a Nàdar",
+  "journal.pinned_count": "{n} kua pīrau",
+  "journal.pin": "Pīrau ki te rārangi",
+  "journal.unpin": "Kaua e pīrau",
+  "journal.tag_add": "Tāpiri kāinga tipu",
+  "journal.tag_edit": "Whakarerekē kāinga",
+  "journal.tag_save": "Kūao",
+  "journal.tag_cancel": "Tūkino",
+  "journal.tag_placeholder": "Tāmato, rongonui, kūkū…",
+  "journal.tag_filter_all": "Katoa ngā kāinga",
 
 };
 export default dict;

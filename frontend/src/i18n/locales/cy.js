@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Ychwanegu at eich nodiadur",
   "journal.cta.blurb": "Pob cwestiwn rydych chi'n ei ofyn i Nàdar sydd wedi'i osod yma yn awtomatig, gyda stamp amser, fel y gallwch fwrw'n ôl y flwyddyn nesaf i'r hyn a oedd yn gweithio.",
   "journal.cta.button": "Gofyn i Nàdar",
+  "journal.pinned_count": "{n} wedi eu pinnu",
+  "journal.pin": "Pinio ar y brig",
+  "journal.unpin": "Dad-pinio",
+  "journal.tag_add": "Ychwanegu tag planhigyn",
+  "journal.tag_edit": "Addasu tag",
+  "journal.tag_save": "Cadw",
+  "journal.tag_cancel": "Diddymu",
+  "journal.tag_placeholder": "Tomato, rhosynnau, courgette…",
+  "journal.tag_filter_all": "Pawb y tagiau",
 
 };
 export default dict;

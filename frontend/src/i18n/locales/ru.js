@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Добавить в ваш блокнот",
   "journal.cta.blurb": "Каждый вопрос, который вы задаете Nàdar, автоматически попадает сюда с отметкой времени, чтобы в следующем году вы могли вернуться к тому, что сработало.",
   "journal.cta.button": "Спросите Nàdar",
+  "journal.pinned_count": "{n} закреплено",
+  "journal.pin": "Закрепить вверху",
+  "journal.unpin": "Открепить",
+  "journal.tag_add": "Добавить ярлык растения",
+  "journal.tag_edit": "Редактировать ярлык",
+  "journal.tag_save": "Сохранить",
+  "journal.tag_cancel": "Отменить",
+  "journal.tag_placeholder": "Помидор, розы, кабачки…",
+  "journal.tag_filter_all": "Все ярлыки",
 
 };
 export default dict;

@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Lisa oma märkmikku",
   "journal.cta.blurb": "Iga küsimus, mille te Nàdarile küsite, maandub automaatselt siia, ajatempli all, et järgmisel aastal saaksite tagasi vaadata, mis töötas.",
   "journal.cta.button": "Küsi Nàdarilt",
+  "journal.pinned_count": "{n} kinnitatud",
+  "journal.pin": "Kinnita tipus",
+  "journal.unpin": "Eemalda kinnitamine",
+  "journal.tag_add": "Lisa taime silt",
+  "journal.tag_edit": "Muuda silti",
+  "journal.tag_save": "Salvesta",
+  "journal.tag_cancel": "Tühista",
+  "journal.tag_placeholder": "Tomat, roosid, suvikõrvits…",
+  "journal.tag_filter_all": "Kõik silti",
 
 };
 export default dict;

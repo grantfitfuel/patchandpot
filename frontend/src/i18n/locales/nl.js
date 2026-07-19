@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Toevoegen aan je notitieboek",
   "journal.cta.blurb": "Elke vraag die je aan Nàdar stelt, komt automatisch hier terecht, met tijdstempel, zodat je volgend jaar kunt terugbladeren naar wat werkte.",
   "journal.cta.button": "Vraag Nàdar",
+  "journal.pinned_count": "{n} vastgezet",
+  "journal.pin": "Bovenaan vastzetten",
+  "journal.unpin": "Vastzetting opheffen",
+  "journal.tag_add": "Plantlabel toevoegen",
+  "journal.tag_edit": "Label bewerken",
+  "journal.tag_save": "Opslaan",
+  "journal.tag_cancel": "Annuleren",
+  "journal.tag_placeholder": "Tomaat, rozen, courgette…",
+  "journal.tag_filter_all": "Alle labels",
 
 };
 export default dict;

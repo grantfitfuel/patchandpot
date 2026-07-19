@@ -1,3 +1,14 @@
+### Iteration 49 (2026-02-19): ✅ — Admin Ask Review Queue + Journal Pinning/Tagging + 37-key i18n sweep
+- **i18n sweep — 37 new keys x 57 non-EN locales** shipped via 2 idempotent scripts:
+  - `scripts/translate_topics_feedback_journal_keys.py` — 28 keys (topics.*, feedback.*, journal.*)
+  - `scripts/translate_journal_pin_tag_keys.py` — 9 new keys for pin/tag UI chrome
+  - Fixed ka.js `feedback.prompt` English leak identified by testing agent (translated to Georgian)
+- **Admin Review Queue** — new `/admin/ask-review` (AdminHome card + AdminTokenGate). Lists every `ask_cache` row with `pending_review: true` and provides one-tap Approve (unhide) or Permanent-hide, both of which clear the review flag. Backend: `GET /api/admin/ask/pending-review`, `POST /api/admin/ask/review/{key}?decision=unhide|hide`.
+- **Journal Pinning + Plant Tagging** — `/journal` now supports unlimited pins (pinned entries float to top with terracotta ring) and free-form tags with My-Garden plant name suggestions via `<datalist>`. Tag filter dropdown surfaces once ≥ 1 tag exists. All UI strings fully i18n'd. Backend: new `ask_journal_meta` collection keyed on `(access_token, user_message_id)`, endpoints `GET /api/ask/journal/meta` + `POST /api/ask/journal/meta`. `DELETE /api/ask/sessions/{id}` now cascades to metadata cleanup.
+- **Testing** — 14/14 backend pytest passes (`/app/backend/tests/test_ask_review_journal_iter49.py`); frontend flows end-to-end verified by testing agent v3 iteration_49.
+- Service worker bumped v59 → v61.
+
+
 # Patch & Pot – PRD
 
 ## Original Problem Statement

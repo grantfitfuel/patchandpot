@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "ನಿಮ್ಮ ನೋಟ್ಬುಕ್ಕಿಗೆ ಸೇರಿಸಿ",
   "journal.cta.blurb": "ನೀವು ನಾದರ್ ಗೆ ಕೇಳಿದ प्रत्येक ಪ್ರಶ್ನೆ ಸ್ವಾಯತ್ತವಾಗಿ ಇಲ್ಲಿ ಇರುತ್ತದೆ, ಸಮಯವನ್ನು ಘೋಷಿಸಲಾಗುತ್ತದೆ, ಹೀಗಾಗಿ ಮುಂದಿನ ವರ್ಷ ನೀವು ಏನು ಕಾರ್ಯನಿರ್ವಹಿಸುವುದನ್ನು ಹಿಂದಿರುಗಬಹುದು.",
   "journal.cta.button": "ನಾದರ್ ಅನ್ನು ಕೇಳಿ",
+  "journal.pinned_count": "{n} ಶ್ರೇಣೀಬದ್ಧಿಸಲಾಗಿದೆ",
+  "journal.pin": "ಮೂಲೆಗೆ ಸ್ಥಾಪಿಸಿ",
+  "journal.unpin": "ಅಕ್ಷರವನ್ನು ನಿರ್ಮೂಲ ಮಾಡಿ",
+  "journal.tag_add": "ಗುಲಾಬಿಯ ತಲೆಕಟ್ಟನ್ನು ಸೇರಿಸಿ",
+  "journal.tag_edit": "ತಲೆಕಟ್ಟನ್ನು ಸಂಪಾದಿಸಿ",
+  "journal.tag_save": "ರುವಾಗಿ",
+  "journal.tag_cancel": "ರದ್ದುಗೊಳಿಸಿ",
+  "journal.tag_placeholder": "ಟೊಮೆಟೋ, ಗುಲಾಬಿ, ಕೊಬ್ಬರಿ…",
+  "journal.tag_filter_all": "ಎಲ್ಲಾ ತಲೆಕಟ್ಟುಗಳು",
 
 };
 export default dict;

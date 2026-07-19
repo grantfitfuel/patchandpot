@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "మీ నోట్‌బుక్‌కు చేర్చండి",
   "journal.cta.blurb": "మీరు Nàdar కి అడిగిన ప్రతి ప్రశ్న, టైం స్టాంప్ చేయబడిన కొరకు ఇక్కడ స్వయంచాలకంగా ఉంది, తద్వారా వచ్చే సంవత్సరం మీరు పనిచేసిన ఆనవాళ్ళను గమనించవచ్చు.",
   "journal.cta.button": "Nàdar ని అడగండి",
+  "journal.pinned_count": "{n} పిన్డ్",
+  "journal.pin": "పైకి పిన్ చేయండి",
+  "journal.unpin": "పై నుండి తీసేయండి",
+  "journal.tag_add": "చెట్టు ట్యాగ్ చేర్చండి",
+  "journal.tag_edit": "ట్యాగ్‌ను సవరించండి",
+  "journal.tag_save": "సేవ్ చేయండి",
+  "journal.tag_cancel": "రద్దు చేయండి",
+  "journal.tag_placeholder": "టమాటో, పైుట్టు, కూరగాయలు…",
+  "journal.tag_filter_all": "అన్నీ ట్యాగ్లు",
 
 };
 export default dict;

@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Tambahkan ke buku catatan Anda",
   "journal.cta.blurb": "Setiap pertanyaan yang Anda ajukan kepada Nàdar secara otomatis mendarat di sini, dengan cap waktu, sehingga tahun depan Anda dapat melihat kembali apa yang berhasil.",
   "journal.cta.button": "Tanya Nàdar",
+  "journal.pinned_count": "{n} tersemat",
+  "journal.pin": "Sematkan di atas",
+  "journal.unpin": "Lepaskan sematan",
+  "journal.tag_add": "Tambahkan label tanaman",
+  "journal.tag_edit": "Edit label",
+  "journal.tag_save": "Simpan",
+  "journal.tag_cancel": "Batal",
+  "journal.tag_placeholder": "Tomat, mawar, zucchini…",
+  "journal.tag_filter_all": "Semua label",
 
 };
 export default dict;

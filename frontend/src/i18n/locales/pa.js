@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "ਤੁਹਾਡੇ ਸੰਗ੍ਰਹਿ ਵਿੱਚ ਸ਼ਾਮਲ ਕਰੋ",
   "journal.cta.blurb": "ਹਰ ਸਵਾਲ ਜੋ ਤੁਸੀਂ Nàdar ਨੂੰ ਪੁੱਛਦੇ ਹੋ, ਉਹ ਆਟੋਮੈਟਿਕ ਤੌਰ 'ਤੇ ਇੱਥੇ ਆਉਂਦਾ ਹੈ, ਟਾਈਮਸਟਾਂਪ ਕੀਤਾ ਹੋਇਆ, ਤਾਂ ਜੋ ਅਗਲੇ ਸਾਲ ਤੁਸੀਂ ਵੇਖ ਸਕੋ ਕਿ ਕੀ ਕੰਮ ਕੀਤਾ।",
   "journal.cta.button": "Nàdar ਤੋਂ ਪੁੱਛੋ",
+  "journal.pinned_count": "{n} ਚਿਕਨਾਟ",
+  "journal.pin": "ਊਚੇ 'ਤੇ ਫੜੋ",
+  "journal.unpin": "ਊਚੇ ਤੋਂ ਛੱਡੋ",
+  "journal.tag_add": "ਉਦਭਵ ਟੈਗ ਸ਼ਾਮਿਲ ਕਰੋ",
+  "journal.tag_edit": "ਟੈਗ ਸੰਪਾਦਿਤ ਕਰੋ",
+  "journal.tag_save": "ਸੁਨਿਸ਼ਚਿਤ ਕਰੋ",
+  "journal.tag_cancel": "ਰੱਦ ਕਰੋ",
+  "journal.tag_placeholder": "ਟਮਾਟਰ, ਗੁਲਾਬ, ਨੀਵਿਆ…",
+  "journal.tag_filter_all": "ਸਾਰੇ ਟੈਗ",
 
 };
 export default dict;

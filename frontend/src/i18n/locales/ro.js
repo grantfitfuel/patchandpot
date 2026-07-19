@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Adaugă la caietul tău",
   "journal.cta.blurb": "Fiecare întrebare pe care o pui lui Nàdar se va salva automat aici, cu marcaj de timp, așa că anul viitor poți reveni la ce a funcționat.",
   "journal.cta.button": "Întreabă-l pe Nàdar",
+  "journal.pinned_count": "{n} fixat",
+  "journal.pin": "Fixează în vârf",
+  "journal.unpin": "Dezfixează",
+  "journal.tag_add": "Adaugă etichetă pentru plantă",
+  "journal.tag_edit": "Modifică eticheta",
+  "journal.tag_save": "Salvează",
+  "journal.tag_cancel": "Anulează",
+  "journal.tag_placeholder": "Roșie, trandafiri, dovlecei…",
+  "journal.tag_filter_all": "Toate etichetele",
 
 };
 export default dict;

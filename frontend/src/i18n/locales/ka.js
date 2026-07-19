@@ -1003,7 +1003,7 @@ const dict = {
   "topics.empty": "ამ თემაში ჯერ არ არის კითხვები — დაბრუნდით შემდეგ, როცა უფრო მეტი მოიყრის თავს.",
   "topics.not_found": "თემა ვერ მოიძებნა",
   "topics.see_all_questions": "ან იხილეთ ყველა საერთო შეკითხვა ერთზე გრძელი სიით",
-  "feedback.prompt": "Was this helpful?",
+  "feedback.prompt": "სასარგებლო იყო?",
   "feedback.yes": "დიახ",
   "feedback.no": "არა",
   "feedback.recorded_up": "დაწვდილი სასარგებლო",
@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "დაამატეთ თქვენს რვეულში",
   "journal.cta.blurb": "ყოველი კითხვა, რაც ხარ Nàdar-ს, ავტომატურად შენდა გადადის აქ, დროით, ისე რომ შემდეგ წელს შეგიძლია გადახვიდეთ, თუ რა იმოქმედა.",
   "journal.cta.button": "კითხეთ Nàdar-ს",
+  "journal.pinned_count": "{n} მიმაგრებული",
+  "journal.pin": "მიმაგრე ზემოთ",
+  "journal.unpin": "მიმაგრების მოხსნა",
+  "journal.tag_add": "დაამატეთ მცენარის ტეგი",
+  "journal.tag_edit": "რედაქტირება",
+  "journal.tag_save": "შენახვა",
+  "journal.tag_cancel": "მოხსნა",
+  "journal.tag_placeholder": "პომიდვარი, ვარდები, ყვავილი…",
+  "journal.tag_filter_all": "ყველა ტეგი",
 
 };
 export default dict;

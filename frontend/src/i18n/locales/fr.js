@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Ajouter à votre carnet",
   "journal.cta.blurb": "Chaque question que vous posez à Nàdar atterrit automatiquement ici, avec une date et une heure, afin que l'année prochaine vous puissiez revenir sur ce qui a fonctionné.",
   "journal.cta.button": "Demandez à Nàdar",
+  "journal.pinned_count": "{n} épinglés",
+  "journal.pin": "Épingler en haut",
+  "journal.unpin": "Désépingler",
+  "journal.tag_add": "Ajouter une étiquette de plante",
+  "journal.tag_edit": "Modifier l'étiquette",
+  "journal.tag_save": "Sauvegarder",
+  "journal.tag_cancel": "Annuler",
+  "journal.tag_placeholder": "Tomate, roses, courgette…",
+  "journal.tag_filter_all": "Toutes les étiquettes",
 
 };
 export default dict;

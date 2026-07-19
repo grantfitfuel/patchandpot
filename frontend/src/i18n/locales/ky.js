@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Блокнотуңузга кошуңуз",
   "journal.cta.blurb": "Сиз Nàdarдан берген бардык суроолор автоматтык түрдө бул жакка келет, убакыт белгиси менен, ошондуктан келерки жылы эмне иштегенин кайра карасаңыз болот.",
   "journal.cta.button": "Nàdarдан сураңыз",
+  "journal.pinned_count": "{n} бекитилген",
+  "journal.pin": "Жогорку тарапка бекитүү",
+  "journal.unpin": "Бекитүүлөрдү алыу",
+  "journal.tag_add": "Өсүмдүк тагын кошуңуз",
+  "journal.tag_edit": "Тагды редакциялоо",
+  "journal.tag_save": "Сактоо",
+  "journal.tag_cancel": "Жокко чыгаруу",
+  "journal.tag_placeholder": "Помидор, розалар, цуккини…",
+  "journal.tag_filter_all": "Бардык тагдар",
 
 };
 export default dict;

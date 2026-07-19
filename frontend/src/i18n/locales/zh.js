@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "添加到你的笔记本",
   "journal.cta.blurb": "你向 Nàdar 提问的每个问题会自动记录在这里，并带有时间戳，这样明年你就可以快速回顾哪些有效。",
   "journal.cta.button": "问 Nàdar",
+  "journal.pinned_count": "{n} 个已固定",
+  "journal.pin": "置顶",
+  "journal.unpin": "取消固定",
+  "journal.tag_add": "添加植物标签",
+  "journal.tag_edit": "编辑标签",
+  "journal.tag_save": "保存",
+  "journal.tag_cancel": "取消",
+  "journal.tag_placeholder": "番茄、玫瑰、西葫芦…",
+  "journal.tag_filter_all": "所有标签",
 
 };
 export default dict;

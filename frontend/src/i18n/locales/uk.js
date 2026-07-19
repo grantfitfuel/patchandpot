@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Додати до вашого нотатника",
   "journal.cta.blurb": "Кожне запитання, яке ви ставите Nàdar, автоматично потрапляє сюди з часовою міткою, щоб наступного року ви могли швидко повернутись до того, що спрацювало.",
   "journal.cta.button": "Запитайте Nàdar",
+  "journal.pinned_count": "{n} закріплених",
+  "journal.pin": "Закріпити зверху",
+  "journal.unpin": "Відкріпити",
+  "journal.tag_add": "Додати ярлик рослини",
+  "journal.tag_edit": "Редагувати ярлик",
+  "journal.tag_save": "Зберегти",
+  "journal.tag_cancel": "Скасувати",
+  "journal.tag_placeholder": "Помідор, троянди, цукіні…",
+  "journal.tag_filter_all": "Усі ярлики",
 
 };
 export default dict;

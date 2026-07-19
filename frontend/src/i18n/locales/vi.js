@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Thêm vào sổ tay của bạn",
   "journal.cta.blurb": "Mỗi câu hỏi bạn hỏi Nàdar sẽ tự động được lưu ở đây, có dấu thời gian, để năm sau bạn có thể quay lại những gì đã hiệu quả.",
   "journal.cta.button": "Hỏi Nàdar",
+  "journal.pinned_count": "{n} đã ghim",
+  "journal.pin": "Ghim lên đầu",
+  "journal.unpin": "Bỏ ghim",
+  "journal.tag_add": "Thêm nhãn cây",
+  "journal.tag_edit": "Chỉnh sửa nhãn",
+  "journal.tag_save": "Lưu",
+  "journal.tag_cancel": "Hủy",
+  "journal.tag_placeholder": "Cà chua, hoa hồng, bí xanh…",
+  "journal.tag_filter_all": "Tất cả nhãn",
 
 };
 export default dict;

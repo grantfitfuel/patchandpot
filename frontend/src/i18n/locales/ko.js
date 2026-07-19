@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "노트북에 추가하기",
   "journal.cta.blurb": "당신이 Nàdar에게 요청한 모든 질문은 자동으로 여기에 저장되며, 타임스탬프가 기록되어 다음 해에는 어떤 방법이 효과적이었는지 되돌아볼 수 있습니다.",
   "journal.cta.button": "Nàdar에게 질문하기",
+  "journal.pinned_count": "{n} 고정됨",
+  "journal.pin": "위에 고정",
+  "journal.unpin": "고정 해제",
+  "journal.tag_add": "식물 태그 추가",
+  "journal.tag_edit": "태그 편집",
+  "journal.tag_save": "저장",
+  "journal.tag_cancel": "취소",
+  "journal.tag_placeholder": "토마토, 장미, 호박…",
+  "journal.tag_filter_all": "모든 태그",
 
 };
 export default dict;

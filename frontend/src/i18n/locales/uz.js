@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Daftaringizga qo'shish",
   "journal.cta.blurb": "Siz Nàdar dan so'ragan har bir savol avtomatik ravishda bu erda, vaqt belgilangan holda joylanadi, shuning uchun kelasi yil nima ishlagani haqida qaytib ko'rishingiz mumkin.",
   "journal.cta.button": "Nàdar ga so'rang",
+  "journal.pinned_count": "{n} pinlangan",
+  "journal.pin": "Yuqoriga joylashtirish",
+  "journal.unpin": "Joylashuvni olib tashlash",
+  "journal.tag_add": "O'simlik yorlig'ini qo'shish",
+  "journal.tag_edit": "Yorliqni tahrirlash",
+  "journal.tag_save": "Saqlash",
+  "journal.tag_cancel": "Bekor qilish",
+  "journal.tag_placeholder": "Pomidor, atirgullar, qovoq…",
+  "journal.tag_filter_all": "Barcha yorliqlar",
 
 };
 export default dict;

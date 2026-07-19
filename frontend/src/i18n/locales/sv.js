@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Lägg till i din anteckningsbok",
   "journal.cta.blurb": "Varje fråga du ställer till Nàdar hamnar automatiskt här, tidsstämplad, så att du nästa år kan bläddra tillbaka till vad som fungerade.",
   "journal.cta.button": "Fråga Nàdar",
+  "journal.pinned_count": "{n} fastsatt",
+  "journal.pin": "Fäst högst upp",
+  "journal.unpin": "Ta bort fäste",
+  "journal.tag_add": "Lägg till växtetikett",
+  "journal.tag_edit": "Redigera etikett",
+  "journal.tag_save": "Spara",
+  "journal.tag_cancel": "Avbryt",
+  "journal.tag_placeholder": "Tomat, rosor, zucchini…",
+  "journal.tag_filter_all": "Alla etiketter",
 
 };
 export default dict;

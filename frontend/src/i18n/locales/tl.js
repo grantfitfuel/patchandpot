@@ -1023,6 +1023,15 @@ const dict = {
   "journal.cta.title": "Idagdag sa iyong notebook",
   "journal.cta.blurb": "Bawat tanong na itanong mo sa Nàdar ay awtomatikong mapupunta dito, may nakatakdang oras, kaya sa susunod na taon ay maaari mong balikan kung ano ang gumana.",
   "journal.cta.button": "Magtanong kay Nàdar",
+  "journal.pinned_count": "{n} nakapin",
+  "journal.pin": "Ipin sa itaas",
+  "journal.unpin": "Tanggalin ang pagkakapin",
+  "journal.tag_add": "Magdagdag ng tag ng halaman",
+  "journal.tag_edit": "I-edit ang tag",
+  "journal.tag_save": "I-save",
+  "journal.tag_cancel": "Kanselahin",
+  "journal.tag_placeholder": "Sibuyas, rosas, courgette…",
+  "journal.tag_filter_all": "Lahat ng tag",
 
 };
 export default dict;

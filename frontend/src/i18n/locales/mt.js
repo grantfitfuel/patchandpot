@@ -1022,6 +1022,15 @@ const dict = {
   "journal.cta.title": "Żid mal-notebook tiegħek",
   "journal.cta.blurb": "Kull mistoqsija li tistaqsi lil Nàdar tiġi awtomatikament hawn, b'ħin definit, sabiex is-sena d-dieħla tkun tista' terġa' lura lejn dak li għamel.",
   "journal.cta.button": "Staqsi lil Nàdar",
+  "journal.pinned_count": "{n} imniżżel",
+  "journal.pin": "Imniedi għal fuq",
+  "journal.unpin": "Imniżżel f'kullimkien",
+  "journal.tag_add": "Żid it-tag tal-pjanta",
+  "journal.tag_edit": "Aħdem it-tag",
+  "journal.tag_save": "Ħ حفظ",
+  "journal.tag_cancel": "Iċċaħħad",
+  "journal.tag_placeholder": "Tadam, roża, żukkini…",
+  "journal.tag_filter_all": "Lit-tagi kollha",
 
 };
 export default dict;

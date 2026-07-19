@@ -213,6 +213,107 @@ def make_router(db) -> APIRouter:
         "Expires": "0",
     }
 
+    @router.get("/ask/topics")
+    async def list_topics(response: Response):
+        """PUBLIC — curated topic taxonomy with live question counts.
+        Counts only include eligible questions (hits >= 1, not hidden,
+        first-turn) so the tile counts match what a visitor will
+        actually see on each topic page."""
+        from data.ask_topics import TOPICS, _matches
+        cursor = db.ask_cache.find(
+            {"hits": {"$gte": 1}, "prior_hash": None, "hidden": {"$ne": True}},
+            {"_id": 0, "question_normalized": 1},
+        )
+        rows = [r async for r in cursor]
+        out = []
+        for t in TOPICS:
+            n = sum(1 for r in rows if _matches(r.get("question_normalized", ""), t["terms"]))
+            out.append({"id": t["id"], "label": t["label"], "blurb": t["blurb"], "count": n})
+        response.headers["Cache-Control"] = "public, max-age=3600, stale-while-revalidate=86400"
+        return {"topics": out}
+
+    @router.get("/ask/topics/{topic_id}")
+    async def get_topic_page(topic_id: str, response: Response):
+        """PUBLIC — one topic landing page. Returns the topic metadata
+        plus every eligible question that matches its term list.
+        Empty topics still return 200 so the frontend can render an
+        honest "no questions yet" state."""
+        from data.ask_topics import get_topic, _matches
+        topic = get_topic(topic_id)
+        if not topic:
+            raise HTTPException(404, "Topic not found")
+        cursor = db.ask_cache.find(
+            {"hits": {"$gte": 1}, "prior_hash": None, "hidden": {"$ne": True}},
+            {"_id": 0, "key": 1, "question_normalized": 1, "answer": 1,
+             "hits": 1, "first_asked_at": 1, "last_asked_at": 1},
+        ).sort("hits", -1).limit(500)
+        rows = [r async for r in cursor]
+        matching = []
+        for r in rows:
+            if _matches(r.get("question_normalized", ""), topic["terms"]):
+                r["slug"] = question_slug(r.get("question_normalized", ""), r.get("key", ""))
+                matching.append(r)
+        response.headers["Cache-Control"] = "public, max-age=3600, stale-while-revalidate=86400"
+        return {
+            "id": topic["id"], "label": topic["label"], "blurb": topic["blurb"],
+            "count": len(matching), "questions": matching,
+        }
+
+    class VoteRequest(BaseModel):
+        vote: str = Field(..., pattern=r"^(up|down)$")
+
+    @router.post("/ask/popular/{slug}/vote")
+    async def vote_popular(slug: str, req: VoteRequest, response: Response):
+        """PUBLIC — thumbs-up / thumbs-down feedback on a popular Q&A.
+        Increments the appropriate counter on the cache entry.
+
+        Auto-flag rule: when `down_votes >= 3 AND down_votes > up_votes * 2`
+        the entry is auto-hidden AND `pending_review: true` is set so the
+        admin cache-stats view surfaces it for a human look. Quality
+        curates itself over time without editorial overhead.
+
+        Rate-limiting is client-side (localStorage guard) — this
+        endpoint intentionally trusts the browser. Abusers would need
+        to script it, and the auto-review threshold means the worst
+        case is one legitimate answer temporarily hidden until an admin
+        un-hides it."""
+        parts = slug.rsplit("-", 1)
+        if len(parts) < 2 or not parts[1]:
+            raise HTTPException(404, "Question not found")
+        key_prefix = parts[1]
+        cursor = db.ask_cache.find(
+            {"key": {"$regex": f"^{re.escape(key_prefix)}"},
+             "hits": {"$gte": 1}, "prior_hash": None},
+            {"_id": 0, "key": 1, "question_normalized": 1,
+             "up_votes": 1, "down_votes": 1},
+        ).limit(5)
+        rows = [r async for r in cursor]
+        target = next(
+            (r for r in rows
+             if question_slug(r.get("question_normalized", ""), r.get("key", "")) == slug),
+            None,
+        )
+        if not target:
+            raise HTTPException(404, "Question not found")
+        field = "up_votes" if req.vote == "up" else "down_votes"
+        result = await db.ask_cache.find_one_and_update(
+            {"key": target["key"]},
+            {"$inc": {field: 1}},
+            projection={"_id": 0, "up_votes": 1, "down_votes": 1},
+            return_document=True,
+        )
+        up = result.get("up_votes", 0) or 0
+        down = result.get("down_votes", 0) or 0
+        auto_flagged = False
+        if down >= 3 and down > up * 2:
+            await db.ask_cache.update_one(
+                {"key": target["key"]},
+                {"$set": {"hidden": True, "pending_review": True}},
+            )
+            auto_flagged = True
+        response.headers["Cache-Control"] = "no-store"
+        return {"up_votes": up, "down_votes": down, "auto_flagged": auto_flagged}
+
     @router.get("/ask/usage")
     async def get_usage(response: Response, access_token: str = ""):
         token = await _guard(access_token)

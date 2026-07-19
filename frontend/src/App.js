@@ -15,6 +15,8 @@ import RecipesPage from "@/pages/Recipes";
 import BouquetPage from "@/pages/Bouquet";
 import AskPopularPage from "@/pages/AskPopular";
 import AskPopularQuestionPage from "@/pages/AskPopularQuestion";
+import { TopicsIndexPage, TopicDetailPage } from "@/pages/Topics";
+import JournalPage from "@/pages/Journal";
 import PestControlPage from "@/pages/PestControl";
 import MyGardenPage from "@/pages/MyGarden";
 import GuidesPage from "@/pages/Guides";
@@ -87,6 +89,9 @@ function AppShell() {
           <Route path="/bouquet" element={<BouquetPage />} />
           <Route path="/ask/popular" element={<AskPopularPage />} />
           <Route path="/ask/popular/:slug" element={<AskPopularQuestionPage />} />
+          <Route path="/topics" element={<TopicsIndexPage />} />
+          <Route path="/topics/:id" element={<TopicDetailPage />} />
+          <Route path="/journal" element={<JournalPage />} />
           <Route path="/pests" element={<PestControlPage />} />
           <Route path="/garden" element={<MyGardenPage />} />
           <Route path="/guides" element={<GuidesPage />} />

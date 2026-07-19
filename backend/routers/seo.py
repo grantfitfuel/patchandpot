@@ -85,6 +85,16 @@ def make_router(db=None) -> APIRouter:
             if slug:
                 add(f"/plants/{slug}", 0.8, "monthly")
 
+        # Curated topic landing pages — hand-picked taxonomy, never
+        # auto-generated. Adding a topic requires a code change so we
+        # can't ship a dud landing page.
+        try:
+            from data.ask_topics import TOPICS
+            for t in TOPICS:
+                add(f"/topics/{t['id']}", 0.7, "weekly")
+        except Exception:  # noqa: BLE001
+            pass
+
         # Popular Q&A pages — the compounding SEO asset. Each entry that
         # has cleared the hits >= 2 threshold gets its own crawlable URL.
         # (The public /ask/popular page uses hits >= 1, but the sitemap

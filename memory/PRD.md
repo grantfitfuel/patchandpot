@@ -28,6 +28,43 @@
 ### Blocked
 - **P1: Real Amazon affiliate codes in `vendors.js`** — ✅ Amazon.co.uk (`patchandpot-21`) + Amazon.com (`patchandpot-20`) wired in iter 43. Remaining: DE/FR/IT/ES/CA/AU/JP/IN tags pending user signing up for those Associates programmes.
 
+### Iteration 68 (2026-07-19): ✅ — Topic Clusters + Feedback + Nàdar Journal (triple ship)
+
+User picked THREE items in one message:
+1. Topic Clusters (safe edition)
+2. Nàdar Journal
+3. Was-this-helpful widget with auto-flagging
+
+**1. Topic Clusters — `/topics` + `/topics/{id}`**
+- **`/app/backend/data/ask_topics.py`** — 10 hand-curated topics (Tomatoes · Pruning · Sowing · Composting · Pests · Watering · Herbs · Cut Flowers · Soil · Root Crops). Each has an id, label, blurb, and a `terms` list matched by word-boundary regex. **Never auto-generated** — adding a topic requires a code change so we can't accidentally publish landing pages for whatever weird thing a user asked about.
+- **`GET /api/ask/topics`** — public, cache-friendly. Returns each topic with a live count of eligible questions (hits >= 1, not hidden, first-turn) — matches what a visitor will see.
+- **`GET /api/ask/topics/{id}`** — public. Returns the topic metadata + all matching questions with pre-computed slugs.
+- Sitemap now emits `/topics/{id}` for every curated topic (10 URLs).
+- Frontend `/topics` index (tile grid with counts) + `/topics/{id}` detail (hero + Q&A list linking through to `/ask/popular/{slug}`).
+
+**2. Feedback Widget + Auto-flag**
+- **`POST /api/ask/popular/{slug}/vote`** with `{vote: "up"|"down"}` — public, rate-limited only client-side via `localStorage`.
+- **Auto-flag rule**: when `down_votes >= 3 AND down_votes > up_votes * 2` the entry gets `hidden=True` and `pending_review=True`. Quality curates itself; admin sees flagged entries via `/api/admin/ask/cache-stats`.
+- **`AskFeedbackWidget.jsx`** — thumbs up / down chips below the answer on `/ask/popular/{slug}`. Named to avoid clash with the existing plant `FeedbackWidget.jsx`. Silent success once voted; localStorage guards double-voting.
+- Verified: three consecutive down-votes on our test question auto-hid it (topic count dropped 1 → 0, sitemap dropped the URL, single-slug endpoint returned 404). Admin `hide=false` restored everything.
+
+**3. Nàdar Journal — `/journal`**
+- Members-only view of every question the user has ever asked. Pulls existing `ask_sessions` + `ask_sessions/{id}/messages` endpoints (no new storage), flattens to chronological Q&A entries with the date, question and full answer.
+- Client-side search across question + answer, empty state with a link to `/ask` for first-timers.
+- Paywall gate for non-members with a proper `become a member` CTA.
+
+**i18n** — ~28 new keys added to `en.js` (topics.* · feedback.* · journal.*). Locale sweep queued via existing translate infrastructure (not blocking).
+
+**Cache**
+- `sw.js` VERSION bumped `v58 → v59`.
+
+**Compounding SEO surface** now has three axes:
+- Every popular question → its own `/ask/popular/{slug}` URL with FAQPage JSON-LD
+- Every curated topic → `/topics/{id}` landing page
+- Every user session → private `/journal` retention hook
+All while the `hidden` flag + auto-flag threshold + word-boundary term match combine to keep the public surface curated without editorial overhead.
+
+
 ### Iteration 67 (2026-07-19): ✅ — Popular Q&A sitemap + per-question pages + safety rails
 
 User: **"Auto-add every popular question URL to /sitemap.xml so search engines discover new evergreen content as it accumulates"** — but explicitly asked for safety rails before we open the door to arbitrary user-generated URLs.

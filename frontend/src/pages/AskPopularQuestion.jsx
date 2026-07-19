@@ -16,6 +16,7 @@ import { ArrowLeft, MessageCircle, HelpCircle, ArrowRight, Sparkles } from "luci
 import axios from "axios";
 import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import AskFeedbackWidget from "@/components/AskFeedbackWidget";
 
 export default function AskPopularQuestionPage() {
   const { slug } = useParams();
@@ -125,6 +126,10 @@ export default function AskPopularQuestionPage() {
         >
           {row.answer}
         </div>
+      </div>
+
+      <div className="pl-9">
+        <AskFeedbackWidget slug={slug} />
       </div>
 
       <section className="mt-16 border-t border-border pt-10">

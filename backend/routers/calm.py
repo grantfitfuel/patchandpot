@@ -37,6 +37,12 @@ logger = logging.getLogger(__name__)
 
 AUDIO_DIR = Path("/app/backend/data/calm")
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+SAMPLES_DIR = AUDIO_DIR / "samples"
+SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
+
+# The line every voice sample says. Short, sensory, and characteristic
+# of the actual meditation delivery so members can judge the fit.
+VOICE_SAMPLE_TEXT = "Take a slow breath in, and settle where you are."
 
 ADMIN_TOKEN = os.environ.get("PATCHPOT_ADMIN_TOKEN", "patchpot-admin-d3f8a2b9c4")
 ELEVENLABS_KEY = os.environ.get("ELEVENLABS_API_KEY", "")
@@ -384,7 +390,8 @@ def make_router(db):
         """Public — the two curated voice options for the /calm player.
         Includes a `slugs_ready` array per voice so the picker can hide
         or disable options that haven't been rendered for the currently
-        selected slug."""
+        selected slug. `sample_url` is the ~6s narrated sample so
+        members can preview before committing to a full session."""
         cursor = db.calm_variants.find({}, {"_id": 0, "slug": 1, "voices": 1, "audio_generated": 1})
         per_voice_ready: dict = {vk: [] for vk in VOICES}
         async for r in cursor:
@@ -398,10 +405,49 @@ def make_router(db):
         return {
             "default": DEFAULT_VOICE_KEY,
             "voices": [
-                {"key": vk, "label": v["label"], "slugs_ready": per_voice_ready[vk]}
+                {
+                    "key": vk,
+                    "label": v["label"],
+                    "slugs_ready": per_voice_ready[vk],
+                    "sample_ready": (SAMPLES_DIR / f"{vk}.sample.mp3").exists(),
+                    "sample_url": f"/api/calm/voices/{vk}/sample.mp3",
+                }
                 for vk, v in VOICES.items()
             ],
         }
+
+    @router.get("/calm/voices/{voice_key}/sample.mp3")
+    @router.head("/calm/voices/{voice_key}/sample.mp3")
+    async def serve_voice_sample(voice_key: str):
+        """Serve the ~6s narrated sample for a voice. Public (no
+        paywall) — this IS the "try before you buy" preview."""
+        voice_key = _voice_key(voice_key)
+        path = SAMPLES_DIR / f"{voice_key}.sample.mp3"
+        if not path.exists():
+            raise HTTPException(404, "Sample not yet rendered.")
+        return FileResponse(
+            path=str(path),
+            media_type="audio/mpeg",
+            filename=f"patch-and-pot-calm-sample-{voice_key}.mp3",
+            headers={"Cache-Control": "public, max-age=2592000, immutable"},
+        )
+
+    @router.post("/admin/calm/render-sample")
+    async def render_voice_sample(voice: str, token: str):
+        """Author-side: render a ~6s spoken sample of VOICE_SAMPLE_TEXT
+        for the given voice key. Costs a trivial ElevenLabs credit
+        (single short synthesis, no ambience/mix)."""
+        _require_admin(token)
+        voice_key = _voice_key(voice)
+        out_path = SAMPLES_DIR / f"{voice_key}.sample.mp3"
+        # Single-block synthesis: reuse the block pipeline with one entry
+        # + no trailing pause. The 6s target follows naturally from the
+        # sample text length.
+        sample_block = [Block(text=VOICE_SAMPLE_TEXT, pause_after_s=0)]
+        _synthesise_blocks_to_voice_mp3(
+            sample_block, out_path, _voice_id_for(voice_key),
+        )
+        return {"ok": True, "voice": voice_key, "size_bytes": out_path.stat().st_size}
 
     @router.get("/calm/current")
     async def get_current_calm(hemisphere: str = "nh", access_token: str = ""):

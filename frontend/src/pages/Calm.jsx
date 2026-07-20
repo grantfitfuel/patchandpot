@@ -14,7 +14,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Download, Lock, Sparkles, Wind, PlayCircle, Mic2 } from "lucide-react";
+import { Download, Lock, Sparkles, Wind, PlayCircle, Mic2, Play, Square } from "lucide-react";
 import { API } from "@/lib/api";
 import { useRegion } from "@/hooks/useRegion";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
@@ -57,6 +57,36 @@ export default function CalmPage() {
   const changeVoice = (v) => {
     setVoicePref(v);
     writeVoicePref(v);
+  };
+
+  // Voice-sample preview. One Audio element, shared across the picker,
+  // so tapping preview on one voice stops the other. Auto-clears
+  // `playingSample` when the sample finishes or errors.
+  const [playingSample, setPlayingSample] = useState(null);
+  const sampleAudioRef = useRef(null);
+  useEffect(() => () => {
+    // Cleanup on unmount so a sample doesn't keep playing after
+    // navigating away from /calm.
+    if (sampleAudioRef.current) {
+      sampleAudioRef.current.pause();
+      sampleAudioRef.current = null;
+    }
+  }, []);
+  const toggleSample = (voiceKey) => {
+    if (sampleAudioRef.current) {
+      sampleAudioRef.current.pause();
+      sampleAudioRef.current = null;
+    }
+    if (playingSample === voiceKey) {
+      setPlayingSample(null);
+      return;
+    }
+    const a = new Audio(`${API}/calm/voices/${voiceKey}/sample.mp3`);
+    a.onended = () => setPlayingSample(null);
+    a.onerror = () => setPlayingSample(null);
+    sampleAudioRef.current = a;
+    setPlayingSample(voiceKey);
+    a.play().catch(() => setPlayingSample(null));
   };
 
   const [userPicked, setUserPicked] = useState(false);
@@ -186,25 +216,56 @@ export default function CalmPage() {
                     {voiceOptions.map((v) => {
                       const isReady = v.slugs_ready.includes(active.slug);
                       const isActive = v.key === voicePref;
+                      const isPreviewing = playingSample === v.key;
                       return (
-                        <button
+                        <div
                           key={v.key}
-                          type="button"
-                          onClick={() => changeVoice(v.key)}
-                          disabled={!isReady}
-                          data-testid={`calm-voice-${v.key}`}
-                          aria-pressed={isActive}
-                          className={`text-xs px-3 py-1.5 border transition-colors ${
+                          data-testid={`calm-voice-row-${v.key}`}
+                          className={`inline-flex border transition-colors ${
                             isActive && isReady
-                              ? "border-forest bg-forest/10 text-forest"
+                              ? "border-forest bg-forest/10"
                               : isReady
-                                ? "border-border/70 text-moss hover:border-forest/40 hover:text-forest"
-                                : "border-border/40 text-moss/40 cursor-not-allowed"
+                                ? "border-border/70 hover:border-forest/40"
+                                : "border-border/40"
                           }`}
                         >
-                          {v.label}
-                          {!isReady && <span className="ml-1 text-[0.55rem] uppercase">soon</span>}
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() => changeVoice(v.key)}
+                            disabled={!isReady}
+                            data-testid={`calm-voice-${v.key}`}
+                            aria-pressed={isActive}
+                            className={`text-xs pl-3 pr-2 py-1.5 ${
+                              isActive && isReady
+                                ? "text-forest"
+                                : isReady
+                                  ? "text-moss hover:text-forest"
+                                  : "text-moss/40 cursor-not-allowed"
+                            }`}
+                          >
+                            {v.label}
+                            {!isReady && <span className="ml-1 text-[0.55rem] uppercase">soon</span>}
+                          </button>
+                          {v.sample_ready && (
+                            <button
+                              type="button"
+                              onClick={() => toggleSample(v.key)}
+                              data-testid={`calm-voice-sample-${v.key}`}
+                              aria-label={isPreviewing ? `Stop ${v.label} sample` : `Play ${v.label} sample`}
+                              className={`px-2 border-l border-border/50 flex items-center transition-colors ${
+                                isPreviewing
+                                  ? "bg-terracotta/10 text-terracotta"
+                                  : "text-moss hover:text-terracotta hover:bg-terracotta/5"
+                              }`}
+                            >
+                              {isPreviewing ? (
+                                <Square strokeWidth={1.6} className="w-3 h-3" fill="currentColor" />
+                              ) : (
+                                <Play strokeWidth={1.6} className="w-3 h-3" fill="currentColor" />
+                              )}
+                            </button>
+                          )}
+                        </div>
                       );
                     })}
                   </div>

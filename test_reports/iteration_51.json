@@ -1,0 +1,41 @@
+{
+  "summary": "Iteration 51 (Ambience Bed + Southern Hemisphere + Weekly NEW Pill) — 22/22 backend pytest passed; all 5 frontend flows verified end-to-end. SH content correctly authored with region-appropriate seasonality (january-sh=High Summer, july-sh=Deep Winter incl. 'Winter Light Through Gum Leaves' with gum-tree imagery, september-sh=Early Spring FREE). Ambience bed measurably present in mixed MP3 vs. voice-only (march-nh spring bed and january-sh summer bed both audible in silent gaps). Header 'NEW' pill appears, and clears correctly after native audio.play() → onPlay → localStorage['patchpot.calm.played.v1']={'july-nh':true} → reload → pill gone.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/calm/{slug}/audio.mp3", "issue": "HEAD requests still return 405 (carry-over from iteration 50, non-blocking — GET works with correct audio/mpeg). Route decorator now lists @router.head as well but FastAPI's FileResponse path still 405s on HEAD in practice. UX unaffected — browsers use GET."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Hamburger nav", "issues": ["Pre-existing shadcn warning 'Missing Description or aria-describedby for DialogContent' repeated 4x per hamburger open. Non-blocking accessibility hygiene — carry-over, not introduced this iteration."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_calm_iter51.py",
+    "/app/test_reports/pytest/iter51_calm.xml"
+  ],
+  "action_items": [
+    "OPTIONAL: Add explicit HEAD handler on /api/calm/{slug}/audio.mp3 (Starlette's FileResponse still 405s on HEAD despite @router.head decorator — verify with `curl -I` after fix). Not blocking any UX flow.",
+    "OPTIONAL: Add DialogDescription / aria-describedby to SheetContent to silence shadcn a11y warnings on hamburger open."
+  ],
+  "critical_code_review_comments": [
+    "calm.py _mix_voice_with_ambience overlays bed BENEATH voice via `bed.overlay(voice)` — verified by measuring RMS in silent gaps (~-35 to -45 dBFS in mixed vs. -inf in voice-only). Design is sound.",
+    "useCalmPill.js: `setAvailable(!!r.data.audio_generated || !r.data.not_yet_authored)` — the `||` means the pill will surface even if audio isn't generated as long as `not_yet_authored` is falsy. This is intentional (locked-preview tease) but could show a NEW badge for a locked month with no audio yet; verify this is the desired UX. Currently harmless because all 24 SH+NH audios are already rendered.",
+    "Calm.jsx onPlay only fires markPlayed(active.slug). If a user plays a NON-current-month track (e.g. plays march-nh in July), the pill stays lit because the current-month slug isn't in the played map. Consider auto-marking the current-month slug whenever any variant is played, or make the pill copy less prescriptive. Not a bug per spec — spec explicitly says 'current-month audio hasn't been played'.",
+    "calm.py docstring still says 'default voice: Rachel' (carry-over from iter50) but code uses Lily. Cosmetic.",
+    "Region hook keys under `patchpot.patch.<active_id>.region.v1` — the review's suggestion 'localStorage.patchpot.region.v1' is stale (legacy key, migrated away in usePatches.js). For SH simulation the correct write is to the active patch's region key. Documented in test_calm_iter51 for next agent."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_calm_iter51.py (new — 22 tests covering SH content, gating, current endpoint, disk files, ambience RMS, admin remix + list)"
+  ],
+  "success_rate": {"backend": "100% (22/22)", "frontend": "100% (all 5 review flows verified)"},
+  "test_credentials": "Admin token: patchpot-admin-d3f8a2b9c4. Paid: localStorage patchpot.access.v1=test-token-pdf-smoke + patchpot.access.paid.v1=1 (grant upserted by fixture).",
+  "seed_data_creation": "access_grants.upsert({token: 'test-token-pdf-smoke'}) — idempotent. No new calm_variants created; test uses pre-existing 24 (12nh + 12sh). Verified via GET /api/admin/calm/list count=24.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 51 shipped clean. Disk has 48 files (24 mixed + 24 voice-only). Ambience RMS verified via pydub in silent windows: mixed = -35 to -45 dBFS, voice-only = -inf (true silence). Ambience_season DB field set correctly (spring/summer/autumn/winter). Frontend region hook writes under `patchpot.patch.<active_id>.region.v1` — set `hemisphere: 'southern'` there to force SH view. The header NEW pill flow works: onPlay fires markPlayed(active.slug), writes to localStorage['patchpot.calm.played.v1'], and useCalmPill's isUnread flips to false on reload. Do NOT hit /admin/calm/render — costs ElevenLabs credits. /admin/calm/remix is FREE (pydub-only) and re-mixes ambience under existing voice.",
+  "rca of the issue": "No functional bugs found in iteration 51. HEAD 405 carry-over from iter50 is a Starlette quirk with FileResponse — not blocking any real client."
+}

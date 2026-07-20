@@ -12,10 +12,12 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { useI18n } from "@/i18n";
+import { useCalmPill } from "@/hooks/useCalmPill";
 
 export default function Header() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
+  const { isUnread: calmUnread } = useCalmPill();
 
   const NAV = [
     { to: "/", label: t("nav.home"), key: "home" },
@@ -65,24 +67,36 @@ export default function Header() {
                 </SheetTitle>
               </SheetHeader>
               <nav className="mt-6 flex flex-col gap-1" data-testid="nav-menu-list">
-                {NAV.map((n) => (
-                  <SheetClose asChild key={n.to}>
-                    <NavLink
-                      to={n.to}
-                      end={n.to === "/"}
-                      data-testid={`nav-${n.key}`}
-                      className={({ isActive }) =>
-                        `px-3 py-3 rounded text-base tracking-wide transition-colors ${
-                          isActive
-                            ? "bg-surface text-forest font-medium"
-                            : "text-ink/80 hover:bg-surface hover:text-forest"
-                        }`
-                      }
-                    >
-                      {n.label}
-                    </NavLink>
-                  </SheetClose>
-                ))}
+                {NAV.map((n) => {
+                  const showPill = n.key === "calm" && calmUnread;
+                  return (
+                    <SheetClose asChild key={n.to}>
+                      <NavLink
+                        to={n.to}
+                        end={n.to === "/"}
+                        data-testid={`nav-${n.key}`}
+                        className={({ isActive }) =>
+                          `px-3 py-3 rounded text-base tracking-wide transition-colors flex items-center gap-2 ${
+                            isActive
+                              ? "bg-surface text-forest font-medium"
+                              : "text-ink/80 hover:bg-surface hover:text-forest"
+                          }`
+                        }
+                      >
+                        <span>{n.label}</span>
+                        {showPill && (
+                          <span
+                            data-testid="nav-calm-pill"
+                            aria-label="New Calm this month"
+                            className="ml-auto text-[0.55rem] uppercase tracking-widest px-1.5 py-0.5 bg-terracotta text-cream font-medium"
+                          >
+                            New
+                          </span>
+                        )}
+                      </NavLink>
+                    </SheetClose>
+                  );
+                })}
               </nav>
             </SheetContent>
           </Sheet>

@@ -18,11 +18,13 @@ import { Download, Lock, Sparkles, Wind, PlayCircle } from "lucide-react";
 import { API } from "@/lib/api";
 import { useRegion } from "@/hooks/useRegion";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
+import { useCalmPill } from "@/hooks/useCalmPill";
 
 export default function CalmPage() {
   const { region } = useRegion();
   const hemisphere = region?.hemisphere === "southern" ? "sh" : "nh";
   const { paid } = usePaywall();
+  const { markPlayed } = useCalmPill();
 
   const [current, setCurrent] = useState(null);
   const [list, setList] = useState([]);
@@ -139,6 +141,7 @@ export default function CalmPage() {
                 preload="metadata"
                 src={audioUrl}
                 data-testid="calm-audio-player"
+                onPlay={() => markPlayed(active.slug)}
                 className="w-full"
               >
                 Your browser doesn&apos;t support HTML5 audio.

@@ -1,3 +1,12 @@
+### Iteration 51 (2026-02-19): ✅ — Calm enhancements: ambience bed, SH content, header pill
+- **Ambience bed**: pydub-generated season-specific ambient texture layered under the voice for all 12 NH tracks. Spring=high-pass shimmer, Summer=warm mid + shimmer, Autumn=rain-like broadband, Winter=filtered brown noise + slow LFO. Voice-only stored as `.voice.mp3`; final mixed stored as `.mp3`. New `POST /api/admin/calm/remix` regenerates the mix without ElevenLabs cost.
+- **Southern Hemisphere content**: 12 dedicated SH scripts + audios (`january-sh` through `december-sh`) authored via Claude with region-appropriate imagery — July SH is now "Winter Light Through Gum Leaves" (deep winter with Aussie gum-tree references), January SH is "Heat and Stillness" (high summer). SH free preview: `september-sh` (Early Spring). Slug routing updated to always use `{month}-{hemisphere}`.
+- **Weekly "NEW" pill**: subtle terracotta badge in the hamburger nav (data-testid=`nav-calm-pill`) next to "2-Minute Calm". Shows when the current-month audio hasn't been played on this browser; clears on `<audio>` play event via localStorage `patchpot.calm.played.v1`.
+- **Testing**: 22/22 backend pytest + all 5 frontend flows pass (`test_reports/iteration_51.json`).
+- Content stats: 24 mixed MP3s (~42MB total), 12 voice-only MP3s (~21MB), all on disk. Total ElevenLabs cost this iteration: ~£3.60 (SH renders only — NH tracks were remixed offline).
+- Service worker bumped v65 → v66.
+
+
 ### Iteration 50 (2026-02-19): ✅ — 2-Minute Calm
 - Shipped the **/calm** feature: 12 monthly, AI-scripted (Claude Sonnet), AI-voiced (ElevenLabs voice `Lily`, `pFZP5JQG7iQjIQuC4Bku`) 2-minute mindful breathing tracks. NH content mirrored transparently for SH visitors.
 - **Backend**: `/api/calm/current`, `/api/calm/list`, `/api/calm/{slug}` (GET + HEAD on audio), `/api/admin/calm/author` (Claude script authoring), `/api/admin/calm/render` (ElevenLabs → pydub → MP3 stitching). Storage: `/app/backend/data/calm/{slug}.mp3` + `calm_variants` Mongo collection.

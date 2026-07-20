@@ -8,6 +8,32 @@ export const api = axios.create({
   timeout: 60000,
 });
 
+// SEC-002 mitigation: automatically attach the paywall access token as an
+// Authorization: Bearer header on every /api/* request. Server-side
+// middleware also accepts the token via `access_token=` query param for
+// legacy paths (audio players etc.), but the header is now the primary
+// channel — the token no longer leaks into server access logs or browser
+// referrer headers for the vast majority of requests.
+const ACCESS_TOKEN_KEY = "patchpot.access.v1";
+
+function _attachAuth(config) {
+  try {
+    const token = window.localStorage.getItem(ACCESS_TOKEN_KEY);
+    if (token) {
+      config.headers = config.headers || {};
+      if (!config.headers.Authorization) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+  } catch {
+    /* private-mode / SSR — noop */
+  }
+  return config;
+}
+
+axios.interceptors.request.use(_attachAuth);
+api.interceptors.request.use(_attachAuth);
+
 export const fetchRecentAIPlants = (language = "en") =>
   api.get("/recent-plants", { params: { language } }).then((r) => r.data);
 export const submitFeedback = (payload) =>

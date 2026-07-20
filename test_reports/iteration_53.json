@@ -1,0 +1,69 @@
+{
+  "summary": "Iteration 53 — SEC-002 (Bearer header) + SEC-003 (vote hardening) + SEC-001 regression. 12/13 backend pytest assertions pass. Two real issues found: (A) SEC-002 frontend fix is INCOMPLETE — the axios interceptor attaches the Bearer header, but existing Ask.jsx/Journal.jsx/Calm.jsx code still appends `access_token=...` to every request query string, so the token continues to leak into server access logs and browser referrer headers exactly as before. (B) SEC-003 vote-dedup uses `request.client.host`, which in this ingress deployment returns the internal proxy pod IP (10.79.151.x) that varies between requests from the same user. Confirmed empirically: 3 downvotes from a single test client produced ledger rows under 2 distinct IPs, so IP-based dedup partly fails and — worse — the 'distinct downvote IPs' auto-flag counter is easily gamed by a single attacker whose requests happen to hit different edge pods.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "/api/ask/popular/{slug}/vote",
+        "issue": "SEC-003 uses `request.client.host` for IP-dedup. Behind Kubernetes ingress (or Cloudflare in prod), this is the proxy pod's IP, not the real client IP. It rotates between requests from the same user, so (a) ledger dedup misses duplicates, (b) the `distinct_down_ips >= max(4, down//2)` auto-flag guard is trivially satisfied by a single attacker whose traffic is round-robined across ingress pods. Fix: honour trust headers before falling back to client.host, e.g. read `cf-connecting-ip`, then first hop of `x-forwarded-for`, then `x-real-ip`, then `request.client.host` — mirroring the existing `_GEO_HEADERS` pattern in server.py.",
+        "priority": "CRITICAL"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "SEC-002 Bearer header adoption",
+        "issue": "axios interceptor in /app/frontend/src/lib/api.js DOES attach `Authorization: Bearer <token>` correctly, but Ask.jsx (lines 76, 87, 97, 201, 215), Journal.jsx (lines 47, 48, 61, 101), Calm.jsx (lines 105, 152, 170), Calendar.jsx (line 53) and api.js itself (lines 216, 224, 232) still pass `access_token=` in query strings/params. Result: every paywalled request goes out with BOTH the header AND the token-in-URL. The primary security benefit of SEC-002 (keep the token out of access logs & Referer headers) is not achieved for users. Need to strip `access_token` from all these call sites and rely solely on the interceptor.",
+        "affected_selectors": [
+          "/api/ask/sessions?access_token=...",
+          "/api/ask/journal/meta?access_token=...",
+          "/api/ask/sessions/{id}/messages?access_token=...",
+          "/api/calm/current?access_token=...",
+          "/api/masterclass/library?access_token=..."
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_sec002_sec003_iter53.py",
+    "/app/test_reports/pytest/iter53_sec002_sec003.xml"
+  ],
+  "action_items": [
+    "SEC-003 (CRITICAL): In /app/backend/routers/ask.py vote_popular, replace `ip = request.client.host` with a helper that prefers `cf-connecting-ip` → first hop of `x-forwarded-for` → `x-real-ip` → `request.client.host`. Reproduced: 3 sequential downvotes from same test client produced ledger rows under IPs 10.79.151.158 and 10.79.151.159. See rca section.",
+    "SEC-002 (HIGH): Remove `access_token` from query strings/params in Ask.jsx, Journal.jsx, Calm.jsx, Calendar.jsx and the three masterclass helpers in api.js. The axios interceptor is enough now that server.py accepts Bearer headers. Otherwise the whole SEC-002 mitigation is a no-op for real users.",
+    "Optional: consider ratelimiting the vote endpoint per-key (server-side), independent of IP dedup, as a defence-in-depth against the header-spoofable IP source."
+  ],
+  "critical_code_review_comments": [
+    "SEC-003 ledger dedup is architecturally unsound while relying on `request.client.host` in a K8s/ingress environment. Even with the header fix, `x-forwarded-for` is client-supplied and spoofable — Cloudflare's `cf-connecting-ip` is the only trustworthy source in prod. Document the header trust-boundary explicitly in the endpoint.",
+    "Endpoint auto-flags on the first request that TRIPS the threshold — meaning if attacker sends 9 downvotes and only the 9th runs the check, they've already succeeded. Consider running the check on every write once `down >= 8`.",
+    "vote_popular has no rate-limiting at all — an attacker can burn CPU/db cycles even if the dedup works.",
+    "server.py `_accept_bearer_access_token` middleware calls `from urllib.parse import ...` inside the request handler on every request — cheap but should be moved to module scope for cleanliness."
+  ],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "92% (12/13 assertions pass — the failure is a real product bug, not a test flake)",
+    "frontend": "50% (Bearer header IS attached; query-string leak NOT removed)"
+  },
+  "test_credentials": "ADMIN_TOKEN read from /app/backend/.env (not logged). Paid token: test-token-pdf-smoke. Leaked-but-should-fail admin: patchpot-admin-d3f8a2b9c4.",
+  "seed_data_creation": "Test file /app/backend/tests/test_sec002_sec003_iter53.py seeds temporary ask_cache rows keyed 'TEST_seckey_<uuid>' and matching ask_vote_ledger rows; each test cleans up via finally block. No production data touched.",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "After the two action items are addressed: (1) rerun /app/backend/tests/test_sec002_sec003_iter53.py — the currently-failing test_ip_dedup_downvote should pass, because the endpoint will pick up X-Forwarded-For consistently. (2) Rerun the Playwright block that visits /journal with the seeded localStorage and confirm the captured request URLs no longer contain `access_token=` (only the Authorization header). Free-preview audio /api/calm/march-nh-w1/audio.mp3 already 200s with content-type audio/mpeg — regression test is in place.",
+  "rca of the issue": {
+    "SEC-003 client IP source": {
+      "reproduction": "python3 script inserted a TEST_ ask_cache row, POSTed /api/ask/popular/{slug}/vote 3x with vote=down, then dumped ask_vote_ledger.",
+      "observed": "3 requests → ledger has 2 rows with ips 10.79.151.158 and 10.79.151.159 (internal k8s ingress pod IPs). Second request was correctly deduped (returned duplicate:true, down_votes:1). Third request came from a DIFFERENT ingress IP so was recorded as a fresh vote (down_votes:2).",
+      "root_cause": "`ip = request.client.host if request.client else 'unknown'` in /app/backend/routers/ask.py:301 reads the immediate TCP peer IP, which behind ingress is the proxy pod. There is no `X-Forwarded-For`, `X-Real-IP`, or `CF-Connecting-IP` handling anywhere in the file.",
+      "mitigation": "Add a `_client_ip(request)` helper that reads (in order): request.headers.get('cf-connecting-ip'), first hop of request.headers.get('x-forwarded-for','').split(',')[0].strip(), request.headers.get('x-real-ip'), then request.client.host. Use it wherever real user IP matters (currently only vote_popular, but future spam guards may need it too)."
+    },
+    "SEC-002 frontend leak": {
+      "reproduction": "Playwright launched, seeded localStorage.patchpot.access.v1 = test-token-pdf-smoke, navigated to /journal, captured all /api/ask/* requests.",
+      "observed": "Every request had BOTH the Authorization: Bearer header AND ?access_token=test-token-pdf-smoke in the URL. Example: `/api/ask/sessions?access_token=test-token-pdf-smoke`.",
+      "root_cause": "The axios interceptor was added but the existing call sites (Ask.jsx, Journal.jsx, Calm.jsx, Calendar.jsx) still pass access_token via `params: {access_token: token}` or template literals. The fix is additive but not substitutive.",
+      "mitigation": "Delete `access_token` from the params/URL in every call site listed under integration_issues. Keep only api.js masterclass helpers if a business reason exists to pass the token explicitly (e.g. per-request override); otherwise strip those too."
+    }
+  }
+}

@@ -29,7 +29,7 @@ import uuid
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional
 
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Response
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Response, Request
 from pydantic import BaseModel, Field
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent
@@ -263,20 +263,21 @@ def make_router(db) -> APIRouter:
         vote: str = Field(..., pattern=r"^(up|down)$")
 
     @router.post("/ask/popular/{slug}/vote")
-    async def vote_popular(slug: str, req: VoteRequest, response: Response):
+    async def vote_popular(request: Request, slug: str, req: VoteRequest, response: Response):
         """PUBLIC — thumbs-up / thumbs-down feedback on a popular Q&A.
         Increments the appropriate counter on the cache entry.
 
-        Auto-flag rule: when `down_votes >= 3 AND down_votes > up_votes * 2`
-        the entry is auto-hidden AND `pending_review: true` is set so the
-        admin cache-stats view surfaces it for a human look. Quality
-        curates itself over time without editorial overhead.
+        Auto-flag rule (post SEC-003 hardening):
+          - down_votes must be >= 8 (raised from 3)
+          - AND down_votes > up_votes * 2
+          - AND hits >= 20 (a well-seen answer, not a lightly-viewed one)
+          - AND at least one distinct IP per 2 downvotes (dedup — a single
+            IP hammering the endpoint cannot flip the flag on its own)
 
-        Rate-limiting is client-side (localStorage guard) — this
-        endpoint intentionally trusts the browser. Abusers would need
-        to script it, and the auto-review threshold means the worst
-        case is one legitimate answer temporarily hidden until an admin
-        un-hides it."""
+        Extra dedup: per-(key, ip) vote is counted at most ONCE per
+        direction, tracked in `ask_vote_ledger`. A given IP can vote up
+        AND vote down for the same answer, but not vote the same way
+        twice — subsequent identical votes are no-ops."""
         parts = slug.rsplit("-", 1)
         if len(parts) < 2 or not parts[1]:
             raise HTTPException(404, "Question not found")
@@ -285,7 +286,7 @@ def make_router(db) -> APIRouter:
             {"key": {"$regex": f"^{re.escape(key_prefix)}"},
              "hits": {"$gte": 1}, "prior_hash": None},
             {"_id": 0, "key": 1, "question_normalized": 1,
-             "up_votes": 1, "down_votes": 1},
+             "up_votes": 1, "down_votes": 1, "hits": 1},
         ).limit(5)
         rows = [r async for r in cursor]
         target = next(
@@ -295,17 +296,46 @@ def make_router(db) -> APIRouter:
         )
         if not target:
             raise HTTPException(404, "Question not found")
+
+        # IP dedup ledger.
+        ip = (request.client.host if request.client else "unknown")
+        ledger_key = {"key": target["key"], "ip": ip, "vote": req.vote}
+        existing_vote = await db.ask_vote_ledger.find_one(ledger_key, {"_id": 1})
+        if existing_vote:
+            # Already voted this direction — no-op, return current counts.
+            row = await db.ask_cache.find_one(
+                {"key": target["key"]},
+                {"_id": 0, "up_votes": 1, "down_votes": 1},
+            )
+            response.headers["Cache-Control"] = "no-store"
+            return {
+                "up_votes": row.get("up_votes", 0) or 0,
+                "down_votes": row.get("down_votes", 0) or 0,
+                "auto_flagged": False,
+                "duplicate": True,
+            }
+        await db.ask_vote_ledger.insert_one({
+            **ledger_key,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        })
+
         field = "up_votes" if req.vote == "up" else "down_votes"
         result = await db.ask_cache.find_one_and_update(
             {"key": target["key"]},
             {"$inc": {field: 1}},
-            projection={"_id": 0, "up_votes": 1, "down_votes": 1},
+            projection={"_id": 0, "up_votes": 1, "down_votes": 1, "hits": 1},
             return_document=True,
         )
         up = result.get("up_votes", 0) or 0
         down = result.get("down_votes", 0) or 0
+        hits = result.get("hits", 0) or 0
         auto_flagged = False
-        if down >= 3 and down > up * 2:
+        # Count distinct downvote IPs — the ledger is the source of truth.
+        distinct_down_ips = await db.ask_vote_ledger.count_documents(
+            {"key": target["key"], "vote": "down"},
+        )
+        if (down >= 8 and down > up * 2 and hits >= 20
+                and distinct_down_ips >= max(4, down // 2)):
             await db.ask_cache.update_one(
                 {"key": target["key"]},
                 {"$set": {"hidden": True, "pending_review": True}},

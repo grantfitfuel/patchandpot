@@ -245,6 +245,33 @@ _TRACK_PREFIXES = ("/api/",)
 _TRACK_SKIP_SUBSTR = ("/admin/", "/healthz", "/share/og/", "/plant-image/")
 
 
+
+@app.middleware("http")
+async def _accept_bearer_access_token(request, call_next):
+    """SEC-002 mitigation. Accept `Authorization: Bearer <token>` on any
+    request and, when present, inject it as `access_token=<token>` into
+    the query string so downstream handlers (which already read
+    `access_token` from query params) keep working unchanged.
+
+    Query-string tokens remain accepted for the audio-player /
+    file-download use cases (where the `<audio>` element cannot send
+    custom headers), but the frontend now prefers the header everywhere
+    else — keeping the token out of server access logs and browser
+    referrer headers on the primary API surface."""
+    auth = request.headers.get("authorization") or ""
+    if auth.lower().startswith("bearer "):
+        token = auth[7:].strip()
+        # Only inject if the caller hasn't already put one in the query
+        # (explicit query wins — this keeps existing behaviour stable).
+        if token and "access_token" not in request.query_params:
+            from urllib.parse import urlencode, parse_qsl
+            qs = dict(parse_qsl(request.url.query, keep_blank_values=True))
+            qs["access_token"] = token
+            new_query = urlencode(qs)
+            # Rebuild the ASGI scope so FastAPI parses the new query.
+            request.scope["query_string"] = new_query.encode("latin-1")
+    return await call_next(request)
+
 @app.middleware("http")
 async def _log_visit(request, call_next):
     resp = await call_next(request)

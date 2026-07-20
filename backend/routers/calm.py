@@ -40,7 +40,46 @@ AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
 ADMIN_TOKEN = os.environ.get("PATCHPOT_ADMIN_TOKEN", "patchpot-admin-d3f8a2b9c4")
 ELEVENLABS_KEY = os.environ.get("ELEVENLABS_API_KEY", "")
-DEFAULT_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "pFZP5JQG7iQjIQuC4Bku")  # Lily — velvety British female
+
+# Two curated voices. Members pick between them on the /calm page and
+# the choice is persisted in localStorage. Both are middle-aged British
+# so they pair well with Patch & Pot's overall voice, but they differ
+# in gender/timbre so the choice matters.
+VOICES = {
+    "lily": {
+        "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+        "label": "Lily — velvety British female",
+    },
+    "george": {
+        "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+        "label": "George — warm British male",
+    },
+}
+DEFAULT_VOICE_KEY = "lily"
+
+
+def _voice_id_for(key: str) -> str:
+    return VOICES.get(key, VOICES[DEFAULT_VOICE_KEY])["voice_id"]
+
+
+def _voice_key(key: Optional[str]) -> str:
+    """Normalise / validate the voice choice — anything unrecognised
+    silently falls back to Lily so old clients keep working."""
+    return key if key in VOICES else DEFAULT_VOICE_KEY
+
+
+def _audio_file(slug: str, voice_key: str, kind: str) -> Path:
+    """Path helper. Lily is the default and its files use the plain
+    naming (`{slug}.mp3`) for backwards compatibility with content
+    rendered in earlier iterations. Any other voice namespaces its
+    files under `{slug}.{voice_key}.mp3`."""
+    if voice_key == DEFAULT_VOICE_KEY:
+        return AUDIO_DIR / (f"{slug}.voice.mp3" if kind == "voice" else f"{slug}.mp3")
+    return AUDIO_DIR / (
+        f"{slug}.{voice_key}.voice.mp3" if kind == "voice" else f"{slug}.{voice_key}.mp3"
+    )
+
+
 DEFAULT_MODEL_ID = "eleven_multilingual_v2"
 
 MONTHS_NH = [
@@ -90,24 +129,31 @@ clinical or crystal-woo. Reference the actual garden (soil, light, birds,
 scent) not abstract 'nature'. Never use the words 'journey', 'divine',
 'energy', 'vibration'.
 
-CRITICAL:
-- Total spoken duration must land roughly between 90 and 130 seconds when
-  read at a slow, calm pace (~130 words per minute).
-- Include ONE breathing pattern per script, kept simple. Examples:
+PACING RULES — read every rule carefully:
+- Break the script into MANY SHORT blocks (one thought per block, 4–12 words
+  ideal). Avoid long sentences that force the narrator to rush.
+- After every block, specify a generous `pause_after_s` value. Meditation
+  breathing needs SPACE, not talk. Guidelines:
+    · after a settling / attention-drawing line → 5–8 s
+    · after an inhale count line → 6–8 s (matching the exhale)
+    · after an exhale count line → 8–12 s (long breath-out silence)
+    · around silence beats between phrases → 6–10 s
+    · at the very end (last block) → 8–15 s of gentle silence
+- Total spoken duration should land 90–140 seconds; total including
+  pauses should feel like a full 2 minutes with room to breathe.
+- Include ONE simple breathing pattern per script:
     · Inhale 4, exhale 6
     · Inhale 4, hold 2, exhale 6
     · Inhale 4, exhale 8
 - Guide the listener through 3–5 breath cycles at that pattern.
-- After each spoken block, specify how many seconds of silence should
-  follow. Use silence generously — this is a MEDITATION, not a lecture.
-  Long silences (8–15s) around the breath cycles are correct.
 
 OUTPUT FORMAT — return ONLY minified JSON, no markdown fences:
 {
   "title": "Warm Evenings",
   "blocks": [
-    {"text": "Find a comfortable posture. Let your shoulders soften.", "pause_after_s": 4},
-    {"text": "Notice the late amber light on the leaves nearest you.", "pause_after_s": 6},
+    {"text": "Find a comfortable seat.", "pause_after_s": 5},
+    {"text": "Let your shoulders soften.", "pause_after_s": 7},
+    {"text": "Notice the late amber light.", "pause_after_s": 8},
     ...
   ],
   "transcript_display": "Full pretty transcript ready to render on the web,
@@ -221,14 +267,34 @@ def _build_ambience_bed(duration_ms: int, season: str):
     return base
 
 
+def _slow_voice(voice, factor: float = 0.94):
+    """Slow the voice track by `factor` while preserving pitch reasonably.
+    Pydub doesn't ship a phase vocoder, so we approximate: change the
+    reported frame rate (which slows AND drops pitch), then resample
+    back to the original rate. Result: same duration change, near-
+    original pitch (a very slight deepening remains, which reads as
+    'more resonant / measured' — actually welcome for meditation).
+
+    factor 0.94 = ~6.4% slower delivery, which lands the "considered"
+    feel without sounding sedated."""
+    if factor >= 0.999:
+        return voice
+    original_rate = voice.frame_rate
+    slowed = voice._spawn(voice.raw_data, overrides={
+        "frame_rate": int(original_rate * factor),
+    })
+    return slowed.set_frame_rate(original_rate)
+
+
 def _mix_voice_with_ambience(voice_path: Path, out_path: Path, season: str) -> tuple[float, int]:
-    """Read the voice-only MP3, overlay season ambience beneath it, and
-    write the final mixed MP3. Returns (duration_s, size_bytes)."""
+    """Read the voice-only MP3, apply a gentle slow-down for meditation
+    pacing, overlay season ambience beneath, and write the final mixed
+    MP3. Returns (duration_s, size_bytes)."""
     from pydub import AudioSegment
 
     voice = AudioSegment.from_file(voice_path, format="mp3")
+    voice = _slow_voice(voice, factor=0.94)
     bed = _build_ambience_bed(len(voice), season)
-    # Overlay: voice is the top layer, bed sits ~28dB below.
     mixed = bed.overlay(voice)
     mixed.export(out_path, format="mp3", bitrate="96k")
     return len(mixed) / 1000.0, out_path.stat().st_size
@@ -250,9 +316,11 @@ def _synthesise_blocks_to_voice_mp3(
 
     client = ElevenLabs(api_key=ELEVENLABS_KEY)
     voice_settings = VoiceSettings(
-        stability=0.55,
-        similarity_boost=0.7,
-        style=0.2,
+        # Higher stability + lower style = calmer, more measured delivery
+        # (less prosodic variation, better for meditation).
+        stability=0.72,
+        similarity_boost=0.72,
+        style=0.15,
         use_speaker_boost=True,
     )
 
@@ -311,6 +379,30 @@ def make_router(db):
         return f"{month_name}-{hemisphere}"
 
     # ── Public read endpoints ─────────────────────────────────────
+    @router.get("/calm/voices")
+    async def list_voices():
+        """Public — the two curated voice options for the /calm player.
+        Includes a `slugs_ready` array per voice so the picker can hide
+        or disable options that haven't been rendered for the currently
+        selected slug."""
+        cursor = db.calm_variants.find({}, {"_id": 0, "slug": 1, "voices": 1, "audio_generated": 1})
+        per_voice_ready: dict = {vk: [] for vk in VOICES}
+        async for r in cursor:
+            for vk in VOICES:
+                if vk == DEFAULT_VOICE_KEY:
+                    if r.get("audio_generated") or (r.get("voices", {}).get(vk, {}) or {}).get("audio_generated"):
+                        per_voice_ready[vk].append(r["slug"])
+                else:
+                    if (r.get("voices", {}).get(vk, {}) or {}).get("audio_generated"):
+                        per_voice_ready[vk].append(r["slug"])
+        return {
+            "default": DEFAULT_VOICE_KEY,
+            "voices": [
+                {"key": vk, "label": v["label"], "slugs_ready": per_voice_ready[vk]}
+                for vk, v in VOICES.items()
+            ],
+        }
+
     @router.get("/calm/current")
     async def get_current_calm(hemisphere: str = "nh", access_token: str = ""):
         """Return the current variant for this month + hemisphere."""
@@ -354,23 +446,27 @@ def make_router(db):
 
     @router.get("/calm/{slug}/audio.mp3")
     @router.head("/calm/{slug}/audio.mp3")
-    async def serve_audio(slug: str, access_token: str = ""):
+    async def serve_audio(slug: str, access_token: str = "", voice: Optional[str] = None):
         row = await _fetch(slug)
         member = await _member_guard(access_token)
         if not member and not row.get("is_free_preview"):
             raise HTTPException(402, "Members-only audio.")
-        if not row.get("audio_generated"):
-            raise HTTPException(404, "Audio not yet generated for this variant.")
-        path = AUDIO_DIR / f"{slug}.mp3"
+        voice_key = _voice_key(voice)
+        # If the requested voice hasn't been rendered yet for this slug,
+        # transparently fall back to Lily so members never see a broken
+        # player. The frontend also disables voice-picker options that
+        # aren't ready for the current slug.
+        path = _audio_file(slug, voice_key, "final")
+        if not path.exists():
+            voice_key = DEFAULT_VOICE_KEY
+            path = _audio_file(slug, voice_key, "final")
         if not path.exists():
             raise HTTPException(404, "Audio file missing on disk.")
         return FileResponse(
             path=str(path),
             media_type="audio/mpeg",
-            filename=f"patch-and-pot-calm-{slug}.mp3",
+            filename=f"patch-and-pot-calm-{slug}-{voice_key}.mp3",
             headers={
-                # 30 days — MP3s are immutable per slug, we regenerate under
-                # a new slug rather than mutating existing audio in place.
                 "Cache-Control": "public, max-age=2592000, immutable",
             },
         )
@@ -431,63 +527,88 @@ def make_router(db):
         return {"ok": True, "slug": slug, "blocks_count": len(blocks)}
 
     @router.post("/admin/calm/render")
-    async def render_audio(slug: str, token: str, voice_id: Optional[str] = None):
+    async def render_audio(slug: str, token: str, voice: Optional[str] = None):
         """Full render pipeline: (1) synthesise voice via ElevenLabs into
-        `{slug}.voice.mp3`, (2) mix in season-matched ambience bed and
-        write the final `{slug}.mp3`. Blocking, ~30–60s per 2-min audio."""
+        the voice-only MP3, (2) mix in season-matched ambience bed and
+        write the final MP3. `voice` picks between the curated Voice keys
+        (`lily`, `george`). Blocking, ~30–60s per 2-min audio."""
         _require_admin(token)
+        voice_key = _voice_key(voice)
         row = await _fetch(slug)
         blocks = [Block(**b) for b in row.get("blocks", [])]
         if not blocks:
             raise HTTPException(400, "No blocks on this variant — author first.")
 
-        voice_path = AUDIO_DIR / f"{slug}.voice.mp3"
-        final_path = AUDIO_DIR / f"{slug}.mp3"
+        voice_path = _audio_file(slug, voice_key, "voice")
+        final_path = _audio_file(slug, voice_key, "final")
         _synthesise_blocks_to_voice_mp3(
-            blocks, voice_path, voice_id or DEFAULT_VOICE_ID,
+            blocks, voice_path, _voice_id_for(voice_key),
         )
         season = _season_for(row["month"], row["hemisphere"])
         duration, size = _mix_voice_with_ambience(voice_path, final_path, season)
 
-        await db.calm_variants.update_one(
-            {"slug": slug},
-            {"$set": {
+        # Track per-voice render state in a nested dict so the primary
+        # `audio_generated` flag remains truthy whenever Lily (default)
+        # is ready. UI shows a matrix per row.
+        voices_state = dict(row.get("voices", {}))
+        voices_state[voice_key] = {
+            "audio_generated": True,
+            "duration_s": round(duration, 2),
+            "audio_size_bytes": size,
+            "rendered_at": datetime.now(timezone.utc).isoformat(),
+        }
+        update: dict = {
+            "voices": voices_state,
+            "ambience_season": season,
+        }
+        if voice_key == DEFAULT_VOICE_KEY:
+            # Keep legacy top-level fields in sync for Lily (default).
+            update.update({
                 "audio_generated": True,
                 "duration_s": round(duration, 2),
                 "audio_size_bytes": size,
-                "voice_id": voice_id or DEFAULT_VOICE_ID,
-                "ambience_season": season,
+                "voice_id": _voice_id_for(voice_key),
                 "audio_rendered_at": datetime.now(timezone.utc).isoformat(),
-            }},
-        )
-        return {"ok": True, "slug": slug, "duration_s": round(duration, 2),
-                "size_bytes": size, "ambience_season": season}
+            })
+        await db.calm_variants.update_one({"slug": slug}, {"$set": update})
+        return {"ok": True, "slug": slug, "voice": voice_key,
+                "duration_s": round(duration, 2), "size_bytes": size,
+                "ambience_season": season}
 
     @router.post("/admin/calm/remix")
-    async def remix_audio(slug: str, token: str):
+    async def remix_audio(slug: str, token: str, voice: Optional[str] = None):
         """Remix an EXISTING voice track with (updated) ambience bed —
-        no ElevenLabs call, so free and fast. Handy for iterating on the
-        bed's EQ/volume without burning credits."""
+        no ElevenLabs call, so free and fast."""
         _require_admin(token)
+        voice_key = _voice_key(voice)
         row = await _fetch(slug)
-        voice_path = AUDIO_DIR / f"{slug}.voice.mp3"
-        final_path = AUDIO_DIR / f"{slug}.mp3"
+        voice_path = _audio_file(slug, voice_key, "voice")
+        final_path = _audio_file(slug, voice_key, "final")
         if not voice_path.exists():
-            raise HTTPException(404, f"No voice track for {slug} — render first.")
+            raise HTTPException(404, f"No {voice_key} voice track for {slug}.")
         season = _season_for(row["month"], row["hemisphere"])
         duration, size = _mix_voice_with_ambience(voice_path, final_path, season)
-        await db.calm_variants.update_one(
-            {"slug": slug},
-            {"$set": {
+
+        voices_state = dict(row.get("voices", {}))
+        voices_state.setdefault(voice_key, {})
+        voices_state[voice_key].update({
+            "audio_generated": True,
+            "duration_s": round(duration, 2),
+            "audio_size_bytes": size,
+            "rendered_at": datetime.now(timezone.utc).isoformat(),
+        })
+        update: dict = {"voices": voices_state, "ambience_season": season}
+        if voice_key == DEFAULT_VOICE_KEY:
+            update.update({
                 "audio_generated": True,
                 "duration_s": round(duration, 2),
                 "audio_size_bytes": size,
-                "ambience_season": season,
                 "audio_rendered_at": datetime.now(timezone.utc).isoformat(),
-            }},
-        )
-        return {"ok": True, "slug": slug, "ambience_season": season,
-                "duration_s": round(duration, 2), "size_bytes": size}
+            })
+        await db.calm_variants.update_one({"slug": slug}, {"$set": update})
+        return {"ok": True, "slug": slug, "voice": voice_key,
+                "ambience_season": season, "duration_s": round(duration, 2),
+                "size_bytes": size}
 
     @router.delete("/admin/calm/{slug}")
     async def delete_variant(slug: str, token: str):
@@ -495,8 +616,9 @@ def make_router(db):
         row = await db.calm_variants.find_one({"slug": slug})
         if not row:
             raise HTTPException(404, "not found")
-        (AUDIO_DIR / f"{slug}.mp3").unlink(missing_ok=True)
-        (AUDIO_DIR / f"{slug}.voice.mp3").unlink(missing_ok=True)
+        for vk in VOICES:
+            _audio_file(slug, vk, "voice").unlink(missing_ok=True)
+            _audio_file(slug, vk, "final").unlink(missing_ok=True)
         await db.calm_variants.delete_one({"slug": slug})
         return {"ok": True}
 

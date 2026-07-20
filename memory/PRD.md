@@ -1,3 +1,12 @@
+### Iteration 52 (2026-02-19): ✅ — Calm dual-voice + slower pacing
+- **Two curated voices** now selectable per member: `lily` (velvety British female, default) and `george` (warm British male). Preference persisted in `localStorage.patchpot.calm.voice.v1`. On months where the picked voice hasn't been rendered yet, the player transparently falls back to Lily.
+- **George rendered** for all 24 slugs (12 NH + 12 SH). Total ElevenLabs cost this iteration: ~£7.20.
+- **Slower, more measured delivery**: (1) `voice_settings.stability` bumped 0.55 → 0.72 for calmer prosody; (2) Claude system prompt rewritten with strict pacing rules (short blocks, generous `pause_after_s` values); (3) all mixed MP3s time-stretched by 6% at mix step via pydub `_spawn` frame-rate trick (free — no ElevenLabs re-render needed).
+- **New endpoints**: `GET /api/calm/voices` (public — voice options + slugs_ready per voice), `POST /api/admin/calm/render?voice=lily|george`, `POST /api/admin/calm/remix?voice=lily|george`.
+- **Storage layout**: Lily uses legacy `{slug}.mp3` + `{slug}.voice.mp3`; George uses namespaced `{slug}.george.mp3` + `{slug}.george.voice.mp3`. 48 mixed tracks + 24 voice-only masters on disk (~85MB total).
+- Service worker bumped v66 → v68.
+
+
 ### Iteration 51 (2026-02-19): ✅ — Calm enhancements: ambience bed, SH content, header pill
 - **Ambience bed**: pydub-generated season-specific ambient texture layered under the voice for all 12 NH tracks. Spring=high-pass shimmer, Summer=warm mid + shimmer, Autumn=rain-like broadband, Winter=filtered brown noise + slow LFO. Voice-only stored as `.voice.mp3`; final mixed stored as `.mp3`. New `POST /api/admin/calm/remix` regenerates the mix without ElevenLabs cost.
 - **Southern Hemisphere content**: 12 dedicated SH scripts + audios (`january-sh` through `december-sh`) authored via Claude with region-appropriate imagery — July SH is now "Winter Light Through Gum Leaves" (deep winter with Aussie gum-tree references), January SH is "Heat and Stillness" (high summer). SH free preview: `september-sh` (Early Spring). Slug routing updated to always use `{month}-{hemisphere}`.

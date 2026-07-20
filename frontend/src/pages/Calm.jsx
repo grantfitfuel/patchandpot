@@ -14,11 +14,22 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Download, Lock, Sparkles, Wind, PlayCircle } from "lucide-react";
+import { Download, Lock, Sparkles, Wind, PlayCircle, Mic2 } from "lucide-react";
 import { API } from "@/lib/api";
 import { useRegion } from "@/hooks/useRegion";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 import { useCalmPill } from "@/hooks/useCalmPill";
+
+const VOICE_PREF_KEY = "patchpot.calm.voice.v1";
+
+function readVoicePref() {
+  try {
+    return window.localStorage.getItem(VOICE_PREF_KEY) || "lily";
+  } catch { return "lily"; }
+}
+function writeVoicePref(v) {
+  try { window.localStorage.setItem(VOICE_PREF_KEY, v); } catch { /* private mode */ }
+}
 
 export default function CalmPage() {
   const { region } = useRegion();
@@ -30,6 +41,23 @@ export default function CalmPage() {
   const [list, setList] = useState([]);
   const [activeSlug, setActiveSlug] = useState(null);
   const [loading, setLoading] = useState(true);
+  // Voice options + user's persisted pick.
+  const [voiceOptions, setVoiceOptions] = useState([]); // [{key,label,slugs_ready:[]}]
+  const [voicePref, setVoicePref] = useState(readVoicePref);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const r = await axios.get(`${API}/calm/voices`);
+        setVoiceOptions(r.data?.voices || []);
+      } catch { /* fail silent — picker just hides */ }
+    })();
+  }, []);
+
+  const changeVoice = (v) => {
+    setVoicePref(v);
+    writeVoicePref(v);
+  };
 
   const [userPicked, setUserPicked] = useState(false);
   // Ref mirror so the async fetch closure below always reads the latest
@@ -83,8 +111,20 @@ export default function CalmPage() {
   };
 
   const locked = !!active?.locked;
+  // Fall back to Lily if the picked voice isn't rendered for this slug.
+  const voiceReady = useMemo(() => {
+    const opt = voiceOptions.find((v) => v.key === voicePref);
+    return opt ? opt.slugs_ready.includes(active?.slug) : false;
+  }, [voiceOptions, voicePref, active?.slug]);
+  const effectiveVoice = voiceReady ? voicePref : "lily";
   const audioUrl = active && active.audio_generated
-    ? `${API}/calm/${active.slug}/audio.mp3${paid && getStoredAccessToken() ? `?access_token=${encodeURIComponent(getStoredAccessToken())}` : ""}`
+    ? (() => {
+        const params = new URLSearchParams();
+        params.set("voice", effectiveVoice);
+        if (paid && getStoredAccessToken()) params.set("access_token", getStoredAccessToken());
+        const qs = params.toString();
+        return `${API}/calm/${active.slug}/audio.mp3?${qs}`;
+      })()
     : null;
 
   return (
@@ -136,6 +176,45 @@ export default function CalmPage() {
             <LockedBlock />
           ) : audioUrl ? (
             <div className="card-flat p-5 mb-8">
+              {voiceOptions.length > 1 && (
+                <div className="mb-4 pb-4 border-b border-border/60" data-testid="calm-voice-picker">
+                  <p className="text-[0.6rem] uppercase tracking-widest text-moss mb-2 flex items-center gap-1.5">
+                    <Mic2 strokeWidth={1.6} className="w-3 h-3" />
+                    Narrated by
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {voiceOptions.map((v) => {
+                      const isReady = v.slugs_ready.includes(active.slug);
+                      const isActive = v.key === voicePref;
+                      return (
+                        <button
+                          key={v.key}
+                          type="button"
+                          onClick={() => changeVoice(v.key)}
+                          disabled={!isReady}
+                          data-testid={`calm-voice-${v.key}`}
+                          aria-pressed={isActive}
+                          className={`text-xs px-3 py-1.5 border transition-colors ${
+                            isActive && isReady
+                              ? "border-forest bg-forest/10 text-forest"
+                              : isReady
+                                ? "border-border/70 text-moss hover:border-forest/40 hover:text-forest"
+                                : "border-border/40 text-moss/40 cursor-not-allowed"
+                          }`}
+                        >
+                          {v.label}
+                          {!isReady && <span className="ml-1 text-[0.55rem] uppercase">soon</span>}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {!voiceReady && voicePref !== "lily" && (
+                    <p className="mt-2 text-[0.65rem] text-moss/70" data-testid="calm-voice-fallback-notice">
+                      This month is only available in Lily for now — playing Lily instead.
+                    </p>
+                  )}
+                </div>
+              )}
               <audio
                 controls
                 preload="metadata"

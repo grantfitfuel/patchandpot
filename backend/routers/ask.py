@@ -297,8 +297,20 @@ def make_router(db) -> APIRouter:
         if not target:
             raise HTTPException(404, "Question not found")
 
-        # IP dedup ledger.
-        ip = (request.client.host if request.client else "unknown")
+        # Real caller IP behind an ingress / load balancer. We can't
+        # trust `request.client.host` because it's the proxy pod, not
+        # the browser — every user would appear on a rotating internal
+        # IP. Prefer cf-connecting-ip (Cloudflare), else the first hop
+        # of x-forwarded-for, else x-real-ip, and only fall back to the
+        # proxy IP as a last resort. This makes the dedup ledger
+        # actually deduplicate.
+        h = request.headers
+        ip = (
+            h.get("cf-connecting-ip")
+            or (h.get("x-forwarded-for") or "").split(",")[0].strip()
+            or h.get("x-real-ip")
+            or (request.client.host if request.client else "unknown")
+        )
         ledger_key = {"key": target["key"], "ip": ip, "vote": req.vote}
         existing_vote = await db.ask_vote_ledger.find_one(ledger_key, {"_id": 1})
         if existing_vote:

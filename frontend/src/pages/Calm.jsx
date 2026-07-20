@@ -102,7 +102,7 @@ export default function CalmPage() {
       try {
         const t = getStoredAccessToken() || "";
         const [curr, all] = await Promise.all([
-          axios.get(`${API}/calm/current`, { params: { hemisphere, access_token: t } }),
+          axios.get(`${API}/calm/current`, { params: { hemisphere} }),
           axios.get(`${API}/calm/list`, { params: { hemisphere } }),
         ]);
         if (!alive) return;
@@ -149,7 +149,7 @@ export default function CalmPage() {
     setCurrent(null);
     try {
       const t = getStoredAccessToken() || "";
-      const r = await axios.get(`${API}/calm/${slug}`, { params: { access_token: t } });
+      const r = await axios.get(`${API}/calm/${slug}`);
       setCurrent(r.data);
     } catch (e) {
       console.warn("calm variant load failed", e);

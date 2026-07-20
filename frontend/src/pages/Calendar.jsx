@@ -50,7 +50,7 @@ export default function CalendarPage() {
           language: lang,
           orientation: "portrait",
           my_garden: (myGarden || []).map((p) => p.name || p),
-          access_token: getStoredAccessToken(),
+          
         }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);

@@ -44,8 +44,8 @@ export default function JournalPage() {
     (async () => {
       try {
         const [sessRes, metaRes] = await Promise.all([
-          axios.get(`${API}/ask/sessions`, { params: { access_token: token } }),
-          axios.get(`${API}/ask/journal/meta`, { params: { access_token: token } })
+          axios.get(`${API}/ask/sessions`),
+          axios.get(`${API}/ask/journal/meta`)
             .catch(() => ({ data: { meta: [] } })),
         ]);
         const sessions = sessRes.data || [];
@@ -58,7 +58,7 @@ export default function JournalPage() {
         const all = [];
         await Promise.all(sessions.map(async (s) => {
           try {
-            const msgRes = await axios.get(`${API}/ask/sessions/${s.id}/messages`, { params: { access_token: token } });
+            const msgRes = await axios.get(`${API}/ask/sessions/${s.id}/messages`);
             const msgs = msgRes.data || [];
             for (let i = 0; i < msgs.length; i += 1) {
               const m = msgs[i];
@@ -98,7 +98,7 @@ export default function JournalPage() {
         user_message_id: entry.id,
         session_id: entry.session_id,
         ...patch,
-      }, { params: { access_token: token } });
+      });
     } catch (_e) {
       // Roll back on failure — not fatal, but keeps state honest.
       setMeta((m) => {

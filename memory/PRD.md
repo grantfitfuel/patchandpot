@@ -1,3 +1,15 @@
+### Iteration 50 (2026-02-19): ✅ — 2-Minute Calm
+- Shipped the **/calm** feature: 12 monthly, AI-scripted (Claude Sonnet), AI-voiced (ElevenLabs voice `Lily`, `pFZP5JQG7iQjIQuC4Bku`) 2-minute mindful breathing tracks. NH content mirrored transparently for SH visitors.
+- **Backend**: `/api/calm/current`, `/api/calm/list`, `/api/calm/{slug}` (GET + HEAD on audio), `/api/admin/calm/author` (Claude script authoring), `/api/admin/calm/render` (ElevenLabs → pydub → MP3 stitching). Storage: `/app/backend/data/calm/{slug}.mp3` + `calm_variants` Mongo collection.
+- **Frontend**: `/calm` (native audio player + transcript + monthly grid with paywall gating), `/admin/calm` (author + render controls). Header nav + Wellbeing cross-link + AdminHome card.
+- **Content**: All 12 NH tracks authored + rendered on disk (`january-nh` through `december-nh`, ~2:20–2:55 each, 1.6–2.0MB per MP3, total ~21MB).
+- **Free preview**: `march-nh` ("First Green Light") — unlocked for anonymous visitors. Every other month requires the £5 lifetime paywall token.
+- **New env**: `ELEVENLABS_API_KEY`, optional `ELEVENLABS_VOICE_ID` (defaults to Lily).
+- **New deps**: `elevenlabs==2.58.0`, `pydub==0.25.1`, system `ffmpeg` (apt).
+- **Testing**: 15/15 backend + frontend tests pass (`test_reports/iteration_50.json`). Only follow-up was HEAD support on audio.mp3 — added.
+- Service worker bumped v64 → v65.
+
+
 ### Iteration 49 (2026-02-19): ✅ — Admin Ask Review Queue + Journal Pinning/Tagging + 37-key i18n sweep
 - **i18n sweep — 37 new keys x 57 non-EN locales** shipped via 2 idempotent scripts:
   - `scripts/translate_topics_feedback_journal_keys.py` — 28 keys (topics.*, feedback.*, journal.*)

@@ -271,6 +271,7 @@ def make_router(db):
         return row
 
     @router.get("/calm/{slug}/audio.mp3")
+    @router.head("/calm/{slug}/audio.mp3")
     async def serve_audio(slug: str, access_token: str = ""):
         row = await _fetch(slug)
         member = await _member_guard(access_token)

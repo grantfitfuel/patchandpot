@@ -37,7 +37,7 @@ export default function AIMasterclassSuggest() {
     ).catch(() => {});
     const tok = getStoredAccessToken();
     if (tok) {
-      fetchMyMasterclassLibrary(tok, lang).then((d) =>
+      fetchMyMasterclassLibrary(lang).then((d) =>
         setMine((d.items || []).filter((m) => !FEATURED_SET.has(m.slug)))
       ).catch(() => {});
     }

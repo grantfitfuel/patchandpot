@@ -15,6 +15,23 @@ export const api = axios.create({
 // channel — the token no longer leaks into server access logs or browser
 // referrer headers for the vast majority of requests.
 const ACCESS_TOKEN_KEY = "patchpot.access.v1";
+const ADMIN_TOKEN_KEYS = [
+  // AdminAiUsage/AdminGeo persist here (localStorage).
+  { store: "local", key: "pp-admin-token" },
+  // Revenue dashboard persists here (sessionStorage — wipes on tab close).
+  { store: "session", key: "patchpot-admin-token" },
+];
+
+function _readAdminToken() {
+  for (const { store, key } of ADMIN_TOKEN_KEYS) {
+    try {
+      const s = store === "session" ? window.sessionStorage : window.localStorage;
+      const v = s.getItem(key);
+      if (v) return v;
+    } catch {/* noop */}
+  }
+  return null;
+}
 
 function _attachAuth(config) {
   try {
@@ -23,6 +40,25 @@ function _attachAuth(config) {
       config.headers = config.headers || {};
       if (!config.headers.Authorization) {
         config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    // Admin token — sent as X-Admin-Token on /admin/* + /affiliate/*
+    // requests so it never leaks in URL query strings / access logs /
+    // referrers. Backend middleware injects it back into the query as
+    // `token=<...>` for handlers that still declare `token: str` from Query.
+    const url = (config.url || "").toString();
+    const isAdmin =
+      url.startsWith("/admin/") ||
+      url.includes("/api/admin/") ||
+      url.startsWith("/affiliate/") ||
+      url.includes("/api/affiliate/");
+    if (isAdmin) {
+      const adminToken = _readAdminToken();
+      if (adminToken) {
+        config.headers = config.headers || {};
+        if (!config.headers["X-Admin-Token"]) {
+          config.headers["X-Admin-Token"] = adminToken;
+        }
       }
     }
   } catch {
@@ -143,36 +179,39 @@ export const ipDetectRegion = () =>
 
 export const fetchFoundingStatus = () =>
   api.get("/founding-status").then((r) => r.data);
-// Admin: AI usage telemetry. Token is passed via query string per existing
-// router contract; we don't store it on the axios instance because the token
-// is per-request and gated by an explicit text input on the admin page.
-export const fetchAdminAiUsage = (token, days = 30) =>
+// Admin: AI usage telemetry.
+// SEC-002: the admin token is attached automatically as an `X-Admin-Token`
+// header by the axios interceptor (reading `pp-admin-token` from
+// localStorage). The backend middleware then injects it into the query
+// string so existing route signatures keep working. Callers still accept
+// the token arg for readability but it's ignored at the transport layer.
+export const fetchAdminAiUsage = (_token, days = 30) =>
   api
-    .get("/admin/ai-usage", { params: { token, days } })
+    .get("/admin/ai-usage", { params: { days } })
     .then((r) => r.data);
-export const fetchAdminReferrals = (token, days = 30) =>
+export const fetchAdminReferrals = (_token, days = 30) =>
   api
-    .get("/admin/referrals", { params: { token, days } })
+    .get("/admin/referrals", { params: { days } })
     .then((r) => r.data);
 // Admin: AI plant searches — top AI-generated guides by 7-day views.
 // Powers the /admin/ai-searches "Promote" workflow.
-export const fetchAdminAiSearches = (token, { limit = 50, includePromoted = false } = {}) =>
+export const fetchAdminAiSearches = (_token, { limit = 50, includePromoted = false } = {}) =>
   api
     .get("/admin/ai-searches", {
-      params: { token, limit, include_promoted: includePromoted },
+      params: { limit, include_promoted: includePromoted },
     })
     .then((r) => r.data);
-export const promoteAiPlant = (token, payload) =>
+export const promoteAiPlant = (_token, payload) =>
   api
-    .post("/admin/promote-plant", payload, { params: { token } })
+    .post("/admin/promote-plant", payload)
     .then((r) => r.data);
-export const unpromoteAiPlant = (token, plantId) =>
+export const unpromoteAiPlant = (_token, plantId) =>
   api
-    .post("/admin/unpromote-plant", null, { params: { token, plant_id: plantId } })
+    .post("/admin/unpromote-plant", null, { params: { plant_id: plantId } })
     .then((r) => r.data);
-export const clearPlantGuideCache = (token, slug) =>
+export const clearPlantGuideCache = (_token, slug) =>
   api
-    .post("/admin/clear-plant-guide-cache", null, { params: { token, slug } })
+    .post("/admin/clear-plant-guide-cache", null, { params: { slug } })
     .then((r) => r.data);
 // Patrons (public opt-in display)
 export const fetchPatrons = () =>
@@ -219,17 +258,17 @@ export const generateMasterclass = (topic, language, accessToken) =>
 export const pollMasterclassJob = (jobId) =>
   api.get(`/masterclass/job/${jobId}`).then((r) => r.data);
 
-export const fetchGeneratedMasterclass = (slug, language = "en", accessToken = "") =>
+export const fetchGeneratedMasterclass = (slug, language = "en") =>
   api.get(`/masterclass/generated/${slug}`, {
-    params: { language, access_token: accessToken },
+    params: { language },
   }).then((r) => r.data);
 
 export const fetchPopularMasterclasses = (limit = 12) =>
   api.get("/masterclass/generated", { params: { limit } }).then((r) => r.data);
 
-export const fetchMyMasterclassLibrary = (accessToken, language = "en") =>
+export const fetchMyMasterclassLibrary = (language = "en") =>
   api.get("/masterclass/library", {
-    params: { access_token: accessToken, language },
+    params: { language },
   }).then((r) => r.data);
 
 // SEO landing pages — OpenGraph + intro paragraphs for /learn/:topic.

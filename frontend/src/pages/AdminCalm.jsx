@@ -12,9 +12,8 @@
  */
 import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
 import { CheckCircle2, Loader2, RefreshCw, PenLine, Volume2, LogOut, AlertTriangle, ShieldCheck } from "lucide-react";
-import { API } from "@/lib/api";
+import { api } from "@/lib/api";
 import AdminTokenGate, { useAdminToken } from "@/components/AdminTokenGate";
 
 const MONTH_NAMES = [
@@ -34,7 +33,8 @@ export default function AdminCalmPage() {
     setLoading(true);
     setError(null);
     try {
-      const r = await axios.get(`${API}/admin/calm/list`, { params: { token } });
+      // SEC-002: X-Admin-Token header attached via axios interceptor.
+      const r = await api.get("/admin/calm/list");
       setItems(r.data?.items || []);
     } catch (e) {
       setError(e?.response?.data?.detail || e.message);
@@ -48,8 +48,8 @@ export default function AdminCalmPage() {
   const authorMonth = async (month) => {
     setBusy((b) => ({ ...b, [`m${month}`]: "author" }));
     try {
-      await axios.post(`${API}/admin/calm/author`, null, {
-        params: { month, hemisphere: "nh", token, force_reauthor: true },
+      await api.post("/admin/calm/author", null, {
+        params: { month, hemisphere: "nh", force_reauthor: true },
       });
       await load();
     } catch (e) {
@@ -62,8 +62,8 @@ export default function AdminCalmPage() {
   const renderSlug = async (slug) => {
     setBusy((b) => ({ ...b, [slug]: "render" }));
     try {
-      await axios.post(`${API}/admin/calm/render`, null, {
-        params: { slug, token },
+      await api.post("/admin/calm/render", null, {
+        params: { slug },
       });
       await load();
     } catch (e) {

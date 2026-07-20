@@ -31,7 +31,7 @@ export default function AIMasterclassPage() {
     let cancelled = false;
     setMc(null);
     setError("");
-    fetchGeneratedMasterclass(slug, lang, getStoredAccessToken() || "")
+    fetchGeneratedMasterclass(slug, lang)
       .then((d) => { if (!cancelled) setMc(d); })
       .catch(() => { if (!cancelled) setError("This masterclass isn't available yet."); });
     return () => { cancelled = true; };

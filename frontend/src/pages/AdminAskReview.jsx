@@ -10,8 +10,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { AlertTriangle, CheckCircle2, EyeOff, Eye, LogOut, RefreshCw, ShieldCheck } from "lucide-react";
-import axios from "axios";
-import { API } from "@/lib/api";
+import { api } from "@/lib/api";
 import AdminTokenGate, { useAdminToken } from "@/components/AdminTokenGate";
 
 export default function AdminAskReviewPage() {
@@ -27,7 +26,8 @@ export default function AdminAskReviewPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${API}/admin/ask/pending-review`, { params: { token } });
+      // SEC-002: X-Admin-Token header attached via axios interceptor.
+      const res = await api.get("/admin/ask/pending-review");
       setEntries(res.data?.entries || []);
     } catch (e) {
       setError(e?.response?.data?.detail || e.message || "Failed to load queue.");
@@ -41,10 +41,10 @@ export default function AdminAskReviewPage() {
   const decide = async (key, decision) => {
     setBusy(key);
     try {
-      const res = await axios.post(
-        `${API}/admin/ask/review/${encodeURIComponent(key)}`,
+      const res = await api.post(
+        `/admin/ask/review/${encodeURIComponent(key)}`,
         null,
-        { params: { token, decision } },
+        { params: { decision } },
       );
       if (res.data?.ok) {
         setEntries((rows) => rows.filter((r) => r.key !== key));

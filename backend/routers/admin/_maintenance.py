@@ -4,6 +4,7 @@ import logging
 import uuid
 
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 
 from cache_refresh import get_cron_status, refresh_monthly_guidance
 from core import FLOWER_PORTRAITS, Region, make_cached_image
@@ -72,27 +73,43 @@ def register_maintenance_routes(router: APIRouter, db) -> None:
         return {"generated": generated, "skipped_cached": skipped, "failed": failed,
                 "total": len(FLOWER_PORTRAITS)}
 
+    class _ClearUsageBody(BaseModel):
+        access_token: str
+        date: str = ""
+
     @router.post("/admin/ask/clear-usage")
-    async def admin_clear_ask_usage(token: str, access_token: str, date: str = ""):
+    async def admin_clear_ask_usage(
+        body: _ClearUsageBody,
+        token: str = "",
+    ):
         """Wipe one or all daily-usage rows for a given member's access_token.
         Admin-gated (requires ADMIN_TOKEN) so only the operator can call it.
         If `date` is supplied (YYYY-MM-DD), only that one row is removed;
         otherwise every row for that token is wiped (full reset). Returns the
-        rows removed and the remaining usage history for verification."""
+        rows removed and the remaining usage history for verification.
+
+        SEC-002: the admin `token` is injected into the query string by the
+        server middleware from an `X-Admin-Token` header, so callers no
+        longer need to pass it in the URL. The target member's
+        `access_token` now travels in the JSON body (not the URL) so it
+        never ends up in access logs or Referer headers."""
         require_admin(token)
-        query: dict = {"access_token": access_token}
-        if date:
-            query["date"] = date
+        target = (body.access_token or "").strip()
+        if not target:
+            raise HTTPException(400, "access_token (target member) is required.")
+        query: dict = {"access_token": target}
+        if body.date:
+            query["date"] = body.date
         result = await db.ask_usage.delete_many(query)
         remaining_cursor = db.ask_usage.find(
-            {"access_token": access_token},
+            {"access_token": target},
             {"_id": 0, "date": 1, "count": 1, "updated_at": 1},
         ).sort("date", -1).limit(14)
         remaining = [r async for r in remaining_cursor]
         return {
             "rows_removed": result.deleted_count,
-            "scope": "single_date" if date else "all_dates",
-            "date": date or None,
+            "scope": "single_date" if body.date else "all_dates",
+            "date": body.date or None,
             "remaining_rows": remaining,
         }
 

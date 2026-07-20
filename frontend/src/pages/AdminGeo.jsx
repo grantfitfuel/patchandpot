@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet-async";
 import { AlertTriangle, RefreshCw, LogOut, Globe2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import AdminTokenGate, { useAdminToken } from "@/components/AdminTokenGate";
+import { api } from "@/lib/api";
 
 const WINDOW_OPTIONS = [1, 7, 30, 90];
 
@@ -41,23 +42,23 @@ export default function AdminGeoPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const backend = process.env.REACT_APP_BACKEND_URL;
 
   async function load(tok, win) {
     if (!tok) return;
     setLoading(true);
     setError(null);
     try {
-      const r = await fetch(
-        `${backend}/api/admin/geo?token=${encodeURIComponent(tok)}&days=${win}`,
-        { cache: "no-store" }
-      );
-      if (r.status === 403) throw new Error("Invalid admin token.");
-      if (r.status === 503) throw new Error("ADMIN_TOKEN not configured on the backend.");
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      setData(await r.json());
+      // SEC-002: X-Admin-Token header attached via axios interceptor.
+      const r = await api.get("/admin/geo", {
+        params: { days: win },
+        headers: { "Cache-Control": "no-cache" },
+      });
+      setData(r.data);
     } catch (e) {
-      setError(e?.message || "Failed to load geo data.");
+      const status = e?.response?.status;
+      if (status === 403) setError("Invalid admin token.");
+      else if (status === 503) setError("ADMIN_TOKEN not configured on the backend.");
+      else setError(e?.message || "Failed to load geo data.");
       setData(null);
     } finally {
       setLoading(false);

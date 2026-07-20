@@ -4,7 +4,7 @@ import {
   Activity, Image as ImageIcon, Sparkles, Languages, AlertTriangle,
   RefreshCw, LogOut, Lock,
 } from "lucide-react";
-import { fetchAdminAiUsage } from "@/lib/api";
+import { fetchAdminAiUsage, api } from "@/lib/api";
 import { Link } from "react-router-dom";
 
 /**
@@ -311,7 +311,6 @@ function UsageBoard({ data, token }) {
 /*  admin UI — no need to drop to curl. Single date or full wipe.      */
 /* ------------------------------------------------------------------ */
 function AskUsageReset({ token }) {
-  const backend = process.env.REACT_APP_BACKEND_URL;
   const [accessToken, setAccessToken] = useState("");
   const [date, setDate] = useState("");
   const [busy, setBusy] = useState(false);
@@ -332,17 +331,18 @@ function AskUsageReset({ token }) {
     setErr(null);
     setResult(null);
     try {
-      const params = new URLSearchParams({ token, access_token: accessToken.trim() });
-      if (date) params.set("date", date.trim());
-      const r = await fetch(`${backend}/api/admin/ask/clear-usage?${params.toString()}`, {
-        method: "POST",
-        cache: "no-store",
+      // SEC-002: admin token now attaches via X-Admin-Token header from the
+      // axios interceptor (persisted in localStorage under `pp-admin-token`).
+      // The target member's access_token travels in the JSON body — no auth
+      // credentials in the URL any more.
+      const r = await api.post("/admin/ask/clear-usage", {
+        access_token: accessToken.trim(),
+        date: date ? date.trim() : "",
       });
-      const j = await r.json();
-      if (!r.ok) throw new Error(j?.detail || `HTTP ${r.status}`);
-      setResult(j);
+      setResult(r.data);
     } catch (e) {
-      setErr(e?.message || "Failed.");
+      const detail = e?.response?.data?.detail;
+      setErr((typeof detail === "string" && detail) || e?.message || "Failed.");
     } finally {
       setBusy(false);
     }

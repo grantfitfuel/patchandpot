@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { ExternalLink, Trash2, TrendingUp, TrendingDown } from "lucide-react";
+import { api } from "@/lib/api";
 
 /**
  * Admin-only revenue dashboard.
@@ -50,31 +51,34 @@ export default function RevenuePage() {
   });
   const [saving, setSaving] = useState(false);
 
-  const backend = process.env.REACT_APP_BACKEND_URL || "";
-
   const load = async () => {
     if (!token) return;
     setLoading(true);
     setError("");
+    // Persist immediately so the axios interceptor can attach the token
+    // as X-Admin-Token on the very first request.
+    try { sessionStorage.setItem("patchpot-admin-token", token); } catch { /* noop */ }
     try {
-      const r = await fetch(`${backend}/api/affiliate/revenue?days=${days}&token=${encodeURIComponent(token)}`);
+      // SEC-002: admin token now attaches automatically as an X-Admin-Token
+      // header via the axios interceptor (reads sessionStorage
+      // "patchpot-admin-token" or localStorage "pp-admin-token").
+      const r = await api.get("/affiliate/revenue", {
+        params: { days },
+        validateStatus: (s) => s < 500 || s === 401,
+      });
       if (r.status === 401) {
         setError("Invalid admin token.");
         sessionStorage.removeItem("patchpot-admin-token");
         setData(null);
         return;
       }
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const json = await r.json();
-      setData(json);
+      setData(r.data);
       sessionStorage.setItem("patchpot-admin-token", token);
       // Profit margin runs in parallel — failure here shouldn't break
       // the rest of the dashboard, so we swallow errors quietly.
       try {
-        const pr = await fetch(
-          `${backend}/api/admin/profit-margin?days=${days}&token=${encodeURIComponent(token)}`,
-        );
-        if (pr.ok) setProfit(await pr.json());
+        const pr = await api.get("/admin/profit-margin", { params: { days } });
+        setProfit(pr.data);
       } catch (e) {
         console.warn("profit-margin fetch failed", e);
       }
@@ -94,19 +98,14 @@ export default function RevenuePage() {
     if (!form.amount || !form.period_start || !form.period_end) return;
     setSaving(true);
     try {
-      const r = await fetch(`${backend}/api/affiliate/earnings?token=${encodeURIComponent(token)}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          network: form.network,
-          amount: parseFloat(form.amount),
-          currency: form.currency,
-          period_start: form.period_start,
-          period_end: form.period_end,
-          note: form.note || null,
-        }),
+      await api.post("/affiliate/earnings", {
+        network: form.network,
+        amount: parseFloat(form.amount),
+        currency: form.currency,
+        period_start: form.period_start,
+        period_end: form.period_end,
+        note: form.note || null,
       });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setForm({ ...form, amount: "", note: "" });
       await load();
     } catch (e) {
@@ -119,9 +118,7 @@ export default function RevenuePage() {
   const removeEarnings = async (id) => {
     if (!window.confirm("Delete this earnings entry?")) return;
     try {
-      await fetch(`${backend}/api/affiliate/earnings/${id}?token=${encodeURIComponent(token)}`, {
-        method: "DELETE",
-      });
+      await api.delete(`/affiliate/earnings/${id}`);
       await load();
     } catch {
       setError("Delete failed.");

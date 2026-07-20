@@ -1,0 +1,44 @@
+{
+  "summary": "Iteration 54 — SEC-002 header-based auth end-to-end verification (member Bearer + admin X-Admin-Token). Backend: 17/17 pytest assertions pass covering /api/ask/usage, /api/admin/ai-usage, /api/admin/ask/clear-usage (POST body), /api/admin/geo, /api/admin/ask/pending-review, /api/admin/calm/list. Frontend: 5 admin pages (/admin/ai-usage, /admin/geo, /admin/ask-review, /admin/calm, /admin/revenue) all render correctly and issue their API requests with X-Admin-Token header — ZERO `token=` in URL query strings. /ask page as a paid member loads sessions/usage via Authorization: Bearer header — ZERO `access_token=` in URL. /calm audio `.mp3` URL correctly retains ?access_token= (intentional, HTML audio cannot send custom headers). No auth breaks. Backwards compatibility with legacy ?access_token= and ?token= query params confirmed working.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_sec002_iter54.py",
+    "/app/test_reports/pytest/iter54_sec002.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "SEC-002 implementation is now clean: middleware in server.py (_accept_bearer_access_token, lines 249-287) reads Authorization: Bearer and X-Admin-Token headers and injects them into the query_string ASGI scope, so downstream route signatures declaring `access_token: str` / `token: str` from Query keep working unchanged. Explicit query params still win over headers — good for the audio-tag legacy path.",
+    "api.js interceptor _attachAuth is scoped so X-Admin-Token is ONLY attached on /api/admin/* and /api/affiliate/* URLs (guarded by isAdmin check on config.url). Prevents accidental admin-token leak to public endpoints.",
+    "One tiny polish: server.py:266 still imports urllib.parse inside the middleware function on every request. Cheap but non-idiomatic; move to module scope. (Was flagged in iteration 53 too — not blocking.)",
+    "SEC-003 client IP source (previous iteration's CRITICAL finding — request.client.host still returns proxy pod IP in K8s ingress) is OUT OF SCOPE for this iteration but remains unresolved. Re-flag: /app/backend/routers/ask.py vote_popular should read cf-connecting-ip / x-forwarded-for / x-real-ip before falling back to request.client.host, mirroring _GEO_HEADERS pattern in server.py."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_sec002_iter54.py (new — 17 assertions)"
+  ],
+  "success_rate": {
+    "backend": "100% (17/17)",
+    "frontend": "100% (5/5 admin pages + /ask + /calm all verified)"
+  },
+  "test_credentials": "ADMIN_TOKEN from /app/backend/.env (ppa_IFh…). Paid member token: test-token-pdf-smoke.",
+  "seed_data_creation": "Ensured db.access_grants has {token: 'test-token-pdf-smoke', email: 'test@test.com', package_id: 'lifetime', active: true} via test fixture (idempotent upsert). Not touching any production data.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "SEC-002 is now fully cleaned up on both server and client. Regression suite: /app/backend/tests/test_sec002_iter54.py (this iteration) + /app/backend/tests/test_sec002_sec003_iter53.py (previous iteration; note its test_ip_dedup_downvote may still be flaky under K8s ingress until SEC-003 client_ip fix lands). The Calm audio URL (/api/calm/{slug}/audio.mp3) is the ONLY intentional token-in-URL surface remaining — do NOT flag it as a leak; HTML audio elements cannot send custom headers, and this is documented in api.js and Calm.jsx.",
+  "playwright_verification_notes": {
+    "admin_ai_usage": "GET /api/admin/ai-usage?days=30 — X-Admin-Token header, no token= in URL",
+    "admin_geo": "GET /api/admin/geo?days=30 — X-Admin-Token header, no leak",
+    "admin_ask_review": "GET /api/admin/ask/pending-review — X-Admin-Token header, review queue renders",
+    "admin_calm": "GET /api/admin/calm/list — X-Admin-Token header, 12 monthly slots render",
+    "admin_revenue": "GET /api/affiliate/revenue?days=90 + /api/admin/profit-margin?days=90 — X-Admin-Token header on both, dashboard shows £35 gross / £26.28 net",
+    "ask_member": "GET /api/ask/sessions + /api/ask/usage — Authorization: Bearer header, ‘7/7 left today’ correctly shown",
+    "calm_member": "JSON calls Bearer-only; /api/calm/july-nh-w3/audio.mp3?voice=lily&access_token=… retained by design"
+  }
+}

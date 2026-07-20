@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Send, Image as ImageIcon, Plus, Trash2, Loader2, X, ArrowRight } from "lucide-react";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
+import { api } from "@/lib/api";
 import NadarSurfacesNav from "@/components/NadarSurfacesNav";
 
 /**
@@ -54,7 +55,6 @@ async function compressImage(file, { maxEdge = 1600, quality = 0.82, maxBytes = 
 export default function AskPage() {
   const { paid: isPaying } = usePaywall();
   const accessToken = getStoredAccessToken() || "";
-  const backend = process.env.REACT_APP_BACKEND_URL || "";
 
   const [sessions, setSessions] = useState([]);
   const [activeId, setActiveId] = useState(null);
@@ -70,11 +70,15 @@ export default function AskPage() {
   const endRef = useRef(null);
 
   // ── Data fetchers ───────────────────────────────────────────────
+  // Uses shared `api` axios client so Authorization: Bearer <token> is
+  // attached by the interceptor (SEC-002). We drop the `access_token=`
+  // query parameter from URLs so the token never leaks in access logs
+  // or Referer headers.
   const fetchSessions = async () => {
     if (!accessToken) return;
     try {
-      const r = await fetch(`${backend}/api/ask/sessions?access_token=${encodeURIComponent(accessToken)}`);
-      if (r.ok) setSessions(await r.json());
+      const r = await api.get("/ask/sessions");
+      setSessions(r.data);
     } catch {/* noop */}
   };
 
@@ -83,19 +87,19 @@ export default function AskPage() {
     try {
       // Force-bypass any intermediate cache (browser HTTP, service worker)
       // because this is a per-user counter that MUST be fresh every load.
-      const r = await fetch(
-        `${backend}/api/ask/usage?access_token=${encodeURIComponent(accessToken)}&_=${Date.now()}`,
-        { cache: "no-store" }
-      );
-      if (r.ok) setUsage(await r.json());
+      const r = await api.get("/ask/usage", {
+        params: { _: Date.now() },
+        headers: { "Cache-Control": "no-cache" },
+      });
+      setUsage(r.data);
     } catch {/* noop */}
   };
 
   const fetchMessages = async (sid) => {
     if (!accessToken || !sid) { setMessages([]); return; }
     try {
-      const r = await fetch(`${backend}/api/ask/sessions/${sid}/messages?access_token=${encodeURIComponent(accessToken)}`);
-      if (r.ok) setMessages(await r.json());
+      const r = await api.get(`/ask/sessions/${sid}/messages`);
+      setMessages(r.data);
     } catch {/* noop */}
   };
 
@@ -166,27 +170,26 @@ export default function AskPage() {
     }]);
 
     const fd = new FormData();
+    // `access_token` remains inside the multipart body (not URL) — safe from
+    // access-log/referrer leakage. Bearer header is also attached by the
+    // axios interceptor, but this endpoint reads the form field directly.
     fd.append("access_token", accessToken || "");
     fd.append("message", text);
     if (activeId) fd.append("session_id", activeId);
     if (imageFile) fd.append("image", imageFile);
 
     try {
-      const r = await fetch(`${backend}/api/ask/message`, { method: "POST", body: fd });
-      const json = await r.json();
-      if (!r.ok) {
-        const detail = typeof json?.detail === "string" ? json.detail : `Error ${r.status}`;
-        setError(detail);
-        setMessages((m) => m.filter((x) => x.id !== localId));
-        return;
-      }
+      const r = await api.post("/ask/message", fd);
+      const json = r.data;
       setActiveId(json.session_id);
       setUsage(json.usage);
       setText(""); clearImage();
       await fetchMessages(json.session_id);
       await fetchSessions();
     } catch (e) {
-      setError(e?.message || "Network error");
+      const detail = e?.response?.data?.detail;
+      const msg = typeof detail === "string" ? detail : (e?.message || "Network error");
+      setError(msg);
       setMessages((m) => m.filter((x) => x.id !== localId));
     } finally {
       setSending(false);
@@ -198,7 +201,7 @@ export default function AskPage() {
   const onDeleteSession = async (sid) => {
     if (!window.confirm("Delete this conversation?")) return;
     try {
-      await fetch(`${backend}/api/ask/sessions/${sid}?access_token=${encodeURIComponent(accessToken)}`, { method: "DELETE" });
+      await api.delete(`/ask/sessions/${sid}`);
       if (sid === activeId) onNewSession();
       await fetchSessions();
     } catch {/* noop */}
@@ -211,11 +214,11 @@ export default function AskPage() {
     setAuditOpen(true);
     setAudit(null);
     try {
-      const r = await fetch(
-        `${backend}/api/ask/audit?access_token=${encodeURIComponent(accessToken)}&_=${Date.now()}`,
-        { cache: "no-store" }
-      );
-      if (r.ok) setAudit(await r.json());
+      const r = await api.get("/ask/audit", {
+        params: { _: Date.now() },
+        headers: { "Cache-Control": "no-cache" },
+      });
+      setAudit(r.data);
     } catch {/* noop */}
   };
 

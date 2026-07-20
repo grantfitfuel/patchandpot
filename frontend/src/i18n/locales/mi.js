@@ -1035,6 +1035,7 @@ const dict = {
   "nav.journal": "Papakāinga",
   "nav.topics": "Raupapa",
   "nav.popular": "Pātai",
+  "nav.calm": "Pātea",
 
 };
 export default dict;

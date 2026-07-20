@@ -1,0 +1,37 @@
+{
+  "summary": "2-Minute Calm feature — full backend + frontend e2e testing. 15/15 pytest passed, all UI flows verified (public /calm page, admin /admin/calm, header hamburger nav-calm, wellbeing cross-link). Free preview vs. paywall gating confirmed at both API and UI layers. Paid-user simulation via localStorage unlocks all months as expected.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/calm/{slug}/audio.mp3", "issue": "HEAD requests return 405 Method Not Allowed. FastAPI @router.get by default doesn't accept HEAD. Doesn't affect real UX (browser <audio> uses GET, which returns 200 + audio/mpeg + ~1.9MB), but tools using HEAD for preflight/link-check will fail. Consider adding an explicit HEAD handler or letting Starlette auto-derive HEAD from GET."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_calm_iter50.py",
+    "/app/test_reports/pytest/iter50_calm.xml"
+  ],
+  "action_items": [
+    "OPTIONAL (minor): Allow HEAD on /api/calm/{slug}/audio.mp3 (either add explicit HEAD route or use starlette method_not_allowed handling). Not blocking UX."
+  ],
+  "critical_code_review_comments": [
+    "calm.py docstring references 'default voice: Rachel' but code uses Lily (pFZP5JQG7iQjIQuC4Bku). Cosmetic docstring mismatch — no functional impact.",
+    "AdminCalm.jsx card footer prints raw voice_id ('PFZP5JQG7IQJIQUC4BKU') which is opaque to admins; consider showing 'Lily' label instead of the ElevenLabs voice ID.",
+    "calm.py serve_audio: could be enhanced to allow HEAD requests for content-length preflight (fastapi supports methods=['GET','HEAD']).",
+    "Calm.jsx: hero shows current-month slug pulled from useRegion hemisphere logic (nh vs sh). Verified /api/calm/current returns july-nh for anon and July is locked as expected."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_calm_iter50.py (new — 15 tests)"
+  ],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% (all critical flows)"},
+  "test_credentials": "Admin token: patchpot-admin-d3f8a2b9c4. Paid-user simulation: localStorage patchpot.access.v1=test-token-pdf-smoke + patchpot.access.paid.v1=1 (grant upserted by fixture in test_calm_iter50.py).",
+  "seed_data_creation": "db.access_grants upserted with token=test-token-pdf-smoke (idempotent). All 12 calm_variants already exist + audio rendered on /app/backend/data/calm/*.mp3.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All 12 Calm audios are on disk (verified `ls /app/backend/data/calm` — 12 mp3s). Frontend Calm.jsx uses a useRef mirror for userPicked to avoid stale-closure races (works). Admin page uses AdminTokenGate; sign-in via password input + submit button. HEAD returning 405 on audio route is a minor Starlette default — GET works fine, browser audio playback unaffected. If retesting, do NOT hit /admin/calm/render — each call spends ~£0.30 on ElevenLabs. Use /admin/calm/author with force_reauthor=false to smoke-test admin auth cheaply.",
+  "rca of the issue": "N/A — no functional bugs found."
+}

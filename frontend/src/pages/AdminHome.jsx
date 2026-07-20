@@ -24,6 +24,8 @@ const CARDS = [
     blurb: "Which embeds, blogs and deep links actually convert to paid checkouts." },
   { to: "/admin/ask-review",  icon: ShieldCheck, title: "Ask Nàdar review queue",
     blurb: "Approve or permanent-hide answers flagged by refusal filters or down-votes." },
+  { to: "/admin/calm",  icon: Sparkles, title: "2-Minute Calm content",
+    blurb: "Author scripts (Claude) and render audio (ElevenLabs) for the 12 monthly variants." },
 ];
 
 export default function AdminHomePage() {

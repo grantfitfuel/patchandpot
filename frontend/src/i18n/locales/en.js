@@ -12,6 +12,7 @@ const dict = {
   "nav.guides": "Guides",
   "nav.masterclasses": "Masterclasses",
   "nav.ask": "Ask Nàdar",
+  "nav.calm": "2-Minute Calm",
   "nav.topics": "Topics",
   "nav.journal": "Journal",
   "nav.grow_anywhere": "Grow Anywhere",

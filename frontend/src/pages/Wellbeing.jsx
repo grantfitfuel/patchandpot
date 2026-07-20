@@ -84,6 +84,16 @@ export default function WellbeingPage() {
         <p className="mt-4 text-ink/75 max-w-xl leading-relaxed">
           {t("wellbeing.subtitle")}
         </p>
+        <Link
+          to="/calm"
+          data-testid="wellbeing-calm-link"
+          className="mt-5 inline-flex items-center gap-2 text-sm text-forest hover:text-terracotta transition-colors"
+        >
+          <span className="border-b border-forest/40 hover:border-terracotta">
+            Try today&apos;s 2-Minute Calm
+          </span>
+          <span aria-hidden>→</span>
+        </Link>
       </header>
 
       {/* Mindful moment */}

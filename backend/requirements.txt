@@ -20,6 +20,7 @@ cssselect2==0.9.0
 distro==1.9.0
 dnspython==2.8.0
 ecdsa==0.19.2
+elevenlabs==2.58.0
 email-validator==2.3.0
 emergentintegrations==0.2.0
 fastapi==0.110.1
@@ -84,6 +85,7 @@ pycodestyle==2.14.0
 pycparser==3.0
 pydantic==2.13.4
 pydantic_core==2.46.4
+pydub==0.25.1
 pyflakes==3.4.0
 Pygments==2.20.0
 PyJWT==2.13.0

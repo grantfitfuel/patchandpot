@@ -60,13 +60,20 @@ export default function Header() {
                 <Menu className="w-5 h-5" strokeWidth={1.75} />
               </button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72 bg-sand" data-testid="nav-menu-panel">
-              <SheetHeader>
+            <SheetContent
+              side="right"
+              className="w-72 bg-sand flex flex-col overflow-y-auto"
+              data-testid="nav-menu-panel"
+            >
+              <SheetHeader className="shrink-0">
                 <SheetTitle className="font-serif text-2xl text-forest text-left">
                   Patch &amp; Pot
                 </SheetTitle>
               </SheetHeader>
-              <nav className="mt-6 flex flex-col gap-1" data-testid="nav-menu-list">
+              <nav
+                className="mt-4 flex flex-col gap-0.5 pb-6"
+                data-testid="nav-menu-list"
+              >
                 {NAV.map((n) => {
                   const showPill = n.key === "calm" && calmUnread;
                   return (
@@ -76,7 +83,7 @@ export default function Header() {
                         end={n.to === "/"}
                         data-testid={`nav-${n.key}`}
                         className={({ isActive }) =>
-                          `px-3 py-3 rounded text-base tracking-wide transition-colors flex items-center gap-2 ${
+                          `px-3 py-2 rounded text-base tracking-wide transition-colors flex items-center gap-2 ${
                             isActive
                               ? "bg-surface text-forest font-medium"
                               : "text-ink/80 hover:bg-surface hover:text-forest"

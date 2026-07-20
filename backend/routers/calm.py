@@ -32,7 +32,8 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage
-from core import make_grant_is_active
+from core import make_grant_is_active, _enforce_budget_or_503
+from routers.admin._shared import require_admin as _require_admin
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +46,8 @@ SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
 # of the actual meditation delivery so members can judge the fit.
 VOICE_SAMPLE_TEXT = "Take a slow breath in, and settle where you are."
 
-ADMIN_TOKEN = os.environ.get("PATCHPOT_ADMIN_TOKEN", "patchpot-admin-d3f8a2b9c4")
+ADMIN_TOKEN = None  # (removed) — auth via `require_admin` from routers.admin._shared,
+#                    which reads ADMIN_TOKEN from env and fails closed if unset.
 ELEVENLABS_KEY = os.environ.get("ELEVENLABS_API_KEY", "")
 
 # Two curated voices. Members pick between them on the /calm page and
@@ -375,11 +377,6 @@ def _sh_month_shift(month: int) -> int:
     return ((month - 1 + 6) % 12) + 1
 
 
-def _require_admin(token: str) -> None:
-    if token != ADMIN_TOKEN:
-        raise HTTPException(403, "Admin token invalid.")
-
-
 # ─── Public router factory ──────────────────────────────────────────
 def make_router(db):
     router = APIRouter()
@@ -463,6 +460,7 @@ def make_router(db):
         _require_admin(token)
         voice_key = _voice_key(voice)
         out_path = SAMPLES_DIR / f"{voice_key}.sample.mp3"
+        _enforce_budget_or_503()
         # Single-block synthesis: reuse the block pipeline with one entry
         # + no trailing pause. The 6s target follows naturally from the
         # sample text length.
@@ -573,6 +571,7 @@ def make_router(db):
         api_key = os.environ.get("EMERGENT_LLM_KEY", "")
         if not api_key:
             raise HTTPException(500, "EMERGENT_LLM_KEY not configured")
+        _enforce_budget_or_503()
 
         script = await author_calm_script(
             month_name, month, hemisphere, season_label, week, api_key,
@@ -617,6 +616,10 @@ def make_router(db):
         blocks = [Block(**b) for b in row.get("blocks", [])]
         if not blocks:
             raise HTTPException(400, "No blocks on this variant — author first.")
+        # Guard the paid ElevenLabs spend behind the same daily budget
+        # circuit-breaker used elsewhere in the app — a leaked admin
+        # token can no longer drain credits indefinitely.
+        _enforce_budget_or_503()
 
         voice_path = _audio_file(slug, voice_key, "voice")
         final_path = _audio_file(slug, voice_key, "final")

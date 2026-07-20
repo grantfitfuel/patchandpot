@@ -1,3 +1,17 @@
+### Iteration 55 (2026-02-19): ✅ — SEC-002 completed (headers everywhere)
+- **Full SEC-002 remediation**: every auth token now travels in headers, not URL query strings, so credentials no longer leak into access logs / Referer headers / browser history.
+- **Member access token**: `Authorization: Bearer <token>` attached automatically by the axios interceptor on every `/api/*` request (already wired in iter 54).
+- **Admin token**: new `X-Admin-Token: <token>` header attached automatically by the same interceptor on `/admin/*` and `/affiliate/*` paths. Reads from either `localStorage['pp-admin-token']` (AdminAiUsage/Geo/Calm/AskReview) or `sessionStorage['patchpot-admin-token']` (Revenue).
+- **Middleware bridge** (`server.py::_accept_bearer_access_token`): reads both headers and injects them into the ASGI scope's `query_string` as `access_token=` / `token=` so every downstream route signature (`token: str = Query(...)`) keeps working unchanged. Explicit query params still win (audio player fallback).
+- **Frontend rewrites**: `Ask.jsx` (6 raw fetches → `api` axios), `AdminAiUsage.jsx` (POST body flow for clear-usage), `Revenue.jsx`, `AdminGeo.jsx`, `AdminAskReview.jsx`, `AdminCalm.jsx` (all raw fetch/axios → shared `api` client), `api.js` masterclass helpers (dropped `token`/`access_token` from URL params).
+- **Backend endpoint refactor**: `POST /api/admin/ask/clear-usage` now takes `_ClearUsageBody` JSON (target member `access_token` inside the body, no longer in URL). `GET /api/masterclass/library` `access_token` param made optional (Bearer-supplied).
+- **Documented exception**: `GET /api/calm/{slug}/audio.mp3` intentionally retains `?access_token=` since HTML `<audio>` elements cannot send custom headers. Called out in `api.js` + `Calm.jsx` comments.
+- **Testing**: iteration_54.json — 17/17 backend pytest assertions + 5/5 admin pages + `/ask` + `/calm` all verified. Zero regressions. Legacy `?token=`/`?access_token=` still accepted for backwards compat (verified via curl).
+- **Test credentials doc**: updated with header-based curl examples.
+- Service worker bumped v72 → v73.
+
+---
+
 ### Iteration 54 (2026-02-19): ✅ — Security audit + SEC-001 (HIGH) fix
 - Ran security audit on the deployed codebase. Findings summary:
   - **SEC-001 (HIGH)**: `/app/backend/routers/calm.py` had a hard-coded fallback admin token AND no budget-cap check before ElevenLabs spend. **FIXED**: calm.py now uses the shared `require_admin` from `routers.admin._shared` (which reads `ADMIN_TOKEN` env, no fallback), and every ElevenLabs- or LLM-spending endpoint (`/admin/calm/render`, `/render-sample`, `/author`) now calls `_enforce_budget_or_503()` first.

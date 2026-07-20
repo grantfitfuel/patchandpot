@@ -15,6 +15,7 @@ import os
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -263,7 +264,6 @@ async def _accept_bearer_access_token(request, call_next):
     custom headers), but the frontend now prefers the header everywhere
     else — keeping the token out of server access logs and browser
     referrer headers on the primary API surface."""
-    from urllib.parse import urlencode, parse_qsl
     injections: dict[str, str] = {}
 
     auth = request.headers.get("authorization") or ""

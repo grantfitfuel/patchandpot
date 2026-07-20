@@ -27,6 +27,7 @@ from starlette.middleware.cors import CORSMiddleware
 from cache_refresh import schedule_monthly_refresh
 from core import Region, load_promoted_plants, refresh_ai_budget_state
 from seed_deep_dives import seed_deep_dives
+from seed_calm import seed_calm_variants
 from sentry_init import init_sentry
 from services_guidance import make_generate_and_cache_guidance
 
@@ -155,6 +156,12 @@ async def lifespan(_app: FastAPI):
         logger.info("deep-dive auto-seed: %s", result)
     except Exception as e:  # noqa: BLE001
         logger.exception("deep-dive auto-seed failed: %s", e)
+
+    try:
+        result = await seed_calm_variants(db)
+        logger.info("calm variants auto-seed: %s", result)
+    except Exception as e:  # noqa: BLE001
+        logger.exception("calm variants auto-seed failed: %s", e)
 
     try:
         state = await refresh_ai_budget_state(db)

@@ -1,3 +1,15 @@
+### Iteration 53 (2026-02-19): ✅ — Weekly rotation (4× monthly variants), tightened Claude prompt
+- **Full weekly rotation shipped**: every month × hemisphere × voice now has 4 distinct weekly variants (w1–w4) with progression-aware content (Claude prompt tells it "start-of-month / mid-early / mid-late / end-of-month" so w4 crocuses are open where w1 crocuses were just pushing).
+- **Slug format** changed from `{month}-{hemisphere}` to `{month}-{hemisphere}-w{1..4}`. Migrated 24 existing DB rows + 96 audio files under the new naming. Current-slug picker uses day-of-month formula (days 1-7 → w1, 8-14 → w2, 15-21 → w3, 22+ → w4).
+- **Total content shipped**: 96 scripts, 192 mixed audio tracks (96 Lily + 96 George), plus 192 voice-only masters. On disk: 604MB.
+- **Claude prompt tightened** with hard caps (10–14 blocks, pause budget 55–85 s, total duration 100–150 s) after the initial batch overshot to 4–5 minutes. Re-authored and re-rendered all w2/w3/w4 tracks.
+- **Frontend UX**: month grid now shows one card per month with a W1/W2/W3/W4 chip row that appears under the currently-active month. Hero shows current week ("HIGH SUMMER · WEEK 3"). Auto-selects the current week on visit.
+- **Backend fix**: ElevenLabs synth + pydub mix now run in a thread executor (`asyncio.get_event_loop().run_in_executor`) so the FastAPI event loop stays responsive to `/list` / `/current` / `/serve` requests during long batch renders.
+- **Voice sample previews** (from earlier this session): 6-second ~1s inline preview button per voice option in the picker.
+- **Free previews**: `march-nh-w1` (Early Spring) + `september-sh-w1` (Southern Early Spring). All other 190 tracks members-only.
+- **Total spend** across iterations: ~£43 (before quota recharge), then further recharge for the ~92 tracks re-rendered after ElevenLabs limit hit mid-batch. Service worker bumped v66 → v70.
+
+
 ### Iteration 52 (2026-02-19): ✅ — Calm dual-voice + slower pacing
 - **Two curated voices** now selectable per member: `lily` (velvety British female, default) and `george` (warm British male). Preference persisted in `localStorage.patchpot.calm.voice.v1`. On months where the picked voice hasn't been rendered yet, the player transparently falls back to Lily.
 - **George rendered** for all 24 slugs (12 NH + 12 SH). Total ElevenLabs cost this iteration: ~£7.20.

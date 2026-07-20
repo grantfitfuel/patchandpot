@@ -17,6 +17,7 @@ Storage:
                   audio_size_bytes, created_at, updated_at, is_free_preview}
                  slug format: "{month_name}-{hemisphere}"  e.g. "march-nh"
 """
+import asyncio
 import io
 import json
 import logging
@@ -103,7 +104,8 @@ MONTHS_NH = [
     ("december", 12, "Early Winter"),
 ]
 
-FREE_PREVIEW_SLUGS = {"march-nh", "september-sh"}  # early spring in each hemisphere
+FREE_PREVIEW_SLUGS = {"march-nh-w1", "september-sh-w1"}  # first week of early spring in each hemisphere
+WEEKS_PER_MONTH = 4  # w1..w4 — day-of-month-clamped rotation
 
 
 class Block(BaseModel):
@@ -129,48 +131,47 @@ class CalmVariant(BaseModel):
 
 # ─── Script author (Claude Sonnet) ──────────────────────────────────
 _SCRIPT_SYSTEM_PROMPT = """You are the Patch & Pot wellbeing writer. You write
-2-minute mindful breathing scripts for gardeners — the kind read softly during
+short, mindful breathing scripts for gardeners — the kind read softly during
 a garden pause. Tone: gentle, sensory, seasonally specific, never
 clinical or crystal-woo. Reference the actual garden (soil, light, birds,
 scent) not abstract 'nature'. Never use the words 'journey', 'divine',
 'energy', 'vibration'.
 
-PACING RULES — read every rule carefully:
-- Break the script into MANY SHORT blocks (one thought per block, 4–12 words
-  ideal). Avoid long sentences that force the narrator to rush.
-- After every block, specify a generous `pause_after_s` value. Meditation
-  breathing needs SPACE, not talk. Guidelines:
-    · after a settling / attention-drawing line → 5–8 s
-    · after an inhale count line → 6–8 s (matching the exhale)
-    · after an exhale count line → 8–12 s (long breath-out silence)
-    · around silence beats between phrases → 6–10 s
-    · at the very end (last block) → 8–15 s of gentle silence
-- Total spoken duration should land 90–140 seconds; total including
-  pauses should feel like a full 2 minutes with room to breathe.
-- Include ONE simple breathing pattern per script:
+STRICT LENGTH RULES — final total duration (spoken + pauses) MUST land
+between 100 and 150 seconds. Follow every constraint:
+
+- BLOCK COUNT: exactly 10 to 14 blocks. NEVER more than 14.
+- BLOCK LENGTH: each block 6 to 14 words, one thought.
+- PAUSE VALUES: total of all `pause_after_s` across the whole script
+  MUST sum to between 55 and 85 seconds. NEVER over 90.
+- Typical pause values: 4–8 s. Reserve 8–12 s for the exhale-count line
+  and one or two silence beats. The final block should end with a 6–10 s
+  pause (not longer — the ambience carries the tail).
+
+BREATHING PATTERN — include ONE simple pattern per script:
     · Inhale 4, exhale 6
     · Inhale 4, hold 2, exhale 6
     · Inhale 4, exhale 8
-- Guide the listener through 3–5 breath cycles at that pattern.
+Guide the listener through 2–4 breath cycles at that pattern.
 
 OUTPUT FORMAT — return ONLY minified JSON, no markdown fences:
 {
   "title": "Warm Evenings",
   "blocks": [
-    {"text": "Find a comfortable seat.", "pause_after_s": 5},
-    {"text": "Let your shoulders soften.", "pause_after_s": 7},
-    {"text": "Notice the late amber light.", "pause_after_s": 8},
+    {"text": "Find a comfortable seat. Let your shoulders soften.", "pause_after_s": 5},
+    {"text": "Notice the late amber light.", "pause_after_s": 6},
     ...
   ],
-  "transcript_display": "Full pretty transcript ready to render on the web,
-    with timestamps like '[00:00]' at the start of each block. Include the
-    breathing pattern line between blocks where relevant."
+  "transcript_display": "Full pretty transcript with timestamps like
+    '[00:00]' at the start of each block. Include the breathing pattern
+    line between blocks where relevant."
 }
 """
 
 
 async def author_calm_script(
-    month_name: str, month_num: int, hemisphere: str, season_label: str, api_key: str,
+    month_name: str, month_num: int, hemisphere: str, season_label: str,
+    week: int, api_key: str,
 ) -> dict:
     """Generate one 2-minute Calm script via Claude Sonnet."""
     hemi_label = "Northern Hemisphere" if hemisphere == "nh" else "Southern Hemisphere"
@@ -185,17 +186,35 @@ async def author_calm_script(
         "spring if the month is calendar-winter for SH. The `SEASON` line "
         "below is authoritative — trust it over the month number."
     )
+    week_stage = {
+        1: ("start-of-month",
+            "the first days of the month — earliest signs, tentative openings, "
+            "quiet edges of change"),
+        2: ("mid-early-month",
+            "the second week of the month — the season taking hold, movement "
+            "becoming visible"),
+        3: ("mid-late-month",
+            "the third week of the month — the season at its middle depth, "
+            "settled into its character"),
+        4: ("end-of-month",
+            "the closing days of the month — the season fully expressed, "
+            "beginning to hint at what comes next"),
+    }[week]
     payload = (
         f"MONTH: {month_name.title()} (#{month_num})\n"
         f"HEMISPHERE: {hemi_label}\n"
         f"SEASON: {season_label}\n"
+        f"WEEK-STAGE: Week {week} of {WEEKS_PER_MONTH} — {week_stage[0]}: "
+        f"{week_stage[1]}.\n"
         f"REGIONAL HINT: {hemi_hint}\n\n"
-        "Write the script now. Anchor 2–3 sensory details specific to this "
-        "month + hemisphere. Return ONLY the JSON object."
+        "Write the script now. Anchor 2–3 sensory details specific to THIS "
+        "week-stage — a Week 4 script must feel materially different from "
+        "the same month's Week 1 (crocus tips vs. crocus fully open, first "
+        "green shoots vs. beds filling in, etc.). Return ONLY the JSON."
     )
     chat = LlmChat(
         api_key=api_key,
-        session_id=f"calm-{month_name}-{hemisphere}",
+        session_id=f"calm-{month_name}-{hemisphere}-w{week}",
         system_message=_SCRIPT_SYSTEM_PROMPT,
     )
     chat.with_model("anthropic", "claude-sonnet-4-5-20250929")
@@ -380,9 +399,13 @@ def make_router(db):
         return row
 
     def _current_slug(hemisphere: str) -> str:
-        month = datetime.now(timezone.utc).month
-        month_name = MONTHS_NH[month - 1][0]
-        return f"{month_name}-{hemisphere}"
+        now = datetime.now(timezone.utc)
+        month_name = MONTHS_NH[now.month - 1][0]
+        # Week 1-4 based on day-of-month (days 1-7 → w1, 8-14 → w2, 15-21
+        # → w3, everything from 22 onward → w4). Months with a "5th week"
+        # fold into w4 so we never end up on an unrendered slug.
+        week = min(((now.day - 1) // 7) + 1, WEEKS_PER_MONTH)
+        return f"{month_name}-{hemisphere}-w{week}"
 
     # ── Public read endpoints ─────────────────────────────────────
     @router.get("/calm/voices")
@@ -470,14 +493,17 @@ def make_router(db):
 
     @router.get("/calm/list")
     async def list_all(hemisphere: str = "nh"):
-        """Public grid: every variant for a hemisphere, sorted by month."""
+        """Public grid: every variant for a hemisphere, sorted by month then
+        week. Each item includes month, week, season_label, is_free_preview
+        and audio_generated so the picker can render + gate accordingly."""
         if hemisphere not in ("nh", "sh"):
             raise HTTPException(400, "hemisphere must be 'nh' or 'sh'")
         cursor = db.calm_variants.find(
             {"hemisphere": hemisphere},
-            {"_id": 0, "slug": 1, "title": 1, "month": 1, "season_label": 1,
-             "audio_generated": 1, "duration_s": 1, "is_free_preview": 1},
-        ).sort("month", 1)
+            {"_id": 0, "slug": 1, "title": 1, "month": 1, "week": 1,
+             "season_label": 1, "audio_generated": 1, "duration_s": 1,
+             "is_free_preview": 1, "voices": 1},
+        ).sort([("month", 1), ("week", 1)])
         rows = [r async for r in cursor]
         return {"count": len(rows), "items": rows}
 
@@ -521,23 +547,25 @@ def make_router(db):
     @router.post("/admin/calm/author")
     async def author_variant(
         month: int, hemisphere: str, token: str,
-        force_reauthor: bool = False,
+        week: int = 1, force_reauthor: bool = False,
     ):
         """Generate/regenerate the SCRIPT (Claude), no audio yet. Cheap.
-        Sets `audio_generated=False` so the next audio call will render."""
+        `week` (1-4) picks which weekly variant within the month. Weeks
+        are progression stages: w1=start of month, w4=end — Claude is
+        told which stage to write for so anchors evolve week-to-week."""
         _require_admin(token)
         if hemisphere not in ("nh", "sh"):
             raise HTTPException(400, "hemisphere must be 'nh' or 'sh'")
         if not (1 <= month <= 12):
             raise HTTPException(400, "month must be 1..12")
+        if not (1 <= week <= WEEKS_PER_MONTH):
+            raise HTTPException(400, f"week must be 1..{WEEKS_PER_MONTH}")
 
         month_name, _, season_label = MONTHS_NH[month - 1]
-        # For SH, we relabel the season based on the calendar-mirror month
-        # so 'March SH' reads as Early Autumn.
         if hemisphere == "sh":
             _, _, season_label = MONTHS_NH[_sh_month_shift(month) - 1]
 
-        slug = f"{month_name}-{hemisphere}"
+        slug = f"{month_name}-{hemisphere}-w{week}"
         existing = await db.calm_variants.find_one({"slug": slug}, {"_id": 0})
         if existing and not force_reauthor:
             return {"ok": True, "already_exists": True, "slug": slug}
@@ -546,7 +574,9 @@ def make_router(db):
         if not api_key:
             raise HTTPException(500, "EMERGENT_LLM_KEY not configured")
 
-        script = await author_calm_script(month_name, month, hemisphere, season_label, api_key)
+        script = await author_calm_script(
+            month_name, month, hemisphere, season_label, week, api_key,
+        )
         blocks = [Block(**b) for b in script.get("blocks", [])]
         if not blocks:
             raise HTTPException(500, "Script came back empty.")
@@ -555,6 +585,7 @@ def make_router(db):
         doc = {
             "slug": slug,
             "month": month,
+            "week": week,
             "hemisphere": hemisphere,
             "season_label": season_label,
             "title": script.get("title", f"{season_label} Calm"),
@@ -577,7 +608,9 @@ def make_router(db):
         """Full render pipeline: (1) synthesise voice via ElevenLabs into
         the voice-only MP3, (2) mix in season-matched ambience bed and
         write the final MP3. `voice` picks between the curated Voice keys
-        (`lily`, `george`). Blocking, ~30–60s per 2-min audio."""
+        (`lily`, `george`). Blocking, ~30–60s per 2-min audio, but run
+        in a threadpool so the FastAPI event loop stays responsive for
+        other requests (list/current/serve) while a render is in flight."""
         _require_admin(token)
         voice_key = _voice_key(voice)
         row = await _fetch(slug)
@@ -587,11 +620,16 @@ def make_router(db):
 
         voice_path = _audio_file(slug, voice_key, "voice")
         final_path = _audio_file(slug, voice_key, "final")
-        _synthesise_blocks_to_voice_mp3(
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(
+            None,
+            _synthesise_blocks_to_voice_mp3,
             blocks, voice_path, _voice_id_for(voice_key),
         )
         season = _season_for(row["month"], row["hemisphere"])
-        duration, size = _mix_voice_with_ambience(voice_path, final_path, season)
+        duration, size = await loop.run_in_executor(
+            None, _mix_voice_with_ambience, voice_path, final_path, season,
+        )
 
         # Track per-voice render state in a nested dict so the primary
         # `audio_generated` flag remains truthy whenever Lily (default)

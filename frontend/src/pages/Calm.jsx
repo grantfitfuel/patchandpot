@@ -126,6 +126,22 @@ export default function CalmPage() {
     return null;
   }, [activeSlug, current]);
 
+  // Group the flat list into 12 monthly buckets each holding up to 4 weekly variants.
+  const monthGroups = useMemo(() => {
+    const byMonth = new Map();
+    for (const v of list) {
+      const arr = byMonth.get(v.month) || [];
+      arr.push(v);
+      byMonth.set(v.month, arr);
+    }
+    return [...byMonth.entries()]
+      .sort(([a], [b]) => a - b)
+      .map(([month, weeks]) => ({
+        month,
+        weeks: weeks.sort((a, b) => (a.week ?? 1) - (b.week ?? 1)),
+      }));
+  }, [list]);
+
   const selectSlug = async (slug) => {
     if (slug === activeSlug) return;
     setUserPicked(true);
@@ -188,6 +204,7 @@ export default function CalmPage() {
           <div className="flex items-baseline gap-3 mb-3">
             <span className="text-[0.65rem] uppercase tracking-widest text-moss">
               {active.season_label}
+              {active.week && <> · Week {active.week}</>}
             </span>
             {active.is_free_preview && (
               <span
@@ -329,33 +346,71 @@ export default function CalmPage() {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3" data-testid="calm-month-grid">
-            {list.map((v) => {
-              const isActive = v.slug === activeSlug;
-              const isFree = v.is_free_preview;
-              const isReady = v.audio_generated;
+            {monthGroups.map(({ month, weeks }) => {
+              const anyWeek = weeks[0]; // for the poster fields (season_label)
+              const readyWeeks = weeks.filter((w) => w.audio_generated);
+              const groupActive = weeks.some((w) => w.slug === activeSlug);
+              const anyReady = readyWeeks.length > 0;
+              // Pick the "poster" week — the one currently active in this
+              // month (if any), else the current calendar week if that
+              // month is the current month, else week 1.
+              const posterWeek =
+                weeks.find((w) => w.slug === activeSlug) || readyWeeks[0] || anyWeek;
               return (
-                <button
-                  key={v.slug}
-                  type="button"
-                  onClick={() => selectSlug(v.slug)}
-                  data-testid={`calm-month-${v.slug}`}
-                  disabled={!isReady}
-                  className={`text-left p-3 border transition-colors ${
-                    isActive
-                      ? "border-forest bg-forest/5"
-                      : "border-border/70 hover:border-forest/40"
-                  } ${!isReady ? "opacity-50 cursor-not-allowed" : ""}`}
+                <div
+                  key={month}
+                  data-testid={`calm-month-group-${monthName(month)}`}
+                  className={`border transition-colors ${
+                    groupActive ? "border-forest bg-forest/5" : "border-border/70"
+                  }`}
                 >
-                  <div className="flex items-center gap-1.5 mb-1 text-[0.6rem] uppercase tracking-widest text-moss">
-                    {isFree && <span className="text-terracotta">Free</span>}
-                    {!isFree && !paid && <Lock strokeWidth={1.6} className="w-3 h-3" />}
-                    {isReady && <PlayCircle strokeWidth={1.6} className="w-3 h-3 text-forest ml-auto" />}
-                  </div>
-                  <p className="font-serif text-lg text-forest leading-tight">{v.title}</p>
-                  <p className="text-[0.65rem] uppercase tracking-widest text-moss/80 mt-1">
-                    {v.season_label}
-                  </p>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => posterWeek && selectSlug(posterWeek.slug)}
+                    disabled={!anyReady}
+                    data-testid={`calm-month-${monthName(month)}`}
+                    className={`text-left w-full p-3 ${!anyReady ? "opacity-50 cursor-not-allowed" : "hover:bg-forest/[0.03]"}`}
+                  >
+                    <div className="flex items-center gap-1.5 mb-1 text-[0.6rem] uppercase tracking-widest text-moss">
+                      {posterWeek.is_free_preview && <span className="text-terracotta">Free</span>}
+                      {!posterWeek.is_free_preview && !paid && <Lock strokeWidth={1.6} className="w-3 h-3" />}
+                      {anyReady && <PlayCircle strokeWidth={1.6} className="w-3 h-3 text-forest ml-auto" />}
+                    </div>
+                    <p className="font-serif text-lg text-forest leading-tight">{posterWeek.title || monthName(month)}</p>
+                    <p className="text-[0.65rem] uppercase tracking-widest text-moss/80 mt-1">
+                      {anyWeek.season_label}
+                    </p>
+                  </button>
+                  {groupActive && weeks.length > 1 && (
+                    <div
+                      className="flex border-t border-border/50 divide-x divide-border/50"
+                      data-testid={`calm-week-picker-${monthName(month)}`}
+                    >
+                      {weeks.map((w) => {
+                        const wActive = w.slug === activeSlug;
+                        const wReady = w.audio_generated;
+                        return (
+                          <button
+                            key={w.slug}
+                            type="button"
+                            onClick={() => selectSlug(w.slug)}
+                            disabled={!wReady}
+                            data-testid={`calm-week-${w.slug}`}
+                            className={`flex-1 text-[0.6rem] uppercase tracking-widest py-1.5 transition-colors ${
+                              wActive
+                                ? "text-forest font-medium bg-forest/10"
+                                : wReady
+                                  ? "text-moss hover:text-forest hover:bg-forest/5"
+                                  : "text-moss/40 cursor-not-allowed"
+                            }`}
+                          >
+                            W{w.week}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>
@@ -427,3 +482,9 @@ function formatDuration(seconds) {
   const r = String(s % 60).padStart(2, "0");
   return `${m}:${r}`;
 }
+
+const MONTH_NAMES = [
+  "january", "february", "march", "april", "may", "june",
+  "july", "august", "september", "october", "november", "december",
+];
+function monthName(m) { return MONTH_NAMES[m - 1] || ""; }

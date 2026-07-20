@@ -1,3 +1,14 @@
+### Iteration 54 (2026-02-19): ✅ — Security audit + SEC-001 (HIGH) fix
+- Ran security audit on the deployed codebase. Findings summary:
+  - **SEC-001 (HIGH)**: `/app/backend/routers/calm.py` had a hard-coded fallback admin token AND no budget-cap check before ElevenLabs spend. **FIXED**: calm.py now uses the shared `require_admin` from `routers.admin._shared` (which reads `ADMIN_TOKEN` env, no fallback), and every ElevenLabs- or LLM-spending endpoint (`/admin/calm/render`, `/render-sample`, `/author`) now calls `_enforce_budget_or_503()` first.
+  - **Token rotation**: The `ADMIN_TOKEN` in `.env` was the same string as the previously-hardcoded fallback — that string is now considered leaked. Rotated to a fresh 32-byte urlsafe secret (`ppa_...`). Updated `.env` + `/app/memory/test_credentials.md`. Old string returns 403; new token returns 200 (verified).
+  - **SEC-002 (MEDIUM)**: access tokens in URL query strings leak via logs / referrer headers — deferred, needs header-based auth migration.
+  - **SEC-003 (MEDIUM)**: anonymous vote-brigading can auto-hide public SEO Q&A after 3 down-votes — deferred, needs vote de-dup.
+  - **SEC-LOW-001 & LOW-002**: CORS wildcard + `dangerouslySetInnerHTML` on legal pages — noted for future.
+- **Testing**: 15/17 backend tests PASSED via testing_agent iteration_52, 2 skipped (only informational). Zero regressions.
+- Service worker bumped v70 → v71.
+
+
 ### Iteration 53 (2026-02-19): ✅ — Weekly rotation (4× monthly variants), tightened Claude prompt
 - **Full weekly rotation shipped**: every month × hemisphere × voice now has 4 distinct weekly variants (w1–w4) with progression-aware content (Claude prompt tells it "start-of-month / mid-early / mid-late / end-of-month" so w4 crocuses are open where w1 crocuses were just pushing).
 - **Slug format** changed from `{month}-{hemisphere}` to `{month}-{hemisphere}-w{1..4}`. Migrated 24 existing DB rows + 96 audio files under the new naming. Current-slug picker uses day-of-month formula (days 1-7 → w1, 8-14 → w2, 15-21 → w3, 22+ → w4).

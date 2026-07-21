@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Tha an luchdachadh sìos air fàilligheachd. Feuch ris a-rithist.",
   "journal.tags_heading": "Tagaichean",
   "topics.subscribe_rss": "Clàraich tro RSS",
+  "grow.situation.ladder-planter.label": "Planntaireair staidhre",
+  "grow.situation.ladder-planter.blurb": "Staidhre leaghaidh le tray shalainn air gach rathaid — ag aghaidh na grèine, còig inbhearan de leòmainn, salann, agus seoclaid ann an clò duille.",
+  "grow.situation.pallet-vertical.label": "Gardin crochaidh",
+  "grow.situation.pallet-vertical.blurb": "Pallet fiodh air a sheasamh gu dìreach agus lined le fabraig-achaidh — bidh gach slat mar phoca shalainn no leòmainn shalach. Bòrd mòr torrach, ach feumaidh e uisgeachadh tric.",
+  "grow.situation.gutter-garden.label": "Gàradh giuthais",
+  "grow.situation.gutter-garden.blurb": "Fadain giuthais plastaig air an stackadh air balla no freagairte — dìreach 10 cm domhainn, ach freagairiteach airson salann a ghearradh, curran mòr, agus leòmainn shalach.",
+  "grow.situation.pocket-planter.label": "Planntaire air pòcaidean",
+  "grow.situation.pocket-planter.blurb": "Panail canvas no felt le pòcaidean sewn-in, crochta air balla grianach — gàrradh dìreach dìreach, freagarrach cuideachd air railiean balcony.",
+  "grow.situation.trellis-tower.label": "Tòraidh trèana",
+  "grow.situation.trellis-tower.blurb": "Obelisk neo-fhoirfe, tepee no tobar uèir airson luchd-càraidh — bidh feur, puingean, cucamar agus glòra-mara a' cruthachadh balla uaine bhòidheach ann an aon méadar квадрат.",
 
 };
 export default dict;

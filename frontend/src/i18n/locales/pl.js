@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Nie udało się pobrać. Proszę spróbować ponownie.",
   "journal.tags_heading": "Tagi",
   "topics.subscribe_rss": "Subskrybuj przez RSS",
+  "grow.situation.ladder-planter.label": "Donica na drabinie",
+  "grow.situation.ladder-planter.blurb": "Przechylona drabina z płytką tacą na każdym szczeblu - skierowana w stronę słońca, z pięcioma poziomami ziół, sałaty i truskawek zajmujących miejsce jednego doniczki.",
+  "grow.situation.pallet-vertical.label": "Ogród z palet",
+  "grow.situation.pallet-vertical.blurb": "Drewniana paleta ustawiona pionowo, wyłożona tkaniną ogrodową - każda szczelina staje się płytką kieszenią na sałatę lub zioła. Tania, ogromna przestrzeń produkcyjna, wymaga częstego podlewania.",
+  "grow.situation.gutter-garden.label": "Ogród w rynnach",
+  "grow.situation.gutter-garden.blurb": "Długości plastikowych rynien deszczowych ustawione na ścianie lub płocie - tylko 10 cm głębokości, ale idealne na sałatę, szczypiorek i zioła o płytkim systemie korzeniowym.",
+  "grow.situation.pocket-planter.label": "Donica kieszeniowa",
+  "grow.situation.pocket-planter.blurb": "Panel z płótna lub filcu z wszytymi kieszeniami, zawieszony na słonecznej ścianie - natychmiastowy ogród wertykalny, również świetnie sprawdza się na balustradzie balkonu.",
+  "grow.situation.trellis-tower.label": "Wieża kratowa",
+  "grow.situation.trellis-tower.blurb": "Wolnostojący obelisk, tipi lub wieża ze siatką dla pnączy - fasola, groszek, ogórki i wilczomlecz zamieniają jeden metr kwadratowy w bujną zieloną ścianę.",
 
 };
 export default dict;

@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Falha no download. Por favor, tente novamente.",
   "journal.tags_heading": "Etiquetas",
   "topics.subscribe_rss": "Assinar por RSS",
+  "grow.situation.ladder-planter.label": "Jardineira escada",
+  "grow.situation.ladder-planter.blurb": "Uma escada inclinada com um recipiente raso em cada degrau — voltada para o sol, cinco camadas de ervas, saladas e morangos no espaço de um vaso.",
+  "grow.situation.pallet-vertical.label": "Jardim vertical de palete",
+  "grow.situation.pallet-vertical.blurb": "Uma palete de madeira erguida e forrada com tecido de paisagismo — cada ripas se transforma em um bolso raso para saladas ou ervas. Barato, grande área produtiva, precisa de rega frequente.",
+  "grow.situation.gutter-garden.label": "Jardim de calha",
+  "grow.situation.gutter-garden.blurb": "Trechos de calha de chuva plástica empilhados em uma parede ou cerca — apenas 10 cm de profundidade, mas perfeitos para saladas que podem ser cortadas e replantadas, cebolinhas e ervas de raiz rasa.",
+  "grow.situation.pocket-planter.label": "Jardineira de bolso",
+  "grow.situation.pocket-planter.blurb": "Um painel de lona ou feltro com bolsos costurados, pendurado em uma parede ensolarada — jardim vertical instantâneo, funciona bem também em um corrimão de varanda.",
+  "grow.situation.trellis-tower.label": "Torre de treliça",
+  "grow.situation.trellis-tower.blurb": "Um obelisco, tenda ou torre de arame autônoma para plantas trepadoras — feijões, ervilhas, pepinos e gloriosas da manhã transformam um metro quadrado em uma parede verde exuberante.",
 
 };
 export default dict;

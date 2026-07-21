@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "La descarga falló. Por favor, inténtalo de nuevo.",
   "journal.tags_heading": "Etiquetas",
   "topics.subscribe_rss": "Suscríbete por RSS",
+  "grow.situation.ladder-planter.label": "Plantador de escalera",
+  "grow.situation.ladder-planter.blurb": "Una escalera inclinada con una bandeja poco profunda en cada peldaño — orientada al sol, cinco niveles de hierbas, ensaladas y fresas ocupando el espacio de una maceta.",
+  "grow.situation.pallet-vertical.label": "Jardín vertical de palets",
+  "grow.situation.pallet-vertical.blurb": "Un palet de madera de pie y forrado con tela paisajística — cada listón se convierte en un bolsillo poco profundo para ensaladas o hierbas. Económico, de gran área productiva, requiere riego frecuente.",
+  "grow.situation.gutter-garden.label": "Jardín de canaletas",
+  "grow.situation.gutter-garden.blurb": "Trozos de canaleta de plástico apilados en una pared o cerca — solo 10 cm de profundidad, pero perfecto para ensaladas de corte y recolección, cebollinos y hierbas de raíces poco profundas.",
+  "grow.situation.pocket-planter.label": "Plantador de bolsillos",
+  "grow.situation.pocket-planter.blurb": "Un panel de lona o fieltro con bolsillos cosidos, colgado en una pared soleada — un jardín vertical instantáneo, también funciona bien en el pasamanos de un balcón.",
+  "grow.situation.trellis-tower.label": "Torre de enrejado",
+  "grow.situation.trellis-tower.blurb": "Un obelisco, tipi o torre de alambre independiente para trepadoras — frijoles, guisantes, pepinos y gloria de la mañana transforman un metro cuadrado en una exuberante pared verde.",
 
 };
 export default dict;

@@ -14,24 +14,30 @@ import {
   Home, Briefcase, Building2, Sun as SunIcon,
   TreePine, Grip, LayoutGrid, ShoppingBag,
   Trash2, Square, Fence, Droplet,
+  ChevronsUp, Rows, Waves, GalleryVertical, TriangleRight,
 } from "lucide-react";
 
 // Lucide doesn't ship a dedicated brick/basket icon — we reuse `Grip` for
 // both the trailing hanging-basket and the dry-stone wall-crevice slots.
 export const SITUATIONS = [
-  { id: "windowsill",     icon: Home,        section: "small_indoors" },
-  { id: "workplace",      icon: Briefcase,   section: "small_indoors" },
-  { id: "balcony",        icon: Building2,   section: "outdoors_small" },
-  { id: "rooftop",        icon: SunIcon,     section: "outdoors_small" },
-  { id: "shady-corner",   icon: TreePine,    section: "outdoors_small" },
-  { id: "hanging-basket", icon: Grip,        section: "creative" },
-  { id: "wall-crevice",   icon: Grip,        section: "creative" },
-  { id: "vertical-wall",  icon: LayoutGrid,  section: "creative" },
-  { id: "grow-bag",       icon: ShoppingBag, section: "bigger" },
-  { id: "bucket",         icon: Trash2,      section: "bigger" },
-  { id: "crate",          icon: Square,      section: "bigger" },
-  { id: "raised-bed",     icon: Fence,       section: "bigger" },
-  { id: "water-jar",      icon: Droplet,     section: "no_soil" },
+  { id: "windowsill",      icon: Home,             section: "small_indoors" },
+  { id: "workplace",       icon: Briefcase,        section: "small_indoors" },
+  { id: "balcony",         icon: Building2,        section: "outdoors_small" },
+  { id: "rooftop",         icon: SunIcon,          section: "outdoors_small" },
+  { id: "shady-corner",    icon: TreePine,         section: "outdoors_small" },
+  { id: "hanging-basket",  icon: Grip,             section: "creative" },
+  { id: "wall-crevice",    icon: Grip,             section: "creative" },
+  { id: "vertical-wall",   icon: LayoutGrid,       section: "creative" },
+  { id: "ladder-planter",  icon: ChevronsUp,       section: "creative" },
+  { id: "pallet-vertical", icon: Rows,             section: "creative" },
+  { id: "gutter-garden",   icon: Waves,            section: "creative" },
+  { id: "pocket-planter",  icon: GalleryVertical,  section: "creative" },
+  { id: "trellis-tower",   icon: TriangleRight,    section: "creative" },
+  { id: "grow-bag",        icon: ShoppingBag,      section: "bigger" },
+  { id: "bucket",          icon: Trash2,           section: "bigger" },
+  { id: "crate",           icon: Square,           section: "bigger" },
+  { id: "raised-bed",      icon: Fence,            section: "bigger" },
+  { id: "water-jar",       icon: Droplet,          section: "no_soil" },
 ];
 
 export const SITUATION_IDS = SITUATIONS.map((s) => s.id);
@@ -39,7 +45,11 @@ export const SITUATION_IDS = SITUATIONS.map((s) => s.id);
 export const SITUATION_SECTIONS = [
   { id: "small_indoors",  ids: ["windowsill", "workplace"] },
   { id: "outdoors_small", ids: ["balcony", "rooftop", "shady-corner"] },
-  { id: "creative",       ids: ["hanging-basket", "wall-crevice", "vertical-wall"] },
+  { id: "creative",       ids: [
+      "hanging-basket", "wall-crevice", "vertical-wall",
+      "ladder-planter", "pallet-vertical", "gutter-garden",
+      "pocket-planter", "trellis-tower",
+  ] },
   { id: "bigger",         ids: ["grow-bag", "bucket", "crate", "raised-bed"] },
   { id: "no_soil",        ids: ["water-jar"] },
 ];

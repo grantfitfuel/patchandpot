@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Muat turun gagal. Sila cuba lagi.",
   "journal.tags_heading": "Tanda",
   "topics.subscribe_rss": "Langgan melalui RSS",
+  "grow.situation.ladder-planter.label": "Penanam tangga",
+  "grow.situation.ladder-planter.blurb": "Sebuah tangga condong dengan dulang cetek di setiap anak tangga — menghadap matahari, lima tingkat herba, salad, dan strawberi dalam ruang sebilah pasu.",
+  "grow.situation.pallet-vertical.label": "Taman dinding palet",
+  "grow.situation.pallet-vertical.blurb": "Sebuah palet kayu yang didirikan tegak dan disusun dengan kain landskap — setiap slat menjadi poket salad atau herba cetek. Murah, kawasan produktif yang besar, perlu penyiraman yang kerap.",
+  "grow.situation.gutter-garden.label": "Taman salur",
+  "grow.situation.gutter-garden.blurb": "Panjang salur hujan plastik yang ditumpuk di dinding atau pagar — hanya 10 cm dalam, tetapi sempurna untuk salad yang boleh dipotong-balas, bawang spring dan herba berakar cetek.",
+  "grow.situation.pocket-planter.label": "Penanam poket",
+  "grow.situation.pocket-planter.blurb": "Panel kanvas atau felt dengan poket yang dijahit, digantung di dinding yang cerah — taman menegak segera, sesuai juga untuk rel balkoni.",
+  "grow.situation.trellis-tower.label": "Menara trellis",
+  "grow.situation.trellis-tower.blurb": "Obelisk, tepee atau menara wayar yang berdiri sendiri untuk tumbuhan memanjat — kacang, peas, timun, dan glory pagi menjadikan satu meter persegi sebuah dinding hijau yang subur.",
 
 };
 export default dict;

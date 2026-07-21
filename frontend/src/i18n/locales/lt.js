@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "Atsisiuntimas nepavyko. Prašome bandyti dar kartą.",
   "journal.tags_heading": "Žymos",
   "topics.subscribe_rss": "Prenumeruokite per RSS",
+  "grow.situation.ladder-planter.label": "Laiptų sodinimas",
+  "grow.situation.ladder-planter.blurb": "Pasviręs laiptas su sekliomis dėžėmis kiekviename laiptelyje – saulės pusėje, penkių lygių žolelės, salotos ir braškės už viena vazono plotą.",
+  "grow.situation.pallet-vertical.label": "Dėžutė ant sienos",
+  "grow.situation.pallet-vertical.blurb": "Medinė dėžutė, pastatyta vertikaliai ir išklota geotekstile – kiekvienas lentynas tampa sekliu salotų ar žolelių kišeniu. Pigu, didelė našumo zona, reikalauja dažnai laistymo.",
+  "grow.situation.gutter-garden.label": "Latakų sodinimas",
+  "grow.situation.gutter-garden.blurb": "Plastikiniai lietaus latakai, sukrauti ant sienos ar tvoros – tik 10 cm gylio, bet puikiai tinka salotoms, pavasariniams svogūnams ir seklių šaknų žolelėms.",
+  "grow.situation.pocket-planter.label": "Kišenių sodinimas",
+  "grow.situation.pocket-planter.blurb": "Panaudota drobė ar veltinio panelė su siuvinėtų kišenių, pakabinta ant saulėtos sienos – akimirksniu sukurkite vertikalų sodą, puikiai tinka ir balkonų turėklams.",
+  "grow.situation.trellis-tower.label": "Pinta bokštas",
+  "grow.situation.trellis-tower.blurb": "Nepriklausoma obelisko, teepee ar vielos bokšto struktūra vijokliams – pupos, žirniai, agurkai ir ryto garbė sukuria tankią žalią sieną ant vieno kvadratinio metro.",
 
 };
 export default dict;

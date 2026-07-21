@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Tải xuống thất bại. Vui lòng thử lại.",
   "journal.tags_heading": "Thẻ",
   "topics.subscribe_rss": "Đăng ký qua RSS",
+  "grow.situation.ladder-planter.label": "Giá đỡ cầu thang",
+  "grow.situation.ladder-planter.blurb": "Một chiếc cầu thang nghiêng với khay nông trên mỗi bậc - hướng về phía mặt trời, năm tầng cây rau, salad và dâu tây chỉ trong khoảng trống của một chậu.",
+  "grow.situation.pallet-vertical.label": "Khu vườn tường từ pallet",
+  "grow.situation.pallet-vertical.blurb": "Một chiếc pallet gỗ đứng thẳng và được lót vải cảnh quan - mỗi thanh trở thành một túi nông cho rau salad hoặc rau thơm. Rẻ, diện tích sản xuất lớn, cần tưới nước thường xuyên.",
+  "grow.situation.gutter-garden.label": "Khu vườn máng",
+  "grow.situation.gutter-garden.blurb": "Các đoạn máng nhựa được xếp chồng lên tường hoặc hàng rào - chỉ sâu 10 cm, nhưng hoàn hảo cho salad cắt và tiếp tục, hành tây mùa xuân và các loại thảo mộc có rễ nông.",
+  "grow.situation.pocket-planter.label": "Chậu túi",
+  "grow.situation.pocket-planter.blurb": "Một tấm vải hoặc nỉ với các túi may sẵn, treo trên tường ánh nắng - khu vườn đứng ngay lập tức, cũng hoạt động tốt trên lan can ban công.",
+  "grow.situation.trellis-tower.label": "Tháp giàn leo",
+  "grow.situation.trellis-tower.blurb": "Một kim tự tháp, tepee hoặc tháp dây đứng tự do cho cây leo - đậu, đậu hà lan, dưa chuột và sáng mai biến một mét vuông thành một bức tường xanh tươi tốt.",
 
 };
 export default dict;

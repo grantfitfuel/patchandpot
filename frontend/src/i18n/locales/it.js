@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Download fallito. Per favore riprova.",
   "journal.tags_heading": "Etichette",
   "topics.subscribe_rss": "Iscriviti tramite RSS",
+  "grow.situation.ladder-planter.label": "Piantana a scala",
+  "grow.situation.ladder-planter.blurb": "Una scala inclinata con un vassoio poco profondo su ogni gradino — orientata al sole, cinque livelli di erbe, insalata e fragole nel footprint di un vaso.",
+  "grow.situation.pallet-vertical.label": "Giardino verticale in pallet",
+  "grow.situation.pallet-vertical.blurb": "Un pallet di legno in posizione verticale foderato con tessuto per giardinaggio — ogni listello diventa una tasca poco profonda per insalata o erbe. Economico, grande area produttiva, richiede innaffiature frequenti.",
+  "grow.situation.gutter-garden.label": "Giardino in grondaia",
+  "grow.situation.gutter-garden.blurb": "Tratti di grondaia di plastica impilati su un muro o una recinzione — solo 10 cm di profondità, ma perfetti per insalata 'taglia e continua', cipolle di primavera e erbe con radici poco profonde.",
+  "grow.situation.pocket-planter.label": "Piantana a tasche",
+  "grow.situation.pocket-planter.blurb": "Un pannello in tela o feltro con tasche cucite, appeso a un muro soleggiato — giardino verticale istantaneo, funziona bene anche su un parapetto di balcone.",
+  "grow.situation.trellis-tower.label": "Torre di traliccio",
+  "grow.situation.trellis-tower.blurb": "Un obelisco, teepee o torre di filo autoportante per piante rampicanti — fagioli, piselli, cetrioli e gloria del mattino trasformano un metro quadrato in un lussureggiante muro verde.",
 
 };
 export default dict;

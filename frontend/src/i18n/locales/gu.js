@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "ડાઉનલોડ નિષ્ફળ. કૃપા કરીને ફરીથી પ્રયત્ન કરો.",
   "journal.tags_heading": "ટેગ્સ",
   "topics.subscribe_rss": "આરએસએસ દ્વારા સબ્સ્ક્રાઇબ કરો",
+  "grow.situation.ladder-planter.label": "લેડર પ્લેન્ટર",
+  "grow.situation.ladder-planter.blurb": "જ્યાં એક તિરેનો પગથિયું ખૂણાથી છે, દરેક પગથિયાના રણગ પર તેજસ્વી ભીંગણીઓ, સલાડ અને સ્ટ્રોબેરી માટે એક છોટું ટ્રે છે - એક જોબીઆલનાં જમણા ફૂટપ્રિન્ટમાં પાંચ સ્તરો.",
+  "grow.situation.pallet-vertical.label": "પેલેટ દીવાલ garden",
+  "grow.situation.pallet-vertical.blurb": "એક ઊંચી મૂલ્યની લાકડી પેલેટ, જે પર્યાવરણ સલામતી કાપડથી રેખાંકિત છે - દરેક સ્લેટ ખોતી સલાડ અથવા સાંભરે ભરેલી છે. સસ્તું, વિશાળ ઉત્પાદન વિસ્તાર, સતતwatering જરૂર.",
+  "grow.situation.gutter-garden.label": "ગટર બાગ",
+  "grow.situation.gutter-garden.blurb": " plástico વરસાદના ગટર દિવાલ અથવા બાંધકામ પર રાખી જાય છે - ફક્ત 10 સે.મી. ઊંડી, પરંતુ કટ અને ફરીથી આવતી સલાડ, વસંત મીઠાં અને જળતર જાડાંના છોડ માટે સરસ છે.",
+  "grow.situation.pocket-planter.label": "પોકેટ પ્લેન્ટર",
+  "grow.situation.pocket-planter.blurb": "સૂર્યપ્રકાશિત દીવાલ પર હેંગ થવાયેલી કૅન્વાસ અથવા પેઢી પેનલ નો વિવરણથી ભરેલા પોકેટ્સ - તરત જ આભાઈ બગીચો, બાલ્કની કે રેલ પર તટસ્થ પણ સાંજલ ઉત્પાદક છે.",
+  "grow.situation.trellis-tower.label": "ટ્રેલિસ ટાવર",
+  "grow.situation.trellis-tower.blurb": "એક મફત ઊભરાયેલ ઓબેલિસ્ક, ટીપી અથવા વાયર ટાવર માટે ચડનારાઓ - બીન્સ, મटर, કુંંબળા અને વહેલી સવારની મહેક એક ચોરસ മീટરને લીલાંની સમૃદ્ધ દીવાલમાં ફેરવી નાખે છે.",
 
 };
 export default dict;

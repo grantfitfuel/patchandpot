@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Nedladdning misslyckades. Försök igen.",
   "journal.tags_heading": "Taggar",
   "topics.subscribe_rss": "Prenumerera via RSS",
+  "grow.situation.ladder-planter.label": "Stegeplanterare",
+  "grow.situation.ladder-planter.blurb": "En lutande stege med en grund låda på varje steg – solvänd, fem nivåer av örter, sallad och jordgubbar på fotavtrycket av en kruka.",
+  "grow.situation.pallet-vertical.label": "Pallarväggsplantering",
+  "grow.situation.pallet-vertical.blurb": "En träpall uppställd och klädd med landskapsväv – varje spjäl blir en grund ficka för sallad eller örter. Billigt och ger en stor odlingsyta, kräver frekvent vattning.",
+  "grow.situation.gutter-garden.label": "Ränngården",
+  "grow.situation.gutter-garden.blurb": "Längder av plastregnränna staplade på en vägg eller staket – bara 10 cm djup, men perfekt för klipp-och-kom-igen-sallad, vårlök och ytligt rotade örter.",
+  "grow.situation.pocket-planter.label": "Fickplanterare",
+  "grow.situation.pocket-planter.blurb": "En tyg- eller filtpanel med sydda fickor, hängd på en solig vägg – en omedelbar vertikal trädgård, fungerar också bra på en balkongräls.",
+  "grow.situation.trellis-tower.label": "Klatttorn",
+  "grow.situation.trellis-tower.blurb": "Ett fristående obelisk, tepee eller trådtorn för klättrare – bönor, ärtor, gurkor och morgonärlor förvandlar en kvadratmeter till en frodig grön vägg.",
 
 };
 export default dict;

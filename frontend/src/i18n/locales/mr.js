@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "डाउनलोड अयशस्वी. कृपया पुन्हा प्रयत्न करा.",
   "journal.tags_heading": "टॅग",
   "topics.subscribe_rss": "आरएसएससाठी सब्सक्राईब करा",
+  "grow.situation.ladder-planter.label": "लॅडर प्लांटर",
+  "grow.situation.ladder-planter.blurb": "एक झुकलेली स्टेप-लॅडर प्रत्येक पायरीवर गडद ट्रे असलेली - सूर्याच्या दिशेने, एकाहून अधिक भाजी, सलाड आणि स्ट्रॉबेरी एका कुंडीच्या जागेत पेरली जाऊ शकतात.",
+  "grow.situation.pallet-vertical.label": "पॅलेट भिंत बाग",
+  "grow.situation.pallet-vertical.blurb": "एक उभा ठेवलेला लकडीचा पॅलेट ज्यावर लँडस्केप फॅब्रिक आहे - प्रत्येक स्लॅट एक गडद सलाड- किंवा भाजीचे खिसे बनवते. स्वस्त, मोठा उत्पादन क्षेत्र, नियमित पाण्याची आवश्यकता आहे.",
+  "grow.situation.gutter-garden.label": "गटर बाग",
+  "grow.situation.gutter-garden.blurb": "भिंतीवर किंवा कुंपणावर साठवलेले प्लास्टिक वर्षाव गटर - केवळ 10 सेमी खोल, परंतु कट आणि पुन्हा येऊ शकणाऱ्या सलाड, वसंत कोंब आणि गडद भाजीसाठी परिपूर्ण.",
+  "grow.situation.pocket-planter.label": "खिसा प्लांटर",
+  "grow.situation.pocket-planter.blurb": "सनी भिंतीवर लावलेला कॅनव्हास किंवा फेल्ट पॅनेल ज्यात खिसे असतात - तात्काळ Vertical बाग, बाल्कनी रेलवरही चांगले काम करते.",
+  "grow.situation.trellis-tower.label": "ट्रेलिस टॉवर",
+  "grow.situation.trellis-tower.blurb": "चढाईसाठी स्वतंत्र ओबेलिस्क, टीपी किंवा वायर टॉवर - बीन्स, मटार, काकडी आणि मॉर्निंग ग्लोरी एक चौरस मीटर हिरवा भिंत बनवतात.",
 
 };
 export default dict;

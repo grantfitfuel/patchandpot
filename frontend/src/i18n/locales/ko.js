@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "다운로드에 실패했습니다. 다시 시도해 주세요.",
   "journal.tags_heading": "태그",
   "topics.subscribe_rss": "RSS로 구독하기",
+  "grow.situation.ladder-planter.label": "사다리 화분",
+  "grow.situation.ladder-planter.blurb": "기울어진 사다리에 얕은 화분이 놓여져 있어 — 햇볕을 잘 받으며, 허브, 샐러드, 딸기를 한 화분 크기로 심을 수 있습니다.",
+  "grow.situation.pallet-vertical.label": "파렛트 벽 정원",
+  "grow.situation.pallet-vertical.blurb": "세워진 나무 파렛트에 조경 천을 덮어 — 각 슬랫이 얕은 샐러드 또는 허브 주머니가 됩니다. 저렴하고 큰 재배 면적, 자주 물을 줘야 합니다.",
+  "grow.situation.gutter-garden.label": "강판 정원",
+  "grow.situation.gutter-garden.blurb": "벽이나 울타리에 쌓인 플라스틱 빗물 받이 — 깊이는 10cm에 불과하지만, 재배가 쉬운 샐러드, 쪽파 및 얕은 뿌리 허브에 적합합니다.",
+  "grow.situation.pocket-planter.label": "주머니 화분",
+  "grow.situation.pocket-planter.blurb": "햇볕이 잘 드는 벽에 걸 수 있는 주머니가 있는 캔버스나 펠트 패널 — 즉각적인 수직 정원, 발코니 난간에서도 잘 작동합니다.",
+  "grow.situation.trellis-tower.label": "격자 타워",
+  "grow.situation.trellis-tower.blurb": "자유롭게 서 있는 오벨리스크, 텐트형 구조 또는 덩굴 식물용 와이어 타워 — 콩, 완두콩, 오이와 메리골드로 1㎡를 푸르른 벽으로 만듭니다.",
 
 };
 export default dict;

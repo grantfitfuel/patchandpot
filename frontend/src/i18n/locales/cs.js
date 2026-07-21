@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Stahování selhalo. Zkuste to prosím znovu.",
   "journal.tags_heading": "Štítky",
   "topics.subscribe_rss": "Odebírat přes RSS",
+  "grow.situation.ladder-planter.label": "Žebříkový truhlík",
+  "grow.situation.ladder-planter.blurb": "Nakloněný žebřík se mělkými truhlíky na každém stupni - čelí slunci a nabízí pět pater bylinek, salátu a jahod na ploše jednoho květináče.",
+  "grow.situation.pallet-vertical.label": "Paletová zahrada",
+  "grow.situation.pallet-vertical.blurb": "Dřevěná paleta postavená na výšku a vyložená zahradní tkaninou - každá latě se stane mělkým kapslí na salát či bylinky. Levné, velká produktivní plocha, vyžaduje časté zalévání.",
+  "grow.situation.gutter-garden.label": "Okapová zahrada",
+  "grow.situation.gutter-garden.blurb": "Délky plastových okapů naskládané na zdi nebo plotu - jen 10 cm hluboké, ale ideální pro salát, jarní cibulku a bylinky s mělkými kořeny.",
+  "grow.situation.pocket-planter.label": "Kapsářový truhlík",
+  "grow.situation.pocket-planter.blurb": "Plátno nebo panel z filcu se sešitými kapsami, zavěšený na slunné zdi - okamžitá vertikální zahrada, funguje dobře i na zábradlí balkonu.",
+  "grow.situation.trellis-tower.label": "Trellis věž",
+  "grow.situation.trellis-tower.blurb": "Samostatný obelisk, teepee nebo drátěná věž pro popínavé rostliny - fazole, hrášek, okurky a povíjnice promění jeden čtvereční metr na bujnou zeď zeleně.",
 
 };
 export default dict;

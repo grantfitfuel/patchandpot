@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Sækja mistókst. Vinsamlegast reyndu aftur.",
   "journal.tags_heading": "Merki",
   "topics.subscribe_rss": "Skáðu á RSS",
+  "grow.situation.ladder-planter.label": "Stiga-planta",
+  "grow.situation.ladder-planter.blurb": "Hallandi stigavéllur með grunnplötu á hverju ranga — sólarmegin, fimm skjöl af örðum, salat og jarðaber í fótprint einnar pott.",
+  "grow.situation.pallet-vertical.label": "Pallet vegggarður",
+  "grow.situation.pallet-vertical.blurb": "Hægt að nota viðarplatta sem stendur upp og er klædd með landslagsvef — hver sláttur verður grunnur á salati eða örðum. Ódýrt, mikið framleiðslusvæði, þarf oft vökvunar.",
+  "grow.situation.gutter-garden.label": "Rennibrautargarður",
+  "grow.situation.gutter-garden.blurb": "Löng plastefni raungötur staflað á vegg eða girðingu — aðeins 10 cm djúpt, en fullkomið fyrir klippu-og-koma-í-há fóður, vorlauka og grunnrótar örðum.",
+  "grow.situation.pocket-planter.label": "Vasa-planta",
+  "grow.situation.pocket-planter.blurb": "Klæð eða skinnplata með saumuðum vösum, hengd á sólríkum vegg — strax lárétt garður, virkar líka vel á svölum.",
+  "grow.situation.trellis-tower.label": "Vangola-turn",
+  "grow.situation.trellis-tower.blurb": "Frjálst obelisk, tepee eða vírturn fyrir klifrarplöntur — baunir, ertur, gúrkur og morgungló hefur snúið einum fermetra í grófu grænu vegg.",
 
 };
 export default dict;

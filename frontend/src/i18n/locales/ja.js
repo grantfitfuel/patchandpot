@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "ダウンロードに失敗しました。もう一度お試しください。",
   "journal.tags_heading": "タグ",
   "topics.subscribe_rss": "RSSで購読",
+  "grow.situation.ladder-planter.label": "はしごプランター",
+  "grow.situation.ladder-planter.blurb": "傾いたステップラダーに浅いトレイを各段に設置したもので、日向に置くとハーブ、サラダ、イチゴが一つの鉢のスペースで育ちます。",
+  "grow.situation.pallet-vertical.label": "パレット壁庭",
+  "grow.situation.pallet-vertical.blurb": "立てた木製パレットにランドスケープファブリックを張り、各スラットが浅いサラダやハーブのポケットになります。安価で広い生産エリアが作れますが、頻繁な水やりが必要です。",
+  "grow.situation.gutter-garden.label": "樋ガーデン",
+  "grow.situation.gutter-garden.blurb": "壁やフェンスに積まれたプラスチック製の雨樋で、深さはわずか10 cmですが、カット＆カムアゲインのサラダ、春玉ねぎ、浅根のハーブに最適です。",
+  "grow.situation.pocket-planter.label": "ポケットプランター",
+  "grow.situation.pocket-planter.blurb": "日当たりの良い壁に掛けられたポケットが縫い付けられたキャンバスまたはフェルトパネルで、即座に垂直庭園ができます。バルコニ railingにも適しています。",
+  "grow.situation.trellis-tower.label": "トレリス塔",
+  "grow.situation.trellis-tower.blurb": "立てるタイプのオベリスク、ティーピー、またはクライマー用のワイヤータワーで、豆、エンドウ、キュウリ、朝顔が1平方メートルを緑の壁に変えます。",
 
 };
 export default dict;

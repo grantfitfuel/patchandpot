@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Yuklab olishda xato. Iltimos, qayta urinib ko‘ring.",
   "journal.tags_heading": "Teglar",
   "topics.subscribe_rss": "RSS orqali obuna bo'ling",
+  "grow.situation.ladder-planter.label": "Плита ширкалари",
+  "grow.situation.ladder-planter.blurb": "Yam-yashil, quyoshga qaragan, besh qavatdan iborat darvoza ustidagi tekis idishlar — birgina idish joyida o'tlar, salat va qulupnayning barchasi.",
+  "grow.situation.pallet-vertical.label": "Palet devor bog'i",
+  "grow.situation.pallet-vertical.blurb": "Tik turgan yog'och palet, landshaft matosi bilan o'rab qo'yilgan — har bir taxta engil salat yoki o'tlar cho'ntagi bo'lishi mumkin. Arzon, katta mahsuldor maydon, ko'pincha sug'orishni talab qiladi.",
+  "grow.situation.gutter-garden.label": "Teshik bog'",
+  "grow.situation.gutter-garden.blurb": "Devordagi yoki to'siqdagi plastik yomg'ir teshiklari — faqat 10 sm chuqurlikda, lekin qayta kesilib, o'sadigan salat, bahor piyozlari va yuzaki ildizli o'tlar uchun juda mos.",
+  "grow.situation.pocket-planter.label": "Cho'tka qatlam",
+  "grow.situation.pocket-planter.blurb": "Quyoshli devorga osilgan, tikilgan cho'tka yoki kiyimning cho'tkalari — ongsiz vertikal bog', balkon poyasi bo'yicha ham yaxshi ishlaydi.",
+  "grow.situation.trellis-tower.label": "Trellis minorasi",
+  "grow.situation.trellis-tower.blurb": "Sizma, tepe yoki sim minorasi — mosh, no'xat, bodring va ertalab shovqinli gullar bir kvadrat metrni sergakni yashil devorga aylantiradi.",
 
 };
 export default dict;

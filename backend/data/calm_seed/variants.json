@@ -85,6 +85,30 @@
         "duration_s": 169.6,
         "audio_size_bytes": 2036028,
         "rendered_at": "2026-07-20T18:10:15.857917+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 177.8,
+        "audio_size_bytes": 2134458,
+        "rendered_at": "2026-07-21T10:31:55.948573+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 164.66,
+        "audio_size_bytes": 1976783,
+        "rendered_at": "2026-07-21T11:06:43.103451+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 175.53,
+        "audio_size_bytes": 2107186,
+        "rendered_at": "2026-07-21T12:00:50.542107+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 168.01,
+        "audio_size_bytes": 2016907,
+        "rendered_at": "2026-07-21T12:01:23.723010+00:00"
       }
     },
     "week": 1
@@ -176,6 +200,30 @@
         "duration_s": 135.35,
         "audio_size_bytes": 1625070,
         "rendered_at": "2026-07-20T19:02:09.002212+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 137.18,
+        "audio_size_bytes": 1647013,
+        "rendered_at": "2026-07-21T10:32:16.687049+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 130.51,
+        "audio_size_bytes": 1567078,
+        "rendered_at": "2026-07-21T11:07:03.081391+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 134.91,
+        "audio_size_bytes": 1619741,
+        "rendered_at": "2026-07-21T12:01:44.277334+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 135.05,
+        "audio_size_bytes": 1621308,
+        "rendered_at": "2026-07-21T14:31:06.580940+00:00"
       }
     }
   },
@@ -260,6 +308,30 @@
         "duration_s": 140.66,
         "audio_size_bytes": 1688704,
         "rendered_at": "2026-07-20T19:28:09.222954+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 146.98,
+        "audio_size_bytes": 1764564,
+        "rendered_at": "2026-07-21T10:32:38.009275+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 135.42,
+        "audio_size_bytes": 1626010,
+        "rendered_at": "2026-07-21T11:07:22.706730+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 142.44,
+        "audio_size_bytes": 1710020,
+        "rendered_at": "2026-07-21T12:02:05.704000+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 142.44,
+        "audio_size_bytes": 1710020,
+        "rendered_at": "2026-07-21T14:31:27.200444+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:28:09.222968+00:00",
@@ -344,6 +416,30 @@
         "duration_s": 124.85,
         "audio_size_bytes": 1499055,
         "rendered_at": "2026-07-20T19:46:06.727663+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 127.81,
+        "audio_size_bytes": 1534477,
+        "rendered_at": "2026-07-21T10:32:56.963694+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 118.58,
+        "audio_size_bytes": 1423823,
+        "rendered_at": "2026-07-21T11:07:40.638500+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 124.7,
+        "audio_size_bytes": 1497174,
+        "rendered_at": "2026-07-21T12:02:24.674120+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 125.34,
+        "audio_size_bytes": 1505011,
+        "rendered_at": "2026-07-21T14:31:46.525954+00:00"
       }
     }
   },
@@ -441,6 +537,30 @@
         "duration_s": 178.18,
         "audio_size_bytes": 2138846,
         "rendered_at": "2026-07-20T18:11:52.486844+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 180.99,
+        "audio_size_bytes": 2172701,
+        "rendered_at": "2026-07-21T10:33:21.044327+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 169.33,
+        "audio_size_bytes": 2032894,
+        "rendered_at": "2026-07-21T11:08:03.872023+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 175.31,
+        "audio_size_bytes": 2104678,
+        "rendered_at": "2026-07-21T12:02:48.673068+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 181.14,
+        "audio_size_bytes": 2174582,
+        "rendered_at": "2026-07-21T14:32:15.567440+00:00"
       }
     },
     "week": 1
@@ -518,6 +638,30 @@
         "duration_s": 108.91,
         "audio_size_bytes": 1307839,
         "rendered_at": "2026-07-20T19:24:13.792507+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 113.8,
+        "audio_size_bytes": 1366458,
+        "rendered_at": "2026-07-21T10:33:36.604145+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 105.8,
+        "audio_size_bytes": 1270536,
+        "rendered_at": "2026-07-21T11:08:18.793977+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 110.89,
+        "audio_size_bytes": 1331349,
+        "rendered_at": "2026-07-21T12:03:04.317427+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 111.53,
+        "audio_size_bytes": 1339186,
+        "rendered_at": "2026-07-21T14:32:31.032848+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:24:13.792521+00:00",
@@ -610,6 +754,30 @@
         "duration_s": 149.6,
         "audio_size_bytes": 1796224,
         "rendered_at": "2026-07-20T19:42:06.550156+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 152.27,
+        "audio_size_bytes": 1828198,
+        "rendered_at": "2026-07-21T10:33:56.860503+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 142.0,
+        "audio_size_bytes": 1704691,
+        "rendered_at": "2026-07-21T11:08:38.228575+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 149.36,
+        "audio_size_bytes": 1793089,
+        "rendered_at": "2026-07-21T12:03:24.808489+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 150.2,
+        "audio_size_bytes": 1803120,
+        "rendered_at": "2026-07-21T14:32:51.369281+00:00"
       }
     }
   },
@@ -692,6 +860,30 @@
         "duration_s": 132.69,
         "audio_size_bytes": 1593096,
         "rendered_at": "2026-07-20T19:49:59.952072+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 134.87,
+        "audio_size_bytes": 1619114,
+        "rendered_at": "2026-07-21T10:34:14.535036+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 125.93,
+        "audio_size_bytes": 1511907,
+        "rendered_at": "2026-07-21T11:08:55.126477+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 131.41,
+        "audio_size_bytes": 1577736,
+        "rendered_at": "2026-07-21T12:03:42.616068+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 132.99,
+        "audio_size_bytes": 1596858,
+        "rendered_at": "2026-07-21T14:33:08.874681+00:00"
       }
     }
   },
@@ -789,6 +981,30 @@
         "duration_s": 205.48,
         "audio_size_bytes": 2466735,
         "rendered_at": "2026-07-20T18:10:59.517621+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 214.28,
+        "audio_size_bytes": 2572061,
+        "rendered_at": "2026-07-21T10:34:49.100823+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 198.27,
+        "audio_size_bytes": 2380218,
+        "rendered_at": "2026-07-21T11:09:28.536558+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 204.0,
+        "audio_size_bytes": 2448867,
+        "rendered_at": "2026-07-21T12:04:15.680327+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 209.83,
+        "audio_size_bytes": 2518771,
+        "rendered_at": "2026-07-21T14:33:43.057061+00:00"
       }
     },
     "week": 1
@@ -872,6 +1088,30 @@
         "duration_s": 133.79,
         "audio_size_bytes": 1606262,
         "rendered_at": "2026-07-20T19:03:35.853545+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 135.87,
+        "audio_size_bytes": 1631339,
+        "rendered_at": "2026-07-21T10:35:11.972639+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 127.22,
+        "audio_size_bytes": 1527581,
+        "rendered_at": "2026-07-21T11:09:50.870966+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 132.61,
+        "audio_size_bytes": 1592156,
+        "rendered_at": "2026-07-21T12:04:38.259194+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 135.33,
+        "audio_size_bytes": 1624756,
+        "rendered_at": "2026-07-21T14:34:05.763261+00:00"
       }
     }
   },
@@ -958,6 +1198,30 @@
         "duration_s": 130.25,
         "audio_size_bytes": 1563943,
         "rendered_at": "2026-07-20T19:39:18.240630+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 132.72,
+        "audio_size_bytes": 1593409,
+        "rendered_at": "2026-07-21T10:35:34.705522+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 123.58,
+        "audio_size_bytes": 1483695,
+        "rendered_at": "2026-07-21T11:10:13.247372+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 129.16,
+        "audio_size_bytes": 1550778,
+        "rendered_at": "2026-07-21T12:05:00.930444+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 129.41,
+        "audio_size_bytes": 1553599,
+        "rendered_at": "2026-07-21T14:34:28.040007+00:00"
       }
     }
   },
@@ -1032,6 +1296,30 @@
         "duration_s": 115.63,
         "audio_size_bytes": 1388400,
         "rendered_at": "2026-07-20T19:47:27.216619+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 119.28,
+        "audio_size_bytes": 1432286,
+        "rendered_at": "2026-07-21T10:35:54.140484+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 110.39,
+        "audio_size_bytes": 1325393,
+        "rendered_at": "2026-07-21T11:10:31.627562+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 114.69,
+        "audio_size_bytes": 1377116,
+        "rendered_at": "2026-07-21T12:05:19.984995+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 117.95,
+        "audio_size_bytes": 1416299,
+        "rendered_at": "2026-07-21T14:34:48.099425+00:00"
       }
     }
   },
@@ -1113,6 +1401,30 @@
         "duration_s": 160.3,
         "audio_size_bytes": 1924433,
         "rendered_at": "2026-07-20T18:12:17.248965+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 172.46,
+        "audio_size_bytes": 2070196,
+        "rendered_at": "2026-07-21T10:36:16.574727+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 155.91,
+        "audio_size_bytes": 1871770,
+        "rendered_at": "2026-07-21T11:10:52.230907+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 158.82,
+        "audio_size_bytes": 1906565,
+        "rendered_at": "2026-07-21T12:05:40.806244+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 166.62,
+        "audio_size_bytes": 2000293,
+        "rendered_at": "2026-07-21T14:35:09.886202+00:00"
       }
     },
     "week": 1
@@ -1198,6 +1510,30 @@
         "duration_s": 134.08,
         "audio_size_bytes": 1609710,
         "rendered_at": "2026-07-20T19:25:29.186451+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 138.38,
+        "audio_size_bytes": 1661432,
+        "rendered_at": "2026-07-21T10:36:36.628939+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 128.94,
+        "audio_size_bytes": 1548270,
+        "rendered_at": "2026-07-21T11:11:11.471477+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 135.76,
+        "audio_size_bytes": 1630085,
+        "rendered_at": "2026-07-21T12:06:00.707617+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 135.27,
+        "audio_size_bytes": 1624129,
+        "rendered_at": "2026-07-21T14:35:29.630952+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:25:29.186470+00:00",
@@ -1286,6 +1622,30 @@
         "duration_s": 130.08,
         "audio_size_bytes": 1561749,
         "rendered_at": "2026-07-20T19:43:25.085017+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 131.46,
+        "audio_size_bytes": 1578363,
+        "rendered_at": "2026-07-21T10:36:56.051037+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 123.9,
+        "audio_size_bytes": 1487770,
+        "rendered_at": "2026-07-21T11:11:30.130508+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 128.99,
+        "audio_size_bytes": 1548897,
+        "rendered_at": "2026-07-21T12:06:20.231385+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 128.84,
+        "audio_size_bytes": 1547016,
+        "rendered_at": "2026-07-21T14:35:48.947085+00:00"
       }
     }
   },
@@ -1376,6 +1736,30 @@
         "duration_s": 141.52,
         "audio_size_bytes": 1699049,
         "rendered_at": "2026-07-20T19:51:19.240020+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 146.16,
+        "audio_size_bytes": 1754846,
+        "rendered_at": "2026-07-21T10:37:17.444409+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 135.15,
+        "audio_size_bytes": 1622562,
+        "rendered_at": "2026-07-21T11:11:50.467959+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 140.43,
+        "audio_size_bytes": 1685883,
+        "rendered_at": "2026-07-21T12:06:41.197677+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 142.11,
+        "audio_size_bytes": 1706258,
+        "rendered_at": "2026-07-21T14:36:11.019708+00:00"
       }
     }
   },
@@ -1461,6 +1845,30 @@
         "duration_s": 161.51,
         "audio_size_bytes": 1938853,
         "rendered_at": "2026-07-20T18:11:21.329888+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 166.3,
+        "audio_size_bytes": 1996531,
+        "rendered_at": "2026-07-21T10:37:39.966568+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 154.74,
+        "audio_size_bytes": 1857664,
+        "rendered_at": "2026-07-21T11:12:11.966922+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 158.59,
+        "audio_size_bytes": 1904058,
+        "rendered_at": "2026-07-21T12:07:03.235052+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 163.88,
+        "audio_size_bytes": 1967378,
+        "rendered_at": "2026-07-21T14:36:33.976350+00:00"
       }
     },
     "week": 1
@@ -1538,6 +1946,30 @@
         "duration_s": 116.18,
         "audio_size_bytes": 1394983,
         "rendered_at": "2026-07-20T19:22:56.294533+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 121.36,
+        "audio_size_bytes": 1457364,
+        "rendered_at": "2026-07-21T10:37:57.096210+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 112.47,
+        "audio_size_bytes": 1350471,
+        "rendered_at": "2026-07-21T11:12:29.203826+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 117.46,
+        "audio_size_bytes": 1410343,
+        "rendered_at": "2026-07-21T12:07:19.948866+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 118.5,
+        "audio_size_bytes": 1422882,
+        "rendered_at": "2026-07-21T14:36:51.222262+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:22:56.294546+00:00",
@@ -1622,6 +2054,30 @@
         "duration_s": 131.09,
         "audio_size_bytes": 1573974,
         "rendered_at": "2026-07-20T19:40:38.296738+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 134.4,
+        "audio_size_bytes": 1613471,
+        "rendered_at": "2026-07-21T10:38:16.237696+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 126.2,
+        "audio_size_bytes": 1515042,
+        "rendered_at": "2026-07-21T11:12:47.383442+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 131.53,
+        "audio_size_bytes": 1579303,
+        "rendered_at": "2026-07-21T12:07:38.503748+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 131.88,
+        "audio_size_bytes": 1583378,
+        "rendered_at": "2026-07-21T14:37:09.812714+00:00"
       }
     }
   },
@@ -1712,6 +2168,30 @@
         "duration_s": 145.05,
         "audio_size_bytes": 1741367,
         "rendered_at": "2026-07-20T19:48:39.194100+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 149.84,
+        "audio_size_bytes": 1799045,
+        "rendered_at": "2026-07-21T10:38:37.887273+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 137.74,
+        "audio_size_bytes": 1653596,
+        "rendered_at": "2026-07-21T11:13:08.006159+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 144.31,
+        "audio_size_bytes": 1732590,
+        "rendered_at": "2026-07-21T12:07:59.622173+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 146.14,
+        "audio_size_bytes": 1754533,
+        "rendered_at": "2026-07-21T14:37:31.467530+00:00"
       }
     }
   },
@@ -1797,6 +2277,30 @@
         "duration_s": 171.34,
         "audio_size_bytes": 2057031,
         "rendered_at": "2026-07-20T18:12:51.598809+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 173.91,
+        "audio_size_bytes": 2087751,
+        "rendered_at": "2026-07-21T10:39:04.673760+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 164.67,
+        "audio_size_bytes": 1976783,
+        "rendered_at": "2026-07-21T11:13:34.165937+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 169.41,
+        "audio_size_bytes": 2033834,
+        "rendered_at": "2026-07-21T12:08:25.781400+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 174.94,
+        "audio_size_bytes": 2100289,
+        "rendered_at": "2026-07-21T14:37:58.181198+00:00"
       }
     },
     "week": 1
@@ -1878,6 +2382,30 @@
         "duration_s": 134.03,
         "audio_size_bytes": 1609083,
         "rendered_at": "2026-07-20T19:26:49.067264+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 139.66,
+        "audio_size_bytes": 1676792,
+        "rendered_at": "2026-07-21T10:39:27.956862+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 129.44,
+        "audio_size_bytes": 1554226,
+        "rendered_at": "2026-07-21T11:13:55.692366+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 136.6,
+        "audio_size_bytes": 1640116,
+        "rendered_at": "2026-07-21T12:08:48.056632+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 137.84,
+        "audio_size_bytes": 1654849,
+        "rendered_at": "2026-07-21T14:38:20.660444+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:26:49.067278+00:00",
@@ -1966,6 +2494,30 @@
         "duration_s": 133.34,
         "audio_size_bytes": 1600933,
         "rendered_at": "2026-07-20T19:44:47.750591+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 135.12,
+        "audio_size_bytes": 1622249,
+        "rendered_at": "2026-07-21T10:39:50.664501+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 127.32,
+        "audio_size_bytes": 1528521,
+        "rendered_at": "2026-07-21T11:14:17.674580+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 134.03,
+        "audio_size_bytes": 1609396,
+        "rendered_at": "2026-07-21T12:09:10.651854+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 133.34,
+        "audio_size_bytes": 1600933,
+        "rendered_at": "2026-07-21T14:38:43.506608+00:00"
       }
     }
   },
@@ -2052,6 +2604,30 @@
         "duration_s": 127.75,
         "audio_size_bytes": 1533850,
         "rendered_at": "2026-07-20T19:52:41.938891+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 129.72,
+        "audio_size_bytes": 1557360,
+        "rendered_at": "2026-07-21T10:40:13.381941+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 121.57,
+        "audio_size_bytes": 1459558,
+        "rendered_at": "2026-07-21T11:14:39.723888+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 127.4,
+        "audio_size_bytes": 1529775,
+        "rendered_at": "2026-07-21T12:09:40.413380+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 127.5,
+        "audio_size_bytes": 1530716,
+        "rendered_at": "2026-07-21T14:39:05.901864+00:00"
       }
     }
   },
@@ -2145,6 +2721,30 @@
         "duration_s": 172.93,
         "audio_size_bytes": 2076152,
         "rendered_at": "2026-07-20T18:10:01.846811+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 179.5,
+        "audio_size_bytes": 2154833,
+        "rendered_at": "2026-07-21T10:40:38.818609+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 167.2,
+        "audio_size_bytes": 2007189,
+        "rendered_at": "2026-07-21T11:15:03.620503+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 172.49,
+        "audio_size_bytes": 2070823,
+        "rendered_at": "2026-07-21T14:03:55.123077+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 177.23,
+        "audio_size_bytes": 2127561,
+        "rendered_at": "2026-07-21T14:39:30.850481+00:00"
       }
     },
     "week": 1
@@ -2236,6 +2836,30 @@
         "duration_s": 129.75,
         "audio_size_bytes": 1557987,
         "rendered_at": "2026-07-20T19:01:26.982380+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 131.43,
+        "audio_size_bytes": 1578049,
+        "rendered_at": "2026-07-21T10:40:59.131719+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 125.11,
+        "audio_size_bytes": 1502190,
+        "rendered_at": "2026-07-21T11:15:23.595139+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 129.51,
+        "audio_size_bytes": 1554853,
+        "rendered_at": "2026-07-21T14:04:15.468878+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 129.66,
+        "audio_size_bytes": 1556734,
+        "rendered_at": "2026-07-21T14:39:51.169383+00:00"
       }
     }
   },
@@ -2320,6 +2944,30 @@
         "duration_s": 132.23,
         "audio_size_bytes": 1587454,
         "rendered_at": "2026-07-20T19:27:27.396225+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 142.56,
+        "audio_size_bytes": 1711587,
+        "rendered_at": "2026-07-21T10:41:19.506963+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 130.3,
+        "audio_size_bytes": 1564570,
+        "rendered_at": "2026-07-21T11:15:42.566511+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 134.65,
+        "audio_size_bytes": 1616606,
+        "rendered_at": "2026-07-21T14:04:35.466467+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 136.73,
+        "audio_size_bytes": 1641684,
+        "rendered_at": "2026-07-21T14:40:11.454471+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:27:27.396239+00:00",
@@ -2404,6 +3052,30 @@
         "duration_s": 130.91,
         "audio_size_bytes": 1571780,
         "rendered_at": "2026-07-20T19:45:28.525752+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 133.28,
+        "audio_size_bytes": 1600306,
+        "rendered_at": "2026-07-21T10:41:38.160078+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 124.89,
+        "audio_size_bytes": 1499369,
+        "rendered_at": "2026-07-21T11:16:00.495190+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 130.37,
+        "audio_size_bytes": 1565197,
+        "rendered_at": "2026-07-21T14:05:30.209496+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 132.44,
+        "audio_size_bytes": 1590275,
+        "rendered_at": "2026-07-21T14:40:31.185713+00:00"
       }
     }
   },
@@ -2485,6 +3157,30 @@
         "duration_s": 166.52,
         "audio_size_bytes": 1999039,
         "rendered_at": "2026-07-20T18:11:42.159048+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 176.5,
+        "audio_size_bytes": 2118784,
+        "rendered_at": "2026-07-21T10:42:05.686083+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 159.31,
+        "audio_size_bytes": 1912521,
+        "rendered_at": "2026-07-21T11:16:25.643917+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 159.56,
+        "audio_size_bytes": 1915656,
+        "rendered_at": "2026-07-21T14:05:55.688847+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 171.51,
+        "audio_size_bytes": 2058911,
+        "rendered_at": "2026-07-21T14:40:58.788950+00:00"
       }
     },
     "week": 1
@@ -2574,6 +3270,30 @@
         "duration_s": 117.98,
         "audio_size_bytes": 1416613,
         "rendered_at": "2026-07-20T19:23:41.614609+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 123.46,
+        "audio_size_bytes": 1482441,
+        "rendered_at": "2026-07-21T10:42:28.891969+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 112.89,
+        "audio_size_bytes": 1355486,
+        "rendered_at": "2026-07-21T11:16:47.533756+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 117.78,
+        "audio_size_bytes": 1414105,
+        "rendered_at": "2026-07-21T14:06:18.250575+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 118.87,
+        "audio_size_bytes": 1427271,
+        "rendered_at": "2026-07-21T14:41:21.667453+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:23:41.614621+00:00",
@@ -2658,6 +3378,30 @@
         "duration_s": 144.02,
         "audio_size_bytes": 1729142,
         "rendered_at": "2026-07-20T19:41:27.386130+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 152.47,
+        "audio_size_bytes": 1830392,
+        "rendered_at": "2026-07-21T10:42:54.123139+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 137.45,
+        "audio_size_bytes": 1650147,
+        "rendered_at": "2026-07-21T11:17:10.538603+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 138.49,
+        "audio_size_bytes": 1662686,
+        "rendered_at": "2026-07-21T14:06:41.537008+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 151.28,
+        "audio_size_bytes": 1816286,
+        "rendered_at": "2026-07-21T14:41:47.988186+00:00"
       }
     }
   },
@@ -2744,6 +3488,30 @@
         "duration_s": 135.09,
         "audio_size_bytes": 1621935,
         "rendered_at": "2026-07-20T19:49:23.617985+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 137.27,
+        "audio_size_bytes": 1647953,
+        "rendered_at": "2026-07-21T10:43:19.823957+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 127.78,
+        "audio_size_bytes": 1534164,
+        "rendered_at": "2026-07-21T11:17:32.682649+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 132.03,
+        "audio_size_bytes": 1585259,
+        "rendered_at": "2026-07-21T14:07:04.471520+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 134.55,
+        "audio_size_bytes": 1615352,
+        "rendered_at": "2026-07-21T14:42:11.807730+00:00"
       }
     }
   },
@@ -2845,6 +3613,30 @@
         "duration_s": 162.18,
         "audio_size_bytes": 1947003,
         "rendered_at": "2026-07-20T18:09:54.898788+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 170.63,
+        "audio_size_bytes": 2048254,
+        "rendered_at": "2026-07-21T10:43:46.258442+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 154.72,
+        "audio_size_bytes": 1857351,
+        "rendered_at": "2026-07-21T11:17:57.770917+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 162.92,
+        "audio_size_bytes": 1955780,
+        "rendered_at": "2026-07-21T14:07:30.340852+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 164.94,
+        "audio_size_bytes": 1980231,
+        "rendered_at": "2026-07-21T14:42:37.454296+00:00"
       }
     },
     "week": 1
@@ -2932,6 +3724,30 @@
         "duration_s": 133.73,
         "audio_size_bytes": 1605635,
         "rendered_at": "2026-07-20T19:01:05.520955+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 136.2,
+        "audio_size_bytes": 1635101,
+        "rendered_at": "2026-07-21T10:44:06.203383+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 128.25,
+        "audio_size_bytes": 1539806,
+        "rendered_at": "2026-07-21T11:18:16.937915+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 133.53,
+        "audio_size_bytes": 1603127,
+        "rendered_at": "2026-07-21T14:07:50.321800+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 135.26,
+        "audio_size_bytes": 1624129,
+        "rendered_at": "2026-07-21T14:42:57.510159+00:00"
       }
     }
   },
@@ -3012,6 +3828,30 @@
         "duration_s": 126.14,
         "audio_size_bytes": 1514415,
         "rendered_at": "2026-07-20T19:27:07.907922+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 127.87,
+        "audio_size_bytes": 1535418,
+        "rendered_at": "2026-07-21T10:44:24.353888+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 121.06,
+        "audio_size_bytes": 1453602,
+        "rendered_at": "2026-07-21T11:18:34.616895+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 126.74,
+        "audio_size_bytes": 1521625,
+        "rendered_at": "2026-07-21T14:08:09.004063+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 125.45,
+        "audio_size_bytes": 1506265,
+        "rendered_at": "2026-07-21T14:43:15.749126+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:27:07.907937+00:00",
@@ -3100,6 +3940,30 @@
         "duration_s": 136.25,
         "audio_size_bytes": 1635728,
         "rendered_at": "2026-07-20T19:45:09.307621+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 140.75,
+        "audio_size_bytes": 1689645,
+        "rendered_at": "2026-07-21T10:44:44.560633+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 130.77,
+        "audio_size_bytes": 1569899,
+        "rendered_at": "2026-07-21T11:18:54.635295+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 136.5,
+        "audio_size_bytes": 1638863,
+        "rendered_at": "2026-07-21T14:08:29.924981+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 138.33,
+        "audio_size_bytes": 1660805,
+        "rendered_at": "2026-07-21T14:43:35.728547+00:00"
       }
     }
   },
@@ -3193,6 +4057,30 @@
         "duration_s": 157.31,
         "audio_size_bytes": 1888384,
         "rendered_at": "2026-07-20T18:11:31.406475+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 167.63,
+        "audio_size_bytes": 2012518,
+        "rendered_at": "2026-07-21T10:45:13.178502+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 152.17,
+        "audio_size_bytes": 1826944,
+        "rendered_at": "2026-07-21T11:19:21.272954+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 157.46,
+        "audio_size_bytes": 1890265,
+        "rendered_at": "2026-07-21T14:08:57.653558+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 161.11,
+        "audio_size_bytes": 1934151,
+        "rendered_at": "2026-07-21T14:44:05.246229+00:00"
       }
     },
     "week": 1
@@ -3270,6 +4158,30 @@
         "duration_s": 120.87,
         "audio_size_bytes": 1451408,
         "rendered_at": "2026-07-20T19:23:18.844811+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 125.22,
+        "audio_size_bytes": 1503444,
+        "rendered_at": "2026-07-21T10:45:33.916256+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 116.52,
+        "audio_size_bytes": 1399058,
+        "rendered_at": "2026-07-21T11:19:40.785098+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 121.91,
+        "audio_size_bytes": 1463633,
+        "rendered_at": "2026-07-21T14:09:18.789112+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 124.67,
+        "audio_size_bytes": 1496861,
+        "rendered_at": "2026-07-21T14:44:26.352585+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:23:18.844823+00:00",
@@ -3362,6 +4274,30 @@
         "duration_s": 142.19,
         "audio_size_bytes": 1707199,
         "rendered_at": "2026-07-20T19:41:03.057194+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 144.36,
+        "audio_size_bytes": 1733217,
+        "rendered_at": "2026-07-21T10:45:58.450065+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 136.85,
+        "audio_size_bytes": 1642938,
+        "rendered_at": "2026-07-21T11:20:04.822005+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 142.19,
+        "audio_size_bytes": 1707199,
+        "rendered_at": "2026-07-21T14:09:43.562713+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 142.14,
+        "audio_size_bytes": 1706572,
+        "rendered_at": "2026-07-21T14:44:51.272909+00:00"
       }
     }
   },
@@ -3444,6 +4380,30 @@
         "duration_s": 123.32,
         "audio_size_bytes": 1480560,
         "rendered_at": "2026-07-20T19:49:00.341369+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 125.2,
+        "audio_size_bytes": 1503130,
+        "rendered_at": "2026-07-21T10:46:19.655002+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 117.34,
+        "audio_size_bytes": 1409089,
+        "rendered_at": "2026-07-21T11:20:25.653364+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 122.63,
+        "audio_size_bytes": 1472410,
+        "rendered_at": "2026-07-21T14:10:04.682204+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 122.73,
+        "audio_size_bytes": 1473664,
+        "rendered_at": "2026-07-21T14:45:12.671559+00:00"
       }
     }
   },
@@ -3529,6 +4489,30 @@
         "duration_s": 182.49,
         "audio_size_bytes": 2190569,
         "rendered_at": "2026-07-20T18:10:46.327493+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 189.35,
+        "audio_size_bytes": 2273011,
+        "rendered_at": "2026-07-21T10:46:49.083722+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 172.06,
+        "audio_size_bytes": 2065494,
+        "rendered_at": "2026-07-21T11:20:52.900700+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 174.68,
+        "audio_size_bytes": 2097155,
+        "rendered_at": "2026-07-21T14:10:32.422213+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 185.75,
+        "audio_size_bytes": 2229752,
+        "rendered_at": "2026-07-21T14:45:42.875625+00:00"
       }
     },
     "week": 1
@@ -3612,6 +4596,30 @@
         "duration_s": 122.04,
         "audio_size_bytes": 1465200,
         "rendered_at": "2026-07-20T19:03:12.972438+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 124.07,
+        "audio_size_bytes": 1489651,
+        "rendered_at": "2026-07-21T10:47:09.881271+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 116.31,
+        "audio_size_bytes": 1396551,
+        "rendered_at": "2026-07-21T11:21:13.046694+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 121.35,
+        "audio_size_bytes": 1457050,
+        "rendered_at": "2026-07-21T14:10:57.223041+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 121.7,
+        "audio_size_bytes": 1461125,
+        "rendered_at": "2026-07-21T14:46:14.929489+00:00"
       }
     }
   },
@@ -3702,6 +4710,30 @@
         "duration_s": 149.11,
         "audio_size_bytes": 1790268,
         "rendered_at": "2026-07-20T19:38:55.523722+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 152.08,
+        "audio_size_bytes": 1825690,
+        "rendered_at": "2026-07-21T10:47:35.345180+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 143.43,
+        "audio_size_bytes": 1721932,
+        "rendered_at": "2026-07-21T11:21:37.422488+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 148.32,
+        "audio_size_bytes": 1780551,
+        "rendered_at": "2026-07-21T14:11:25.170313+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 151.44,
+        "audio_size_bytes": 1818167,
+        "rendered_at": "2026-07-21T14:46:40.699339+00:00"
       }
     }
   },
@@ -3784,6 +4816,30 @@
         "duration_s": 114.99,
         "audio_size_bytes": 1380877,
         "rendered_at": "2026-07-20T19:47:07.912480+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 116.33,
+        "audio_size_bytes": 1396864,
+        "rendered_at": "2026-07-21T10:47:55.829636+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 110.3,
+        "audio_size_bytes": 1324453,
+        "rendered_at": "2026-07-21T11:21:57.040698+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 114.05,
+        "audio_size_bytes": 1369592,
+        "rendered_at": "2026-07-21T14:11:45.313871+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 114.3,
+        "audio_size_bytes": 1372414,
+        "rendered_at": "2026-07-21T14:47:01.066990+00:00"
       }
     }
   },
@@ -3885,6 +4941,30 @@
         "duration_s": 169.08,
         "audio_size_bytes": 2029759,
         "rendered_at": "2026-07-20T18:12:10.794933+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 172.64,
+        "audio_size_bytes": 2072391,
+        "rendered_at": "2026-07-21T10:48:22.226792+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 161.18,
+        "audio_size_bytes": 1935091,
+        "rendered_at": "2026-07-21T11:22:22.228625+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 168.29,
+        "audio_size_bytes": 2020355,
+        "rendered_at": "2026-07-21T14:12:12.086374+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 176.05,
+        "audio_size_bytes": 2113455,
+        "rendered_at": "2026-07-21T14:47:27.905947+00:00"
       }
     },
     "week": 1
@@ -3970,6 +5050,30 @@
         "duration_s": 124.41,
         "audio_size_bytes": 1493726,
         "rendered_at": "2026-07-20T19:25:09.652790+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 131.82,
+        "audio_size_bytes": 1582751,
+        "rendered_at": "2026-07-21T10:48:41.825813+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 120.31,
+        "audio_size_bytes": 1444511,
+        "rendered_at": "2026-07-21T11:22:40.886925+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 124.91,
+        "audio_size_bytes": 1499682,
+        "rendered_at": "2026-07-21T14:12:31.659969+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 126.88,
+        "audio_size_bytes": 1523506,
+        "rendered_at": "2026-07-21T14:47:50.067441+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:25:09.652803+00:00",
@@ -4062,6 +5166,30 @@
         "duration_s": 157.27,
         "audio_size_bytes": 1888071,
         "rendered_at": "2026-07-20T19:43:05.366057+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 160.33,
+        "audio_size_bytes": 1924747,
+        "rendered_at": "2026-07-21T10:49:04.240484+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 148.23,
+        "audio_size_bytes": 1779610,
+        "rendered_at": "2026-07-21T11:23:01.879600+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 154.16,
+        "audio_size_bytes": 1850768,
+        "rendered_at": "2026-07-21T14:12:53.693531+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 157.47,
+        "audio_size_bytes": 1890578,
+        "rendered_at": "2026-07-21T14:48:14.970243+00:00"
       }
     }
   },
@@ -4148,6 +5276,30 @@
         "duration_s": 141.79,
         "audio_size_bytes": 1702183,
         "rendered_at": "2026-07-20T19:50:57.281487+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 144.76,
+        "audio_size_bytes": 1737919,
+        "rendered_at": "2026-07-21T10:49:25.149318+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 136.06,
+        "audio_size_bytes": 1633534,
+        "rendered_at": "2026-07-21T11:23:21.446969+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 140.9,
+        "audio_size_bytes": 1691525,
+        "rendered_at": "2026-07-21T14:13:14.218201+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 142.53,
+        "audio_size_bytes": 1711274,
+        "rendered_at": "2026-07-21T14:48:35.183426+00:00"
       }
     }
   },
@@ -4241,6 +5393,30 @@
         "duration_s": 171.89,
         "audio_size_bytes": 2063614,
         "rendered_at": "2026-07-20T18:10:34.588339+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 181.57,
+        "audio_size_bytes": 2179597,
+        "rendered_at": "2026-07-21T10:49:55.648315+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 165.02,
+        "audio_size_bytes": 1981171,
+        "rendered_at": "2026-07-21T11:23:49.747060+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 171.2,
+        "audio_size_bytes": 2055150,
+        "rendered_at": "2026-07-21T14:13:44.419465+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 174.7,
+        "audio_size_bytes": 2097155,
+        "rendered_at": "2026-07-21T14:49:07.662052+00:00"
       }
     },
     "week": 1
@@ -4328,6 +5504,30 @@
         "duration_s": 130.89,
         "audio_size_bytes": 1571467,
         "rendered_at": "2026-07-20T19:02:51.940799+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 133.71,
+        "audio_size_bytes": 1605321,
+        "rendered_at": "2026-07-21T10:50:18.538314+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 125.31,
+        "audio_size_bytes": 1504384,
+        "rendered_at": "2026-07-21T11:24:11.666119+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 130.59,
+        "audio_size_bytes": 1568018,
+        "rendered_at": "2026-07-21T14:14:07.916888+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 130.49,
+        "audio_size_bytes": 1566765,
+        "rendered_at": "2026-07-21T14:49:30.328758+00:00"
       }
     }
   },
@@ -4412,6 +5612,30 @@
         "duration_s": 134.63,
         "audio_size_bytes": 1616293,
         "rendered_at": "2026-07-20T19:28:52.081110+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 137.99,
+        "audio_size_bytes": 1656730,
+        "rendered_at": "2026-07-21T10:50:41.512119+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 130.92,
+        "audio_size_bytes": 1571780,
+        "rendered_at": "2026-07-21T11:24:34.417044+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 135.72,
+        "audio_size_bytes": 1629458,
+        "rendered_at": "2026-07-21T14:14:31.046538+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 136.16,
+        "audio_size_bytes": 1634787,
+        "rendered_at": "2026-07-21T14:49:59.329646+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:28:52.081134+00:00",
@@ -4496,6 +5720,30 @@
         "duration_s": 122.93,
         "audio_size_bytes": 1475858,
         "rendered_at": "2026-07-20T19:46:47.596611+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 123.17,
+        "audio_size_bytes": 1478993,
+        "rendered_at": "2026-07-21T10:51:03.200524+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 116.36,
+        "audio_size_bytes": 1397178,
+        "rendered_at": "2026-07-21T11:24:54.742154+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 121.3,
+        "audio_size_bytes": 1456423,
+        "rendered_at": "2026-07-21T14:14:53.147689+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 122.58,
+        "audio_size_bytes": 1471783,
+        "rendered_at": "2026-07-21T14:50:21.421344+00:00"
       }
     }
   },
@@ -4573,6 +5821,30 @@
         "duration_s": 153.41,
         "audio_size_bytes": 1841677,
         "rendered_at": "2026-07-20T18:12:04.037213+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 161.11,
+        "audio_size_bytes": 1934151,
+        "rendered_at": "2026-07-21T10:51:24.895293+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 142.73,
+        "audio_size_bytes": 1713782,
+        "rendered_at": "2026-07-21T11:25:14.299066+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 147.13,
+        "audio_size_bytes": 1766445,
+        "rendered_at": "2026-07-21T14:15:14.754729+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 156.86,
+        "audio_size_bytes": 1883055,
+        "rendered_at": "2026-07-21T14:50:42.462533+00:00"
       }
     },
     "week": 1
@@ -4662,6 +5934,30 @@
         "duration_s": 135.42,
         "audio_size_bytes": 1625697,
         "rendered_at": "2026-07-20T19:24:50.521797+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 139.62,
+        "audio_size_bytes": 1676165,
+        "rendered_at": "2026-07-21T10:51:45.562544+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 130.18,
+        "audio_size_bytes": 1563003,
+        "rendered_at": "2026-07-21T11:25:34.149851+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 135.62,
+        "audio_size_bytes": 1628205,
+        "rendered_at": "2026-07-21T14:15:36.050968+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 136.26,
+        "audio_size_bytes": 1636041,
+        "rendered_at": "2026-07-21T14:51:03.009276+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:24:50.521810+00:00",
@@ -4750,6 +6046,30 @@
         "duration_s": 140.98,
         "audio_size_bytes": 1692466,
         "rendered_at": "2026-07-20T19:42:43.407935+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 143.25,
+        "audio_size_bytes": 1719738,
+        "rendered_at": "2026-07-21T10:52:05.815561+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 135.0,
+        "audio_size_bytes": 1620681,
+        "rendered_at": "2026-07-21T11:25:53.573123+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 139.79,
+        "audio_size_bytes": 1678360,
+        "rendered_at": "2026-07-21T14:15:56.657345+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 142.61,
+        "audio_size_bytes": 1712214,
+        "rendered_at": "2026-07-21T14:51:23.642027+00:00"
       }
     }
   },
@@ -4836,6 +6156,30 @@
         "duration_s": 138.98,
         "audio_size_bytes": 1668642,
         "rendered_at": "2026-07-20T19:50:36.807886+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 143.33,
+        "audio_size_bytes": 1720678,
+        "rendered_at": "2026-07-21T10:52:26.077955+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 133.1,
+        "audio_size_bytes": 1598111,
+        "rendered_at": "2026-07-21T11:26:13.017974+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 137.94,
+        "audio_size_bytes": 1656103,
+        "rendered_at": "2026-07-21T14:16:17.413570+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 138.88,
+        "audio_size_bytes": 1667388,
+        "rendered_at": "2026-07-21T14:51:43.430697+00:00"
       }
     }
   },
@@ -4929,6 +6273,30 @@
         "duration_s": 152.53,
         "audio_size_bytes": 1831333,
         "rendered_at": "2026-07-20T20:12:40.014849+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 167.41,
+        "audio_size_bytes": 2009697,
+        "rendered_at": "2026-07-21T10:52:51.291547+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 147.35,
+        "audio_size_bytes": 1768952,
+        "rendered_at": "2026-07-21T11:26:36.699311+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 155.15,
+        "audio_size_bytes": 1862680,
+        "rendered_at": "2026-07-21T14:16:41.405880+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 157.08,
+        "audio_size_bytes": 1885876,
+        "rendered_at": "2026-07-21T14:52:07.802881+00:00"
       }
     },
     "week": 1
@@ -5016,6 +6384,30 @@
         "duration_s": 141.25,
         "audio_size_bytes": 1695914,
         "rendered_at": "2026-07-20T19:01:47.961184+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 146.04,
+        "audio_size_bytes": 1753279,
+        "rendered_at": "2026-07-21T10:53:12.168567+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 134.23,
+        "audio_size_bytes": 1611591,
+        "rendered_at": "2026-07-21T11:26:56.423956+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 140.9,
+        "audio_size_bytes": 1691525,
+        "rendered_at": "2026-07-21T14:17:01.908069+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 141.59,
+        "audio_size_bytes": 1699989,
+        "rendered_at": "2026-07-21T14:52:28.475336+00:00"
       }
     }
   },
@@ -5104,6 +6496,30 @@
         "duration_s": 139.12,
         "audio_size_bytes": 1670209,
         "rendered_at": "2026-07-20T19:27:48.840239+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 145.89,
+        "audio_size_bytes": 1751398,
+        "rendered_at": "2026-07-21T10:53:33.975821+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 134.38,
+        "audio_size_bytes": 1613471,
+        "rendered_at": "2026-07-21T11:27:17.025458+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 139.91,
+        "audio_size_bytes": 1679927,
+        "rendered_at": "2026-07-21T14:17:23.542823+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 139.42,
+        "audio_size_bytes": 1673971,
+        "rendered_at": "2026-07-21T14:52:50.052294+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:27:48.840253+00:00",
@@ -5192,6 +6608,30 @@
         "duration_s": 128.89,
         "audio_size_bytes": 1547643,
         "rendered_at": "2026-07-20T19:45:48.001513+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 133.24,
+        "audio_size_bytes": 1599679,
+        "rendered_at": "2026-07-21T10:53:53.624099+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 122.42,
+        "audio_size_bytes": 1469903,
+        "rendered_at": "2026-07-21T11:27:36.109050+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 128.69,
+        "audio_size_bytes": 1545135,
+        "rendered_at": "2026-07-21T14:17:42.895995+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 128.59,
+        "audio_size_bytes": 1543881,
+        "rendered_at": "2026-07-21T14:53:10.480583+00:00"
       }
     }
   },
@@ -5289,6 +6729,30 @@
         "duration_s": 161.15,
         "audio_size_bytes": 1934464,
         "rendered_at": "2026-07-20T18:11:47.086590+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 166.43,
+        "audio_size_bytes": 1998098,
+        "rendered_at": "2026-07-21T10:54:16.853977+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 154.28,
+        "audio_size_bytes": 1852022,
+        "rendered_at": "2026-07-21T11:27:58.567892+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 160.25,
+        "audio_size_bytes": 1923806,
+        "rendered_at": "2026-07-21T14:18:05.828659+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 163.76,
+        "audio_size_bytes": 1966125,
+        "rendered_at": "2026-07-21T14:53:33.674621+00:00"
       }
     },
     "week": 1
@@ -5370,6 +6834,30 @@
         "duration_s": 117.79,
         "audio_size_bytes": 1414418,
         "rendered_at": "2026-07-20T19:23:58.475014+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 121.3,
+        "audio_size_bytes": 1456423,
+        "rendered_at": "2026-07-21T10:54:33.939702+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 114.63,
+        "audio_size_bytes": 1376489,
+        "rendered_at": "2026-07-21T11:28:14.776403+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 119.32,
+        "audio_size_bytes": 1432600,
+        "rendered_at": "2026-07-21T14:18:22.602691+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 118.73,
+        "audio_size_bytes": 1425703,
+        "rendered_at": "2026-07-21T14:53:50.109549+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:23:58.475028+00:00",
@@ -5458,6 +6946,30 @@
         "duration_s": 127.2,
         "audio_size_bytes": 1527267,
         "rendered_at": "2026-07-20T19:41:45.718952+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 131.15,
+        "audio_size_bytes": 1574601,
+        "rendered_at": "2026-07-21T10:54:52.392918+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 120.48,
+        "audio_size_bytes": 1446706,
+        "rendered_at": "2026-07-21T11:28:32.244445+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 125.91,
+        "audio_size_bytes": 1511907,
+        "rendered_at": "2026-07-21T14:18:40.527237+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 129.07,
+        "audio_size_bytes": 1549837,
+        "rendered_at": "2026-07-21T14:54:08.439817+00:00"
       }
     }
   },
@@ -5544,6 +7056,30 @@
         "duration_s": 145.6,
         "audio_size_bytes": 1747950,
         "rendered_at": "2026-07-20T19:49:42.675046+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 149.01,
+        "audio_size_bytes": 1789014,
+        "rendered_at": "2026-07-21T10:55:11.491218+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 138.44,
+        "audio_size_bytes": 1662059,
+        "rendered_at": "2026-07-21T11:28:50.607916+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 145.7,
+        "audio_size_bytes": 1749204,
+        "rendered_at": "2026-07-21T14:18:59.640992+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 147.82,
+        "audio_size_bytes": 1774595,
+        "rendered_at": "2026-07-21T14:54:28.046704+00:00"
       }
     }
   },
@@ -5633,6 +7169,30 @@
         "duration_s": 178.53,
         "audio_size_bytes": 2143235,
         "rendered_at": "2026-07-20T18:10:23.431883+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 187.68,
+        "audio_size_bytes": 2252949,
+        "rendered_at": "2026-07-21T10:55:37.344609+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 173.45,
+        "audio_size_bytes": 2082108,
+        "rendered_at": "2026-07-21T11:29:15.207189+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 176.86,
+        "audio_size_bytes": 2123173,
+        "rendered_at": "2026-07-21T14:19:24.675738+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 180.31,
+        "audio_size_bytes": 2164551,
+        "rendered_at": "2026-07-21T14:54:53.889929+00:00"
       }
     },
     "week": 1
@@ -5720,6 +7280,30 @@
         "duration_s": 133.74,
         "audio_size_bytes": 1605635,
         "rendered_at": "2026-07-20T19:02:29.081272+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 135.02,
+        "audio_size_bytes": 1620995,
+        "rendered_at": "2026-07-21T10:55:57.225970+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 128.1,
+        "audio_size_bytes": 1537925,
+        "rendered_at": "2026-07-21T11:29:34.955792+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 132.75,
+        "audio_size_bytes": 1593723,
+        "rendered_at": "2026-07-21T14:19:46.807010+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 133.14,
+        "audio_size_bytes": 1598425,
+        "rendered_at": "2026-07-21T14:55:14.107054+00:00"
       }
     }
   },
@@ -5804,6 +7388,30 @@
         "duration_s": 141.63,
         "audio_size_bytes": 1700303,
         "rendered_at": "2026-07-20T19:28:29.291643+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 145.73,
+        "audio_size_bytes": 1749517,
+        "rendered_at": "2026-07-21T10:56:17.999885+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 137.18,
+        "audio_size_bytes": 1647013,
+        "rendered_at": "2026-07-21T11:29:54.463171+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 143.36,
+        "audio_size_bytes": 1720991,
+        "rendered_at": "2026-07-21T14:20:07.220876+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 143.51,
+        "audio_size_bytes": 1722872,
+        "rendered_at": "2026-07-21T14:55:34.357608+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:28:29.291657+00:00",
@@ -5892,6 +7500,30 @@
         "duration_s": 128.12,
         "audio_size_bytes": 1538239,
         "rendered_at": "2026-07-20T19:46:26.445264+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 130.64,
+        "audio_size_bytes": 1568645,
+        "rendered_at": "2026-07-21T10:56:37.439330+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 122.59,
+        "audio_size_bytes": 1471783,
+        "rendered_at": "2026-07-21T11:30:13.289723+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 128.32,
+        "audio_size_bytes": 1540747,
+        "rendered_at": "2026-07-21T14:20:26.702683+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 127.97,
+        "audio_size_bytes": 1536671,
+        "rendered_at": "2026-07-21T14:55:53.838356+00:00"
       }
     }
   },
@@ -5989,6 +7621,30 @@
         "duration_s": 172.1,
         "audio_size_bytes": 2066121,
         "rendered_at": "2026-07-20T18:11:57.744233+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 182.52,
+        "audio_size_bytes": 2191196,
+        "rendered_at": "2026-07-21T10:57:01.741516+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 164.78,
+        "audio_size_bytes": 1978350,
+        "rendered_at": "2026-07-21T11:30:36.590215+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 170.47,
+        "audio_size_bytes": 2046373,
+        "rendered_at": "2026-07-21T14:20:50.864701+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 178.42,
+        "audio_size_bytes": 2141981,
+        "rendered_at": "2026-07-21T14:56:18.282492+00:00"
       }
     },
     "week": 1
@@ -6066,6 +7722,30 @@
         "duration_s": 121.09,
         "audio_size_bytes": 1453916,
         "rendered_at": "2026-07-20T19:24:29.983620+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 126.13,
+        "audio_size_bytes": 1514415,
+        "rendered_at": "2026-07-21T10:57:18.158360+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 116.65,
+        "audio_size_bytes": 1400626,
+        "rendered_at": "2026-07-21T11:30:52.363333+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 122.38,
+        "audio_size_bytes": 1469276,
+        "rendered_at": "2026-07-21T14:21:07.152728+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 125.84,
+        "audio_size_bytes": 1510967,
+        "rendered_at": "2026-07-21T14:56:34.817447+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:24:29.983640+00:00",
@@ -6150,6 +7830,30 @@
         "duration_s": 118.16,
         "audio_size_bytes": 1418807,
         "rendered_at": "2026-07-20T19:42:23.253803+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 120.18,
+        "audio_size_bytes": 1442944,
+        "rendered_at": "2026-07-21T10:57:34.696637+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 112.67,
+        "audio_size_bytes": 1352978,
+        "rendered_at": "2026-07-21T11:31:08.911052+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 118.16,
+        "audio_size_bytes": 1418807,
+        "rendered_at": "2026-07-21T14:21:24.169328+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 116.97,
+        "audio_size_bytes": 1404387,
+        "rendered_at": "2026-07-21T14:56:51.148597+00:00"
       }
     }
   },
@@ -6232,6 +7936,30 @@
         "duration_s": 127.03,
         "audio_size_bytes": 1525073,
         "rendered_at": "2026-07-20T19:50:17.130688+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 127.92,
+        "audio_size_bytes": 1536045,
+        "rendered_at": "2026-07-21T10:57:51.874667+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 121.85,
+        "audio_size_bytes": 1463006,
+        "rendered_at": "2026-07-21T11:31:25.380717+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 125.4,
+        "audio_size_bytes": 1505638,
+        "rendered_at": "2026-07-21T14:21:41.706334+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 126.14,
+        "audio_size_bytes": 1514415,
+        "rendered_at": "2026-07-21T14:57:07.956034+00:00"
       }
     }
   },
@@ -6317,6 +8045,30 @@
         "duration_s": 184.57,
         "audio_size_bytes": 2215646,
         "rendered_at": "2026-07-20T18:11:14.833543+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 195.84,
+        "audio_size_bytes": 2350751,
+        "rendered_at": "2026-07-21T10:58:15.052666+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 174.94,
+        "audio_size_bytes": 2099976,
+        "rendered_at": "2026-07-21T11:31:47.014092+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 180.97,
+        "audio_size_bytes": 2172387,
+        "rendered_at": "2026-07-21T14:22:04.510173+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 192.58,
+        "audio_size_bytes": 2311881,
+        "rendered_at": "2026-07-21T14:57:30.825664+00:00"
       }
     },
     "week": 1
@@ -6402,6 +8154,30 @@
         "duration_s": 130.29,
         "audio_size_bytes": 1564257,
         "rendered_at": "2026-07-20T19:22:39.479705+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 136.86,
+        "audio_size_bytes": 1643251,
+        "rendered_at": "2026-07-21T10:58:33.809492+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 124.81,
+        "audio_size_bytes": 1498428,
+        "rendered_at": "2026-07-21T11:32:04.704068+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 131.53,
+        "audio_size_bytes": 1579303,
+        "rendered_at": "2026-07-21T14:22:23.312989+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 132.62,
+        "audio_size_bytes": 1592156,
+        "rendered_at": "2026-07-21T14:57:49.332811+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:22:39.479718+00:00",
@@ -6490,6 +8266,30 @@
         "duration_s": 134.8,
         "audio_size_bytes": 1618487,
         "rendered_at": "2026-07-20T19:40:16.106069+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 136.98,
+        "audio_size_bytes": 1644505,
+        "rendered_at": "2026-07-21T10:58:52.280371+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 128.68,
+        "audio_size_bytes": 1544822,
+        "rendered_at": "2026-07-21T11:32:21.965052+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 133.91,
+        "audio_size_bytes": 1607829,
+        "rendered_at": "2026-07-21T14:23:33.715787+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 133.37,
+        "audio_size_bytes": 1601246,
+        "rendered_at": "2026-07-21T14:58:07.536277+00:00"
       }
     }
   },
@@ -6576,6 +8376,30 @@
         "duration_s": 130.35,
         "audio_size_bytes": 1564884,
         "rendered_at": "2026-07-20T19:48:17.817473+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 133.9,
+        "audio_size_bytes": 1607516,
+        "rendered_at": "2026-07-21T10:59:10.807197+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 124.71,
+        "audio_size_bytes": 1497488,
+        "rendered_at": "2026-07-21T11:32:39.455037+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 130.2,
+        "audio_size_bytes": 1563316,
+        "rendered_at": "2026-07-21T14:23:52.071793+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 133.31,
+        "audio_size_bytes": 1600619,
+        "rendered_at": "2026-07-21T14:58:26.069210+00:00"
       }
     }
   },
@@ -6689,6 +8513,30 @@
         "duration_s": 211.2,
         "audio_size_bytes": 2535071,
         "rendered_at": "2026-07-20T18:12:40.472320+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 212.83,
+        "audio_size_bytes": 2554820,
+        "rendered_at": "2026-07-21T10:59:42.581801+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 204.08,
+        "audio_size_bytes": 2449808,
+        "rendered_at": "2026-07-21T11:33:10.728058+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 208.09,
+        "audio_size_bytes": 2497769,
+        "rendered_at": "2026-07-21T14:24:23.779124+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 211.99,
+        "audio_size_bytes": 2544789,
+        "rendered_at": "2026-07-21T14:58:57.972659+00:00"
       }
     },
     "week": 1
@@ -6778,6 +8626,30 @@
         "duration_s": 135.12,
         "audio_size_bytes": 1622249,
         "rendered_at": "2026-07-20T19:26:27.013762+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 136.81,
+        "audio_size_bytes": 1642624,
+        "rendered_at": "2026-07-21T11:00:03.581348+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 131.03,
+        "audio_size_bytes": 1573034,
+        "rendered_at": "2026-07-21T11:33:30.961904+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 135.72,
+        "audio_size_bytes": 1629458,
+        "rendered_at": "2026-07-21T14:24:44.463580+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 135.57,
+        "audio_size_bytes": 1627578,
+        "rendered_at": "2026-07-21T14:59:18.683088+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:26:27.013774+00:00",
@@ -6870,6 +8742,30 @@
         "duration_s": 138.08,
         "audio_size_bytes": 1657671,
         "rendered_at": "2026-07-20T19:44:24.723210+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 142.97,
+        "audio_size_bytes": 1716603,
+        "rendered_at": "2026-07-21T11:00:25.349098+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 132.1,
+        "audio_size_bytes": 1586200,
+        "rendered_at": "2026-07-21T11:33:51.647637+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 138.23,
+        "audio_size_bytes": 1659551,
+        "rendered_at": "2026-07-21T14:25:05.740045+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 141.25,
+        "audio_size_bytes": 1695914,
+        "rendered_at": "2026-07-21T14:59:40.440637+00:00"
       }
     }
   },
@@ -6956,6 +8852,30 @@
         "duration_s": 149.24,
         "audio_size_bytes": 1791836,
         "rendered_at": "2026-07-20T19:52:19.059385+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 153.29,
+        "audio_size_bytes": 1840423,
+        "rendered_at": "2026-07-21T11:00:46.680912+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 141.78,
+        "audio_size_bytes": 1702183,
+        "rendered_at": "2026-07-21T11:34:11.715803+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 150.57,
+        "audio_size_bytes": 1807823,
+        "rendered_at": "2026-07-21T14:25:27.052632+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 150.38,
+        "audio_size_bytes": 1805315,
+        "rendered_at": "2026-07-21T15:00:01.318540+00:00"
       }
     }
   },
@@ -7033,6 +8953,30 @@
         "duration_s": 146.77,
         "audio_size_bytes": 1762056,
         "rendered_at": "2026-07-20T18:11:09.365305+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 153.64,
+        "audio_size_bytes": 1844498,
+        "rendered_at": "2026-07-21T11:01:05.165046+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 139.61,
+        "audio_size_bytes": 1676165,
+        "rendered_at": "2026-07-21T11:34:29.032333+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 143.26,
+        "audio_size_bytes": 1720051,
+        "rendered_at": "2026-07-21T14:25:44.610334+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 148.75,
+        "audio_size_bytes": 1785880,
+        "rendered_at": "2026-07-21T15:00:19.920547+00:00"
       }
     },
     "week": 1
@@ -7122,6 +9066,30 @@
         "duration_s": 145.26,
         "audio_size_bytes": 1743875,
         "rendered_at": "2026-07-20T19:22:20.628781+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 148.08,
+        "audio_size_bytes": 1777729,
+        "rendered_at": "2026-07-21T11:01:24.900670+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 139.63,
+        "audio_size_bytes": 1676479,
+        "rendered_at": "2026-07-21T11:34:47.843856+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 146.2,
+        "audio_size_bytes": 1755160,
+        "rendered_at": "2026-07-21T14:26:04.947937+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 146.2,
+        "audio_size_bytes": 1755160,
+        "rendered_at": "2026-07-21T15:00:41.217849+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:22:20.628795+00:00",
@@ -7214,6 +9182,30 @@
         "duration_s": 129.71,
         "audio_size_bytes": 1557360,
         "rendered_at": "2026-07-20T19:39:57.247381+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 131.44,
+        "audio_size_bytes": 1578049,
+        "rendered_at": "2026-07-21T11:01:43.752629+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 124.03,
+        "audio_size_bytes": 1489024,
+        "rendered_at": "2026-07-21T11:35:06.130105+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 128.28,
+        "audio_size_bytes": 1540120,
+        "rendered_at": "2026-07-21T14:26:23.778284+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 129.37,
+        "audio_size_bytes": 1553285,
+        "rendered_at": "2026-07-21T15:00:59.809452+00:00"
       }
     }
   },
@@ -7296,6 +9288,30 @@
         "duration_s": 120.06,
         "audio_size_bytes": 1441690,
         "rendered_at": "2026-07-20T19:47:59.757796+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 121.15,
+        "audio_size_bytes": 1454543,
+        "rendered_at": "2026-07-21T11:02:00.452197+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 114.43,
+        "audio_size_bytes": 1373981,
+        "rendered_at": "2026-07-21T11:35:22.349374+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 119.27,
+        "audio_size_bytes": 1431973,
+        "rendered_at": "2026-07-21T14:26:40.501317+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 119.86,
+        "audio_size_bytes": 1439183,
+        "rendered_at": "2026-07-21T15:01:16.425652+00:00"
       }
     }
   },
@@ -7381,6 +9397,30 @@
         "duration_s": 157.08,
         "audio_size_bytes": 1885876,
         "rendered_at": "2026-07-20T18:12:31.484743+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 169.83,
+        "audio_size_bytes": 2038849,
+        "rendered_at": "2026-07-21T11:02:26.665505+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 153.08,
+        "audio_size_bytes": 1837916,
+        "rendered_at": "2026-07-21T11:35:45.024491+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 154.96,
+        "audio_size_bytes": 1860172,
+        "rendered_at": "2026-07-21T14:27:03.615779+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 164.29,
+        "audio_size_bytes": 1972394,
+        "rendered_at": "2026-07-21T15:01:39.667224+00:00"
       }
     },
     "week": 1
@@ -7462,6 +9502,30 @@
         "duration_s": 118.75,
         "audio_size_bytes": 1425703,
         "rendered_at": "2026-07-20T19:26:06.140657+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 122.8,
+        "audio_size_bytes": 1474291,
+        "rendered_at": "2026-07-21T11:02:47.559915+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 115.54,
+        "audio_size_bytes": 1387147,
+        "rendered_at": "2026-07-21T11:36:02.697211+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 120.83,
+        "audio_size_bytes": 1450781,
+        "rendered_at": "2026-07-21T14:27:22.475448+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 121.47,
+        "audio_size_bytes": 1458304,
+        "rendered_at": "2026-07-21T15:01:58.315777+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:26:06.140670+00:00",
@@ -7546,6 +9610,30 @@
         "duration_s": 132.02,
         "audio_size_bytes": 1584946,
         "rendered_at": "2026-07-20T19:44:03.456333+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 134.69,
+        "audio_size_bytes": 1616920,
+        "rendered_at": "2026-07-21T11:03:07.041766+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 121.84,
+        "audio_size_bytes": 1463006,
+        "rendered_at": "2026-07-21T11:36:20.922551+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 128.76,
+        "audio_size_bytes": 1546076,
+        "rendered_at": "2026-07-21T14:27:41.692455+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 131.13,
+        "audio_size_bytes": 1574288,
+        "rendered_at": "2026-07-21T15:02:17.546009+00:00"
       }
     }
   },
@@ -7628,6 +9716,30 @@
         "duration_s": 124.41,
         "audio_size_bytes": 1493726,
         "rendered_at": "2026-07-20T19:51:57.897279+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 127.12,
+        "audio_size_bytes": 1526327,
+        "rendered_at": "2026-07-21T11:03:25.727389+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 119.17,
+        "audio_size_bytes": 1431032,
+        "rendered_at": "2026-07-21T11:36:39.002674+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 124.61,
+        "audio_size_bytes": 1496234,
+        "rendered_at": "2026-07-21T14:28:00.587748+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 125.1,
+        "audio_size_bytes": 1501876,
+        "rendered_at": "2026-07-21T15:02:36.329381+00:00"
       }
     }
   },
@@ -7709,6 +9821,30 @@
         "duration_s": 170.66,
         "audio_size_bytes": 2048880,
         "rendered_at": "2026-07-20T18:11:04.828025+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 181.73,
+        "audio_size_bytes": 2181478,
+        "rendered_at": "2026-07-21T11:03:47.802964+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 162.76,
+        "audio_size_bytes": 1953899,
+        "rendered_at": "2026-07-21T11:36:59.259113+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 162.86,
+        "audio_size_bytes": 1955153,
+        "rendered_at": "2026-07-21T14:28:22.065755+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 177.19,
+        "audio_size_bytes": 2126934,
+        "rendered_at": "2026-07-21T15:02:58.694321+00:00"
       }
     },
     "week": 1
@@ -7796,6 +9932,30 @@
         "duration_s": 143.86,
         "audio_size_bytes": 1727261,
         "rendered_at": "2026-07-20T19:03:55.068861+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 146.98,
+        "audio_size_bytes": 1764564,
+        "rendered_at": "2026-07-21T11:04:07.302193+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 135.81,
+        "audio_size_bytes": 1630399,
+        "rendered_at": "2026-07-21T11:37:17.989340+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 143.12,
+        "audio_size_bytes": 1718170,
+        "rendered_at": "2026-07-21T14:28:41.291251+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 145.34,
+        "audio_size_bytes": 1744815,
+        "rendered_at": "2026-07-21T15:03:18.886433+00:00"
       }
     }
   },
@@ -7882,6 +10042,30 @@
         "duration_s": 142.86,
         "audio_size_bytes": 1715036,
         "rendered_at": "2026-07-20T19:39:37.723585+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 147.45,
+        "audio_size_bytes": 1770206,
+        "rendered_at": "2026-07-21T11:04:26.310025+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 135.74,
+        "audio_size_bytes": 1629772,
+        "rendered_at": "2026-07-21T11:37:36.163881+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 141.92,
+        "audio_size_bytes": 1703751,
+        "rendered_at": "2026-07-21T14:28:59.988397+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 143.11,
+        "audio_size_bytes": 1718170,
+        "rendered_at": "2026-07-21T15:03:38.107685+00:00"
       }
     }
   },
@@ -7960,6 +10144,30 @@
         "duration_s": 121.09,
         "audio_size_bytes": 1453916,
         "rendered_at": "2026-07-20T19:47:43.160890+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 123.96,
+        "audio_size_bytes": 1488397,
+        "rendered_at": "2026-07-21T11:04:42.606014+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 115.86,
+        "audio_size_bytes": 1391222,
+        "rendered_at": "2026-07-21T11:37:52.252282+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 121.19,
+        "audio_size_bytes": 1455169,
+        "rendered_at": "2026-07-21T14:29:16.335205+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 121.69,
+        "audio_size_bytes": 1461125,
+        "rendered_at": "2026-07-21T15:03:54.125588+00:00"
       }
     }
   },
@@ -8049,6 +10257,30 @@
         "duration_s": 174.29,
         "audio_size_bytes": 2092139,
         "rendered_at": "2026-07-20T18:12:24.714307+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 182.09,
+        "audio_size_bytes": 2185867,
+        "rendered_at": "2026-07-21T11:05:07.917269+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 166.78,
+        "audio_size_bytes": 2002174,
+        "rendered_at": "2026-07-21T11:38:16.059367+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 173.05,
+        "audio_size_bytes": 2077406,
+        "rendered_at": "2026-07-21T14:29:48.268361+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 180.07,
+        "audio_size_bytes": 2161729,
+        "rendered_at": "2026-07-21T15:04:19.292087+00:00"
       }
     },
     "week": 1
@@ -8130,6 +10362,30 @@
         "duration_s": 128.24,
         "audio_size_bytes": 1539806,
         "rendered_at": "2026-07-20T19:25:47.984502+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 132.15,
+        "audio_size_bytes": 1586513,
+        "rendered_at": "2026-07-21T11:05:27.290641+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 124.14,
+        "audio_size_bytes": 1490591,
+        "rendered_at": "2026-07-21T11:38:34.448088+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 129.53,
+        "audio_size_bytes": 1555166,
+        "rendered_at": "2026-07-21T14:30:07.335911+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 131.21,
+        "audio_size_bytes": 1575228,
+        "rendered_at": "2026-07-21T15:04:38.699642+00:00"
       }
     },
     "audio_rendered_at": "2026-07-20T19:25:47.984516+00:00",
@@ -8214,6 +10470,30 @@
         "duration_s": 123.72,
         "audio_size_bytes": 1485576,
         "rendered_at": "2026-07-20T19:43:43.857416+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 125.6,
+        "audio_size_bytes": 1508146,
+        "rendered_at": "2026-07-21T11:05:46.297671+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 117.69,
+        "audio_size_bytes": 1413165,
+        "rendered_at": "2026-07-21T11:38:52.133774+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 123.72,
+        "audio_size_bytes": 1485576,
+        "rendered_at": "2026-07-21T14:30:26.083916+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 124.21,
+        "audio_size_bytes": 1491532,
+        "rendered_at": "2026-07-21T15:04:57.417491+00:00"
       }
     }
   },
@@ -8296,6 +10576,30 @@
         "duration_s": 127.67,
         "audio_size_bytes": 1532910,
         "rendered_at": "2026-07-20T19:51:38.572885+00:00"
+      },
+      "clyde": {
+        "audio_generated": true,
+        "duration_s": 130.63,
+        "audio_size_bytes": 1568332,
+        "rendered_at": "2026-07-21T11:06:05.403877+00:00"
+      },
+      "nicole": {
+        "audio_generated": true,
+        "duration_s": 121.34,
+        "audio_size_bytes": 1457050,
+        "rendered_at": "2026-07-21T11:39:10.192011+00:00"
+      },
+      "daisy": {
+        "audio_generated": true,
+        "duration_s": 126.93,
+        "audio_size_bytes": 1523819,
+        "rendered_at": "2026-07-21T14:30:45.052429+00:00"
+      },
+      "robert": {
+        "audio_generated": true,
+        "duration_s": 128.06,
+        "audio_size_bytes": 1537612,
+        "rendered_at": "2026-07-21T15:05:16.957523+00:00"
       }
     }
   }

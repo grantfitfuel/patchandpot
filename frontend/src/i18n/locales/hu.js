@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Letöltés sikertelen. Kérjük, próbálja újra.",
   "journal.tags_heading": "Címkék",
   "topics.subscribe_rss": "Feliratkozás RSS-re",
+  "grow.situation.ladder-planter.label": "Létra virágágyás",
+  "grow.situation.ladder-planter.blurb": "Egy megdöntött létra, amelynek rúdjain sekély tálcák találhatók - napfényben, öt szinten fűszerek, saláta és eper fér el egy cserép helyén.",
+  "grow.situation.pallet-vertical.label": "Raklap falikert",
+  "grow.situation.pallet-vertical.blurb": "Egy függőlegesen álló fa raklap borított tájtextillel - minden lécre egy sekély saláta- vagy fűszerzseb kerül. Olcsó, hatalmas termelési terület, gyakori öntözést igényel.",
+  "grow.situation.gutter-garden.label": "Esőcsatorna kert",
+  "grow.situation.gutter-garden.blurb": "Műanyag esőcsatornák hossza egy falra vagy kerítésre rakva - csak 10 cm mély, de tökéletes vágott salátának, újhagymának és sekély gyökérzetű fűszereknek.",
+  "grow.situation.pocket-planter.label": "Zsebes virágágyás",
+  "grow.situation.pocket-planter.blurb": "Egy vászon- vagy filcpanel, amelyen varrt zsebek találhatók, napos falra akasztva - azonnali függőleges kert, erkélykorláton is jól működik.",
+  "grow.situation.trellis-tower.label": "Rácsos torony",
+  "grow.situation.trellis-tower.blurb": "Egy szabadon álló obeliszk, teepee vagy drótorány a mászó növényeknek - bab, borsó, uborka és reggeli dicsőség egy négyzetmétert buja zöld fallá varázsol.",
 
 };
 export default dict;

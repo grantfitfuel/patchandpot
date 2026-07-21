@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "Methodd y llwythiad. Os gwelwch yn dda, ceisiwch eto.",
   "journal.tags_heading": "Tagiau",
   "topics.subscribe_rss": "Cofrestrwch trwy RSS",
+  "grow.situation.ladder-planter.label": "Planhigyn ladder",
+  "grow.situation.ladder-planter.blurb": "Ladder sythiedig gyda thrawst ar bob rhewgyn - yn wynebu'r haul, uchelgais o fethigliaid, salad a mefus yn yr ardal o un pot.",
+  "grow.situation.pallet-vertical.label": "Gardd waliau paled",
+  "grow.situation.pallet-vertical.blurb": "Paled coed wedi ei osod yn syth a leinin gyda ffabrig tirlunio - mae pob plât yn dod yn fom fach ar gyfer salad neu blanhigion. Rhad, ardal gynhyrchiol fawr, mae angen dyfrhau cyson.",
+  "grow.situation.gutter-garden.label": "Gardd gamfa",
+  "grow.situation.gutter-garden.blurb": "Hen gamfau plastig ar yr waliau neu gae - dim ond 10 cm o dywyllwch, ond yn berffaith ar gyfer salad sy'n tyfu'n gyson, cebana and bleiddiaith gwastraff.",
+  "grow.situation.pocket-planter.label": "Planhigyn poced",
+  "grow.situation.pocket-planter.blurb": "Panel crochenydd neu deim blaen wedi'i sewio gyda phocedi, yn hongian ar wal haul - gardd fertigol ar unwaith, mae hefyd yn gweithio'n dda ar ail eiledgar.",
+  "grow.situation.trellis-tower.label": "Tŵr trellis",
+  "grow.situation.trellis-tower.blurb": "Obelisk, tepee neu dwru gwifrau sy'n sefyll i fyny ar gyfer planhigion dringo - ffa, pys, cucwmbr a gogonwdd bore yn troi un metr sgwâr yn wal groen llusg.",
 
 };
 export default dict;

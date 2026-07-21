@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "डाउनलोड असफल। कृपया फिर से प्रयास करें।",
   "journal.tags_heading": "लेबल",
   "topics.subscribe_rss": "आरएसएस के माध्यम से जुड़ें",
+  "grow.situation.ladder-planter.label": "सीढ़ी प्लांटर",
+  "grow.situation.ladder-planter.blurb": "एक झुकी हुई सीढ़ी जिसमें हर डिग्री पर एक उथली ट्रे है - धूप की ओर, एक बर्तन के आकार में पांच स्तरों पर जड़ी-बूटियाँ, सलाद और स्ट्रॉबेरी।",
+  "grow.situation.pallet-vertical.label": "पैलेट दीवार बाग़",
+  "grow.situation.pallet-vertical.blurb": "एक लकड़ी का पैलेट खड़ा किया गया और परिदृश्य कपड़े से लाइन किया गया - हर स्लेट एक उथली सलाद या जड़ी-बूटी की जेब बन जाती है। सस्ता, बड़े उत्पादक क्षेत्र, बार-बार पानी देना पड़ता है।",
+  "grow.situation.gutter-garden.label": "गटर बाग़",
+  "grow.situation.gutter-garden.blurb": "दीवार या बाड़ पर stacked प्लास्टिक बारिश गटर के टुकड़े - केवल 10 सेमी गहरा, लेकिन कटने के लिए बिल्कुल सही सलाद, बसंती प्याज और उथली जड़ वाली जड़ी-बूटियाँ।",
+  "grow.situation.pocket-planter.label": "जेब प्लांटर",
+  "grow.situation.pocket-planter.blurb": "एक कैनवास या फ़िल्ट पैनल जिसमें सजाए गए जेब हैं, एक धूप वाली दीवार पर लटकाए गए - तात्कालिक ऊर्ध्वाधर बाग़, यह बालकनी की रेल पर भी अच्छी तरह से काम करता है।",
+  "grow.situation.trellis-tower.label": "ट्रेलिस टॉवर",
+  "grow.situation.trellis-tower.blurb": "एक स्वतंत्र ओबेलिस्क, टीपी या क्लाइंबर्स के लिए तार टॉवर - बीन्स, मटर, खीरे और सुबह की महिमा एक वर्ग मीटर को हरे रंग की घनी दीवार में बदल देते हैं।",
 
 };
 export default dict;

@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Prenos ni uspel. Poskusite znova.",
   "journal.tags_heading": "Oznake",
   "topics.subscribe_rss": "Naroči se na RSS",
+  "grow.situation.ladder-planter.label": "Lestvica s posodami",
+  "grow.situation.ladder-planter.blurb": "Nagnjena steklena lestvica z plitvimi posodami na vsakem stopnju – obrnjena proti soncu, pet nivojev zelišč, solate in jagodami, v prostoru enega lonca.",
+  "grow.situation.pallet-vertical.label": "Vertikalni vrt iz palet",
+  "grow.situation.pallet-vertical.blurb": "Lesena paleta postavljena pokončno in obložena z geotekstilom – vsak letvica postane plitka pockets za solato ali zelišča. Cenovno ugodno, ogromno produktivno območje, potrebuje pogosto zalivanje.",
+  "grow.situation.gutter-garden.label": "Vrt iz žlebov",
+  "grow.situation.gutter-garden.blurb": "Dolžine plastičnih žlebov, zloženih na steni ali ograji – le 10 cm globoko, a popolno za solato, pomladne čebulice in zelišča s plitkimi koreninami.",
+  "grow.situation.pocket-planter.label": "Džepna posoda",
+  "grow.situation.pocket-planter.blurb": "Platnena ali filcna plošča z všitimi žepi, obešena na sončni steni – takojšnja vertikalna gora, dobro deluje tudi na ograji balkona.",
+  "grow.situation.trellis-tower.label": "Torre s rešetko",
+  "grow.situation.trellis-tower.blurb": "Samostoječi obelisk, tipee ali žična stolpnica za plezalnike – fižol, grah, kumare in jutranja slava spremenijo en kvadratni meter v bujno zeleno steno.",
 
 };
 export default dict;

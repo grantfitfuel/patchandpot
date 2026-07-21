@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Nedlastingen mislyktes. Vennligst prøv igjen.",
   "journal.tags_heading": "Merker",
   "topics.subscribe_rss": "Abonner via RSS",
+  "grow.situation.ladder-planter.label": "Stige planter",
+  "grow.situation.ladder-planter.blurb": "En skråstilt stige med en grunn tray på hver trinn – solvendt, fem nivåer med urter, salat og jordbær i fotavtrykket til en potte.",
+  "grow.situation.pallet-vertical.label": "Pallvegg hage",
+  "grow.situation.pallet-vertical.blurb": "En trepall som står oppreist og er kledd med landskapsstoff – hver spalte blir en grunne lomme for salat eller urter. Billig, stort produktivt område, krever hyppig vanning.",
+  "grow.situation.gutter-garden.label": "Rennende hage",
+  "grow.situation.gutter-garden.blurb": "Lengder av plastregnvannrør stablet på en vegg eller hekk – bare 10 cm dype, men perfekte for salat, vårløk og grunne urter som kan høstes igjen.",
+  "grow.situation.pocket-planter.label": "Lomme planter",
+  "grow.situation.pocket-planter.blurb": "Et panel av lerret eller filt med sydd inn lommer, hengt på en solfylt vegg – en umiddelbar vertikal hage som også fungerer godt på balkongrekkverket.",
+  "grow.situation.trellis-tower.label": "Klatrestativ",
+  "grow.situation.trellis-tower.blurb": "En frittstående obelisk, tepee eller trådtårn for klatreplanter – bønner, erter, agurker og morgenfrue forvandler ett kvadratmeter til en frodig grønn vegg.",
 
 };
 export default dict;

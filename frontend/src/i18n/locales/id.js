@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Unduh gagal. Silakan coba lagi.",
   "journal.tags_heading": "Label",
   "topics.subscribe_rss": "Langganan RSS",
+  "grow.situation.ladder-planter.label": "Pembelian Tangga",
+  "grow.situation.ladder-planter.blurb": "Sebuah tangga miring dengan nampan datar di setiap anak tangga - menghadap sinar matahari, dengan lima tingkat herba, salad, dan stroberi dalam ruang satu pot.",
+  "grow.situation.pallet-vertical.label": "Kebun Dinding Palet",
+  "grow.situation.pallet-vertical.blurb": "Palet kayu yang berdiri tegak dan dilapisi kain lanskap - setiap celah menjadi kantong dangkal untuk salad atau herba. Murah, area produktif yang besar, membutuhkan penyiraman sering.",
+  "grow.situation.gutter-garden.label": "Kebun Talang",
+  "grow.situation.gutter-garden.blurb": "Panjang talang hujan plastik yang dipasang di dinding atau pagar - hanya 10 cm dalam, tetapi sempurna untuk salad yang bisa dipanen ulang, bawang daun dan herba berakar dangkal.",
+  "grow.situation.pocket-planter.label": "Pot Saku",
+  "grow.situation.pocket-planter.blurb": "Panel kanvas atau wol yang dijahit dengan kantong, digantung di dinding yang terkena sinar matahari - kebun vertikal instan, juga bekerja baik di pagar balkon.",
+  "grow.situation.trellis-tower.label": "Menara Trellis",
+  "grow.situation.trellis-tower.blurb": "Obelisk, teepee atau menara kawat yang berdiri sendiri untuk tanaman merambat - kacang, polong, mentimun, dan glory pagi mengubah satu meter persegi menjadi dinding hijau yang subur.",
 
 };
 export default dict;

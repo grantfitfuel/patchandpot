@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Download fejlede. Prøv venligst igen.",
   "journal.tags_heading": "Emner",
   "topics.subscribe_rss": "Abonner via RSS",
+  "grow.situation.ladder-planter.label": "Læderplanter",
+  "grow.situation.ladder-planter.blurb": "En skråtstillet stige med en lav bakke på hvert trin – solvendt, fem niveauer med urter, salat og jordbær i fodaftrykket af én potte.",
+  "grow.situation.pallet-vertical.label": "Pallet væg have",
+  "grow.situation.pallet-vertical.blurb": "En træpalle, der står oprejst og foret med landskabsstof – hver lægte bliver en lav salat- eller urtepocket. Billigt, stort produktivt område, kræver hyppig vanding.",
+  "grow.situation.gutter-garden.label": "Rendehave",
+  "grow.situation.gutter-garden.blurb": "Længder af plastik regnvandsrende stablet på en væg eller hegn – kun 10 cm dyb, men perfekt til 'klip-og-kom-igen' salat, forårsløg og lav-rodsurter.",
+  "grow.situation.pocket-planter.label": "Lommeplanter",
+  "grow.situation.pocket-planter.blurb": "Et panel af lærred eller filt med syede lommer, hængt på en solrig væg – øjeblikkelig vertikal have, fungerer også godt på en altanræling.",
+  "grow.situation.trellis-tower.label": "Trefælle tårn",
+  "grow.situation.trellis-tower.blurb": "En fritstående obelisk, tepee eller trådtårn til klatrere – bønner, ærter, agurker og morgenfruer omdanner ét kvadratmeter til en frodig grøn væg.",
 
 };
 export default dict;

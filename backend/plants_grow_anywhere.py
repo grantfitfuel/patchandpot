@@ -27,6 +27,11 @@ SITUATIONS: list[str] = [
     "hanging-basket",  # trailing, light-weight, dries out fast
     "wall-crevice",    # dry-stone wall pocket, extreme drought
     "vertical-wall",   # living-wall pocket, shallow root zone
+    "ladder-planter",  # tiered step-ladder frame, 4-5 shelf-levels
+    "pallet-vertical", # wooden pallet mounted vertically, slat-pockets
+    "gutter-garden",   # stacked rain gutters — shallow, salads/herbs
+    "pocket-planter",  # felt/canvas pocket panel on a wall
+    "trellis-tower",   # freestanding obelisk / tepee for climbers
     "grow-bag",        # flexible outdoor bag, 20–40 L
     "bucket",          # reused 10–20 L bucket with drainage
     "crate",           # salvaged wooden / plastic crate, 15 cm deep
@@ -45,6 +50,11 @@ SITUATION_LABELS: dict[str, str] = {
     "hanging-basket": "Hanging basket",
     "wall-crevice": "Wall crevice",
     "vertical-wall": "Vertical wall pocket",
+    "ladder-planter": "Ladder planter",
+    "pallet-vertical": "Pallet wall garden",
+    "gutter-garden": "Gutter garden",
+    "pocket-planter": "Pocket planter",
+    "trellis-tower": "Trellis tower",
     "grow-bag": "Grow bag",
     "bucket": "Reused bucket",
     "crate": "Wooden crate",
@@ -229,6 +239,41 @@ def _derive_grow_anywhere(plant: dict) -> list[str]:
         ideal.add("vertical-wall")
     if "trailing" in tags:
         ideal.add("vertical-wall")
+
+    # ladder-planter — tiered ladder frame, each shelf a shallow tray
+    # (herbs, salad, strawberries, compact flowers).
+    if depth <= 25 and litres <= 12 and cat in (
+        "Herb", "Leafy green", "Flower", "Fruit", "Allium", "Sprouts"
+    ):
+        ideal.add("ladder-planter")
+
+    # pallet-vertical — slat pockets ≈ 12 cm deep, sun-facing wall
+    # (herbs, salad, trailing tomato varieties, strawberries).
+    if depth <= 15 and cat in ("Herb", "Leafy green", "Sprouts", "Flower"):
+        ideal.add("pallet-vertical")
+    if "trailing" in tags:
+        ideal.add("pallet-vertical")
+
+    # gutter-garden — stacked rain gutters, ~10 cm deep, drip-fed
+    # (only truly shallow-rooted crops).
+    if depth <= 12 and cat in ("Herb", "Leafy green", "Sprouts", "Allium"):
+        ideal.add("gutter-garden")
+
+    # pocket-planter — felt/canvas pockets, 10–15 cm deep, well-drained
+    # (compact herbs, salad, edible flowers).
+    if depth <= 15 and cat in ("Herb", "Leafy green", "Flower", "Sprouts"):
+        ideal.add("pocket-planter")
+
+    # trellis-tower — a freestanding climbing frame; anything that
+    # actively climbs (peas, beans, cucumbers, climbing squash, jasmine).
+    if "climber" in tags or "climbing" in tags or cat == "Climber":
+        ideal.add("trellis-tower")
+    if plant.get("id") in {
+        "climbing-french-bean", "runner-bean", "pea", "sugar-snap-pea",
+        "mangetout", "cucumber", "gherkin", "sweet-pea", "morning-glory",
+        "nasturtium", "grape", "hops", "passion-flower", "clematis",
+    }:
+        ideal.add("trellis-tower")
 
     # grow bag — heavy feeders / deep roots
     if litres >= 15 or "deep-pot" in tags or cat in ("Squash", "Root", "Vegetable", "Brassica", "Legume"):

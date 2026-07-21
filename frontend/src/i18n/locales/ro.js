@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Descărcarea a eșuat. Te rugăm să încerci din nou.",
   "journal.tags_heading": "Etichete",
   "topics.subscribe_rss": "Abonează-te prin RSS",
+  "grow.situation.ladder-planter.label": "Plante cu scară",
+  "grow.situation.ladder-planter.blurb": "O scară înclinată cu un suport de umplere pe fiecare treaptă - orientată spre soare, cu cinci niveluri de ierburi, salată și căpșuni în spațiul ocupat de o oală.",
+  "grow.situation.pallet-vertical.label": "Grădină verticală din paleți",
+  "grow.situation.pallet-vertical.blurb": "Un palet din lemn stă drept și este captușit cu material pentru peisaj - fiecare șină devine un buzunar superficial pentru salată sau ierburi. Eficient din punct de vedere economic și extrem de productiv, necesită udare frecventă.",
+  "grow.situation.gutter-garden.label": "Grădină cu jgheaburi",
+  "grow.situation.gutter-garden.blurb": "Segmente de jgheaburi de ploaie din plastic stivuite pe un zid sau o plasă - adâncime de doar 10 cm, dar perfecte pentru salată recolectată și ierburi cu rădăcini superficiale.",
+  "grow.situation.pocket-planter.label": "Planter cu buzunare",
+  "grow.situation.pocket-planter.blurb": "Un panou din pânză sau fetru cu buzunare cusute, agățat pe un zid însorit - o grădină verticală instantanee, funcționează bine și pe balustrada unui balcon.",
+  "grow.situation.trellis-tower.label": "Turn cu plasă",
+  "grow.situation.trellis-tower.blurb": "Un obelisc, tepee sau turn cu sârma pentru plante cățărătoare - fasole, mazăre, castraveți și glorii de dimineață transformă un metru pătrat într-un zid luxuriant de verdeață.",
 
 };
 export default dict;

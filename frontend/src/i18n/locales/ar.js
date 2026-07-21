@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "فشل التحميل. يُرجى المحاولة مرة أخرى.",
   "journal.tags_heading": "وسوم",
   "topics.subscribe_rss": "اشترك عبر آر إس إس",
+  "grow.situation.ladder-planter.label": "حديقة السلم",
+  "grow.situation.ladder-planter.blurb": "سلم مائل يحتوي على صينية ضحلة في كل درجة - مواجه للشمس، خمس مستويات من الأعشاب والسلطة والفراولة في مساحة وعاء واحد.",
+  "grow.situation.pallet-vertical.label": "حديقة حائط المنصات",
+  "grow.situation.pallet-vertical.blurb": "منصة خشبية قائمة ومغطاة بقماش المناظر الطبيعية - كل لوح يتحول إلى جيب ضحل للسلطة أو الأعشاب. رخيصة، منطقة إنتاجية كبيرة، تحتاج إلى ري متكرر.",
+  "grow.situation.gutter-garden.label": "حديقة المزاريب",
+  "grow.situation.gutter-garden.blurb": "أطوال من المزاريب البلاستيكية مكدسة على حائط أو سياج - عمقها فقط 10 سم، ولكنها مثالية للسلطة التي يمكن قصها مجددًا، والبصل الأخضر والأعشاب ذات الجذور الضحلة.",
+  "grow.situation.pocket-planter.label": "حديقة الجيوب",
+  "grow.situation.pocket-planter.blurb": "لوحة قماشية أو من شعور مع جيوب مخيطة، معلقة على حائط مشمس - حديقة عمودية فورية، تعمل بشكل جيد أيضًا على سكة شرفة.",
+  "grow.situation.trellis-tower.label": "برج التعريشة",
+  "grow.situation.trellis-tower.blurb": "أوبيلسكي قائم بذاته، خيمة أو برج سلكي للنباتات المتسلقة - الفاصوليا، البازلاء، الخيار والكرمب يتحولون مترًا مربعًا واحدًا إلى جدار مزهر من الأخضر.",
 
 };
 export default dict;

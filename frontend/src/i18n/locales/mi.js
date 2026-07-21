@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "I hinga te tango. Tena koa whakamātauria anō.",
   "journal.tags_heading": "Tānga",
   "topics.subscribe_rss": "Te hanga pānui",
+  "grow.situation.ladder-planter.label": "Pūwaitinga ātea",
+  "grow.situation.ladder-planter.blurb": "He taiepa-pūtea tuia ki runga i ngā rāpihi, e tino marama ana - he rangi e rima mō ngā herbati, pāreti me ngā tīra. Ka taea te whakanoho ki te rahi o tētahi ipu.",
+  "grow.situation.pallet-vertical.label": "Pūtake pātea",
+  "grow.situation.pallet-vertical.blurb": "He pūtake rakau e tū ana, whakawhitihia ki te kākahu whenua - ko ia pou ka noho hei pōti rākau, e tīpako ana mō pāreti me ngā herbati. He iti te utu, he wāhi nui e pā ai, me te whakaū i te wā tonu.",
+  "grow.situation.gutter-garden.label": "Pūnā rangi",
+  "grow.situation.gutter-garden.blurb": "Ngā wāhanga o te pūnā rangi kirihou e pānuihia ana ki te pā, he 10 cm te hohonu, otirā he pai mō ngā pāreti ka kawea anō, ngā riki kūmara me ngā herbati he pūtu kei raro.",
+  "grow.situation.pocket-planter.label": "Pūtea rīhi",
+  "grow.situation.pocket-planter.blurb": "He pānui kanvas, he pānui poaka pai e hākina ana i runga i te pā marama - he tārai ātaahua ātea, he pai hoki mō ngā rīhi i runga i ngā pātau.",
+  "grow.situation.trellis-tower.label": "Tārewa pou",
+  "grow.situation.trellis-tower.blurb": "He pou takirua motuhake, he teepē, he pou wire mō ngā tipu kei te piki - ka riro mai i ngā rīwai, ngā pea, ngā kūmara me ngā puāwai kōwhai, ka waiho hei pātae kākā ātaahua.",
 
 };
 export default dict;

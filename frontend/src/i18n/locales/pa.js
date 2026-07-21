@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "ਡਾਊਨਲੋਡ ਫੇਲ ਹੋ ਗਿਆ। ਕ੍ਰਿਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
   "journal.tags_heading": "ਟੈਗ",
   "topics.subscribe_rss": "RSS ਰਾਹੀਂ ਜੁੜੋ",
+  "grow.situation.ladder-planter.label": "ਸੀੜੀ ਪਲਾਂਟਰ",
+  "grow.situation.ladder-planter.blurb": "ਇਕ ਢਲਲੀ ਸਵੀੜੀ ਜਿਸ ਦੇ ਹਰ ਪਦ੍ਹੇ 'ਤੇ ਇੱਕ ਪੱਧਰ ਦੀ ਟਰੇ ਹੈ - ਸੂਰਜ ਦੀ ਟੋਟਲ, ਜੜਾਂ ਦੇ ਪੈਨੇ 'ਤੇ ਪੰਜ ਪੰਗਤੀਆਂ, ਸਲਾਦ ਅਤੇ ਸਟ੍ਰਾਬੇਰੀਆਂ ਦੇ ਨਾਲ ਇਕ ਪੋਟ ਦੇ ਘੇਰੇ 'ਚ।",
+  "grow.situation.pallet-vertical.label": "ਪੈਲਟ ਵਾਲੀ ਬਾਗਬਾਨੀ",
+  "grow.situation.pallet-vertical.blurb": "ਇੱਕ ਲੱਕੜੀ ਦਾ ਪੈਲਟ ਸਿੱਧਾ ਖੜ੍ਹਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਭੂਮੀਕਾ ਕੱਢਿਆ ਜਾਂਦਾ ਹੈ - ਹਰ ਸਲੈਟ ਇੱਕ ਸਲਾਦ ਜਾਂ ਜڑیਬੂਟੀ ਦੇ ਪੌਦਿਆਂ ਦਾ ਪੈਕੇਟ ਬਣਾ ਦਿੰਦਾ ਹੈ। ਕੀਮਤ ਵਿੱਚ ਸਸਤਾ, ਵੱਡਾ ਉਤਪਾਦਕ ਖੇਤਰ, ਲਗਾਤਾਰ ਪਾਣੀ ਪੀਂਦਾ ਹੈ।",
+  "grow.situation.gutter-garden.label": "ਗੁਟੇ ਦਾ ਬਾਗ",
+  "grow.situation.gutter-garden.blurb": "ਪਲਾਸਟਿਕ ਮੀਂਹ ਗੁਟੇ ਦੀਆਂ ਲੰਬਾਈਆਂ ਇੱਕ ਕੰਧ ਜਾਂ ਕੰਟੇ 'ਤੇ ਸਟੈਕ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ - ਸਿਰਫ 10 ਸੈਂਟੀਮੀਟਰ ਗੂੜ੍ਹਾਈ ਹੈ, ਪਰ ਕੱਟੀ-ਅਤੇ-ਫਿਰ ਜੋੜਨ ਵਾਲੀ ਸਲਾਦ, ਬਸੰਤ ਦੇ ਪੁੱਟੇ ਅਤੇ ਕਮਜ਼ੋਰ ਜੜੀਆਂ ਵਾਲੀਆਂ ਜڑیਬੂਟੀਆਂ ਲਈ ਬਿਹਤਰ ਹੈ।",
+  "grow.situation.pocket-planter.label": "ਜੇਬ ਪਲਾਂਟਰ",
+  "grow.situation.pocket-planter.blurb": "ਇੱਕ ਕੈਨਵਾਸ ਜਾਂ ਫੇਲਟ ਪੈਨਲ ਜਿਸ ਵਿੱਚ ਦ sewnੇ ਹੋਏ ਜੇਬ ਹਨ, ਸੂਰਜੀ ਕੰਧ 'ਤੇ ਲਟਕਾਈਆਂ - ਤੁਰੰਤ ਲੰਬਾ ਬਾਗ, ਬਾਲਕਨੀ ਦੇ ਰੇਲ 'ਤੇ ਵੀ ਚੰਗਾ ਕੰਮ ਕਰਦਾ ਹੈ।",
+  "grow.situation.trellis-tower.label": "ਟ੍ਰੇਲਿਸ ਟਾਵਰ",
+  "grow.situation.trellis-tower.blurb": "ਇੱਕ ਖੜੀ ਓਬਲਿਸਕ, ਟੀਪੀ ਜਾਂ ਤਾਰ ਦਾ ਟਾਵਰ ਚੜ੍ਹਾਈਆਂ ਲਈ - ਫਲੀਅਾਂ, ਮਟਰ, ਕੋਂਦੂ, ਅਤੇ ਸਵੇਰੇ ਦੀ ਰੋਸ਼ਨੀ ਇੱਕ ਚੌਕ ਕੋਣ ਨੂੰ ਹਰੇ ਭਰੇ ਦੀਵਾਲ ਵਿੱਚ ਬਦਲ ਦਿੰਦੇ ਹਨ।",
 
 };
 export default dict;

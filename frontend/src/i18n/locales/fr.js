@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "Échec du téléchargement. Veuillez réessayer.",
   "journal.tags_heading": "Étiquettes",
   "topics.subscribe_rss": "Abonnez-vous par RSS",
+  "grow.situation.ladder-planter.label": "Jardin en échelle",
+  "grow.situation.ladder-planter.blurb": "Une échelle inclinée avec un plateau peu profond sur chaque marche — orientée vers le soleil, cinq niveaux d'herbes, de salades et de fraises dans l'espace d'un pot.",
+  "grow.situation.pallet-vertical.label": "Jardin mural enpalette",
+  "grow.situation.pallet-vertical.blurb": "Une palette en bois dressée et doublée de tissu paysager — chaque latte devient un petit pocket pour salades ou herbes. Économique, grande surface productive, nécessite un arrosage fréquent.",
+  "grow.situation.gutter-garden.label": "Jardin de gouttières",
+  "grow.situation.gutter-garden.blurb": "Des longueurs de gouttière en plastique empilées sur un mur ou une clôture — seulement 10 cm de profondeur, parfait pour la salade à couper, les oignons verts et les herbes à racines peu profondes.",
+  "grow.situation.pocket-planter.label": "Jardin en poches",
+  "grow.situation.pocket-planter.blurb": "Un panneau en toile ou en feutre avec des poches cousues, suspendu à un mur ensoleillé — un jardin vertical instantané, idéal aussi pour un balcon.",
+  "grow.situation.trellis-tower.label": "Tour treillis",
+  "grow.situation.trellis-tower.blurb": "Un obélisque, une tige ou une tour de fil libre pour plantes grimpantes — haricots, pois, concombres et belle-de-jour transforment un mètre carré en un mur luxuriant de verdure.",
 
 };
 export default dict;

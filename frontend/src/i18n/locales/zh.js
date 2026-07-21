@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "下载失败。请再试一次。",
   "journal.tags_heading": "标签",
   "topics.subscribe_rss": "通过 RSS 订阅",
+  "grow.situation.ladder-planter.label": "梯子种植箱",
+  "grow.situation.ladder-planter.blurb": "一个倾斜的梯子，每个梯级上放置一个浅托盘——朝阳而立，五层草药、沙拉和草莓占据了一个花盆的空间。",
+  "grow.situation.pallet-vertical.label": "木托盘墙园",
+  "grow.situation.pallet-vertical.blurb": "一个竖立的木托盘，内衬园艺布——每个木条都成为一个浅浅的沙拉或草药口袋。便宜，产量大，但需要频繁浇水。",
+  "grow.situation.gutter-garden.label": "水槽花园",
+  "grow.situation.gutter-garden.blurb": "一段段塑料雨水水槽叠在墙上或栅栏上——仅10厘米深，但非常适合连续收割的沙拉、春洋葱和浅根草药。",
+  "grow.situation.pocket-planter.label": "口袋种植箱",
+  "grow.situation.pocket-planter.blurb": "一个挂在阳光充足的墙上的帆布或毡子面板，缝有多个口袋——立刻变成垂直花园，也非常适合阳台栏杆。",
+  "grow.situation.trellis-tower.label": "藤架塔",
+  "grow.situation.trellis-tower.blurb": "一个独立的尖塔、帐篷或铁丝塔，用于攀缘植物——豆类、豌豆、黄瓜和喇叭花让一平方米变成丰盛的绿色墙面。",
 
 };
 export default dict;

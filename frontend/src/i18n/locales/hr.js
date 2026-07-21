@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "Preuzimanje nije uspjelo. Pokušajte ponovno.",
   "journal.tags_heading": "Oznake",
   "topics.subscribe_rss": "Pretplatite se na RSS",
+  "grow.situation.ladder-planter.label": "Sustav s ljestvama",
+  "grow.situation.ladder-planter.blurb": "Nagnuta ljestva s plitkom posudom na svakom prečku – okrenuta prema suncu, pet nivoa začinskog bilja, salate i jagoda u prostoru jednog lonca.",
+  "grow.situation.pallet-vertical.label": "Vertikalni vrt s paletama",
+  "grow.situation.pallet-vertical.blurb": "Drvena paleta postavljena uspravno i obložena geotekstilom – svaka letvica postaje plitka džepna posuda za salatu ili začinsko bilje. Jeftino, veliko proizvodno područje, zahtijeva često zalijevanje.",
+  "grow.situation.gutter-garden.label": "Vrt u odvodu",
+  "grow.situation.gutter-garden.blurb": "Dužine plastičnih odvodnih cijevi postavljenih na zid ili ogradu – samo 10 cm duboke, ali savršene za salatu, mladi luk i začinsko bilje s plitkim korijenjem.",
+  "grow.situation.pocket-planter.label": "Džepni planter",
+  "grow.situation.pocket-planter.blurb": "Platnena ili filcana ploča s šivenim džepovima, obješljena na sunčanom zidu – trenutni vertikalni vrt, dobro funkcionira i na ogradama balkona.",
+  "grow.situation.trellis-tower.label": "Toranj s rešetkom",
+  "grow.situation.trellis-tower.blurb": "Samostojeći obelisk, tupi ili žičani toranj za puzavice – grah, grašak, krastavci i jutarnja slava pretvaraju jedan kvadratni metar u bujnu zelenu zid.",
 
 };
 export default dict;

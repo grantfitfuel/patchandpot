@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Ներբեռնումը ձախողվեց։ Վերս փորձեք։",
   "journal.tags_heading": "պիտակներ",
   "topics.subscribe_rss": "Բաժանորդագրվել RSS-ով",
+  "grow.situation.ladder-planter.label": "Լադերային բույսեր",
+  "grow.situation.ladder-planter.blurb": "倾斜的梯子，每个横档上都有浅托盘——面对阳光的五层香草、沙拉和草莓，只有一个花盆的空间。",
+  "grow.situation.pallet-vertical.label": "Պալետային պարտեզ",
+  "grow.situation.pallet-vertical.blurb": "Առաջի ծալքի վրա վերցրած փայտյա պալետ, որը ծածկված է բնապատկերային մանրաթելով——յուրաքանչյուր միջքաղաքային ծառը դարձել է մակերևութային աղցանի կամ խոտաբույսերի գPocket: Խիստ, մեծ արտադրական տարածություն, հաճախակի ոռոգման կարիք ունի.",
+  "grow.situation.gutter-garden.label": "Թաղամասային պարտեզ",
+  "grow.situation.gutter-garden.blurb": "Պլաստիկ անձրևի խողովակների երկարություններ, stacked on a wall or fence—— միայն 10 սանտիմետր խորություն, բայց կատարյալ կտրել գա-գալով աղցանի համար, գարնան բամբակներ և մակերեսային արմատավոր խոտաբույսեր.",
+  "grow.situation.pocket-planter.label": "Գրպանային բույսեր",
+  "grow.situation.pocket-planter.blurb": "Արտաքին գործվածք կամ գուլպաների ծածկը, որը առնալ է արեւոտ պատին——կայծակնային բարձունքային պարտեզ, նաև լավ է աշխատում բալկոնային սանդուղքի մեջ.",
+  "grow.situation.trellis-tower.label": "Բրետելային աշտարակ",
+  "grow.situation.trellis-tower.blurb": "Անկախ բուրվառ, տեպե կամ մետաղյա աշտարակ՝ բարձրացված բույսերի համար—— լոբի, շլվեր, վարունգ և առավոտյան փառք մեկ քառակուսի մետր վերածում են կանաչի ծաղկավոր պատի.",
 
 };
 export default dict;

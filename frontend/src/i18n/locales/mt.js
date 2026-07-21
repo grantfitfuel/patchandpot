@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Niżżil fallit. Jekk jogħġbok ipprova mill-ġdid.",
   "journal.tags_heading": "Etiqueta",
   "topics.subscribe_rss": "Aboneo fl-RSS",
+  "grow.situation.ladder-planter.label": "Pjanċa ta' Sbir",
+  "grow.situation.ladder-planter.blurb": "Pjanċa b'gradini tilted b' trays shallows f'rang — immur sinjura, ħames livelli ta' ħwienet, salat u fraħ f'żona ta' pot wieħed.",
+  "grow.situation.pallet-vertical.label": "Gardina bil-pallet",
+  "grow.situation.pallet-vertical.blurb": "Pallet tal-injam mibdula u mgħammra bl-materjal tal-kampanja — kull slat issir pocket shalli għal salad jew ħwienet. Għażla ekonomika, żona produttiva kbira, teħtieġ ilma spiss.",
+  "grow.situation.gutter-garden.label": "Gardina tal-gutter",
+  "grow.situation.gutter-garden.blurb": "Twassal ta' gutter tal-plastik imqiegħed fuq ħajt jew ħajt ta' siġar — biss 10 ċm fond, iżda perfetta għal salad li tinqala' u lil hinn, xibi ħwejjeġ u ħwienet b'raí shallow.",
+  "grow.situation.pocket-planter.label": "Pjanċa bil-pockets",
+  "grow.situation.pocket-planter.blurb": "Panel tal-kanvas jew felt imwaħħal b'pockets, imqiegħed fuq ħajt xemx — ġnien vertikali immedjat, jaħdem tajjeb fuq raġġ tal-balconi wkoll.",
+  "grow.situation.trellis-tower.label": "Torri tal-Trellis",
+  "grow.situation.trellis-tower.blurb": "Obelisk li jindika lilu nnufu li jistrieħu, tepee jew torri tal-ħabel għal bibien — faqqas, l-uċuh u l-cucumbers mgħammdin ħaġa b'ħammi ta' dwaħri.",
 
 };
 export default dict;

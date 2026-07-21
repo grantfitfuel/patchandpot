@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Stiahnutie zlyhalo. Skúste to prosím znova.",
   "journal.tags_heading": "Štítky",
   "topics.subscribe_rss": "Prihlásiť sa na RSS",
+  "grow.situation.ladder-planter.label": "Rebríkový kvetináč",
+  "grow.situation.ladder-planter.blurb": "Naklonený rebrík s plytkou miskou na každom stupni - na slnku, päť poschodí byliniek, šalátu a jahôd na ploche jedného kvetináča.",
+  "grow.situation.pallet-vertical.label": "Stenová záhrada z paliet",
+  "grow.situation.pallet-vertical.blurb": "Drevená paleta postavená vzpriamene a vystlaná textíliou - každá latka sa stáva plytkým vreckom na šalát alebo bylinky. Lacná, veľká produktívna plocha, potrebuje časté zalievanie.",
+  "grow.situation.gutter-garden.label": "Záhrada z žľabov",
+  "grow.situation.gutter-garden.blurb": "Úseky plastového odvodňovacieho žľabu usporiadané na stene alebo plote - len 10 cm hlboké, ale ideálne pre šalát, jarnú cibuľku a bylinky s plytkými koreňmi.",
+  "grow.situation.pocket-planter.label": "Vreckový kvetináč",
+  "grow.situation.pocket-planter.blurb": "Pohľadnicová alebo filcová panel s prišitými vreckami, zavesený na slnečnej stene - okamžitá vertikálna záhrada, dobre funguje aj na balkónovom zábradlí.",
+  "grow.situation.trellis-tower.label": "Trelisová veža",
+  "grow.situation.trellis-tower.blurb": "Samostatná obelisk, teepee alebo drôtená veža pre popínavé rastliny - fazuľa, hrášok, uhorky a ranná sláva premieňajú jeden štvorcový meter na bujnú zeleň.",
 
 };
 export default dict;

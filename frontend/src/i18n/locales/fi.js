@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Lataus epäonnistui. Yritä uudelleen.",
   "journal.tags_heading": "Tunnisteet",
   "topics.subscribe_rss": "Tilaa RSS:llä",
+  "grow.situation.ladder-planter.label": "Portaanviljaaja",
+  "grow.situation.ladder-planter.blurb": "Kalteva askelportaat, jossa joka tasolla on matala astia — auringon suuntaan, viisi kerrosta yrttejä, salaattia ja mansikoita yhden ruukun pinta-alalla.",
+  "grow.situation.pallet-vertical.label": "Palletti seinäpuutarha",
+  "grow.situation.pallet-vertical.blurb": "Pystyyn asetettu puupalleti, johon on vuorattu maisemakangas — jokaisesta laudasta tulee matala salaatti- tai yrttitasku. Halpa, suuri tuottava alue, tarvitsee usein kastelua.",
+  "grow.situation.gutter-garden.label": "Syvennyspuutarha",
+  "grow.situation.gutter-garden.blurb": "Muovisia sadevesikouruja pinottuna seinälle tai aidalle — vain 10 cm syviä, mutta täydellisiä jatkuvasti leikattavalle salaatille, kevätSipulille ja matalajuurisille yrteille.",
+  "grow.situation.pocket-planter.label": "Taskuistuin",
+  "grow.situation.pocket-planter.blurb": "Kangaspaneeli, jossa on ommeltuja taskuja, ripustettuna aurinkoiselle seinälle — heti valmis pystypuutarha, toimii myös parvekkeen kaiteen päällä.",
+  "grow.situation.trellis-tower.label": "Tukitorni",
+  "grow.situation.trellis-tower.blurb": "Itsenäinen obeliski, teltta tai rautatuki köynnöksille — pavut, herneet, kurkku ja aamuhohtokukka muuttavat yhden neliömetrin vehreäksi seinäksi.",
 
 };
 export default dict;

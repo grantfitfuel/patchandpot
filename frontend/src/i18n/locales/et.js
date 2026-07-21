@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "Allalaadimine ebaõnnestus. Palun proovi uuesti.",
   "journal.tags_heading": "Märgid",
   "topics.subscribe_rss": "Telli RSS kaudu",
+  "grow.situation.ladder-planter.label": "Redeli istutaja",
+  "grow.situation.ladder-planter.blurb": "Kaldus redel, mille igal astmel on madal kandik — päikese poole suunatud, viis taset ürte, salateid ja maasikaid ühe poti suuruses.",
+  "grow.situation.pallet-vertical.label": "Palleti seinagarden",
+  "grow.situation.pallet-vertical.blurb": "Püstine puidust palett, mille taga on maapinna kangas — iga riba muutub madalaks salati- või ürdikotiks. Odav, suur tootmisala, vajab sagedast kastmist.",
+  "grow.situation.gutter-garden.label": "Vihmavee toru aed",
+  "grow.situation.gutter-garden.blurb": "Plastikust vihmavee torud, mis on seinale või aiapuule asetatud — vaid 10 cm sügavad, kuid ideaalsed lõike- ja tagasikasvatatavate salatite, roheline sibula ja madala juurestikuga ürtide jaoks.",
+  "grow.situation.pocket-planter.label": "Tasku istutaja",
+  "grow.situation.pocket-planter.blurb": "Kanvasest või villast paneel, mille sisepind on õmmeldud taskutega, riputatud päikesepoolsele seintele — kohene vertikaalne aed, töötab hästi ka rõdu piiril.",
+  "grow.situation.trellis-tower.label": "Rips- torn",
+  "grow.situation.trellis-tower.blurb": "Iseseisev obelisk, tepee või traadi torn ronijatele — oad, herned, kurk ja hommikune ilu muudavad ühe ruutmeetri lopsakaks roheliseks seinaks.",
 
 };
 export default dict;

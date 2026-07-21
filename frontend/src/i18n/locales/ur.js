@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "ڈاؤن لوڈ ناکام ہوگیا۔ براہ کرم دوبارہ کوشش کریں۔",
   "journal.tags_heading": "ٹیگ ز",
   "topics.subscribe_rss": "آر ایس ایس کے ذریعے سبسکرائب کریں",
+  "grow.situation.ladder-planter.label": "سیڑھی کا پھولدار",
+  "grow.situation.ladder-planter.blurb": "ایک جھکی ہوئی سیڑھی جس کے ہر زینے پر ایک سموچ برتن ہے — سورج کی طرف، جڑی بوٹیوں، سلاد اور اسٹرابیری کے پانچ درجات ایک برتن کی جگہ پر.",
+  "grow.situation.pallet-vertical.label": "پالیٹ دیوار باغ",
+  "grow.situation.pallet-vertical.blurb": "ایک لکڑی کا پالیٹ عمودی کھڑا ہوا اور زمین کی تہہ سے بھرا ہوا — ہر سلاٹ ایک جڑی بوٹی یا سلاد کی جیب بن جاتی ہے. سستا، بڑی پیداوار کی جگہ، بار بار پانی کی ضرورت ہے.",
+  "grow.situation.gutter-garden.label": "گٹر باغ",
+  "grow.situation.gutter-garden.blurb": "پلاسٹک کی بارش کا گٹر دیوار یا باڑ پر لگے رہے — صرف 10 سینٹی میٹر گہرا، لیکن کاٹنے اور پھر بڑھنے والے سلاد، بہار کی پیاز اور کم جڑوں والی جڑی بوٹیوں کے لیے بہترین ہے.",
+  "grow.situation.pocket-planter.label": "پاکٹ پھولدار",
+  "grow.situation.pocket-planter.blurb": "کینوس یا نرم مواد کے پینل پر سیون والے پاکٹس، سورج دار دیوار پر لٹکے ہوئے — فوری عمودی باغ، یہ بیلکنی کی ریل پر بھی اچھا کام کرتا ہے.",
+  "grow.situation.trellis-tower.label": "ٹریلس ٹاور",
+  "grow.situation.trellis-tower.blurb": "ایک خود کھڑا اوبلیسک، ٹیپی یا تار کا ٹاور چڑھنے والوں کے لیے — پھلیاں، مٹر، کھیرے اور صبح کا جلیبی ایک مربع میٹر کو ہری دیوار میں تبدیل کردیتے ہیں.",
 
 };
 export default dict;

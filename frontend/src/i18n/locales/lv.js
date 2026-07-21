@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Lejupielāde neizdevās. Lūdzu, mēģiniet vēlreiz.",
   "journal.tags_heading": "Etiķetes",
   "topics.subscribe_rss": "Pievienojies RSS",
+  "grow.situation.ladder-planter.label": "Kāpu plaukts",
+  "grow.situation.ladder-planter.blurb": "Tīklalpā ar vieglu plauktu katrā pakāpienā — saulē vērsta, piecu līmeņu garšaugi, salāti un zemeņu stādus šķiet vienā podā.",
+  "grow.situation.pallet-vertical.label": "Pallet dārzkopība",
+  "grow.situation.pallet-vertical.blurb": "Koka palete stāv uz augšu un ir izklāta ar ainavas audumu — katrs dēlis kļūst par seklas salātu vai garšaugu kabatu. Lēti, liela ražīga zona, prasa biežu laistīšanu.",
+  "grow.situation.gutter-garden.label": "Notekūdeņu dārzs",
+  "grow.situation.gutter-garden.blurb": "Plastmasas lietus notekcaurules, kas sakrautas pie sienas vai žoga — tikai 10 cm dziļš, bet lieliski piemērots kuņa savācamiem salātiem, pavasara sīpoliem un seklām garšvielām.",
+  "grow.situation.pocket-planter.label": "Kabatas stādītājs",
+  "grow.situation.pocket-planter.blurb": "Kanvas vai filca panelis ar iespējotiem kabatām, kas pakārts saulainā sienā — tūlītēja vertikālā dārzkopība, lieliski strādā arī uz balkona margām.",
+  "grow.situation.trellis-tower.label": "Trellis tornis",
+  "grow.situation.trellis-tower.blurb": "Stāvoša obeliska, tepee vai stieples torņa forma nospraužējiem — pupas, zirņi, gurķi un rīta slava pārvērš vienu kvadrātmetru par greznu zaļumu sienu.",
 
 };
 export default dict;

@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Tharla earráid le híoslódáil. Déan iarracht arís.",
   "journal.tags_heading": "Clibeanna",
   "topics.subscribe_rss": "Cláraigh trí RSS",
+  "grow.situation.ladder-planter.label": "Ladder planter",
+  "grow.situation.ladder-planter.blurb": "A tilted step-ladder with a shallow tray on each rung – perfect for sun-loving herbs, salad greens, and strawberries, all within the space of one pot.",
+  "grow.situation.pallet-vertical.label": "Pallet wall garden",
+  "grow.situation.pallet-vertical.blurb": "An upright wooden pallet lined with landscape fabric – each slat forms a pocket for fresh salads or herbs. It's economical and creates a large growing area, just remember to water frequently.",
+  "grow.situation.gutter-garden.label": "Gutter garden",
+  "grow.situation.gutter-garden.blurb": "Rows of plastic rain gutters mounted on a wall or fence – only 10 cm deep, but ideal for cut-and-come-again salads, spring onions, and shallow-rooted herbs.",
+  "grow.situation.pocket-planter.label": "Pocket planter",
+  "grow.situation.pocket-planter.blurb": "A canvas or felt panel filled with sewn-in pockets, easily hung on a sunny wall – an instant vertical garden that also fits nicely on a balcony rail.",
+  "grow.situation.trellis-tower.label": "Trellis tower",
+  "grow.situation.trellis-tower.blurb": "A freestanding obelisk, tepee, or wire tower designed for climbing plants – enjoy lush greenery from beans, peas, cucumbers, and morning glories, all thriving in just one square metre.",
 
 };
 export default dict;

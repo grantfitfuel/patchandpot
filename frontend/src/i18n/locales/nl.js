@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Download mislukt. Probeer het alstublieft opnieuw.",
   "journal.tags_heading": "Labels",
   "topics.subscribe_rss": "Volg via RSS",
+  "grow.situation.ladder-planter.label": "Ladder planter",
+  "grow.situation.ladder-planter.blurb": "Een hellende trapladder met een ondiepe bak op elke trede — zonzijde, vijf niveaus van kruiden, salade en aardbeien in de ruimte van één pot.",
+  "grow.situation.pallet-vertical.label": "Pallet wandtuin",
+  "grow.situation.pallet-vertical.blurb": "Een houten pallet rechtop gezet en bekleed met landschapsdoek — elke lat wordt een ondiepe zak voor salade of kruiden. Goedkoop, grote productieve ruimte, heeft regelmatig water nodig.",
+  "grow.situation.gutter-garden.label": "Goot tuin",
+  "grow.situation.gutter-garden.blurb": "Lussen van plastic regenpijp gestapeld op een muur of schutting — slechts 10 cm diep, maar perfect voor snij- en terugkomende salade, lente-uitjes en ondiep wortelende kruiden.",
+  "grow.situation.pocket-planter.label": "Zak planter",
+  "grow.situation.pocket-planter.blurb": "Een canvas of vilt paneel met ingenaaide zakken, op een zonnige muur gehangen — directe verticale tuin, werkt ook goed op een balkonrand.",
+  "grow.situation.trellis-tower.label": "Trellis toren",
+  "grow.situation.trellis-tower.blurb": "Een vrijstaande obelisk, tipi of draad toren voor klimplanten — bonen, erwten, komkommers en ochtendglorie maken van één vierkante meter een weelderige groene muur.",
 
 };
 export default dict;

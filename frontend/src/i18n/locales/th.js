@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "การดาวน์โหลดล้มเหลว กรุณาลองอีกครั้ง",
   "journal.tags_heading": "ป้าย",
   "topics.subscribe_rss": "ติดตามผ่าน RSS",
+  "grow.situation.ladder-planter.label": "แผงต้นไม้ระดับบันได",
+  "grow.situation.ladder-planter.blurb": "บันไดเอียงที่มีถาดตื้นอยู่บนแต่ละขั้น — เหมาะสำหรับพืชสมุนไพร สลัด และสตรอว์เบอร์รี่ในพื้นที่เท่ากับกระถางหนึ่งใบ.",
+  "grow.situation.pallet-vertical.label": "สวนผนังจากพาเลท",
+  "grow.situation.pallet-vertical.blurb": "พาเลทไม้ที่ตั้งตรงและปูด้วยผ้าเพื่อการจัดสวน — ทุกซี่กลายเป็นกระเป๋าสำหรับวัชพืชหรือผักสลัดที่มีพื้นที่มากและราคาประหยัด แต่ต้องรดน้ำบ่อย.",
+  "grow.situation.gutter-garden.label": "สวนรางน้ำ",
+  "grow.situation.gutter-garden.blurb": "รางน้ำพลาสติกที่เรียงซ้อนบนผนังหรือรั้ว — ลึกแค่ 10 ซม. แต่เหมาะสำหรับสลัดที่ตัดแล้วเติบโตใหม่ หอมสีเขียว และสมุนไพรที่มีรากตื้น.",
+  "grow.situation.pocket-planter.label": "กระถางกระเป๋า",
+  "grow.situation.pocket-planter.blurb": "แผ่นผ้าใบหรือผ้าวูล ที่มีช่องเย็บติดกันและแขวนบนผนังที่มีแสงแดด — สวนแนวตั้งทันที ที่ใช้ได้ดีในการวางบนรั้วระเบียง.",
+  "grow.situation.trellis-tower.label": "หอคอยตาข่าย",
+  "grow.situation.trellis-tower.blurb": "โครงสร้างอิสระประเภทโอบลิสก์ เต็นท์ หรือหอคอยลวดสำหรับพืชเลื้อย — ถั่ว ข้าวโพด และกล้วยไม้สามารถเปลี่ยนพื้นที่หนึ่งตารางเมตรให้กลายเป็นผนังสีเขียวที่อุดมสมบูรณ์.",
 
 };
 export default dict;

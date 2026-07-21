@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Yükləmə alınmadı. Zəhmət olmasa, yenidən cəhd edin.",
   "journal.tags_heading": "Etiketlər",
   "topics.subscribe_rss": "RSS ilə Abunə Olun",
+  "grow.situation.ladder-planter.label": "Dəmirçiyə planlaşdırıcı",
+  "grow.situation.ladder-planter.blurb": "Hər pilləsində düz tray olan əyilmiş addım merdiveni — günə baxan, bir qazan sahəsində beş qat ədviyyat, salat və çiyələklər.",
+  "grow.situation.pallet-vertical.label": "Palet divar bağı",
+  "grow.situation.pallet-vertical.blurb": "Düz qaldırılmış taxta palet və landşaft parçası ilə örtülmüş — hər bir taxta, az dərin salat və ya ədviyyat cibləri halına gəlir. Ucuz, geniş məhsuldar sahə, tez-tez su vermək lazımdır.",
+  "grow.situation.gutter-garden.label": "Kanala bağı",
+  "grow.situation.gutter-garden.blurb": "Divar və ya hasarda yığılan plastik yağış kanalları — yalnız 10 sm dərin, amma təzə salat, yaz soğanı və az köklü ədviyyat üçün mükəmməl.",
+  "grow.situation.pocket-planter.label": "Cib planlaşdırıcısı",
+  "grow.situation.pocket-planter.blurb": "Gün işığında asılmış, içində cib olan kanvas və ya hissə paneli — ani vertikal bağ, balkon dəmirinə də yaxşı işləyir.",
+  "grow.situation.trellis-tower.label": "Çitə turu",
+  "grow.situation.trellis-tower.blurb": "İstədiyiniz şəkildəki sərbəst dayanan, tepee və ya naqil turu - lobya, noxud, xiyar və səhər gözəl çiçəyi bir kvadrat metrlik sahəni sıx yaşıl divara çevirir.",
 
 };
 export default dict;

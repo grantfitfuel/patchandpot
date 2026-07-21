@@ -1041,6 +1041,16 @@ const dict = {
   "journal.export_error": "N nabigo ang pag-download. Mangyaring subukan muli.",
   "journal.tags_heading": "Mga Tag",
   "topics.subscribe_rss": "Sundin sa RSS",
+  "grow.situation.ladder-planter.label": "Paghahatin ng hagdang-hagdang",
+  "grow.situation.ladder-planter.blurb": "Isang nakatagilid na hagdang-hagdang na may mababaw na tray sa bawat baitang — nakaharap sa araw, limang antas ng mga herbs, salad at strawberries sa espasyo ng isang paso.",
+  "grow.situation.pallet-vertical.label": "Pader ng paleta",
+  "grow.situation.pallet-vertical.blurb": "Isang kahoy na paleta na nakatayo ng patayo at may lining ng landscape fabric — bawat slat ay nagiging mababaw na pocket para sa salad o herbs. Mura at may malaking produktibong espasyo, nangangailangan ng madalas na pagdidilig.",
+  "grow.situation.gutter-garden.label": "Hardin sa gutter",
+  "grow.situation.gutter-garden.blurb": "Mga piraso ng plastik na rain gutter na naka-stack sa isang pader o bakod — 10 cm lang ang lalim, pero perpekto para sa cut-and-come-again na salad, sibuyas at mababaw na ugat na mga herbs.",
+  "grow.situation.pocket-planter.label": "Pocket planter",
+  "grow.situation.pocket-planter.blurb": "Isang canvas o felt panel na may mga nakatahi na bulsa, nakasabit sa maliwanag na pader — agarang vertical na hardin, mahusay din sa railing ng balkonahe.",
+  "grow.situation.trellis-tower.label": "Torre ng trellis",
+  "grow.situation.trellis-tower.blurb": "Isang nakatayo na obelisk, tepee o wire tower para sa mga umakyat — mga beans, peas, pipino at morning glory ay ginagawang isang lupit na berdeng pader sa isang metro kwadrado.",
 
 };
 export default dict;

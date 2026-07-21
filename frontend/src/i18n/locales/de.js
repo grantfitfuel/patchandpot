@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "Download fehlgeschlagen. Bitte versuchen Sie es erneut.",
   "journal.tags_heading": "Schlagworte",
   "topics.subscribe_rss": "Über RSS abonnieren",
+  "grow.situation.ladder-planter.label": "Leiterpflanzgefäß",
+  "grow.situation.ladder-planter.blurb": "Eine geneigte Leiter mit einer flachen Schale auf jeder Sprosse – sonnenzugewandt, fünf Ebenen mit Kräutern, Salat und Erdbeeren im Fußabdruck eines Blumentopfs.",
+  "grow.situation.pallet-vertical.label": "Pallet-Wandgarten",
+  "grow.situation.pallet-vertical.blurb": "Ein Holz-Palett, aufrecht und mit Landschaftsgewebe ausgekleidet – jede Latte wird zur flachen Tasche für Salat oder Kräuter. Preiswert, große Anbaufläche, benötigt häufiges Gießen.",
+  "grow.situation.gutter-garden.label": "Rinnengarten",
+  "grow.situation.gutter-garden.blurb": "Längen von Kunststoffregenrinnen, an einer Wand oder einem Zaun gestapelt – nur 10 cm tief, aber perfekt für Schnittsalat, Frühlingszwiebeln und flachwurzelnde Kräuter.",
+  "grow.situation.pocket-planter.label": "Taschenpflanzgefäß",
+  "grow.situation.pocket-planter.blurb": "Ein Canvas- oder Filzpanel mit eingenähten Taschen, an einer sonnigen Wand aufgehängt – sofortiger vertikaler Garten, funktioniert auch gut an einem Balkongeländer.",
+  "grow.situation.trellis-tower.label": "Rankenständer",
+  "grow.situation.trellis-tower.blurb": "Ein freistehender Obelisk, Tipi oder ein Drahtturm für Kletterpflanzen – Bohnen, Erbsen, Gurken und Winde verwandeln einen Quadratmeter in eine üppige grüne Wand.",
 
 };
 export default dict;

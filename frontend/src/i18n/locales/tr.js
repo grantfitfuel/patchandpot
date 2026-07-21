@@ -1040,6 +1040,16 @@ const dict = {
   "journal.export_error": "İndirme başarısız oldu. Lütfen tekrar deneyin.",
   "journal.tags_heading": "Etiketler",
   "topics.subscribe_rss": "RSS ile Abone Ol",
+  "grow.situation.ladder-planter.label": "Merdiven saksısı",
+  "grow.situation.ladder-planter.blurb": "Güneş yönünde eğik bir basamak merdiven, her basamakta sığ bir tepsi ile birlikte - beş katlı, bir saksının ayak izinde otlar, salata ve çilekler.",
+  "grow.situation.pallet-vertical.label": "Palet duvar bahçesi",
+  "grow.situation.pallet-vertical.blurb": "Dikey olarak yerleştirilmiş bir ahşap palet ve peyzaj kumaşı ile kaplanmış - her slat, sığ bir salata veya ot cebi haline gelir. Ekonomik, geniş üretim alanı, sık sulama gerektirir.",
+  "grow.situation.gutter-garden.label": "Gider bahçesi",
+  "grow.situation.gutter-garden.blurb": "Bir duvara veya fencede istiflenmiş plastik yağmur olukları - yalnızca 10 cm derinliğinde, ancak hasat yapıp tekrar büyüyen salata, taze soğan ve sığ köklü otlar için mükemmeldir.",
+  "grow.situation.pocket-planter.label": "Cep saksısı",
+  "grow.situation.pocket-planter.blurb": "Güneşli bir duvara asılmış dikişli ceplerden oluşan bir kanvas veya keçe panel - anında dikey bahçe, balkon korkuluğunda da iyi çalışıyor.",
+  "grow.situation.trellis-tower.label": "Tırmanma kulesi",
+  "grow.situation.trellis-tower.blurb": "Tırmanıcılar için bağımsız bir obelisk, tepe veya tel kulesi - fasulyeler, bezelyeler, salatalıklar ve sabah görkemi, bir metrekareyi yeşil bir duvar haline getiriyor.",
 
 };
 export default dict;

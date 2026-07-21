@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Aiheet",
   "nav.popular": "AIHEET",
   "nav.calm": "Käynnistä",
+  "journal.export_cta": "Lataa PDF-muodossa",
+  "journal.export_pending": "Valmistellaan…",
+  "journal.export_error": "Lataus epäonnistui. Yritä uudelleen.",
 
 };
 export default dict;

@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "தலவுகள்",
   "nav.popular": "கேள்விகள்",
   "nav.calm": "அமைதி",
+  "journal.export_cta": "PDF உருவாக்கவும்",
+  "journal.export_pending": "செய்ய prepping...",
+  "journal.export_error": "பரிமாற்றம் தோல்வி. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.",
 
 };
 export default dict;

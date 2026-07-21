@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Témata",
   "nav.popular": "Otázky",
   "nav.calm": "Dýchání",
+  "journal.export_cta": "Stáhnout jako PDF",
+  "journal.export_pending": "Připravuji…",
+  "journal.export_error": "Stahování selhalo. Zkuste to prosím znovu.",
 
 };
 export default dict;

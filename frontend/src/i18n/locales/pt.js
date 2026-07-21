@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Tópicos",
   "nav.popular": "Tópicos",
   "nav.calm": "Calma",
+  "journal.export_cta": "Baixar como PDF",
+  "journal.export_pending": "Preparando…",
+  "journal.export_error": "Falha no download. Por favor, tente novamente.",
 
 };
 export default dict;

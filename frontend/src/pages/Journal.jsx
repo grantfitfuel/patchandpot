@@ -11,7 +11,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Calendar, MessageCircle, Search, X, Sparkles, ArrowRight, Pin, PinOff, Tag } from "lucide-react";
+import { BookOpen, Calendar, MessageCircle, Search, X, Sparkles, ArrowRight, Pin, PinOff, Tag, Download } from "lucide-react";
 import axios from "axios";
 import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
@@ -28,6 +28,8 @@ export default function JournalPage() {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [tagFilter, setTagFilter] = useState("");
+  const [exporting, setExporting] = useState(false);
+  const [exportErr, setExportErr] = useState("");
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -163,6 +165,32 @@ export default function JournalPage() {
 
   const pinnedCount = Object.values(meta).filter((m) => m.pinned).length;
 
+  const downloadPinnedPdf = async () => {
+    setExporting(true);
+    setExportErr("");
+    try {
+      // Uses the shared axios `api` so the Bearer token attaches
+      // automatically (SEC-002). `responseType: "blob"` is what lets us
+      // hand the raw PDF bytes to a synthetic <a download> click.
+      const r = await axios.get(`${API}/ask/journal/pinned.pdf`, {
+        responseType: "blob",
+      });
+      const url = URL.createObjectURL(r.data);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "patch-and-pot-pinned-journal.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // Revoke after the browser has had a chance to start the download.
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    } catch (e) {
+      setExportErr(t("journal.export_error") || "Download failed. Please try again.");
+    } finally {
+      setExporting(false);
+    }
+  };
+
   return (
     <div className="container-narrow py-12 md:py-16 max-w-3xl animate-fade-up">
       <NadarSurfacesNav active="journal" />
@@ -171,10 +199,36 @@ export default function JournalPage() {
         <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("journal.title")}</h1>
         <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{t("journal.intro")}</p>
         {pinnedCount > 0 && (
-          <p className="mt-3 text-xs text-moss inline-flex items-center gap-1.5" data-testid="journal-pinned-count">
-            <Pin strokeWidth={1.5} className="w-3.5 h-3.5 text-terracotta" fill="currentColor" />
-            {t("journal.pinned_count").replace("{n}", pinnedCount)}
-          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <p
+              className="text-xs text-moss inline-flex items-center gap-1.5"
+              data-testid="journal-pinned-count"
+            >
+              <Pin strokeWidth={1.5} className="w-3.5 h-3.5 text-terracotta" fill="currentColor" />
+              {t("journal.pinned_count").replace("{n}", pinnedCount)}
+            </p>
+            <button
+              type="button"
+              onClick={downloadPinnedPdf}
+              disabled={exporting}
+              data-testid="journal-export-pdf"
+              className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 border transition-colors ${
+                exporting
+                  ? "border-border/40 text-moss/50 cursor-wait"
+                  : "border-forest/40 text-forest hover:bg-forest hover:text-sand"
+              }`}
+            >
+              <Download strokeWidth={1.6} className="w-3.5 h-3.5" />
+              {exporting
+                ? (t("journal.export_pending") || "Preparing…")
+                : (t("journal.export_cta") || "Download as PDF")}
+            </button>
+            {exportErr && (
+              <span className="text-xs text-terracotta" data-testid="journal-export-error">
+                {exportErr}
+              </span>
+            )}
+          </div>
         )}
       </div>
 

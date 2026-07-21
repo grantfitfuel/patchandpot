@@ -1036,6 +1036,9 @@ const dict = {
   "nav.topics": "Mga Paksa",
   "nav.popular": "Mga Tanong",
   "nav.calm": "Tahimik",
+  "journal.export_cta": "I-download bilang PDF",
+  "journal.export_pending": "N naghahanda...",
+  "journal.export_error": "N nabigo ang pag-download. Mangyaring subukan muli.",
 
 };
 export default dict;

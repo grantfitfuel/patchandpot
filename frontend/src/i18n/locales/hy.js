@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Մարմիններ",
   "nav.popular": "Հարցեր",
   "nav.calm": "Եռաչափ հանգիստ",
+  "journal.export_cta": "Ներբեռնել PDF-ով",
+  "journal.export_pending": "Պատրաստվում է…",
+  "journal.export_error": "Ներբեռնումը ձախողվեց։ Վերս փորձեք։",
 
 };
 export default dict;

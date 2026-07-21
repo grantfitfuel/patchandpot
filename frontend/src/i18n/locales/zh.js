@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "主题",
   "nav.popular": "常见问题",
   "nav.calm": "冷静",
+  "journal.export_cta": "下载为PDF",
+  "journal.export_pending": "正在准备…",
+  "journal.export_error": "下载失败。请再试一次。",
 
 };
 export default dict;

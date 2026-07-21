@@ -1036,6 +1036,9 @@ const dict = {
   "nav.topics": "Raupapa",
   "nav.popular": "Pātai",
   "nav.calm": "Pātea",
+  "journal.export_cta": "Tārua hei PDF",
+  "journal.export_pending": "E whakarereke ana…",
+  "journal.export_error": "I hinga te tango. Tena koa whakamātauria anō.",
 
 };
 export default dict;

@@ -1036,6 +1036,9 @@ const dict = {
   "nav.topics": "Pynciau",
   "nav.popular": "Pynciau",
   "nav.calm": "Mwynhadau",
+  "journal.export_cta": "Lawrlwytho fel PDF",
+  "journal.export_pending": "Yn paratoi…",
+  "journal.export_error": "Methodd y llwythiad. Os gwelwch yn dda, ceisiwch eto.",
 
 };
 export default dict;

@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "หัวข้อ",
   "nav.popular": "คำถามทั่วไป",
   "nav.calm": "สงบ",
+  "journal.export_cta": "ดาวน์โหลดเป็น PDF",
+  "journal.export_pending": "กำลังเตรียม…",
+  "journal.export_error": "การดาวน์โหลดล้มเหลว กรุณาลองอีกครั้ง",
 
 };
 export default dict;

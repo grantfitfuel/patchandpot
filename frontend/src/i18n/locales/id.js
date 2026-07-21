@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Topik",
   "nav.popular": "Topik",
   "nav.calm": "Tenang",
+  "journal.export_cta": "Unduh sebagai PDF",
+  "journal.export_pending": "Sedang menyiapkan…",
+  "journal.export_error": "Unduh gagal. Silakan coba lagi.",
 
 };
 export default dict;

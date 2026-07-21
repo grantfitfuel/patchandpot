@@ -1036,6 +1036,9 @@ const dict = {
   "nav.topics": "Temos",
   "nav.popular": "D.U.K.",
   "nav.calm": "Ramybė",
+  "journal.export_cta": "Atsisiųsti kaip PDF",
+  "journal.export_pending": "Ruošiamasi…",
+  "journal.export_error": "Atsisiuntimas nepavyko. Prašome bandyti dar kartą.",
 
 };
 export default dict;

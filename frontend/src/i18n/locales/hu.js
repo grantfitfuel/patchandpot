@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Témák",
   "nav.popular": "Gyakori kérdések",
   "nav.calm": "Nyugalom",
+  "journal.export_cta": "Letöltés PDF-ként",
+  "journal.export_pending": "Előkészítés…",
+  "journal.export_error": "Letöltés sikertelen. Kérjük, próbálja újra.",
 
 };
 export default dict;

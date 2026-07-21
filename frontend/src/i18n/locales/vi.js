@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Chủ đề",
   "nav.popular": "Chủ đề",
   "nav.calm": "Tĩnh lặng",
+  "journal.export_cta": "Tải xuống dưới dạng PDF",
+  "journal.export_pending": "Đang chuẩn bị…",
+  "journal.export_error": "Tải xuống thất bại. Vui lòng thử lại.",
 
 };
 export default dict;

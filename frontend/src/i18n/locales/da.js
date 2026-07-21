@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Emner",
   "nav.popular": "Emner",
   "nav.calm": "Rolig",
+  "journal.export_cta": "Download som PDF",
+  "journal.export_pending": "Forbereder…",
+  "journal.export_error": "Download fejlede. Prøv venligst igen.",
 
 };
 export default dict;

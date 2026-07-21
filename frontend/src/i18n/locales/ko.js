@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "주제",
   "nav.popular": "자주 묻는 질문",
   "nav.calm": "주제",
+  "journal.export_cta": "PDF로 다운로드",
+  "journal.export_pending": "준비 중…",
+  "journal.export_error": "다운로드에 실패했습니다. 다시 시도해 주세요.",
 
 };
 export default dict;

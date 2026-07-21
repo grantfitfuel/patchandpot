@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "موضوعات",
   "nav.popular": "موضوعات",
   "nav.calm": "دو منٹ",
+  "journal.export_cta": "پی ڈی ایف کے طور پر ڈاؤن لوڈ کریں",
+  "journal.export_pending": "تیار ہو رہا ہے…",
+  "journal.export_error": "ڈاؤن لوڈ ناکام ہوگیا۔ براہ کرم دوبارہ کوشش کریں۔",
 
 };
 export default dict;

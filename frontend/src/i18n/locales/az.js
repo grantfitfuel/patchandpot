@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Mövzular",
   "nav.popular": "Mövzular",
   "nav.calm": "Səssizlik",
+  "journal.export_cta": "PDF kimi yüklə",
+  "journal.export_pending": "Hazırlanır…",
+  "journal.export_error": "Yükləmə alınmadı. Zəhmət olmasa, yenidən cəhd edin.",
 
 };
 export default dict;

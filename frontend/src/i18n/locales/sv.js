@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Ämnen",
   "nav.popular": "Vanliga",
   "nav.calm": "Tema",
+  "journal.export_cta": "Ladda ner som PDF",
+  "journal.export_pending": "Förbereder…",
+  "journal.export_error": "Nedladdning misslyckades. Försök igen.",
 
 };
 export default dict;

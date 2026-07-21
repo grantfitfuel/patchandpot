@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Suġġetti",
   "nav.popular": "Suġġetti",
   "nav.calm": "Paċi",
+  "journal.export_cta": "Niżżel bħala PDF",
+  "journal.export_pending": "Qed jipprepara…",
+  "journal.export_error": "Niżżil fallit. Jekk jogħġbok ipprova mill-ġdid.",
 
 };
 export default dict;

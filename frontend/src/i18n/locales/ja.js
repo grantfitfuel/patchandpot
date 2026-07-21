@@ -1036,6 +1036,9 @@ const dict = {
   "nav.topics": "トピック",
   "nav.popular": "よくある質問",
   "nav.calm": "トピック",
+  "journal.export_cta": "PDFとしてダウンロード",
+  "journal.export_pending": "準備中…",
+  "journal.export_error": "ダウンロードに失敗しました。もう一度お試しください。",
 
 };
 export default dict;

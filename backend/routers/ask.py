@@ -534,6 +534,109 @@ def make_router(db) -> APIRouter:
         )
         return {"ok": True, "row": row}
 
+    @router.get("/ask/journal/pinned.pdf")
+    async def download_pinned_journal(access_token: str = ""):
+        """One-click PDF of every Nàdar answer the caller has pinned.
+
+        Behaviour:
+          - Members only (paywall). Returns 402 for non-paying tokens.
+          - Newest-pinned first inside each tag group; untagged section
+            comes first, then tags alphabetically. Mirrors the on-screen
+            /journal layout so the printed copy feels familiar.
+          - We fetch the full user question + assistant answer per pin
+            (rather than storing snapshots) so the PDF always reflects
+            the current transcript. Deleted messages / sessions are
+            silently skipped rather than showing "[missing]" holes.
+        """
+        from datetime import datetime as _dt, timezone as _tz
+        from fastapi.responses import Response as _Response
+        from pdf_journal import build_pinned_pdf
+
+        token = await _guard(access_token)
+
+        # 1. All pinned meta rows for this token.
+        pin_cursor = db.ask_journal_meta.find(
+            {"access_token": token, "pinned": True},
+            {"_id": 0, "user_message_id": 1, "tag": 1,
+             "session_id": 1, "updated_at": 1},
+        )
+        pins = [row async for row in pin_cursor]
+        if not pins:
+            # Still return a (very short) PDF rather than an error so the
+            # download button always has something to give the user.
+            pdf_bytes = build_pinned_pdf(
+                [], member_label="your patch",
+                generated_at=_dt.now(_tz.utc).strftime("%d %b %Y"),
+            )
+            return _Response(
+                content=pdf_bytes,
+                media_type="application/pdf",
+                headers={"Content-Disposition":
+                         'attachment; filename="patch-and-pot-pinned-journal.pdf"'},
+            )
+
+        # 2. Batch-load the user question + assistant answer for each pin.
+        #    We fetch messages by id (user turn) plus the next assistant
+        #    turn in the same session. Cheap enough for a few hundred pins;
+        #    a printed keepsake is not a hot path so no need to denormalise.
+        session_ids = list({p.get("session_id") for p in pins if p.get("session_id")})
+        session_titles: dict[str, str] = {}
+        if session_ids:
+            sess_cursor = db.ask_sessions.find(
+                {"id": {"$in": session_ids}, "access_token": token},
+                {"_id": 0, "id": 1, "title": 1},
+            )
+            async for s in sess_cursor:
+                session_titles[s["id"]] = s.get("title", "")
+
+        entries: list[dict] = []
+        # Sort pins by updated_at DESC so most-recently-pinned show first.
+        pins.sort(key=lambda p: p.get("updated_at") or "", reverse=True)
+        for pin in pins:
+            user_msg_id = pin.get("user_message_id")
+            session_id = pin.get("session_id")
+            if not user_msg_id or not session_id:
+                continue
+            if session_id not in session_titles:
+                # Session deleted — skip. The pin row is stale but not
+                # worth cleaning up mid-request.
+                continue
+            user_msg = await db.ask_messages.find_one(
+                {"id": user_msg_id, "session_id": session_id, "role": "user"},
+                {"_id": 0, "content": 1, "created_at": 1},
+            )
+            if not user_msg:
+                continue
+            # Find the assistant reply that came right after this user turn.
+            asst = await db.ask_messages.find_one(
+                {
+                    "session_id": session_id,
+                    "role": "assistant",
+                    "created_at": {"$gt": user_msg.get("created_at") or ""},
+                },
+                {"_id": 0, "content": 1},
+                sort=[("created_at", 1)],
+            )
+            entries.append({
+                "question": user_msg.get("content") or "",
+                "answer": (asst or {}).get("content") or "",
+                "asked_at": user_msg.get("created_at") or "",
+                "tag": (pin.get("tag") or "").strip(),
+                "session_title": session_titles.get(session_id) or "",
+            })
+
+        pdf_bytes = build_pinned_pdf(
+            entries,
+            member_label="your patch",
+            generated_at=_dt.now(_tz.utc).strftime("%d %b %Y"),
+        )
+        return _Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={"Content-Disposition":
+                     'attachment; filename="patch-and-pot-pinned-journal.pdf"'},
+        )
+
     @router.get("/ask/audit")
     async def ask_audit(response: Response, access_token: str = ""):
         """Returns every user-message timestamp + every daily-usage row stored

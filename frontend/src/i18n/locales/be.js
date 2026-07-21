@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Тэмы",
   "nav.popular": "Тэмы",
   "nav.calm": "Сузораванне",
+  "journal.export_cta": "Спампаваць як PDF",
+  "journal.export_pending": "Падрыхтоўка…",
+  "journal.export_error": "Спампаванне не атрымалася. Калі ласка, паспрабуйце яшчэ раз.",
 
 };
 export default dict;

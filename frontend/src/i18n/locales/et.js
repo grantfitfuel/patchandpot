@@ -1036,6 +1036,9 @@ const dict = {
   "nav.topics": "Teemad",
   "nav.popular": "Teemad",
   "nav.calm": "Rahu",
+  "journal.export_cta": "Laadi PDF-na alla",
+  "journal.export_pending": "Valmistamine…",
+  "journal.export_error": "Allalaadimine ebaõnnestus. Palun proovi uuesti.",
 
 };
 export default dict;

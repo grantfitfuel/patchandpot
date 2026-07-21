@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "ਵਿਸ਼ੇ",
   "nav.popular": "ਸਵਾਲ",
   "nav.calm": "ਕਾਰਮ",
+  "journal.export_cta": "ਪੀਡੀਐਫ਼ ਵਜੋਂ ਡਾਊਨਲੋਡ ਕਰੋ",
+  "journal.export_pending": "ਤਿਆਰੀ ਕਰੀਏ…",
+  "journal.export_error": "ਡਾਊਨਲੋਡ ਫੇਲ ਹੋ ਗਿਆ। ਕ੍ਰਿਪਾ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
 
 };
 export default dict;

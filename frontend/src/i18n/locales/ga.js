@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Ábhair",
   "nav.popular": "Ceisteanna",
   "nav.calm": "Síocháin",
+  "journal.export_cta": "Íoslódáil mar PDF",
+  "journal.export_pending": "Ag ullmhú…",
+  "journal.export_error": "Tharla earráid le híoslódáil. Déan iarracht arís.",
 
 };
 export default dict;

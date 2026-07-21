@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Efni",
   "nav.popular": "Algengar",
   "nav.calm": "2 mínútna ró",
+  "journal.export_cta": "Sæki sem PDF",
+  "journal.export_pending": "Undirbúningur…",
+  "journal.export_error": "Sækja mistókst. Vinsamlegast reyndu aftur.",
 
 };
 export default dict;

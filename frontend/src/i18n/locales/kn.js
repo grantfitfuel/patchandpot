@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "ಚಟವುಗಳು",
   "nav.popular": "ಪ್ರಶ್ನೆಗಳು",
   "nav.calm": "ಆಶ್ವಾಸ",
+  "journal.export_cta": "ಪಿಡಿಎಫ್ ಆಗಿ ಡೌನ್ಲೋಡ್ ಮಾಡಿ",
+  "journal.export_pending": "ತಯಾರಿಸುತ್ತಿದೆ…",
+  "journal.export_error": "ಡೌನ್ಲೋಡ್ ವಿಫಲವಾಯಿತು. ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.",
 
 };
 export default dict;

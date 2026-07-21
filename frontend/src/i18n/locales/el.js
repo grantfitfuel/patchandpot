@@ -1035,6 +1035,9 @@ const dict = {
   "nav.topics": "Θέματα",
   "nav.popular": "Θέματα",
   "nav.calm": "Δύο Λεπτά",
+  "journal.export_cta": "Κατεβάστε ως PDF",
+  "journal.export_pending": "Ετοιμασία…",
+  "journal.export_error": "Η λήψη απέτυχε. Παρακαλώ δοκιμάστε ξανά.",
 
 };
 export default dict;

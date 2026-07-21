@@ -1036,6 +1036,9 @@ const dict = {
   "nav.topics": "Теми",
   "nav.popular": "Теми",
   "nav.calm": "Теми",
+  "journal.export_cta": "Завантажити як PDF",
+  "journal.export_pending": "Підготовка…",
+  "journal.export_error": "Завантаження не вдалося. Спробуйте ще раз.",
 
 };
 export default dict;

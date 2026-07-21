@@ -958,6 +958,44 @@ COMPANION_REASONS = {
 }
 
 
+def _hydrate_companion_reasons_from_json() -> None:
+    """Overlay AI-authored reasons from `data/companion_reasons.json`.
+
+    The JSON snapshot (authored via `scripts/author_companion_reasons.py`)
+    covers all 812 companion pairs. Keys use `plantA__plantB` where the
+    two plant IDs are already sorted — matching the canonical key we build
+    when we look up a reason at runtime. Hand-curated entries above take
+    priority (loaded first, JSON never overwrites).
+    """
+    import json as _json
+    import logging as _logging
+    from pathlib import Path as _Path
+
+    log = _logging.getLogger(__name__)
+    src = _Path(__file__).parent / "data" / "companion_reasons.json"
+    if not src.exists():
+        return
+    try:
+        raw = _json.loads(src.read_text())
+    except Exception as e:  # noqa: BLE001
+        log.warning("companion_reasons.json load failed: %s", e)
+        return
+    added = 0
+    for key, sentence in raw.items():
+        if "__" not in key:
+            continue
+        a, b = key.split("__", 1)
+        tup = tuple(sorted((a, b)))
+        if tup in COMPANION_REASONS:
+            continue  # respect hand-curated entries
+        COMPANION_REASONS[tup] = sentence
+        added += 1
+    log.info("companion_reasons overlay: +%d entries (total=%d)", added, len(COMPANION_REASONS))
+
+
+_hydrate_companion_reasons_from_json()
+
+
 def make_translate_companion_reasons(db):
     """Factory: returns `async _translate_companion_reasons(items, language)`."""
     # Hand-curated glossary of correct pest / beneficial-insect terms in

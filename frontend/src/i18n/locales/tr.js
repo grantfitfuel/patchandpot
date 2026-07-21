@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "PDF Olarak İndir",
   "journal.export_pending": "Hazırlanıyor…",
   "journal.export_error": "İndirme başarısız oldu. Lütfen tekrar deneyin.",
+  "journal.tags_heading": "Etiketler",
+  "topics.subscribe_rss": "RSS ile Abone Ol",
 
 };
 export default dict;

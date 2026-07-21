@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "PDF గా డౌన్‌లోడ్ చేయండి",
   "journal.export_pending": "తయారుచేస్తున్న…",
   "journal.export_error": "డౌన్‌లోడ్ విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.",
+  "journal.tags_heading": "పేర్లు",
+  "topics.subscribe_rss": "ఆర్‌ఎస్‌ఎస్ ద్వారా చేర్చుకోండి",
 
 };
 export default dict;

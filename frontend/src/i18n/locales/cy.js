@@ -1039,6 +1039,8 @@ const dict = {
   "journal.export_cta": "Lawrlwytho fel PDF",
   "journal.export_pending": "Yn paratoi…",
   "journal.export_error": "Methodd y llwythiad. Os gwelwch yn dda, ceisiwch eto.",
+  "journal.tags_heading": "Tagiau",
+  "topics.subscribe_rss": "Cofrestrwch trwy RSS",
 
 };
 export default dict;

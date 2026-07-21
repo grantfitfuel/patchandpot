@@ -280,6 +280,8 @@ const dict = {
   "journal.tag_cancel": "Cancel",
   "journal.tag_placeholder": "Tomato, roses, courgette…",
   "journal.tag_filter_all": "All tags",
+  "journal.tags_heading": "Tags",
+  "topics.subscribe_rss": "Subscribe via RSS",
   "journal.export_cta": "Download as PDF",
   "journal.export_pending": "Preparing…",
   "journal.export_error": "Download failed. Please try again.",

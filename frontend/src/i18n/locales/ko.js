@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "PDF로 다운로드",
   "journal.export_pending": "준비 중…",
   "journal.export_error": "다운로드에 실패했습니다. 다시 시도해 주세요.",
+  "journal.tags_heading": "태그",
+  "topics.subscribe_rss": "RSS로 구독하기",
 
 };
 export default dict;

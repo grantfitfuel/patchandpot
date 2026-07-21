@@ -14,8 +14,9 @@
  */
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Sparkles, HelpCircle, Layers } from "lucide-react";
+import { ArrowLeft, ArrowRight, Sparkles, HelpCircle, Layers, Rss } from "lucide-react";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
 import NadarSurfacesNav from "@/components/NadarSurfacesNav";
@@ -129,6 +130,23 @@ export function TopicDetailPage() {
 
   return (
     <div className="container-narrow py-12 md:py-16 animate-fade-up max-w-3xl">
+      {/* Autodiscovery — reader apps + browsers pick up the feeds
+          straight from the topic page. Backend URLs are stable and
+          public, so we don't need to gate this. */}
+      <Helmet>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${data.label} — Ask Nàdar (RSS)`}
+          href={`${API}/ask/topics/${id}/feed.rss`}
+        />
+        <link
+          rel="alternate"
+          type="application/feed+json"
+          title={`${data.label} — Ask Nàdar (JSON Feed)`}
+          href={`${API}/ask/topics/${id}/feed.json`}
+        />
+      </Helmet>
       <Link to="/topics" className="text-sm text-moss hover:text-forest inline-flex items-center gap-1.5 mb-6" data-testid="topic-back">
         <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.6} />
         {t("topics.back")}
@@ -136,9 +154,22 @@ export function TopicDetailPage() {
       <p className="overline">{t("topics.eyebrow")}</p>
       <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{data.label}</h1>
       <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{data.blurb}</p>
-      <p className="mt-2 text-[0.65rem] uppercase tracking-widest text-moss/70">
-        {t("topics.count", { n: data.count })}
-      </p>
+      <div className="mt-3 flex flex-wrap items-center gap-4">
+        <p className="text-[0.65rem] uppercase tracking-widest text-moss/70">
+          {t("topics.count", { n: data.count })}
+        </p>
+        <a
+          href={`${API}/ask/topics/${id}/feed.rss`}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid={`topic-rss-${id}`}
+          className="inline-flex items-center gap-1.5 text-xs text-moss hover:text-terracotta transition-colors"
+          title={t("topics.subscribe_rss") || "Subscribe via RSS"}
+        >
+          <Rss strokeWidth={1.6} className="w-3.5 h-3.5" />
+          {t("topics.subscribe_rss") || "Subscribe via RSS"}
+        </a>
+      </div>
 
       <div className="mt-10 space-y-3">
         {data.questions.length === 0 && (

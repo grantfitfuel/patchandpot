@@ -259,6 +259,87 @@ def make_router(db) -> APIRouter:
             "count": len(matching), "questions": matching,
         }
 
+    async def _topic_feed_items(topic_id: str) -> tuple[dict, list[dict]]:
+        """Shared helper for the RSS + JSON feed endpoints. Returns
+        (topic_meta, matching_items_sliced_and_slug-ified)."""
+        from data.ask_topics import get_topic, _matches
+        from feeds import MAX_FEED_ITEMS
+        topic = get_topic(topic_id)
+        if not topic:
+            raise HTTPException(404, "Topic not found")
+        cursor = db.ask_cache.find(
+            {"hits": {"$gte": 1}, "prior_hash": None, "hidden": {"$ne": True}},
+            {"_id": 0, "key": 1, "question_normalized": 1, "answer": 1,
+             "hits": 1, "first_asked_at": 1, "last_asked_at": 1},
+        ).sort([("last_asked_at", -1), ("hits", -1)]).limit(500)
+        rows = [r async for r in cursor]
+        matching: list[dict] = []
+        for r in rows:
+            if _matches(r.get("question_normalized", ""), topic["terms"]):
+                r["slug"] = question_slug(
+                    r.get("question_normalized", ""), r.get("key", "")
+                )
+                matching.append(r)
+            if len(matching) >= MAX_FEED_ITEMS:
+                break
+        return topic, matching
+
+    def _feed_site_base(request: Request) -> str:
+        """Public origin for absolute URLs inside the feed.
+        Priority: PUBLIC_BASE_URL env (stable, deploy-time) → the
+        request's own scheme://host (works for preview + production
+        without any config). Never emits a trailing slash."""
+        env_base = (os.environ.get("PUBLIC_BASE_URL") or "").rstrip("/")
+        if env_base:
+            return env_base
+        # `X-Forwarded-Proto` + `Host` because we're behind an ingress.
+        proto = request.headers.get("x-forwarded-proto") or request.url.scheme
+        host = request.headers.get("host") or request.url.netloc
+        return f"{proto}://{host}".rstrip("/")
+
+    @router.get("/ask/topics/{topic_id}/feed.rss")
+    async def topic_feed_rss(topic_id: str, request: Request, response: Response):
+        """PUBLIC — RSS 2.0 feed for one Ask Nàdar topic. Subscribeable
+        from any reader app. Mirrors the eligibility filter of the human
+        topic page; deleted / hidden questions never appear."""
+        from fastapi.responses import Response as _Resp
+        from feeds import build_rss
+        topic, items = await _topic_feed_items(topic_id)
+        xml = build_rss(
+            topic_id=topic_id,
+            topic_label=topic["label"],
+            topic_blurb=topic["blurb"],
+            site_base=_feed_site_base(request),
+            items=items,
+        )
+        return _Resp(
+            content=xml,
+            media_type="application/rss+xml; charset=utf-8",
+            headers={
+                "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
+            },
+        )
+
+    @router.get("/ask/topics/{topic_id}/feed.json")
+    async def topic_feed_json(topic_id: str, request: Request, response: Response):
+        """PUBLIC — JSON Feed 1.1 for the same topic. Same data as the
+        RSS feed, in a machine-friendlier envelope for modern readers
+        and static-site builders."""
+        from feeds import build_json_feed
+        topic, items = await _topic_feed_items(topic_id)
+        feed = build_json_feed(
+            topic_id=topic_id,
+            topic_label=topic["label"],
+            topic_blurb=topic["blurb"],
+            site_base=_feed_site_base(request),
+            items=items,
+        )
+        response.headers["Cache-Control"] = (
+            "public, max-age=3600, stale-while-revalidate=86400"
+        )
+        response.headers["Content-Type"] = "application/feed+json; charset=utf-8"
+        return feed
+
     class VoteRequest(BaseModel):
         vote: str = Field(..., pattern=r"^(up|down)$")
 

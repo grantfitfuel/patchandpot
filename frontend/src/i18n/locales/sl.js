@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Prenesi kot PDF",
   "journal.export_pending": "Pripravljanje…",
   "journal.export_error": "Prenos ni uspel. Poskusite znova.",
+  "journal.tags_heading": "Oznake",
+  "topics.subscribe_rss": "Naroči se na RSS",
 
 };
 export default dict;

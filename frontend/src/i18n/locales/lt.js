@@ -1039,6 +1039,8 @@ const dict = {
   "journal.export_cta": "Atsisiųsti kaip PDF",
   "journal.export_pending": "Ruošiamasi…",
   "journal.export_error": "Atsisiuntimas nepavyko. Prašome bandyti dar kartą.",
+  "journal.tags_heading": "Žymos",
+  "topics.subscribe_rss": "Prenumeruokite per RSS",
 
 };
 export default dict;

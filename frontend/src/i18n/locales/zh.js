@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "下载为PDF",
   "journal.export_pending": "正在准备…",
   "journal.export_error": "下载失败。请再试一次。",
+  "journal.tags_heading": "标签",
+  "topics.subscribe_rss": "通过 RSS 订阅",
 
 };
 export default dict;

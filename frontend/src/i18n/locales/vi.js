@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Tải xuống dưới dạng PDF",
   "journal.export_pending": "Đang chuẩn bị…",
   "journal.export_error": "Tải xuống thất bại. Vui lòng thử lại.",
+  "journal.tags_heading": "Thẻ",
+  "topics.subscribe_rss": "Đăng ký qua RSS",
 
 };
 export default dict;

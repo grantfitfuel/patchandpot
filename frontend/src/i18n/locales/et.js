@@ -1039,6 +1039,8 @@ const dict = {
   "journal.export_cta": "Laadi PDF-na alla",
   "journal.export_pending": "Valmistamine…",
   "journal.export_error": "Allalaadimine ebaõnnestus. Palun proovi uuesti.",
+  "journal.tags_heading": "Märgid",
+  "topics.subscribe_rss": "Telli RSS kaudu",
 
 };
 export default dict;

@@ -127,6 +127,18 @@ export default function JournalPage() {
     return [...s].sort();
   }, [meta, gardenPlants]);
 
+  // Tag → entry count. Only counts tags actually applied to journal entries
+  // (garden plants without any pinned/tagged entry get 0 and are shown in
+  // the sidebar with a muted style so members can still click to filter).
+  const tagCounts = useMemo(() => {
+    const counts = {};
+    entries.forEach((e) => {
+      const tg = meta[e.id]?.tag;
+      if (tg) counts[tg] = (counts[tg] || 0) + 1;
+    });
+    return counts;
+  }, [entries, meta]);
+
   const filtered = useMemo(() => {
     let rows = entries;
     if (tagFilter) {
@@ -192,7 +204,7 @@ export default function JournalPage() {
   };
 
   return (
-    <div className="container-narrow py-12 md:py-16 max-w-3xl animate-fade-up">
+    <div className="container-narrow py-12 md:py-16 max-w-6xl animate-fade-up">
       <NadarSurfacesNav active="journal" />
       <div className="mb-8">
         <p className="overline">{t("journal.eyebrow")}</p>
@@ -236,6 +248,74 @@ export default function JournalPage() {
         {allTags.map((t) => <option key={t} value={t} />)}
       </datalist>
 
+      <div className={allTags.length > 0 ? "lg:grid lg:grid-cols-[220px_1fr] lg:gap-10" : ""}>
+        {/* ─── Sidebar: clickable list of every tag with entry counts ── */}
+        {allTags.length > 0 && (
+          <aside
+            className="hidden lg:block"
+            data-testid="journal-tag-sidebar"
+            aria-label="Filter by tag"
+          >
+            <div className="sticky top-24">
+              <p className="overline mb-3 flex items-center gap-2 text-moss">
+                <Tag strokeWidth={1.6} className="w-3.5 h-3.5" />
+                {t("journal.tags_heading") || "Tags"}
+              </p>
+              <ul className="space-y-0.5">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setTagFilter("")}
+                    data-testid="journal-tag-sidebar-all"
+                    className={`w-full text-left px-3 py-1.5 text-sm border-l-2 transition-colors flex items-center justify-between ${
+                      tagFilter === ""
+                        ? "border-terracotta text-forest bg-terracotta/5 font-medium"
+                        : "border-transparent text-moss hover:text-forest hover:border-forest/30"
+                    }`}
+                  >
+                    <span>{t("journal.tag_filter_all")}</span>
+                    <span className="text-xs text-moss/70 tabular-nums">
+                      {entries.length}
+                    </span>
+                  </button>
+                </li>
+                {allTags.map((tg) => {
+                  const count = tagCounts[tg] || 0;
+                  const isActive = tagFilter === tg;
+                  return (
+                    <li key={tg}>
+                      <button
+                        type="button"
+                        onClick={() => setTagFilter(isActive ? "" : tg)}
+                        data-testid={`journal-tag-sidebar-${tg}`}
+                        className={`w-full text-left px-3 py-1.5 text-sm border-l-2 transition-colors flex items-center justify-between ${
+                          isActive
+                            ? "border-terracotta text-forest bg-terracotta/5 font-medium"
+                            : count > 0
+                              ? "border-transparent text-ink/80 hover:text-forest hover:border-forest/30"
+                              : "border-transparent text-moss/50 hover:text-moss hover:border-forest/20"
+                        }`}
+                      >
+                        <span className="truncate">{tg}</span>
+                        {count > 0 && (
+                          <span className={`text-xs tabular-nums ml-2 ${
+                            isActive ? "text-terracotta" : "text-moss/70"
+                          }`}>
+                            {count}
+                          </span>
+                        )}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </aside>
+        )}
+
+        {/* ─── Main column ─────────────────────────────────────────── */}
+        <div className="min-w-0">
+
       <div className="mb-8 flex flex-wrap gap-3 items-center">
         <div className="relative flex-1 min-w-[220px] max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-moss" strokeWidth={1.6} />
@@ -263,7 +343,7 @@ export default function JournalPage() {
             value={tagFilter}
             onChange={(e) => setTagFilter(e.target.value)}
             data-testid="journal-tag-filter"
-            className="border border-border/70 rounded px-2 py-2 text-sm bg-white text-ink"
+            className="lg:hidden border border-border/70 rounded px-2 py-2 text-sm bg-white text-ink"
           >
             <option value="">{t("journal.tag_filter_all")}</option>
             {allTags.map((tg) => <option key={tg} value={tg}>{tg}</option>)}
@@ -352,6 +432,9 @@ export default function JournalPage() {
           </div>
         </div>
       </section>
+
+        </div>{/* /main column */}
+      </div>{/* /two-column grid */}
     </div>
   );
 }

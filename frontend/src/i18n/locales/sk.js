@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Stiahnuť ako PDF",
   "journal.export_pending": "Pripravujeme…",
   "journal.export_error": "Stiahnutie zlyhalo. Skúste to prosím znova.",
+  "journal.tags_heading": "Štítky",
+  "topics.subscribe_rss": "Prihlásiť sa na RSS",
 
 };
 export default dict;

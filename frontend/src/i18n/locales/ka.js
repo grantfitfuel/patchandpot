@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "ჩამოტვირთეთ PDF ფორმატში",
   "journal.export_pending": "მომზადება…",
   "journal.export_error": "ჩამოტვირთვა წარუმატებელია. გთხოვთ, სცადოთ თავიდან.",
+  "journal.tags_heading": "კატეგორიები",
+  "topics.subscribe_rss": "წარმატებული ფეხით გასვლის",
 
 };
 export default dict;

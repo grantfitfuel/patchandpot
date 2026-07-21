@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Letöltés PDF-ként",
   "journal.export_pending": "Előkészítés…",
   "journal.export_error": "Letöltés sikertelen. Kérjük, próbálja újra.",
+  "journal.tags_heading": "Címkék",
+  "topics.subscribe_rss": "Feliratkozás RSS-re",
 
 };
 export default dict;

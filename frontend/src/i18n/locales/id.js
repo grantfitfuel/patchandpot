@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Unduh sebagai PDF",
   "journal.export_pending": "Sedang menyiapkan…",
   "journal.export_error": "Unduh gagal. Silakan coba lagi.",
+  "journal.tags_heading": "Label",
+  "topics.subscribe_rss": "Langganan RSS",
 
 };
 export default dict;

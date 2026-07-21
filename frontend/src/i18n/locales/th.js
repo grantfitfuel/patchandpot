@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "ดาวน์โหลดเป็น PDF",
   "journal.export_pending": "กำลังเตรียม…",
   "journal.export_error": "การดาวน์โหลดล้มเหลว กรุณาลองอีกครั้ง",
+  "journal.tags_heading": "ป้าย",
+  "topics.subscribe_rss": "ติดตามผ่าน RSS",
 
 };
 export default dict;

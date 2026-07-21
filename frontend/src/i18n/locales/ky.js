@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "PDF форматы боюнча жүктөө",
   "journal.export_pending": "Даярдоо…",
   "journal.export_error": "Жүктөө ийгиликсиз болду. кайра аракет кылып көрүңүз.",
+  "journal.tags_heading": "Тегдер",
+  "topics.subscribe_rss": "RSS orqali obuna bo'ling",
 
 };
 export default dict;

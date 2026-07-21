@@ -1039,6 +1039,8 @@ const dict = {
   "journal.export_cta": "I-download bilang PDF",
   "journal.export_pending": "N naghahanda...",
   "journal.export_error": "N nabigo ang pag-download. Mangyaring subukan muli.",
+  "journal.tags_heading": "Mga Tag",
+  "topics.subscribe_rss": "Sundin sa RSS",
 
 };
 export default dict;

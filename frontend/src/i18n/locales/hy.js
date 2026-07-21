@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Ներբեռնել PDF-ով",
   "journal.export_pending": "Պատրաստվում է…",
   "journal.export_error": "Ներբեռնումը ձախողվեց։ Վերս փորձեք։",
+  "journal.tags_heading": "պիտակներ",
+  "topics.subscribe_rss": "Բաժանորդագրվել RSS-ով",
 
 };
 export default dict;

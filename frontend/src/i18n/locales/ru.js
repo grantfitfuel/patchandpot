@@ -1039,6 +1039,8 @@ const dict = {
   "journal.export_cta": "Скачать как PDF",
   "journal.export_pending": "Подготовка…",
   "journal.export_error": "Ошибка загрузки. Пожалуйста, попробуйте снова.",
+  "journal.tags_heading": "Метки",
+  "topics.subscribe_rss": "Подписаться на RSS",
 
 };
 export default dict;

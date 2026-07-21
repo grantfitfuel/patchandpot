@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Lejupielādēt kā PDF",
   "journal.export_pending": "Sagatavojam…",
   "journal.export_error": "Lejupielāde neizdevās. Lūdzu, mēģiniet vēlreiz.",
+  "journal.tags_heading": "Etiķetes",
+  "topics.subscribe_rss": "Pievienojies RSS",
 
 };
 export default dict;

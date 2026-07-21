@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Last ned som PDF",
   "journal.export_pending": "Forbereder…",
   "journal.export_error": "Nedlastingen mislyktes. Vennligst prøv igjen.",
+  "journal.tags_heading": "Merker",
+  "topics.subscribe_rss": "Abonner via RSS",
 
 };
 export default dict;

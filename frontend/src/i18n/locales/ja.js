@@ -1039,6 +1039,8 @@ const dict = {
   "journal.export_cta": "PDFとしてダウンロード",
   "journal.export_pending": "準備中…",
   "journal.export_error": "ダウンロードに失敗しました。もう一度お試しください。",
+  "journal.tags_heading": "タグ",
+  "topics.subscribe_rss": "RSSで購読",
 
 };
 export default dict;

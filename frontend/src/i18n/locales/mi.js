@@ -1039,6 +1039,8 @@ const dict = {
   "journal.export_cta": "Tārua hei PDF",
   "journal.export_pending": "E whakarereke ana…",
   "journal.export_error": "I hinga te tango. Tena koa whakamātauria anō.",
+  "journal.tags_heading": "Tānga",
+  "topics.subscribe_rss": "Te hanga pānui",
 
 };
 export default dict;

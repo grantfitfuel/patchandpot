@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Sæki sem PDF",
   "journal.export_pending": "Undirbúningur…",
   "journal.export_error": "Sækja mistókst. Vinsamlegast reyndu aftur.",
+  "journal.tags_heading": "Merki",
+  "topics.subscribe_rss": "Skáðu á RSS",
 
 };
 export default dict;

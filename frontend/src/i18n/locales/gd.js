@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Dèan sìos a-nis mar PDF",
   "journal.export_pending": "A' freagairt…",
   "journal.export_error": "Tha an luchdachadh sìos air fàilligheachd. Feuch ris a-rithist.",
+  "journal.tags_heading": "Tagaichean",
+  "topics.subscribe_rss": "Clàraich tro RSS",
 
 };
 export default dict;

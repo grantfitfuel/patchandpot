@@ -1038,6 +1038,8 @@ const dict = {
   "journal.export_cta": "Спампаваць як PDF",
   "journal.export_pending": "Падрыхтоўка…",
   "journal.export_error": "Спампаванне не атрымалася. Калі ласка, паспрабуйце яшчэ раз.",
+  "journal.tags_heading": "Метки",
+  "topics.subscribe_rss": "Падпісацца праз RSS",
 
 };
 export default dict;

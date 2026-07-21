@@ -63,6 +63,22 @@ VOICES = {
         "voice_id": "JBFqnCBsd6RMkjVDRZzb",
         "label": "George — warm British male",
     },
+    "clyde": {
+        "voice_id": "2EiwWnXFnvU5JabPnv8n",
+        "label": "Clyde — deep, unhurried American baritone",
+    },
+    "nicole": {
+        "voice_id": "piTKgcLEGmPE4e6mEKli",
+        "label": "Nicole — soft, dreamlike whisper",
+    },
+    "daisy": {
+        "voice_id": "3eeY9rFz1akxkQTWoYXs",
+        "label": "Daisy — young, lilting Scottish female",
+    },
+    "robert": {
+        "voice_id": "U5UjeJMsOvyhYhXfZdvZ",
+        "label": "Robert — deep, gravelly Scottish male",
+    },
 }
 DEFAULT_VOICE_KEY = "lily"
 

@@ -225,11 +225,11 @@ export default function CalmPage() {
             <div className="card-flat p-5 mb-8">
               {voiceOptions.length > 1 && (
                 <div className="mb-4 pb-4 border-b border-border/60" data-testid="calm-voice-picker">
-                  <p className="text-[0.6rem] uppercase tracking-widest text-moss mb-2 flex items-center gap-1.5">
+                  <p className="text-[0.6rem] uppercase tracking-widest text-moss mb-3 flex items-center gap-1.5">
                     <Mic2 strokeWidth={1.6} className="w-3 h-3" />
                     Narrated by
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {voiceOptions.map((v) => {
                       const isReady = v.slugs_ready.includes(active.slug);
                       const isActive = v.key === voicePref;
@@ -238,12 +238,12 @@ export default function CalmPage() {
                         <div
                           key={v.key}
                           data-testid={`calm-voice-row-${v.key}`}
-                          className={`inline-flex border transition-colors ${
+                          className={`flex items-start gap-2 border px-3 py-2.5 transition-colors ${
                             isActive && isReady
                               ? "border-forest bg-forest/10"
                               : isReady
                                 ? "border-border/70 hover:border-forest/40"
-                                : "border-border/40"
+                                : "border-border/40 opacity-70"
                           }`}
                         >
                           <button
@@ -252,16 +252,46 @@ export default function CalmPage() {
                             disabled={!isReady}
                             data-testid={`calm-voice-${v.key}`}
                             aria-pressed={isActive}
-                            className={`text-xs pl-3 pr-2 py-1.5 ${
-                              isActive && isReady
-                                ? "text-forest"
-                                : isReady
-                                  ? "text-moss hover:text-forest"
-                                  : "text-moss/40 cursor-not-allowed"
+                            className={`flex-1 text-left ${
+                              isReady ? "cursor-pointer" : "cursor-not-allowed"
                             }`}
                           >
-                            {v.label}
-                            {!isReady && <span className="ml-1 text-[0.55rem] uppercase">soon</span>}
+                            <div className="flex items-baseline gap-2 flex-wrap">
+                              <span
+                                className={`text-sm font-medium ${
+                                  isActive && isReady
+                                    ? "text-forest"
+                                    : isReady
+                                      ? "text-moss"
+                                      : "text-moss/40"
+                                }`}
+                              >
+                                {v.label}
+                              </span>
+                              {v.accent && (
+                                <span
+                                  className={`text-[0.55rem] uppercase tracking-widest ${
+                                    isReady ? "text-moss/70" : "text-moss/40"
+                                  }`}
+                                >
+                                  {v.accent}
+                                </span>
+                              )}
+                              {!isReady && (
+                                <span className="text-[0.55rem] uppercase tracking-widest text-moss/50">
+                                  soon
+                                </span>
+                              )}
+                            </div>
+                            {v.tagline && (
+                              <p
+                                className={`mt-0.5 text-[0.7rem] leading-snug ${
+                                  isReady ? "text-moss/80" : "text-moss/40"
+                                }`}
+                              >
+                                {v.tagline}
+                              </p>
+                            )}
                           </button>
                           {v.sample_ready && (
                             <button
@@ -269,10 +299,10 @@ export default function CalmPage() {
                               onClick={() => toggleSample(v.key)}
                               data-testid={`calm-voice-sample-${v.key}`}
                               aria-label={isPreviewing ? `Stop ${v.label} sample` : `Play ${v.label} sample`}
-                              className={`px-2 border-l border-border/50 flex items-center transition-colors ${
+                              className={`shrink-0 w-8 h-8 flex items-center justify-center border transition-colors ${
                                 isPreviewing
-                                  ? "bg-terracotta/10 text-terracotta"
-                                  : "text-moss hover:text-terracotta hover:bg-terracotta/5"
+                                  ? "border-terracotta bg-terracotta/10 text-terracotta"
+                                  : "border-border/50 text-moss hover:text-terracotta hover:border-terracotta/50"
                               }`}
                             >
                               {isPreviewing ? (

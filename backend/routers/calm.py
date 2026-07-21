@@ -57,27 +57,39 @@ ELEVENLABS_KEY = os.environ.get("ELEVENLABS_API_KEY", "")
 VOICES = {
     "lily": {
         "voice_id": "pFZP5JQG7iQjIQuC4Bku",
-        "label": "Lily — velvety British female",
+        "label": "Lily",
+        "accent": "British female",
+        "tagline": "Velvety and unhurried — the original P&P narrator.",
     },
     "george": {
         "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-        "label": "George — warm British male",
+        "label": "George",
+        "accent": "British male",
+        "tagline": "Warm and steady — like a friend at the potting bench.",
     },
     "clyde": {
         "voice_id": "2EiwWnXFnvU5JabPnv8n",
-        "label": "Clyde — deep, unhurried American baritone",
+        "label": "Clyde",
+        "accent": "American male",
+        "tagline": "Deep Southern baritone — think back-porch storyteller.",
     },
     "nicole": {
         "voice_id": "piTKgcLEGmPE4e6mEKli",
-        "label": "Nicole — soft, dreamlike whisper",
+        "label": "Nicole",
+        "accent": "American female",
+        "tagline": "Whispery and dreamlike — a lullaby for the garden.",
     },
     "daisy": {
         "voice_id": "3eeY9rFz1akxkQTWoYXs",
-        "label": "Daisy — young, lilting Scottish female",
+        "label": "Daisy",
+        "accent": "Scottish female",
+        "tagline": "Young, lilting Scots — a walk through misty glens.",
     },
     "robert": {
         "voice_id": "U5UjeJMsOvyhYhXfZdvZ",
-        "label": "Robert — deep, gravelly Scottish male",
+        "label": "Robert",
+        "accent": "Scottish male",
+        "tagline": "Deep, gravelly Highlander — clan-elder around the fire.",
     },
 }
 DEFAULT_VOICE_KEY = "lily"
@@ -444,6 +456,8 @@ def make_router(db):
                 {
                     "key": vk,
                     "label": v["label"],
+                    "accent": v.get("accent", ""),
+                    "tagline": v.get("tagline", ""),
                     "slugs_ready": per_voice_ready[vk],
                     "sample_ready": (SAMPLES_DIR / f"{vk}.sample.mp3").exists(),
                     "sample_url": f"/api/calm/voices/{vk}/sample.mp3",

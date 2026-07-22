@@ -33,21 +33,26 @@ export default function Home() {
     "The AI gardening tutor that teaches you how to garden where you live.";
   const HERO_BLURB =
     "Ask a gardening question and receive a personalised masterclass shaped around your locality, climate, season, growing conditions, space and experience.";
+  // Meta description — kept under 160 chars, keyword-forward so Google's
+  // snippet-picker prefers this over on-page prose. Explicit "AI tutor"
+  // + "personalised masterclass" so paid features surface in search.
+  const META_DESCRIPTION =
+    "AI gardening tutor for your patch. Ask any question and get a personalised masterclass shaped to your climate, season, space and skill. Free to try.";
 
   return (
     <div className="animate-fade-up">
       {/* ─── Crawler-facing metadata (SEO + rich results) ─────────── */}
       <Helmet>
         <title>Patch &amp; Pot — AI gardening tutor that teaches you how to garden where you live</title>
-        <meta name="description" content={HERO_BLURB} />
+        <meta name="description" content={META_DESCRIPTION} />
         <link rel="canonical" href="https://patchandpot.app/" />
         <meta property="og:title" content="Patch & Pot — AI gardening tutor" />
-        <meta property="og:description" content={HERO_BLURB} />
+        <meta property="og:description" content={META_DESCRIPTION} />
         <meta property="og:url" content="https://patchandpot.app/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Patch & Pot" />
-        <meta name="twitter:description" content={HERO_BLURB} />
+        <meta name="twitter:title" content="Patch & Pot — AI gardening tutor" />
+        <meta name="twitter:description" content={META_DESCRIPTION} />
       </Helmet>
       <ProductSchema />
 
@@ -117,6 +122,27 @@ export default function Home() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Micro value-prop strip ─────────────────────────────────── */}
+      {/* Placed immediately below the hero so Google's snippet-picker
+          has an AI-tutor + masterclass line to grab before it hits the
+          mid-page pull quote. Copy is intentionally concise and
+          keyword-forward for search. */}
+      <section
+        className="border-b border-border"
+        data-testid="home-value-strip"
+        aria-label="How Patch and Pot works"
+      >
+        <div className="container-narrow py-8 md:py-10">
+          <p className="text-center text-ink/85 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+            <strong className="text-forest">Nàdar</strong> — the Patch &amp;
+            Pot AI gardening tutor — reads your locality, climate zone,
+            season, space and skill level, then writes a{" "}
+            <strong className="text-forest">personalised masterclass</strong>{" "}
+            in seconds. Free to try, unlimited for founding members.
+          </p>
         </div>
       </section>
 

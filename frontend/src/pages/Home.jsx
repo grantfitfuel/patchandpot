@@ -120,6 +120,50 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Founding ethos band ────────────────────────────────────── */}
+      {/* Sits directly under the hero so returning visitors + crawlers
+          both meet the "grow your own, anywhere" promise before the
+          feature grid. Data-testid'd so the ethos band is easy to
+          screenshot / test independently of hero copy iterations. */}
+      <section
+        className="border-b border-border bg-sand/40"
+        data-testid="home-ethos-band"
+      >
+        <div className="container-narrow py-12 md:py-16 grid md:grid-cols-12 gap-8 items-center">
+          <div className="md:col-span-7">
+            <p className="overline text-terracotta">Our ethos</p>
+            <h2
+              className="font-serif text-3xl md:text-5xl text-forest mt-3 leading-[1.05] tracking-tight"
+              data-testid="home-ethos-title"
+            >
+              Grow your own, anywhere.
+            </h2>
+          </div>
+          <div className="md:col-span-5">
+            <p
+              className="text-ink/80 leading-relaxed"
+              data-testid="home-ethos-blurb"
+            >
+              Whether that&apos;s a balcony rail, a shady kitchen windowsill, a
+              ladder against the fence, a stack of gutters or a full plot —
+              every guide, masterclass and calendar in Patch &amp; Pot is
+              shaped to whatever space you actually have.
+            </p>
+            <div className="mt-5">
+              <Link
+                to="/grow-anywhere"
+                data-testid="home-ethos-cta"
+                onClick={() => track("cta_click", { where: "home_ethos", target: "grow_anywhere" })}
+                className="inline-flex items-center gap-1.5 text-sm text-terracotta hover:text-forest transition-colors"
+              >
+                Explore Grow Anywhere
+                <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <ThisMonthCard onSetRegion={() => setPickerOpen(true)} />
 
       <section className="container-narrow py-20">

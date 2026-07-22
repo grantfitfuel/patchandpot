@@ -7,11 +7,13 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
-  Globe2, BarChart3, Sparkles, GitBranch, DollarSign, LogOut, ExternalLink, ShieldCheck,
+  Globe2, BarChart3, Sparkles, GitBranch, DollarSign, LogOut, ExternalLink, ShieldCheck, LineChart,
 } from "lucide-react";
 import AdminTokenGate, { useAdminToken } from "@/components/AdminTokenGate";
 
 const CARDS = [
+  { to: "/admin/analytics",   icon: LineChart,  title: "Analytics & CTR",
+    blurb: "Page views + CTA click-through rates by capability. First-party events, no third-party." },
   { to: "/admin/revenue",     icon: DollarSign, title: "Revenue & margin",
     blurb: "Stripe payouts, affiliate top-countries, gross vs. net profit." },
   { to: "/admin/ai-usage",    icon: BarChart3,  title: "AI usage & budget",

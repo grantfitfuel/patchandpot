@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import CapabilitiesIndex from "@/pages/CapabilitiesIndex";
 import CapabilityLanding from "@/pages/CapabilityLanding";
+import AdminAnalyticsPage from "@/pages/AdminAnalytics";
 import CalendarPage from "@/pages/Calendar";
 import CalendarComparePage from "@/pages/CalendarCompare";
 import WellbeingPage from "@/pages/Wellbeing";
@@ -133,6 +134,7 @@ function AppShell() {
           <Route path="/calm" element={<CalmPage />} />
           <Route path="/admin/referrals" element={<AdminReferralsPage />} />
           <Route path="/admin/geo" element={<AdminGeoPage />} />
+          <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
           <Route path="/patrons" element={<PatronsPage />} />
           <Route path="/patrons/manage" element={<PatronsManagePage />} />
           <Route path="/p/:shareId" element={<SharedPatchPage />} />

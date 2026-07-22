@@ -23,6 +23,7 @@ from fastapi import APIRouter
 from ._curation import register_curation_routes
 from ._maintenance import register_maintenance_routes
 from ._observability import register_observability_routes
+from ._analytics import register_analytics_routes
 
 
 def make_router(db) -> APIRouter:
@@ -33,4 +34,5 @@ def make_router(db) -> APIRouter:
     register_maintenance_routes(router, db)
     register_observability_routes(router, db)
     register_curation_routes(router, db)
+    register_analytics_routes(router, db)
     return router

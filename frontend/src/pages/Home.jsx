@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, GraduationCap, Heart, Check } from "lucide-react";
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
@@ -10,6 +11,7 @@ import EmbedFoundingSnippet from "@/components/EmbedFoundingSnippet";
 import MostLovedPatches from "@/components/MostLovedPatches";
 import PlantOfTheWeek from "@/components/PlantOfTheWeek";
 import PopularPlants from "@/components/PopularPlants";
+import ProductSchema from "@/components/seo/ProductSchema";
 import {
   NoticeIllustration,
   SlowIllustration,
@@ -17,6 +19,7 @@ import {
 } from "@/components/illustrations/WellbeingIllustrations";
 import { usePaywall } from "@/hooks/usePaywall";
 import { useI18n, monthLabel } from "@/i18n";
+import { track } from "@/lib/track";
 
 export default function Home() {
   const { region } = useRegion();
@@ -26,8 +29,28 @@ export default function Home() {
   const [paywallOpen, setPaywallOpen] = useState(false);
   const month = monthLabel(new Date().getMonth() + 1, t);
 
+  const HERO_TITLE =
+    "The AI gardening tutor that teaches you how to garden where you live.";
+  const HERO_BLURB =
+    "Ask a gardening question and receive a personalised masterclass shaped around your locality, climate, season, growing conditions, space and experience.";
+
   return (
     <div className="animate-fade-up">
+      {/* ─── Crawler-facing metadata (SEO + rich results) ─────────── */}
+      <Helmet>
+        <title>Patch &amp; Pot — AI gardening tutor that teaches you how to garden where you live</title>
+        <meta name="description" content={HERO_BLURB} />
+        <link rel="canonical" href="https://patchandpot.app/" />
+        <meta property="og:title" content="Patch & Pot — AI gardening tutor" />
+        <meta property="og:description" content={HERO_BLURB} />
+        <meta property="og:url" content="https://patchandpot.app/" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Patch & Pot" />
+        <meta name="twitter:description" content={HERO_BLURB} />
+      </Helmet>
+      <ProductSchema />
+
       {!paid && <FoundingBanner />}
       {paid && (
         <div
@@ -43,18 +66,35 @@ export default function Home() {
       <section className="border-b border-border">
         <div className="container-narrow py-16 md:py-24 grid md:grid-cols-12 gap-10 items-end">
           <div className="md:col-span-7">
-            <p className="hero-eyebrow overline">{t("home.eyebrow")}</p>
-            <h1 className="font-serif text-5xl md:text-7xl text-forest mt-5 leading-[0.95] tracking-tight">
-              {t("home.title.line1")}
-              <br />
-              <em className="not-italic text-terracotta">{t("home.title.line2")}</em>
+            <p className="hero-eyebrow overline">Patch &amp; Pot</p>
+            <h1
+              className="font-serif text-4xl md:text-6xl text-forest mt-5 leading-[1.02] tracking-tight"
+              data-testid="home-hero-title"
+            >
+              {HERO_TITLE}
             </h1>
-            <p className="mt-6 text-lg text-ink/80 max-w-xl leading-relaxed">
-              {t("home.intro")}
+            <p
+              className="mt-6 text-lg text-ink/80 max-w-xl leading-relaxed"
+              data-testid="home-hero-blurb"
+            >
+              {HERO_BLURB}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/calendar" data-testid="cta-monthly-guide" className="btn-terracotta inline-flex items-center gap-2">
-                {t("home.cta.guide", { month })} <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+              <Link
+                to="/ask"
+                data-testid="cta-ask-nadar"
+                onClick={() => track("cta_click", { where: "home_hero", target: "ask_nadar" })}
+                className="btn-terracotta inline-flex items-center gap-2"
+              >
+                Ask a gardening question <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+              </Link>
+              <Link
+                to="/calendar"
+                data-testid="cta-monthly-guide"
+                onClick={() => track("cta_click", { where: "home_hero", target: "monthly_guide" })}
+                className="btn-ghost inline-flex items-center gap-2"
+              >
+                {t("home.cta.guide", { month })}
               </Link>
               <button
                 type="button"

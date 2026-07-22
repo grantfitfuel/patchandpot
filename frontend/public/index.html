@@ -4,18 +4,13 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#2D4A22" />
-        <meta name="description" content="Patch & Pot — mindful regional gardening for small spaces. Food and flowers, anywhere." />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Patch & Pot" />
-        <meta property="og:title" content="Patch & Pot — Grow Anywhere" />
-        <meta property="og:description" content="Mindful regional gardening for small spaces. Monthly climate-accurate guides, masterclasses, and a downloadable seasonal journal." />
         <meta property="og:image" content="https://patchandpot.app/api/share/og/brand.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Patch & Pot — mindful regional gardening, anywhere" />
+        <meta property="og:image:alt" content="Patch & Pot — AI gardening tutor" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Patch & Pot — Grow Anywhere" />
-        <meta name="twitter:description" content="Mindful regional gardening for small spaces. Monthly climate-accurate guides, masterclasses, and a downloadable seasonal journal." />
         <meta name="twitter:image" content="https://patchandpot.app/api/share/og/brand.png" />
         <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,8 +29,32 @@
         work correctly both with client-side routing and a non-root public URL.
         Learn how to configure a non-root public URL by running `npm run build`.
         -->
-        <title>Patch &amp; Pot — Grow Anywhere</title>
+        <title>Patch &amp; Pot — AI gardening tutor that teaches you how to garden where you live</title>
+        <meta name="description" content="Patch & Pot — the AI gardening tutor that teaches you how to garden where you live. Ask a question and get a personalised masterclass shaped around your locality, climate, season, space and experience." />
+        <meta property="og:title" content="Patch & Pot — AI gardening tutor" />
+        <meta property="og:description" content="Ask a gardening question and receive a personalised masterclass shaped around your locality, climate, season, growing conditions, space and experience." />
+        <meta name="twitter:title" content="Patch & Pot — AI gardening tutor" />
+        <meta name="twitter:description" content="Ask a gardening question and receive a personalised masterclass shaped around your locality, climate, season, growing conditions, space and experience." />
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
+        <!-- Google Analytics 4 loader. Only activates when
+             `REACT_APP_GA4_ID` is defined at build time — otherwise the
+             substitution collapses to an empty string and the script
+             short-circuits, so we don't ship a broken tag on preview. -->
+        <script>
+          (function(){
+            var id = "%REACT_APP_GA4_ID%";
+            if (!id || id.indexOf("REACT_APP") === 0) return;
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag("js", new Date());
+            gtag("config", id, { send_page_view: false });
+            var s = document.createElement("script");
+            s.async = true;
+            s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+            document.head.appendChild(s);
+          })();
+        </script>
         <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
     </head>
     <body>

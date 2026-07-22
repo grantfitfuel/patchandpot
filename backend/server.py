@@ -223,6 +223,10 @@ app.include_router(share_router.make_router(db), prefix="/api")
 app.include_router(ask_router.make_router(db), prefix="/api")
 app.include_router(calm_router.make_router(db), prefix="/api")
 app.include_router(seo_router.make_router(db), prefix="/api")
+# Analytics + automated sitemap. Self-mounts under /api so we can keep
+# route definitions inside the router module.
+from routers.analytics import register_analytics_routes  # noqa: E402
+register_analytics_routes(app, db)
 # Patrons router self-prefixes with /api (see routers/patrons.py).
 app.include_router(patrons_router.make_router(db))
 

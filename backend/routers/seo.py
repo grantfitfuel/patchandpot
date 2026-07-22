@@ -26,6 +26,20 @@ from routers.ask import question_slug
 # — they're either gated, transient or designed to be iframed.
 _STATIC_ROUTES = [
     ("/",                     "weekly",  1.0),
+    ("/capabilities",         "weekly",  0.95),
+    # Every dedicated marketing landing page — the crawler-first surface
+    # for each product capability. Keep in sync with the CAPABILITIES
+    # constant in frontend/src/data/capabilities.js.
+    ("/capabilities/ask-nadar",      "weekly",  0.9),
+    ("/capabilities/monthly-guide",  "weekly",  0.9),
+    ("/capabilities/masterclasses",  "weekly",  0.9),
+    ("/capabilities/calm",           "weekly",  0.9),
+    ("/capabilities/plants",         "weekly",  0.9),
+    ("/capabilities/grow-anywhere",  "weekly",  0.9),
+    ("/capabilities/recipes",        "weekly",  0.9),
+    ("/capabilities/bouquet",        "weekly",  0.9),
+    ("/capabilities/journal",        "weekly",  0.9),
+    ("/capabilities/topics",         "weekly",  0.9),
     ("/calendar",             "monthly", 0.9),
     ("/calendar/compare",     "monthly", 0.7),
     ("/plants",               "weekly",  0.9),
@@ -37,10 +51,15 @@ _STATIC_ROUTES = [
     ("/grow-anywhere",        "weekly",  0.8),
     ("/recipes",              "weekly",  0.8),
     ("/bouquet",              "monthly", 0.6),
+    ("/calm",                 "weekly",  0.8),
+    ("/journal",              "monthly", 0.6),
+    ("/ask",                  "weekly",  0.7),
     ("/ask/popular",          "daily",   0.7),
+    ("/topics",               "weekly",  0.8),
     ("/patrons",              "monthly", 0.5),
     ("/privacy",              "yearly",  0.3),
     ("/terms",                "yearly",  0.3),
+    ("/about",                "yearly",  0.4),
 ]
 
 
@@ -80,10 +99,30 @@ def make_router(db=None) -> APIRouter:
             add(path, prio, freq)
 
         # Per-plant evergreen pages — the biggest organic-traffic surface.
-        for p in PLANTS:
-            slug = p.get("id")
-            if slug:
-                add(f"/plants/{slug}", 0.8, "monthly")
+        # Curated to the top ~50 to keep the sitemap tight (Google honors
+        # priority hints better on a compact list). Priority ranks by
+        # 7-day view count when available, then pads with PLANT_INDEX
+        # order so we always emit close to 50 URLs even on a fresh install.
+        top_plant_ids: list[str] = []
+        if db is not None:
+            try:
+                cursor = db.plant_stats.find(
+                    {}, {"_id": 0, "plant_id": 1}
+                ).sort("view_count_7d", -1).limit(50)
+                top_plant_ids = [row["plant_id"] async for row in cursor]
+            except Exception:  # noqa: BLE001
+                top_plant_ids = []
+        if len(top_plant_ids) < 50:
+            seen = set(top_plant_ids)
+            for p in PLANTS:
+                pid = p.get("id")
+                if pid and pid not in seen:
+                    top_plant_ids.append(pid)
+                    seen.add(pid)
+                    if len(top_plant_ids) >= 50:
+                        break
+        for pid in top_plant_ids:
+            add(f"/plants/{pid}", 0.8, "monthly")
 
         # Curated topic landing pages — hand-picked taxonomy, never
         # auto-generated. Adding a topic requires a code change so we

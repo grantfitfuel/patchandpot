@@ -1,8 +1,12 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { trackPageView } from "@/lib/track";
 import "@/App.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
+import CapabilitiesIndex from "@/pages/CapabilitiesIndex";
+import CapabilityLanding from "@/pages/CapabilityLanding";
 import CalendarPage from "@/pages/Calendar";
 import CalendarComparePage from "@/pages/CalendarCompare";
 import WellbeingPage from "@/pages/Wellbeing";
@@ -65,6 +69,12 @@ function AppShell() {
   const location = useLocation();
   const isEmbed = location.pathname.startsWith("/embed/");
 
+  // Fire one `page_view` per client-side route change. Debounced inside
+  // `trackPageView` so a StrictMode double-mount doesn't double-count.
+  useEffect(() => {
+    if (!isEmbed) trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search, isEmbed]);
+
   if (isEmbed) {
     return (
       <Routes>
@@ -79,6 +89,8 @@ function AppShell() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/capabilities" element={<CapabilitiesIndex />} />
+          <Route path="/capabilities/:slug" element={<CapabilityLanding />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/calendar/compare" element={<CalendarComparePage />} />
           <Route path="/wellbeing" element={<WellbeingPage />} />

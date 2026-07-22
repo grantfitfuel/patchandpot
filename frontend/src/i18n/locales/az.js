@@ -403,7 +403,7 @@ const dict = {
   "checkout.polling.body": "Bu adətən bir neçə saniyə çəkir.",
   "checkout.success.eyebrow": "Patch-a xoş gəlmisiniz",
   "checkout.success.title": "Siz içindəsiniz — ömürlük.",
-  "checkout.success.body": "Təşəkkür edirik. Hər ödənilmiş paun bu tətbiqi dürüst, reklamsız və inkişafda saxlamağa kömək edir.",
+  "checkout.success.body": "Təşəkkür edirik. Hər ödənilmiş paun bu tətbiqi dürüst, müstəqil və inkişafda saxlamağa kömək edir.",
   "checkout.success.token_label": "Erişim kodunuz",
   "checkout.success.token_help": "Bunu təhlükəsiz bir yerdə saxlayın. Hər hansı digər cihazda 'Mən artıq ödəmişəm' bölməsinə yapışdırın ki, orada da açasınız.",
   "checkout.success.copy": "Kopyala",

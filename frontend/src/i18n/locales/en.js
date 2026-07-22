@@ -763,7 +763,7 @@ const dict = {
   "checkout.polling.body": "This usually takes a few seconds.",
   "checkout.success.eyebrow": "Welcome to the patch",
   "checkout.success.title": "You're in — for life.",
-  "checkout.success.body": "Thank you. Every paid pound helps us keep this app honest, ad-free, and growing.",
+  "checkout.success.body": "Thank you. Every paid pound helps us keep this app honest, independent, and growing.",
   "checkout.success.token_label": "Your access code",
   "checkout.success.token_help": "Save this somewhere safe. Paste it into 'I already paid' on any other device to unlock there too.",
   "checkout.success.copy": "Copy",

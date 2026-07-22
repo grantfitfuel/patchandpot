@@ -403,7 +403,7 @@ const dict = {
   "checkout.polling.body": "عادةً ما يستغرق هذا بضع ثوان.",
   "checkout.success.eyebrow": "مرحبًا بك في الحديقة",
   "checkout.success.title": "أنت هنا - إلى الأبد.",
-  "checkout.success.body": "شكرًا لك. كل جنيه مدفوع يساعدنا في الحفاظ على هذا التطبيق نزيه، خالي من الإعلانات، ونمو.",
+  "checkout.success.body": "شكرًا لك. كل جنيه مدفوع يساعدنا في الحفاظ على هذا التطبيق نزيه، مستقل، ونمو.",
   "checkout.success.token_label": "رمز الوصول الخاص بك",
   "checkout.success.token_help": "احفظ هذا في مكان آمن. ألصقه في 'لقد دفعت بالفعل' على أي جهاز آخر لفتحه هناك أيضًا.",
   "checkout.success.copy": "نسخ",

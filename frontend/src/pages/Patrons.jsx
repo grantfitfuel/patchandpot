@@ -38,7 +38,7 @@ export default function PatronsPage() {
         <title>Our Patrons — Patch &amp; Pot</title>
         <meta
           name="description"
-          content="The people whose support keeps Patch & Pot independent, affordable and ad-free. Listed with their permission — first names, no emails, no amounts."
+          content="The people whose support keeps Patch & Pot independent, affordable and growing. Listed with their permission — first names, no emails, no amounts."
         />
       </Helmet>
 
@@ -54,9 +54,10 @@ export default function PatronsPage() {
           className="mt-5 max-w-2xl mx-auto text-ink/75 leading-relaxed text-lg"
           data-testid="patrons-intro"
         >
-          Patch &amp; Pot is small, independent, and ad-free. These supporters
-          chose to chip in so it stays that way — and chose to be listed here
-          with their permission. We&apos;re grateful to every one of them.
+          Patch &amp; Pot is a small, independent gardening publisher.
+          Every AI answer costs us in compute, so patrons chip in to keep
+          the app running — and chose to be listed here with their
+          permission. We&apos;re grateful to every one of them.
         </p>
         {total > 0 && (
           <p

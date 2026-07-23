@@ -48,6 +48,13 @@
             function gtag(){window.dataLayer.push(arguments);}
             window.gtag = gtag;
             gtag("js", new Date());
+            // If the current URL carries `?ga_debug=1`, opt this session
+            // into GA4 DebugView. DebugView shows events in real time with
+            // full parameters — far better than the Realtime report for
+            // end-to-end verification. The flag is per-session and never
+            // stored, so production visitors are never affected.
+            var isDebug = false;
+            try { isDebug = new URLSearchParams(location.search).get("ga_debug") === "1"; } catch (e) {}
             // Privacy-hardened GA4 config: SPA sends page_views manually
             // below; Google Signals + ad personalisation off; IP
             // anonymisation on. Data-retention (14 months) is set in the
@@ -56,7 +63,8 @@
               send_page_view: false,
               anonymize_ip: true,
               allow_google_signals: false,
-              allow_ad_personalization_signals: false
+              allow_ad_personalization_signals: false,
+              debug_mode: isDebug
             });
             var s = document.createElement("script");
             s.async = true;

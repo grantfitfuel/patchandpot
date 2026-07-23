@@ -139,6 +139,12 @@ def make_router(db) -> APIRouter:
             "amount_total": status.amount_total,
             "currency": status.currency,
             "paid": paid,
+            # `package_id` is needed by the frontend so it can:
+            #   1. Show the tip-jar thank-you page instead of the paywall
+            #      success page for `tip` purchases.
+            #   2. Attach the correct tier label to the GA4 `purchase` /
+            #      `checkout_success` conversion event for funnel reports.
+            "package_id": (txn or {}).get("package_id") or (status.metadata or {}).get("package_id"),
         }
 
     @router.post("/webhook/stripe")

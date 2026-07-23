@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X, Sparkles, Check, Loader2, ArrowRight, AlertCircle } from "lucide-react";
 import { createCheckout } from "@/lib/api";
+import { track } from "@/lib/track";
 
 /**
  * Focused "claim my Founding spot" confirmation modal.
@@ -122,6 +123,22 @@ export default function FoundingClaimModal({ remaining, total, onClose }) {
     let cancelled = false;
     setPhase("preparing");
     setErrorTag("");
+
+    // Funnel event: the user clicked "Claim my spot" and this modal has
+    // mounted, so they have committed to the Founding tier. Fire once
+    // per mount — `attempt` bumps only on the Try again button, which
+    // for GA4 is still the same intent so we send it again anyway.
+    // `begin_checkout` is the GA4 recommended alias so Ecommerce reports
+    // catch it automatically alongside the human-readable `founding_claim`.
+    const ga4Params = {
+      currency: "GBP",
+      value: 35,
+      items: [{ item_id: "lifetime_founding", item_name: "Patch & Pot — Founding Member (lifetime)", price: 35, quantity: 1 }],
+      tier: "lifetime_founding",
+      remaining,
+    };
+    track("founding_claim", ga4Params);
+    track("begin_checkout", ga4Params);
 
     getOrCreateCheckout("lifetime_founding")
       .then((url) => {

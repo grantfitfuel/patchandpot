@@ -8,6 +8,7 @@ import { getStoredAccessToken } from "@/hooks/usePaywall";
 import { useI18n } from "@/i18n";
 import PaywallModal from "@/components/PaywallModal";
 import { FEATURED_DEEP_DIVE_SLUGS } from "@/components/DeepDiveSection";
+import { track } from "@/lib/track";
 
 const FEATURED_SET = new Set(FEATURED_DEEP_DIVE_SLUGS);
 const POLL_MS = 4000;
@@ -78,12 +79,32 @@ export default function AIMasterclassSuggest() {
     try {
       const res = await generateMasterclass(cleaned, lang, tok);
       if (res.status === "done" && res.slug) {
+        // Cache-warm return path — the masterclass already existed and
+        // was returned instantly. We still count this as a "generated"
+        // event from the user's point of view (they typed a topic and
+        // got a masterclass), with `cached: true` so funnel analysis can
+        // distinguish it from a fresh generation.
+        track("masterclass_generated", {
+          topic: cleaned,
+          slug: res.slug,
+          language: lang,
+          cached: true,
+        });
         navigate(`/masterclasses/custom/${res.slug}`);
         return;
       }
       if (res.status === "pending" && res.job_id) {
         setPhase("Researching cultivars…");
         const slug = await pollUntilDone(res.job_id, res.slug);
+        // Fresh AI-generated masterclass — the interesting conversion
+        // event. Mark this as key in GA4 Admin → Events → Mark as key
+        // event so it shows in conversions & funnels.
+        track("masterclass_generated", {
+          topic: cleaned,
+          slug,
+          language: lang,
+          cached: false,
+        });
         navigate(`/masterclasses/custom/${slug}`);
         return;
       }

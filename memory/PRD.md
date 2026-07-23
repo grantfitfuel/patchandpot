@@ -1349,3 +1349,15 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - **SW bumped** v89 → v90.
 - **Verified live** at `/privacy`: no compile overlay; all 7 verification checks pass (GA4 mentioned, opt-out link, IP anonymised, `_ga` cookie, 14-month retention, Signals off, policies.google.com link).
 - **Follow-up (P1)**: Real GA4 admin console change needed — set data-retention to 14 months (Admin → Data Settings → Data Retention). Nothing to do in code.
+
+### Iteration 57 (2026-07-23): ✅ — GA4 conversion events wired for the full funnel
+- **`checkout_start`** — fires in `PaywallModal.jsx` the moment "Pay" is tapped, BEFORE the network call so drop-offs are still captured. Includes `currency: "GBP"`, `value` (GBP per tier), `items[]` (GA4 Ecommerce format), and `tier`. Also emits GA4-recommended alias `begin_checkout` so Ecommerce reports populate automatically.
+- **`founding_claim`** — fires in `FoundingClaimModal.jsx` `useEffect` when the modal mounts (= user has committed to the Founding tier). Same shape as above, `value: 35`, `tier: "lifetime_founding"`, plus `remaining` spots. Also emits `begin_checkout` alias.
+- **`checkout_success`** — fires in `CheckoutSuccess.jsx` inside the polling loop the first time `status.paid === true` (guarded by a `converted` flag so it never double-fires). Tips excluded. Includes `transaction_id: sessionId`, `value` (Stripe pence ÷ 100), `currency` (uppercased), `items[]`, `tier`. Also emits GA4-recommended `purchase` alias — this auto-populates GA4 Ecommerce revenue reports without any admin config.
+- **`masterclass_generated`** — fires in `AIMasterclassSuggest.jsx` at both success paths (cache-warm + fresh AI generation) with `topic`, `slug`, `language`, `cached: bool`. Cached vs fresh distinction lets funnel analysis separate "first-time generation" from "returning to a saved topic".
+- **Backend**: `GET /api/checkout/status/{session_id}` now returns `package_id`. Frontend already assumed this field existed for tip detection — the missing field was a latent bug. Now correctly populated from `payment_transactions.package_id` (with fallback to Stripe metadata).
+- **Verified live** — smoke test confirmed:
+  - Founding CTA → dataLayer contains `founding_claim` + `begin_checkout` with `value: 35, currency: 'GBP', tier: 'lifetime_founding', remaining: 29`
+  - Paywall (annual tier) → dataLayer contains `checkout_start` + `begin_checkout` with `value: 15, currency: 'GBP', tier: 'annual'` and correct GA4 `items[]`
+- SW bumped v90 → v91.
+- **Admin console follow-up (P1)**: In GA4 → Admin → Events, mark `checkout_success`, `founding_claim`, `masterclass_generated` as **Key Events** so they appear in Conversion reports. `purchase` and `begin_checkout` are already recognised recommended events; no admin config needed for them.

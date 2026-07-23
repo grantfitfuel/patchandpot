@@ -3,6 +3,7 @@ import { Sprout, X, Loader2 } from "lucide-react";
 import { useI18n } from "@/i18n";
 import { createCheckout, checkAccess } from "@/lib/api";
 import { setStoredAccessToken } from "@/hooks/usePaywall";
+import { track } from "@/lib/track";
 
 /**
  * Five-tier paywall modal. Stripe Checkout opens via a real <a href> click
@@ -12,6 +13,10 @@ import { setStoredAccessToken } from "@/hooks/usePaywall";
 
 // Single source of truth for the tier cards. `id` must match a key in
 // backend/core.py PAYWALL_PACKAGES.
+// Numeric GBP value per tier, needed so GA4 revenue reports pick up
+// `checkout_start` (and its `begin_checkout` alias) with a real amount.
+const TIER_VALUE_GBP = { monthly: 2.99, quarterly: 5, biannual: 9, annual: 15, lifetime: 50 };
+
 const TIERS = [
   { id: "monthly",   label: "1 month",   price: "£2.99", suffix: "/mo",  per_month: null,   blurb: "Try it for a single month — no commitment." },
   { id: "quarterly", label: "3 months",  price: "£5",    suffix: "",     per_month: "£1.67/mo", blurb: "A full growing season for the price of a sandwich." },
@@ -36,6 +41,21 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
     setBusy(true);
     setError("");
     setCheckoutUrl("");
+    // Fire the funnel event BEFORE the network call so we still record it
+    // if the user drops off mid-checkout (e.g. Stripe never returns a URL).
+    // `begin_checkout` is GA4's recommended event name and lights up
+    // Ecommerce reports automatically without any admin config; we also
+    // send the human-readable `checkout_start` alias so first-party
+    // reports match the naming the team uses internally.
+    const value = TIER_VALUE_GBP[tier];
+    const ga4Params = {
+      currency: "GBP",
+      value,
+      items: [{ item_id: tier, item_name: `Patch & Pot — ${tier}`, price: value, quantity: 1 }],
+      tier,
+    };
+    track("checkout_start", ga4Params);
+    track("begin_checkout", ga4Params);
     try {
       const { url } = await createCheckout(window.location.origin, undefined, tier);
       setCheckoutUrl(url);

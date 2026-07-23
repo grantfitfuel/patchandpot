@@ -5,6 +5,7 @@ import confetti from "canvas-confetti";
 import { getCheckoutStatus } from "@/lib/api";
 import { setStoredAccessToken } from "@/hooks/usePaywall";
 import { useI18n } from "@/i18n";
+import { track } from "@/lib/track";
 import PatronOptInCard from "@/components/PatronOptInCard";
 
 const MAX_POLL_ATTEMPTS = 8;
@@ -53,12 +54,34 @@ export default function CheckoutSuccess() {
     }
     let cancelled = false;
     let attempts = 0;
+    let converted = false; // guard so we never double-fire the GA4 purchase
 
     async function poll() {
       try {
         const status = await getCheckoutStatus(sessionId);
         if (cancelled) return;
         if (status.paid) {
+          // Fire the conversion event exactly once — GA4 deduplicates on
+          // `transaction_id` too but a client-side guard is cheaper. Tips
+          // are excluded from revenue reports (they don't grant access).
+          if (!converted && status.package_id !== "tip") {
+            converted = true;
+            const value = Number(status.amount_total || 0) / 100; // Stripe returns pence
+            const currency = (status.currency || "gbp").toUpperCase();
+            const pkg = status.package_id || "unknown";
+            const ga4Params = {
+              currency,
+              value,
+              transaction_id: sessionId,
+              items: [{ item_id: pkg, item_name: `Patch & Pot — ${pkg}`, price: value, quantity: 1 }],
+              tier: pkg,
+            };
+            // `purchase` is the GA4 recommended event that auto-populates
+            // Ecommerce revenue reports. `checkout_success` is the
+            // human-readable alias the team uses for custom funnels.
+            track("checkout_success", ga4Params);
+            track("purchase", ga4Params);
+          }
           // Tips don't grant access — show a dedicated thank-you instead of
           // writing a token into localStorage that does nothing.
           if (status.package_id === "tip") {

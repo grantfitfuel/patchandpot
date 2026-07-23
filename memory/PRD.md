@@ -1339,3 +1339,13 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - **Compile-error sweep** — discovered and fixed 30 locale files where a prior translation script had emitted `\\"` (2 backslashes + quote) instead of `\\\"` (3 backslashes + quote) in `class=\"link\"` HTML attributes, causing SyntaxError: `Expecting Unicode escape sequence \uXXXX`. Fixed all 30 files in one regex sweep. Preview overlay gone, all locales compile.
 - **Service worker** bumped `patchpot-v87 → v89` (two bumps: env change + locale fixes).
 - **Follow-up (deferred, pending user OK)**: Privacy Policy disclosure of GA4 third-party analytics cookie (currently states "we do not run ad-tracking or fingerprinting on Patch & Pot itself" — now inaccurate since GA4 is live). Needs 58-language re-translation sweep once user confirms wording.
+
+### Iteration 56 (2026-07-23): ✅ — Privacy Policy GA4 disclosure + gtag hardened
+- **`legal.privacy.share.html`** rewritten in `en.js`: added GA4 to the processor list with plain-English disclosure (aggregate analytics, IP anonymised, Signals off, ad personalisation off, 14-month retention, link to Google's policy, opt-out add-on link). Reworded the tail paragraph so "no ad-tracking" no longer contradicts the GA4 line.
+- **`legal.privacy.cookies.html`** rewritten in `en.js`: added a dedicated GA4 cookie bullet naming `_ga` and `_ga_<id>`, explaining what they do, and pointing to Google's opt-out browser add-on + browser-level Do Not Track.
+- **`gtag('config', …)` hardened** in `/app/frontend/public/index.html`: `anonymize_ip: true`, `allow_google_signals: false`, `allow_ad_personalization_signals: false` so the privacy claims are actually enforced. (14-month retention must still be set in the GA4 admin console.)
+- **57-language translation sweep** for both privacy keys via `translate_privacy_affiliate_disclosure.py`. 3 initial failures (lv, gu, az — JSON parse errors) recovered with `translate_privacy_retry.py` (GPT-4o, higher token budget).
+- **Escape-bug sweep #2**: the LLM output re-introduced the `\\"link\\"` escape bug across 41 locale files (1,440 occurrences). Fixed by the same one-liner regex that repaired iteration 55. Also patched `translate_privacy_affiliate_disclosure.py`'s `upsert()` to run the same repair in-line so future translation runs of that script won't emit broken output.
+- **SW bumped** v89 → v90.
+- **Verified live** at `/privacy`: no compile overlay; all 7 verification checks pass (GA4 mentioned, opt-out link, IP anonymised, `_ga` cookie, 14-month retention, Signals off, policies.google.com link).
+- **Follow-up (P1)**: Real GA4 admin console change needed — set data-retention to 14 months (Admin → Data Settings → Data Retention). Nothing to do in code.

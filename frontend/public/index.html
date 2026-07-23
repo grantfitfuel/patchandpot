@@ -48,7 +48,16 @@
             function gtag(){window.dataLayer.push(arguments);}
             window.gtag = gtag;
             gtag("js", new Date());
-            gtag("config", id, { send_page_view: false });
+            // Privacy-hardened GA4 config: SPA sends page_views manually
+            // below; Google Signals + ad personalisation off; IP
+            // anonymisation on. Data-retention (14 months) is set in the
+            // GA4 admin console.
+            gtag("config", id, {
+              send_page_view: false,
+              anonymize_ip: true,
+              allow_google_signals: false,
+              allow_ad_personalization_signals: false
+            });
             var s = document.createElement("script");
             s.async = true;
             s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);

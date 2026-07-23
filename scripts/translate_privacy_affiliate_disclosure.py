@@ -78,6 +78,11 @@ def upsert(code, translated):
                       "", text, flags=re.MULTILINE)
     block = "".join(f'  "{k}": {json.dumps(v, ensure_ascii=False)},\n'
                     for k, v in translated.items())
+    # Repair a recurring escape bug: some LLM outputs emit `\"` for HTML
+    # attribute quotes, which json.dumps writes as `\\"` — a JS syntax
+    # error (`\\` + `"` closes the string early). Force the file-level
+    # form to `\\\"` (JS source: `\\` + `\"` = literal `\"`).
+    block = re.sub(r'(?<!\\)\\\\"', r'\\\\\\"', block)
     text = re.sub(r"(\n)\};\s*\n+export default dict;",
                   block + r"\1};\nexport default dict;", text, count=1)
     p.write_text(text)

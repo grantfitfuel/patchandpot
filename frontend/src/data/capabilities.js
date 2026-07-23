@@ -88,7 +88,7 @@ export const CAPABILITIES = {
     description:
       "Ask for any gardening topic and receive a full, multi-lesson masterclass in minutes — written for your climate, your space and your level. Companion plants, cut flowers, no-dig, seed saving — pick anything.",
     hero:
-      "Tell Nàdar what you want to learn — 'no-dig for a small garden', 'seed saving from tomatoes', 'attracting bees to a balcony' — and a full multi-lesson masterclass is written just for you.",
+      "Tell the AI Masterclass creator what you want to learn — 'no-dig for a small garden', 'seed saving from tomatoes', 'attracting bees to a balcony' — and a full multi-lesson masterclass is written just for you.",
     features: [
       { title: "Personalised, not templated", body: "Each masterclass is shaped around the climate, space and experience you told us about." },
       { title: "Lifetime library", body: "Every masterclass you generate is saved to your library. Come back, share, or fork into a new one." },

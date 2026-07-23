@@ -137,11 +137,13 @@ export default function Home() {
       >
         <div className="container-narrow py-8 md:py-10">
           <p className="text-center text-ink/85 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-            <strong className="text-forest">Nàdar</strong> — the Patch &amp;
-            Pot AI gardening tutor — reads your locality, climate zone,
-            season, space and skill level, then writes a{" "}
-            <strong className="text-forest">personalised masterclass</strong>{" "}
-            in seconds. Free to try, unlimited for founding members.
+            <strong className="text-forest">Ask Nàdar</strong> answers any
+            gardening question in seconds. The{" "}
+            <strong className="text-forest">AI Masterclass creator</strong>{" "}
+            writes you a full multi-lesson course on any topic — from
+            no-dig to seed saving to attracting bees. Both shaped to your
+            climate zone, season, space and skill. Free to try, unlimited
+            for founding members.
           </p>
         </div>
       </section>

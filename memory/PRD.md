@@ -1361,3 +1361,13 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - Paywall (annual tier) → dataLayer contains `checkout_start` + `begin_checkout` with `value: 15, currency: 'GBP', tier: 'annual'` and correct GA4 `items[]`
 - SW bumped v90 → v91.
 - **Admin console follow-up (P1)**: In GA4 → Admin → Events, mark `checkout_success`, `founding_claim`, `masterclass_generated` as **Key Events** so they appear in Conversion reports. `purchase` and `begin_checkout` are already recognised recommended events; no admin config needed for them.
+
+### Iteration 58 (2026-07-23): ✅ — Brand favicon suite live (matches patchandpot.com)
+- **Source**: the existing 3D plant-in-terracotta-pot brand logo from `patchandpot.com/img/patchandpot-logo.png` — same visual mark both sites now share.
+- **Assets generated** from the source PNG via Pillow: `favicon.ico` (multi-res 16+32+48), `favicon-16/32/48/96.png` (transparent), `favicon-180/192/512.png` (composited onto sand `#F7F5F0` because iOS + Android require opaque backgrounds under the icon).
+- **`index.html`**: added 4 `<link>` tags — 16×16, 32×32, `shortcut icon` for legacy, and 180×180 `apple-touch-icon`. Cache-busted with `?v=2`.
+- **`manifest.json`**: replaced the single `favicon.ico` reference with `favicon-192.png` + `favicon-512.png` as `any maskable` — required for Android home-screen install and Google search's brand-image slot.
+- **SW bumped** v92 → v93.
+- **Verified**: all 6 icon files serve 200 with correct MIME; `favicon.ico` probe confirms 3.7KB multi-res ICO.
+- **Removed** the earlier custom SVG favicon prototype (the brand PNG takes priority).
+- **Follow-up (P2)**: Once patchandpot.app is deployed, Google search's "sitelink favicon" typically updates within 1–2 weeks of the next crawl. To speed that up you can request a re-crawl from Google Search Console.

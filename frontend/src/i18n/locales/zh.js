@@ -479,7 +479,6 @@ const dict = {
   "legal.privacy.lawful.title": "合法依据（UK GDPR 第 6 条）",
   "legal.privacy.lawful.html": "<ul><li><strong>合同</strong> — 用于处理你的会员支付和提供付费内容。</li><li><strong>合法利益</strong> — 用于保持网站运行、防止滥用和提高指导质量。</li><li><strong>同意</strong> — 用于使用你的设备位置（你可以拒绝；网站在手动选择地区时仍然可以使用）。</li></ul>",
   "legal.privacy.share.title": "我们与谁分享数据",
-  "legal.privacy.share.html": "<p>我们使用一小部分经过严格挑选的信任处理者：</p><ul><li><strong>Stripe</strong>（支付处理）—— 见 <a class=\\\"link\\\" href=\\\"https://stripe.com/privacy\\\" target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\">stripe.com/privacy</a>。</li><li><strong>Anthropic、OpenAI、Google</strong>（AI提供商）—— 用于生成每月指导、大师班和根据要求提供的植物图像。我们不会将您的电子邮件、位置或身份传递给他们；仅提供请求的园艺主题或地区/月。</li><li><strong>我们的托管提供商</strong>—— 运行应用程序服务器和缓存生成内容的MongoDB数据库。</li></ul><p>我们<strong>不会</strong>出售您的数据、与广告商分享或传递给数据经纪人。我们不运行任何广告追踪器、指纹识别脚本或第三方分析工具。</p>",
   "legal.privacy.transfers.title": "国际转移",
   "legal.privacy.transfers.html": "<p>上述某些处理者位于英国/欧盟以外。在这种情况下，我们依赖于英国政府的适当性法规、欧盟-美国数据隐私框架或适用的标准合同条款（SCCs）来保护你的数据。</p>",
   "legal.privacy.retention.title": "我们保存多久",
@@ -487,7 +486,6 @@ const dict = {
   "legal.privacy.rights.title": "你的权利",
   "legal.privacy.rights.html": "<p>根据 UK GDPR，你有权：</p><ul><li>访问我们持有的关于你的个人数据。</li><li>修正不准确的数据。</li><li>请求擦除你的数据（遵循我们对支付记录的 HMRC 义务）。</li><li>限制或反对处理。</li><li>以可移植格式接收你的数据副本。</li><li>在同意是合法依据的情况下撤回同意。</li><li>如果你认为我们处理数据不当，向英国信息专员办公室（<a class=\\\"link\\\" href=\\\"https://ico.org.uk\\\" target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\">ico.org.uk</a>）投诉。</li></ul><p>要行使这些权利，请发送电子邮件至<a class=\\\"link\\\" href=\\\"mailto:hello@patchandpot.com\\\">hello@patchandpot.com</a>。我们目标在 14 天内回复，并必须在 30 天内回复。</p>",
   "legal.privacy.cookies.title": "Cookies 和本地存储",
-  "legal.privacy.cookies.html": "<p>我们不使用营销或广告cookie。我们使用：</p><ul><li><strong>严格必要的本地存储</strong>用于您的地区、语言、“我的花园”列表和付费墙访问令牌。</li><li><strong>服务工作者缓存</strong>，以便网站快速加载并能离线工作。不会缓存任何个人数据。</li><li><strong>Stripe Checkout</strong>在支付期间设置自己的会话cookie；这些由Stripe的隐私声明管理。</li></ul>",
   "legal.privacy.changes.title": "本声明的变更",
   "legal.privacy.changes.html": "<p>每当本声明更改时，我们将在本页面顶部更新“最后更新”日期。实质性的变更将在主页上标记至少 14 天。</p>",
   "legal.terms.who.title": "我们是谁",
@@ -1050,6 +1048,8 @@ const dict = {
   "grow.situation.pocket-planter.blurb": "一个挂在阳光充足的墙上的帆布或毡子面板，缝有多个口袋——立刻变成垂直花园，也非常适合阳台栏杆。",
   "grow.situation.trellis-tower.label": "藤架塔",
   "grow.situation.trellis-tower.blurb": "一个独立的尖塔、帐篷或铁丝塔，用于攀缘植物——豆类、豌豆、黄瓜和喇叭花让一平方米变成丰盛的绿色墙面。",
+  "legal.privacy.share.html": "<p>我们使用一小套故意最小的可信处理器：</p><ul><li><strong>Stripe</strong>（支付处理）—— 见 <a class=\\"link\\" href=\\"https://stripe.com/privacy\\" target=\\"_blank\\" rel=\\"noreferrer noopener\\">stripe.com/privacy</a>。</li><li><strong>Anthropic, OpenAI, Google</strong>（AI 提供者）—— 用于生成每月指导、大师班和应要求的植物图片。我们不会传递您的电子邮件、位置或身份；仅会传递请求的园艺主题或地区/月份。</li><li><strong>ElevenLabs</strong>（2分钟冷静音频的语音叙述）。不共享个人数据。</li><li><strong>我们的托管提供商</strong>—— 运行应用程序服务器和缓存生成内容的 MongoDB 数据库。</li></ul><p><strong>附属链接。</strong> 一些植物页面链接到亚马逊或搜索当地的植物苗圃和花园中心。这些外部链接可能包括附属标签——如果您在点击后购买了某物，我们会收取小额佣金，而不会对您产生额外费用。一旦您离开 patchandpot.app，目标零售商的隐私声明适用。</p><p>我们<strong>不</strong>出售您的数据或将其传递给数据经纪人。我们在 Patch &amp; Pot 本身不运行广告跟踪器或指纹识别脚本。我们在自己的服务器上保留一小部分第一方分析日志（页面路径和 CTA 点击，而非个人数据），以便查看哪些页面真正有帮助。</p>",
+  "legal.privacy.cookies.html": "<p>Patch &amp; Pot 本身不使用营销或广告 cookie。我们在网站上使用：</p><ul><li><strong>严格必要的本地存储</strong>用于您的区域、语言、“我的花园”列表和付费墙访问令牌。</li><li><strong>服务工作者缓存</strong>使网站快速加载并可离线工作。不会缓存任何个人数据。</li><li><strong>Stripe Checkout</strong> 在付款过程中设置自己的会话 cookie；这些由 Stripe 的隐私声明管理。</li></ul><p><strong>外部附属链接。</strong> 如果您点击亚马逊链接或植物苗圃/花园中心搜索链接，目标网站将在您离开 patchandpot.app 后设置自己的 cookie——这些完全由每个零售商的隐私声明管理。我们从不与他们分享您的身份；附属标签是匿名的。</p>",
 
 };
 export default dict;

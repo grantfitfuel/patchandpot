@@ -479,7 +479,6 @@ const dict = {
   "legal.privacy.lawful.title": "合法的な基盤（UK GDPR Art. 6）",
   "legal.privacy.lawful.html": "<ul><li><strong>契約</strong> — あなたのメンバーシップ支払いを処理し、有料コンテンツを提供するため。</li><li><strong>正当な利益</strong> — サイトの運営を維持し、悪用を防止し、ガイダンスの質を改善するため。</li><li><strong>同意</strong> — あなたのデバイスの位置情報を使用するため（拒否することも可能ですが、手動の地域でもサイトは機能します）。</li></ul>",
   "legal.privacy.share.title": "誰とデータを共有するか",
-  "legal.privacy.share.html": "<p>私たちは小規模で意図的に最小限の信頼できるプロセッサーを使用しています：</p><ul><li><strong>Stripe</strong> (支払い処理) — <a class=\"link\" href=\"https://stripe.com/privacy\" target=\"_blank\" rel=\"noreferrer noopener\">stripe.com/privacy</a>を参照してください。</li><li><strong>Anthropic、OpenAI、Google</strong> (AIプロバイダ) — 要望に応じて毎月のガイダンス、マスタークラス、植物の画像を生成するために使用しています。私たちは彼らにあなたのメールアドレス、所在地、または身分を渡すことはありません; 要求されるのはガーデニングのトピックまたは地域/月のみです。</li><li><strong>ホスティングプロバイダー</strong> — アプリケーションサーバーと生成されたコンテンツをキャッシュするMongoDBデータベースを運営しています。</li></ul><p>私たちはあなたのデータを<strong>販売せず</strong>、広告主と共有したり、データブローカーに渡したりしません。広告トラッカー、フィンガープリンティングスクリプト、またはサードパーティの分析は実行していません。</p>",
   "legal.privacy.transfers.title": "国際的な転送",
   "legal.privacy.transfers.html": "<p>上記の一部プロセッサーは、UK / EEAの外に拠点があります。その場合、私たちはUK政府の適合規制、EU–USデータプライバシーフレームワーク、または適切にデータを保護するための標準契約条項（SCC）に依存しています。</p>",
   "legal.privacy.retention.title": "どのくらいの期間保持するか",
@@ -487,7 +486,6 @@ const dict = {
   "legal.privacy.rights.title": "あなたの権利",
   "legal.privacy.rights.html": "<p>UK GDPRの下では、あなたには以下の権利があります：</p><ul><li>私たちが保持しているあなたの個人データにアクセスする権利。</li><li>不正確なデータを修正する権利。</li><li>あなたのデータを削除する権利（支払い記録に関するHMRCの義務に従います）。</li><li>処理を制限または異議を申し立てる権利。</li><li>あなたのデータを移動可能な形式で受け取る権利。</li><li>同意が合法的な基盤である場合、その同意を撤回する権利。</li><li>あなたのデータを誤って取り扱ったと信じる場合、UK情報コミッショナー事務所（<a class=\\\"link\\\" href=\\\"https://ico.org.uk\\\" target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\">ico.org.uk</a>）に苦情を申し立てる権利。</li></ul><p>これらの権利を行使するためには、<a class=\\\"link\\\" href=\\\"mailto:hello@patchandpot.com\\\">hello@patchandpot.com</a>までメールしてください。私たちは14日以内に応答し、30日以内に応答する必要があります。</p>",
   "legal.privacy.cookies.title": "クッキーとローカルストレージ",
-  "legal.privacy.cookies.html": "<p>私たちはマーケティングや広告のクッキーを使用しません。私たちは：</p><ul><li><strong>地域、言語、“マイガーデン”リスト、ペイウォールアクセス用トークン</strong> のために厳密に必要なローカルストレージを使用しています。</li><li><strong>サービスワーカーキャッシュ</strong> により、サイトが迅速に読み込まれ、オフラインで機能します。個人データはキャッシュしません。</li><li><strong>Stripe Checkout</strong> は支払い中に自分のセッションクッキーを設定します; これらはStripeのプライバシーノーティスに従います。</li></ul>",
   "legal.privacy.changes.title": "この通知の変更",
   "legal.privacy.changes.html": "<p>この通知が変更されるたびに、このページの上部にある「最終更新」日付を更新します。重要な変更は、有効になる前にホームページで最低14日間表示されます。</p>",
   "legal.terms.who.title": "私たちについて",
@@ -1051,6 +1049,8 @@ const dict = {
   "grow.situation.pocket-planter.blurb": "日当たりの良い壁に掛けられたポケットが縫い付けられたキャンバスまたはフェルトパネルで、即座に垂直庭園ができます。バルコニ railingにも適しています。",
   "grow.situation.trellis-tower.label": "トレリス塔",
   "grow.situation.trellis-tower.blurb": "立てるタイプのオベリスク、ティーピー、またはクライマー用のワイヤータワーで、豆、エンドウ、キュウリ、朝顔が1平方メートルを緑の壁に変えます。",
+  "legal.privacy.share.html": "<p>信頼できる処理者の小さく意図的に最小限のセットを使用しています：</p><ul><li><strong>Stripe</strong> （決済処理） — <a class=\"link\" href=\"https://stripe.com/privacy\" target=\"_blank\" rel=\"noreferrer noopener\">stripe.com/privacy</a>を参照してください。</li><li><strong>Anthropic、OpenAI、Google</strong> （AIプロバイダー） — 要求に応じて毎月のガイダンス、マスタークラス、植物画像を生成するために使用されます。私たちはあなたのメール、位置情報、または身元を渡すことはありません; 要求されているのは庭についてのトピックまたは地域/月のみです。</li><li><strong>ElevenLabs</strong> （2分間の静かなオーディオの音声ナレーション）。個人データは共有されません。</li><li><strong>当社のホスティングプロバイダー</strong> — アプリケーションサーバーと生成されたコンテンツをキャッシュするMongoDBデータベースを運営しています。</li></ul><p><strong>アフィリエイトリンク。</strong> 一部の植物ページはAmazonへのリンクを持っていたり、地元の植物ナーサリーや園芸センターの検索を行います。その外部リンクにはアフィリエイトタグが含まれている場合があります — クリックした後に何かを購入すると、追加の費用なしで私たちは少額のコミッションを得ます。あなたがpatchandpot.appを離れると、目的地の小売業者のプライバシー通知が適用されます。</p><p>私たちは<strong>あなたのデータを販売したり、データブローカーに渡したりすることはありません</strong>。私たちはPatch &amp; Pot自体で広告トラッカーやフィンガープリンティングスクリプトを実行していません。私たちは小規模なファーストパーティのアナリティクスログ（ページパスとCTAクリック、個人データではありません）を自社サーバーで保持しており、実際にどのページが役立っているかを確認できます。</p>",
+  "legal.privacy.cookies.html": "<p>Patch &amp; Pot自体はマーケティングや広告クッキーを使用していません。サイトでは以下を使用しています：</p><ul><li><strong>地域、言語、「マイガーデン」リスト、そしてペイウォールアクセストークンに対する厳密に必要なローカルストレージ</strong>。</li><li><strong>サービスワーカーキャッシュ</strong>により、サイトは迅速に読み込まれ、オフラインで機能します。個人データはキャッシュしません。</li><li><strong>Stripe Checkout</strong>は、決済中に独自のセッションクッキーを設定します; これらはStripeのプライバシー通知に準拠しています。</li></ul><p><strong>外部アフィリエイトリンク。</strong> あなたがAmazonのリンクや植物ナーサリー/園芸センターの検索リンクをクリックすると、目的地のサイトはpatchandpot.appを離れると自分のクッキーを設定します — それらはすべて各小売業者のプライバシー通知に従います。私たちはあなたの身元をそれらと共有することは決してありません; アフィリエイトタグは匿名です。</p>",
 
 };
 export default dict;

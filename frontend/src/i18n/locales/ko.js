@@ -479,7 +479,6 @@ const dict = {
   "legal.privacy.lawful.title": "합법적 근거 (UK GDPR Art. 6)",
   "legal.privacy.lawful.html": "<ul><li><strong>계약</strong> — 귀하의 멤버십 결제 처리 및 유료 콘텐츠 제공을 위한 것입니다.</li><li><strong>정당한 이익</strong> — 사이트 운영, 남용 방지 및 가이드 품질 향상을 위한 것입니다.</li><li><strong>동의</strong> — 귀하의 장치 위치 사용에 대한 동의 (거절할 수 있으며, 수동 지역으로 사이트는 여전히 작동함).</li></ul>",
   "legal.privacy.share.title": "데이터를 공유하는 사람들",
-  "legal.privacy.share.html": "<p>우리는 신뢰할 수 있는 프로세서의 작고 의도적으로 최소한의 집합을 사용합니다:</p><ul><li><strong>Stripe</strong> (결제 처리) — <a class=\\\"link\\\" href=\\\"https://stripe.com/privacy\\\" target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\">stripe.com/privacy</a>를 참조하십시오.</li><li><strong>Anthropic, OpenAI, Google</strong> (AI 제공업체) — 요청에 따라 매달 가이드, 마스터 클래스 및 식물 이미지를 생성하는 데 사용됩니다. 우리는 그들에게 귀하의 이메일, 위치 또는 신원을 전달하지 않으며, 요청되는 원예 주제 또는 지역/월만 전달합니다.</li><li><strong>우리의 호스팅 제공업체</strong> — 애플리케이션 서버와 생성된 콘텐츠를 캐싱하는 MongoDB 데이터베이스를 실행합니다.</li></ul><p>우리는 귀하의 데이터를 <strong>판매하지</strong> 않으며, 광고주와 공유하거나 데이터 중개업체에 전달하지 않습니다. 우리는 광고 추적기, 지문 인식 스크립트 또는 제3자 분석을 전혀 실행하지 않습니다.</p>",
   "legal.privacy.transfers.title": "국제 데이터 전송",
   "legal.privacy.transfers.html": "<p>위의 일부 프로세서는 영국/EEA 외부에 있습니다. 이러한 경우, 우리는 귀하의 데이터를 보호하기 위해 영국 정부의 적정성 규정, EU–US 데이터 프라이버시 프레임워크 또는 표준 계약 조항(SCC)을 적용합니다.</p>",
   "legal.privacy.retention.title": "데이터 보존 기간",
@@ -487,7 +486,6 @@ const dict = {
   "legal.privacy.rights.title": "귀하의 권리",
   "legal.privacy.rights.html": "<p>UK GDPR에 따라 귀하는 다음과 같은 권리를 가집니다:</p><ul><li>우리가 보유하고 있는 개인 데이터에 접근할 권리.</li><li>부정확한 데이터 수정 요청.</li><li>귀하의 데이터를 삭제 요청할 권리 (결제 기록에 대한 HMRC 의무를 고려함).</li><li>처리 제한 또는 이의 제기.</li><li>귀하의 데이터를 휴대 가능한 형식으로 받을 권리.</li><li>동의가 합법적 근거인 경우 동의 철회.</li><li>귀하의 데이터가 부당하게 처리되었다고 생각하면 영국 정보 위원회 사무소(<a class=\\\"link\\\" href=\\\"https://ico.org.uk\\\" target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\">ico.org.uk</a>)에 불만 제기.</li></ul><p>이 권리를 행사하려면 <a class=\\\"link\\\" href=\\\"mailto:hello@patchandpot.com\\\">hello@patchandpot.com</a>로 이메일을 보내십시오. 우리는 14일 이내에 응답할 예정이며, 30일 이내에 응답해야 합니다.</p>",
   "legal.privacy.cookies.title": "쿠키 및 로컬 스토리지",
-  "legal.privacy.cookies.html": "<p>우리는 마케팅이나 광고 쿠키를 사용하지 않습니다. 우리는 다음을 사용합니다:</p><ul><li><strong>귀하의 지역, 언어, “내 정원” 리스트 및 요금제 접근 토큰을 위한 필수 로컬 스토리지</strong>.</li><li><strong>사이트가 빠르게 로드되고 오프라인에서도 작동하도록 하는 서비스 워커 캐시</strong>. 개인 데이터를 캐싱하지 않습니다.</li><li><strong>Stripe Checkout</strong>는 결제 중에 자신의 세션 쿠키를 설정합니다; 이는 Stripe의 개인 정보 보호 공지에 의해 규제됩니다.</li></ul>",
   "legal.privacy.changes.title": "이 고지의 변경 사항",
   "legal.privacy.changes.html": "<p>이 고지가 변경될 때마다 이 페이지의 상단에 있는 “마지막 업데이트” 날짜를 업데이트합니다. 중요한 변경 사항은 최소 14일 동안 홈페이지에 표시됩니다.</p>",
   "legal.terms.who.title": "우리가 누구인지",
@@ -1050,6 +1048,8 @@ const dict = {
   "grow.situation.pocket-planter.blurb": "햇볕이 잘 드는 벽에 걸 수 있는 주머니가 있는 캔버스나 펠트 패널 — 즉각적인 수직 정원, 발코니 난간에서도 잘 작동합니다.",
   "grow.situation.trellis-tower.label": "격자 타워",
   "grow.situation.trellis-tower.blurb": "자유롭게 서 있는 오벨리스크, 텐트형 구조 또는 덩굴 식물용 와이어 타워 — 콩, 완두콩, 오이와 메리골드로 1㎡를 푸르른 벽으로 만듭니다.",
+  "legal.privacy.share.html": "<p>우리는 신뢰할 수 있는 프로세서의 작은 최소 집합을 사용합니다:</p><ul><li><strong>Stripe</strong> (결제 처리) — <a class=\"link\" href=\"https://stripe.com/privacy\" target=\"_blank\" rel=\"noreferrer noopener\">stripe.com/privacy</a>를 참조하십시오.</li><li><strong>Anthropic, OpenAI, Google</strong> (AI 제공자) — 요청 시 월간 안내, 마스터 클래스 및 식물 이미지를 생성하는 데 사용됩니다. 우리는 그들에게 귀하의 이메일, 위치 또는 신원을 전달하지 않으며, 요청된 정원 주제 또는 지역/월만 전달합니다.</li><li><strong>ElevenLabs</strong> (2분 차분 오디오의 음성 내레이션). 개인 데이터는 공유되지 않습니다.</li><li><strong>우리의 호스팅 제공업체</strong> — 애플리케이션 서버와 생성된 콘텐츠를 캐시하는 MongoDB 데이터베이스를 운영합니다.</li></ul><p><strong>제휴 링크.</strong> 일부 식물 페이지는 Amazon으로 링크되거나 지역 식물 묘목장 및 정원 센터에서 검색을 실행합니다. 그 아웃바운드 링크에는 제휴 태그가 포함될 수 있으며 — 클릭한 후 무언가를 구매하면 귀하에게 추가 비용 없이 소정의 수수료를 얻습니다. patchandpot.app를 떠나면 목적지 소매업체의 개인 정보 보호 고시가 적용됩니다.</p><p>우리는 <strong>귀하의</strong> 데이터를 판매하거나 데이터 브로커에게 전달하지 않습니다. 우리는 Patch &amp; Pot 자체에 광고 추적기나 지문 인식 스크립트를 실행하지 않습니다. 우리는 어떤 페이지가 실제로 도움이 되는지 확인할 수 있도록 작은 1차 분석 로그(페이지 경로 및 CTA 클릭, 개인 데이터 아님)를 우리의 서버에 보관합니다.</p>",
+  "legal.privacy.cookies.html": "<p>Patch &amp; Pot 자체는 마케팅 또는 광고 쿠키를 사용하지 않습니다. 사이트에서 우리는 다음을 사용합니다:</p><ul><li><strong>엄격히 필요한 로컬 저장소</strong>는 귀하의 지역, 언어, “내 정원” 목록 및 유료 액세스 토큰을 위해 필요합니다.</li><li><strong>서비스 워커 캐시</strong>로 인해 사이트가 빠르게 로드되고 오프라인에서도 작동합니다. 개인 데이터는 캐시하지 않습니다.</li><li><strong>Stripe Checkout</strong>는 결제 중에 자체 세션 쿠키를 설정합니다; 이는 Stripe의 개인 정보 보호 고시에 따라 관리됩니다.</li></ul><p><strong>아웃바운드 제휴 링크.</strong> Amazon 링크나 식물 묘목장/정원 센터 검색 링크를 클릭하면, 귀하가 patchandpot.app를 떠난 후 목적지 사이트가 자체 쿠키를 설정합니다 — 이는 각 소매업체의 개인 정보 보호 고시에 의해 완전히 관리됩니다. 우리는 귀하의 신원을 그들과 공유하지 않습니다; 제휴 태그는 익명입니다.</p>",
 
 };
 export default dict;

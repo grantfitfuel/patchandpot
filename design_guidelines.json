@@ -1,86 +1,144 @@
 {
-  "theme_and_archetype": {
-    "theme": "Light",
-    "archetype": "1 (Organic & Earthy)",
-    "description": "Grounded, natural, matte. Warm, inviting, and mindful, moving away from glossy tech aesthetics into an editorial publication feel."
+  "theme_archetype": "ORGANIC & EARTHY (Trust, Growth, Calm) blended with Editorial Pizazz",
+  "colors": {
+    "primary": "#2D4A22",
+    "secondary": "#5C6B52",
+    "accent": "#C65D47",
+    "background": "#F7F5F0",
+    "surface": "#EFECE5",
+    "text": "#1C231A"
   },
   "typography": {
-    "primary_heading_font": "Cormorant Garamond",
-    "body_font": "Outfit",
-    "typesetting_rules": [
-      "H1 must use text-4xl to text-6xl clamp, tracking-tight.",
-      "Overlines must be uppercase, text-xs, tracking-[0.2em] (e.g., for 'APRIL TASKS').",
-      "Line height for body must be loose (leading-relaxed)."
-    ]
-  },
-  "color_palette": {
-    "base_background": "#F7F5F0",
-    "surface_background": "#EFECE5",
-    "brand_primary": "#2D4A22",
-    "brand_secondary": "#5C6B52",
-    "accent_cta": "#C65D47",
-    "text_main": "#1C231A",
-    "text_muted": "#5C6B52",
-    "border_color": "rgba(45, 74, 34, 0.15)",
-    "rules": [
-      "No pure #000000 or pure #FFFFFF. Use #F7F5F0 for white, #1C231A for black.",
-      "Background gradients should be avoided. Use flat matte colors or subtle noise textures."
-    ]
-  },
-  "spacing_and_layout": {
-    "philosophy": "Generous Spacing, Editoral Asymmetry",
-    "containers": "Containers with borders must use internal padding p-6 or p-8.",
-    "grids": {
-      "marketing_sections": "Mode A: 'Tetris' Grid (gap-8 to gap-12, col-span mixing).",
-      "dashboard_my_garden": "Mode B: 'Control Room' Grid (gap-6, high density but flat design)."
+    "headings": "font-serif tracking-tight text-balance",
+    "body": "font-sans leading-relaxed",
+    "scales": {
+      "h1": "text-5xl md:text-6xl lg:text-7xl font-light",
+      "h2": "text-3xl md:text-4xl lg:text-5xl",
+      "h3": "text-xl md:text-2xl",
+      "body": "text-base md:text-lg"
     }
   },
-  "surface_strategies": {
-    "cards": "Solid flat backgrounds matching the parent or surface_background, 1px delicate inner stroke (border-border_color), NO drop shadow or very soft diffuse shadow.",
-    "headers": "Solid background #F7F5F0 with a hard bottom border. Avoid glassmorphism to keep the raw earthy feel.",
-    "buttons": "Flat terracotta (#C65D47) or dark green (#2D4A22) with crisp edges. Hover states must be a lighter hue."
+  "dependencies_to_add": {
+    "framer-motion": "Required for staggered scroll reveals, hover lifts, and smooth micro-interactions. Pizazz requires motion.",
+    "lucide-react": "For crisp, modern SVG icons to replace anything dowdy."
   },
-  "motion_and_interactions": {
-    "scroll": "Use Lenis for smooth momentum scrolling.",
-    "hover_states": "Slight lift (-translate-y-1) for plant cards.",
-    "transitions": "transition-transform 0.3s ease-out, opacity 0.3s ease-out."
+  "css_variables_additions": [
+    ".glass-panel { @apply bg-surface/80 backdrop-blur-md border border-white/20 shadow-lg; }",
+    ".card-hover { @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5; }",
+    ".text-balance { text-wrap: balance; }"
+  ],
+  "visual_enhancers": {
+    "shadows": "Use soft ambient shadows (shadow-[0_8px_30px_rgb(0,0,0,0.04)]) instead of harsh ones. For dark surfaces, drop shadows aren't needed, use border highlights.",
+    "borders": "Replace universal flat borders with 1px border-black/5 on light themes or border-white/10 on dark sections to create subtle depth without looking rigid.",
+    "radii": "Use rounded-2xl or rounded-3xl for an organic, modern feel, rather than sharp squares.",
+    "depth": "Layer sections! Make elements overlap slightly across section boundaries (like the value-prop strip overlapping the hero)."
+  },
+  "section_blueprints": {
+    "hero": {
+      "layout": "Full-bleed section. min-h-[85vh] lg:min-h-[90vh] flex flex-col justify-end pb-24 md:pb-32 relative overflow-hidden. Switch to Dark theme context.",
+      "background": "bg-forest",
+      "typography": "text-sand. H1 is massive, font-serif, max-w-4xl.",
+      "visuals": "Hero image acts as an absolute background anchor with object-cover, overlayed with a gradient bg-gradient-to-t from-forest via-forest/80 to-forest/20 so the text is fully readable.",
+      "motion": "Fade up text and CTAs staggered by 0.15s.",
+      "ctas": "Ask Nadar: bg-terracotta text-sand rounded-full px-8 py-3. See Guide: bg-white/10 backdrop-blur-md border border-white/20 text-sand rounded-full. Set Region: subtle underline link text-sand."
+    },
+    "value_prop_strip": {
+      "layout": "Floating horizontal layout overlapping the Hero and the Ethos section. -mt-16 md:-mt-20 relative z-10 mx-auto max-w-5xl px-6.",
+      "background": "glass-panel (bg-surface/90 backdrop-blur border-white/40)",
+      "typography": "text-ink, text-sm md:text-base font-medium text-center md:text-left.",
+      "motion": "Use Framer Motion to slide it up slightly on load."
+    },
+    "ethos_band": {
+      "layout": "Editorial asymmetrical split. 40% large text block, 60% flowing organic imagery. py-24",
+      "background": "bg-sand",
+      "typography": "Massive serif quote 'Grow your own, anywhere'. text-forest."
+    },
+    "this_month_card": {
+      "layout": "Organic, rounded-3xl card highlighting dynamic seasonal elements.",
+      "background": "bg-surface border border-moss/10",
+      "visuals": "Add a terracotta accent badge or subtle top border line to draw the eye. Make the data feel like a dashboard widget."
+    },
+    "feature_grid": {
+      "layout": "Mode A: THE TETRIS GRID (Bento Box). grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-6.",
+      "strategy": "CRITICAL FIX: Destroy the flat cream card rhythm. Assign distinct colors and sizes to features.",
+      "items": {
+        "masterclasses": "col-span-full md:col-span-8 row-span-2 rounded-3xl overflow-hidden relative. bg-forest text-sand p-8. Massive serif title. Include a subtle background image with low opacity.",
+        "cut_flowers": "col-span-full md:col-span-4 row-span-1 rounded-3xl p-6. bg-terracotta text-sand. Playful right-aligned icon.",
+        "first_pot": "col-span-full md:col-span-4 row-span-1 rounded-3xl p-6. bg-surface text-ink border border-moss/10.",
+        "space_saving": "col-span-full md:col-span-4 row-span-2 rounded-3xl p-6 flex flex-col justify-between. bg-moss text-sand. Tall card format.",
+        "companion_planting": "col-span-full md:col-span-4 row-span-1 rounded-3xl p-6. bg-sand text-ink border border-moss/20.",
+        "regrow": "col-span-full md:col-span-4 row-span-1 rounded-3xl p-6. bg-surface text-ink border border-moss/10.",
+        "plants_database": "col-span-full md:col-span-8 row-span-1 rounded-3xl p-6. glass-panel overlaid on a subtle plant background."
+      },
+      "motion": "Use Framer Motion 'whileInView' with viewport={{ once: true, margin: '-50px' }} to stagger the entrance of the bento boxes (0.1s stagger)."
+    },
+    "editorial_pull_quote": {
+      "layout": "Massive central focus block. max-w-4xl mx-auto text-center py-32.",
+      "background": "bg-transparent",
+      "typography": "text-4xl md:text-5xl lg:text-6xl text-moss font-serif italic. Remove the boring box."
+    },
+    "wellbeing_band": {
+      "layout": "Grid split: Sticky large typography on the left (md:col-span-1), 3 stacked vertical cards on the right (md:col-span-1). py-24.",
+      "background": "bg-moss text-sand",
+      "typography": "Left heading: text-5xl font-serif text-sand.",
+      "cards": "Notice / Slow / Nourish. Make them bg-forest rounded-2xl p-8 mb-6 last:mb-0."
+    },
+    "plant_of_the_week": {
+      "layout": "Editorial feature card. grid grid-cols-1 md:grid-cols-3 gap-0 rounded-3xl overflow-hidden.",
+      "background": "bg-surface",
+      "visuals": "Col 1: Object-cover image. Col 2 & 3: Info pane p-8 md:p-12 with bg-surface text-ink."
+    },
+    "popular_plants_and_loved_patches": {
+      "layout": "Horizontal overflow-x-auto snap-x flex gap-6 pb-8 hide-scrollbar. DO NOT use static flat cards.",
+      "cards": "Image dominant cards (aspect-[4/5]), rounded-2xl. Title sits at the bottom inside a dark gradient overlay.",
+      "interaction": "Group hover effects."
+    },
+    "bundle_cta": {
+      "layout": "Massive conversion panel. grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-24.",
+      "background": "bg-sand",
+      "left_col": "Huge 'Grow for life' text, 5 bullet points with terracotta checkmarks.",
+      "price_card": "bg-surface border-2 border-terracotta rounded-3xl p-8 lg:p-12 relative overflow-hidden shadow-2xl. Add a glowing radial gradient of terracotta in the top right corner to grab attention."
+    }
   },
   "image_urls": {
-    "hero_backgrounds": [
-      {
-        "url": "https://images.unsplash.com/photo-1745063537934-e6bf484d72eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
-        "description": "Someone waters plants in pots on a balcony - Mindful growing hero image."
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1763741186493-509db18f6a6a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHw0fHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
-        "description": "Two potted plants on a weathered windowsill - Sub-section 'Your First Pot'."
-      }
-    ],
-    "plant_database_and_cards": [
-      {
-        "url": "https://images.unsplash.com/photo-1765558290832-f50b7fab8f36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwzfHx1cmJhbiUyMGdhcmRlbmluZyUyMHNtYWxsJTIwc3BhY2UlMjBiYWxjb255JTIwcGxhbnRzfGVufDB8fHx8MTc4MTQ2MjkzMnww&ixlib=rb-4.1.0&q=85",
-        "description": "Hanging plants in colorful pots - 'Space-Saving Ideas' section."
-      },
-      {
-        "url": "https://images.unsplash.com/photo-1580133318324-f2f76d987dd8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1NzR8MHwxfHNlYXJjaHwxfHxwbGFudCUyMGxlYWYlMjBjbG9zZSUyMHVwJTIwdGV4dHVyZXxlbnwwfHx8fDE3ODE0NjI5MzJ8MA&ixlib=rb-4.1.0&q=85",
-        "description": "Close up of a green leaf with drops of water - Background texture for 'Pest & Disease Control'."
-      }
-    ],
-    "texture_details": [
-      {
-        "url": "https://images.unsplash.com/photo-1566249099725-1b0ce8da8c32?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwyfHxwbGFudCUyMGxlYWYlMjBjbG9zZSUyMHVwJTIwdGV4dHVyZXxlbnwwfHx8fDE3ODE0NjI5MzJ8MA&ixlib=rb-4.1.0&q=85",
-        "description": "Macro leaf - Use as section break texture or background for the seasonal calendar."
-      }
-    ]
+    "hero_planting": {
+      "url": "https://images.unsplash.com/photo-1773332611613-dbdc64f09807?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBwbGFudGluZyUyMGJhbGNvbnl8ZW58MHx8fHwxNzg3OTUzOTQzfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Woman planting a small houseplant in a pot on a balcony (Use as background anchor in Hero)"
+    },
+    "ethos_gardening": {
+      "url": "https://images.unsplash.com/photo-1621460248083-6271cc4437a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwxfHxnYXJkZW5pbmclMjBvdXRkb29yc3xlbnwwfHx8fDE3ODc5NTM5NDN8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Person planting seedlings in raised bed (Use in Ethos section imagery)"
+    },
+    "feature_potted_plant": {
+      "url": "https://images.unsplash.com/photo-1592150621744-aca64f48394a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA0MTJ8MHwxfHNlYXJjaHwyfHxwb3R0ZWQlMjBwbGFudHxlbnwwfHx8fDE3ODc5NTM5NDN8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Green plant in white ceramic pot (Use as subtle background for masterclasses or space-saving card)"
+    },
+    "feature_cut_flowers": {
+      "url": "https://images.unsplash.com/photo-1568010967378-b92ea68220c5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHw0fHxjdXQlMjBmbG93ZXJzfGVufDB8fHx8MTc4Nzk1Mzk0M3ww&ixlib=rb-4.1.0&q=85",
+      "description": "Variety of flowers bouquet (Use in Cut Flowers bento block)"
+    }
   },
   "instructions_to_main_agent": [
-    "NOTE: Codebase uses .js files, NOT .tsx files. Write React components using JSX in .js files.",
-    "Do not use generic SaaS cards. The 'My Garden' dashboard and 'Plant Database' should have an editorial feel. Use pure HTML/Tailwind with flex/grid instead of standard Shadcn Cards where possible. Apply the 1px subtle inner border instead.",
-    "Data testing: Include `data-testid` on ALL interactive elements, especially in the Region Picker, Tasks, and 'Add to My Garden' buttons.",
-    "Icons: Use `lucide-react`. Avoid emojis entirely. Keep icon stroke-width thin (e.g., 1.5) to match the elegant serif typography.",
-    "Storage: Since there is no auth, implement 'My Garden' persistence using `localStorage`. Create a custom hook for managing user plants and current region state.",
-    "Mock AI Service: Implement a mock service (or API endpoint) simulating Claude Sonnet 4.5 that returns region-specific planting schedules, pest info, and tasks based on the selected region and current month. Highlight this flow as MOCKED.",
-    "Feature setup: Implement an auto-detect geo-location mockup that defaults to a generic region if denied, allowing manual override via a dropdown.",
-    "Aesthetic check: Make sure headers use the serif font (Cormorant Garamond) and are dark green (#2D4A22), with terracotta (#C65D47) for key CTAs (e.g., 'Add to Garden', 'Mark Task Complete')."
+    "Do NOT change the color hex codes. Apply them heavily as background colors to create section contrast instead of just text colors.",
+    "Do NOT remove any existing text or sections from Home.jsx.",
+    "You MUST preserve all `data-testid` attributes exactly as requested.",
+    "Implement the 'Bento Grid Protocol' for the feature grid to fix the 'dull, dowdy' issue. Alternate colors (bg-forest, bg-terracotta, bg-sand, bg-surface) for different feature cards.",
+    "Install and use `framer-motion` to add scroll reveals to the panels.",
+    "Convert borders from thick/dark to subtle (border-black/5 or border-white/10). Rely on background color changes for section separation.",
+    "Ensure all text has adequate contrast. For instance, text-sand on bg-forest, text-sand on bg-terracotta.",
+    "Update Home.jsx using these exact principles. Treat it like an editorial magazine (overlap elements, varying card sizes, massive typography for quotes)."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "All interactive and key informational elements MUST include a data-testid attribute."
   ]
 }

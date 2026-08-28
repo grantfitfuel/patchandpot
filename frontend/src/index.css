@@ -120,6 +120,49 @@ body::before {
 }
 .card-flat:hover { transform: translateY(-2px); }
 
+/* --- Home panel redesign utilities (iteration 59) --- */
+/* Bento cards for the feature grid — three color variants share the
+   same lift / shadow behaviour so hover feels consistent regardless of
+   colour. `transition` targets only `transform` + `box-shadow` (never
+   `all`, which re-runs on unrelated repaints and causes jitter). */
+.bento-card {
+  border-radius: 20px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+              box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+}
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+.bento-forest    { background-color: #2D4A22; color: #F7F5F0; }
+.bento-terracotta{ background-color: #C65D47; color: #F7F5F0; }
+.bento-moss      { background-color: #5C6B52; color: #F7F5F0; }
+.bento-cream     { background-color: #EFECE5; color: #1C231A; border: 1px solid rgba(45,74,34,0.08); }
+
+/* Wellbeing band cards — sit on a moss background, use forest as their
+   own surface so they read as "cards inside a card". */
+.well-card {
+  background-color: #2D4A22;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+.well-card:hover { transform: translateY(-3px); }
+
+/* Radial highlight for the bundle price panel — a warm terracotta glow
+   in the top-right corner that draws the eye without needing a
+   flashing badge. */
+.terracotta-glow {
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(198,93,71,0.20), transparent 55%),
+    #F7F5F0;
+}
+
+/* text-wrap: balance — no orphaned words in serif headings. */
+.text-balance { text-wrap: balance; }
+
 .divider-dot::after {
   content: "•";
   margin: 0 0.6rem;

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, GraduationCap, Heart, Check } from "lucide-react";
+import { motion } from "framer-motion";
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
@@ -207,49 +208,74 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-12 gap-6">
-          <FeatureCard to="/masterclasses"
+        {/* Bento grid — deliberate variety of card sizes + brand
+            colours so scrolling has visual rhythm instead of the same
+            cream tile seven times. Each card fades up on scroll-in,
+            staggered by index so the reveal cascades. */}
+        <div className="grid md:grid-cols-12 auto-rows-[minmax(180px,auto)] gap-5 md:gap-6">
+          <BentoCard to="/masterclasses"
             label={t("home.feature.masterclasses.label")}
             title={t("home.feature.masterclasses.title")}
             blurb={t("home.feature.masterclasses.blurb")}
             openLabel={t("home.feature.open_guide")}
-            icon={GraduationCap} colSpan="md:col-span-7" />
-          <FeatureCard to="/guides/cut-flowers"
+            Icon={GraduationCap}
+            variant="forest"
+            span="md:col-span-8 md:row-span-2"
+            index={0} />
+          <BentoCard to="/guides/cut-flowers"
             label={t("home.feature.cut_flowers.label")}
             title={t("home.feature.cut_flowers.title")}
             blurb={t("home.feature.cut_flowers.blurb")}
             openLabel={t("home.feature.open_guide")}
-            icon={Flower2} colSpan="md:col-span-5" />
-          <FeatureCard to="/guides/first-pot"
+            Icon={Flower2}
+            variant="terracotta"
+            span="md:col-span-4"
+            index={1} />
+          <BentoCard to="/guides/first-pot"
             label={t("home.feature.first_pot.label")}
             title={t("home.feature.first_pot.title")}
             blurb={t("home.feature.first_pot.blurb")}
             openLabel={t("home.feature.open_guide")}
-            icon={Sprout} colSpan="md:col-span-5" />
-          <FeatureCard to="/guides/space-saving"
+            Icon={Sprout}
+            variant="cream"
+            span="md:col-span-4"
+            index={2} />
+          <BentoCard to="/guides/space-saving"
             label={t("home.feature.space_saving.label")}
             title={t("home.feature.space_saving.title")}
             blurb={t("home.feature.space_saving.blurb")}
             openLabel={t("home.feature.open_guide")}
-            icon={LayoutGrid} colSpan="md:col-span-7" />
-          <FeatureCard to="/guides/companion"
+            Icon={LayoutGrid}
+            variant="moss"
+            span="md:col-span-4 md:row-span-2"
+            index={3} />
+          <BentoCard to="/guides/companion"
             label={t("home.feature.companion.label")}
             title={t("home.feature.companion.title")}
             blurb={t("home.feature.companion.blurb")}
             openLabel={t("home.feature.open_guide")}
-            icon={HandHelping} colSpan="md:col-span-5" />
-          <FeatureCard to="/guides/regrow"
+            Icon={HandHelping}
+            variant="cream"
+            span="md:col-span-4"
+            index={4} />
+          <BentoCard to="/guides/regrow"
             label={t("home.feature.regrow.label")}
             title={t("home.feature.regrow.title")}
             blurb={t("home.feature.regrow.blurb")}
             openLabel={t("home.feature.open_guide")}
-            icon={Recycle} colSpan="md:col-span-4" />
-          <FeatureCard to="/plants"
+            Icon={Recycle}
+            variant="terracotta"
+            span="md:col-span-4"
+            index={5} />
+          <BentoCard to="/plants"
             label={t("home.feature.plants.label")}
             title={t("home.feature.plants.title")}
             blurb={t("home.feature.plants.blurb")}
             openLabel={t("home.feature.open_guide")}
-            icon={Sprout} colSpan="md:col-span-3" />
+            Icon={Sprout}
+            variant="cream"
+            span="md:col-span-4"
+            index={6} />
         </div>
       </section>
 
@@ -263,45 +289,59 @@ export default function Home() {
       </section>
 
       {/* Wellbeing band — three principles + a soft CTA into /wellbeing.
-          Sits below the editorial quote so it reads as the natural next
-          beat: "growing tends you back". */}
+          Now on a moss-green backdrop so it stands out clearly from the
+          sand sections above and below. The three principles sit inside
+          darker forest cards for a "cards inside a card" depth trick. */}
       <section
-        className="border-t border-border bg-sand/40"
+        className="bg-moss text-sand"
         data-testid="home-wellbeing-band"
       >
         <div className="container-narrow py-20 md:py-24">
-          <div className="max-w-2xl mb-12">
-            <p className="overline">{t("home.wellbeing.eyebrow")}</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl mb-12"
+          >
+            <p className="overline text-terracotta">{t("home.wellbeing.eyebrow")}</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-sand mt-3 leading-tight text-balance">
               {t("home.wellbeing.title")}
             </h2>
-            <p className="mt-5 text-ink/75 leading-relaxed">
+            <p className="mt-5 text-sand/85 leading-relaxed">
               {t("home.wellbeing.body")}
             </p>
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {[
               { k: "notice",  Illo: NoticeIllustration },
               { k: "slow",    Illo: SlowIllustration },
               { k: "nourish", Illo: NourishIllustration },
-            ].map(({ k, Illo }) => (
-              <article key={k} className="card-flat p-6 md:p-7">
+            ].map(({ k, Illo }, idx) => (
+              <motion.article
+                key={k}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.45, delay: 0.08 * idx }}
+                className="well-card p-6 md:p-7"
+              >
                 <div className="w-14 h-14 mb-5 text-terracotta">
                   <Illo />
                 </div>
-                <h3 className="font-serif text-xl text-forest mb-2">
+                <h3 className="font-serif text-xl text-sand mb-2">
                   {t(`wellbeing.principle.${k}.title`)}
                 </h3>
-                <p className="text-sm text-ink/75 leading-relaxed">
+                <p className="text-sm text-sand/80 leading-relaxed">
                   {t(`wellbeing.principle.${k}.body`)}
                 </p>
-              </article>
+              </motion.article>
             ))}
           </div>
           <Link
             to="/wellbeing"
             data-testid="home-wellbeing-cta"
-            className="mt-10 inline-flex items-center gap-2 text-forest underline-offset-4 hover:underline"
+            className="mt-10 inline-flex items-center gap-2 text-sand underline-offset-4 hover:underline"
           >
             {t("home.wellbeing.cta")}
             <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
@@ -318,11 +358,17 @@ export default function Home() {
       <MostLovedPatches />
 
       {!paid && (
-        <section className="border-t border-border" data-testid="home-bundle-cta">
+        <section className="bg-sand" data-testid="home-bundle-cta">
           <div className="container-narrow py-20 md:py-24 grid md:grid-cols-12 gap-10 items-center">
-            <div className="md:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5 }}
+              className="md:col-span-7"
+            >
               <p className="overline">{t("home.bundle.eyebrow")}</p>
-              <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
+              <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight text-balance">
                 {t("home.bundle.title")}
               </h2>
               <p className="mt-5 text-ink/75 leading-relaxed max-w-xl">
@@ -346,14 +392,20 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
-            <div className="md:col-span-5 md:col-start-8">
-              <div className="bg-sand border-2 border-terracotta p-7 relative">
-                <span className="absolute -top-3 left-7 bg-terracotta text-sand text-[10px] tracking-[0.18em] uppercase px-2 py-1">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="md:col-span-5 md:col-start-8"
+            >
+              <div className="terracotta-glow rounded-2xl p-7 md:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
+                <span className="inline-block bg-terracotta text-sand text-[10px] tracking-[0.18em] uppercase px-2.5 py-1 rounded-full">
                   {t("home.bundle.best_value")}
                 </span>
-                <p className="font-serif text-5xl text-forest leading-none">£50</p>
+                <p className="font-serif text-6xl text-forest leading-none mt-5">£50</p>
                 <p className="text-sm text-moss mt-1">{t("home.bundle.lifetime_label")}</p>
                 <p className="text-xs text-ink/65 mt-3 leading-relaxed">
                   {t("home.bundle.lifetime_blurb")}
@@ -362,7 +414,7 @@ export default function Home() {
                   type="button"
                   data-testid="home-bundle-buy-lifetime"
                   onClick={() => setPaywallOpen(true)}
-                  className="mt-5 w-full btn-terracotta inline-flex items-center justify-center gap-2"
+                  className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-full bg-terracotta hover:bg-[#B04A36] text-sand py-3 font-medium tracking-wide transition-colors"
                 >
                   {t("home.bundle.unlock_lifetime")} <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
                 </button>
@@ -378,7 +430,7 @@ export default function Home() {
                   🛡️ {t("home.bundle.guarantee")}
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       )}
@@ -394,22 +446,40 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ to, label, title, blurb, openLabel, icon: Icon, colSpan }) {
+function BentoCard({ to, label, title, blurb, openLabel, Icon, variant, span, index }) {
+  // Colour + accent tokens per variant. We keep the accent (icon +
+  // overline + arrow) at a consistent luminance so hover still reads
+  // clearly on both dark and light card variants.
+  const styles = {
+    forest:     { bg: "bento-forest",     eyebrow: "text-terracotta",  body: "text-sand/85", arrow: "text-sand" },
+    terracotta: { bg: "bento-terracotta", eyebrow: "text-sand/90",     body: "text-sand/90", arrow: "text-sand" },
+    moss:       { bg: "bento-moss",       eyebrow: "text-terracotta",  body: "text-sand/85", arrow: "text-sand" },
+    cream:      { bg: "bento-cream",      eyebrow: "text-terracotta",  body: "text-ink/75",  arrow: "text-forest" },
+  }[variant] || {};
+  const titleColor = variant === "cream" ? "text-forest" : "text-sand";
   return (
-    <Link
-      to={to}
-      data-testid={`feature-${to.replace(/\//g, "-")}`}
-      className={`card-flat p-8 group ${colSpan}`}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: 0.06 * (index || 0), ease: [0.2, 0.7, 0.2, 1] }}
+      className={`${span} h-full`}
     >
-      <div className="flex items-center gap-3 mb-6">
-        <Icon strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-        <span className="overline">{label}</span>
-      </div>
-      <h3 className="font-serif text-3xl md:text-4xl text-forest mb-3">{title}</h3>
-      <p className="text-ink/75 leading-relaxed mb-6">{blurb}</p>
-      <span className="inline-flex items-center gap-2 text-forest text-sm tracking-wider uppercase group-hover:gap-3 transition-all">
-        {openLabel} <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-      </span>
-    </Link>
+      <Link
+        to={to}
+        data-testid={`feature-${to.replace(/\//g, "-")}`}
+        className={`bento-card ${styles.bg} h-full p-7 md:p-8 flex flex-col group`}
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <Icon strokeWidth={1.4} className={`w-5 h-5 ${styles.eyebrow}`} />
+          <span className={`overline ${styles.eyebrow}`}>{label}</span>
+        </div>
+        <h3 className={`font-serif text-2xl md:text-3xl ${titleColor} mb-3 leading-snug text-balance`}>{title}</h3>
+        <p className={`${styles.body} leading-relaxed mb-6 flex-1`}>{blurb}</p>
+        <span className={`inline-flex items-center gap-2 text-sm tracking-wider uppercase group-hover:gap-3 transition-all ${styles.arrow}`}>
+          {openLabel} <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+        </span>
+      </Link>
+    </motion.div>
   );
 }

@@ -54,21 +54,21 @@ export default function ThisMonthCard({ onSetRegion }) {
   if (error) {
     return (
       <section
-        className="border-y border-border bg-surface/60"
+        className="bg-forest text-sand"
         data-testid="home-thismonth-card"
       >
-        <div className="container-narrow py-12">
-          <p className="overline">{t("home.thismonth.eyebrow")}</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 leading-tight">
+        <div className="container-narrow py-14 md:py-16">
+          <p className="overline text-terracotta">{t("home.thismonth.eyebrow")}</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-sand mt-3 leading-tight">
             {t("home.thismonth.title", { month: monthName })}
           </h2>
-          <p className="mt-4 text-sm text-moss max-w-xl">
+          <p className="mt-4 text-sm text-sand/80 max-w-xl">
             {t("guidance.error")}
           </p>
           <Link
             to="/calendar"
             data-testid="home-thismonth-cta"
-            className="mt-6 btn-terracotta inline-flex items-center gap-2"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-terracotta hover:bg-[#B04A36] text-sand px-6 py-3 font-medium tracking-wide transition-colors"
           >
             {t("home.thismonth.cta", { month: monthName })}
             <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
@@ -84,17 +84,27 @@ export default function ThisMonthCard({ onSetRegion }) {
 
   return (
     <section
-      className="border-y border-border bg-surface/60"
+      className="bg-forest text-sand relative overflow-hidden"
       data-testid="home-thismonth-card"
     >
-      <div className="container-narrow py-16 md:py-20">
+      {/* Subtle terracotta wash in the top-right so the dark forest
+          section doesn't feel like a slab — a warm sunrise glow. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(60% 60% at 100% 0%, rgba(198,93,71,0.18), transparent 60%)",
+        }}
+      />
+      <div className="relative container-narrow py-14 md:py-16">
         <div className="grid md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-4">
-            <p className="overline">{t("home.thismonth.eyebrow")}</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
+            <p className="overline text-terracotta">{t("home.thismonth.eyebrow")}</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-sand mt-3 leading-tight">
               {t("home.thismonth.title", { month: monthName })}
             </h2>
-            <div className="mt-4 flex items-center gap-2 text-sm text-moss">
+            <div className="mt-4 flex items-center gap-2 text-sm text-sand/75">
               <MapPin strokeWidth={1.5} className="w-4 h-4" />
               <span data-testid="home-thismonth-region">
                 {activeRegion.name}
@@ -106,7 +116,7 @@ export default function ThisMonthCard({ onSetRegion }) {
                 type="button"
                 onClick={onSetRegion}
                 data-testid="home-thismonth-set-region"
-                className="mt-4 text-sm text-terracotta underline underline-offset-4 decoration-terracotta/40 hover:decoration-terracotta text-left"
+                className="mt-4 text-sm text-terracotta underline underline-offset-4 decoration-terracotta/50 hover:decoration-terracotta text-left"
               >
                 {t("home.thismonth.set_region")}
               </button>
@@ -114,19 +124,20 @@ export default function ThisMonthCard({ onSetRegion }) {
             <Link
               to="/calendar"
               data-testid="home-thismonth-cta"
-              className="mt-6 btn-terracotta inline-flex items-center gap-2"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-terracotta hover:bg-[#B04A36] text-sand px-6 py-3 font-medium tracking-wide transition-colors"
             >
               {t("home.thismonth.cta", { month: monthName })}
               <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
             </Link>
           </div>
 
-          <div className="md:col-span-8 grid sm:grid-cols-3 gap-5">
+          <div className="md:col-span-8 grid sm:grid-cols-3 gap-4">
             <PreviewColumn
               icon={Sprout}
               label={t("home.thismonth.plant")}
               loading={loading}
               testid="home-thismonth-plant"
+              variant="moss"
               items={plantNow.map((p) => ({ title: p.name, sub: p.why }))}
             />
             <PreviewColumn
@@ -134,6 +145,7 @@ export default function ThisMonthCard({ onSetRegion }) {
               label={t("home.thismonth.do")}
               loading={loading}
               testid="home-thismonth-tasks"
+              variant="terracotta"
               items={tasks.map((tk) => ({ title: tk.title, sub: tk.detail }))}
             />
             <PreviewColumn
@@ -141,11 +153,12 @@ export default function ThisMonthCard({ onSetRegion }) {
               label={t("home.thismonth.watch")}
               loading={loading}
               testid="home-thismonth-pests"
+              variant="moss"
               items={pests.map((p) => ({ title: p.name, sub: p.signs }))}
             />
             {loading && (phase === "generating" || phase === "almost") && (
               <p
-                className="sm:col-span-3 text-xs text-moss/80 italic"
+                className="sm:col-span-3 text-xs text-sand/70 italic"
                 data-testid="home-thismonth-cold-note"
               >
                 {t("guidance.loading.cold_note")}
@@ -158,26 +171,32 @@ export default function ThisMonthCard({ onSetRegion }) {
   );
 }
 
-function PreviewColumn({ icon: Icon, label, items, loading, testid }) {
+function PreviewColumn({ icon: Icon, label, items, loading, testid, variant }) {
+  // Two card variants: moss (sage green) for planting/pest columns and
+  // terracotta for the action-oriented "Do" column. Both use sand text
+  // so they read cleanly against the dark forest section behind.
+  const isTerra = variant === "terracotta";
+  const bg = isTerra ? "bg-terracotta" : "bg-moss";
+  const divider = isTerra ? "border-sand/25" : "border-sand/20";
   return (
-    <div className="card-flat p-5" data-testid={testid}>
+    <div className={`${bg} text-sand rounded-2xl p-5`} data-testid={testid}>
       <div className="flex items-center gap-2 mb-4">
-        <Icon strokeWidth={1.5} className="w-4 h-4 text-terracotta" />
-        <span className="overline">{label}</span>
+        <Icon strokeWidth={1.5} className="w-4 h-4 text-sand/90" />
+        <span className="overline text-sand/85">{label}</span>
       </div>
       {loading ? (
-        <div className="flex items-center gap-2 text-moss text-sm py-2">
+        <div className="flex items-center gap-2 text-sand/80 text-sm py-2">
           <Loader2 className="w-3.5 h-3.5 animate-spin" strokeWidth={1.5} />
           <span>…</span>
         </div>
       ) : items.length === 0 ? (
-        <p className="text-sm text-moss">—</p>
+        <p className="text-sm text-sand/70">—</p>
       ) : (
         <ul className="space-y-3">
           {items.map((it) => (
-            <li key={it.title} className="border-b border-border last:border-b-0 pb-3 last:pb-0">
-              <p className="font-serif text-lg text-forest leading-snug">{it.title}</p>
-              {it.sub && <p className="text-xs text-moss mt-1 leading-relaxed line-clamp-2">{it.sub}</p>}
+            <li key={it.title} className={`border-b ${divider} last:border-b-0 pb-3 last:pb-0`}>
+              <p className="font-serif text-lg text-sand leading-snug">{it.title}</p>
+              {it.sub && <p className="text-xs text-sand/80 mt-1 leading-relaxed line-clamp-2">{it.sub}</p>}
             </li>
           ))}
         </ul>

@@ -60,19 +60,19 @@ export default function EmbedFoundingSnippet() {
 
   return (
     <section
-      className="border-t border-border bg-sand/40"
+      className="bg-terracotta text-sand"
       data-testid="embed-founding-snippet"
     >
-      <div className="container-narrow py-16 md:py-20 grid md:grid-cols-12 gap-10 items-start">
+      <div className="container-narrow py-14 md:py-16 grid md:grid-cols-12 gap-10 items-start">
         <div className="md:col-span-5">
           <div className="flex items-center gap-3 mb-3">
-            <Code2 strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-            <span className="overline">Spread the word</span>
+            <Code2 strokeWidth={1.4} className="w-5 h-5 text-sand/90" />
+            <span className="overline text-sand/85">Spread the word</span>
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl text-forest leading-tight">
+          <h2 className="font-serif text-3xl md:text-4xl text-sand leading-tight text-balance">
             Embed the Founding offer on your blog.
           </h2>
-          <p className="mt-4 text-ink/75 leading-relaxed">
+          <p className="mt-4 text-sand/90 leading-relaxed">
             One line of HTML. Drops a live, self-updating spots-remaining card
             into any post — yours or a guest article. The iframe is lazy-loaded
             and unstyled by design, so it blends with most layouts.
@@ -82,14 +82,14 @@ export default function EmbedFoundingSnippet() {
             target="_blank"
             rel="noopener noreferrer"
             data-testid="embed-preview-link"
-            className="mt-5 inline-flex items-center gap-2 text-sm text-forest hover:text-terracotta underline-offset-4 hover:underline"
+            className="mt-5 inline-flex items-center gap-2 text-sm text-sand hover:text-white underline-offset-4 hover:underline"
           >
             Preview the embed <ExternalLink strokeWidth={1.5} className="w-3.5 h-3.5" />
           </a>
         </div>
 
         <div className="md:col-span-7">
-          <div className="bg-forest text-sand/90 p-5 md:p-6 font-mono text-[12px] md:text-[13px] leading-relaxed overflow-hidden border border-forest">
+          <div className="bg-forest/90 text-sand/95 p-5 md:p-6 font-mono text-[12px] md:text-[13px] leading-relaxed overflow-hidden rounded-2xl">
             <pre
               data-testid="embed-snippet-text"
               className="whitespace-pre-wrap break-all m-0"
@@ -108,7 +108,7 @@ export default function EmbedFoundingSnippet() {
             type="button"
             onClick={copySnippet}
             data-testid="embed-copy-btn"
-            className="mt-4 btn-terracotta inline-flex items-center gap-2"
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-sand hover:bg-white text-forest px-6 py-3 font-medium tracking-wide transition-colors"
           >
             {copied ? (
               <>
@@ -122,7 +122,7 @@ export default function EmbedFoundingSnippet() {
               </>
             )}
           </button>
-          <p className="text-xs text-moss mt-3 leading-relaxed">
+          <p className="text-xs text-sand/80 mt-3 leading-relaxed">
             Works on WordPress, Ghost, Substack, Notion, and most blog
             platforms that accept raw HTML or iframe blocks.
           </p>

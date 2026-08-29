@@ -171,14 +171,14 @@ export default function Home() {
           feature grid. Data-testid'd so the ethos band is easy to
           screenshot / test independently of hero copy iterations. */}
       <section
-        className="border-b border-border bg-sand/40"
+        className="bg-moss text-sand"
         data-testid="home-ethos-band"
       >
-        <div className="container-narrow py-12 md:py-16 grid md:grid-cols-12 gap-8 items-center">
+        <div className="container-narrow py-14 md:py-16 grid md:grid-cols-12 gap-8 items-center">
           <div className="md:col-span-7">
             <p className="overline text-terracotta">Our ethos</p>
             <h2
-              className="font-serif text-3xl md:text-5xl text-forest mt-3 leading-[1.05] tracking-tight"
+              className="font-serif text-3xl md:text-5xl text-sand mt-3 leading-[1.05] tracking-tight text-balance"
               data-testid="home-ethos-title"
             >
               Grow your own, anywhere.
@@ -186,7 +186,7 @@ export default function Home() {
           </div>
           <div className="md:col-span-5">
             <p
-              className="text-ink/80 leading-relaxed"
+              className="text-sand/85 leading-relaxed"
               data-testid="home-ethos-blurb"
             >
               Whether that&apos;s a balcony rail, a shady kitchen windowsill, a
@@ -199,7 +199,7 @@ export default function Home() {
                 to="/grow-anywhere"
                 data-testid="home-ethos-cta"
                 onClick={() => track("cta_click", { where: "home_ethos", target: "grow_anywhere" })}
-                className="inline-flex items-center gap-1.5 text-sm text-terracotta hover:text-forest transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm text-terracotta hover:text-sand transition-colors"
               >
                 Explore Grow Anywhere
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
@@ -295,10 +295,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-surface">
-        <div className="container-narrow py-20 max-w-3xl">
-          <p className="overline">{t("home.quote.eyebrow")}</p>
-          <p className="font-serif text-3xl md:text-4xl text-forest mt-5 leading-snug">
+      <section className="bg-forest text-sand">
+        <div className="container-narrow py-16 md:py-20 max-w-3xl">
+          <p className="overline text-terracotta">{t("home.quote.eyebrow")}</p>
+          <p className="font-serif italic text-3xl md:text-4xl lg:text-5xl text-sand mt-5 leading-snug text-balance">
             {t("home.quote.body")}
           </p>
         </div>

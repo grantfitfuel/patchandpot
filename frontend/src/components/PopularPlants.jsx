@@ -43,27 +43,27 @@ export default function PopularPlants({ limit = 8 }) {
 
   return (
     <section
-      className="border-t border-border bg-surface/30"
+      className="bg-moss text-sand"
       data-testid="home-popular-plants"
     >
-      <div className="container-narrow py-20 md:py-24">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+      <div className="container-narrow py-14 md:py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div className="min-w-0 flex-1 max-w-2xl">
             <div className="flex items-center gap-2">
               <Flame strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
-              <span className="overline">{t("home.popular.eyebrow")}</span>
+              <span className="overline text-terracotta">{t("home.popular.eyebrow")}</span>
             </div>
-            <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
+            <h2 className="font-serif text-4xl md:text-5xl text-sand mt-3 leading-tight text-balance">
               {t("home.popular.title")}
             </h2>
-            <p className="mt-4 text-ink/75 leading-relaxed">
+            <p className="mt-4 text-sand/85 leading-relaxed">
               {t("home.popular.body")}
             </p>
           </div>
           <Link
             to="/plants"
             data-testid="home-popular-more"
-            className="text-sm text-moss hover:text-terracotta underline-offset-4 hover:underline inline-flex items-center gap-1.5 flex-shrink-0"
+            className="text-sm text-sand/85 hover:text-terracotta underline-offset-4 hover:underline inline-flex items-center gap-1.5 flex-shrink-0"
           >
             {t("home.popular.more")}
             <ArrowRight strokeWidth={1.5} className="w-3.5 h-3.5" />
@@ -76,7 +76,7 @@ export default function PopularPlants({ limit = 8 }) {
               key={plant.id}
               to={plant.id?.startsWith("ai-") ? `/plants/ai/${plant.id}` : `/plants/${plant.id}`}
               data-testid={`popular-card-${plant.id}`}
-              className="card-flat group flex flex-col"
+              className="group flex flex-col bg-sand rounded-2xl overflow-hidden transition-transform duration-300 hover:-translate-y-1 shadow-[0_2px_10px_rgba(0,0,0,0.05)]"
             >
               <div className="aspect-[4/3] overflow-hidden bg-surface">
                 <PlantImage plant={plant} />
@@ -99,7 +99,7 @@ export default function PopularPlants({ limit = 8 }) {
                     {plant.summary}
                   </p>
                 )}
-                <p className="text-[0.65rem] text-moss/70 mt-3 uppercase tracking-wider">
+                <p className="text-[0.65rem] text-terracotta mt-3 uppercase tracking-wider">
                   {plant.category} · {plant.difficulty}
                 </p>
               </div>

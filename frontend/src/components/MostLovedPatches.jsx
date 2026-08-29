@@ -30,18 +30,18 @@ export default function MostLovedPatches({ limit = 6 }) {
   return (
     <section
       data-testid="most-loved-patches"
-      className="border-t border-border py-16 md:py-20"
+      className="bg-forest text-sand py-14 md:py-16"
     >
       <div className="container-narrow">
-        <div className="flex items-end justify-between gap-6 mb-8">
+        <div className="flex items-end justify-between gap-6 mb-6">
           <div>
-            <p className="overline">{t("home.most_loved.eyebrow")}</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-forest mt-2 tracking-tight">
+            <p className="overline text-terracotta">{t("home.most_loved.eyebrow")}</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-sand mt-2 tracking-tight text-balance">
               {t("home.most_loved.title")}
             </h2>
           </div>
         </div>
-        <p className="text-ink/80 max-w-xl leading-relaxed mb-8">
+        <p className="text-sand/85 max-w-xl leading-relaxed mb-8">
           {t("home.most_loved.body")}
         </p>
 
@@ -51,15 +51,15 @@ export default function MostLovedPatches({ limit = 6 }) {
               key={p.share_id}
               to={`/p/${p.share_id}`}
               data-testid={`most-loved-card-${p.share_id}`}
-              className="card-flat p-5 hover:border-forest/40 transition-colors block group"
+              className="bg-moss rounded-2xl p-5 block group transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-serif text-2xl text-forest leading-tight group-hover:text-terracotta transition-colors">
+                  <h3 className="font-serif text-2xl text-sand leading-tight group-hover:text-terracotta transition-colors">
                     {p.patch_name}
                   </h3>
                   {p.region?.name && (
-                    <p className="mt-1.5 text-xs text-moss inline-flex items-center gap-1.5">
+                    <p className="mt-1.5 text-xs text-sand/70 inline-flex items-center gap-1.5">
                       <MapPin strokeWidth={1.5} className="w-3.5 h-3.5" />
                       <span className="truncate">
                         {p.region.name}{p.region.country ? `, ${p.region.country}` : ""}
@@ -67,16 +67,16 @@ export default function MostLovedPatches({ limit = 6 }) {
                     </p>
                   )}
                 </div>
-                <Sprout strokeWidth={1.2} className="w-5 h-5 text-terracotta/60 shrink-0" />
+                <Sprout strokeWidth={1.2} className="w-5 h-5 text-terracotta shrink-0" />
               </div>
-              <div className="mt-4 text-xs text-moss flex flex-wrap gap-x-3 gap-y-1">
+              <div className="mt-4 text-xs text-sand/75 flex flex-wrap gap-x-3 gap-y-1">
                 <span>{t("home.most_loved.plant_count", { n: p.plant_count })}</span>
                 {p.view_count > 0 && (
                   <span>·  {t("share_view.views", { n: p.view_count })}</span>
                 )}
               </div>
               {p.first_plants?.length > 0 && (
-                <p className="mt-3 text-sm text-ink/70 truncate">
+                <p className="mt-3 text-sm text-sand/80 truncate">
                   {p.first_plants.map((x) => x.name).filter(Boolean).join(" · ")}
                 </p>
               )}

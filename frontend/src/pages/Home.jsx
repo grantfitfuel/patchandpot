@@ -195,8 +195,8 @@ export default function Home() {
 
       <ThisMonthCard onSetRegion={() => setPickerOpen(true)} />
 
-      <section className="container-narrow py-20">
-        <div className="grid md:grid-cols-12 gap-8 mb-12">
+      <section className="container-narrow py-14 md:py-16">
+        <div className="grid md:grid-cols-12 gap-6 mb-8">
           <div className="md:col-span-5">
             <p className="overline">{t("home.section.eyebrow")}</p>
             <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight">
@@ -208,11 +208,11 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Bento grid — deliberate variety of card sizes + brand
-            colours so scrolling has visual rhythm instead of the same
-            cream tile seven times. Each card fades up on scroll-in,
-            staggered by index so the reveal cascades. */}
-        <div className="grid md:grid-cols-12 auto-rows-[minmax(180px,auto)] gap-5 md:gap-6">
+        {/* Bento grid — every card colour-blocked (no cream), uniform
+            row height, size variety comes from column span alone.
+            Removing row-span variants eliminated the dead vertical
+            space inside the tall Masterclasses / Space-Saving cards. */}
+        <div className="grid md:grid-cols-12 gap-4 md:gap-5">
           <BentoCard to="/masterclasses"
             label={t("home.feature.masterclasses.label")}
             title={t("home.feature.masterclasses.title")}
@@ -220,7 +220,7 @@ export default function Home() {
             openLabel={t("home.feature.open_guide")}
             Icon={GraduationCap}
             variant="forest"
-            span="md:col-span-8 md:row-span-2"
+            span="md:col-span-8"
             index={0} />
           <BentoCard to="/guides/cut-flowers"
             label={t("home.feature.cut_flowers.label")}
@@ -237,8 +237,8 @@ export default function Home() {
             blurb={t("home.feature.first_pot.blurb")}
             openLabel={t("home.feature.open_guide")}
             Icon={Sprout}
-            variant="cream"
-            span="md:col-span-4"
+            variant="moss"
+            span="md:col-span-6"
             index={2} />
           <BentoCard to="/guides/space-saving"
             label={t("home.feature.space_saving.label")}
@@ -246,8 +246,8 @@ export default function Home() {
             blurb={t("home.feature.space_saving.blurb")}
             openLabel={t("home.feature.open_guide")}
             Icon={LayoutGrid}
-            variant="moss"
-            span="md:col-span-4 md:row-span-2"
+            variant="terracotta"
+            span="md:col-span-6"
             index={3} />
           <BentoCard to="/guides/companion"
             label={t("home.feature.companion.label")}
@@ -255,7 +255,7 @@ export default function Home() {
             blurb={t("home.feature.companion.blurb")}
             openLabel={t("home.feature.open_guide")}
             Icon={HandHelping}
-            variant="cream"
+            variant="moss"
             span="md:col-span-4"
             index={4} />
           <BentoCard to="/guides/regrow"
@@ -273,7 +273,7 @@ export default function Home() {
             blurb={t("home.feature.plants.blurb")}
             openLabel={t("home.feature.open_guide")}
             Icon={Sprout}
-            variant="cream"
+            variant="forest"
             span="md:col-span-4"
             index={6} />
         </div>
@@ -296,13 +296,13 @@ export default function Home() {
         className="bg-moss text-sand"
         data-testid="home-wellbeing-band"
       >
-        <div className="container-narrow py-20 md:py-24">
+        <div className="container-narrow py-14 md:py-16">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
-            className="max-w-2xl mb-12"
+            className="max-w-2xl mb-8"
           >
             <p className="overline text-terracotta">{t("home.wellbeing.eyebrow")}</p>
             <h2 className="font-serif text-4xl md:text-5xl text-sand mt-3 leading-tight text-balance">
@@ -359,7 +359,7 @@ export default function Home() {
 
       {!paid && (
         <section className="bg-sand" data-testid="home-bundle-cta">
-          <div className="container-narrow py-20 md:py-24 grid md:grid-cols-12 gap-10 items-center">
+          <div className="container-narrow py-14 md:py-16 grid md:grid-cols-12 gap-10 items-center">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -468,14 +468,14 @@ function BentoCard({ to, label, title, blurb, openLabel, Icon, variant, span, in
       <Link
         to={to}
         data-testid={`feature-${to.replace(/\//g, "-")}`}
-        className={`bento-card ${styles.bg} h-full p-7 md:p-8 flex flex-col group`}
+        className={`bento-card ${styles.bg} h-full p-5 md:p-6 flex flex-col group`}
       >
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-4">
           <Icon strokeWidth={1.4} className={`w-5 h-5 ${styles.eyebrow}`} />
           <span className={`overline ${styles.eyebrow}`}>{label}</span>
         </div>
-        <h3 className={`font-serif text-2xl md:text-3xl ${titleColor} mb-3 leading-snug text-balance`}>{title}</h3>
-        <p className={`${styles.body} leading-relaxed mb-6 flex-1`}>{blurb}</p>
+        <h3 className={`font-serif text-2xl md:text-3xl ${titleColor} mb-2.5 leading-snug text-balance`}>{title}</h3>
+        <p className={`${styles.body} leading-relaxed mb-5 flex-1 text-sm md:text-base`}>{blurb}</p>
         <span className={`inline-flex items-center gap-2 text-sm tracking-wider uppercase group-hover:gap-3 transition-all ${styles.arrow}`}>
           {openLabel} <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
         </span>

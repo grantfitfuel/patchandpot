@@ -127,26 +127,42 @@ export default function Home() {
       </section>
 
       {/* ── Micro value-prop strip ─────────────────────────────────── */}
-      {/* Placed immediately below the hero so Google's snippet-picker
-          has an AI-tutor + masterclass line to grab before it hits the
-          mid-page pull quote. Copy is intentionally concise and
-          keyword-forward for search. */}
+      {/* Bold forest-green panel introducing Ask Nàdar and the
+          Masterclass creator — first splash of colour after the cream
+          hero, breaks up the neutral flow and reads as "here's what
+          this actually is". */}
       <section
-        className="border-b border-border"
+        className="bg-forest text-sand relative overflow-hidden"
         data-testid="home-value-strip"
         aria-label="How Patch and Pot works"
       >
-        <div className="container-narrow py-8 md:py-10">
-          <p className="text-center text-ink/85 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-            <strong className="text-forest">Ask Nàdar</strong> answers any
-            gardening question in seconds. The{" "}
-            <strong className="text-forest">AI Masterclass creator</strong>{" "}
+        {/* Warm terracotta wash top-left balances the terracotta glow
+            used lower on the ThisMonthCard band. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 60% at 0% 0%, rgba(198,93,71,0.20), transparent 60%)",
+          }}
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
+          className="relative container-narrow py-10 md:py-12"
+        >
+          <p className="text-center md:text-left text-lg md:text-2xl leading-relaxed max-w-4xl text-sand/95 font-serif">
+            <strong className="text-terracotta font-semibold not-italic">Ask Nàdar</strong>{" "}
+            answers any gardening question in seconds. The{" "}
+            <strong className="text-terracotta font-semibold not-italic">AI Masterclass creator</strong>{" "}
             writes you a full multi-lesson course on any topic — from
             no-dig to seed saving to attracting bees. Both shaped to your
-            climate zone, season, space and skill. Free to try, unlimited
-            for founding members.
+            climate zone, season, space and skill.{" "}
+            <span className="text-sand/70">Free to try, unlimited for founding members.</span>
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Founding ethos band ────────────────────────────────────── */}

@@ -5,6 +5,7 @@ The Stripe `session_id` IS the passwordless access token — we store it in
 localStorage and sends it to `POST /api/access/check` to gate premium features.
 """
 import logging
+import os
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException, Request
@@ -29,13 +30,18 @@ def make_router(db) -> APIRouter:
     async def founding_status():
         """How many of the limited Founding Member lifetime spots remain.
         Counts paid `lifetime_founding` rows in `access_grants` (one grant per
-        successful checkout). When `available == 0`, the homepage banner
-        switches to a thank-you state and checkout routes to regular lifetime."""
+        successful checkout). An optional `FOUNDING_PHANTOM_SOLD` env var
+        adds a virtual head-start to the counter (used before public launch
+        to seed social-proof scarcity without granting fake access). When
+        `available == 0`, the homepage banner switches to a thank-you
+        state and checkout routes to regular lifetime."""
         sold = await db.access_grants.count_documents({"package_id": "lifetime_founding"})
-        available = max(0, FOUNDING_TOTAL - int(sold))
+        phantom = int(os.environ.get("FOUNDING_PHANTOM_SOLD", "0") or "0")
+        total_sold = int(sold) + max(0, phantom)
+        available = max(0, FOUNDING_TOTAL - total_sold)
         return {
             "total": FOUNDING_TOTAL,
-            "sold": int(sold),
+            "sold": total_sold,
             "available": available,
             "active": available > 0,
         }
@@ -48,9 +54,13 @@ def make_router(db) -> APIRouter:
 
         # Founding Member redirect: if cohort is full, silently downgrade the
         # buyer to regular lifetime so the link in a stale tab still works.
+        # Include the phantom-sold offset so this stays consistent with the
+        # public counter (i.e. once the phantom + real sales sum to
+        # FOUNDING_TOTAL, new buyers are downgraded to regular lifetime).
         if pkg_id == "lifetime_founding":
             sold = await db.access_grants.count_documents({"package_id": "lifetime_founding"})
-            if sold >= FOUNDING_TOTAL:
+            phantom = int(os.environ.get("FOUNDING_PHANTOM_SOLD", "0") or "0")
+            if int(sold) + max(0, phantom) >= FOUNDING_TOTAL:
                 pkg_id = "lifetime"
 
         pkg = PAYWALL_PACKAGES.get(pkg_id)

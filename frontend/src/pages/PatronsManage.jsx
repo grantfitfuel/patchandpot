@@ -16,7 +16,7 @@ import { fetchPatronMe, patronOptIn, patronOptOut } from "@/lib/api";
  * no separate login step — anyone who has the token owns the listing.
  *
  * Why ship this: the privacy notice promises one-click removal, but the
- * only path was an email to hello@patchandpot.com (no inbound email wired
+ * only path was an email to gcanth@gmail.com (no inbound email wired
  * yet). This page lets patrons edit/remove without any inbox involvement.
  */
 export default function PatronsManagePage() {
@@ -88,7 +88,7 @@ export default function PatronsManagePage() {
       await load(sessionId);
       setAction("done");
     } catch (e2) {
-      setActionError("Couldn't remove your listing — please email hello@patchandpot.com.");
+      setActionError("Couldn't remove your listing — please email gcanth@gmail.com.");
       setAction("idle");
     }
   }
@@ -127,8 +127,8 @@ export default function PatronsManagePage() {
         </form>
         <p className="mt-6 text-xs text-moss leading-relaxed">
           Lost your token? Email{" "}
-          <a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">
-            hello@patchandpot.com
+          <a href="mailto:gcanth@gmail.com" className="underline-offset-4 hover:underline text-forest">
+            gcanth@gmail.com
           </a>
           {" "}and we&apos;ll remove your listing manually.
         </p>

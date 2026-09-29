@@ -145,8 +145,8 @@ export default function AboutPage() {
         <p className="text-ink/80 leading-relaxed">
           Patch &amp; Pot is run by <strong>Grant Cameron Anthony</strong>, trading as Patch &amp;
           Pot from Barrhead, East Renfrewshire, Scotland, UK. Reach me directly at{" "}
-          <a className="link" href="mailto:hello@patchandpot.com">
-            hello@patchandpot.com
+          <a className="link" href="mailto:gcanth@gmail.com">
+            gcanth@gmail.com
           </a>{" "}
           — partnership enquiries, editorial feedback, bug reports, all welcome.
         </p>
@@ -209,7 +209,7 @@ export default function AboutPage() {
         <Link to="/terms" className="link" data-testid="about-to-terms">
           Read the terms &amp; affiliate disclosure →
         </Link>
-        <a className="link" href="mailto:hello@patchandpot.com" data-testid="about-contact">
+        <a className="link" href="mailto:gcanth@gmail.com" data-testid="about-contact">
           Get in touch →
         </a>
       </div>

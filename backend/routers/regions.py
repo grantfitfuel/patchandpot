@@ -94,7 +94,7 @@ async def _reverse_name(http: httpx.AsyncClient, lat: float, lon: float) -> dict
                     "lat": lat, "lon": lon, "format": "json",
                     "zoom": 10, "accept-language": "en",
                 },
-                headers={"User-Agent": "PatchAndPot/1.0 (gardening app; hello@patchandpot.com)"},
+                headers={"User-Agent": "PatchAndPot/1.0 (gardening app; gcanth@gmail.com)"},
             )
             if r.status_code == 200:
                 data = r.json() or {}

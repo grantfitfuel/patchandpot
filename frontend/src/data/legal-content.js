@@ -22,7 +22,7 @@ export const PRIVACY_SECTIONS = [
     title: "Who we are",
     htmlKey: "legal.privacy.who.html",
     html:
-      "<p>Patch &amp; Pot is a small independent gardening publisher (the “Service”) operated from the United Kingdom. The data controller is <strong>Grant Cameron Anthony</strong>, trading as Patch &amp; Pot, based in Barrhead, East Renfrewshire, Scotland, UK. You can reach us at <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a>; a full correspondence address is available on request.</p>",
+      "<p>Patch &amp; Pot is a small independent gardening publisher (the “Service”) operated from the United Kingdom. The data controller is <strong>Grant Cameron Anthony</strong>, trading as Patch &amp; Pot, based in Barrhead, East Renfrewshire, Scotland, UK. You can reach us at <a class=\"link\" href=\"mailto:gcanth@gmail.com\">gcanth@gmail.com</a>; a full correspondence address is available on request.</p>",
   },
   {
     titleKey: "legal.privacy.collect.title",
@@ -64,14 +64,14 @@ export const PRIVACY_SECTIONS = [
     title: "Your rights",
     htmlKey: "legal.privacy.rights.html",
     html:
-      "<p>Under UK GDPR you have the right to:</p><ul><li>Access the personal data we hold about you.</li><li>Have inaccurate data corrected.</li><li>Have your data erased (subject to our HMRC obligations on payment records).</li><li>Restrict or object to processing.</li><li>Receive a copy of your data in a portable format.</li><li>Withdraw consent where consent is the lawful basis.</li><li>Complain to the UK Information Commissioner’s Office (<a class=\"link\" href=\"https://ico.org.uk\" target=\"_blank\" rel=\"noreferrer noopener\">ico.org.uk</a>) if you believe we have mishandled your data.</li></ul><p>To exercise any of these rights, email <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a>. We aim to respond within 14 days and must respond within 30.</p>",
+      "<p>Under UK GDPR you have the right to:</p><ul><li>Access the personal data we hold about you.</li><li>Have inaccurate data corrected.</li><li>Have your data erased (subject to our HMRC obligations on payment records).</li><li>Restrict or object to processing.</li><li>Receive a copy of your data in a portable format.</li><li>Withdraw consent where consent is the lawful basis.</li><li>Complain to the UK Information Commissioner’s Office (<a class=\"link\" href=\"https://ico.org.uk\" target=\"_blank\" rel=\"noreferrer noopener\">ico.org.uk</a>) if you believe we have mishandled your data.</li></ul><p>To exercise any of these rights, email <a class=\"link\" href=\"mailto:gcanth@gmail.com\">gcanth@gmail.com</a>. We aim to respond within 14 days and must respond within 30.</p>",
   },
   {
     titleKey: "legal.privacy.patrons.title",
     title: "Patrons page (optional public listing)",
     htmlKey: "legal.privacy.patrons.html",
     html:
-      "<p>On the post-payment receipt screen, you can choose to be listed publicly on our <a class=\"link\" href=\"/patrons\">Patrons page</a>. This is strictly opt-in:</p><ul><li>We only ever display the <strong>display name you chose yourself</strong> — never your email, country, exact amount, or any other identifying information.</li><li>Nothing is published unless you ticked the explicit consent checkbox.</li><li>You can edit or remove your listing with one click on the <a class=\"link\" href=\"/patrons/manage\">self-service page</a> using the checkout token from your receipt, or by emailing <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a>. Removal is immediate.</li><li>The lawful basis is your <strong>explicit consent</strong> (UK GDPR Article 6(1)(a)), which you can withdraw at any time.</li></ul>",
+      "<p>On the post-payment receipt screen, you can choose to be listed publicly on our <a class=\"link\" href=\"/patrons\">Patrons page</a>. This is strictly opt-in:</p><ul><li>We only ever display the <strong>display name you chose yourself</strong> — never your email, country, exact amount, or any other identifying information.</li><li>Nothing is published unless you ticked the explicit consent checkbox.</li><li>You can edit or remove your listing with one click on the <a class=\"link\" href=\"/patrons/manage\">self-service page</a> using the checkout token from your receipt, or by emailing <a class=\"link\" href=\"mailto:gcanth@gmail.com\">gcanth@gmail.com</a>. Removal is immediate.</li><li>The lawful basis is your <strong>explicit consent</strong> (UK GDPR Article 6(1)(a)), which you can withdraw at any time.</li></ul>",
   },
   {
     titleKey: "legal.privacy.cookies.title",
@@ -98,7 +98,7 @@ export const TERMS_SECTIONS = [
     title: "Who we are",
     htmlKey: "legal.terms.who.html",
     html:
-      "<p>Patch &amp; Pot is a small independent gardening publisher operated from the United Kingdom by <strong>Grant Cameron Anthony</strong>, trading as Patch &amp; Pot, based in Barrhead, East Renfrewshire, Scotland (“we”, “us”, “our”). You can contact us at <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a>.</p>",
+      "<p>Patch &amp; Pot is a small independent gardening publisher operated from the United Kingdom by <strong>Grant Cameron Anthony</strong>, trading as Patch &amp; Pot, based in Barrhead, East Renfrewshire, Scotland (“we”, “us”, “our”). You can contact us at <a class=\"link\" href=\"mailto:gcanth@gmail.com\">gcanth@gmail.com</a>.</p>",
   },
   {
     titleKey: "legal.terms.what.title",
@@ -119,7 +119,7 @@ export const TERMS_SECTIONS = [
     title: "Refunds & the 30-day guarantee",
     htmlKey: "legal.terms.refunds.html",
     html:
-      "<p>You have a <strong>statutory 14-day right to cancel</strong> any digital-content purchase under the Consumer Contracts Regulations 2013 — except that, by purchasing membership and immediately accessing paid content, you may waive that right.</p><p>We add a <strong>30-day no-questions-asked refund</strong> on top of that. If Patch &amp; Pot is not for you within the first 30 days, email <a class=\"link\" href=\"mailto:hello@patchandpot.com\">hello@patchandpot.com</a> and we will refund you in full.</p>",
+      "<p>You have a <strong>statutory 14-day right to cancel</strong> any digital-content purchase under the Consumer Contracts Regulations 2013 — except that, by purchasing membership and immediately accessing paid content, you may waive that right.</p><p>We add a <strong>30-day no-questions-asked refund</strong> on top of that. If Patch &amp; Pot is not for you within the first 30 days, email <a class=\"link\" href=\"mailto:gcanth@gmail.com\">gcanth@gmail.com</a> and we will refund you in full.</p>",
   },
   {
     titleKey: "legal.terms.affiliates.title",

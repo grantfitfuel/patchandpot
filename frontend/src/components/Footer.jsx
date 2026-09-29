@@ -57,7 +57,7 @@ export default function Footer() {
               {t("footer.legal.disclosure")}
             </Link>
             <a
-              href="mailto:hello@patchandpot.com"
+              href="mailto:gcanth@gmail.com"
               className="hover:text-terracotta transition-colors"
               data-testid="footer-contact-link"
             >

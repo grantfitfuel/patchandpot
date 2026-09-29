@@ -46,7 +46,7 @@ export default function PatronOptInCard({ sessionId }) {
       setName("");
       setConsent(false);
     } catch (e2) {
-      setErrorMsg("Couldn't remove your listing — please email hello@patchandpot.com and we'll handle it manually.");
+      setErrorMsg("Couldn't remove your listing — please email gcanth@gmail.com and we'll handle it manually.");
       setPhase("error");
     }
   }

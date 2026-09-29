@@ -220,7 +220,7 @@ export default function PatchTabStrip() {
         )}
         {!canAdd && paid && (
           <p className="text-[11px] text-moss leading-relaxed w-full" data-testid="patch-limit-note">
-            {t("patch.limit_paid", { limit, email: "hello@patchandpot.com" })}
+            {t("patch.limit_paid", { limit, email: "gcanth@gmail.com" })}
           </p>
         )}
       </div>

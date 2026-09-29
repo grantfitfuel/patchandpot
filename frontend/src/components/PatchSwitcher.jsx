@@ -200,7 +200,7 @@ export default function PatchSwitcher() {
               data-testid="patch-switcher-limit"
               className="px-4 py-2.5 text-xs text-moss leading-relaxed"
             >
-              {t("patch.limit_paid", { limit, email: "hello@patchandpot.com" })}
+              {t("patch.limit_paid", { limit, email: "gcanth@gmail.com" })}
             </div>
           )}
           <Link

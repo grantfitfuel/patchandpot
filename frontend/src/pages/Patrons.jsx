@@ -167,8 +167,8 @@ export default function PatronsPage() {
             {t("patrons.footer.link")}
           </Link>
           {" "}{t("patrons.footer.suffix")}{" "}
-          <a href="mailto:hello@patchandpot.com" className="underline-offset-4 hover:underline text-forest">
-            hello@patchandpot.com
+          <a href="mailto:gcanth@gmail.com" className="underline-offset-4 hover:underline text-forest">
+            gcanth@gmail.com
           </a>
           {" "}{t("patrons.footer.email_suffix")}
         </p>

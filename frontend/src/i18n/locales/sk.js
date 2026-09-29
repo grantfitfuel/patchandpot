@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Členstvo na 12 mesiacov",
   "home.bundle.annual_blurb": "Jeden pestovateľský rok, £15. Žiadne automatické obnovenie — členstvo končí prirodzene, keď rok uplynie.",
   "home.bundle.unlock_annual": "Odomknite si celý rok",
+  "cookie.title": "Poznámka o cookies.",
+  "cookie.body": "Používame jeden analytický cookie prvej strany (Google Analytics 4), aby sme zistili, ktoré stránky skutočne pomáhajú záhradníkom. Nič iné — žiadne reklamy, žiadne sledovacie pixely, žiadne zdieľanie s obchodníkmi s dátami.",
+  "cookie.privacy_link": "Prečítajte si celú politiku ochrany osobných údajov",
+  "cookie.accept": "Prijať analýzu",
+  "cookie.reject": "Odmietnuť analýzu",
+  "cookie.dismiss": "Zamietnuť (taktiež odmieta analýzu)",
+  "cookie.aria_label": "Predvoľby cookies",
 
 };
 export default dict;

@@ -161,7 +161,7 @@ export default function Home() {
             writes you a full multi-lesson course on any topic — from
             no-dig to seed saving to attracting bees. Both shaped to your
             climate zone, season, space and skill.{" "}
-            <span className="text-sand/70">Free to try, unlimited for founding members.</span>
+            <span className="text-sand/70">Free to try, unlimited with any membership.</span>
           </p>
         </motion.div>
       </section>

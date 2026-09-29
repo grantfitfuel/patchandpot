@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "12 mėnesių narystė",
   "home.bundle.annual_blurb": "Vieneri augimo metai, £15. Nėra automatinio pratęsimo — narystė natūraliai pasibaigia, kai baigiasi metai.",
   "home.bundle.unlock_annual": "Atrakinkite savo pilnus metus",
+  "cookie.title": "Pastaba apie slapukus.",
+  "cookie.body": "Mes naudojame vieną pirmosios šalies analizės slapuką (Google Analytics 4), kad pamatytume, kurios puslapiai iš tikrųjų padeda sodininkams. Nieko kito – jokių skelbimų, jokių sekimo pikselių, jokių duomenų dalinimosi su duomenų brokeriais.",
+  "cookie.privacy_link": "Skaityti visą privatumo politiką",
+  "cookie.accept": "Priimti analizę",
+  "cookie.reject": "Atmesti analizę",
+  "cookie.dismiss": "Uždaryti (tai taip pat atmeta analizę)",
+  "cookie.aria_label": "Slapukų nuostatos",
 
 };
 export default dict;

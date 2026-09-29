@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12个月会员",
   "home.bundle.annual_blurb": "一个成长年，£15。没有自动续订—会员资格在一年结束时自然终止。",
   "home.bundle.unlock_annual": "解锁您的全年",
+  "cookie.title": "关于Cookies的说明。",
+  "cookie.body": "我们使用一个第一方分析Cookie（Google Analytics 4）来查看哪些页面实际上对园丁有帮助。仅此而已——没有广告，没有追踪像素，没有与数据经纪人共享。",
+  "cookie.privacy_link": "阅读完整隐私政策",
+  "cookie.accept": "接受分析",
+  "cookie.reject": "拒绝分析",
+  "cookie.dismiss": "关闭（同时拒绝分析）",
+  "cookie.aria_label": "Cookie偏好设置",
 
 };
 export default dict;

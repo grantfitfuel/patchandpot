@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "12-kuuline liikmesus",
   "home.bundle.annual_blurb": "Üks kasvuaasta, £15. Ei automaatset uuendamist — liikmesus lõpeb loomulikult, kui aasta on läbi.",
   "home.bundle.unlock_annual": "Avage oma täisaasta",
+  "cookie.title": "Märkus küpsiste kohta.",
+  "cookie.body": "Kasutame ühte esmaklassilist analüütika küpsist (Google Analytics 4), et näha, millised lehed aitavad aiapidajaid. Midagi muud — ei mingeid reklaame, ei jälgimise pikslit, ei jagamist andmevahetajatega.",
+  "cookie.privacy_link": "Loe täispika privaatsuspoliitika",
+  "cookie.accept": "Nõustu analüütikaga",
+  "cookie.reject": "Keela analüütika",
+  "cookie.dismiss": "Keela (ka välistab analüütika)",
+  "cookie.aria_label": "Küpsiste eelistused",
 
 };
 export default dict;

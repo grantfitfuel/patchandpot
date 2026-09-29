@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "12-buwang membership",
   "home.bundle.annual_blurb": "Isang taon ng pagtubo, £15. Walang auto-renew — nagtatapos ang membership nang natural kapag natapos ang taon.",
   "home.bundle.unlock_annual": "I-unlock ang iyong buong taon",
+  "cookie.title": "Tala tungkol sa cookies.",
+  "cookie.body": "Gumagamit kami ng isang unang-parts na analytics cookie (Google Analytics 4) upang makita kung aling mga pahina ang talagang nakakatulong sa mga hardinero. Wala nang iba pa — walang mga ad, walang tracking pixels, walang pagbabahagi sa mga data brokers.",
+  "cookie.privacy_link": "Basahin ang buong patakaran sa privacy",
+  "cookie.accept": "Tanggapin ang analytics",
+  "cookie.reject": "Tanggihan ang analytics",
+  "cookie.dismiss": "Isara (tinatanggihan din ang analytics)",
+  "cookie.aria_label": "Mga kagustuhan sa cookie",
 
 };
 export default dict;

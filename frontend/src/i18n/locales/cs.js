@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12měsíční členství",
   "home.bundle.annual_blurb": "Jeden pěstební rok, £15. Žádné automatické obnovování — členství končí přirozeně po uplynutí roku.",
   "home.bundle.unlock_annual": "Odemkněte si celý rok",
+  "cookie.title": "Oznámení o cookies.",
+  "cookie.body": "Používáme jeden analytický cookie (Google Analytics 4) od první strany, abychom zjistili, které stránky skutečně pomáhají zahradníkům. Nic jiného — žádné reklamy, žádné sledovací pixely, žádné sdílení s datovými makléři.",
+  "cookie.privacy_link": "Přečtěte si plnou zásadu ochrany osobních údajů",
+  "cookie.accept": "Přijmout analytiku",
+  "cookie.reject": "Odmítnout analytiku",
+  "cookie.dismiss": "Zavřít (také odmítá analytiku)",
+  "cookie.aria_label": "Nastavení cookies",
 
 };
 export default dict;

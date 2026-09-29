@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Thành viên 12 tháng",
   "home.bundle.annual_blurb": "Một năm gieo trồng, £15. Không tự động gia hạn — thành viên kết thúc tự nhiên khi hết năm.",
   "home.bundle.unlock_annual": "Mở khóa toàn bộ năm của bạn",
+  "cookie.title": "Một ghi chú về cookie.",
+  "cookie.body": "Chúng tôi sử dụng một cookie phân tích bên thứ nhất (Google Analytics 4) để xem những trang nào thực sự giúp ích cho các người làm vườn. Không có gì khác — không có quảng cáo, không có pixel theo dõi, không chia sẻ với các nhà môi giới dữ liệu.",
+  "cookie.privacy_link": "Đọc đầy đủ chính sách bảo mật",
+  "cookie.accept": "Chấp nhận phân tích",
+  "cookie.reject": "Từ chối phân tích",
+  "cookie.dismiss": "Bỏ qua (cũng từ chối phân tích)",
+  "cookie.aria_label": "Tùy chọn cookie",
 
 };
 export default dict;

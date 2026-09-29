@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Członkostwo 12-miesięczne",
   "home.bundle.annual_blurb": "Jeden rok upraw, £15. Bez automatycznego odnawiania — członkostwo kończy się naturalnie, gdy minie rok.",
   "home.bundle.unlock_annual": "Odblokuj swój pełny rok",
+  "cookie.title": "Informacja o plikach cookie.",
+  "cookie.body": "Używamy jednego pliku cookie analitycznego pierwszej części (Google Analytics 4), aby zobaczyć, które strony rzeczywiście pomagają ogrodnikom. Nic więcej - żadnych reklam, żadnych pikseli śledzących, żadnego udostępniania z brokerami danych.",
+  "cookie.privacy_link": "Przeczytaj pełną politykę prywatności",
+  "cookie.accept": "Akceptuj analitykę",
+  "cookie.reject": "Odrzuć analitykę",
+  "cookie.dismiss": "Zamknij (również odrzuca analitykę)",
+  "cookie.aria_label": "Preferencje dotyczące plików cookie",
 
 };
 export default dict;

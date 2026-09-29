@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12 kuukauden jäsenyys",
   "home.bundle.annual_blurb": "Yksi kasvuvuosi, £15. Ei automaattista uusimista — jäsenyys päättyy luonnollisesti vuoden tullessa täyteen.",
   "home.bundle.unlock_annual": "Avaa koko vuotesi",
+  "cookie.title": "Huomautus evästeistä.",
+  "cookie.body": "Käytämme yhtä ensipuolista analytiikkaevästettä (Google Analytics 4) nähdäksemme, mitkä sivut todella auttavat puutarhureita. Ei mitään muuta — ei mainoksia, ei seurantapikseleitä, ei jakamista datavälittäjien kanssa.",
+  "cookie.privacy_link": "Lue koko tietosuojakäytäntö",
+  "cookie.accept": "Hyväksy analytiikka",
+  "cookie.reject": "Hylkää analytiikka",
+  "cookie.dismiss": "Hylkää (hylkää myös analytiikan)",
+  "cookie.aria_label": "Evästeasetukset",
 
 };
 export default dict;

@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Abbonament ta' 12-il xahar",
   "home.bundle.annual_blurb": "Sena ta' tkabbir, £15. L-ebda tiġdid awtomatiku — l-abbonament jintemm b'mod naturali meta s-sena tispiċċa.",
   "home.bundle.unlock_annual": "Illibera s-sena sħiħa tiegħek",
+  "cookie.title": "Nota dwar il-kukies.",
+  "cookie.body": "Nużaw kukieqa analitika ta' parti wieħed (Google Analytics 4) biex naraw liema paġni verament jgħinu l-Ġardiniera. Xejn aktar — l-ebda reklami, l-ebda tracking pixels, l-ebda qsim ma' brokers tad-dejta.",
+  "cookie.privacy_link": "Aqra l-politika t'privacy sħiħa",
+  "cookie.accept": "Aċċetta l-analitika",
+  "cookie.reject": "Irritorna l-analitika",
+  "cookie.dismiss": "Iktar (jiċċaħad ukoll l-analitika)",
+  "cookie.aria_label": "Preferenzi tal-kukies",
 
 };
 export default dict;

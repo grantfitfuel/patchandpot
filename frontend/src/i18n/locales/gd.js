@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Ballrachd 12 mhìosan",
   "home.bundle.annual_blurb": "Bliadhna a' fàs, £15. Gun ath-nuadhachadh — Bidh an ballrachd a' crìochnachadh gu nàdarra nuair a thig a' bhliadhna gu ceann.",
   "home.bundle.unlock_annual": "Fuasgail do bhliadhna iomlan",
+  "cookie.title": "Nota mu chookies.",
+  "cookie.body": "Tha sinn a’ cleachdadh chookiean analach first-party agus (Google Analytics 4) gus faicinn dè na duilleagan a tha fìor chuidich luchd-gàrraidh. Chan eil dad eile - chan eil sanasachd, chan eil pixelan tracadh, chan eil roinn le luchd-reic dàta.",
+  "cookie.privacy_link": "Leugh poileasaidh prìobhaideachd iomlan",
+  "cookie.accept": "Ghabh ris anailis",
+  "cookie.reject": "Neach a’ diùltadh anailis",
+  "cookie.dismiss": "Diùltain (cuir a-mach cuideachd anailis)",
+  "cookie.aria_label": "Roghainnean chookies",
 
 };
 export default dict;

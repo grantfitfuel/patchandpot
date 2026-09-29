@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "Aelodaeth 12 mis",
   "home.bundle.annual_blurb": "Un flwyddyn dyfu, £15. Dim adnewyddu awtomatig — mae'r aelodaeth yn dod i ben yn naturiol pan ddaw'r flwyddyn i ben.",
   "home.bundle.unlock_annual": "Datgloi eich blwyddyn lawn",
+  "cookie.title": "Nodyn am gwisgo.",
+  "cookie.body": "Defnyddiwn un cwci dadansoddeg cyntaf (Google Analytics 4) i weld pa dudalennau sy'n helpu garddwyr yn wirioneddol. Dim byd arall - dim hysbysebion, dim pixelau olrhain, dim rhannu gyda broceriaid data.",
+  "cookie.privacy_link": "Darllen y polisi preifatrwydd llawn",
+  "cookie.accept": "Derbyn dadansoddeg",
+  "cookie.reject": "Gwrthod dadansoddeg",
+  "cookie.dismiss": "Gadael (hefyd yn gwrthod dadansoddeg)",
+  "cookie.aria_label": "Dewisiadau cwci",
 
 };
 export default dict;

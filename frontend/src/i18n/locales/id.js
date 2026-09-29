@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Keanggotaan 12 bulan",
   "home.bundle.annual_blurb": "Satu tahun pertumbuhan, £15. Tanpa pembaharuan otomatis — keanggotaan berakhir secara alami ketika tahun berakhir.",
   "home.bundle.unlock_annual": "Buka kunci tahun penuh Anda",
+  "cookie.title": "Catatan tentang cookie.",
+  "cookie.body": "Kami menggunakan satu cookie analitik pihak pertama (Google Analytics 4) untuk melihat halaman mana yang sebenarnya membantu para pekebun. Tidak ada yang lain - tidak ada iklan, tidak ada piksel pelacakan, tidak ada berbagi dengan broker data.",
+  "cookie.privacy_link": "Baca kebijakan privasi lengkap",
+  "cookie.accept": "Terima analitik",
+  "cookie.reject": "Tolak analitik",
+  "cookie.dismiss": "Tutup (juga menolak analitik)",
+  "cookie.aria_label": "Preferensi cookie",
 
 };
 export default dict;

@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12-mesečno članstvo",
   "home.bundle.annual_blurb": "Ena rastna sezona, £15. Brez samodejnega podaljšanja — članstvo se naravno zaključi, ko je leto končano.",
   "home.bundle.unlock_annual": "Odkleni celoletno članstvo",
+  "cookie.title": "Zapisek o piškotkih.",
+  "cookie.body": "Uporabljamo eno analitično piškotek prve strani (Google Analytics 4), da vidimo, katere strani dejansko pomagajo vrtnarjem. Nič drugega - brez oglasov, brez sledenja, brez deljenja z posredniki podatkov.",
+  "cookie.privacy_link": "Preberite celotno politiko o zasebnosti",
+  "cookie.accept": "Sprejmi analitiko",
+  "cookie.reject": "Zavrni analitiko",
+  "cookie.dismiss": "Zavrni (tudi zavrne analitiko)",
+  "cookie.aria_label": "Nastavitve piškotkov",
 
 };
 export default dict;

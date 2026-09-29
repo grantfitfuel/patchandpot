@@ -1055,6 +1055,13 @@ const dict = {
   "home.bundle.annual_label": "12 aylıq üzvlük",
   "home.bundle.annual_blurb": "Bir inkişaf ili, £15. Avtomatik yenilənmə yoxdur — üzvlük il başa çatdıqda təbii olaraq bitir.",
   "home.bundle.unlock_annual": "Tam ilinizi açın",
+  "cookie.title": "Çerezlər haqqında qeyd.",
+  "cookie.body": "Biz bağbanlara kömək edən səhifələri görmək üçün birinci tərəf analitik çerezi (Google Analytics 4) istifadə edirik. Başqa heç nə — reklam yoxdur, izləmə pikselləri yoxdur, məlumat brokerləri ilə paylaşım yoxdur.",
+  "cookie.privacy_link": "Tam məxfilik siyasətini oxuyun",
+  "cookie.accept": "Analitikləri qəbul et",
+  "cookie.reject": "Analitikləri rədd et",
+  "cookie.dismiss": "Bəlli et (analitikləri də rədd edir)",
+  "cookie.aria_label": "Çerez tələbləri",
 
 };
 export default dict;

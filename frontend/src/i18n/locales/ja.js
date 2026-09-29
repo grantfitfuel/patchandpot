@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "12ヶ月のメンバーシップ",
   "home.bundle.annual_blurb": "1つの成長年、£15。自動更新なし — 1年が終了するとメンバーシップは自然に終わります。",
   "home.bundle.unlock_annual": "あなたの1年間を解放しましょう",
+  "cookie.title": "クッキーについての注意事項。",
+  "cookie.body": "私たちは、園芸家に実際に役立つページを把握するために、1つのファーストパーティの分析クッキー（Google Analytics 4）を使用しています。それ以外は一切ありません - 広告もなく、トラッキングピクセルもなく、データブローカーとの共有もありません。",
+  "cookie.privacy_link": "プライバシーポリシーの全文を読む",
+  "cookie.accept": "分析を受け入れる",
+  "cookie.reject": "分析を拒否する",
+  "cookie.dismiss": "閉じる（分析も拒否します）",
+  "cookie.aria_label": "クッキーの設定",
 
 };
 export default dict;

@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Abonament de 12 luni",
   "home.bundle.annual_blurb": "Un an de cultivare, £15. Fără reînnoire automată — abonamentul se încheie natural când anul se termină.",
   "home.bundle.unlock_annual": "Deblochează-ți anul complet",
+  "cookie.title": "O notă despre cookies.",
+  "cookie.body": "Folosim un cookie de analiză de primă parte (Google Analytics 4) pentru a vedea ce pagini ajută de fapt grădinarii. Nimic altceva - nu există reclame, nu există pixeli de urmărire, nu există partajare cu brokeri de date.",
+  "cookie.privacy_link": "Citiți politica de confidențialitate completă",
+  "cookie.accept": "Acceptați analiza",
+  "cookie.reject": "Respingeți analiza",
+  "cookie.dismiss": "Ignorați (de asemenea, respinge analiza)",
+  "cookie.aria_label": "Preferințe cookie",
 
 };
 export default dict;

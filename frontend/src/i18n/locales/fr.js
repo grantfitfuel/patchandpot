@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "Abonnement de 12 mois",
   "home.bundle.annual_blurb": "Une année de croissance, £15. Pas de renouvellement automatique — l'abonnement se termine naturellement à la fin de l'année.",
   "home.bundle.unlock_annual": "Débloquez votre année complète",
+  "cookie.title": "Une note sur les cookies.",
+  "cookie.body": "Nous utilisons un cookie d'analyse de première partie (Google Analytics 4) pour voir quelles pages aident réellement les jardiniers. Rien d'autre — pas de publicités, pas de pixels de suivi, pas de partage avec des courtiers en données.",
+  "cookie.privacy_link": "Lire la politique de confidentialité complète",
+  "cookie.accept": "Accepter l'analyse",
+  "cookie.reject": "Rejeter l'analyse",
+  "cookie.dismiss": "Rejeter (rejette également l'analyse)",
+  "cookie.aria_label": "Préférences des cookies",
 
 };
 export default dict;

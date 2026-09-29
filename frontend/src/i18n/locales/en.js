@@ -1052,6 +1052,13 @@ const dict = {
   "home.bundle.unlock_annual": "Unlock your full year",
   "home.bundle.from_monthly": "Or from £2.99 / month →",
   "home.bundle.guarantee": "30-day money-back guarantee. No subscriptions, no auto-renewal, no email lists.",
+  "cookie.title": "A note about cookies.",
+  "cookie.body": "We use one first-party analytics cookie (Google Analytics 4) to see which pages actually help gardeners. Nothing else — no ads, no tracking pixels, no sharing with data brokers.",
+  "cookie.privacy_link": "Read the full privacy policy",
+  "cookie.accept": "Accept analytics",
+  "cookie.reject": "Reject analytics",
+  "cookie.dismiss": "Dismiss (also rejects analytics)",
+  "cookie.aria_label": "Cookie preferences",
   "garden.eyebrow_suffix": "your patch",
 };
 

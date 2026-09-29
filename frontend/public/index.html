@@ -43,40 +43,57 @@
         <meta name="twitter:title" content="Patch & Pot — AI gardening tutor" />
         <meta name="twitter:description" content="AI gardening tutor for your patch. Ask any question and get a personalised masterclass shaped to your climate, season, space and skill. Free to try." />
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
-        <!-- Google Analytics 4 loader. Only activates when
-             `REACT_APP_GA4_ID` is defined at build time — otherwise the
-             substitution collapses to an empty string and the script
-             short-circuits, so we don't ship a broken tag on preview. -->
+        <!-- Google Analytics 4 loader — consent-gated. The gtag <script>
+             tag is NOT injected on page load. It only injects after
+             either (a) the user clicks "Accept" in the cookie banner OR
+             (b) a returning visitor has `pp_consent === "accepted"`
+             already in localStorage. Rejected/first-visit users get zero
+             GA4 traffic. Exposes `window.__ppInitAnalytics()` so the
+             React banner can trigger the load on accept. -->
         <script>
           (function(){
             var id = "%REACT_APP_GA4_ID%";
             if (!id || id.indexOf("REACT_APP") === 0) return;
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            window.gtag = gtag;
-            gtag("js", new Date());
-            // If the current URL carries `?ga_debug=1`, opt this session
-            // into GA4 DebugView. DebugView shows events in real time with
-            // full parameters — far better than the Realtime report for
-            // end-to-end verification. The flag is per-session and never
-            // stored, so production visitors are never affected.
-            var isDebug = false;
-            try { isDebug = new URLSearchParams(location.search).get("ga_debug") === "1"; } catch (e) {}
-            // Privacy-hardened GA4 config: SPA sends page_views manually
-            // below; Google Signals + ad personalisation off; IP
-            // anonymisation on. Data-retention (14 months) is set in the
-            // GA4 admin console.
-            gtag("config", id, {
-              send_page_view: false,
-              anonymize_ip: true,
-              allow_google_signals: false,
-              allow_ad_personalization_signals: false,
-              debug_mode: isDebug
-            });
-            var s = document.createElement("script");
-            s.async = true;
-            s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
-            document.head.appendChild(s);
+            // Analytics is a one-shot init — subsequent calls are no-ops.
+            var loaded = false;
+            window.__ppInitAnalytics = function initAnalytics(){
+              if (loaded) return;
+              loaded = true;
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              window.gtag = gtag;
+              gtag("js", new Date());
+              // `?ga_debug=1` opts the session into GA4 DebugView.
+              var isDebug = false;
+              try { isDebug = new URLSearchParams(location.search).get("ga_debug") === "1"; } catch (e) {}
+              // Privacy-hardened config: SPA sends page_views manually;
+              // Google Signals + ad personalisation off; IP anonymised.
+              gtag("config", id, {
+                send_page_view: false,
+                anonymize_ip: true,
+                allow_google_signals: false,
+                allow_ad_personalization_signals: false,
+                debug_mode: isDebug
+              });
+              var s = document.createElement("script");
+              s.async = true;
+              s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+              document.head.appendChild(s);
+              // Retro-fire a page_view for the current page so returning
+              // consenters don't lose their entry hit.
+              gtag("event", "page_view", {
+                page_location: window.location.href,
+                page_path: window.location.pathname + window.location.search,
+                page_title: document.title
+              });
+            };
+            // Returning-visitor bootstrap: if they've already accepted on
+            // a prior visit, fire immediately without waiting for React.
+            try {
+              if (localStorage.getItem("pp_consent") === "accepted") {
+                window.__ppInitAnalytics();
+              }
+            } catch (e) { /* private-mode / SSR — noop */ }
           })();
         </script>
         <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>

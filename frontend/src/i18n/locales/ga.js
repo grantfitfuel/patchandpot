@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Ballraíocht 12 mhí",
   "home.bundle.annual_blurb": "Bliain fáis amháin, £15. Gan athnuachan uathoibríoch — críochnaíonn an ballraíocht go nádúrtha nuair a bheidh an bhliain caite.",
   "home.bundle.unlock_annual": "Díghlasáil do bhliain iomlán",
+  "cookie.title": "Nóta faoi choiscíní.",
+  "cookie.body": "Úsáideann muid cóiscín anailíse chéad-pháirtí amháin (Google Analytics 4) le feiceáil cé na leathanaigh a chabhraíonn le gairdíní. Níos mó ná sin - níl aon fhógraí, níl aon phicteilíní rianaithe, níl aon roinnte le hionadaithe sonraí.",
+  "cookie.privacy_link": "Léigh an polasaí príobháideachta iomlán",
+  "cookie.accept": "Glac leis anailísí",
+  "cookie.reject": "Díliostáil ó thaighde anailíse",
+  "cookie.dismiss": "Diúltú (díth a dhéanamh ar anailísí freisin)",
+  "cookie.aria_label": "Roghanna choiscín",
 
 };
 export default dict;

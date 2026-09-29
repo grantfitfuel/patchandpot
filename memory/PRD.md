@@ -1392,3 +1392,17 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - **`FOUNDING_PHANTOM_SOLD=4`** env var still set (leftover from previous "pretend 5 sold" request). No effect while flag is off; harmless.
 - **SW bumped** v99 → v101.
 - **Verified live**: FoundingBanner absent, Embed section absent, Bundle CTA shows £15, paywall shows 4 tiers, no compile errors.
+
+### Iteration 61 (2026-09-29): ✅ — Consent-gated cookie banner (GDPR)
+- **`index.html`**: gtag script is no longer injected on page load. Instead, exposes `window.__ppInitAnalytics()` which the React banner calls on Accept. Returning visitors with `localStorage.pp_consent === "accepted"` auto-bootstrap the loader on script-eval (so their session isn't delayed by React hydration).
+- **`CookieBanner.jsx`** (new): bottom-right forest-green rounded card, terracotta Accept button, ghost Reject button, dismiss × in corner (treated as reject). Reads/writes `localStorage.pp_consent`. Never renders once a decision is stored. Mounted globally in `App.js`.
+- **Behaviour verified live**:
+  - First visit: banner visible, `window.gtag === undefined`, zero requests to `googletagmanager.com`.
+  - Accept: gtag script loads, `pp_consent = "accepted"`, banner dismissed. Retro-fires a `page_view` for the current URL so entry hit isn't lost.
+  - Reject: no gtag, `pp_consent = "rejected"`, banner dismissed.
+  - Reload with `rejected`: banner stays hidden, still no gtag traffic.
+- **7 new i18n keys**: `cookie.title/body/privacy_link/accept/reject/dismiss/aria_label`. Translated to all 57 non-EN locales via `translate_cookie_banner_keys.py` — zero failures.
+- **Bonus**: hardcoded "unlimited for founding members" line in the Home value strip changed to "unlimited with any membership" (was inconsistent post-lifetime-removal).
+- **`track.js`** unchanged: existing `typeof window.gtag === "function"` guards mean the tracker safely no-ops when consent is rejected.
+- **SW bumped** v101 → v102.
+- **Follow-up note**: GA4 Consent Mode v2 signals (`gtag('consent', 'default', {...})`) are NOT set — because we're doing hard-blocking (no gtag script at all) rather than "cookieless pings". This is the stricter reading of the EU cookie directive. If you later want cookieless pings from rejected users, switch to Consent Mode v2 in `index.html`.

@@ -1057,6 +1057,13 @@ const dict = {
   "home.bundle.annual_label": "12 mēnešu dalība",
   "home.bundle.annual_blurb": "Viens audzēšanas gads, £15. Bez automātiskas atjaunošanas — dalība beidzas pati par sevi, kad gads ir pagājis.",
   "home.bundle.unlock_annual": "Atbloķējiet savu pilno gadu",
+  "cookie.title": "Piezīme par sīkdatnēm.",
+  "cookie.body": "Mēs izmantojam vienu pirmās puses analītisko sīkdatni (Google Analytics 4), lai redzētu, kuras lapas patiešām palīdz dārzkopjiem. Nekas cits — ne reklāmas, ne izsekošanas pikseļi, ne datu dalīšana ar datu brokeriem.",
+  "cookie.privacy_link": "Izlasiet pilno konfidencialitātes politiku",
+  "cookie.accept": "Pieņemt analītiku",
+  "cookie.reject": "Noraidīt analītiku",
+  "cookie.dismiss": "Aizvērt (arī noraida analītiku)",
+  "cookie.aria_label": "Sīkdatņu preferences",
 
 };
 export default dict;

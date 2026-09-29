@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "Whakatūtanga 12-marama",
   "home.bundle.annual_blurb": "Kotahi tau whakatupu, £15. Kāore he whakahou āunoa — ka mutu noa iho te whakatūtanga ina kapi te tau.",
   "home.bundle.unlock_annual": "Whakatuwhera i tō tau katoa",
+  "cookie.title": "He pānui mō ngā kuki.",
+  "cookie.body": "Ka whakamahi mātou i tētahi kuki tāngata tuatahi mo te pārongo (Google Analytics 4) hei kite i ngā whārangi e āwhina ana i ngā ngāhū. Kāore he mea atu - kāore he pānuitanga, kāore he pātea tirohia, kāore he tuku ki ngā kaihoko raraunga.",
+  "cookie.privacy_link": "Pānuihia te kaupapahere tūmataiti katoa",
+  "cookie.accept": "Kāore i te whakaae ki ngā pārongo",
+  "cookie.reject": "Whakakāhoretia ngā pārongo",
+  "cookie.dismiss": "Whakakāhoretia (ka whakakāhoretia hoki ngā pārongo)",
+  "cookie.aria_label": "Ngā whakaritenga kuki",
 
 };
 export default dict;

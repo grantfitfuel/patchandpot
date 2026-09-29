@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12개월 멤버십",
   "home.bundle.annual_blurb": "한 해 성장, £15. 자동 갱신 없음 — 1년이 마감되면 멤버십이 자연스럽게 종료됩니다.",
   "home.bundle.unlock_annual": "전체 연도를 해제하세요",
+  "cookie.title": "쿠키에 대한 주의사항.",
+  "cookie.body": "우리는 정원사에게 실제로 도움이 되는 페이지를 알아보기 위해 하나의 1차 분석 쿠키(Google Analytics 4)를 사용합니다. 그 외에는 아무것도 없습니다 — 광고도 없고, 추적 픽셀도 없으며, 데이터 브로커와의 공유도 없습니다.",
+  "cookie.privacy_link": "전체 개인정보 처리방침 읽기",
+  "cookie.accept": "분석 수락",
+  "cookie.reject": "분석 거부",
+  "cookie.dismiss": "닫기 (분석도 거부함)",
+  "cookie.aria_label": "쿠키 설정",
 
 };
 export default dict;

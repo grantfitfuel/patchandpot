@@ -1054,6 +1054,13 @@ const dict = {
   "home.bundle.annual_label": "Članstvo od 12 mjeseci",
   "home.bundle.annual_blurb": "Jedna godina rasta, £15. Nema automatskog obnavljanja — članstvo završava prirodno kada godina završi.",
   "home.bundle.unlock_annual": "Otključaj svoju cijelu godinu",
+  "cookie.title": "Napomena o kolačićima.",
+  "cookie.body": "Koristimo jedan kolačić za analizu prve strane (Google Analytics 4) kako bismo vidjeli koje stranice zapravo pomažu vrtlarima. Ništa drugo — bez oglasa, bez praćenja piksela, bez dijeljenja s posrednicima podataka.",
+  "cookie.privacy_link": "Pročitajte cijelu politiku privatnosti",
+  "cookie.accept": "Prihvati analitiku",
+  "cookie.reject": "Odbaci analitiku",
+  "cookie.dismiss": "Zatvori (također odbacuje analitiku)",
+  "cookie.aria_label": "Postavke kolačića",
 
 };
 export default dict;

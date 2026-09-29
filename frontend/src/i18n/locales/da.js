@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12-måneders medlemskab",
   "home.bundle.annual_blurb": "Et vækstår, £15. Ingen automatisk fornyelse — medlemskabet afsluttes naturligt, når året er slut.",
   "home.bundle.unlock_annual": "Lås op for dit fulde år",
+  "cookie.title": "En note om cookies.",
+  "cookie.body": "Vi bruger en førsteparts analyse-cookie (Google Analytics 4) til at se, hvilke sider der faktisk hjælper gartnere. Intet andet - ingen annoncer, ingen sporingspixels, ingen deling med datamaeklere.",
+  "cookie.privacy_link": "Læs den fulde fortrolighedspolitik",
+  "cookie.accept": "Accepter analyse",
+  "cookie.reject": "Afvis analyse",
+  "cookie.dismiss": "Afvis (afviser også analyse)",
+  "cookie.aria_label": "Cookie præferencer",
 
 };
 export default dict;

@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12-månaders medlemskap",
   "home.bundle.annual_blurb": "Ett odlingsår, £15. Ingen automatisk förnyelse — medlemskapet avslutas naturligt när året är slut.",
   "home.bundle.unlock_annual": "Lås upp ditt hela år",
+  "cookie.title": "En notis om cookies.",
+  "cookie.body": "Vi använder en förstapartsanalyscookie (Google Analytics 4) för att se vilka sidor som faktiskt hjälper trädgårdsmästare. Inget annat - inga annonser, inga spårningspixlar, ingen delning med datamäklare.",
+  "cookie.privacy_link": "Läs hela integritetspolicy",
+  "cookie.accept": "Acceptera analyser",
+  "cookie.reject": "Avvisa analyser",
+  "cookie.dismiss": "Avfärda (avvisar även analyser)",
+  "cookie.aria_label": "Cookie-inställningar",
 
 };
 export default dict;

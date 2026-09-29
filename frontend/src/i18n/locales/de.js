@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12-monatige Mitgliedschaft",
   "home.bundle.annual_blurb": "Ein Wachstumsjahr, £15. Keine automatische Verlängerung — die Mitgliedschaft endet natürlich, wenn das Jahr vorbei ist.",
   "home.bundle.unlock_annual": "Schalten Sie Ihr volles Jahr frei",
+  "cookie.title": "Eine Notiz über Cookies.",
+  "cookie.body": "Wir verwenden ein First-Party-Analyse-Cookie (Google Analytics 4), um zu sehen, welche Seiten Gärtnern tatsächlich helfen. Nichts anderes — keine Werbung, keine Tracking-Pixel, keine Weitergabe an Datenmakler.",
+  "cookie.privacy_link": "Vollständige Datenschutzrichtlinie lesen",
+  "cookie.accept": "Analytics akzeptieren",
+  "cookie.reject": "Analytics ablehnen",
+  "cookie.dismiss": "Schließen (lehnt auch Analytics ab)",
+  "cookie.aria_label": "Cookie-Einstellungen",
 
 };
 export default dict;

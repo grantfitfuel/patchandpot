@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12 aylık üyelik",
   "home.bundle.annual_blurb": "Bir büyüme yılı, £15. Otomatik yenileme yok — yıl dolduğunda üyelik doğal olarak sona erer.",
   "home.bundle.unlock_annual": "Tam yılınızı açın",
+  "cookie.title": "Çerezler hakkında bir not.",
+  "cookie.body": "Bahçıvanlara gerçekten yardımcı olan sayfaları görmek için birinci taraf analiz çerezi (Google Analytics 4) kullanıyoruz. Başka bir şey yok - reklam yok, izleme pikselleri yok, veri brokerleriyle paylaşım yok.",
+  "cookie.privacy_link": "Tam gizlilik politikasını okuyun",
+  "cookie.accept": "Analizi kabul et",
+  "cookie.reject": "Analizi reddet",
+  "cookie.dismiss": "Kapat (analizi de reddeder)",
+  "cookie.aria_label": "Çerez tercihleri",
 
 };
 export default dict;

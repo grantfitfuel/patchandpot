@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12 oylik a'zolik",
   "home.bundle.annual_blurb": "Bir o'sish yili, £15. Avtomatik yangilanish yo'q — a'zolik yil tugaganda avtomatik tarzda tugaydi.",
   "home.bundle.unlock_annual": "O'zingizning to'liq yilingizni oching",
+  "cookie.title": "Cookie haqida eslatma.",
+  "cookie.body": "Biz bog'bonlarga yordam beradigan sahifalarni ko'rish uchun bitta birinchi tomon analitika cookie'sini (Google Analytics 4) ishlatamiz. Boshqa hech narsa — reklamalar yo'q, kuzatuv pikselari yo'q, ma'lumot brokerlari bilan bo'lishish yo'q.",
+  "cookie.privacy_link": "To'liq maxfiylik siyosatini o'qish",
+  "cookie.accept": "Analitikani qabul qilish",
+  "cookie.reject": "Analitikani rad etish",
+  "cookie.dismiss": "Rad etish (shuningdek, analitikani rad etadi)",
+  "cookie.aria_label": "Cookie afzalliklari",
 
 };
 export default dict;

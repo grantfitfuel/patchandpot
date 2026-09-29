@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12 mánaða áskrift",
   "home.bundle.annual_blurb": "Eitt vaxtarár, £15. Engin sjálfvirk endurnýjun — áskriftin endar náttúrulega þegar árið er úti.",
   "home.bundle.unlock_annual": "Læstu upp heilt ár",
+  "cookie.title": "Athugasemd um vefkekki.",
+  "cookie.body": "Við notum einn fyrstu aðila greiningarvefkkekk (Google Analytics 4) til að sjá hvaða síður hjálpa raunverulega garðyrkjumönnum. Ekki neitt annað - engin auglýsingar, engin fylgikjarni, engin deiling með gögnum.",
+  "cookie.privacy_link": "Lesa heildarstefnu um friðhelgi",
+  "cookie.accept": "Samþykkja greiningu",
+  "cookie.reject": "Hafna greiningu",
+  "cookie.dismiss": "Hafna (hafnar einnig greiningu)",
+  "cookie.aria_label": "Val um vefkekki",
 
 };
 export default dict;

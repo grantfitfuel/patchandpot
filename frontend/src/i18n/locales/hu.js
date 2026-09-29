@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12 hónapos tagság",
   "home.bundle.annual_blurb": "Egy növekedési év, £15. Nincs automatikus megújulás — a tagság természetesen véget ér, amikor az év letelik.",
   "home.bundle.unlock_annual": "Oldja fel a teljes évet",
+  "cookie.title": "Megjegyzés a sütikről.",
+  "cookie.body": "Egy első féltől származó analitikai sütit (Google Analytics 4) használunk, hogy lássuk, mely oldalak segítik igazán a kertészeket. Semmi más - nincsenek hirdetések, nincsenek nyomkövető képek, nincsen adatmegosztás adatbrókerekkel.",
+  "cookie.privacy_link": "Olvassa el a teljes adatvédelmi irányelvet",
+  "cookie.accept": "Elemzések elfogadása",
+  "cookie.reject": "Elemzések elutasítása",
+  "cookie.dismiss": "Elutasítás (az elemzések elutasítását is jelenti)",
+  "cookie.aria_label": "Süti preferenciák",
 
 };
 export default dict;

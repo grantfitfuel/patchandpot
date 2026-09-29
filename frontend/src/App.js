@@ -49,6 +49,7 @@ import AboutPage from "@/pages/About";
 import RevenuePage from "@/pages/Revenue";
 import AskPage from "@/pages/Ask";
 import LanguageDetectedBanner from "@/components/LanguageDetectedBanner";
+import CookieBanner from "@/components/CookieBanner";
 import { useReferralCapture } from "@/hooks/useReferralCapture";
 
 export default function App() {
@@ -142,6 +143,7 @@ function AppShell() {
       </main>
       <Footer />
       <LanguageDetectedBanner />
+      <CookieBanner />
     </div>
   );
 }

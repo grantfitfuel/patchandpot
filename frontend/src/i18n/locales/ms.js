@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "Keahlian 12-bulan",
   "home.bundle.annual_blurb": "Satu tahun pertumbuhan, £15. Tiada pembaharuan automatik — keahlian tamat secara semula jadi apabila setahun berlalu.",
   "home.bundle.unlock_annual": "Buka kunci setahun penuh anda",
+  "cookie.title": "Nota mengenai kuki.",
+  "cookie.body": "Kami menggunakan satu kuki analitik pihak pertama (Google Analytics 4) untuk melihat halaman mana yang benar-benar membantu tukang kebun. Tiada yang lain - tiada iklan, tiada piksel penjejakan, tiada perkongsian dengan broker data.",
+  "cookie.privacy_link": "Baca dasar privasi sepenuhnya",
+  "cookie.accept": "Terima analitik",
+  "cookie.reject": "Tolak analitik",
+  "cookie.dismiss": "Tolak (juga menolak analitik)",
+  "cookie.aria_label": "Pilihan kuki",
 
 };
 export default dict;

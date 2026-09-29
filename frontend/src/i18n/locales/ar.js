@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "عضوية 12 شهرًا",
   "home.bundle.annual_blurb": "سنة زراعية واحدة، £15. بدون تجديد تلقائي — تنتهي العضوية طبيعيًا عند انتهاء العام.",
   "home.bundle.unlock_annual": "افتح عامك الكامل",
+  "cookie.title": "ملاحظة عن الكوكيز.",
+  "cookie.body": "نستخدم ملف تعريف الارتباط التحليلي الأولي (Google Analytics 4) لرؤية الصفحات التي تساعد البستانيين فعلاً. لا شيء آخر - لا إعلانات، لا بكسلات تتبع، لا مشاركة مع وسطاء البيانات.",
+  "cookie.privacy_link": "اقرأ سياسة الخصوصية كاملة",
+  "cookie.accept": "قبول التحليلات",
+  "cookie.reject": "رفض التحليلات",
+  "cookie.dismiss": "تجاهل (يرفض أيضاً التحليلات)",
+  "cookie.aria_label": "تفضيلات الكوكيز",
 
 };
 export default dict;

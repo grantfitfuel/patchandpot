@@ -1053,6 +1053,13 @@ const dict = {
   "home.bundle.annual_label": "12-maanden lidmaatschap",
   "home.bundle.annual_blurb": "Een groeijaar, £15. Geen automatische verlenging — het lidmaatschap eindigt vanzelf na een jaar.",
   "home.bundle.unlock_annual": "Ontgrendel uw volledige jaar",
+  "cookie.title": "Een opmerking over cookies.",
+  "cookie.body": "We gebruiken één first-party analytics cookie (Google Analytics 4) om te zien welke pagina's daadwerkelijk tuinierders helpen. Verder niets — geen advertenties, geen trackingpixels, geen delen met databrokers.",
+  "cookie.privacy_link": "Lees het volledige privacybeleid",
+  "cookie.accept": "Accepteer analytics",
+  "cookie.reject": "Verwerp analytics",
+  "cookie.dismiss": "Vervang (verwerpt ook analytics)",
+  "cookie.aria_label": "Cookievoorkeuren",
 
 };
 export default dict;

@@ -4,6 +4,7 @@ import { ArrowRight, Sprout, Recycle, LayoutGrid, MapPin, Flower2, HandHelping, 
 import { motion } from "framer-motion";
 import { useRegion } from "@/hooks/useRegion";
 import { useState } from "react";
+import { SHOW_LIFETIME_TIERS } from "@/lib/features";
 import RegionPicker from "@/components/RegionPicker";
 import ThisMonthCard from "@/components/ThisMonthCard";
 import PaywallModal from "@/components/PaywallModal";
@@ -57,7 +58,7 @@ export default function Home() {
       </Helmet>
       <ProductSchema />
 
-      {!paid && <FoundingBanner />}
+      {!paid && SHOW_LIFETIME_TIERS && <FoundingBanner />}
       {paid && (
         <div
           data-testid="supporter-ribbon"
@@ -365,7 +366,7 @@ export default function Home() {
         </div>
       </section>
 
-      {!paid && <EmbedFoundingSnippet />}
+      {!paid && SHOW_LIFETIME_TIERS && <EmbedFoundingSnippet />}
 
       <PlantOfTheWeek />
 
@@ -421,22 +422,22 @@ export default function Home() {
                 <span className="inline-block bg-terracotta text-sand text-[10px] tracking-[0.18em] uppercase px-2.5 py-1 rounded-full">
                   {t("home.bundle.best_value")}
                 </span>
-                <p className="font-serif text-6xl text-forest leading-none mt-5">£50</p>
-                <p className="text-sm text-moss mt-1">{t("home.bundle.lifetime_label")}</p>
+                <p className="font-serif text-6xl text-forest leading-none mt-5">£15</p>
+                <p className="text-sm text-moss mt-1">{t("home.bundle.annual_label")}</p>
                 <p className="text-xs text-ink/65 mt-3 leading-relaxed">
-                  {t("home.bundle.lifetime_blurb")}
+                  {t("home.bundle.annual_blurb")}
                 </p>
                 <button
                   type="button"
-                  data-testid="home-bundle-buy-lifetime"
+                  data-testid="home-bundle-buy-annual"
                   onClick={() => setPaywallOpen(true)}
                   className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-full bg-terracotta hover:bg-[#B04A36] text-sand py-3 font-medium tracking-wide transition-colors"
                 >
-                  {t("home.bundle.unlock_lifetime")} <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+                  {t("home.bundle.unlock_annual")} <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
                 </button>
                 <button
                   type="button"
-                  data-testid="home-bundle-buy-annual"
+                  data-testid="home-bundle-buy-monthly"
                   onClick={() => setPaywallOpen(true)}
                   className="mt-3 w-full text-sm text-moss hover:text-forest underline-offset-4 hover:underline"
                 >

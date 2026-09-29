@@ -4,11 +4,13 @@ import { useI18n } from "@/i18n";
 import { createCheckout, checkAccess } from "@/lib/api";
 import { setStoredAccessToken } from "@/hooks/usePaywall";
 import { track } from "@/lib/track";
+import { SHOW_LIFETIME_TIERS } from "@/lib/features";
 
 /**
- * Five-tier paywall modal. Stripe Checkout opens via a real <a href> click
- * (not window.location after an await) because iOS Safari treats post-async
- * cross-origin navigations as non-user-initiated and silently blocks them.
+ * Time-limited-tier paywall modal. Stripe Checkout opens via a real
+ * <a href> click (not window.location after an await) because iOS Safari
+ * treats post-async cross-origin navigations as non-user-initiated and
+ * silently blocks them.
  */
 
 // Single source of truth for the tier cards. `id` must match a key in
@@ -17,13 +19,17 @@ import { track } from "@/lib/track";
 // `checkout_start` (and its `begin_checkout` alias) with a real amount.
 const TIER_VALUE_GBP = { monthly: 2.99, quarterly: 5, biannual: 9, annual: 15, lifetime: 50 };
 
-const TIERS = [
+const ALL_TIERS = [
   { id: "monthly",   label: "1 month",   price: "£2.99", suffix: "/mo",  per_month: null,   blurb: "Try it for a single month — no commitment." },
   { id: "quarterly", label: "3 months",  price: "£5",    suffix: "",     per_month: "£1.67/mo", blurb: "A full growing season for the price of a sandwich." },
   { id: "biannual",  label: "6 months",  price: "£9",    suffix: "",     per_month: "£1.50/mo", blurb: "Half a year — covers spring through summer." },
-  { id: "annual",    label: "12 months", price: "£15",   suffix: "",     per_month: "£1.25/mo", blurb: "A full growing cycle, every month covered.", badge: "Most popular" },
-  { id: "lifetime",  label: "Lifetime",  price: "£50",   suffix: "once", per_month: null,   blurb: "Pay once, keep it forever. Breaks even at year 3.", badge: "Best value" },
+  { id: "annual",    label: "12 months", price: "£15",   suffix: "",     per_month: "£1.25/mo", blurb: "A full growing cycle, every month covered.", badge: "Best value" },
+  { id: "lifetime",  label: "Lifetime",  price: "£50",   suffix: "once", per_month: null,   blurb: "Breaks even at year 3.", badge: "Pay once" },
 ];
+
+// Filter out the lifetime tier while the SHOW_LIFETIME_TIERS flag is off.
+// When flipped back on, the modal picks it up with no other changes.
+const TIERS = ALL_TIERS.filter((it) => SHOW_LIFETIME_TIERS || it.id !== "lifetime");
 
 export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true }) {
   const { t } = useI18n();

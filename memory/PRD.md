@@ -1371,3 +1371,24 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - **Verified**: all 6 icon files serve 200 with correct MIME; `favicon.ico` probe confirms 3.7KB multi-res ICO.
 - **Removed** the earlier custom SVG favicon prototype (the brand PNG takes priority).
 - **Follow-up (P2)**: Once patchandpot.app is deployed, Google search's "sitelink favicon" typically updates within 1–2 weeks of the next crawl. To speed that up you can request a re-crawl from Google Search Console.
+
+### Iteration 60 (2026-09-29): ✅ — Lifetime + Founding tiers hidden from UI; email swap; £15 Annual CTA
+- **Contact email swap** (68 files): `hello@patchandpot.com` → `gcanth@gmail.com`. Every locale, every component, every static data file. One `sed` sweep.
+- **Feature flag** `SHOW_LIFETIME_TIERS = false` added at `/app/frontend/src/lib/features.js`. When flipped back to `true`, the Founding banner, Founding-claim modal, Embed snippet section, and Lifetime paywall tier all reappear with no other changes needed.
+- **Home page** (`Home.jsx`):
+  - `<FoundingBanner />` now guarded by `SHOW_LIFETIME_TIERS`
+  - `<EmbedFoundingSnippet />` now guarded by `SHOW_LIFETIME_TIERS`
+  - Bundle CTA rewritten to promote the **£15 Annual** tier — new headline "£15 · 12-month membership", body "One growing year, £15. No auto-renew — the membership ends naturally when the year is up.", "Unlock your full year" button, £2.99/mo fallback link.
+  - `data-testid` renamed `home-bundle-buy-lifetime` → uses annual tier, plus new `home-bundle-buy-monthly` for fallback link.
+- **PaywallModal.jsx**: `TIERS` array now filters out `lifetime` when the flag is off (4-tier modal instead of 5). Lifetime blurb "Pay once, keep it forever" removed from source. Modal header updated from "Five-tier" → "Time-limited-tier".
+- **Copy rewrites in `en.js`**:
+  - `legal.terms.membership.html` — removed "£50 one-off (lifetime)", the "Lifetime means lifetime of the Service…" clause, and the founding-supporter paragraph. Now says "We offer four tiers, all GBP…".
+  - `legal.privacy.collect.html` — removed "(£5 / year or £25 / lifetime)" price hint.
+  - `legal.privacy.retention.html` — removed "Access tokens linked to a lifetime membership: kept indefinitely" bullet.
+  - `paywall.benefit.lifetime` — "Pay once, forever" → "No auto-renewal — memberships end naturally".
+  - `home.bundle.body`, plus three new keys `home.bundle.annual_label`, `home.bundle.annual_blurb`, `home.bundle.unlock_annual`.
+- **57-language translation sweep** for all 8 changed/new keys via `translate_post_lifetime_removal.py` (GPT-4o). Zero failures. The dead lifetime keys (e.g. `home.bundle.lifetime_label`, `paywall.tier.lifetime.*`) remain in non-EN locales as harmless orphans — they'll be picked up again if the flag is flipped back on.
+- **Backend**: `/api/founding-status`, `/api/checkout/session` for `lifetime` + `lifetime_founding`, and Stripe pricing config in `core.py` all UNTOUCHED. Stale links, old share cards, and existing lifetime holders continue to work.
+- **`FOUNDING_PHANTOM_SOLD=4`** env var still set (leftover from previous "pretend 5 sold" request). No effect while flag is off; harmless.
+- **SW bumped** v99 → v101.
+- **Verified live**: FoundingBanner absent, Embed section absent, Bundle CTA shows £15, paywall shows 4 tiers, no compile errors.

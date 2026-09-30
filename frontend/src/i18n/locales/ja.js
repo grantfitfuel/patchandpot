@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "分析を拒否する",
   "cookie.dismiss": "閉じる（分析も拒否します）",
   "cookie.aria_label": "クッキーの設定",
+  "footer.legal.cookie_prefs": "クッキー設定",
 
 };
 export default dict;

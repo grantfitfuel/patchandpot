@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Odrzuć analitykę",
   "cookie.dismiss": "Zamknij (również odrzuca analitykę)",
   "cookie.aria_label": "Preferencje dotyczące plików cookie",
+  "footer.legal.cookie_prefs": "Preferencje ciasteczek",
 
 };
 export default dict;

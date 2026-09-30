@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "분석 거부",
   "cookie.dismiss": "닫기 (분석도 거부함)",
   "cookie.aria_label": "쿠키 설정",
+  "footer.legal.cookie_prefs": "쿠키 설정",
 
 };
 export default dict;

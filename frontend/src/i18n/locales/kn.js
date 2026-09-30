@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "ವಿಶ್ಲೇಷಣೆಯನ್ನು ನಿರಾಕರಿಸಿ",
   "cookie.dismiss": "ಗರನು ಬಡಿದು ಹಾಕಿ (ವಿಶ್ಲೇಷಣೆಯನ್ನು ಕೂಡ ನಿರಾಕರಿಸುತ್ತದೆ)",
   "cookie.aria_label": "ಕೂಕಿ ಆಯ್ಕೆಗಳು",
+  "footer.legal.cookie_prefs": "ಕುಕೀ ಆಯ್ಕೆ",
 
 };
 export default dict;

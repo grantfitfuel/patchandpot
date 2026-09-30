@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Վերցնել վերլուծությունը",
   "cookie.dismiss": "Միացնել (և մերժել վերլուծությունը)",
   "cookie.aria_label": "Կուկիների նախընտրություններ",
+  "footer.legal.cookie_prefs": "Կուբիկի ընտրություններ",
 
 };
 export default dict;

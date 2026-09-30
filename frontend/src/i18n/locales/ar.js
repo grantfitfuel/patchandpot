@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "رفض التحليلات",
   "cookie.dismiss": "تجاهل (يرفض أيضاً التحليلات)",
   "cookie.aria_label": "تفضيلات الكوكيز",
+  "footer.legal.cookie_prefs": "تفضيلات الكوكيز",
 
 };
 export default dict;

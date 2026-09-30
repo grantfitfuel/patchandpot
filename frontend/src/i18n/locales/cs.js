@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Odmítnout analytiku",
   "cookie.dismiss": "Zavřít (také odmítá analytiku)",
   "cookie.aria_label": "Nastavení cookies",
+  "footer.legal.cookie_prefs": "Preference souborů cookie",
 
 };
 export default dict;

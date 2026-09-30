@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "تجزیات ٹھکرائیں",
   "cookie.dismiss": "منسوخ کریں (تجزیات بھی ٹھکراتا ہے)",
   "cookie.aria_label": "کوکی کی ترجیحات",
+  "footer.legal.cookie_prefs": "کوکی کی ترجیحات",
 
 };
 export default dict;

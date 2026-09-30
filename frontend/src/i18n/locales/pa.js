@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "ਐਨਾਲਿਟਿਕਸ ਨੂੰ ਰੱਦ ਕਰੋ",
   "cookie.dismiss": "ਡਿਸਮਿਸ ਕਰੋ (ਇਹ ਐਨਾਲਿਟਿਕਸ ਨੂੰ ਵੀ ਰੱਦ ਕਰਦਾ ਹੈ)",
   "cookie.aria_label": "ਕੂਕੀ ਦੀਆਂ ਸ਼ਰਤਾਂ",
+  "footer.legal.cookie_prefs": "ਕੁਕੀ ਪਸੰਦਾਂ",
 
 };
 export default dict;

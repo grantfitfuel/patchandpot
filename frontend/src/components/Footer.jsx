@@ -56,6 +56,19 @@ export default function Footer() {
             <Link to="/terms#affiliates" className="hover:text-terracotta transition-colors" data-testid="footer-disclosure-link">
               {t("footer.legal.disclosure")}
             </Link>
+            <button
+              type="button"
+              onClick={() => {
+                // Clear the stored choice and prod the banner to
+                // re-open. `<CookieBanner />` subscribes to the event.
+                try { localStorage.removeItem("pp_consent"); } catch { /* noop */ }
+                window.dispatchEvent(new CustomEvent("pp:consent:reset"));
+              }}
+              className="hover:text-terracotta transition-colors"
+              data-testid="footer-cookie-prefs"
+            >
+              {t("footer.legal.cookie_prefs")}
+            </button>
             <a
               href="mailto:gcanth@gmail.com"
               className="hover:text-terracotta transition-colors"

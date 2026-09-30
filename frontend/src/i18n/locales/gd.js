@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Neach a’ diùltadh anailis",
   "cookie.dismiss": "Diùltain (cuir a-mach cuideachd anailis)",
   "cookie.aria_label": "Roghainnean chookies",
+  "footer.legal.cookie_prefs": "Freagairtean briosgaidean",
 
 };
 export default dict;

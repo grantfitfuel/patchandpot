@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Respingeți analiza",
   "cookie.dismiss": "Ignorați (de asemenea, respinge analiza)",
   "cookie.aria_label": "Preferințe cookie",
+  "footer.legal.cookie_prefs": "Preferințe cookie",
 
 };
 export default dict;

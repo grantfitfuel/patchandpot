@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "பகுப்பாய்வை மறுக்கவும்",
   "cookie.dismiss": "அதை மறுத்து விடவும் (பகுப்பாய்வையும் மறுக்கிறது)",
   "cookie.aria_label": "குக்கி விருப்பங்கள்",
+  "footer.legal.cookie_prefs": "குக் விருப்பங்கள்",
 
 };
 export default dict;

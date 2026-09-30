@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Hylkää analytiikka",
   "cookie.dismiss": "Hylkää (hylkää myös analytiikan)",
   "cookie.aria_label": "Evästeasetukset",
+  "footer.legal.cookie_prefs": "Evästeasetukset",
 
 };
 export default dict;

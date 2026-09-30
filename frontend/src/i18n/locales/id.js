@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Tolak analitik",
   "cookie.dismiss": "Tutup (juga menolak analitik)",
   "cookie.aria_label": "Preferensi cookie",
+  "footer.legal.cookie_prefs": "Preferensi Cookie",
 
 };
 export default dict;

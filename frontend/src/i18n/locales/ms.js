@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Tolak analitik",
   "cookie.dismiss": "Tolak (juga menolak analitik)",
   "cookie.aria_label": "Pilihan kuki",
+  "footer.legal.cookie_prefs": "Pilihan kuki",
 
 };
 export default dict;

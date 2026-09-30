@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "ปฏิเสธการวิเคราะห์",
   "cookie.dismiss": "ปิด (และปฏิเสธการวิเคราะห์)",
   "cookie.aria_label": "การตั้งค่าคุกกี้",
+  "footer.legal.cookie_prefs": "การตั้งค่าโลโก้",
 
 };
 export default dict;

@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "უარის თქმა ანალიტიკის",
   "cookie.dismiss": "გადააქვს (ასევე უარს ამბობს ანალიტიკაზე)",
   "cookie.aria_label": "ქუქიების მიკერძოებები",
+  "footer.legal.cookie_prefs": "კუკის ustawებები",
 
 };
 export default dict;

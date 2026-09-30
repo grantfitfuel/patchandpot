@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Аналитиканы четке кагуу",
   "cookie.dismiss": "Жабуу (аналга четке кагат)",
   "cookie.aria_label": "Куки боюнча артыкчылыктар",
+  "footer.legal.cookie_prefs": "Куки тандаулары",
 
 };
 export default dict;

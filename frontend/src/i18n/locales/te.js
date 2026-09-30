@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "అథ్రివీని తిరస్కరించండి",
   "cookie.dismiss": "మరిచి వేయండి (ఇది అథ్రివీని కూడా తిరస్కరిస్తుంది)",
   "cookie.aria_label": "కుకీ ఎంపికలు",
+  "footer.legal.cookie_prefs": "కుకీ ఎంపికలు",
 
 };
 export default dict;

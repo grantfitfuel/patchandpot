@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "Tanggihan ang analytics",
   "cookie.dismiss": "Isara (tinatanggihan din ang analytics)",
   "cookie.aria_label": "Mga kagustuhan sa cookie",
+  "footer.legal.cookie_prefs": "Mga Paborito ng Cookie",
 
 };
 export default dict;

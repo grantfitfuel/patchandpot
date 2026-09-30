@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "एनालिटिक्स अस्वीकार करें",
   "cookie.dismiss": "खारिज करें (यह एनालिटिक्स को भी अस्वीकार करता है)",
   "cookie.aria_label": "कुकी प्राथमिकताएँ",
+  "footer.legal.cookie_prefs": "कुकी सेटिंग्स",
 
 };
 export default dict;

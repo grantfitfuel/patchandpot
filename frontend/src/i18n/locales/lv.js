@@ -1064,6 +1064,7 @@ const dict = {
   "cookie.reject": "Noraidīt analītiku",
   "cookie.dismiss": "Aizvērt (arī noraida analītiku)",
   "cookie.aria_label": "Sīkdatņu preferences",
+  "footer.legal.cookie_prefs": "Sīkdatņu preferences",
 
 };
 export default dict;

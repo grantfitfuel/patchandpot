@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "അനലിറ്റിക്സ് നിരാകരിക്കുക",
   "cookie.dismiss": "ഉല്ലാസിക്കുക (അനലിറ്റിക്സ് നിരാകരിക്കുന്നു)",
   "cookie.aria_label": "കുക്കീയുടെ ഇഷ്ടങ്ങൾ",
+  "footer.legal.cookie_prefs": "കുക്കി പ്രഭാവങ്ങൾ",
 
 };
 export default dict;

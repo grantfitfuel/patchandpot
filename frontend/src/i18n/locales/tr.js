@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Analizi reddet",
   "cookie.dismiss": "Kapat (analizi de reddeder)",
   "cookie.aria_label": "Çerez tercihleri",
+  "footer.legal.cookie_prefs": "Çerez tercihleri",
 
 };
 export default dict;

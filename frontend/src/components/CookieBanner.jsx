@@ -37,6 +37,12 @@ export default function CookieBanner() {
       // don't nag on every navigation. We can't remember consent, so
       // being conservative means "don't load analytics".
     }
+    // Allow the footer "Cookie preferences" link (or anywhere else) to
+    // re-open the banner without a page reload. The event handler just
+    // toggles this component's local state.
+    function onReset() { setVisible(true); }
+    window.addEventListener("pp:consent:reset", onReset);
+    return () => window.removeEventListener("pp:consent:reset", onReset);
   }, []);
 
   function persist(choice) {

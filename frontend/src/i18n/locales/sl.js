@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Zavrni analitiko",
   "cookie.dismiss": "Zavrni (tudi zavrne analitiko)",
   "cookie.aria_label": "Nastavitve piškotkov",
+  "footer.legal.cookie_prefs": "Nastavitve piškotkov",
 
 };
 export default dict;

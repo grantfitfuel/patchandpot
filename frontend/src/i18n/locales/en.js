@@ -508,6 +508,7 @@ const dict = {
   "footer.legal.privacy": "Privacy",
   "footer.legal.terms": "Terms",
   "footer.legal.disclosure": "Disclosure",
+  "footer.legal.cookie_prefs": "Cookie preferences",
   "footer.legal.about": "About",
   "footer.legal.contact": "Contact",
   "footer.trading_as": "trading as",

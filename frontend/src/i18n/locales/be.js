@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Адмаўляюся ад аналітыкі",
   "cookie.dismiss": "Закрыць (таксама адмаўляе аналітыку)",
   "cookie.aria_label": "Параметры печыва",
+  "footer.legal.cookie_prefs": "Налады кукі",
 
 };
 export default dict;

@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Afvis analyse",
   "cookie.dismiss": "Afvis (afviser også analyse)",
   "cookie.aria_label": "Cookie præferencer",
+  "footer.legal.cookie_prefs": "Cookiepræferencer",
 
 };
 export default dict;

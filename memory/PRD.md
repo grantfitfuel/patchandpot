@@ -1406,3 +1406,10 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - **`track.js`** unchanged: existing `typeof window.gtag === "function"` guards mean the tracker safely no-ops when consent is rejected.
 - **SW bumped** v101 → v102.
 - **Follow-up note**: GA4 Consent Mode v2 signals (`gtag('consent', 'default', {...})`) are NOT set — because we're doing hard-blocking (no gtag script at all) rather than "cookieless pings". This is the stricter reading of the EU cookie directive. If you later want cookieless pings from rejected users, switch to Consent Mode v2 in `index.html`.
+
+### Iteration 62 (2026-09-30): ✅ — Cookie preferences reset link in footer
+- **Footer.jsx**: added a "Cookie preferences" button (rendered inline with the other legal links). On click it clears `localStorage.pp_consent` and dispatches a `pp:consent:reset` CustomEvent.
+- **CookieBanner.jsx**: subscribes to `window.pp:consent:reset` and re-shows itself immediately — no page reload needed.
+- **1 new i18n key** `footer.legal.cookie_prefs` = "Cookie preferences", translated to all 57 non-EN locales.
+- **Verified live**: rejected visitor reloads → banner hidden; clicks footer "Cookie preferences" → localStorage cleared + banner reappears in bottom-right without reload.
+- **SW bumped** v102 → v103.

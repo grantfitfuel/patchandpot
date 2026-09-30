@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "Gwrthod dadansoddeg",
   "cookie.dismiss": "Gadael (hefyd yn gwrthod dadansoddeg)",
   "cookie.aria_label": "Dewisiadau cwci",
+  "footer.legal.cookie_prefs": "Dewisiau cwcis",
 
 };
 export default dict;

@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Irritorna l-analitika",
   "cookie.dismiss": "Iktar (jiċċaħad ukoll l-analitika)",
   "cookie.aria_label": "Preferenzi tal-kukies",
+  "footer.legal.cookie_prefs": "Preference tal-cookies",
 
 };
 export default dict;

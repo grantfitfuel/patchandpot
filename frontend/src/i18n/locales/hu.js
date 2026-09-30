@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Elemzések elutasítása",
   "cookie.dismiss": "Elutasítás (az elemzések elutasítását is jelenti)",
   "cookie.aria_label": "Süti preferenciák",
+  "footer.legal.cookie_prefs": "Süti beállítások",
 
 };
 export default dict;

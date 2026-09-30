@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "Whakakāhoretia ngā pārongo",
   "cookie.dismiss": "Whakakāhoretia (ka whakakāhoretia hoki ngā pārongo)",
   "cookie.aria_label": "Ngā whakaritenga kuki",
+  "footer.legal.cookie_prefs": "Ngā whakaritenga kukū",
 
 };
 export default dict;

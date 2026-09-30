@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Аналитиканы қабылдамау",
   "cookie.dismiss": "Жабу (аналитиканы да қабылдамайды)",
   "cookie.aria_label": "Cookie параметрлері",
+  "footer.legal.cookie_prefs": "Куки параметрлері",
 
 };
 export default dict;

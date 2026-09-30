@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "Keela analüütika",
   "cookie.dismiss": "Keela (ka välistab analüütika)",
   "cookie.aria_label": "Küpsiste eelistused",
+  "footer.legal.cookie_prefs": "Küpsiste seaded",
 
 };
 export default dict;

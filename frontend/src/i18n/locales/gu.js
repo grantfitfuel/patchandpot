@@ -1062,6 +1062,7 @@ const dict = {
   "cookie.reject": "વિશ્લેષણ અસ્વીકારો",
   "cookie.dismiss": "છોડી દો (વિશ્લેષણને પણ અસ્વીકારે છે)",
   "cookie.aria_label": "કૂકી પ્રાધિકાર",
+  "footer.legal.cookie_prefs": "કુકી પસંદગીઓ",
 
 };
 export default dict;

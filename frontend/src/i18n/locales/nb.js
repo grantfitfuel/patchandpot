@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Avvise analyser",
   "cookie.dismiss": "Avvis (avviser også analyser)",
   "cookie.aria_label": "Innstillinger for informasjonskapsler",
+  "footer.legal.cookie_prefs": "Informasjonskapselinnstillinger",
 
 };
 export default dict;

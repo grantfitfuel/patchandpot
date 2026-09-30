@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "Odbaci analitiku",
   "cookie.dismiss": "Zatvori (također odbacuje analitiku)",
   "cookie.aria_label": "Postavke kolačića",
+  "footer.legal.cookie_prefs": "Postavke kolačića",
 
 };
 export default dict;

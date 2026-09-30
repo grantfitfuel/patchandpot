@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "拒绝分析",
   "cookie.dismiss": "关闭（同时拒绝分析）",
   "cookie.aria_label": "Cookie偏好设置",
+  "footer.legal.cookie_prefs": "Cookie 设置",
 
 };
 export default dict;

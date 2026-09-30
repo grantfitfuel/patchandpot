@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Απόρριψη αναλυτικών στοιχείων",
   "cookie.dismiss": "Απόρριψη (απορρίπτει επίσης τα αναλυτικά στοιχεία)",
   "cookie.aria_label": "Προτιμήσεις cookies",
+  "footer.legal.cookie_prefs": "Προτιμήσεις Cookies",
 
 };
 export default dict;

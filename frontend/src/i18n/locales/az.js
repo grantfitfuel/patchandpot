@@ -1062,6 +1062,7 @@ const dict = {
   "cookie.reject": "Analitikləri rədd et",
   "cookie.dismiss": "Bəlli et (analitikləri də rədd edir)",
   "cookie.aria_label": "Çerez tələbləri",
+  "footer.legal.cookie_prefs": "Çərəz seçimləri",
 
 };
 export default dict;

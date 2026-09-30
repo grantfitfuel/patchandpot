@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Analitikani rad etish",
   "cookie.dismiss": "Rad etish (shuningdek, analitikani rad etadi)",
   "cookie.aria_label": "Cookie afzalliklari",
+  "footer.legal.cookie_prefs": "Cookie sozlamalari",
 
 };
 export default dict;

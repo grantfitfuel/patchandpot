@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "Отказвам аналитични данни",
   "cookie.dismiss": "Затвори (така също отказва аналитични данни)",
   "cookie.aria_label": "Предпочитания за бисквитки",
+  "footer.legal.cookie_prefs": "Предпочитания за бисквитки",
 
 };
 export default dict;

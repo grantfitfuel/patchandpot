@@ -1061,6 +1061,7 @@ const dict = {
   "cookie.reject": "Atmesti analizę",
   "cookie.dismiss": "Uždaryti (tai taip pat atmeta analizę)",
   "cookie.aria_label": "Slapukų nuostatos",
+  "footer.legal.cookie_prefs": "Slapukų nustatymai",
 
 };
 export default dict;

@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Díliostáil ó thaighde anailíse",
   "cookie.dismiss": "Diúltú (díth a dhéanamh ar anailísí freisin)",
   "cookie.aria_label": "Roghanna choiscín",
+  "footer.legal.cookie_prefs": "Rogha fianán",
 
 };
 export default dict;

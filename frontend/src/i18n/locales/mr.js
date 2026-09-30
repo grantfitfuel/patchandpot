@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "विश्लेषण नाकारायचे",
   "cookie.dismiss": "असर्व करणे (विश्लेषणही नाकारते)",
   "cookie.aria_label": "कुकी प्राधान्य",
+  "footer.legal.cookie_prefs": "कुकी निवडी",
 
 };
 export default dict;

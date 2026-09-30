@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "বিশ্লেষণ প্রত্যাখ্যান করুন",
   "cookie.dismiss": "অবহেলা করুন (এটি বিশ্লেষণও প্রত্যাখ্যান করে)",
   "cookie.aria_label": "কুকি পছন্দ",
+  "footer.legal.cookie_prefs": "কুকি পছন্দ",
 
 };
 export default dict;

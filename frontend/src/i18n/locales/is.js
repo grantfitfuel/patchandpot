@@ -1060,6 +1060,7 @@ const dict = {
   "cookie.reject": "Hafna greiningu",
   "cookie.dismiss": "Hafna (hafnar einnig greiningu)",
   "cookie.aria_label": "Val um vefkekki",
+  "footer.legal.cookie_prefs": "Kökustillingar",
 
 };
 export default dict;

@@ -166,14 +166,65 @@ export default function MasterclassDetailPage() {
 
   return (
     <PremiumGate>
-    <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid={`masterclass-detail-${slug}`}>
-      <Link to="/masterclasses" data-testid="back-to-masterclasses" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
-        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("mc.all_masterclasses")}
+    <div className="container-narrow py-6 md:py-16 animate-fade-up pb-24 md:pb-16" data-testid={`masterclass-detail-${slug}`}>
+      <Link to="/masterclasses" data-testid="back-to-masterclasses" className="inline-flex items-center gap-2 py-2 -my-2 text-moss hover:text-forest mb-4 md:mb-8">
+        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" />
+        <span className="text-sm md:text-base">{t("mc.all_masterclasses")}</span>
       </Link>
 
+      {/* ─────── Mobile-only compact header + chip strip ─────── */}
+      <div className="md:hidden mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <Icon strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
+          <span className="overline">{t("mc.label")}</span>
+        </div>
+        <h2 className="font-serif text-2xl text-forest leading-tight">{t(`mc.title.${slug}`)}</h2>
+        <p className="text-xs text-moss mt-1">{t("mc.progress_label", { done: doneCount, total })}</p>
+        <div className="mt-3 h-1 bg-border overflow-hidden rounded-full">
+          <div
+            className="h-1 bg-terracotta transition-all"
+            style={{ width: `${(doneCount / total) * 100}%` }}
+            data-testid="masterclass-detail-progress-mobile"
+          />
+        </div>
+        <nav
+          className="mt-5 -mx-6 px-6 overflow-x-auto hide-scrollbar snap-x snap-mandatory"
+          aria-label={t("mc.label")}
+        >
+          <ol className="flex gap-2 w-max">
+            {masterclass.lessons.map((lesson, i) => {
+              const active = lesson.slug === currentLesson.slug;
+              const done = isDone(lesson.slug);
+              return (
+                <li key={lesson.slug} className="snap-start">
+                  <Link
+                    to={`/masterclasses/${slug}/${lesson.slug}`}
+                    data-testid={`lesson-chip-${lesson.slug}`}
+                    className={`inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full text-xs tracking-wide whitespace-nowrap transition-colors ${
+                      active
+                        ? "bg-forest text-sand"
+                        : "bg-surface text-ink/80 hover:bg-forest/10"
+                    }`}
+                  >
+                    <span className={`w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] font-medium ${
+                      done
+                        ? "bg-terracotta text-sand"
+                        : active ? "bg-sand/20 text-sand" : "bg-forest/15 text-forest"
+                    }`}>
+                      {done ? <Check strokeWidth={2.5} className="w-2.5 h-2.5" /> : i + 1}
+                    </span>
+                    <span className="max-w-[11rem] truncate">{lessonTitle(lesson)}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+      </div>
+
       <div className="grid md:grid-cols-12 gap-10">
-        {/* Sidebar */}
-        <aside className="md:col-span-4 lg:col-span-3">
+        {/* Sidebar — desktop only. Mobile uses the chip strip above. */}
+        <aside className="hidden md:block md:col-span-4 lg:col-span-3">
           <div className="md:sticky md:top-8">
             <div className="flex items-center gap-3 mb-3">
               <Icon strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
@@ -390,6 +441,46 @@ export default function MasterclassDetailPage() {
         regionName={region?.name}
       />
     </div>
+
+    {/* ─────── Sticky mobile bottom nav ───────
+        Previous ← | · · · | → Next. Always one tap from either side.
+        `env(safe-area-inset-bottom)` keeps the bar above iOS edge-to-
+        edge home indicator. Hidden on tablets+. */}
+    <nav
+      className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-sand/95 backdrop-blur-md border-t border-border"
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 0)" }}
+      aria-label={t("mc.label")}
+    >
+      <div className="flex items-stretch justify-between">
+        {prev ? (
+          <Link
+            to={`/masterclasses/${slug}/${prev.slug}`}
+            data-testid="lesson-prev-mobile"
+            className="flex-1 flex items-center justify-center gap-2 py-4 text-sm text-forest hover:bg-surface/60 active:bg-forest/10"
+          >
+            <ArrowLeft strokeWidth={1.5} className="w-4 h-4" />
+            <span>{t("mc.previous")}</span>
+          </Link>
+        ) : (
+          <span className="flex-1" aria-hidden="true" />
+        )}
+        <span className="flex items-center px-3 text-xs text-moss/80 tracking-wide">
+          {currentIndex + 1} / {total}
+        </span>
+        {next ? (
+          <Link
+            to={`/masterclasses/${slug}/${next.slug}`}
+            data-testid="lesson-next-mobile"
+            className="flex-1 flex items-center justify-center gap-2 py-4 text-sm text-terracotta font-medium hover:bg-surface/60 active:bg-terracotta/10"
+          >
+            <span>{t("mc.next")}</span>
+            <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
+          </Link>
+        ) : (
+          <span className="flex-1" aria-hidden="true" />
+        )}
+      </div>
+    </nav>
     </PremiumGate>
   );
 }

@@ -1421,3 +1421,17 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - **Plant of the Week** (`PlantOfTheWeek.jsx`): title drops `text-5xl` → `text-4xl` on mobile (prevents overflow against the decorative Sprout); outer card padding `p-8` → `p-6` on mobile (reclaims ~16px horizontal width per side).
 - **SW bumped** v103 → v104.
 - **Note**: screenshot tool is locked to 1920×800 viewport, so this was a code-review-driven pass rather than a visual mobile audit. User should verify on real device + take any specific mobile issues as follow-ups.
+
+### Iteration 64 (2026-10-01): ✅ — Mobile pass on Masterclass Readers (AI + hand-authored)
+- Both masterclass readers (`AIMasterclass.jsx` + `MasterclassDetail.jsx`) share the same mobile UX problem: the fat sidebar (lesson image, title, tagline, progress bar, full lesson list) renders ABOVE the lesson content in source order. Mobile visitors scroll past ~500px of nav before reaching the lesson they clicked on.
+- **Mobile fix (both pages, identical pattern)**:
+  - **Sidebar hidden on mobile** via `hidden md:block` so content appears above the fold.
+  - **Compact mobile header**: masterclass title + duration + "Lesson N of M" + slim progress bar sit above the article.
+  - **Horizontal lesson chip strip**: `-mx-6 px-6 snap-x snap-mandatory` scrolls edge-to-edge with per-chip snap. Active chip is forest/sand, done chips show a terracotta tick. Lets users swipe between lessons at a glance.
+  - **Sticky bottom nav bar**: Previous ← | N/M | → Next, always one tap away. Uses `env(safe-area-inset-bottom)` so it sits above the iOS home-indicator on edge-to-edge phones. Hidden on tablets+.
+  - **Mobile mark-complete button**: wider, full-width pill below the article (was a small inline text link).
+  - **Container padding**: `pb-24 md:pb-16` so content isn't obscured by the sticky nav on mobile.
+  - **Prose rhythm**: lesson H1 drops `text-4xl` → `text-3xl` on mobile; "All masterclasses" back link gets `py-2 -my-2` tap padding.
+- Desktop layout above `md:` untouched — original fat sidebar + article grid stays exactly as it was.
+- New data-testids: `ai-lesson-chip-{slug}`, `ai-mark-done-mobile-{slug}`, `ai-prev-lesson-mobile`, `ai-next-lesson-mobile`, `lesson-chip-{slug}`, `lesson-prev-mobile`, `lesson-next-mobile`.
+- **SW bumped** v104 → v105. Site compiles clean, `/masterclasses/propagation` returns 200.

@@ -41,19 +41,19 @@ export default function Footer() {
           </p>
           <nav className="flex flex-wrap items-center justify-start md:justify-end gap-x-5 gap-y-2">
             <TipJar />
-            <Link to="/about" className="hover:text-terracotta transition-colors" data-testid="footer-about-link">
+            <Link to="/about" className="hover:text-terracotta transition-colors py-1.5 -my-1.5" data-testid="footer-about-link">
               {t("footer.legal.about")}
             </Link>
-            <Link to="/patrons" className="hover:text-terracotta transition-colors" data-testid="footer-patrons-link">
+            <Link to="/patrons" className="hover:text-terracotta transition-colors py-1.5 -my-1.5" data-testid="footer-patrons-link">
               Patrons
             </Link>
-            <Link to="/privacy" className="hover:text-terracotta transition-colors" data-testid="footer-privacy-link">
+            <Link to="/privacy" className="hover:text-terracotta transition-colors py-1.5 -my-1.5" data-testid="footer-privacy-link">
               {t("footer.legal.privacy")}
             </Link>
-            <Link to="/terms" className="hover:text-terracotta transition-colors" data-testid="footer-terms-link">
+            <Link to="/terms" className="hover:text-terracotta transition-colors py-1.5 -my-1.5" data-testid="footer-terms-link">
               {t("footer.legal.terms")}
             </Link>
-            <Link to="/terms#affiliates" className="hover:text-terracotta transition-colors" data-testid="footer-disclosure-link">
+            <Link to="/terms#affiliates" className="hover:text-terracotta transition-colors py-1.5 -my-1.5" data-testid="footer-disclosure-link">
               {t("footer.legal.disclosure")}
             </Link>
             <button
@@ -64,14 +64,14 @@ export default function Footer() {
                 try { localStorage.removeItem("pp_consent"); } catch { /* noop */ }
                 window.dispatchEvent(new CustomEvent("pp:consent:reset"));
               }}
-              className="hover:text-terracotta transition-colors"
+              className="hover:text-terracotta transition-colors py-1.5 -my-1.5"
               data-testid="footer-cookie-prefs"
             >
               {t("footer.legal.cookie_prefs")}
             </button>
             <a
               href="mailto:gcanth@gmail.com"
-              className="hover:text-terracotta transition-colors"
+              className="hover:text-terracotta transition-colors py-1.5 -my-1.5"
               data-testid="footer-contact-link"
             >
               {t("footer.legal.contact")}

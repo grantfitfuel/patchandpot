@@ -1413,3 +1413,11 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - **1 new i18n key** `footer.legal.cookie_prefs` = "Cookie preferences", translated to all 57 non-EN locales.
 - **Verified live**: rejected visitor reloads → banner hidden; clicks footer "Cookie preferences" → localStorage cleared + banner reappears in bottom-right without reload.
 - **SW bumped** v102 → v103.
+
+### Iteration 63 (2026-10-01): ✅ — Mobile optimizations
+- **Hero image** (`Home.jsx`): aspect-4/5 → aspect-16/10 on mobile, `md:aspect-[4/5]` restores portrait on tablet+. Added `rounded-2xl md:rounded-none` for a softer mobile edge. Prevents the hero from eating 125% of mobile viewport height.
+- **Tap-target expansion** (iOS 44pt guideline): 6 text-link CTAs + 7 footer legal links + the Tip Jar button got `py-2 -my-2` (or `py-1.5 -my-1.5` on footer). No layout shift because the negative margin cancels the padding. Affected testids: `home-ethos-cta`, `home-wellbeing-cta`, `home-popular-more`, `home-thismonth-set-region`, `home-bundle-buy-monthly`, `tip-jar-button`, `footer-{about,patrons,privacy,terms,disclosure,cookie-prefs,contact}-link`.
+- **Bundle CTA ordering**: added `order-1 md:order-2` / `order-2 md:order-1` so the £15 price card appears FIRST on mobile (users see offer before scrolling past features), and keeps the desktop features-on-left/price-on-right layout.
+- **Plant of the Week** (`PlantOfTheWeek.jsx`): title drops `text-5xl` → `text-4xl` on mobile (prevents overflow against the decorative Sprout); outer card padding `p-8` → `p-6` on mobile (reclaims ~16px horizontal width per side).
+- **SW bumped** v103 → v104.
+- **Note**: screenshot tool is locked to 1920×800 viewport, so this was a code-review-driven pass rather than a visual mobile audit. User should verify on real device + take any specific mobile issues as follow-ups.

@@ -30,7 +30,7 @@ export default function TipJar() {
       data-testid="tip-jar-button"
       onClick={tip}
       disabled={loading}
-      className="inline-flex items-center gap-1.5 text-xs text-moss hover:text-terracotta transition-colors disabled:opacity-60"
+      className="inline-flex items-center gap-1.5 py-2 -my-2 text-xs text-moss hover:text-terracotta transition-colors disabled:opacity-60"
     >
       <Heart strokeWidth={1.5} className="w-3.5 h-3.5" />
       {loading ? "…" : "Tip the gardener £3"}

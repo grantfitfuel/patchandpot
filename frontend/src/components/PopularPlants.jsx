@@ -63,7 +63,7 @@ export default function PopularPlants({ limit = 8 }) {
           <Link
             to="/plants"
             data-testid="home-popular-more"
-            className="text-sm text-sand/85 hover:text-terracotta underline-offset-4 hover:underline inline-flex items-center gap-1.5 flex-shrink-0"
+            className="text-sm text-sand/85 hover:text-terracotta underline-offset-4 hover:underline inline-flex items-center gap-1.5 py-2 -my-2 flex-shrink-0"
           >
             {t("home.popular.more")}
             <ArrowRight strokeWidth={1.5} className="w-3.5 h-3.5" />

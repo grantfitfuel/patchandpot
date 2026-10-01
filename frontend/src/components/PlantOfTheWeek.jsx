@@ -61,7 +61,7 @@ export default function PlantOfTheWeek() {
         <Link
           to={link}
           data-testid="plant-of-the-week-image-link"
-          className="block rounded-3xl overflow-hidden bg-terracotta text-sand p-8 md:p-12 lg:p-14 relative shadow-[0_20px_50px_rgba(0,0,0,0.08)] group"
+          className="block rounded-3xl overflow-hidden bg-terracotta text-sand p-6 md:p-12 lg:p-14 relative shadow-[0_20px_50px_rgba(0,0,0,0.08)] group"
         >
           {/* Decorative sprout — large, low-opacity, bottom-right so it
               never clashes with copy at any width. */}
@@ -72,7 +72,7 @@ export default function PlantOfTheWeek() {
           />
 
           <div className="relative max-w-2xl">
-            <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl text-sand tracking-tight leading-[1.02]">
+            <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-sand tracking-tight leading-[1.02] text-balance">
               {p.name}
             </h2>
             {p.botanical && (

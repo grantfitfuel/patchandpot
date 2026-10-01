@@ -115,7 +115,7 @@ export default function Home() {
             </div>
           </div>
           <div className="md:col-span-5">
-            <div className="aspect-[4/5] overflow-hidden border border-border">
+            <div className="aspect-[16/10] md:aspect-[4/5] overflow-hidden rounded-2xl md:rounded-none border border-border">
               <img
                 src="/img/hero.jpg"
                 alt="Person tending plants on a balcony, planting into a terracotta pot"
@@ -200,7 +200,7 @@ export default function Home() {
                 to="/grow-anywhere"
                 data-testid="home-ethos-cta"
                 onClick={() => track("cta_click", { where: "home_ethos", target: "grow_anywhere" })}
-                className="inline-flex items-center gap-1.5 text-sm text-terracotta hover:text-sand transition-colors"
+                className="inline-flex items-center gap-1.5 py-2 -my-2 text-sm text-terracotta hover:text-sand transition-colors"
               >
                 Explore Grow Anywhere
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
@@ -358,7 +358,7 @@ export default function Home() {
           <Link
             to="/wellbeing"
             data-testid="home-wellbeing-cta"
-            className="mt-10 inline-flex items-center gap-2 text-sand underline-offset-4 hover:underline"
+            className="mt-10 inline-flex items-center gap-2 py-2 -my-2 text-sand underline-offset-4 hover:underline"
           >
             {t("home.wellbeing.cta")}
             <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
@@ -382,7 +382,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5 }}
-              className="md:col-span-7"
+              className="md:col-span-7 order-2 md:order-1"
             >
               <p className="overline">{t("home.bundle.eyebrow")}</p>
               <h2 className="font-serif text-4xl md:text-5xl text-forest mt-3 leading-tight text-balance">
@@ -416,7 +416,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="md:col-span-5 md:col-start-8"
+              className="md:col-span-5 md:col-start-8 order-1 md:order-2"
             >
               <div className="terracotta-glow rounded-2xl p-7 md:p-8 relative shadow-[0_20px_50px_rgba(0,0,0,0.08)]">
                 <span className="inline-block bg-terracotta text-sand text-[10px] tracking-[0.18em] uppercase px-2.5 py-1 rounded-full">
@@ -439,7 +439,7 @@ export default function Home() {
                   type="button"
                   data-testid="home-bundle-buy-monthly"
                   onClick={() => setPaywallOpen(true)}
-                  className="mt-3 w-full text-sm text-moss hover:text-forest underline-offset-4 hover:underline"
+                  className="mt-3 w-full py-3 text-sm text-moss hover:text-forest underline-offset-4 hover:underline"
                 >
                   {t("home.bundle.from_monthly")}
                 </button>

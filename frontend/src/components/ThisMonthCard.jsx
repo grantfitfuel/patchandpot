@@ -116,7 +116,7 @@ export default function ThisMonthCard({ onSetRegion }) {
                 type="button"
                 onClick={onSetRegion}
                 data-testid="home-thismonth-set-region"
-                className="mt-4 text-sm text-terracotta underline underline-offset-4 decoration-terracotta/50 hover:decoration-terracotta text-left"
+                className="mt-4 py-2 -my-2 text-sm text-terracotta underline underline-offset-4 decoration-terracotta/50 hover:decoration-terracotta text-left"
               >
                 {t("home.thismonth.set_region")}
               </button>

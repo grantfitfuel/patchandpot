@@ -9,6 +9,8 @@ import MonthSelector from "@/components/MonthSelector";
 import ArrangementSuggester from "@/components/ArrangementSuggester";
 import PatchTabStrip from "@/components/PatchTabStrip";
 import SharePatchModal from "@/components/SharePatchModal";
+import PageHero from "@/components/PageHero";
+import { WateringMotif } from "@/components/illustrations/VibrantMotifs";
 import { useMemo, useState } from "react";
 import RegionPicker from "@/components/RegionPicker";
 import { useI18n } from "@/i18n";
@@ -29,42 +31,52 @@ export default function MyGardenPage() {
   }, [plants, t]);
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
+    <div className="animate-fade-up">
       <PatchTabStrip />
-
-      <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
-        <div>
-          <p className="overline">{t("garden.eyebrow")}{activePatch ? ` · ${activePatch.name}` : ""}</p>
-          <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("garden.title")}</h1>
-          {summary && <p className="mt-3 text-ink/75">{summary}</p>}
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {region && (
-            <Link to={`/print/${month}`} data-testid="garden-download-btn" className="btn-terracotta inline-flex items-center gap-2">
-              <Download className="w-4 h-4" strokeWidth={1.5} /> {t("download.button")}
-            </Link>
-          )}
-          {region && (
+      <PageHero
+        variant="forest"
+        eyebrow={`${t("garden.eyebrow")}${activePatch ? ` · ${activePatch.name}` : ""}`}
+        title={t("garden.title")}
+        blurb={summary}
+        Motif={WateringMotif}
+        actions={
+          <>
+            {region && (
+              <Link
+                to={`/print/${month}`}
+                data-testid="garden-download-btn"
+                className="inline-flex items-center gap-2 py-2.5 px-4 bg-terracotta text-sand hover:bg-coral transition-colors text-sm font-medium"
+                style={{ borderRadius: "9999px" }}
+              >
+                <Download className="w-4 h-4" strokeWidth={1.5} /> {t("download.button")}
+              </Link>
+            )}
+            {region && (
+              <button
+                type="button"
+                onClick={() => setShareOpen(true)}
+                data-testid="garden-share-btn"
+                className="inline-flex items-center gap-2 py-2.5 px-4 bg-sand text-forest hover:bg-butter transition-colors text-sm font-medium"
+                style={{ borderRadius: "9999px" }}
+              >
+                <Share2 className="w-4 h-4" strokeWidth={1.5} /> {t("share_patch.button")}
+              </button>
+            )}
             <button
               type="button"
-              onClick={() => setShareOpen(true)}
-              data-testid="garden-share-btn"
-              className="btn-ghost inline-flex items-center gap-2"
+              onClick={() => setPickerOpen(true)}
+              data-testid="garden-region-btn"
+              className="inline-flex items-center gap-2 py-2.5 px-4 border border-sand/40 text-sand hover:bg-sand/10 transition-colors text-sm"
+              style={{ borderRadius: "9999px" }}
             >
-              <Share2 className="w-4 h-4" strokeWidth={1.5} /> {t("share_patch.button")}
+              <MapPin className="w-4 h-4" strokeWidth={1.5} />
+              {region ? region.name : t("region.set")}
             </button>
-          )}
-          <button
-            type="button"
-            onClick={() => setPickerOpen(true)}
-            data-testid="garden-region-btn"
-            className="btn-ghost inline-flex items-center gap-2"
-          >
-            <MapPin className="w-4 h-4" strokeWidth={1.5} />
-            {region ? region.name : t("region.set")}
-          </button>
-        </div>
-      </div>
+          </>
+        }
+      />
+
+      <div className="container-narrow py-10 md:py-14">
 
       {plants.length === 0 ? (
         <div className="card-flat p-10 text-center" data-testid="garden-empty">
@@ -134,6 +146,7 @@ export default function MyGardenPage() {
         region={region}
         plants={plants}
       />
+      </div>
     </div>
   );
 }

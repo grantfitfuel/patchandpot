@@ -16,6 +16,8 @@ import { useI18n } from "@/i18n";
 import { RECIPES, SECTIONS } from "@/data/recipes";
 import RecipeImage from "@/components/RecipeImage";
 import { useMyGarden } from "@/hooks/useMyGarden";
+import PageHero from "@/components/PageHero";
+import { HarvestMotif } from "@/components/illustrations/VibrantMotifs";
 
 // Rough month → season lookup for the "in season now" filter. Northern
 // hemisphere for now — southern-hemisphere users still get the "all"
@@ -102,14 +104,15 @@ export default function RecipesPage() {
   const totalMatches = filtered.length;
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
-      <div className="mb-10 max-w-2xl">
-        <p className="overline">{t("recipe.eyebrow")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          {t("recipe.title")}
-        </h1>
-        <p className="mt-4 text-ink/75 leading-relaxed">{t("recipe.intro")}</p>
-      </div>
+    <div className="animate-fade-up">
+      <PageHero
+        variant="terracotta"
+        eyebrow={t("recipe.eyebrow")}
+        title={t("recipe.title")}
+        blurb={t("recipe.intro")}
+        Motif={HarvestMotif}
+      />
+      <div className="container-narrow py-10 md:py-14">
 
       {ingredient && (
         <div
@@ -237,6 +240,7 @@ export default function RecipesPage() {
           {t("recipe.waste_tips.body")}
         </p>
       </section>
+      </div>
     </div>
   );
 }

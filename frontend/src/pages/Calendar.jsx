@@ -6,8 +6,9 @@ import GuidanceView from "@/components/GuidanceView";
 import RegionPicker from "@/components/RegionPicker";
 import PaywallModal from "@/components/PaywallModal";
 import RecommendedRail from "@/components/RecommendedRail";
+import PageHero from "@/components/PageHero";
 import { MapPin, Download, Lock, Loader2, Columns2 } from "lucide-react";
-import { monthlyIllustration } from "@/components/illustrations/MonthlyIllustrations";
+import { SeasonsMotif } from "@/components/illustrations/VibrantMotifs";
 import { useI18n } from "@/i18n";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
@@ -33,7 +34,6 @@ export default function CalendarPage() {
       .catch(() => { /* rail is non-essential; hide silently */ });
     return () => { cancelled = true; };
   }, [lang]);
-  const MonthlyIllo = monthlyIllustration(month);
 
   async function downloadSeasonalPdf() {
     if (!region) { setPickerOpen(true); return; }
@@ -69,67 +69,67 @@ export default function CalendarPage() {
   }
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
-      <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
-        <div className="flex items-start gap-5 min-w-0">
-          <div className="hidden sm:block w-16 h-16 md:w-20 md:h-20 text-terracotta flex-shrink-0 mt-1">
-            <MonthlyIllo />
-          </div>
-          <div className="min-w-0">
-            <p className="overline">{t("calendar.eyebrow")}</p>
-            <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-              {t("calendar.title")}
-            </h1>
-            <p className="mt-3 text-ink/75 max-w-xl">{t("calendar.subtitle")}</p>
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <Link
-            to="/calendar/compare"
-            data-testid="calendar-compare-link"
-            className="btn-ghost inline-flex items-center gap-2"
-          >
-            <Columns2 className="w-4 h-4" strokeWidth={1.5} />
-            {t("compare.calendar_link")}
-          </Link>
-          <button
-            type="button"
-            onClick={downloadSeasonalPdf}
-            disabled={pdfBusy}
-            data-testid="download-seasonal-pdf"
-            className="btn-terracotta inline-flex items-center gap-2 disabled:opacity-60"
-          >
-            {pdfBusy ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />
-              : paid ? <Download className="w-4 h-4" strokeWidth={1.5} />
-              : <Lock className="w-4 h-4" strokeWidth={1.5} />}
-            {t("calendar.seasonal_pdf")}
-          </button>
-          <button
-            type="button"
-            onClick={() => setPickerOpen(true)}
-            data-testid="calendar-region-btn"
-            className="btn-ghost inline-flex items-center gap-2"
-          >
-            <MapPin className="w-4 h-4" strokeWidth={1.5} />
-            {region ? `${region.name}${region.country ? `, ${region.country}` : ""}` : t("region.set")}
-          </button>
-        </div>
-      </div>
-
-      {pdfError && <p className="text-sm text-terracotta -mt-6 mb-6">{pdfError}</p>}
-
-      <div className="mb-10">
-        <MonthSelector month={month} onChange={setMonth} />
-      </div>
-
-      <RecommendedRail
-        plants={allPlants}
-        region={region}
-        month={month}
-        excludeIds={(myGarden || []).map((p) => p?.id).filter(Boolean)}
+    <div className="animate-fade-up">
+      <PageHero
+        variant="forest"
+        eyebrow={t("calendar.eyebrow")}
+        title={t("calendar.title")}
+        blurb={t("calendar.subtitle")}
+        Motif={SeasonsMotif}
+        actions={
+          <>
+            <Link
+              to="/calendar/compare"
+              data-testid="calendar-compare-link"
+              className="inline-flex items-center gap-2 py-2.5 px-4 bg-sand text-forest hover:bg-butter transition-colors text-sm font-medium"
+              style={{ borderRadius: "9999px" }}
+            >
+              <Columns2 className="w-4 h-4" strokeWidth={1.5} />
+              {t("compare.calendar_link")}
+            </Link>
+            <button
+              type="button"
+              onClick={downloadSeasonalPdf}
+              disabled={pdfBusy}
+              data-testid="download-seasonal-pdf"
+              className="inline-flex items-center gap-2 py-2.5 px-4 bg-terracotta text-sand hover:bg-coral transition-colors text-sm font-medium disabled:opacity-60"
+              style={{ borderRadius: "9999px" }}
+            >
+              {pdfBusy ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />
+                : paid ? <Download className="w-4 h-4" strokeWidth={1.5} />
+                : <Lock className="w-4 h-4" strokeWidth={1.5} />}
+              {t("calendar.seasonal_pdf")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setPickerOpen(true)}
+              data-testid="calendar-region-btn"
+              className="inline-flex items-center gap-2 py-2.5 px-4 border border-sand/40 text-sand hover:bg-sand/10 transition-colors text-sm"
+              style={{ borderRadius: "9999px" }}
+            >
+              <MapPin className="w-4 h-4" strokeWidth={1.5} />
+              {region ? `${region.name}${region.country ? `, ${region.country}` : ""}` : t("region.set")}
+            </button>
+          </>
+        }
       />
 
-      <GuidanceView region={region} month={month} />
+      <div className="container-narrow py-10 md:py-14">
+        {pdfError && <p className="text-sm text-terracotta mb-6">{pdfError}</p>}
+
+        <div className="mb-10">
+          <MonthSelector month={month} onChange={setMonth} />
+        </div>
+
+        <RecommendedRail
+          plants={allPlants}
+          region={region}
+          month={month}
+          excludeIds={(myGarden || []).map((p) => p?.id).filter(Boolean)}
+        />
+
+        <GuidanceView region={region} month={month} />
+      </div>
 
       <RegionPicker open={pickerOpen} onClose={() => setPickerOpen(false)} />
 

@@ -19,6 +19,8 @@ import { API } from "@/lib/api";
 import { useRegion } from "@/hooks/useRegion";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 import { useCalmPill } from "@/hooks/useCalmPill";
+import PageHero from "@/components/PageHero";
+import { SunriseMotif } from "@/components/illustrations/VibrantMotifs";
 
 const VOICE_PREF_KEY = "patchpot.calm.voice.v1";
 
@@ -174,27 +176,21 @@ export default function CalmPage() {
     : null;
 
   return (
-    <div className="container-narrow py-12 md:py-16 max-w-3xl animate-fade-up" data-testid="calm-page">
+    <div className="animate-fade-up" data-testid="calm-page">
       <Helmet>
         <title>2-Minute Calm · Patch & Pot</title>
         <meta name="description" content="A gentle, seasonal mindful pause. Two minutes to breathe, notice and grow alongside your patch." />
       </Helmet>
 
-      {/* Hero */}
-      <header className="mb-10">
-        <p className="overline inline-flex items-center gap-1.5">
-          <Wind strokeWidth={1.5} className="w-3.5 h-3.5 text-terracotta" />
-          Wellbeing · Weekly
-        </p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          2-Minute Calm
-        </h1>
-        <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">
-          A gentle, seasonal mindful pause. Two minutes to breathe, notice
-          and grow alongside your patch — a new track each month, tuned
-          to what&apos;s happening outside your door right now.
-        </p>
-      </header>
+      <PageHero
+        variant="moss"
+        eyebrow="Wellbeing · Weekly"
+        title="2-Minute Calm"
+        blurb="A gentle, seasonal mindful pause. Two minutes to breathe, notice and grow alongside your patch — a new track each month, tuned to what's happening outside your door right now."
+        Motif={SunriseMotif}
+      />
+
+      <div className="container-narrow py-10 md:py-14 max-w-3xl">
 
       {/* Active variant */}
       {loading && <div className="text-sm text-moss" data-testid="calm-loading">Loading…</div>}
@@ -469,6 +465,7 @@ export default function CalmPage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

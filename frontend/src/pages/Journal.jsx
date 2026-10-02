@@ -18,6 +18,8 @@ import { useI18n } from "@/i18n";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 import { useMyGarden } from "@/hooks/useMyGarden";
 import NadarSurfacesNav from "@/components/NadarSurfacesNav";
+import PageHero from "@/components/PageHero";
+import { PoppyMotif } from "@/components/illustrations/VibrantMotifs";
 
 export default function JournalPage() {
   const { t } = useI18n();
@@ -163,14 +165,24 @@ export default function JournalPage() {
 
   if (!paid) {
     return (
-      <div className="container-narrow py-16 max-w-2xl text-center animate-fade-up">
-        <BookOpen strokeWidth={1.2} className="w-10 h-10 text-terracotta mx-auto mb-4" />
-        <p className="overline">{t("journal.eyebrow")}</p>
-        <h1 className="font-serif text-4xl text-forest mt-3 mb-4">{t("journal.title")}</h1>
-        <p className="text-ink/75 mb-6 leading-relaxed">{t("journal.paywall_blurb")}</p>
-        <a href="/#pricing" className="btn-primary" data-testid="journal-paywall-cta">
-          {t("journal.paywall_cta")}
-        </a>
+      <div className="animate-fade-up">
+        <PageHero
+          variant="forest"
+          eyebrow={t("journal.eyebrow")}
+          title={t("journal.title")}
+          blurb={t("journal.paywall_blurb")}
+          Motif={PoppyMotif}
+          actions={
+            <a
+              href="/#pricing"
+              data-testid="journal-paywall-cta"
+              className="inline-flex items-center gap-2 py-2.5 px-4 bg-terracotta text-sand hover:bg-coral transition-colors text-sm font-medium"
+              style={{ borderRadius: "9999px" }}
+            >
+              {t("journal.paywall_cta")}
+            </a>
+          }
+        />
       </div>
     );
   }
@@ -204,12 +216,18 @@ export default function JournalPage() {
   };
 
   return (
-    <div className="container-narrow py-12 md:py-16 max-w-6xl animate-fade-up">
+    <div className="animate-fade-up">
+      <PageHero
+        variant="forest"
+        eyebrow={t("journal.eyebrow")}
+        title={t("journal.title")}
+        blurb={t("journal.intro")}
+        Motif={PoppyMotif}
+        compact
+      />
+      <div className="container-narrow py-10 md:py-14 max-w-6xl">
       <NadarSurfacesNav active="journal" />
       <div className="mb-8">
-        <p className="overline">{t("journal.eyebrow")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("journal.title")}</h1>
-        <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{t("journal.intro")}</p>
         {pinnedCount > 0 && (
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <p
@@ -435,6 +453,7 @@ export default function JournalPage() {
 
         </div>{/* /main column */}
       </div>{/* /two-column grid */}
+      </div>
     </div>
   );
 }

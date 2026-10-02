@@ -4,6 +4,8 @@ import { Search, Sun, Droplets, Sprout, Sparkles, Loader2, Recycle, Flower2, Map
 import { fetchPlants, fetchPlantGuide, fetchRecentAIPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import RecommendedRail from "@/components/RecommendedRail";
+import PageHero from "@/components/PageHero";
+import { SeedlingMotif } from "@/components/illustrations/VibrantMotifs";
 import { useI18n } from "@/i18n";
 import { useRegion } from "@/hooks/useRegion";
 import { useMyGarden } from "@/hooks/useMyGarden";
@@ -175,12 +177,15 @@ export default function PlantsPage() {
   const showAskCTA = query.trim().length >= 2 && filtered.length === 0;
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
-      <div className="mb-10">
-        <p className="overline">{t("plants.eyebrow")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{t("plants.title")}</h1>
-        <p className="mt-3 text-ink/75 max-w-xl">{t("plants.subtitle")}</p>
-      </div>
+    <div className="animate-fade-up">
+      <PageHero
+        variant="moss"
+        eyebrow={t("plants.eyebrow")}
+        title={t("plants.title")}
+        blurb={t("plants.subtitle")}
+        Motif={SeedlingMotif}
+      />
+      <div className="container-narrow py-10 md:py-14">
 
       <div className="flex flex-wrap items-center gap-3 mb-8">
         <div className="relative flex-1 min-w-[240px]">
@@ -460,6 +465,7 @@ export default function PlantsPage() {
       {filtered.length === 0 && !showAskCTA && (
         <p className="text-moss" data-testid="plants-empty">{t("plants.empty")}</p>
       )}
+      </div>
     </div>
   );
 }

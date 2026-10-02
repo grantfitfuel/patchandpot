@@ -164,7 +164,6 @@ def make_router(db) -> APIRouter:
     @router.post("/plant-image")
     async def generate_plant_image(req: PlantImageRequest):
         """Generate (or fetch cached) AI image of a plant. Returns data URL."""
-        cache_key = f"plant-image:{req.plant_id}"
         style = req.style_hint or (
             "soft natural light, shallow depth of field, terracotta pot on a weathered wooden "
             "windowsill, warm sand background, editorial gardening magazine style, no text, no people"
@@ -174,11 +173,36 @@ def make_router(db) -> APIRouter:
             "flower", "nasturtium", "calendula", "sunflower", "marigold", "lavender",
             "cosmos", "viola", "pansy", "sweet pea", "zinnia", "borage", "geranium", "chamomile"
         ])
-        subject = (
-            f"A beautiful close-up photo of fresh {req.plant_name} flowers in bloom"
-            if is_flower else
-            f"A beautiful close-up photo of a healthy {req.plant_name} plant"
-        )
+        # Per-plant subject overrides — some plants Gemini renders in a
+        # botanically-correct-but-wrong-for-a-plant-card state (asparagus
+        # as feathery ferns, rhubarb as flowering stalks, etc). Force the
+        # recognisable harvestable form. The cache key is versioned (:v2)
+        # so an override added here bypasses any previously-cached generic
+        # render in production Mongo.
+        SUBJECT_OVERRIDES = {
+            "asparagus": "A beautiful close-up photo of a bundle of fresh thick green asparagus spears with purple tips standing upright in a bundle, no feathery fern foliage, no leaves",
+            "rhubarb":   "A beautiful close-up photo of fresh ruby-red rhubarb stalks with their large green crinkled leaves at the top, no flowers",
+            "jerusalem artichoke": "A beautiful close-up photo of knobbly fresh Jerusalem artichoke tubers piled together, no foliage",
+            "potato":    "A beautiful close-up photo of a pile of fresh earthy potato tubers, no foliage",
+            "sweet potato": "A beautiful close-up photo of fresh orange sweet potato tubers, no vines",
+            "garlic":    "A beautiful close-up photo of fresh garlic bulbs with papery white skins",
+            "onion":     "A beautiful close-up photo of fresh brown onions with papery skins",
+            "ginger":    "A beautiful close-up photo of fresh ginger rhizomes, knobbly and pale, no foliage",
+            "turmeric":  "A beautiful close-up photo of fresh turmeric rhizomes, cut to show vivid orange flesh",
+            "horseradish": "A beautiful close-up photo of fresh horseradish roots, pale, long and knobbly",
+        }
+        subject = SUBJECT_OVERRIDES.get(name_lower)
+        if subject is None:
+            cache_key = f"plant-image:{req.plant_id}"
+            subject = (
+                f"A beautiful close-up photo of fresh {req.plant_name} flowers in bloom"
+                if is_flower else
+                f"A beautiful close-up photo of a healthy {req.plant_name} plant"
+            )
+        else:
+            # Versioned key — bumps when we tune SUBJECT_OVERRIDES so stale
+            # production-Mongo renders are bypassed without a manual purge.
+            cache_key = f"plant-image:{req.plant_id}:v2"
         prompt = f"{subject}. {style}."
         return await _cached_image(cache_key, prompt, session=f"img-{req.plant_id}-{uuid.uuid4()}")
 

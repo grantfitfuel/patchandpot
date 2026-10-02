@@ -176,34 +176,47 @@ def make_router(db) -> APIRouter:
         # Per-plant subject overrides — some plants Gemini renders in a
         # botanically-correct-but-wrong-for-a-plant-card state (asparagus
         # as feathery ferns, rhubarb as flowering stalks, etc). Force the
-        # recognisable harvestable form. The cache key is versioned (:v2)
-        # so an override added here bypasses any previously-cached generic
-        # render in production Mongo.
+        # recognisable harvestable form. Each override carries its own
+        # style so the default "terracotta pot on a windowsill" chrome
+        # doesn't fight a "growing in the ground" subject. The cache key
+        # is versioned (:v2) so new overrides bypass any previously-cached
+        # generic render in production Mongo.
+        IN_SOIL_STYLE = (
+            "naturalistic daylight, shallow depth of field, rich dark garden soil, "
+            "hint of green foliage softly blurred in the background, editorial gardening "
+            "magazine style, no text, no people, no pots, no twine"
+        )
+        HARVEST_STYLE = (
+            "soft natural light, shallow depth of field, warm wooden kitchen bench, "
+            "gentle linen cloth, editorial food-magazine style, no text, no people"
+        )
         SUBJECT_OVERRIDES = {
-            "asparagus": "A beautiful close-up photo of a bundle of fresh thick green asparagus spears with purple tips standing upright in a bundle, no feathery fern foliage, no leaves",
-            "rhubarb":   "A beautiful close-up photo of fresh ruby-red rhubarb stalks with their large green crinkled leaves at the top, no flowers",
-            "jerusalem artichoke": "A beautiful close-up photo of knobbly fresh Jerusalem artichoke tubers piled together, no foliage",
-            "potato":    "A beautiful close-up photo of a pile of fresh earthy potato tubers, no foliage",
-            "sweet potato": "A beautiful close-up photo of fresh orange sweet potato tubers, no vines",
-            "garlic":    "A beautiful close-up photo of fresh garlic bulbs with papery white skins",
-            "onion":     "A beautiful close-up photo of fresh brown onions with papery skins",
-            "ginger":    "A beautiful close-up photo of fresh ginger rhizomes, knobbly and pale, no foliage",
-            "turmeric":  "A beautiful close-up photo of fresh turmeric rhizomes, cut to show vivid orange flesh",
-            "horseradish": "A beautiful close-up photo of fresh horseradish roots, pale, long and knobbly",
+            "asparagus":    ("A naturalistic close-up photo of several individual fresh green asparagus spears with purple tips emerging straight up from dark garden soil, spaced apart with gaps between them as they naturally grow from a crown, no bundling, no twine, no feathery fern foliage, no leaves, growing in the ground", IN_SOIL_STYLE),
+            "rhubarb":      ("A naturalistic close-up photo of a rhubarb plant growing in the ground with ruby-red stalks and large crinkled green leaves at the top, no flowers, no pot", IN_SOIL_STYLE),
+            "jerusalem artichoke": ("A beautiful close-up photo of knobbly fresh Jerusalem artichoke tubers piled on soil, freshly dug, no foliage", HARVEST_STYLE),
+            "potato":       ("A beautiful close-up photo of a small pile of freshly-dug earthy potato tubers on dark garden soil, no foliage", HARVEST_STYLE),
+            "sweet potato": ("A beautiful close-up photo of two or three freshly-dug orange sweet potato tubers on dark soil, no vines", HARVEST_STYLE),
+            "garlic":       ("A beautiful close-up photo of three freshly-harvested garlic bulbs with papery white skins and trimmed roots, resting on a wooden surface", HARVEST_STYLE),
+            "onion":        ("A beautiful close-up photo of three freshly-harvested brown onions with papery skins and trimmed tops, resting on a wooden surface", HARVEST_STYLE),
+            "ginger":       ("A beautiful close-up photo of fresh ginger rhizomes, knobbly and pale, on a wooden surface, no foliage", HARVEST_STYLE),
+            "turmeric":     ("A beautiful close-up photo of fresh turmeric rhizomes, one cut to show vivid orange flesh, on a wooden surface", HARVEST_STYLE),
+            "horseradish":  ("A beautiful close-up photo of a freshly-harvested horseradish root, pale, long and knobbly, on a wooden surface", HARVEST_STYLE),
         }
-        subject = SUBJECT_OVERRIDES.get(name_lower)
-        if subject is None:
+        override = SUBJECT_OVERRIDES.get(name_lower)
+        if override is None:
             cache_key = f"plant-image:{req.plant_id}"
             subject = (
                 f"A beautiful close-up photo of fresh {req.plant_name} flowers in bloom"
                 if is_flower else
                 f"A beautiful close-up photo of a healthy {req.plant_name} plant"
             )
+            prompt = f"{subject}. {style}."
         else:
             # Versioned key — bumps when we tune SUBJECT_OVERRIDES so stale
             # production-Mongo renders are bypassed without a manual purge.
-            cache_key = f"plant-image:{req.plant_id}:v2"
-        prompt = f"{subject}. {style}."
+            cache_key = f"plant-image:{req.plant_id}:v3"
+            subject, override_style = override
+            prompt = f"{subject}. {override_style}."
         return await _cached_image(cache_key, prompt, session=f"img-{req.plant_id}-{uuid.uuid4()}")
 
     @router.post("/pest-image")

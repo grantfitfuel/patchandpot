@@ -1,3 +1,24 @@
+### Iteration 57 (2026-02-20): ✅ — Discovery-Page Vibrant Redesign
+User brief: "address these ones next — Ask Nàdar · Guides · Masterclasses index · AIMasterclass reader · Cut Flowers · Bouquet · Regrow From Scraps · Grow Anywhere · Topics".
+
+- **9 discovery pages revamped** with the shared `PageHero` + vibrant motifs:
+  - `/topics` (index) — moss hero + BeeMotif.
+  - `/topics/[id]` (detail) — moss hero + SeedlingMotif, RSS icon moved to hero actions.
+  - `/grow-anywhere` — moss hero + WindowsillMotif.
+  - `/regrow-from-scraps` — moss hero + SeedlingMotif, Pinterest CTA promoted to hero actions.
+  - `/cut-flowers` — terracotta hero + PoppyMotif, Pinterest CTA in hero.
+  - `/bouquet` — terracotta hero + PoppyMotif on STEP_PICK only (result step keeps the arrangement title inside the body for readability).
+  - `/guides` (index) — forest hero + SeedlingMotif.
+  - `/guides/[slug]` (detail) — forest hero + HarvestMotif, back-to-guides button in hero.
+  - `/masterclasses` (index) — terracotta hero + PoppyMotif.
+  - `/ask` — moss hero + SeasonsMotif on paywall path, plus a new 3-tile colour-blocked "What members get" section (7 questions / Snap a photo / Threaded follow-ups) below the hero. Paid path gets compact moss hero + BeeMotif.
+- **AIMasterclass reader** intentionally untouched — user preference "readability-first for body content" on long-form reader pages.
+- **Also carved out of this batch**: Account/Marketing pages (About, Patrons, Capabilities Index, Learn Landing, Checkout Success, Shared Patch, Terms) — pending.
+- **Service worker** bumped to `patchpot-v107`.
+- **Backend tweak**: added `SUBJECT_OVERRIDES` + `IN_SOIL_STYLE` / `HARVEST_STYLE` prompt-pair system in `/app/backend/routers/plants.py` so AI plant images for 10 awkward plants (asparagus, rhubarb, potato, garlic, onion, ginger, turmeric, horseradish, jerusalem artichoke, sweet potato) render in their recognisable harvestable form. Asparagus specifically renders as individual spears emerging from soil with natural spacing (user feedback: "that's generally not how it grows — more separation"). Cache key versioned to `:v3` so production regenerates on first visit after deploy.
+- **Testing**: testing_agent iteration_56 — 100% on all 19 pages (9 new + 8 regressed + 2 topic variants + 1 guide detail). No console errors. No action items.
+
+
 ### Iteration 56 (2026-02-20): ✅ — Vibrant Core-Page Redesign (sweep)
 User brief: "Home page looks really good now; all pages need to look just as good and bright and colourful. Less like a journal or almanac." Explicit flag: Wellbeing is "shite" with "stale motifs and depressing".
 

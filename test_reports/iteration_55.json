@@ -1,0 +1,26 @@
+{
+  "summary": "Frontend-only smoke test for the vibrant PageHero redesign across 8 core pages (/wellbeing, /calendar, /pests, /plants, /garden, /recipes, /calm, /journal) + Home regression. All pages render the new colored page-hero band (data-testid=page-hero) with no uncaught JS or console errors. Interactive flows preserved: wellbeing mood selection + save produces the saved flag, calm link routes to /calm, calendar hero contains SeasonsMotif SVG and compare/pdf buttons are present, pests region button renders, plants search + group filters + grid render, garden empty state renders, recipes filter chips render, calm shows locked/paywall for unpaid user, journal unauthenticated shows paywall CTA linking to /#pricing. Home hero and Ask Nadar CTA unchanged.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/journal (unauthenticated)", "issues": ["Very large empty vertical space below the hero and before the footer in the unauthenticated journal view — hero + Become a member CTA sit alone with ~1000px of blank cream before the footer. Consider adding a benefits/preview block or a motif strip below the hero to balance the composition."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: fill the large empty gap on the unauthenticated /journal page below the hero (benefits list / preview card / motif) for visual balance.",
+    "No functional fixes required — redesign ships cleanly."
+  ],
+  "critical_code_review_comments": [
+    "PageHero.jsx uses an inline BUTTER_HEX fallback because tailwind doesn't know the butter color — tailwind.config.js was just updated with butter/coral/sky, so this fallback can be replaced with `text-butter` for consistency.",
+    "PageHero.jsx — motif container uses hardcoded rgba borders; fine for now but worth tokenizing if more variants are added."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "Used localStorage patchpot.region=London and pp_consent=rejected to bypass region picker / cookie banner.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Redesign smoke-tested on 2026-01 against the preview URL. All 8 core pages render PageHero with data-testid=page-hero and page-hero-title. No console errors recorded. Only cosmetic feedback is the large empty gap on /journal unauthenticated. Wellbeing mood selection + save works end-to-end (saved_flag appears after click). Calendar hero contains an inline SVG (SeasonsMotif). Garden shows empty state for a fresh visit. Calm shows locked-block/paywall-cta for unpaid user."
+}

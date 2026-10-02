@@ -1,3 +1,22 @@
+### Iteration 56 (2026-02-20): ✅ — Vibrant Core-Page Redesign (sweep)
+User brief: "Home page looks really good now; all pages need to look just as good and bright and colourful. Less like a journal or almanac." Explicit flag: Wellbeing is "shite" with "stale motifs and depressing".
+
+- **New `PageHero` component** (`/app/frontend/src/components/PageHero.jsx`): reusable colour-blocked top band with 4 variants (forest/moss/terracotta/sand), optional Motif, action chips, and a built-in warm radial glow + dotted texture. Rhythm matches the Home page bands exactly.
+- **New `VibrantMotifs` module** (`/app/frontend/src/components/illustrations/VibrantMotifs.jsx`): 8 filled-colour SVG motifs — SunriseMotif, BeeMotif, PoppyMotif, SeedlingMotif, HarvestMotif, WateringMotif, WindowsillMotif, SeasonsMotif. Replaces the stroke-only line illustrations that were flagged as stale. All motifs use the brand palette with butter/coral/sky accent swatches.
+- **Tailwind config**: added `butter: #F4C96B`, `coral: #E78A6F`, `sky: #CFE1D5` so colour-blocked tiles can use utility classes.
+- **Core pages redesigned** (hero bands + lighter touches, body kept on cream/sand per user preference for readability):
+  - `/wellbeing` — terracotta hero (PoppyMotif), moss "mindful moment" band (SunriseMotif), 5 colour-blocked sense tiles alternating forest/sand/moss/terracotta/sand, forest "soul" band (BeeMotif with coral radial), colour-tinted mood faces, 3 colour-blocked principle tiles (moss/terracotta/forest), mood-colour left-border on history entries.
+  - `/calendar` — forest hero + SeasonsMotif wheel.
+  - `/pests` — moss hero + BeeMotif.
+  - `/plants` — moss hero + SeedlingMotif.
+  - `/garden` — forest hero + WateringMotif (redesigned to center-balance).
+  - `/journal` — forest hero + PoppyMotif. Paywall state now has a 3-tile benefits section (Pin/Tag/Download) below the hero.
+  - `/calm` — moss hero + SunriseMotif.
+  - `/recipes` — terracotta hero + HarvestMotif.
+- **Service worker**: version bumped to `patchpot-v106`.
+- **Testing**: testing_agent iteration_55 reported 100% success on 8-page smoke test; one soft suggestion to fill the paywall-journal empty space was then addressed (3-tile benefits section added).
+
+
 ### Iteration 55 (2026-02-19): ✅ — SEC-002 completed (headers everywhere)
 - **Full SEC-002 remediation**: every auth token now travels in headers, not URL query strings, so credentials no longer leak into access logs / Referer headers / browser history.
 - **Member access token**: `Authorization: Bearer <token>` attached automatically by the axios interceptor on every `/api/*` request (already wired in iter 54).

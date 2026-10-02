@@ -183,6 +183,35 @@ export default function JournalPage() {
             </a>
           }
         />
+        <section className="container-narrow py-14 md:py-20 max-w-4xl">
+          <p className="overline">What members get</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 mb-8 leading-tight text-balance">
+            Every question you&apos;ve ever asked — kept, searchable, and yours.
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-moss text-sand p-6" style={{ borderRadius: "20px" }}>
+              <Pin strokeWidth={1.6} className="w-6 h-6 mb-3" style={{ color: "#F4C96B" }} />
+              <h3 className="font-serif text-xl mb-2">Pin the keepers</h3>
+              <p className="text-sm text-sand/85 leading-relaxed">
+                Save the answers you&apos;ll want again next spring. One tap to pin, one tap to find.
+              </p>
+            </div>
+            <div className="bg-terracotta text-sand p-6" style={{ borderRadius: "20px" }}>
+              <Tag strokeWidth={1.6} className="w-6 h-6 mb-3 text-sand" />
+              <h3 className="font-serif text-xl mb-2">Tag by plant</h3>
+              <p className="text-sm text-sand/90 leading-relaxed">
+                File any answer against a plant from your patch and come back when the season turns.
+              </p>
+            </div>
+            <div className="bg-forest text-sand p-6" style={{ borderRadius: "20px" }}>
+              <Download strokeWidth={1.6} className="w-6 h-6 mb-3" style={{ color: "#F4C96B" }} />
+              <h3 className="font-serif text-xl mb-2">Download the lot</h3>
+              <p className="text-sm text-sand/85 leading-relaxed">
+                Export your pinned entries as a tidy PDF — a private gardening book you&apos;ve written yourself.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }

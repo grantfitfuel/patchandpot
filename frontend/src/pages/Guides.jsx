@@ -7,6 +7,8 @@ import {
 import { useI18n } from "@/i18n";
 import { usePaywall } from "@/hooks/usePaywall";
 import PaywallModal from "@/components/PaywallModal";
+import PageHero from "@/components/PageHero";
+import { SeedlingMotif, HarvestMotif } from "@/components/illustrations/VibrantMotifs";
 
 // Resolve at module load so the PDF links go through our backend proxy.
 const API_BASE = process.env.REACT_APP_BACKEND_URL || "";
@@ -569,15 +571,16 @@ export default function GuidesPage() {
 
   if (!slug) {
     return (
-      <div className="container-narrow py-12 md:py-16 animate-fade-up">
-        <p className="overline">{t("guides.eyebrow")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          {t("guides.title")}
-        </h1>
-        <p className="mt-3 text-ink/75 max-w-2xl">
-          {t("guides.intro")}
-        </p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+      <div className="animate-fade-up">
+        <PageHero
+          variant="forest"
+          eyebrow={t("guides.eyebrow")}
+          title={t("guides.title")}
+          blurb={t("guides.intro")}
+          Motif={SeedlingMotif}
+        />
+        <div className="container-narrow py-10 md:py-14">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {ORDER.map((id) => {
             const g = GUIDES[id];
             const Icon = g.icon;
@@ -610,6 +613,7 @@ export default function GuidesPage() {
             );
           })}
         </div>
+        </div>
       </div>
     );
   }
@@ -625,21 +629,27 @@ export default function GuidesPage() {
   const headerIntro = i18nId ? t(`home.feature.${i18nId}.blurb`) : guide.intro;
 
   return (
-    <article className="container-narrow py-12 md:py-16 animate-fade-up max-w-4xl">
-      <Link to="/guides" data-testid="back-to-guides" className="inline-flex items-center gap-2 text-moss hover:text-forest mb-8">
-        <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("guides.all_guides")}
-      </Link>
+    <article className="animate-fade-up">
+      <PageHero
+        variant="forest"
+        eyebrow={headerLabel}
+        title={headerTitle}
+        blurb={headerIntro}
+        Motif={HarvestMotif}
+        actions={
+          <Link
+            to="/guides"
+            data-testid="back-to-guides"
+            className="inline-flex items-center gap-2 py-2.5 px-4 border border-sand/40 text-sand hover:bg-sand/10 transition-colors text-sm"
+            style={{ borderRadius: "9999px" }}
+          >
+            <ArrowLeft strokeWidth={1.5} className="w-4 h-4" /> {t("guides.all_guides")}
+          </Link>
+        }
+      />
+      <div className="container-narrow py-10 md:py-14 max-w-4xl">
 
-      <div className="flex items-center gap-3">
-        <Icon strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-        <span className="overline">{headerLabel}</span>
-      </div>
-      <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{headerTitle}</h1>
-      {headerIntro && (
-        <p className="mt-5 text-lg text-ink/80 max-w-2xl leading-relaxed">{headerIntro}</p>
-      )}
-
-      <div className="aspect-[16/9] overflow-hidden border border-border my-10">
+      <div className="aspect-[16/9] overflow-hidden border border-border mb-10">
         <img src={guide.image} alt={headerTitle} className="object-cover w-full h-full" />
       </div>
 
@@ -656,6 +666,7 @@ export default function GuidesPage() {
         {guide.sections.map((s, i) => (
           <SectionBlock key={`${s.type}-${s.title || i}`} section={s} />
         ))}
+      </div>
       </div>
     </article>
   );

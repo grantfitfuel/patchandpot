@@ -6,6 +6,8 @@ import { useI18n } from "@/i18n";
 import TopicImage from "@/components/TopicImage";
 import AIMasterclassSuggest from "@/components/AIMasterclassSuggest";
 import DeepDiveSection from "@/components/DeepDiveSection";
+import PageHero from "@/components/PageHero";
+import { PoppyMotif } from "@/components/illustrations/VibrantMotifs";
 
 function MasterclassCardImage({ masterclass, compact }) {
   // Foundation classes have a static `image` URL; flower classes use AI generation.
@@ -44,20 +46,18 @@ export default function MasterclassesPage() {
   const { t } = useI18n();
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
-      <div className="flex items-center gap-3 mb-3">
-        <GraduationCap strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-        <span className="overline">{t("mc.list_eyebrow")}</span>
-      </div>
-      <h1 className="font-serif text-5xl md:text-6xl text-forest tracking-tight">
-        {t("mc.list_title")}
-      </h1>
-      <p className="mt-4 text-ink/75 max-w-2xl leading-relaxed text-lg">
-        {t("mc.list_intro")}
-      </p>
+    <div className="animate-fade-up">
+      <PageHero
+        variant="terracotta"
+        eyebrow={t("mc.list_eyebrow")}
+        title={t("mc.list_title")}
+        blurb={t("mc.list_intro")}
+        Motif={PoppyMotif}
+      />
+      <div className="container-narrow py-10 md:py-14">
 
       {MASTERCLASS_SECTIONS.map((section, idx) => (
-        <section key={section.key} className={idx === 0 ? "mt-14" : "mt-20"} data-testid={`section-${section.key}`}>
+        <section key={section.key} className={idx === 0 ? "" : "mt-20"} data-testid={`section-${section.key}`}>
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8 border-b border-border pb-4">
             <div>
               <p className="overline">{t(`mc.section.${section.key}.label`)}</p>
@@ -127,6 +127,7 @@ export default function MasterclassesPage() {
       <DeepDiveSection />
 
       <AIMasterclassSuggest />
+      </div>
     </div>
   );
 }

@@ -28,6 +28,8 @@ import { fetchPlants, fetchArrangementSuggestion, fetchBouquetImage } from "@/li
 import { useI18n } from "@/i18n";
 import { useRegion } from "@/hooks/useRegion";
 import { useMyGarden } from "@/hooks/useMyGarden";
+import PageHero from "@/components/PageHero";
+import { PoppyMotif } from "@/components/illustrations/VibrantMotifs";
 import { formatApiError } from "@/lib/formatApiError";
 
 const STEP_PICK = "pick";
@@ -176,7 +178,17 @@ export default function BouquetPage() {
   };
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
+    <div className="animate-fade-up">
+      {step === STEP_PICK && (
+        <PageHero
+          variant="terracotta"
+          eyebrow={t("bouquet.eyebrow")}
+          title={t("bouquet.pick.title")}
+          blurb={t("bouquet.pick.intro")}
+          Motif={PoppyMotif}
+        />
+      )}
+      <div className="container-narrow py-10 md:py-14">
       {step === STEP_PICK && (
         <PickStep
           t={t}
@@ -207,6 +219,7 @@ export default function BouquetPage() {
           error={error}
         />
       )}
+      </div>
     </div>
   );
 }
@@ -217,16 +230,6 @@ function PickStep({
 }) {
   return (
     <>
-      <div className="mb-8 max-w-2xl">
-        <p className="overline">{t("bouquet.eyebrow")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          {t("bouquet.pick.title")}
-        </h1>
-        <p className="mt-4 text-ink/75 leading-relaxed">
-          {t("bouquet.pick.intro")}
-        </p>
-      </div>
-
       <div className="mb-6 text-xs text-moss uppercase tracking-widest flex items-center gap-2">
         <Flower2 className="w-3.5 h-3.5" strokeWidth={1.6} />
         <span data-testid="bouquet-selected-count">
@@ -373,13 +376,12 @@ function ResultStep({
       </button>
 
       <div className="mb-8 max-w-2xl">
-        <p className="overline">{t("bouquet.eyebrow")}</p>
-        <h1
-          className="font-serif text-4xl md:text-5xl text-forest mt-3 tracking-tight"
+        <h2
+          className="font-serif text-4xl md:text-5xl text-forest tracking-tight"
           data-testid="bouquet-title"
         >
           {arrangement.title}
-        </h1>
+        </h2>
         <p className="mt-4 text-ink/75 leading-relaxed">{arrangement.intro}</p>
       </div>
 

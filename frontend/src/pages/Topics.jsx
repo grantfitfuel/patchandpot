@@ -20,6 +20,8 @@ import { Helmet } from "react-helmet-async";
 import { API } from "@/lib/api";
 import { useI18n } from "@/i18n";
 import NadarSurfacesNav from "@/components/NadarSurfacesNav";
+import PageHero from "@/components/PageHero";
+import { BeeMotif, SeedlingMotif } from "@/components/illustrations/VibrantMotifs";
 
 export function TopicsIndexPage() {
   const { t } = useI18n();
@@ -41,15 +43,16 @@ export function TopicsIndexPage() {
   }, []);
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
-      <NadarSurfacesNav active="topics" />
-      <div className="mb-10 max-w-2xl">
-        <p className="overline">{t("topics.eyebrow")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          {t("topics.index.title")}
-        </h1>
-        <p className="mt-4 text-ink/75 leading-relaxed">{t("topics.index.intro")}</p>
-      </div>
+    <div className="animate-fade-up">
+      <PageHero
+        variant="moss"
+        eyebrow={t("topics.eyebrow")}
+        title={t("topics.index.title")}
+        blurb={t("topics.index.intro")}
+        Motif={BeeMotif}
+      />
+      <div className="container-narrow py-10 md:py-14">
+        <NadarSurfacesNav active="topics" />
 
       {loading && <div className="text-sm text-moss">{t("askpop.loading")}</div>}
 
@@ -86,6 +89,7 @@ export function TopicsIndexPage() {
       >
         {t("topics.see_all_questions")} →
       </Link>
+      </div>
     </div>
   );
 }
@@ -129,10 +133,7 @@ export function TopicDetailPage() {
   }
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up max-w-3xl">
-      {/* Autodiscovery — reader apps + browsers pick up the feeds
-          straight from the topic page. Backend URLs are stable and
-          public, so we don't need to gate this. */}
+    <div className="animate-fade-up">
       <Helmet>
         <link
           rel="alternate"
@@ -147,31 +148,43 @@ export function TopicDetailPage() {
           href={`${API}/ask/topics/${id}/feed.json`}
         />
       </Helmet>
-      <Link to="/topics" className="text-sm text-moss hover:text-forest inline-flex items-center gap-1.5 mb-6" data-testid="topic-back">
-        <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.6} />
-        {t("topics.back")}
-      </Link>
-      <p className="overline">{t("topics.eyebrow")}</p>
-      <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">{data.label}</h1>
-      <p className="mt-4 text-ink/75 leading-relaxed max-w-2xl">{data.blurb}</p>
-      <div className="mt-3 flex flex-wrap items-center gap-4">
-        <p className="text-[0.65rem] uppercase tracking-widest text-moss/70">
+
+      <PageHero
+        variant="moss"
+        eyebrow={t("topics.eyebrow")}
+        title={data.label}
+        blurb={data.blurb}
+        Motif={SeedlingMotif}
+        actions={
+          <>
+            <Link
+              to="/topics"
+              className="text-sm text-sand/85 hover:text-sand inline-flex items-center gap-1.5"
+              data-testid="topic-back"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" strokeWidth={1.6} />
+              {t("topics.back")}
+            </Link>
+            <a
+              href={`${API}/ask/topics/${id}/feed.rss`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid={`topic-rss-${id}`}
+              className="inline-flex items-center gap-1.5 text-xs text-sand/85 hover:text-sand transition-colors"
+              title={t("topics.subscribe_rss") || "Subscribe via RSS"}
+            >
+              <Rss strokeWidth={1.6} className="w-3.5 h-3.5" />
+              {t("topics.subscribe_rss") || "Subscribe via RSS"}
+            </a>
+          </>
+        }
+      />
+
+      <div className="container-narrow py-10 md:py-14 max-w-3xl">
+        <p className="text-[0.65rem] uppercase tracking-widest text-moss/70 mb-6">
           {t("topics.count", { n: data.count })}
         </p>
-        <a
-          href={`${API}/ask/topics/${id}/feed.rss`}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-testid={`topic-rss-${id}`}
-          className="inline-flex items-center gap-1.5 text-xs text-moss hover:text-terracotta transition-colors"
-          title={t("topics.subscribe_rss") || "Subscribe via RSS"}
-        >
-          <Rss strokeWidth={1.6} className="w-3.5 h-3.5" />
-          {t("topics.subscribe_rss") || "Subscribe via RSS"}
-        </a>
-      </div>
-
-      <div className="mt-10 space-y-3">
+        <div className="space-y-3">
         {data.questions.length === 0 && (
           <div className="card-flat p-6 text-sm text-moss" data-testid="topic-empty">
             {t("topics.empty")}
@@ -211,6 +224,7 @@ export function TopicDetailPage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

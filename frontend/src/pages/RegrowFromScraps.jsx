@@ -14,6 +14,8 @@ import { Recycle, Sparkles } from "lucide-react";
 import { fetchPlants } from "@/lib/api";
 import PlantImage from "@/components/PlantImage";
 import { useI18n } from "@/i18n";
+import PageHero from "@/components/PageHero";
+import { SeedlingMotif } from "@/components/illustrations/VibrantMotifs";
 
 const METHODS = [
   { key: "all",         match: () => true },
@@ -77,32 +79,31 @@ export default function RegrowFromScrapsPage() {
   }, [t]);
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up" data-testid="regrow-landing">
-      <div className="mb-10 max-w-2xl">
-        <p className="overline inline-flex items-center gap-2">
-          <Recycle className="w-3.5 h-3.5" strokeWidth={1.6} />
-          {t("regrow.eyebrow")}
-        </p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          {t("regrow.title")}
-        </h1>
-        <p className="mt-4 text-ink/75 leading-relaxed">{t("regrow.intro")}</p>
-        <div className="mt-6">
+    <div className="animate-fade-up" data-testid="regrow-landing">
+      <PageHero
+        variant="moss"
+        eyebrow={t("regrow.eyebrow")}
+        title={t("regrow.title")}
+        blurb={t("regrow.intro")}
+        Motif={SeedlingMotif}
+        actions={
           <a
             href={pinUrl}
             target="_blank"
             rel="noopener noreferrer"
             data-testid="regrow-pin"
             aria-label={t("regrow.pin_to_pinterest")}
-            className="btn-ghost inline-flex items-center gap-2 hover:bg-[#E60023] hover:text-white hover:border-[#E60023]"
+            className="inline-flex items-center gap-2 py-2.5 px-4 bg-sand text-forest hover:bg-[#E60023] hover:text-white transition-colors text-sm font-medium"
+            style={{ borderRadius: "9999px" }}
           >
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
               <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.112.221.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z" />
             </svg>
             {t("regrow.pin_to_pinterest")}
           </a>
-        </div>
-      </div>
+        }
+      />
+      <div className="container-narrow py-10 md:py-14">
 
       <div className="flex flex-wrap gap-2 mb-10" data-testid="regrow-filter-row">
         {METHODS.map((m) => (
@@ -164,6 +165,7 @@ export default function RegrowFromScrapsPage() {
           })}
         </div>
       )}
+      </div>
     </div>
   );
 }

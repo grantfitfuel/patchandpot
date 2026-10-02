@@ -5,6 +5,8 @@ import { Send, Image as ImageIcon, Plus, Trash2, Loader2, X, ArrowRight } from "
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 import { api } from "@/lib/api";
 import NadarSurfacesNav from "@/components/NadarSurfacesNav";
+import PageHero from "@/components/PageHero";
+import { SeasonsMotif, BeeMotif } from "@/components/illustrations/VibrantMotifs";
 
 /**
  * Downscale and re-encode an image File so it slips under Claude vision's
@@ -225,57 +227,91 @@ export default function AskPage() {
   // ── Paywall gate ────────────────────────────────────────────────
   if (!isPaying) {
     return (
-      <div className="container-narrow py-14 max-w-xl text-center" data-testid="ask-paywall">
+      <div className="animate-fade-up" data-testid="ask-paywall">
         <Helmet><title>Ask Nàdar · Patch & Pot</title></Helmet>
-        <p className="overline">Members</p>
-        <h1 className="font-serif text-4xl text-forest mt-2 mb-2">Ask Nàdar</h1>
-        <p className="text-[0.65rem] uppercase tracking-widest text-moss/70 mb-4">
-          Nàdar · <em className="not-italic">Nature</em>, in Scottish Gaelic
-        </p>
-        <p className="text-ink/80 mb-6">
-          A patient, knowledgeable garden mentor — Nàdar answers questions on edibles, cut flowers,
-          pests, pruning, soil and propagation with the voice of someone who has seen the same
-          seasons come round for decades. Upload a photo to identify a plant or diagnose a problem.
-        </p>
-        <p className="text-ink/70 text-sm mb-6">
-          Members can ask Nàdar up to 7 questions per day, with photo support and threaded follow-ups.
-        </p>
-        <a href="/#pricing" className="btn-primary" data-testid="ask-paywall-cta">
-          Become a member
-        </a>
-        <div className="mt-6 text-sm flex flex-col gap-2 items-start">
-          <Link
-            to="/ask/popular"
-            className="text-terracotta hover:underline inline-flex items-center gap-1.5"
-            data-testid="ask-paywall-popular-link"
-          >
-            Browse common gardening questions
-            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
-          </Link>
-          <Link
-            to="/topics"
-            className="text-terracotta hover:underline inline-flex items-center gap-1.5"
-            data-testid="ask-paywall-topics-link"
-          >
-            Or explore questions by topic
-            <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
-          </Link>
+        <PageHero
+          variant="moss"
+          eyebrow="Ask Nàdar · Members only"
+          title="Ask Nàdar"
+          blurb="A patient, knowledgeable garden mentor — Nàdar answers questions on edibles, cut flowers, pests, pruning, soil and propagation with the voice of someone who has seen the same seasons come round for decades. Upload a photo to identify a plant or diagnose a problem."
+          Motif={SeasonsMotif}
+          actions={
+            <>
+              <a
+                href="/#pricing"
+                data-testid="ask-paywall-cta"
+                className="inline-flex items-center gap-2 py-2.5 px-4 bg-terracotta text-sand hover:bg-coral transition-colors text-sm font-medium"
+                style={{ borderRadius: "9999px" }}
+              >
+                Become a member
+              </a>
+              <Link
+                to="/ask/popular"
+                data-testid="ask-paywall-popular-link"
+                className="inline-flex items-center gap-2 py-2.5 px-4 bg-sand text-forest hover:bg-butter transition-colors text-sm font-medium"
+                style={{ borderRadius: "9999px" }}
+              >
+                Browse popular questions
+                <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
+              </Link>
+            </>
+          }
+        />
+        <div className="container-narrow py-14 md:py-20 max-w-4xl">
+          <p className="overline">What members get</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 mb-8 leading-tight text-balance">
+            A gentle, bottomless gardening mentor — in your pocket.
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-forest text-sand p-6" style={{ borderRadius: "20px" }}>
+              <h3 className="font-serif text-xl mb-2" style={{ color: "#F4C96B" }}>7 questions a day</h3>
+              <p className="text-sm text-sand/85 leading-relaxed">
+                More than enough to work through a season's worth of problems one at a time.
+              </p>
+            </div>
+            <div className="bg-terracotta text-sand p-6" style={{ borderRadius: "20px" }}>
+              <h3 className="font-serif text-xl mb-2 text-sand">Snap a photo</h3>
+              <p className="text-sm text-sand/90 leading-relaxed">
+                Upload a leaf, a bug, a mystery seedling — Nàdar reads the image before answering.
+              </p>
+            </div>
+            <div className="bg-moss text-sand p-6" style={{ borderRadius: "20px" }}>
+              <h3 className="font-serif text-xl mb-2" style={{ color: "#F4C96B" }}>Threaded follow-ups</h3>
+              <p className="text-sm text-sand/85 leading-relaxed">
+                Keep digging into one answer with follow-up questions, like talking to a human neighbour.
+              </p>
+            </div>
+          </div>
+          <div className="mt-10">
+            <Link
+              to="/topics"
+              className="text-sm text-terracotta hover:underline inline-flex items-center gap-1.5"
+              data-testid="ask-paywall-topics-link"
+            >
+              Or explore questions by topic
+              <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container-narrow py-8 max-w-5xl" data-testid="ask-page">
+    <div className="animate-fade-up" data-testid="ask-page">
       <Helmet><title>Ask Nàdar · Patch & Pot</title></Helmet>
+      <PageHero
+        variant="moss"
+        eyebrow="Ask Nàdar · Members"
+        title="Ask Nàdar"
+        blurb="Nàdar · Nature, in Scottish Gaelic — your patient garden mentor."
+        Motif={BeeMotif}
+        compact
+      />
+      <div className="container-narrow py-8 max-w-5xl">
       <NadarSurfacesNav active="ask" />
-      <p className="overline">Members</p>
       <div className="flex items-baseline justify-between mt-2 mb-4">
         <div>
-          <h1 className="font-serif text-3xl text-forest">Ask Nàdar</h1>
-          <p className="text-[0.65rem] uppercase tracking-widest text-moss/70 mt-1">
-            Nàdar · <em className="not-italic">Nature</em>, in Scottish Gaelic
-          </p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <button
@@ -463,6 +499,7 @@ export default function AskPage() {
 
           {error && <p className="text-terracotta text-sm mt-2" data-testid="ask-error">{error}</p>}
         </main>
+      </div>
       </div>
     </div>
   );

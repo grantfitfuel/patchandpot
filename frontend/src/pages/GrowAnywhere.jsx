@@ -14,6 +14,8 @@ import { ArrowRight, Sprout } from "lucide-react";
 import { fetchPlants } from "@/lib/api";
 import { useI18n } from "@/i18n";
 import { SITUATIONS, SITUATION_SECTIONS } from "@/data/growAnywhere";
+import PageHero from "@/components/PageHero";
+import { WindowsillMotif } from "@/components/illustrations/VibrantMotifs";
 
 export default function GrowAnywherePage() {
   const { t, lang } = useI18n();
@@ -46,14 +48,15 @@ export default function GrowAnywherePage() {
   }, []);
 
   return (
-    <div className="container-narrow py-12 md:py-16 animate-fade-up">
-      <div className="mb-12 max-w-2xl">
-        <p className="overline">{t("grow.eyebrow")}</p>
-        <h1 className="font-serif text-5xl md:text-6xl text-forest mt-3 tracking-tight">
-          {t("grow.title")}
-        </h1>
-        <p className="mt-4 text-ink/75 leading-relaxed">{t("grow.intro")}</p>
-      </div>
+    <div className="animate-fade-up">
+      <PageHero
+        variant="moss"
+        eyebrow={t("grow.eyebrow")}
+        title={t("grow.title")}
+        blurb={t("grow.intro")}
+        Motif={WindowsillMotif}
+      />
+      <div className="container-narrow py-10 md:py-14">
 
       {SITUATION_SECTIONS.map((section) => {
         const ids = section.ids.filter((id) =>
@@ -125,6 +128,7 @@ export default function GrowAnywherePage() {
         >
           {t("grow.explore_all")} →
         </Link>
+      </div>
       </div>
     </div>
   );

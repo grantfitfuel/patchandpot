@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import NadarSurfacesNav from "@/components/NadarSurfacesNav";
 import PageHero from "@/components/PageHero";
 import { SeasonsMotif, BeeMotif } from "@/components/illustrations/VibrantMotifs";
+import { useI18n } from "@/i18n";
 
 /**
  * Downscale and re-encode an image File so it slips under Claude vision's
@@ -56,6 +57,7 @@ async function compressImage(file, { maxEdge = 1600, quality = 0.82, maxBytes = 
  */
 export default function AskPage() {
   const { paid: isPaying } = usePaywall();
+  const { t } = useI18n();
   const accessToken = getStoredAccessToken() || "";
 
   const [sessions, setSessions] = useState([]);
@@ -231,9 +233,9 @@ export default function AskPage() {
         <Helmet><title>Ask Nàdar · Patch & Pot</title></Helmet>
         <PageHero
           variant="moss"
-          eyebrow="Ask Nàdar · Members only"
-          title="Ask Nàdar"
-          blurb="A patient, knowledgeable garden mentor — Nàdar answers questions on edibles, cut flowers, pests, pruning, soil and propagation with the voice of someone who has seen the same seasons come round for decades. Upload a photo to identify a plant or diagnose a problem."
+          eyebrow={t("ask.paywall.eyebrow")}
+          title={t("ask.paywall.title")}
+          blurb={t("ask.paywall.blurb")}
           Motif={SeasonsMotif}
           actions={
             <>
@@ -243,7 +245,7 @@ export default function AskPage() {
                 className="inline-flex items-center gap-2 py-2.5 px-4 bg-terracotta text-sand hover:bg-coral transition-colors text-sm font-medium"
                 style={{ borderRadius: "9999px" }}
               >
-                Become a member
+                {t("ask.paywall.become_member")}
               </a>
               <Link
                 to="/ask/popular"
@@ -251,34 +253,34 @@ export default function AskPage() {
                 className="inline-flex items-center gap-2 py-2.5 px-4 bg-sand text-forest hover:bg-butter transition-colors text-sm font-medium"
                 style={{ borderRadius: "9999px" }}
               >
-                Browse popular questions
+                {t("ask.paywall.browse_popular")}
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
               </Link>
             </>
           }
         />
         <div className="container-narrow py-14 md:py-20 max-w-4xl">
-          <p className="overline">What members get</p>
+          <p className="overline">{t("ask.paywall.perks.eyebrow")}</p>
           <h2 className="font-serif text-3xl md:text-4xl text-forest mt-3 mb-8 leading-tight text-balance">
-            A gentle, bottomless gardening mentor — in your pocket.
+            {t("ask.paywall.perks.title")}
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
             <div className="bg-forest text-sand p-6" style={{ borderRadius: "20px" }}>
-              <h3 className="font-serif text-xl mb-2" style={{ color: "#F4C96B" }}>7 questions a day</h3>
+              <h3 className="font-serif text-xl mb-2" style={{ color: "#F4C96B" }}>{t("ask.paywall.perks.limit.title")}</h3>
               <p className="text-sm text-sand/85 leading-relaxed">
-                More than enough to work through a season's worth of problems one at a time.
+                {t("ask.paywall.perks.limit.body")}
               </p>
             </div>
             <div className="bg-terracotta text-sand p-6" style={{ borderRadius: "20px" }}>
-              <h3 className="font-serif text-xl mb-2 text-sand">Snap a photo</h3>
+              <h3 className="font-serif text-xl mb-2 text-sand">{t("ask.paywall.perks.photo.title")}</h3>
               <p className="text-sm text-sand/90 leading-relaxed">
-                Upload a leaf, a bug, a mystery seedling — Nàdar reads the image before answering.
+                {t("ask.paywall.perks.photo.body")}
               </p>
             </div>
             <div className="bg-moss text-sand p-6" style={{ borderRadius: "20px" }}>
-              <h3 className="font-serif text-xl mb-2" style={{ color: "#F4C96B" }}>Threaded follow-ups</h3>
+              <h3 className="font-serif text-xl mb-2" style={{ color: "#F4C96B" }}>{t("ask.paywall.perks.followups.title")}</h3>
               <p className="text-sm text-sand/85 leading-relaxed">
-                Keep digging into one answer with follow-up questions, like talking to a human neighbour.
+                {t("ask.paywall.perks.followups.body")}
               </p>
             </div>
           </div>
@@ -288,7 +290,7 @@ export default function AskPage() {
               className="text-sm text-terracotta hover:underline inline-flex items-center gap-1.5"
               data-testid="ask-paywall-topics-link"
             >
-              Or explore questions by topic
+              {t("ask.paywall.topics_link")}
               <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
             </Link>
           </div>
@@ -302,9 +304,9 @@ export default function AskPage() {
       <Helmet><title>Ask Nàdar · Patch & Pot</title></Helmet>
       <PageHero
         variant="moss"
-        eyebrow="Ask Nàdar · Members"
-        title="Ask Nàdar"
-        blurb="Nàdar · Nature, in Scottish Gaelic — your patient garden mentor."
+        eyebrow={t("ask.paid.eyebrow")}
+        title={t("ask.paywall.title")}
+        blurb={t("ask.paid.blurb")}
         Motif={BeeMotif}
         compact
       />
@@ -439,12 +441,12 @@ export default function AskPage() {
           <div className="flex-1 min-h-[300px] md:max-h-[60vh] md:overflow-y-auto border border-border rounded p-4 bg-white/40" data-testid="ask-messages">
             {messages.length === 0 && (
               <div className="text-ink/50 text-sm space-y-2">
-                <p>Ask Nàdar anything garden-related. A few starters:</p>
+                <p>{t("ask.empty.intro")}</p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Why are my rose leaves turning black?</li>
-                  <li>Can I grow dahlias in pots in Scotland?</li>
-                  <li>What flowers well with Globemaster alliums?</li>
-                  <li>Identify this plant from a photo →</li>
+                  <li>{t("ask.empty.starter_1")}</li>
+                  <li>{t("ask.empty.starter_2")}</li>
+                  <li>{t("ask.empty.starter_3")}</li>
+                  <li>{t("ask.empty.starter_4")}</li>
                 </ul>
               </div>
             )}

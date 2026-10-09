@@ -31,15 +31,12 @@ export default function Home() {
   const [paywallOpen, setPaywallOpen] = useState(false);
   const month = monthLabel(new Date().getMonth() + 1, t);
 
-  const HERO_TITLE =
-    "The AI gardening tutor that teaches you how to garden where you live.";
-  const HERO_BLURB =
-    "Ask a gardening question and receive a personalised masterclass shaped around your locality, climate, season, growing conditions, space and experience.";
+  const HERO_TITLE = t("home.hero.title");
+  const HERO_BLURB = t("home.hero.blurb");
   // Meta description — kept under 160 chars, keyword-forward so Google's
   // snippet-picker prefers this over on-page prose. Explicit "AI tutor"
   // + "personalised masterclass" so paid features surface in search.
-  const META_DESCRIPTION =
-    "AI gardening tutor for your patch. Ask any question and get a personalised masterclass shaped to your climate, season, space and skill. Free to try.";
+  const META_DESCRIPTION = t("home.hero.meta_description");
 
   return (
     <div className="animate-fade-up">
@@ -93,7 +90,7 @@ export default function Home() {
                 onClick={() => track("cta_click", { where: "home_hero", target: "ask_nadar" })}
                 className="btn-terracotta inline-flex items-center gap-2"
               >
-                Ask a gardening question <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                {t("home.cta.ask_question")} <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
               </Link>
               <Link
                 to="/calendar"
@@ -155,13 +152,11 @@ export default function Home() {
           className="relative container-narrow py-10 md:py-12"
         >
           <p className="text-center md:text-left text-lg md:text-2xl leading-relaxed max-w-4xl text-sand/95 font-serif">
-            <strong className="text-terracotta font-semibold not-italic">Ask Nàdar</strong>{" "}
-            answers any gardening question in seconds. The{" "}
-            <strong className="text-terracotta font-semibold not-italic">AI Masterclass creator</strong>{" "}
-            writes you a full multi-lesson course on any topic — from
-            no-dig to seed saving to attracting bees. Both shaped to your
-            climate zone, season, space and skill.{" "}
-            <span className="text-sand/70">Free to try, unlimited with any membership.</span>
+            <strong className="text-terracotta font-semibold not-italic">{t("home.aiprop.ask_nadar")}</strong>{" "}
+            {t("home.aiprop.answers")}{" "}
+            <strong className="text-terracotta font-semibold not-italic">{t("home.aiprop.masterclass_creator")}</strong>{" "}
+            {t("home.aiprop.writes_course")}{" "}
+            <span className="text-sand/70">{t("home.aiprop.free_to_try")}</span>
           </p>
         </motion.div>
       </section>
@@ -177,12 +172,12 @@ export default function Home() {
       >
         <div className="container-narrow py-14 md:py-16 grid md:grid-cols-12 gap-8 items-center">
           <div className="md:col-span-7">
-            <p className="overline text-terracotta">Our ethos</p>
+            <p className="overline text-terracotta">{t("home.ethos.eyebrow")}</p>
             <h2
               className="font-serif text-3xl md:text-5xl text-sand mt-3 leading-[1.05] tracking-tight text-balance"
               data-testid="home-ethos-title"
             >
-              Grow your own, anywhere.
+              {t("home.ethos.title")}
             </h2>
           </div>
           <div className="md:col-span-5">
@@ -190,10 +185,7 @@ export default function Home() {
               className="text-sand/85 leading-relaxed"
               data-testid="home-ethos-blurb"
             >
-              Whether that&apos;s a balcony rail, a shady kitchen windowsill, a
-              ladder against the fence, a stack of gutters or a full plot —
-              every guide, masterclass and calendar in Patch &amp; Pot is
-              shaped to whatever space you actually have.
+              {t("home.ethos.body")}
             </p>
             <div className="mt-5">
               <Link
@@ -202,7 +194,7 @@ export default function Home() {
                 onClick={() => track("cta_click", { where: "home_ethos", target: "grow_anywhere" })}
                 className="inline-flex items-center gap-1.5 py-2 -my-2 text-sm text-terracotta hover:text-sand transition-colors"
               >
-                Explore Grow Anywhere
+                {t("home.ethos.cta")}
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.6} />
               </Link>
             </div>

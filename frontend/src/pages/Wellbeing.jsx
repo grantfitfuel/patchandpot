@@ -94,7 +94,7 @@ export default function WellbeingPage() {
               className="inline-flex items-center gap-2 py-2.5 px-4 bg-sand text-forest hover:bg-butter transition-colors text-sm font-medium"
               style={{ borderRadius: "9999px" }}
             >
-              <span>Try today&apos;s 2-Minute Calm</span>
+              <span>{t("wellbeing.calm_cta")}</span>
               <span aria-hidden>→</span>
             </Link>
             <Link

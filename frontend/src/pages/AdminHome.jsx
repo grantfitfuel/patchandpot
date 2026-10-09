@@ -7,7 +7,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
-  Globe2, BarChart3, Sparkles, GitBranch, DollarSign, LogOut, ExternalLink, ShieldCheck, LineChart,
+  Globe2, BarChart3, Sparkles, GitBranch, DollarSign, LogOut, ExternalLink, ShieldCheck, LineChart, Instagram,
 } from "lucide-react";
 import AdminTokenGate, { useAdminToken } from "@/components/AdminTokenGate";
 
@@ -28,6 +28,8 @@ const CARDS = [
     blurb: "Approve or permanent-hide answers flagged by refusal filters or down-votes." },
   { to: "/admin/calm",  icon: Sparkles, title: "2-Minute Calm content",
     blurb: "Author scripts (Claude) and render audio (ElevenLabs) for the 12 monthly variants." },
+  { to: "/admin/instagram",  icon: Instagram, title: "Instagram publisher",
+    blurb: "Automated 3x/week posts (Mon/Wed/Fri 09:00 UK). Connect, preview and publish." },
 ];
 
 export default function AdminHomePage() {

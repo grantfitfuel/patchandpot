@@ -122,9 +122,9 @@ export default function PaywallModal({ onClose, onUnlocked, allowDismiss = true 
         </div>
 
         <div className="px-6 pt-3 pb-6">
-          <h2 className="font-serif text-3xl text-forest leading-tight">Keep growing — pick your tier.</h2>
+          <h2 className="font-serif text-3xl text-forest leading-tight">{t("paywall.title")}</h2>
           <p className="mt-3 text-ink/80 leading-relaxed">
-            Patch &amp; Pot stays mostly free. AI plant guides, masterclasses and printable downloads are paid. No subscriptions, no auto-renewal, no email lists.
+            {t("paywall.body")}
           </p>
 
           <ul className="mt-5 space-y-2 text-sm text-ink/80">

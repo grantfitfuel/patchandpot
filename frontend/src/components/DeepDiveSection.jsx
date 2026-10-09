@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { fetchGeneratedMasterclass } from "@/lib/api";
 import TopicImage from "@/components/TopicImage";
+import { useI18n } from "@/i18n";
 
 // Curated, staff-promoted AI-authored masterclasses surfaced as first-class
 // panels above the user-generated suggestion form. The underlying content
@@ -20,6 +21,7 @@ export const FEATURED_DEEP_DIVE_SLUGS = [
 
 export default function DeepDiveSection() {
   const [items, setItems] = useState([]);
+  const { t } = useI18n();
 
   useEffect(() => {
     let cancelled = false;
@@ -44,15 +46,13 @@ export default function DeepDiveSection() {
     <section className="mt-20" data-testid="section-deep-dives">
       <div className="flex flex-wrap items-end justify-between gap-4 mb-8 border-b border-border pb-4">
         <div>
-          <p className="overline">Deep dives</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-forest mt-2">Beyond the foundations</h2>
+          <p className="overline">{t("deepdive.eyebrow")}</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-forest mt-2">{t("deepdive.title")}</h2>
           <p className="text-ink/70 mt-2 max-w-xl">
-            Six in-depth courses on the topics that quietly decide whether a
-            garden thrives — soil, containers, pollinators, harvest, cut flowers,
-            and reading the sky.
+            {t("deepdive.blurb")}
           </p>
         </div>
-        <p className="text-sm text-moss">{items.length} courses</p>
+        <p className="text-sm text-moss">{t("deepdive.count", { n: items.length })}</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
@@ -73,7 +73,7 @@ export default function DeepDiveSection() {
               />
             </div>
             <div className="p-5">
-              <p className="text-[10px] tracking-[0.18em] uppercase text-moss">Deep dive · {data.lessons?.length || 5} lessons</p>
+              <p className="text-[10px] tracking-[0.18em] uppercase text-moss">{t("deepdive.lesson_count", { n: data.lessons?.length || 5 })}</p>
               <h3 className="font-serif text-xl text-forest mt-2 leading-tight group-hover:text-terracotta transition-colors">
                 {data.title}
               </h3>
@@ -81,7 +81,7 @@ export default function DeepDiveSection() {
                 <p className="text-sm text-ink/70 mt-2 line-clamp-3 leading-relaxed">{data.tagline}</p>
               )}
               <div className="mt-4 flex items-center gap-2 text-sm text-terracotta">
-                <span>Start course</span>
+                <span>{t("deepdive.start_course")}</span>
                 <ArrowRight strokeWidth={1.5} className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </div>
             </div>

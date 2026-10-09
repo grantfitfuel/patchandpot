@@ -19,6 +19,7 @@ import { API } from "@/lib/api";
 import { useRegion } from "@/hooks/useRegion";
 import { usePaywall, getStoredAccessToken } from "@/hooks/usePaywall";
 import { useCalmPill } from "@/hooks/useCalmPill";
+import { useI18n } from "@/i18n";
 import PageHero from "@/components/PageHero";
 import { SunriseMotif } from "@/components/illustrations/VibrantMotifs";
 
@@ -38,6 +39,7 @@ export default function CalmPage() {
   const hemisphere = region?.hemisphere === "southern" ? "sh" : "nh";
   const { paid } = usePaywall();
   const { markPlayed } = useCalmPill();
+  const { t } = useI18n();
 
   const [current, setCurrent] = useState(null);
   const [list, setList] = useState([]);
@@ -184,9 +186,9 @@ export default function CalmPage() {
 
       <PageHero
         variant="moss"
-        eyebrow="Wellbeing · Weekly"
-        title="2-Minute Calm"
-        blurb="A gentle, seasonal mindful pause. Two minutes to breathe, notice and grow alongside your patch — a new track each month, tuned to what's happening outside your door right now."
+        eyebrow={t("calm.hero.eyebrow")}
+        title={t("calm.hero.title")}
+        blurb={t("calm.hero.blurb")}
         Motif={SunriseMotif}
       />
 

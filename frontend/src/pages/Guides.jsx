@@ -673,6 +673,7 @@ export default function GuidesPage() {
 }
 
 function SectionBlock({ section }) {
+  const { t } = useI18n();
   if (section.type === "tags") {
     return (
       <div className="flex flex-wrap gap-2">
@@ -779,7 +780,7 @@ function SectionBlock({ section }) {
       <section className="border-y border-border py-10" data-testid="guide-vasetips">
         <div className="flex items-center gap-3 mb-2">
           <Lightbulb strokeWidth={1.4} className="w-5 h-5 text-terracotta" />
-          <p className="overline">Make flowers last longer</p>
+          <p className="overline">{t("guides.vasetips.eyebrow")}</p>
         </div>
         {section.title && (
           <h2 className="font-serif text-3xl md:text-4xl text-forest tracking-tight mb-3">

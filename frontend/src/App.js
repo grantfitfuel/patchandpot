@@ -39,6 +39,7 @@ import AdminCalmPage from "@/pages/AdminCalm";
 import CalmPage from "@/pages/Calm";
 import AdminGeoPage from "@/pages/AdminGeo";
 import AdminHomePage from "@/pages/AdminHome";
+import AdminInstagramPage from "@/pages/AdminInstagram";
 import PatronsPage from "@/pages/Patrons";
 import PatronsManagePage from "@/pages/PatronsManage";
 import SharedPatchPage from "@/pages/SharedPatch";
@@ -136,6 +137,7 @@ function AppShell() {
           <Route path="/admin/referrals" element={<AdminReferralsPage />} />
           <Route path="/admin/geo" element={<AdminGeoPage />} />
           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+          <Route path="/admin/instagram" element={<AdminInstagramPage />} />
           <Route path="/patrons" element={<PatronsPage />} />
           <Route path="/patrons/manage" element={<PatronsManagePage />} />
           <Route path="/p/:shareId" element={<SharedPatchPage />} />

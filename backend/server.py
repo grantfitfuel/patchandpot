@@ -223,6 +223,10 @@ app.include_router(share_router.make_router(db), prefix="/api")
 app.include_router(ask_router.make_router(db), prefix="/api")
 app.include_router(calm_router.make_router(db), prefix="/api")
 app.include_router(seo_router.make_router(db), prefix="/api")
+# Instagram automated publishing — connects via OAuth, posts 3x/week via cron.
+from routers.instagram import make_router as make_instagram_router, register_public_image_route  # noqa: E402
+app.include_router(make_instagram_router(db), prefix="/api")
+register_public_image_route(app, db)
 # Analytics + automated sitemap. Self-mounts under /api so we can keep
 # route definitions inside the router module.
 from routers.analytics import register_analytics_routes  # noqa: E402

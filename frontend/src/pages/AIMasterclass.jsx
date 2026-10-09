@@ -16,7 +16,7 @@ import ShareLessonButton from "@/components/ShareLessonButton";
  */
 export default function AIMasterclassPage() {
   const { slug, lessonSlug } = useParams();
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const [mc, setMc] = useState(null);
   const [error, setError] = useState("");
   const [done, setDone] = useState(() => {
@@ -41,7 +41,7 @@ export default function AIMasterclassPage() {
     return (
       <div className="container-narrow py-16 text-center">
         <p className="text-ink/75">{error}</p>
-        <Link to="/masterclasses" className="text-terracotta underline mt-4 inline-block">Back to all masterclasses</Link>
+        <Link to="/masterclasses" className="text-terracotta underline mt-4 inline-block">{t("mc.ai.back")}</Link>
       </div>
     );
   }
@@ -49,7 +49,7 @@ export default function AIMasterclassPage() {
     return (
       <div className="container-narrow py-16 text-center">
         <Sparkles strokeWidth={1.4} className="w-6 h-6 text-terracotta inline mr-2 animate-pulse" />
-        <span className="text-ink/75">Loading…</span>
+        <span className="text-ink/75">{t("mc.ai.loading")}</span>
       </div>
     );
   }
@@ -74,12 +74,12 @@ export default function AIMasterclassPage() {
       <div className="container-narrow py-6 md:py-16 animate-fade-up pb-24 md:pb-16" data-testid={`ai-masterclass-${slug}`}>
         <Link to="/masterclasses" className="inline-flex items-center gap-2 py-2 -my-2 text-moss hover:text-forest mb-4 md:mb-6">
           <ArrowLeft strokeWidth={1.5} className="w-4 h-4" />
-          <span className="text-sm md:text-base">All masterclasses</span>
+          <span className="text-sm md:text-base">{t("mc.ai.all_masterclasses")}</span>
         </Link>
 
         <div className="flex items-center gap-2 mb-2">
           <Sparkles strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
-          <span className="overline">AI-generated masterclass</span>
+          <span className="overline">{t("mc.ai.eyebrow")}</span>
         </div>
 
         {/* ─────── Mobile-only compact header ───────
@@ -91,7 +91,7 @@ export default function AIMasterclassPage() {
         <div className="md:hidden mt-2 mb-6">
           <h2 className="font-serif text-2xl text-forest leading-tight">{mc.title}</h2>
           <p className="text-xs text-moss mt-1">
-            {mc.duration} · Lesson {currentIndex + 1} of {total}
+            {mc.duration} · {t("mc.ai.lesson_of", { current: currentIndex + 1, total })}
           </p>
           <div className="mt-3 h-1 bg-border overflow-hidden rounded-full">
             <div className="h-1 bg-terracotta transition-all" style={{ width: `${(doneCount / total) * 100}%` }} />
@@ -152,7 +152,7 @@ export default function AIMasterclassPage() {
               </div>
               <div className="flex items-center gap-3 mb-2">
                 <GraduationCap strokeWidth={1.4} className="w-4 h-4 text-terracotta" />
-                <span className="overline">Masterclass</span>
+                <span className="overline">{t("mc.ai.masterclass_label")}</span>
               </div>
               <h2 className="font-serif text-3xl text-forest leading-tight">{mc.title}</h2>
               <p className="text-sm text-moss mt-1">{mc.duration}</p>
@@ -162,7 +162,7 @@ export default function AIMasterclassPage() {
                 <div className="h-1 bg-border overflow-hidden">
                   <div className="h-1 bg-terracotta transition-all" style={{ width: `${(doneCount / total) * 100}%` }} />
                 </div>
-                <p className="text-xs text-moss mt-2">{doneCount} of {total} complete</p>
+                <p className="text-xs text-moss mt-2">{t("mc.ai.progress", { done: doneCount, total })}</p>
               </div>
 
               <ol className="mt-7 space-y-1">
@@ -185,7 +185,7 @@ export default function AIMasterclassPage() {
                           {isDone && <Check strokeWidth={2.5} className="w-3 h-3 text-sand" />}
                         </span>
                         <span className="flex-1">
-                          <span className="block text-[10px] tracking-[0.18em] uppercase text-moss">Lesson {i + 1}</span>
+                          <span className="block text-[10px] tracking-[0.18em] uppercase text-moss">{t("mc.ai.lesson_n", { n: i + 1 })}</span>
                           <span className={`block text-sm ${active ? "font-medium" : ""}`}>{l.title}</span>
                         </span>
                       </Link>
@@ -197,7 +197,7 @@ export default function AIMasterclassPage() {
           </aside>
 
           <article className="md:col-span-8 lg:col-span-9 max-w-3xl">
-            <p className="overline">Lesson {currentIndex + 1}</p>
+            <p className="overline">{t("mc.ai.lesson_n", { n: currentIndex + 1 })}</p>
             <h1 className="font-serif text-3xl md:text-5xl text-forest mt-3 tracking-tight text-balance">{current.title}</h1>
 
             <div className="prose-narrow mt-6 md:mt-8 space-y-5 text-ink/85 leading-relaxed">
@@ -256,7 +256,7 @@ export default function AIMasterclassPage() {
                 }`}>
                   {done[current.slug] && <Check strokeWidth={2.5} className="w-3 h-3 text-sand" />}
                 </span>
-                {done[current.slug] ? "Marked complete" : "Mark this lesson complete"}
+                {done[current.slug] ? t("mc.ai.marked_complete") : t("mc.ai.mark_complete")}
               </button>
               <div className="flex items-center gap-3 flex-wrap">
                 <ShareLessonButton
@@ -270,7 +270,7 @@ export default function AIMasterclassPage() {
                     data-testid="ai-next-lesson"
                     className="py-2 -my-2 text-sm text-terracotta hover:underline"
                   >
-                    Next lesson →
+                    {t("mc.ai.next_lesson")} →
                   </Link>
                 )}
               </div>
@@ -289,7 +289,7 @@ export default function AIMasterclassPage() {
                 }`}>
                   {done[current.slug] && <Check strokeWidth={2.5} className="w-3 h-3 text-sand" />}
                 </span>
-                {done[current.slug] ? "Marked complete" : "Mark this lesson complete"}
+                {done[current.slug] ? t("mc.ai.marked_complete") : t("mc.ai.mark_complete")}
               </button>
               <div className="flex justify-center">
                 <ShareLessonButton
@@ -320,7 +320,7 @@ export default function AIMasterclassPage() {
               className="flex-1 flex items-center justify-center gap-2 py-4 text-sm text-forest hover:bg-surface/60 active:bg-forest/10"
             >
               <ArrowLeft strokeWidth={1.5} className="w-4 h-4" />
-              <span>Previous</span>
+              <span>{t("mc.ai.prev")}</span>
             </Link>
           ) : (
             <span className="flex-1" aria-hidden="true" />
@@ -334,7 +334,7 @@ export default function AIMasterclassPage() {
               data-testid="ai-next-lesson-mobile"
               className="flex-1 flex items-center justify-center gap-2 py-4 text-sm text-terracotta font-medium hover:bg-surface/60 active:bg-terracotta/10"
             >
-              <span>Next</span>
+              <span>{t("mc.ai.next")}</span>
               <ArrowRight strokeWidth={1.5} className="w-4 h-4" />
             </Link>
           ) : (

@@ -1,3 +1,41 @@
+### Iteration 59 (2026-02-20): ✅ — Instagram Auto-Publishing (Mon/Wed/Fri 9am UK)
+User asked: "Can you post instagram on a regular basis". Chose a mix of masterclass teaser + seasonal highlight, 3x/week, fully automated, mini-paragraph caption with 5-8 hashtags and patchandpot.app link.
+
+- **Backend router** `/app/backend/routers/instagram.py`:
+  - OAuth: `GET /api/instagram/oauth/start` (admin-gated) → Meta login URL; `GET /api/instagram/oauth/callback` → exchanges code → short-lived → long-lived user token → `/me/accounts` → stores Page token + IG Business user ID in `ig_connection`.
+  - Admin: `GET /api/instagram/status`, `POST /api/instagram/preview` (dry-run returns composed card + Claude caption), `POST /api/instagram/publish-now`.
+  - Cron: `POST /api/instagram/cron/post` (bearer-auth via `WEBHOOK_CRON_SECRET`, dedupes by `X-Webhook-Id`, immediate 2xx + background task).
+  - Public image: `GET /api/public-image/{token}` serves JPEG straight from `ig_posts.image_b64` (24-char URL-safe token, no auth) so Meta can fetch.
+- **Composition**: 1080×1080 brand card built with PIL — forest/moss/terracotta/sand palette, butter accent, dotted texture, terracotta accent bar, patchandpot.app footer. ~90 KB JPEG, well under Meta's 8 MB limit.
+- **Caption**: Claude Sonnet via `emergentintegrations`, warm informative 60-100 word gardening tip + "📖 Full guide at patchandpot.app" + 5-8 UK-flavoured hashtags including `#PatchAndPot`. Graceful fallback if LLM times out.
+- **Content rotation**: Mon = masterclass teaser (cycles across 5 masterclasses by ISO week), Wed = current-month seasonal highlight (built-in 12-month digest), Fri = masterclass again.
+- **Scheduler**: `/app/.emergent/crons.yml` — three entries `ig-mon-9am` / `ig-wed-9am` / `ig-fri-9am` at `0 9 * * 1/3/5` in `Europe/London`.
+- **Admin UI**: `/admin/instagram` (new) + a tile on `/admin` hub. Shows connection state, preview-today, publish-now, 20-post history with status chips (COMPOSING/CONTAINER_CREATED/PUBLISHED/ERROR).
+- **Env**: added `META_APP_ID`, `META_APP_SECRET`, `META_API_VERSION`, `META_OAUTH_REDIRECT`, `WEBHOOK_CRON_SECRET` to `backend/.env`.
+- **Verification**: cron endpoint tested (401 unauth, 200 queued with auth), background flow composed + captioned + hit "Instagram not connected" gracefully, public image served `image/jpeg` 200, admin UI renders.
+- **sw.js** bumped to `patchpot-v109`.
+- **Operator next step (one-time)**: visit `/admin/instagram` after deploy, click **Connect Instagram**, grant the 4 scopes in Meta's dialog. First automatic post will fire Monday 9am UK.
+
+
+### Iteration 58 (2026-02-20): ✅ — i18n Hardcoded-String Sweep
+User flagged (after Scottish Gaelic + French audit): several UI strings weren't translating because they were hardcoded in JSX instead of going through `t()`. This affected both newly-added strings (from the recent vibrant redesigns) **and** some older ones.
+
+- **67 new keys added to `en.js`** covering:
+  - Wellbeing: `wellbeing.calm_cta`
+  - Calm hero: `calm.hero.{eyebrow,title,blurb}`
+  - Journal paywall benefits tiles (8 keys)
+  - Ask paywall + perks tiles + paid hero + empty-state starters (16 keys)
+  - DeepDiveSection (6 keys)
+  - Guides vase-tips eyebrow
+  - AIMasterclass reader labels (13 keys: back, loading, all_masterclasses, eyebrow, lesson_of, lesson_n, masterclass_label, progress, mark_complete, marked_complete, next_lesson, prev, next)
+  - Home.jsx: hero_title/blurb/meta_description, ask_question CTA, 5 AI value-prop fragments, 4 ethos band keys
+  - PaywallModal now reuses existing `paywall.title` / `paywall.body` keys (was duplicating English in JSX)
+- **JSX refactor**: 10 files updated to call `t("…")` instead of embedding English prose: Wellbeing, Calm, Journal, Ask, Home, PaywallModal, DeepDiveSection, Guides, AIMasterclass.
+- **Translation**: new script `/app/scripts/translate_vibrant_redesign_sweep.py` fans 67 keys out to all 57 non-EN locales via Claude/openai-mini. 56/57 succeeded on first run; Gujarati rerun succeeded on retry; one post-run fix needed on `gd.js` where the LLM injected a literal newline into `ask.empty.intro` (patched manually).
+- **Verification**: screenshots confirmed FR + GD now render every previously-hardcoded string in-language (Wellbeing, Calm, Journal paywall, Ask paywall, Home hero).
+- **Service worker** bumped to `patchpot-v108`.
+
+
 ### Iteration 57 (2026-02-20): ✅ — Discovery-Page Vibrant Redesign
 User brief: "address these ones next — Ask Nàdar · Guides · Masterclasses index · AIMasterclass reader · Cut Flowers · Bouquet · Regrow From Scraps · Grow Anywhere · Topics".
 

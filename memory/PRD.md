@@ -1,3 +1,23 @@
+### Iteration 61 (2026-02-20): ✅ — Instagram Watercolour Backgrounds
+User asked for higher-quality graphics on the Instagram cards, specifically "maybe even using the watercolour garden images" — nodding to the existing `/shared/patches/*` kit that uses Gemini Nano Banana for painterly backgrounds.
+
+- **New `_get_or_generate_bg(db, slug, orientation)`**: generates (and caches in `ig_bg_watercolours`) a Nano-Banana watercolour per content slug. Prompts are hand-crafted per topic:
+  - masterclass.propagation → "glass jars with pothos cuttings rooting in water on a bright windowsill…"
+  - masterclass.pest-control → "ladybirds on sunlit nasturtium leaves and companion marigolds…"
+  - masterclass.no-dig → "a hand lifting dark crumbly compost over a mulched vegetable bed…"
+  - masterclass.weather → "rain softly beading on broad kale leaves…"
+  - masterclass.flower-arranging → "a stoneware vase on a weathered wooden bench holding freshly-cut dahlias, cosmos and sweet peas…"
+  - seasonal.(Jan–Dec) → one scene per month (e.g. February "chitting seed potatoes in egg trays on a bright, cold windowsill").
+  Cached by `(slug, orientation=square|vertical, v=1)` so three posts a week only ever pay the Nano-Banana cost once per content × shape pair.
+- **`_compose_card` (now async)**: paints the Nano-Banana PNG as the full background, applies a tint-only full-frame darken (ink @ 55/255 alpha, blur=0 keeps the painting crisp), then a stronger blurred warm panel (forest @ 160/255, blur=14) on the bottom 48% where the body + footer sit. Text now carries a 2-px ink drop-shadow for legibility over any painting.
+- **`_compose_reel` (now async)**: same watercolour background but with a subtle Ken Burns zoom (0 → 4%) + diagonal pan over the 5-second clip, so the painting feels alive rather than static. Falls back to the flat-palette version on LLM failure.
+- **`_blur_overlay(blur=0)`**: new tint-only mode so a translucent darken can be applied without blurring the detail beneath.
+- **Preview + worker**: all callers updated to `await _compose_*(db, slug, …)`.
+- **Visual regression test**: generated a Propagation Reel — mid-frame shows crisp painterly pothos-cuttings-in-glass-jars scene with sharp "MASTERCLASS" eyebrow + "Propagation" title + body on a moss panel + patchandpot.app in butter.
+- **Performance**: first post for a new slug pays ~15-20s Nano-Banana + ~15s MP4 encode (reel) / 1-2s JPEG encode (card); subsequent posts in the same slug skip the LLM entirely.
+- **sw.js** bumped to `patchpot-v111`.
+
+
 ### Iteration 60 (2026-02-20): ✅ — Instagram Reels + Hashtag Optimizer
 Follow-up to iteration 59. User picked the two "Next Action Items": Reels variant + rotating hashtag pools.
 

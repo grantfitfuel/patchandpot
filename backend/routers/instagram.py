@@ -40,7 +40,7 @@ import imageio_ffmpeg
 import numpy as np
 from fastapi import APIRouter, HTTPException, Query, Request, Response
 from fastapi.responses import HTMLResponse, RedirectResponse
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 from core import STATIC_MASTERCLASS_OG
 from routers.admin._shared import require_admin
@@ -179,6 +179,101 @@ async def _graph_get(path: str, token: str, params: dict | None = None):
     return body
 
 
+# ────────────────────────── watercolour backgrounds ─────────────────────────
+# A library of hand-crafted prompts per content slug, so the composed card
+# feels like it was illustrated for *this* post rather than templated.
+# Results are cached in Mongo (`ig_bg_watercolours` collection) keyed by
+# (slug, orientation, render_version) so a 3-month campaign only pays
+# the Nano-Banana cost once per content × shape pair.
+_BG_PROMPT_MASTERCLASS = {
+    "propagation":      "glass jars with pothos cuttings rooting in water on a bright windowsill, soft morning light, tiny white root wisps visible, a terracotta pot of fresh compost beside",
+    "pest-control":     "ladybirds on sunlit nasturtium leaves and companion marigolds beside a cabbage, hover-fly in the air, a wildlife-friendly kitchen garden",
+    "no-dig":           "a hand lifting dark crumbly compost over a mulched vegetable bed, lettuces and beetroot foliage in rows, no visible soil disturbance",
+    "weather":          "rain softly beading on broad kale leaves after a shower, pale sky breaking through cloud, raised beds glistening",
+    "flower-arranging": "a stoneware vase on a weathered wooden bench holding freshly-cut dahlias, cosmos and sweet peas, a pair of snips and twine beside",
+}
+_BG_PROMPT_SEASONAL = {
+    "January":   "bare winter garden with frosted brassicas and a robin on an empty raised bed, pale low sun through bare branches",
+    "February":  "chitting seed potatoes in egg trays on a bright, cold windowsill, early tulip shoots in a pot behind",
+    "March":     "waking vegetable beds with pea seedlings pushing through soil, a wooden dibber laid across a seed packet",
+    "April":     "a cold frame open to spring sun, tomato seedlings in modules hardening off beside a wooden bench",
+    "May":       "a late-spring kitchen garden in full growth, broad beans flowering, sweet pea tendrils climbing twine",
+    "June":      "a lush June plot peaking — strawberries ripening in rows, nasturtiums spilling, a wren on a stake",
+    "July":      "courgettes under broad leaves, tomato trusses yellowing, netted brassicas, a watering can on bare earth",
+    "August":    "sunflowers bowing in late-summer heat, overflowing basket of courgettes and tomatoes beside a hose",
+    "September": "a late-season allotment with a basket of green tomatoes, pumpkins swelling, sunflower seed heads",
+    "October":   "an autumn vegetable patch after the first frost — blackened dahlias, russet apples, mist in the hollows",
+    "November":  "a quiet November garden with a thick blanket of compost on empty beds, hand tools cleaned in a tray",
+    "December":  "a dormant December plot with structural seed heads and a dusting of frost, bare-root rose bundles waiting",
+}
+_WATERCOLOUR_STYLE = (
+    "Loose soft watercolour illustration, hand-painted on textured cream paper, "
+    "earthy palette, painterly brush strokes, warm seasonal light, slightly "
+    "dappled shadows, no text, no logos, no people, editorial gardening-magazine "
+    "style, calm and inviting."
+)
+_BG_RENDER_VERSION = 1  # bump to invalidate every cached watercolour
+
+
+async def _get_or_generate_bg(db, slug: str, orientation: str) -> bytes | None:
+    """Return cached (or freshly-generated) painterly watercolour bytes
+    for a given content slug + orientation. Returns None if the LLM key
+    is missing or generation fails — caller falls back to flat palette."""
+    cache = await db.ig_bg_watercolours.find_one({
+        "slug": slug, "orientation": orientation, "v": _BG_RENDER_VERSION,
+    }, {"_id": 0, "png": 1})
+    if cache and cache.get("png"):
+        return cache["png"]
+
+    key = os.environ.get("EMERGENT_LLM_KEY", "")
+    if not key:
+        return None
+
+    # Resolve the scene prompt from the slug.
+    if slug in _BG_PROMPT_MASTERCLASS:
+        scene = _BG_PROMPT_MASTERCLASS[slug]
+    elif slug.startswith("seasonal-"):
+        month = slug.split("-", 1)[1].title()
+        scene = _BG_PROMPT_SEASONAL.get(month, "a cottage kitchen garden in gentle seasonal light")
+    else:
+        scene = "a cottage kitchen garden in gentle seasonal light"
+
+    shape = (
+        "Square 1:1 composition with extra breathing room toward the bottom third for a text overlay"
+        if orientation == "square"
+        else "Vertical 9:16 composition with extra breathing room toward the bottom half for a text overlay"
+    )
+    prompt = f"{_WATERCOLOUR_STYLE} Scene: {scene}. {shape}."
+
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        chat = (
+            LlmChat(api_key=key, session_id=f"ig-bg-{slug}-{orientation}",
+                    system_message="You are an image generation assistant.")
+            .with_model("gemini", "gemini-3.1-flash-image-preview")
+            .with_params(modalities=["image", "text"])
+        )
+        _text, images = await asyncio.wait_for(
+            chat.send_message_multimodal_response(UserMessage(text=prompt)),
+            timeout=60,
+        )
+    except Exception:  # noqa: BLE001
+        return None
+    if not images:
+        return None
+    try:
+        png = base64.b64decode(images[0]["data"])
+    except Exception:  # noqa: BLE001
+        return None
+    await db.ig_bg_watercolours.update_one(
+        {"slug": slug, "orientation": orientation, "v": _BG_RENDER_VERSION},
+        {"$set": {"slug": slug, "orientation": orientation, "v": _BG_RENDER_VERSION,
+                  "png": png, "updated_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True,
+    )
+    return png
+
+
 async def _graph_post(path: str, token: str, params: dict):
     async with httpx.AsyncClient(timeout=30) as c:
         r = await c.post(f"{GRAPH}{path}", params={**params, "access_token": token})
@@ -221,162 +316,200 @@ def _wrap_lines(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFo
     return lines
 
 
-def _compose_card(eyebrow: str, title: str, body: str, variant: str = "forest") -> bytes:
-    """Compose a 1080×1080 square JPEG using the brand palette. Returns
-    JPEG bytes under 8 MB. Deliberately handwritten (no external template
-    service) so the card survives offline + any dependency changes."""
+def _blur_overlay(img: Image.Image, box: tuple[int, int, int, int], tint: tuple[int, int, int], alpha: int, blur: int = 14) -> Image.Image:
+    """Crop a region of the painting, optionally blur-and-darken it to a
+    warm panel, paste it back. Pass blur=0 for a tint-only pass that
+    keeps detail visible — used on the main image so the painting stays
+    crisp — vs blur>0 on the lower text panel where legibility matters."""
+    x1, y1, x2, y2 = box
+    crop = img.crop(box)
+    if blur > 0:
+        crop = crop.filter(ImageFilter.GaussianBlur(blur))
+    overlay = Image.new("RGBA", crop.size, tint + (alpha,))
+    blended = Image.alpha_composite(crop.convert("RGBA"), overlay)
+    out = img.copy()
+    out.paste(blended.convert("RGB"), box)
+    return out
+
+
+async def _compose_card(db, slug: str, eyebrow: str, title: str, body: str, variant: str = "forest") -> bytes:
+    """Compose a 1080×1080 square JPEG, laying a translucent warm panel
+    over a Nano-Banana watercolour background. Falls back to the brand
+    flat-colour aesthetic if the watercolour can't be generated."""
     size = 1080
-    bg = PALETTE[variant]
-    img = Image.new("RGB", (size, size), bg)
-    draw = ImageDraw.Draw(img)
+    bg_bytes = await _get_or_generate_bg(db, slug, "square")
+    if bg_bytes:
+        try:
+            img = Image.open(io.BytesIO(bg_bytes)).convert("RGB")
+            # Nano Banana usually returns a close-to-square image. Force 1080².
+            img = img.resize((size, size), Image.LANCZOS)
+        except Exception:
+            img = None
+    else:
+        img = None
 
-    # Subtle dotted texture, very low contrast — same vibe as PageHero.
-    dot = PALETTE["sand"] if variant != "sand" else PALETTE["forest"]
-    for y in range(0, size, 28):
-        for x in range(0, size, 28):
-            draw.ellipse([(x, y), (x + 2, y + 2)], fill=dot + (0,) if len(dot) == 4 else dot)
+    if img is None:
+        # Fallback — original flat palette with dot texture.
+        bg = PALETTE[variant]
+        img = Image.new("RGB", (size, size), bg)
+        d = ImageDraw.Draw(img)
+        dot = PALETTE["sand"] if variant != "sand" else PALETTE["forest"]
+        for y in range(0, size, 28):
+            for x in range(0, size, 28):
+                d.ellipse([(x, y), (x + 2, y + 2)], fill=dot)
 
-    # Overlay a warm glow top-right (butter).
-    glow = Image.new("RGB", (size, size), bg)
-    gdraw = ImageDraw.Draw(glow)
-    gdraw.ellipse([(size * 0.55, -size * 0.3), (size * 1.15, size * 0.5)],
-                  fill=PALETTE["butter"])
-    img = Image.blend(img, glow, 0.18)
-    draw = ImageDraw.Draw(img)
+    # Darken the whole image slightly so text pops; apply a stronger
+    # warm panel on the bottom third for the body + brand footer.
+    img = _blur_overlay(img, (0, 0, size, size), PALETTE["ink"], 55, blur=0)
+    img = _blur_overlay(img, (0, int(size * 0.52), size, size), PALETTE["forest"], 160, blur=14)
+    d = ImageDraw.Draw(img)
 
     # Terracotta accent bar top-left.
-    draw.rectangle([(72, 72), (160, 82)], fill=PALETTE["terracotta"])
+    d.rectangle([(72, 72), (160, 82)], fill=PALETTE["terracotta"])
 
-    # Eyebrow (small caps-ish — all uppercase).
-    eyebrow_font = _font(28)
-    draw.text((72, 108), eyebrow.upper(), font=eyebrow_font,
-              fill=PALETTE["butter"] if variant != "sand" else PALETTE["terracotta"])
+    # Eyebrow in butter.
+    eyebrow_font = _font(30)
+    d.text((72, 108), eyebrow.upper(), font=eyebrow_font, fill=PALETTE["butter"])
 
-    # Title — big serif, wrapped.
-    title_font = _font(88)
-    title_lines = _wrap_lines(draw, title, title_font, max_width=size - 144)
-    y = 180
-    for line in title_lines[:4]:
-        draw.text((72, y), line, font=title_font,
-                  fill=PALETTE["sand"] if variant != "sand" else PALETTE["forest"])
-        y += 96
+    # Title — big serif, wrapped. Sits in the upper band.
+    title_font = _font(84)
+    title_lines = _wrap_lines(d, title, title_font, max_width=size - 144)[:3]
+    y = 170
+    for line in title_lines:
+        # Draw a faint drop shadow so text stays legible even if the
+        # watercolour is bright behind.
+        d.text((74, y + 2), line, font=title_font, fill=PALETTE["ink"])
+        d.text((72, y), line, font=title_font, fill=PALETTE["sand"])
+        y += 94
 
-    # Body paragraph.
+    # Body — sits inside the warm panel bottom half.
     body_font = _font(36)
-    body_colour = (PALETTE["sand"][0], PALETTE["sand"][1], PALETTE["sand"][2]) if variant != "sand" else PALETTE["ink"]
-    body_lines = _wrap_lines(draw, body, body_font, max_width=size - 144)
-    y = max(y + 36, 620)
-    for line in body_lines[:6]:
-        draw.text((72, y), line, font=body_font, fill=body_colour)
-        y += 44
+    body_lines = _wrap_lines(d, body, body_font, max_width=size - 144)[:5]
+    by = int(size * 0.56) + 24
+    for line in body_lines:
+        d.text((72, by), line, font=body_font, fill=PALETTE["sand"])
+        by += 46
 
     # Footer brand.
-    foot_font = _font(28)
-    foot_text = "patchandpot.app"
-    foot_colour = PALETTE["butter"] if variant != "sand" else PALETTE["terracotta"]
-    draw.text((72, size - 92), foot_text, font=foot_font, fill=foot_colour)
+    foot_font = _font(30)
+    d.text((72, size - 86), "patchandpot.app", font=foot_font, fill=PALETTE["butter"])
 
-    # Encode JPEG.
     buf = io.BytesIO()
-    img.save(buf, format="JPEG", quality=85, optimize=True)
+    img.save(buf, format="JPEG", quality=88, optimize=True)
     return buf.getvalue()
 
 
-def _compose_reel(eyebrow: str, title: str, body: str, variant: str = "forest") -> bytes:
-    """Compose a 1080×1920 vertical MP4 for Instagram Reels.
+async def _compose_reel(db, slug: str, eyebrow: str, title: str, body: str, variant: str = "forest") -> bytes:
+    """Compose a 1080×1920 vertical MP4 for Instagram Reels, using a
+    Nano-Banana watercolour background with a slow Ken Burns zoom and
+    animated text layered over a warm panel. Falls back to the flat
+    palette version if the watercolour can't be generated.
 
-    5-second looping-friendly animation:
+    5-second animation:
       0.0-0.6s  — eyebrow fades up from 50% y
       0.6-1.8s  — title slides in word-by-word (left reveal)
-      1.8-4.0s  — body paragraph fades in
-      4.0-5.0s  — subtle Ken Burns zoom + patchandpot.app pulse
-    Produces an H.264 MP4 with silent AAC audio (Instagram Reels require
-    an audio track even if silent). ~500 KB-1.5 MB typical.
-    """
+      1.8-3.0s  — body paragraph fades in
+      0.0-5.0s  — slow 4% Ken Burns zoom on the background
+    Produces an H.264 MP4 with silent AAC audio (~1-2 MB typical)."""
     W, H, FPS, DUR = 1080, 1920, 24, 5
     N_FRAMES = DUR * FPS
-    bg = PALETTE[variant]
-    body_colour = PALETTE["sand"] if variant != "sand" else PALETTE["ink"]
-    accent = PALETTE["butter"] if variant != "sand" else PALETTE["terracotta"]
 
-    # Pre-wrap text once (expensive-ish).
-    scratch = Image.new("RGB", (W, H), bg)
+    # Load or fall back on the watercolour.
+    bg_bytes = await _get_or_generate_bg(db, slug, "vertical")
+    if bg_bytes:
+        try:
+            bg_img = Image.open(io.BytesIO(bg_bytes)).convert("RGB")
+            # Scale up slightly beyond W×H so Ken Burns can crop in.
+            over_w = int(W * 1.08)
+            over_h = int(H * 1.08)
+            bg_img = bg_img.resize((over_w, over_h), Image.LANCZOS)
+        except Exception:
+            bg_img = None
+    else:
+        bg_img = None
+
+    body_colour = PALETTE["sand"]
+    accent = PALETTE["butter"]
+
+    # Pre-wrap text once (expensive).
+    scratch = Image.new("RGB", (W, H), PALETTE["forest"])
     scratch_draw = ImageDraw.Draw(scratch)
-    title_font = _font(118)
-    body_font = _font(48)
+    title_font = _font(104)
+    body_font = _font(44)
     eyebrow_font = _font(34)
     foot_font = _font(34)
     title_lines = _wrap_lines(scratch_draw, title, title_font, W - 180)[:4]
-    body_lines = _wrap_lines(scratch_draw, body, body_font, W - 180)[:7]
+    body_lines = _wrap_lines(scratch_draw, body, body_font, W - 180)[:6]
 
     def render_frame(f: int) -> np.ndarray:
-        t = f / FPS  # time in seconds
-        img = Image.new("RGB", (W, H), bg)
-        d = ImageDraw.Draw(img)
+        t = f / FPS
+        # 1. Base — watercolour with Ken Burns, OR flat palette fallback.
+        if bg_img is not None:
+            zoom = 1.0 + 0.04 * (t / DUR)  # subtle 0 → 4% zoom
+            crop_w = int(bg_img.width / zoom)
+            crop_h = int(bg_img.height / zoom)
+            # Pan: drift top-left to centre as time progresses.
+            ox = int((bg_img.width - crop_w) * (t / DUR) * 0.6)
+            oy = int((bg_img.height - crop_h) * (t / DUR) * 0.4)
+            frame = bg_img.crop((ox, oy, ox + crop_w, oy + crop_h)).resize((W, H), Image.LANCZOS)
+        else:
+            frame = Image.new("RGB", (W, H), PALETTE[variant])
+            d0 = ImageDraw.Draw(frame)
+            dot = PALETTE["sand"] if variant != "sand" else PALETTE["forest"]
+            for y in range(0, H, 36):
+                for x in range(0, W, 36):
+                    d0.ellipse([(x, y), (x + 3, y + 3)], fill=dot)
 
-        # Butter glow drifting diagonally — slow Ken Burns feel.
-        glow = Image.new("RGB", (W, H), bg)
-        gd = ImageDraw.Draw(glow)
-        gx = W * 0.6 + (t * 20)
-        gy = -H * 0.1 + (t * 10)
-        gd.ellipse([(gx, gy), (gx + W * 0.9, gy + W * 0.9)], fill=PALETTE["butter"])
-        img = Image.blend(img, glow, 0.18)
-        d = ImageDraw.Draw(img)
+        # 2. Warm darken overlay (full + stronger lower half).
+        frame = _blur_overlay(frame, (0, 0, W, H), PALETTE["ink"], 55, blur=0)
+        frame = _blur_overlay(frame, (0, int(H * 0.60), W, H), PALETTE["forest"], 160, blur=14)
+        d = ImageDraw.Draw(frame)
 
-        # Dotted texture.
-        dot = PALETTE["sand"] if variant != "sand" else PALETTE["forest"]
-        for y in range(0, H, 36):
-            for x in range(0, W, 36):
-                d.ellipse([(x, y), (x + 3, y + 3)], fill=dot)
-
-        # Accent bar — fades in 0-0.4s then stays.
+        # Accent bar (fade in 0 → 0.4s).
         bar_a = max(0.0, min(1.0, t / 0.4))
         if bar_a > 0:
-            bar_colour = tuple(int(bg[i] * (1 - bar_a) + PALETTE["terracotta"][i] * bar_a) for i in range(3))
-            d.rectangle([(90, 90), (178, 100)], fill=bar_colour)
+            cur = PALETTE["terracotta"]
+            d.rectangle([(90, 90), (178, 100)], fill=cur)
 
-        # Eyebrow (0.2-0.6s fade up).
+        # Eyebrow (0.2 → 0.6s fade up).
         eb_a = max(0.0, min(1.0, (t - 0.2) / 0.4))
         if eb_a > 0:
             off = int(40 * (1 - eb_a))
-            eb_colour = tuple(int(bg[i] * (1 - eb_a) + accent[i] * eb_a) for i in range(3))
-            d.text((90, 130 + off), eyebrow.upper(), font=eyebrow_font, fill=eb_colour)
+            col = tuple(int(PALETTE["forest"][i] * (1 - eb_a) + accent[i] * eb_a) for i in range(3))
+            d.text((90, 130 + off), eyebrow.upper(), font=eyebrow_font, fill=col)
 
-        # Title lines — slide in left per line.
-        y = 230
+        # Title lines — slide in per line.
+        y = 220
         for i, line in enumerate(title_lines):
             start = 0.5 + i * 0.25
             end = start + 0.5
             a = max(0.0, min(1.0, (t - start) / (end - start)))
             if a > 0:
                 dx = int(-120 * (1 - a))
-                col = tuple(int(bg[k] * (1 - a) + body_colour[k] * a) for k in range(3))
+                col = tuple(int(PALETTE["forest"][k] * (1 - a) + body_colour[k] * a) for k in range(3))
+                # Drop shadow.
+                d.text((92 + dx, y + 2), line, font=title_font, fill=PALETTE["ink"])
                 d.text((90 + dx, y), line, font=title_font, fill=col)
-            y += 128
+            y += 116
 
-        # Body paragraph (1.8-3.0s fade).
+        # Body (1.8 → 3.0s fade).
         body_a = max(0.0, min(1.0, (t - 1.8) / 1.2))
         if body_a > 0:
-            by = max(y + 60, 1100)
+            by = int(H * 0.64)
             for line in body_lines:
                 dy = int(16 * (1 - body_a))
-                col = tuple(int(bg[k] * (1 - body_a) + body_colour[k] * body_a) for k in range(3))
+                col = tuple(int(PALETTE["forest"][k] * (1 - body_a) + body_colour[k] * body_a) for k in range(3))
                 d.text((90, by + dy), line, font=body_font, fill=col)
-                by += 58
+                by += 54
 
-        # Footer URL — gentle pulse 4.0-5.0s.
+        # Footer — fade in 1.5s onwards.
         pulse_a = max(0.0, min(1.0, (t - 1.5) / 0.5))
         if pulse_a > 0:
-            # Pulse scale between 1.0 and 1.08.
-            pulse = 1.0 + (0.08 * (1 + np.sin((t - 4.0) * 3.14)) / 2 if t > 4.0 else 0)
-            foot_colour = tuple(int(bg[i] * (1 - pulse_a) + accent[i] * pulse_a) for i in range(3))
-            # Simple draw (no scale animation — would need resizing).
-            d.text((90, H - 110), "patchandpot.app", font=foot_font, fill=foot_colour)
-            _ = pulse  # kept for future use; current pulse driven by colour fade
+            col = tuple(int(PALETTE["forest"][i] * (1 - pulse_a) + accent[i] * pulse_a) for i in range(3))
+            d.text((90, H - 110), "patchandpot.app", font=foot_font, fill=col)
 
-        return np.asarray(img)
+        return np.asarray(frame)
 
-    # Write to a temp MP4 (silent).
     tmpdir = tempfile.mkdtemp(prefix="ig_reel_")
     raw_mp4 = os.path.join(tmpdir, "silent.mp4")
     final_mp4 = os.path.join(tmpdir, "reel.mp4")
@@ -387,7 +520,6 @@ def _compose_reel(eyebrow: str, title: str, body: str, variant: str = "forest") 
         ) as writer:
             for f in range(N_FRAMES):
                 writer.append_data(render_frame(f))
-        # Mux a silent AAC track — Reels require an audio stream.
         ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
         subprocess.run(
             [ffmpeg, "-y", "-loglevel", "error",
@@ -621,15 +753,17 @@ def make_router(db):
         caption = _assemble_caption(paragraph, content["slug"], now)
         is_reel = content["media_format"] == "REEL"
         if is_reel:
-            media_bytes = await asyncio.to_thread(
-                _compose_reel, content["eyebrow"], content["title"],
+            media_bytes = await _compose_reel(
+                db, content["slug"], content["eyebrow"], content["title"],
                 content["body_hint"], content["variant"],
             )
             mime = "video/mp4"
             media_b64 = "data:video/mp4;base64," + base64.b64encode(media_bytes).decode()
         else:
-            media_bytes = _compose_card(content["eyebrow"], content["title"],
-                                        content["body_hint"], content["variant"])
+            media_bytes = await _compose_card(
+                db, content["slug"], content["eyebrow"], content["title"],
+                content["body_hint"], content["variant"],
+            )
             mime = "image/jpeg"
             media_b64 = "data:image/jpeg;base64," + base64.b64encode(media_bytes).decode()
         return {
@@ -740,8 +874,8 @@ async def _run_post(db, run_id: str, manual: bool = False) -> None:
         paragraph = await _write_caption(content["eyebrow"], content["title"], content["body_hint"])
         caption = _assemble_caption(paragraph, content["slug"], now)
         if is_reel:
-            mp4 = await asyncio.to_thread(
-                _compose_reel, content["eyebrow"], content["title"],
+            mp4 = await _compose_reel(
+                db, content["slug"], content["eyebrow"], content["title"],
                 content["body_hint"], content["variant"],
             )
             media_url = f"{PUBLIC_API_BASE}/api/public-video/{public_id}"
@@ -753,8 +887,10 @@ async def _run_post(db, run_id: str, manual: bool = False) -> None:
                 "status": "READY",
             }})
         else:
-            jpeg = _compose_card(content["eyebrow"], content["title"],
-                                 content["body_hint"], content["variant"])
+            jpeg = await _compose_card(
+                db, content["slug"], content["eyebrow"], content["title"],
+                content["body_hint"], content["variant"],
+            )
             media_url = f"{PUBLIC_API_BASE}/api/public-image/{public_id}"
             await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
                 "image_b64": base64.b64encode(jpeg).decode(),

@@ -30,7 +30,7 @@ import random
 import secrets
 import subprocess
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from urllib.parse import urlencode
 
@@ -47,8 +47,10 @@ from routers.admin._shared import require_admin
 
 
 # ────────────────────────── config ──────────────────────────
-META_APP_ID = os.environ.get("META_APP_ID", "")
-META_APP_SECRET = os.environ.get("META_APP_SECRET", "")
+# Instagram API with Instagram Login — IDs come from the Instagram use case's
+# "Business login settings" (not the Meta app ID).
+IG_APP_ID = os.environ.get("INSTAGRAM_APP_ID", "")
+IG_APP_SECRET = os.environ.get("INSTAGRAM_APP_SECRET", "")
 META_API = os.environ.get("META_API_VERSION", "v26.0")
 META_OAUTH_REDIRECT = os.environ.get(
     "META_OAUTH_REDIRECT",
@@ -56,7 +58,7 @@ META_OAUTH_REDIRECT = os.environ.get(
 )
 WEBHOOK_CRON_SECRET = os.environ.get("WEBHOOK_CRON_SECRET", "")
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://patchandpot.app")
-GRAPH = f"https://graph.facebook.com/{META_API}"
+GRAPH = f"https://graph.instagram.com/{META_API}"
 
 # Public base URL — used to compose the `image_url` we hand to Meta.
 # Defaults to production domain; override in .env for preview testing.
@@ -839,79 +841,66 @@ def make_router(db):
         """Returns a Meta login URL. Admin-gated so random visitors can't
         start the flow and clobber the stored token."""
         require_admin(token)
-        if not META_APP_ID:
-            raise HTTPException(503, "META_APP_ID not configured")
+        if not IG_APP_ID:
+            raise HTTPException(503, "INSTAGRAM_APP_ID not configured")
         state = secrets.token_urlsafe(32)
         await db.ig_oauth_state.insert_one({
             "state": state,
             "created_at": datetime.now(timezone.utc),
         })
-        params = {
-            "client_id": META_APP_ID,
+        q = urlencode({
+            "client_id": IG_APP_ID,
             "redirect_uri": META_OAUTH_REDIRECT,
-            "state": state,
             "response_type": "code",
-        }
-        # Facebook Login for Business apps need a configuration ID, not a scope list.
-        config_id = os.environ.get("META_LOGIN_CONFIG_ID")
-        if config_id:
-            params["config_id"] = config_id
-        else:
-            params["scope"] = "instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement"
-        q = urlencode(params)
-        return {"url": f"https://www.facebook.com/{META_API}/dialog/oauth?{q}"}
+            "scope": "instagram_business_basic,instagram_business_content_publish",
+            "state": state,
+            "enable_fb_login": "false",
+        })
+        return {"url": f"https://www.instagram.com/oauth/authorize?{q}"}
 
     # ─── OAuth: callback ───────────────────────────────────────────
     @router.get("/oauth/callback", response_class=HTMLResponse)
     async def oauth_callback(state: str = Query(...), code: str | None = Query(None),
                              error_description: str | None = Query(None)):
+        back = f"<p><a href='{FRONTEND_URL}/admin/instagram'>Back to admin</a></p>"
         if not code:
-            return HTMLResponse(f"<h1>Instagram connection cancelled</h1><p>{error_description or 'No code returned by Meta.'}</p>"
-                                f"<p><a href='{FRONTEND_URL}/admin/instagram'>Back to admin</a></p>", status_code=400)
-        found = await db.ig_oauth_state.find_one_and_delete({"state": state})
-        if not found:
-            return HTMLResponse("<h1>Invalid state</h1>", status_code=400)
+            return HTMLResponse(f"<h1>Instagram connection cancelled</h1><p>{error_description or 'No code returned.'}</p>{back}",
+                                status_code=400)
+        if not await db.ig_oauth_state.find_one_and_delete({"state": state}):
+            return HTMLResponse(f"<h1>Link expired</h1><p>Please tap Connect again.</p>{back}", status_code=400)
         async with httpx.AsyncClient(timeout=30) as c:
-            # 1. Exchange code → short-user-token
-            r = await c.get(f"{GRAPH}/oauth/access_token", params={
-                "client_id": META_APP_ID,
-                "client_secret": META_APP_SECRET,
+            r = await c.post("https://api.instagram.com/oauth/access_token", data={
+                "client_id": IG_APP_ID,
+                "client_secret": IG_APP_SECRET,
+                "grant_type": "authorization_code",
                 "redirect_uri": META_OAUTH_REDIRECT,
-                "code": code,
+                "code": code.removesuffix("#_"),
             })
             short = r.json()
+            short = (short.get("data") or [short])[0]
             if "access_token" not in short:
-                return HTMLResponse(f"<h1>Token exchange failed</h1><pre>{short}</pre>", status_code=400)
-            # 2. Short → long-user-token
-            r = await c.get(f"{GRAPH}/oauth/access_token", params={
-                "grant_type": "fb_exchange_token",
-                "client_id": META_APP_ID,
-                "client_secret": META_APP_SECRET,
-                "fb_exchange_token": short["access_token"],
+                return HTMLResponse(f"<h1>Token exchange failed</h1><pre>{short}</pre>{back}", status_code=400)
+            r = await c.get("https://graph.instagram.com/access_token", params={
+                "grant_type": "ig_exchange_token",
+                "client_secret": IG_APP_SECRET,
+                "access_token": short["access_token"],
             })
             long = r.json()
             if "access_token" not in long:
-                return HTMLResponse(f"<h1>Long-lived exchange failed</h1><pre>{long}</pre>", status_code=400)
-            # 3. Fetch Pages + connected IG accounts
-            r = await c.get(f"{GRAPH}/me/accounts", params={
-                "fields": "id,name,access_token,instagram_business_account",
-                "access_token": long["access_token"],
-            })
-            pages = r.json()
-        page = next((p for p in pages.get("data", []) if p.get("instagram_business_account")), None)
-        if not page:
-            return HTMLResponse(
-                "<h1>No Instagram Business account found</h1>"
-                "<p>Make sure your Instagram is Business or Creator and linked to a Facebook Page you admin.</p>",
-                status_code=400,
-            )
+                return HTMLResponse(f"<h1>Long-lived exchange failed</h1><pre>{long}</pre>{back}", status_code=400)
+            r = await c.get(f"{GRAPH}/me", params={"fields": "user_id,username", "access_token": long["access_token"]})
+            me = r.json()
+        if "user_id" not in me:
+            return HTMLResponse(f"<h1>Couldn't read your Instagram account</h1><pre>{me}</pre>{back}", status_code=400)
+        now = datetime.now(timezone.utc)
         await db.ig_connection.replace_one({"_id": "default"}, {
             "_id": "default",
-            "page_id": page["id"],
-            "page_name": page.get("name"),
-            "ig_user_id": page["instagram_business_account"]["id"],
-            "page_access_token": page["access_token"],
-            "connected_at": datetime.now(timezone.utc),
+            "ig_user_id": str(me["user_id"]),
+            "username": me.get("username"),
+            "access_token": long["access_token"],
+            "token_expires_at": now + timedelta(seconds=int(long.get("expires_in", 5184000))),
+            "token_refreshed_at": now,
+            "connected_at": now,
         }, upsert=True)
         return RedirectResponse(f"{FRONTEND_URL}/admin/instagram?connected=1")
 
@@ -931,7 +920,7 @@ def make_router(db):
             posts.append(p)
         return {
             "connected": bool(conn),
-            "page_name": conn.get("page_name") if conn else None,
+            "page_name": f"@{conn.get('username')}" if conn else None,
             "ig_user_id": conn.get("ig_user_id") if conn else None,
             "posts": posts,
         }
@@ -1077,6 +1066,31 @@ def register_public_image_route(app, db):
 
 
 # ────────────────────────── worker ─────────────────────────
+async def _maybe_refresh_token(db, conn: dict) -> dict:
+    """Long-lived IG tokens last 60 days; refresh once they're >24h old.
+    Runs before every publish (3x/week) so the token never lapses."""
+    last = conn.get("token_refreshed_at")
+    if last and last.tzinfo is None:
+        last = last.replace(tzinfo=timezone.utc)
+    if last and datetime.now(timezone.utc) - last < timedelta(days=1):
+        return conn
+    try:
+        async with httpx.AsyncClient(timeout=30) as c:
+            r = await c.get("https://graph.instagram.com/refresh_access_token", params={
+                "grant_type": "ig_refresh_token", "access_token": conn["access_token"],
+            })
+        data = r.json()
+    except Exception:  # noqa: BLE001
+        return conn
+    if "access_token" not in data:
+        return conn
+    now = datetime.now(timezone.utc)
+    upd = {"access_token": data["access_token"], "token_refreshed_at": now,
+           "token_expires_at": now + timedelta(seconds=int(data.get("expires_in", 5184000)))}
+    await db.ig_connection.update_one({"_id": "default"}, {"$set": upd})
+    return {**conn, **upd}
+
+
 async def _run_post(db, run_id: str, manual: bool = False, media_format: str | None = None) -> None:
     """Full publish flow — writes a row to `ig_posts` with every state
     transition so the admin page can show progress. Handles FEED, REEL
@@ -1121,16 +1135,17 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
 
         # 2. Load Instagram connection
         conn = await db.ig_connection.find_one({"_id": "default"})
-        if not conn:
+        if not conn or not conn.get("access_token"):
             await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
                 "status": "ERROR", "error": "Instagram not connected"}})
             return
+        conn = await _maybe_refresh_token(db, conn)
 
         # 3. Create media container (carousel: one child per slide, then parent)
         if fmt == "CAROUSEL":
             child_ids = []
             for url in slide_urls:
-                child = await _graph_post(f"/{conn['ig_user_id']}/media", conn["page_access_token"],
+                child = await _graph_post(f"/{conn['ig_user_id']}/media", conn["access_token"],
                                           {"image_url": url, "is_carousel_item": "true"})
                 child_ids.append(child["id"])
             await db.ig_posts.update_one({"run_id": run_id}, {"$set": {"child_container_ids": child_ids}})
@@ -1145,7 +1160,7 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
         else:
             container_params = {"image_url": media_url, "caption": caption}
         container = await _graph_post(f"/{conn['ig_user_id']}/media",
-                                      conn["page_access_token"], container_params)
+                                      conn["access_token"], container_params)
         cid = container.get("id")
         await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
             "container_id": cid, "status": "CONTAINER_CREATED"}})
@@ -1154,7 +1169,7 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
         poll_max = 100 if is_reel else 30
         for _ in range(poll_max):
             await asyncio.sleep(3)
-            s = await _graph_get(f"/{cid}", conn["page_access_token"],
+            s = await _graph_get(f"/{cid}", conn["access_token"],
                                  {"fields": "status_code,status"})
             code = s.get("status_code")
             if code == "FINISHED":
@@ -1170,7 +1185,7 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
 
         # 5. Publish
         result = await _graph_post(f"/{conn['ig_user_id']}/media_publish",
-                                   conn["page_access_token"],
+                                   conn["access_token"],
                                    {"creation_id": cid})
         await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
             "media_id": result.get("id"),

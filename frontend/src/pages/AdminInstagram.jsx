@@ -141,7 +141,7 @@ export default function AdminInstagram() {
           </div>
         ) : (
           <div className="bg-sand border border-border p-5" style={{ borderRadius: "16px" }}>
-            <p className="text-ink/80 text-sm mb-4">Not connected. One-time OAuth gets us a long-lived Page access token.</p>
+            <p className="text-ink/80 text-sm mb-4">Not connected. Sign in with your Instagram professional account once — the app keeps the connection refreshed automatically.</p>
             <button
               onClick={connect}
               disabled={!token || busy}

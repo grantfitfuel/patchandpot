@@ -11,6 +11,14 @@ const FORMATS = [
 ];
 const FORMAT_LABEL = { REEL: "Reel", CAROUSEL: "Carousel", FEED: "Feed" };
 
+const readJson = async (r) => {
+  try {
+    return await r.json();
+  } catch {
+    throw new Error(`The server took too long or hit an error (HTTP ${r.status}). Please try again in a minute.`);
+  }
+};
+
 /**
  * Instagram admin dashboard.
  * - Lets the operator start the OAuth connect flow.
@@ -43,7 +51,7 @@ export default function AdminInstagram() {
     try {
       const r = await fetch(`${API}/instagram/status?token=${encodeURIComponent(token)}`);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      setStatus(await r.json());
+      setStatus(await readJson(r));
     } catch (e) {
       setError(e.message);
     }
@@ -55,7 +63,7 @@ export default function AdminInstagram() {
     setBusy(true); setError("");
     try {
       const r = await fetch(`${API}/instagram/oauth/start?token=${encodeURIComponent(token)}`);
-      const d = await r.json();
+      const d = await readJson(r);
       if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
       window.location.href = d.url;
     } catch (e) {
@@ -66,11 +74,20 @@ export default function AdminInstagram() {
   const doPreview = async (fmt) => {
     setBusy(true); setError(""); setPreview(null);
     try {
+      const q = `token=${encodeURIComponent(token)}`;
       const f = fmt ? `&media_format=${fmt}` : "";
-      const r = await fetch(`${API}/instagram/preview?token=${encodeURIComponent(token)}${f}`, { method: "POST" });
-      const d = await r.json();
-      if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
-      setPreview(d);
+      const r = await fetch(`${API}/instagram/preview?${q}${f}`, { method: "POST" });
+      const job = await readJson(r);
+      if (!r.ok) throw new Error(job.detail || `HTTP ${r.status}`);
+      for (let i = 0; i < 90; i += 1) {
+        await new Promise((res) => setTimeout(res, 3000));
+        const pr = await fetch(`${API}/instagram/preview/${job.preview_id}?${q}`);
+        const d = await readJson(pr);
+        if (!pr.ok) throw new Error(d.detail || `HTTP ${pr.status}`);
+        if (d.status === "DONE") { setPreview(d.result); return; }
+        if (d.status === "ERROR") throw new Error(d.error || "Preview failed");
+      }
+      throw new Error("Preview is taking unusually long — please try again.");
     } catch (e) {
       setError(e.message);
     } finally {
@@ -83,7 +100,7 @@ export default function AdminInstagram() {
     setBusy(true); setError("");
     try {
       const r = await fetch(`${API}/instagram/publish-now?token=${encodeURIComponent(token)}`, { method: "POST" });
-      const d = await r.json();
+      const d = await readJson(r);
       if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
       setFlash(`Queued (run ${d.run_id}). Refresh in ~30s to see status.`);
       setTimeout(loadStatus, 8000);

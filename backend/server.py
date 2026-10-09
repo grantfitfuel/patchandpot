@@ -182,7 +182,11 @@ async def lifespan(_app: FastAPI):
     except Exception as e:  # noqa: BLE001
         logger.warning("DB indexes setup failed: %s", e)
 
-    from routers.instagram import pregenerate_seasonal_bgs
+    from routers.instagram import mark_interrupted_posts, pregenerate_seasonal_bgs
+    try:
+        await mark_interrupted_posts(db)
+    except Exception as e:  # noqa: BLE001
+        logger.warning("ig interrupted-post cleanup failed: %s", e)
     asyncio.create_task(pregenerate_seasonal_bgs(db))
 
     yield

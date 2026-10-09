@@ -1564,3 +1564,14 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - The OAuth flow now goes instagram.com/oauth/authorize (scopes instagram_business_basic, instagram_business_content_publish) → api.instagram.com code exchange → graph.instagram.com long-lived token. Publishing goes through graph.instagram.com/v26.0. The token auto-refreshes before each publish once it's more than 24h old.
 - Redirect URI: https://patchandpot.app/api/instagram/oauth/callback (must be saved in the Instagram business login settings).
 - META_APP_ID / META_APP_SECRET are no longer used.
+
+## 2026-06 — Prod Reel OOM fix
+- The deployer RCA found the tier_0 pods (512Mi, 250m CPU) were OOMKilled while rendering Reels. The posts were left at COMPOSING, and preview returned a non-JSON 502, which Safari shows as "string did not match the expected pattern".
+- Fixes:
+  - x264 now runs with 1 thread, no lookahead, no B-frames: ffmpeg memory 391MB → 79MB, Reel peak ~390MB total.
+  - The background is pre-tinted/pre-blurred once (render about 2x faster).
+  - The encode runs in asyncio.to_thread, with a semaphore of 1 per pod.
+  - Previews are async jobs: POST /api/instagram/preview → {preview_id}, then poll GET /api/instagram/preview/{id}. Jobs live in the ig_previews collection with a 1h TTL.
+  - On startup, stuck COMPOSING/READY/CONTAINER_CREATED posts are marked ERROR.
+  - The admin UI shows a friendly message when the server sends back non-JSON.
+- Instagram is connected in prod as @patchandpot (IG user 17841476162761771).

@@ -309,6 +309,14 @@ async def _get_or_generate_bg(db, slug: str, orientation: str, season: str | Non
         return png
 
 
+async def mark_interrupted_posts(db) -> None:
+    """A restart kills in-flight publish tasks; don't leave them 'COMPOSING' forever."""
+    await db.ig_posts.update_many(
+        {"status": {"$in": ["COMPOSING", "READY", "CONTAINER_CREATED"]}},
+        {"$set": {"status": "ERROR", "error": "Interrupted by a server restart — tap Publish now to retry."}},
+    )
+
+
 PREGEN_STATE: dict[str, Any] = {"running": False, "total": 0, "done": 0, "failed": [], "started_at": None, "finished_at": None}
 
 
@@ -582,28 +590,38 @@ async def _compose_reel(db, slug: str, eyebrow: str, title: str, body: str, vari
     title_lines = _wrap_lines(scratch_draw, title, title_font, W - 180)[:4]
     body_lines = _wrap_lines(scratch_draw, body, body_font, W - 180)[:6]
 
+    # Pre-tint and pre-blur the background ONCE; frames only crop + resize.
+    panel_y = int(H * 0.60)
+    if bg_img is not None:
+        full = (0, 0, bg_img.width, bg_img.height)
+        bg_dark = _blur_overlay(bg_img, full, PALETTE["ink"], 55, blur=0)
+        bg_soft = _blur_overlay(bg_dark, full, PALETTE["forest"], 160, blur=15)
+        static = None
+    else:
+        static = Image.new("RGB", (W, H), PALETTE[variant])
+        d0 = ImageDraw.Draw(static)
+        dot = PALETTE["sand"] if variant != "sand" else PALETTE["forest"]
+        for y in range(0, H, 36):
+            for x in range(0, W, 36):
+                d0.ellipse([(x, y), (x + 3, y + 3)], fill=dot)
+        static = _blur_overlay(static, (0, 0, W, H), PALETTE["ink"], 55, blur=0)
+        static = _blur_overlay(static, (0, panel_y, W, H), PALETTE["forest"], 160, blur=14)
+
     def render_frame(f: int) -> np.ndarray:
         t = f / FPS
-        # 1. Base — watercolour with Ken Burns, OR flat palette fallback.
-        if bg_img is not None:
-            zoom = 1.0 + 0.04 * (t / DUR)  # subtle 0 → 4% zoom
+        # 1. Base — Ken Burns crop of the pre-processed watercolour.
+        if static is None:
+            zoom = 1.0 + 0.04 * (t / DUR)
             crop_w = int(bg_img.width / zoom)
             crop_h = int(bg_img.height / zoom)
-            # Pan: drift top-left to centre as time progresses.
             ox = int((bg_img.width - crop_w) * (t / DUR) * 0.6)
             oy = int((bg_img.height - crop_h) * (t / DUR) * 0.4)
-            frame = bg_img.crop((ox, oy, ox + crop_w, oy + crop_h)).resize((W, H), Image.LANCZOS)
+            box = (ox, oy, ox + crop_w, oy + crop_h)
+            frame = bg_dark.crop(box).resize((W, H), Image.BILINEAR)
+            soft = bg_soft.crop(box).resize((W, H), Image.BILINEAR)
+            frame.paste(soft.crop((0, panel_y, W, H)), (0, panel_y))
         else:
-            frame = Image.new("RGB", (W, H), PALETTE[variant])
-            d0 = ImageDraw.Draw(frame)
-            dot = PALETTE["sand"] if variant != "sand" else PALETTE["forest"]
-            for y in range(0, H, 36):
-                for x in range(0, W, 36):
-                    d0.ellipse([(x, y), (x + 3, y + 3)], fill=dot)
-
-        # 2. Warm darken overlay (full + stronger lower half).
-        frame = _blur_overlay(frame, (0, 0, W, H), PALETTE["ink"], 55, blur=0)
-        frame = _blur_overlay(frame, (0, int(H * 0.60), W, H), PALETTE["forest"], 160, blur=14)
+            frame = static.copy()
         d = ImageDraw.Draw(frame)
 
         # Accent bar (fade in 0 → 0.4s).
@@ -651,13 +669,22 @@ async def _compose_reel(db, slug: str, eyebrow: str, title: str, body: str, vari
 
         return np.asarray(frame)
 
+    return await asyncio.to_thread(_encode_reel, render_frame, N_FRAMES, FPS, DUR)
+
+
+def _encode_reel(render_frame, n_frames: int, fps: int, dur: int) -> bytes:
+    """CPU-heavy encode — runs in a worker thread so the API stays responsive."""
+    FPS, DUR, N_FRAMES = fps, dur, n_frames
     tmpdir = tempfile.mkdtemp(prefix="ig_reel_")
     raw_mp4 = os.path.join(tmpdir, "silent.mp4")
     final_mp4 = os.path.join(tmpdir, "reel.mp4")
     try:
         with imageio.get_writer(
             raw_mp4, fps=FPS, codec="libx264", macro_block_size=1,
-            ffmpeg_params=["-pix_fmt", "yuv420p", "-movflags", "+faststart"],
+            pixelformat="yuv420p", ffmpeg_params=[
+                "-movflags", "+faststart", "-preset", "faster", "-crf", "21", "-threads", "1",
+                "-x264-params", "rc-lookahead=0:threads=1:bframes=0:ref=1",
+            ],
         ) as writer:
             for f in range(N_FRAMES):
                 writer.append_data(render_frame(f))
@@ -812,12 +839,16 @@ def _pick_content(now: datetime, media_format: str | None = None) -> dict:
     return content
 
 
+_REEL_SEM = asyncio.Semaphore(1)
+
+
 async def _compose_media(db, content: dict) -> tuple[list[bytes], str]:
     """Compose media for a picked content slot. Returns (bytes list, mime)."""
     args = (db, content["slug"], content["eyebrow"], content["title"])
     fmt, season = content["media_format"], content["season"]
     if fmt == "REEL":
-        return [await _compose_reel(*args, content["body_hint"], content["variant"], season)], "video/mp4"
+        async with _REEL_SEM:  # one heavy render per pod keeps us under the memory limit
+            return [await _compose_reel(*args, content["body_hint"], content["variant"], season)], "video/mp4"
     if fmt == "CAROUSEL":
         tips = await _write_tips(content["title"], content["body_hint"], season, content.get("intro", ""))
         content["tips"] = tips
@@ -926,25 +957,46 @@ def make_router(db):
         }
 
     # ─── Preview a post (admin, no publish) ────────────────────────
+    async def _build_preview(pid: str, media_format: str | None):
+        try:
+            now = datetime.now(timezone.utc)
+            content = _pick_content(now, media_format)
+            paragraph = await _write_caption(content["eyebrow"], content["title"], content["body_hint"])
+            caption = _assemble_caption(paragraph, content["slug"], now)
+            items, mime = await _compose_media(db, content)
+            uris = [f"data:{mime};base64," + base64.b64encode(b).decode() for b in items]
+            content.pop("intro", None)
+            result = {
+                "content": content,
+                "caption": caption,
+                "media_format": content["media_format"],
+                "mime": mime,
+                "media_b64": uris[0],
+                "slides_b64": uris if content["media_format"] == "CAROUSEL" else None,
+                "media_bytes": sum(len(b) for b in items),
+            }
+            await db.ig_previews.update_one({"_id": pid}, {"$set": {"status": "DONE", "result": result}})
+        except Exception as e:  # noqa: BLE001
+            await db.ig_previews.update_one({"_id": pid}, {"$set": {"status": "ERROR", "error": f"{type(e).__name__}: {e}"}})
+
     @router.post("/preview")
     async def preview(token: str = Query(...), media_format: str | None = Query(None)):
+        """Starts a background preview build (Reels can take a while on small
+        pods) — poll GET /preview/{preview_id} for the result."""
         require_admin(token)
-        now = datetime.now(timezone.utc)
-        content = _pick_content(now, media_format)
-        paragraph = await _write_caption(content["eyebrow"], content["title"], content["body_hint"])
-        caption = _assemble_caption(paragraph, content["slug"], now)
-        items, mime = await _compose_media(db, content)
-        uris = [f"data:{mime};base64," + base64.b64encode(b).decode() for b in items]
-        content.pop("intro", None)
-        return {
-            "content": content,
-            "caption": caption,
-            "media_format": content["media_format"],
-            "mime": mime,
-            "media_b64": uris[0],
-            "slides_b64": uris if content["media_format"] == "CAROUSEL" else None,
-            "media_bytes": sum(len(b) for b in items),
-        }
+        await db.ig_previews.create_index("created_at", expireAfterSeconds=3600)
+        pid = secrets.token_hex(8)
+        await db.ig_previews.insert_one({"_id": pid, "status": "RUNNING", "created_at": datetime.now(timezone.utc)})
+        asyncio.create_task(_build_preview(pid, media_format))
+        return {"preview_id": pid, "status": "RUNNING"}
+
+    @router.get("/preview/{pid}")
+    async def preview_result(pid: str, token: str = Query(...)):
+        require_admin(token)
+        row = await db.ig_previews.find_one({"_id": pid}, {"_id": 0, "created_at": 0})
+        if not row:
+            raise HTTPException(404, "Preview expired — please start a new one.")
+        return row
 
     # ─── Seasonal watercolour library (admin) ──────────────────────
     @router.get("/seasonal-bgs")

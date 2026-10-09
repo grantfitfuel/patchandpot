@@ -82,7 +82,7 @@ MONTHS_UK = [
 # 3-5x the reach of static posts on Instagram's current ranking).
 # Each entry: (content_kind, media_format)
 ROTATION = [
-    ("masterclass", "FEED"),   # Monday — static masterclass teaser
+    ("masterclass", "CAROUSEL"),  # Monday — 3-slide masterclass carousel
     ("seasonal",    "FEED"),   # Wednesday — static seasonal highlight
     ("masterclass", "REEL"),   # Friday — animated reel (5s)
 ]
@@ -120,6 +120,10 @@ HASHTAG_POOLS = {
     "flower-arranging": [
         "#CutFlowerGarden", "#FlowerArranging", "#FloristFromGarden",
         "#BritishFlowers", "#SeasonalFlowers", "#VaseLife", "#FlowerFarmer",
+    ],
+    "plant-care": [
+        "#PlantCare", "#ContainerGardening", "#PotPlants", "#Houseplants",
+        "#WateringTips", "#Repotting", "#PlantParent",
     ],
     "seasonal": [
         # Fallback when a specific sub-pool wasn't picked.
@@ -186,12 +190,38 @@ async def _graph_get(path: str, token: str, params: dict | None = None):
 # (slug, orientation, render_version) so a 3-month campaign only pays
 # the Nano-Banana cost once per content × shape pair.
 _BG_PROMPT_MASTERCLASS = {
-    "propagation":      "glass jars with pothos cuttings rooting in water on a bright windowsill, soft morning light, tiny white root wisps visible, a terracotta pot of fresh compost beside",
-    "pest-control":     "ladybirds on sunlit nasturtium leaves and companion marigolds beside a cabbage, hover-fly in the air, a wildlife-friendly kitchen garden",
-    "no-dig":           "a hand lifting dark crumbly compost over a mulched vegetable bed, lettuces and beetroot foliage in rows, no visible soil disturbance",
-    "weather":          "rain softly beading on broad kale leaves after a shower, pale sky breaking through cloud, raised beds glistening",
-    "flower-arranging": "a stoneware vase on a weathered wooden bench holding freshly-cut dahlias, cosmos and sweet peas, a pair of snips and twine beside",
+    "propagation": {
+        "spring": "glass jars of rooting cuttings on a sunny spring windowsill, seed trays of fresh green seedlings and a terracotta pot of compost beside, blossom branches outside",
+        "summer": "softwood cuttings of lavender and rosemary in a gritty pot on a sun-warmed potting bench, summer flowers blurred behind",
+        "autumn": "a gardener's bench with divided perennial clumps, paper seed envelopes and dried seed heads, russet autumn leaves drifting",
+        "winter": "hardwood cuttings of willow and currant pushed into a deep pot by a frosty greenhouse window, bare branches beyond",
+    },
+    "pest-control": {
+        "spring": "ladybirds on fresh broad bean tops with a few aphids, early marigold seedlings and blossom in a wildlife-friendly spring plot",
+        "summer": "hover-flies over nasturtiums and calendula beside netted cabbages, ladybirds on sunlit leaves in a busy summer kitchen garden",
+        "autumn": "a hedgehog by a leaf pile under rosehips, a log pile and mulched brassica bed in soft autumn light",
+        "winter": "a bug hotel of hollow stems and pine cones in a frosted garden, a robin and blue tit at a feeder above dormant beds",
+    },
+    "plant-care": {
+        "spring": "a watering can and a cluster of freshly repotted plants in terracotta pots on a sunny spring patio",
+        "summer": "potted tomatoes, herbs and geraniums on a sun-drenched balcony with a full watering can and morning dew",
+        "autumn": "pot plants being moved into a sheltered porch, a sack of compost and fallen leaves, warm low autumn light",
+        "winter": "houseplants grouped on a bright winter windowsill with a mister and a pebble tray, frost patterns on the glass",
+    },
+    "seasonal-planting": {
+        "spring": "a vegetable bed being sown in spring sunshine, seed packets, a dibber and rows of pea and lettuce seedlings",
+        "summer": "planting out courgettes and beans into a lush summer bed, a trug of young plants and a watering can",
+        "autumn": "planting garlic cloves and spring bulbs into dark crumbly soil, a basket of bulbs and autumn leaves around",
+        "winter": "bare-root fruit trees and rose bundles waiting by a dug planting hole, light frost on the grass",
+    },
+    "flower-arranging": {
+        "spring": "a stoneware jug of tulips, narcissi and blossom branches on a weathered wooden bench, snips and twine beside",
+        "summer": "a stoneware vase of freshly cut dahlias, cosmos and sweet peas on a sunny wooden bench, snips and twine beside",
+        "autumn": "a rustic arrangement of chrysanthemums, rosehips, seed heads and copper beech leaves in an earthenware pot",
+        "winter": "a winter arrangement of evergreen foliage, hellebores, holly berries and dried hydrangea heads in a pewter jug",
+    },
 }
+SEASONS = ("spring", "summer", "autumn", "winter")
 _BG_PROMPT_SEASONAL = {
     "January":   "bare winter garden with frosted brassicas and a robin on an empty raised bed, pale low sun through bare branches",
     "February":  "chitting seed potatoes in egg trays on a bright, cold windowsill, early tulip shoots in a pot behind",
@@ -215,63 +245,93 @@ _WATERCOLOUR_STYLE = (
 _BG_RENDER_VERSION = 1  # bump to invalidate every cached watercolour
 
 
-async def _get_or_generate_bg(db, slug: str, orientation: str) -> bytes | None:
-    """Return cached (or freshly-generated) painterly watercolour bytes
-    for a given content slug + orientation. Returns None if the LLM key
-    is missing or generation fails — caller falls back to flat palette."""
-    cache = await db.ig_bg_watercolours.find_one({
-        "slug": slug, "orientation": orientation, "v": _BG_RENDER_VERSION,
-    }, {"_id": 0, "png": 1})
-    if cache and cache.get("png"):
-        return cache["png"]
+_BG_LOCKS: dict[tuple, asyncio.Lock] = {}
 
-    key = os.environ.get("EMERGENT_LLM_KEY", "")
-    if not key:
-        return None
 
-    # Resolve the scene prompt from the slug.
-    if slug in _BG_PROMPT_MASTERCLASS:
-        scene = _BG_PROMPT_MASTERCLASS[slug]
-    elif slug.startswith("seasonal-"):
-        month = slug.split("-", 1)[1].title()
-        scene = _BG_PROMPT_SEASONAL.get(month, "a cottage kitchen garden in gentle seasonal light")
+async def _get_or_generate_bg(db, slug: str, orientation: str, season: str | None = None) -> bytes | None:
+    """Return cached (or freshly-generated) watercolour bytes for a slug +
+    orientation (+ season for masterclass slugs). None on failure."""
+    is_mc = slug in _BG_PROMPT_MASTERCLASS
+    if is_mc:
+        season = season or _season_for_month(datetime.now(timezone.utc).month)
     else:
-        scene = "a cottage kitchen garden in gentle seasonal light"
+        season = None
+    q = {"slug": slug, "orientation": orientation, "season": season, "v": _BG_RENDER_VERSION}
+    lock = _BG_LOCKS.setdefault((slug, orientation, season), asyncio.Lock())
+    async with lock:
+        cache = await db.ig_bg_watercolours.find_one(q, {"_id": 0, "png": 1})
+        if cache and cache.get("png"):
+            return cache["png"]
 
-    shape = (
-        "Square 1:1 composition with extra breathing room toward the bottom third for a text overlay"
-        if orientation == "square"
-        else "Vertical 9:16 composition with extra breathing room toward the bottom half for a text overlay"
-    )
-    prompt = f"{_WATERCOLOUR_STYLE} Scene: {scene}. {shape}."
+        key = os.environ.get("EMERGENT_LLM_KEY", "")
+        if not key:
+            return None
+
+        if is_mc:
+            scene = f"{_BG_PROMPT_MASTERCLASS[slug][season]}, unmistakably {season} in a UK garden"
+        elif slug.startswith("seasonal-"):
+            month = slug.split("-", 1)[1].title()
+            scene = _BG_PROMPT_SEASONAL.get(month, "a cottage kitchen garden in gentle seasonal light")
+        else:
+            scene = "a cottage kitchen garden in gentle seasonal light"
+
+        shape = (
+            "Square 1:1 composition with extra breathing room toward the bottom third for a text overlay"
+            if orientation == "square"
+            else "Vertical 9:16 composition with extra breathing room toward the bottom half for a text overlay"
+        )
+        prompt = f"{_WATERCOLOUR_STYLE} Scene: {scene}. {shape}."
+
+        try:
+            from emergentintegrations.llm.chat import LlmChat, UserMessage
+            chat = (
+                LlmChat(api_key=key, session_id=f"ig-bg-{slug}-{orientation}-{season}-{secrets.token_hex(3)}",
+                        system_message="You are an image generation assistant.")
+                .with_model("gemini", "gemini-3.1-flash-image-preview")
+                .with_params(modalities=["image", "text"])
+            )
+            _text, images = await asyncio.wait_for(
+                chat.send_message_multimodal_response(UserMessage(text=prompt)),
+                timeout=90,
+            )
+            png = base64.b64decode(images[0]["data"]) if images else None
+        except Exception:  # noqa: BLE001
+            return None
+        if not png:
+            return None
+        await db.ig_bg_watercolours.update_one(
+            q,
+            {"$set": {**q, "png": png, "updated_at": datetime.now(timezone.utc).isoformat()}},
+            upsert=True,
+        )
+        return png
+
+
+PREGEN_STATE: dict[str, Any] = {"running": False, "total": 0, "done": 0, "failed": [], "started_at": None, "finished_at": None}
+
+
+async def pregenerate_seasonal_bgs(db) -> None:
+    """Background job: make sure every masterclass x season x orientation
+    watercolour exists. Skips cached ones, so it's cheap to re-run."""
+    if PREGEN_STATE["running"]:
+        return
+    combos = [(s, o, se) for s in _BG_PROMPT_MASTERCLASS for se in SEASONS for o in ("square", "vertical")]
+    PREGEN_STATE.update(running=True, total=len(combos), done=0, failed=[],
+                        started_at=datetime.now(timezone.utc).isoformat(), finished_at=None)
+    sem = asyncio.Semaphore(3)
+
+    async def one(slug, orientation, season):
+        async with sem:
+            png = await _get_or_generate_bg(db, slug, orientation, season)
+        if png:
+            PREGEN_STATE["done"] += 1
+        else:
+            PREGEN_STATE["failed"].append(f"{slug}/{season}/{orientation}")
 
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-        chat = (
-            LlmChat(api_key=key, session_id=f"ig-bg-{slug}-{orientation}",
-                    system_message="You are an image generation assistant.")
-            .with_model("gemini", "gemini-3.1-flash-image-preview")
-            .with_params(modalities=["image", "text"])
-        )
-        _text, images = await asyncio.wait_for(
-            chat.send_message_multimodal_response(UserMessage(text=prompt)),
-            timeout=60,
-        )
-    except Exception:  # noqa: BLE001
-        return None
-    if not images:
-        return None
-    try:
-        png = base64.b64decode(images[0]["data"])
-    except Exception:  # noqa: BLE001
-        return None
-    await db.ig_bg_watercolours.update_one(
-        {"slug": slug, "orientation": orientation, "v": _BG_RENDER_VERSION},
-        {"$set": {"slug": slug, "orientation": orientation, "v": _BG_RENDER_VERSION,
-                  "png": png, "updated_at": datetime.now(timezone.utc).isoformat()}},
-        upsert=True,
-    )
-    return png
+        await asyncio.gather(*(one(*c) for c in combos))
+    finally:
+        PREGEN_STATE.update(running=False, finished_at=datetime.now(timezone.utc).isoformat())
 
 
 async def _graph_post(path: str, token: str, params: dict):
@@ -332,31 +392,37 @@ def _blur_overlay(img: Image.Image, box: tuple[int, int, int, int], tint: tuple[
     return out
 
 
-async def _compose_card(db, slug: str, eyebrow: str, title: str, body: str, variant: str = "forest") -> bytes:
-    """Compose a 1080×1080 square JPEG, laying a translucent warm panel
-    over a Nano-Banana watercolour background. Falls back to the brand
-    flat-colour aesthetic if the watercolour can't be generated."""
+async def _square_base(db, slug: str, variant: str, season: str | None) -> Image.Image:
+    """1080² watercolour (or flat-palette fallback) to build square slides on."""
     size = 1080
-    bg_bytes = await _get_or_generate_bg(db, slug, "square")
+    img = None
+    bg_bytes = await _get_or_generate_bg(db, slug, "square", season)
     if bg_bytes:
         try:
-            img = Image.open(io.BytesIO(bg_bytes)).convert("RGB")
-            # Nano Banana usually returns a close-to-square image. Force 1080².
-            img = img.resize((size, size), Image.LANCZOS)
-        except Exception:
+            img = Image.open(io.BytesIO(bg_bytes)).convert("RGB").resize((size, size), Image.LANCZOS)
+        except Exception:  # noqa: BLE001
             img = None
-    else:
-        img = None
-
     if img is None:
-        # Fallback — original flat palette with dot texture.
-        bg = PALETTE[variant]
-        img = Image.new("RGB", (size, size), bg)
+        img = Image.new("RGB", (size, size), PALETTE[variant])
         d = ImageDraw.Draw(img)
         dot = PALETTE["sand"] if variant != "sand" else PALETTE["forest"]
         for y in range(0, size, 28):
             for x in range(0, size, 28):
                 d.ellipse([(x, y), (x + 2, y + 2)], fill=dot)
+    return img
+
+
+def _to_jpeg(img: Image.Image) -> bytes:
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=88, optimize=True)
+    return buf.getvalue()
+
+
+async def _compose_card(db, slug: str, eyebrow: str, title: str, body: str, variant: str = "forest",
+                        season: str | None = None) -> bytes:
+    """1080×1080 JPEG: warm text panel over the watercolour background."""
+    size = 1080
+    img = await _square_base(db, slug, variant, season)
 
     # Darken the whole image slightly so text pops; apply a stronger
     # warm panel on the bottom third for the body + brand footer.
@@ -393,13 +459,86 @@ async def _compose_card(db, slug: str, eyebrow: str, title: str, body: str, vari
     # Footer brand.
     foot_font = _font(30)
     d.text((72, size - 86), "patchandpot.app", font=foot_font, fill=PALETTE["butter"])
-
-    buf = io.BytesIO()
-    img.save(buf, format="JPEG", quality=88, optimize=True)
-    return buf.getvalue()
+    return _to_jpeg(img)
 
 
-async def _compose_reel(db, slug: str, eyebrow: str, title: str, body: str, variant: str = "forest") -> bytes:
+def _slide_counter(d: ImageDraw.ImageDraw, idx: int, total: int = 3) -> None:
+    f = _font(26)
+    label = f"{idx}/{total}"
+    w = d.textlength(label, font=f)
+    d.rounded_rectangle([(1080 - 72 - w - 32, 64), (1080 - 72, 112)], radius=24, fill=PALETTE["ink"])
+    d.text((1080 - 72 - w - 16, 74), label, font=f, fill=PALETTE["sand"])
+
+
+async def _compose_carousel(db, slug: str, eyebrow: str, title: str, tips: list[str],
+                            variant: str = "forest", season: str | None = None) -> list[bytes]:
+    """3 square slides: cover (title) → tips → CTA. Same seasonal painting,
+    three different treatments so the swipe feels like a story."""
+    size = 1080
+    base = await _square_base(db, slug, variant, season)
+
+    # 1 — Cover: painting stays crisp, title on top band.
+    crisp = _blur_overlay(base, (0, 0, size, size), PALETTE["ink"], 50, blur=0)
+    soft = _blur_overlay(crisp, (0, 0, size, size), PALETTE["forest"], 130, blur=10)
+    mask = Image.linear_gradient("L").rotate(180).resize((size, size))
+    mask = mask.point(lambda v: max(0, min(255, int((v - 90) * 3))))
+    s1 = Image.composite(soft, crisp, mask)
+    d = ImageDraw.Draw(s1)
+    d.rectangle([(72, 72), (160, 82)], fill=PALETTE["terracotta"])
+    d.text((72, 108), eyebrow.upper(), font=_font(30), fill=PALETTE["butter"])
+    tf = _font(88)
+    y = 168
+    for line in _wrap_lines(d, title, tf, size - 144)[:3]:
+        d.text((74, y + 2), line, font=tf, fill=PALETTE["ink"])
+        d.text((72, y), line, font=tf, fill=PALETTE["sand"])
+        y += 98
+    _slide_counter(d, 1)
+    sw = _font(32)
+    d.rounded_rectangle([(72, size - 132), (392, size - 68)], radius=32, fill=PALETTE["terracotta"])
+    d.text((104, size - 118), "Swipe for tips  →", font=sw, fill=PALETTE["sand"])
+
+    # 2 — Tips: heavily blurred, sand-tinted panel for legibility.
+    s2 = _blur_overlay(base, (0, 0, size, size), PALETTE["sand"], 215, blur=22)
+    d = ImageDraw.Draw(s2)
+    d.text((72, 96), f"{season.upper() + ' ' if season else ''}QUICK TIPS", font=_font(30), fill=PALETTE["terracotta"])
+    d.text((72, 140), title, font=_font(52), fill=PALETTE["forest"])
+    bf = _font(38)
+    y = 260
+    for i, tip in enumerate(tips[:3], start=1):
+        d.ellipse([(72, y), (136, y + 64)], fill=PALETTE["forest"])
+        n = str(i)
+        d.text((104 - d.textlength(n, font=_font(34)) / 2, y + 12), n, font=_font(34), fill=PALETTE["butter"])
+        lines = _wrap_lines(d, tip, bf, size - 72 - 168)[:4]
+        ty = y + 8
+        for line in lines:
+            d.text((168, ty), line, font=bf, fill=PALETTE["ink"])
+            ty += 48
+        y = max(y + 96, ty + 40)
+    d.text((72, size - 86), "patchandpot.app", font=_font(30), fill=PALETTE["moss"])
+    _slide_counter(d, 2)
+
+    # 3 — CTA: forest panel, butter headline, terracotta link-in-bio pill.
+    s3 = _blur_overlay(base, (0, 0, size, size), PALETTE["forest"], 175, blur=16)
+    d = ImageDraw.Draw(s3)
+    d.rectangle([(72, 300), (160, 310)], fill=PALETTE["terracotta"])
+    hf = _font(92)
+    y = 340
+    for line in ["Plan your", "patch free"]:
+        d.text((72, y), line, font=hf, fill=PALETTE["sand"])
+        y += 104
+    d.text((72, y + 16), "at patchandpot.app", font=_font(52), fill=PALETTE["butter"])
+    pf = _font(36)
+    label = "Link in bio  ↑"
+    w = d.textlength(label, font=pf)
+    d.rounded_rectangle([(72, y + 130), (72 + w + 64, y + 206)], radius=38, fill=PALETTE["terracotta"])
+    d.text((104, y + 148), label, font=pf, fill=PALETTE["sand"])
+    _slide_counter(d, 3)
+
+    return [_to_jpeg(s1), _to_jpeg(s2), _to_jpeg(s3)]
+
+
+async def _compose_reel(db, slug: str, eyebrow: str, title: str, body: str, variant: str = "forest",
+                        season: str | None = None) -> bytes:
     """Compose a 1080×1920 vertical MP4 for Instagram Reels, using a
     Nano-Banana watercolour background with a slow Ken Burns zoom and
     animated text layered over a warm panel. Falls back to the flat
@@ -415,7 +554,7 @@ async def _compose_reel(db, slug: str, eyebrow: str, title: str, body: str, vari
     N_FRAMES = DUR * FPS
 
     # Load or fall back on the watercolour.
-    bg_bytes = await _get_or_generate_bg(db, slug, "vertical")
+    bg_bytes = await _get_or_generate_bg(db, slug, "vertical", season)
     if bg_bytes:
         try:
             bg_img = Image.open(io.BytesIO(bg_bytes)).convert("RGB")
@@ -573,6 +712,33 @@ async def _write_caption(subject: str, title: str, body_hint: str) -> str:
         return fallback
 
 
+async def _write_tips(title: str, body_hint: str, season: str, fallback_text: str) -> list[str]:
+    """Three short, season-aware tips for carousel slide 2."""
+    import re
+    sentences = [x.strip() for x in re.split(r"(?<=[.!?])\s+", f"{body_hint} {fallback_text}") if x.strip()]
+    fallback = (sentences + ["Little and often beats a big weekend blitz."] * 3)[:3]
+    key = os.environ.get("EMERGENT_LLM_KEY", "")
+    if not key:
+        return fallback
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    chat = LlmChat(api_key=key, session_id=f"ig-tips-{secrets.token_hex(4)}",
+                   system_message=(
+                       "You write ultra-short practical gardening tips for UK Instagram carousels. "
+                       "UK English, no emojis, no hashtags, no numbering. Each tip max 14 words. "
+                       "Return exactly 3 lines, one tip per line, nothing else."
+                   ))
+    chat.with_model("anthropic", "claude-sonnet-4-5-20250929")
+    chat.with_params(max_tokens=200)
+    try:
+        resp = await asyncio.wait_for(chat.send_message(UserMessage(
+            text=f"Topic: {title}. Season: {season} (UK). Context: {body_hint}"
+        )), timeout=25)
+        tips = [t.strip(" -•*0123456789.").strip() for t in resp.strip().splitlines() if t.strip()]
+        return tips[:3] if len(tips) >= 3 else fallback
+    except Exception:  # noqa: BLE001
+        return fallback
+
+
 def _assemble_caption(paragraph: str, content_slug: str, now: datetime) -> str:
     """Glue the LLM paragraph together with brand URL + fresh hashtag line."""
     # Per-post RNG seeded on the public-id-ish; this makes it stable
@@ -593,6 +759,7 @@ def _pick_masterclass(week_num: int) -> dict:
         "eyebrow": "Masterclass",
         "title": mc["title"].replace(" Masterclass", "").strip(),
         "body_hint": mc.get("tagline") or mc.get("intro", "")[:200],
+        "intro": mc.get("intro", ""),
         "link": f"patchandpot.app/masterclasses",
         "variant": "forest",
     }
@@ -628,16 +795,32 @@ def _pick_seasonal(now: datetime) -> dict:
     }
 
 
-def _pick_content(now: datetime) -> dict:
-    """Rotate by weekday within Mon/Wed/Fri. Returns a dict including
-    both the content kind and the Instagram media format (FEED/REEL)."""
-    weekday = now.weekday()  # Mon=0, Wed=2, Fri=4
-    idx = {0: 0, 2: 1, 4: 2}.get(weekday, 0)
+def _pick_content(now: datetime, media_format: str | None = None) -> dict:
+    """Rotate by weekday (Mon carousel / Wed feed / Fri reel). Pass
+    media_format to force a slot (admin previews)."""
+    if media_format in {f for _, f in ROTATION}:
+        kind = next(k for k, f in ROTATION if f == media_format)
+    else:
+        idx = {0: 0, 2: 1, 4: 2}.get(now.weekday(), 0)
+        kind, media_format = ROTATION[idx]
     week_num = int(now.strftime("%W"))
-    kind, media_format = ROTATION[idx]
     content = _pick_masterclass(week_num) if kind == "masterclass" else _pick_seasonal(now)
     content["media_format"] = media_format
+    content["season"] = _season_for_month(now.month)
     return content
+
+
+async def _compose_media(db, content: dict) -> tuple[list[bytes], str]:
+    """Compose media for a picked content slot. Returns (bytes list, mime)."""
+    args = (db, content["slug"], content["eyebrow"], content["title"])
+    fmt, season = content["media_format"], content["season"]
+    if fmt == "REEL":
+        return [await _compose_reel(*args, content["body_hint"], content["variant"], season)], "video/mp4"
+    if fmt == "CAROUSEL":
+        tips = await _write_tips(content["title"], content["body_hint"], season, content.get("intro", ""))
+        content["tips"] = tips
+        return await _compose_carousel(*args, tips, content["variant"], season), "image/jpeg"
+    return [await _compose_card(*args, content["body_hint"], content["variant"], season)], "image/jpeg"
 
 
 # ────────────────────────── router factory ─────────────────────────
@@ -727,7 +910,7 @@ def make_router(db):
     async def status(token: str = Query(...)):
         require_admin(token)
         conn = await db.ig_connection.find_one({"_id": "default"})
-        posts_cur = db.ig_posts.find({}, {"image_b64": 0}).sort("created_at", -1).limit(20)
+        posts_cur = db.ig_posts.find({}, {"image_b64": 0, "video_b64": 0, "slides_b64": 0}).sort("created_at", -1).limit(20)
         posts = []
         async for p in posts_cur:
             p["_id"] = str(p["_id"])
@@ -745,38 +928,64 @@ def make_router(db):
 
     # ─── Preview a post (admin, no publish) ────────────────────────
     @router.post("/preview")
-    async def preview(token: str = Query(...)):
+    async def preview(token: str = Query(...), media_format: str | None = Query(None)):
         require_admin(token)
         now = datetime.now(timezone.utc)
-        content = _pick_content(now)
+        content = _pick_content(now, media_format)
         paragraph = await _write_caption(content["eyebrow"], content["title"], content["body_hint"])
         caption = _assemble_caption(paragraph, content["slug"], now)
-        is_reel = content["media_format"] == "REEL"
-        if is_reel:
-            media_bytes = await _compose_reel(
-                db, content["slug"], content["eyebrow"], content["title"],
-                content["body_hint"], content["variant"],
-            )
-            mime = "video/mp4"
-            media_b64 = "data:video/mp4;base64," + base64.b64encode(media_bytes).decode()
-        else:
-            media_bytes = await _compose_card(
-                db, content["slug"], content["eyebrow"], content["title"],
-                content["body_hint"], content["variant"],
-            )
-            mime = "image/jpeg"
-            media_b64 = "data:image/jpeg;base64," + base64.b64encode(media_bytes).decode()
+        items, mime = await _compose_media(db, content)
+        uris = [f"data:{mime};base64," + base64.b64encode(b).decode() for b in items]
+        content.pop("intro", None)
         return {
             "content": content,
             "caption": caption,
             "media_format": content["media_format"],
             "mime": mime,
-            "media_b64": media_b64,
-            "media_bytes": len(media_bytes),
-            # Legacy fields the old UI used — alias to new values.
-            "image_b64": media_b64 if not is_reel else None,
-            "image_bytes": len(media_bytes),
+            "media_b64": uris[0],
+            "slides_b64": uris if content["media_format"] == "CAROUSEL" else None,
+            "media_bytes": sum(len(b) for b in items),
         }
+
+    # ─── Seasonal watercolour library (admin) ──────────────────────
+    @router.get("/seasonal-bgs")
+    async def seasonal_bgs(token: str = Query(...)):
+        require_admin(token)
+        have = set()
+        async for r in db.ig_bg_watercolours.find(
+            {"v": _BG_RENDER_VERSION, "season": {"$in": list(SEASONS)}},
+            {"_id": 0, "slug": 1, "season": 1, "orientation": 1},
+        ):
+            have.add((r["slug"], r["season"], r["orientation"]))
+        grid = [
+            {"slug": s, "season": se, "square": (s, se, "square") in have, "vertical": (s, se, "vertical") in have}
+            for s in _BG_PROMPT_MASTERCLASS for se in SEASONS
+        ]
+        return {"job": PREGEN_STATE, "grid": grid, "current_season": _season_for_month(datetime.now(timezone.utc).month)}
+
+    @router.post("/seasonal-bgs/pregenerate")
+    async def seasonal_bgs_pregenerate(token: str = Query(...)):
+        require_admin(token)
+        if not PREGEN_STATE["running"]:
+            asyncio.create_task(pregenerate_seasonal_bgs(db))
+        return {"ok": True, "queued": True}
+
+    @router.get("/seasonal-bgs/thumb")
+    async def seasonal_bg_thumb(token: str = Query(...), slug: str = Query(...), season: str = Query(...),
+                                orientation: str = Query("square")):
+        require_admin(token)
+        row = await db.ig_bg_watercolours.find_one(
+            {"slug": slug, "season": season, "orientation": orientation, "v": _BG_RENDER_VERSION},
+            {"_id": 0, "png": 1},
+        )
+        if not row:
+            raise HTTPException(404, "Not generated yet")
+        img = Image.open(io.BytesIO(row["png"])).convert("RGB")
+        img.thumbnail((360, 360))
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=80)
+        return Response(content=buf.getvalue(), media_type="image/jpeg",
+                        headers={"Cache-Control": "private, max-age=600"})
 
     # ─── Public image route (Meta fetches this) ────────────────────
     @router.get("/public-image/{post_id}")
@@ -810,10 +1019,10 @@ def make_router(db):
 
     # ─── Manual publish (admin) ────────────────────────────────────
     @router.post("/publish-now")
-    async def publish_now(token: str = Query(...)):
+    async def publish_now(token: str = Query(...), media_format: str | None = Query(None)):
         require_admin(token)
         run_id = secrets.token_hex(8)
-        asyncio.create_task(_run_post(db, run_id, manual=True))
+        asyncio.create_task(_run_post(db, run_id, manual=True, media_format=media_format))
         return {"ok": True, "run_id": run_id, "queued": True}
 
     return router
@@ -832,6 +1041,17 @@ def register_public_image_route(app, db):
             "Cache-Control": "public, max-age=3600",
         })
 
+    @app.get("/api/public-image/{post_id}/{idx}")
+    async def public_carousel_slide(post_id: str, idx: int):
+        """PUBLIC — carousel slide JPEGs for Meta."""
+        row = await db.ig_posts.find_one({"public_id": post_id}, {"slides_b64": 1})
+        slides = (row or {}).get("slides_b64") or []
+        if not 0 <= idx < len(slides):
+            raise HTTPException(404, "Not found")
+        return Response(content=base64.b64decode(slides[idx]), media_type="image/jpeg", headers={
+            "Cache-Control": "public, max-age=3600",
+        })
+
     @app.get("/api/public-video/{post_id}")
     async def public_video(post_id: str):
         """PUBLIC — Meta hits this to download Reel MP4s. Same unguessable
@@ -847,14 +1067,15 @@ def register_public_image_route(app, db):
 
 
 # ────────────────────────── worker ─────────────────────────
-async def _run_post(db, run_id: str, manual: bool = False) -> None:
+async def _run_post(db, run_id: str, manual: bool = False, media_format: str | None = None) -> None:
     """Full publish flow — writes a row to `ig_posts` with every state
-    transition so the admin page can show progress. Handles both FEED
-    (static JPEG) and REEL (MP4) posts."""
+    transition so the admin page can show progress. Handles FEED, REEL
+    and CAROUSEL posts."""
     now = datetime.now(timezone.utc)
-    content = _pick_content(now)
+    content = _pick_content(now, media_format)
     public_id = secrets.token_urlsafe(24)
-    is_reel = content["media_format"] == "REEL"
+    fmt = content["media_format"]
+    is_reel = fmt == "REEL"
     post_doc = {
         "run_id": run_id,
         "public_id": public_id,
@@ -862,7 +1083,8 @@ async def _run_post(db, run_id: str, manual: bool = False) -> None:
         "eyebrow": content["eyebrow"],
         "title": content["title"],
         "variant": content["variant"],
-        "media_format": content["media_format"],
+        "season": content["season"],
+        "media_format": fmt,
         "manual": manual,
         "created_at": now,
         "status": "COMPOSING",
@@ -870,34 +1092,22 @@ async def _run_post(db, run_id: str, manual: bool = False) -> None:
     await db.ig_posts.insert_one(post_doc)
 
     try:
-        # 1. Compose media + caption (compose off the event loop)
+        # 1. Compose media + caption
         paragraph = await _write_caption(content["eyebrow"], content["title"], content["body_hint"])
         caption = _assemble_caption(paragraph, content["slug"], now)
+        items, _mime = await _compose_media(db, content)
+        update: dict[str, Any] = {"caption": caption, "status": "READY"}
         if is_reel:
-            mp4 = await _compose_reel(
-                db, content["slug"], content["eyebrow"], content["title"],
-                content["body_hint"], content["variant"],
-            )
             media_url = f"{PUBLIC_API_BASE}/api/public-video/{public_id}"
-            await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
-                "video_b64": base64.b64encode(mp4).decode(),
-                "video_bytes": len(mp4),
-                "caption": caption,
-                "video_url": media_url,
-                "status": "READY",
-            }})
+            update.update(video_b64=base64.b64encode(items[0]).decode(), video_bytes=len(items[0]), video_url=media_url)
+        elif fmt == "CAROUSEL":
+            slide_urls = [f"{PUBLIC_API_BASE}/api/public-image/{public_id}/{i}" for i in range(len(items))]
+            update.update(slides_b64=[base64.b64encode(b).decode() for b in items],
+                          slide_urls=slide_urls, tips=content.get("tips"))
         else:
-            jpeg = await _compose_card(
-                db, content["slug"], content["eyebrow"], content["title"],
-                content["body_hint"], content["variant"],
-            )
             media_url = f"{PUBLIC_API_BASE}/api/public-image/{public_id}"
-            await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
-                "image_b64": base64.b64encode(jpeg).decode(),
-                "caption": caption,
-                "image_url": media_url,
-                "status": "READY",
-            }})
+            update.update(image_b64=base64.b64encode(items[0]).decode(), image_url=media_url)
+        await db.ig_posts.update_one({"run_id": run_id}, {"$set": update})
 
         # 2. Load Instagram connection
         conn = await db.ig_connection.find_one({"_id": "default"})
@@ -906,8 +1116,16 @@ async def _run_post(db, run_id: str, manual: bool = False) -> None:
                 "status": "ERROR", "error": "Instagram not connected"}})
             return
 
-        # 3. Create media container
-        if is_reel:
+        # 3. Create media container (carousel: one child per slide, then parent)
+        if fmt == "CAROUSEL":
+            child_ids = []
+            for url in slide_urls:
+                child = await _graph_post(f"/{conn['ig_user_id']}/media", conn["page_access_token"],
+                                          {"image_url": url, "is_carousel_item": "true"})
+                child_ids.append(child["id"])
+            await db.ig_posts.update_one({"run_id": run_id}, {"$set": {"child_container_ids": child_ids}})
+            container_params = {"media_type": "CAROUSEL", "children": ",".join(child_ids), "caption": caption}
+        elif is_reel:
             container_params = {
                 "media_type": "REELS",
                 "video_url": media_url,

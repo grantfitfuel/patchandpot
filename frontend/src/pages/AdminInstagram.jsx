@@ -1,6 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { API } from "@/lib/api";
+import { IgSeasonalLibrary } from "@/components/admin/IgSeasonalLibrary";
+import { IgPreviewMedia } from "@/components/admin/IgPreviewMedia";
+
+const FORMATS = [
+  { id: "CAROUSEL", label: "Mon · Carousel" },
+  { id: "FEED", label: "Wed · Feed card" },
+  { id: "REEL", label: "Fri · Reel" },
+];
+const FORMAT_LABEL = { REEL: "Reel", CAROUSEL: "Carousel", FEED: "Feed" };
 
 /**
  * Instagram admin dashboard.
@@ -54,10 +63,11 @@ export default function AdminInstagram() {
     }
   };
 
-  const doPreview = async () => {
+  const doPreview = async (fmt) => {
     setBusy(true); setError(""); setPreview(null);
     try {
-      const r = await fetch(`${API}/instagram/preview?token=${encodeURIComponent(token)}`, { method: "POST" });
+      const f = fmt ? `&media_format=${fmt}` : "";
+      const r = await fetch(`${API}/instagram/preview?token=${encodeURIComponent(token)}${f}`, { method: "POST" });
       const d = await r.json();
       if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
       setPreview(d);
@@ -91,9 +101,9 @@ export default function AdminInstagram() {
         Instagram publisher
       </h1>
       <p className="mt-3 text-ink/75 max-w-2xl">
-        Automated 3x/week posting (Mon/Wed/Fri 09:00 UK). Alternates between
-        a seasonal highlight and a masterclass teaser, with an AI-written
-        caption and a composed 1080×1080 brand card.
+        Automated 3x/week posting at 09:00 UK: Monday 3-slide masterclass
+        carousel, Wednesday seasonal feed card, Friday masterclass Reel. Each
+        masterclass uses a watercolour painted for the current season.
       </p>
 
       {/* Admin token */}
@@ -149,13 +159,24 @@ export default function AdminInstagram() {
         <h2 className="font-serif text-2xl text-forest mb-3">Dry-run / Publish now</h2>
         <div className="flex flex-wrap gap-3">
           <button
-            onClick={doPreview}
+            onClick={() => doPreview()}
             disabled={!token || busy}
             data-testid="admin-ig-preview"
             className="btn-ghost disabled:opacity-50"
           >
-            Preview today's post
+            {busy ? "Composing…" : "Preview today's post"}
           </button>
+          {FORMATS.map((f) => (
+            <button
+              key={f.id}
+              onClick={() => doPreview(f.id)}
+              disabled={!token || busy}
+              data-testid={`admin-ig-preview-${f.id.toLowerCase()}`}
+              className="btn-ghost disabled:opacity-50"
+            >
+              Preview {f.label}
+            </button>
+          ))}
           <button
             onClick={publishNow}
             disabled={!token || busy || !status?.connected}
@@ -167,37 +188,19 @@ export default function AdminInstagram() {
         </div>
         {preview && (
           <div className="mt-6 grid md:grid-cols-2 gap-6 bg-surface border border-border p-5" style={{ borderRadius: "16px" }}>
-            {preview.mime === "video/mp4" ? (
-              <video
-                src={preview.media_b64}
-                controls
-                autoPlay
-                loop
-                muted
-                playsInline
-                data-testid="admin-ig-preview-video"
-                className="w-full rounded"
-                style={{ aspectRatio: "9/16", maxHeight: "600px" }}
-              />
-            ) : (
-              <img
-                src={preview.media_b64 || preview.image_b64}
-                alt="Preview card"
-                data-testid="admin-ig-preview-image"
-                className="w-full aspect-square object-cover rounded"
-              />
-            )}
+            <IgPreviewMedia key={preview.media_b64.slice(-32)} preview={preview} />
             <div>
               <p className="overline">Caption</p>
               <pre className="mt-2 whitespace-pre-wrap text-sm text-ink/85 font-sans">{preview.caption}</pre>
               <p className="mt-4 text-xs text-moss">
-                {preview.media_format === "REEL" ? "📹 Reel · " : "🖼 Feed · "}
-                {preview.content.slug} · {preview.content.variant} · {Math.round((preview.media_bytes || preview.image_bytes) / 1024)}KB
+                {FORMAT_LABEL[preview.media_format]} · {preview.content.slug} · {preview.content.season} · {Math.round(preview.media_bytes / 1024)}KB
               </p>
             </div>
           </div>
         )}
       </section>
+
+      <IgSeasonalLibrary token={token} />
 
       {/* Recent posts */}
       <section className="mt-10">
@@ -207,7 +210,7 @@ export default function AdminInstagram() {
           {(status?.posts || []).map((p) => (
             <li key={p.run_id} className="bg-surface border border-border p-4 rounded flex items-start justify-between gap-4 flex-wrap">
               <div>
-                <p className="text-xs text-moss">{p.created_at} · {p.media_format === "REEL" ? "📹 Reel" : "🖼 Feed"}</p>
+                <p className="text-xs text-moss">{p.created_at} · {FORMAT_LABEL[p.media_format] || "Feed"}{p.season ? ` · ${p.season}` : ""}</p>
                 <p className="font-serif text-forest">{p.eyebrow} — {p.title}</p>
                 {p.error && <p className="text-xs text-terracotta mt-1">{p.error}</p>}
               </div>

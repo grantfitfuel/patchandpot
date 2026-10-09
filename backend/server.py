@@ -10,6 +10,7 @@ Wiring order:
   3. Include every per-feature router (each one is `make_router(db)`).
   4. Wire monthly cron + startup seeding.
 """
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -180,6 +181,9 @@ async def lifespan(_app: FastAPI):
         logger.info("share/plant view TTL + popular-wall indexes ensured")
     except Exception as e:  # noqa: BLE001
         logger.warning("DB indexes setup failed: %s", e)
+
+    from routers.instagram import pregenerate_seasonal_bgs
+    asyncio.create_task(pregenerate_seasonal_bgs(db))
 
     yield
 

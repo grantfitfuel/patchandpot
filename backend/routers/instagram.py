@@ -846,18 +846,28 @@ def make_router(db):
             "state": state,
             "created_at": datetime.now(timezone.utc),
         })
-        q = urlencode({
+        params = {
             "client_id": META_APP_ID,
             "redirect_uri": META_OAUTH_REDIRECT,
             "state": state,
             "response_type": "code",
-            "scope": "instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement",
-        })
+        }
+        # Facebook Login for Business apps need a configuration ID, not a scope list.
+        config_id = os.environ.get("META_LOGIN_CONFIG_ID")
+        if config_id:
+            params["config_id"] = config_id
+        else:
+            params["scope"] = "instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement"
+        q = urlencode(params)
         return {"url": f"https://www.facebook.com/{META_API}/dialog/oauth?{q}"}
 
     # ─── OAuth: callback ───────────────────────────────────────────
     @router.get("/oauth/callback", response_class=HTMLResponse)
-    async def oauth_callback(code: str = Query(...), state: str = Query(...)):
+    async def oauth_callback(state: str = Query(...), code: str | None = Query(None),
+                             error_description: str | None = Query(None)):
+        if not code:
+            return HTMLResponse(f"<h1>Instagram connection cancelled</h1><p>{error_description or 'No code returned by Meta.'}</p>"
+                                f"<p><a href='{FRONTEND_URL}/admin/instagram'>Back to admin</a></p>", status_code=400)
         found = await db.ig_oauth_state.find_one_and_delete({"state": state})
         if not found:
             return HTMLResponse("<h1>Invalid state</h1>", status_code=400)

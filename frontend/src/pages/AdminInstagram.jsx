@@ -167,11 +167,33 @@ export default function AdminInstagram() {
         </div>
         {preview && (
           <div className="mt-6 grid md:grid-cols-2 gap-6 bg-surface border border-border p-5" style={{ borderRadius: "16px" }}>
-            <img src={preview.image_b64} alt="Preview card" className="w-full aspect-square object-cover rounded" />
+            {preview.mime === "video/mp4" ? (
+              <video
+                src={preview.media_b64}
+                controls
+                autoPlay
+                loop
+                muted
+                playsInline
+                data-testid="admin-ig-preview-video"
+                className="w-full rounded"
+                style={{ aspectRatio: "9/16", maxHeight: "600px" }}
+              />
+            ) : (
+              <img
+                src={preview.media_b64 || preview.image_b64}
+                alt="Preview card"
+                data-testid="admin-ig-preview-image"
+                className="w-full aspect-square object-cover rounded"
+              />
+            )}
             <div>
               <p className="overline">Caption</p>
               <pre className="mt-2 whitespace-pre-wrap text-sm text-ink/85 font-sans">{preview.caption}</pre>
-              <p className="mt-4 text-xs text-moss">Kind: {preview.content.kind || preview.content.slug} · Variant: {preview.content.variant} · {Math.round(preview.image_bytes / 1024)}KB</p>
+              <p className="mt-4 text-xs text-moss">
+                {preview.media_format === "REEL" ? "📹 Reel · " : "🖼 Feed · "}
+                {preview.content.slug} · {preview.content.variant} · {Math.round((preview.media_bytes || preview.image_bytes) / 1024)}KB
+              </p>
             </div>
           </div>
         )}
@@ -185,7 +207,7 @@ export default function AdminInstagram() {
           {(status?.posts || []).map((p) => (
             <li key={p.run_id} className="bg-surface border border-border p-4 rounded flex items-start justify-between gap-4 flex-wrap">
               <div>
-                <p className="text-xs text-moss">{p.created_at}</p>
+                <p className="text-xs text-moss">{p.created_at} · {p.media_format === "REEL" ? "📹 Reel" : "🖼 Feed"}</p>
                 <p className="font-serif text-forest">{p.eyebrow} — {p.title}</p>
                 {p.error && <p className="text-xs text-terracotta mt-1">{p.error}</p>}
               </div>

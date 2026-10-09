@@ -1,3 +1,18 @@
+### Iteration 60 (2026-02-20): ✅ — Instagram Reels + Hashtag Optimizer
+Follow-up to iteration 59. User picked the two "Next Action Items": Reels variant + rotating hashtag pools.
+
+- **Reels renderer** (`_compose_reel`): PIL frame-by-frame animation assembled via `imageio` → H.264 MP4 → `ffmpeg` mux adds silent AAC audio track (Reels require audio). Output: 1080×1920, 24fps, 5s, ~150 KB. Animation: terracotta bar fades in → butter eyebrow fades up → title slides in word-by-word → body paragraph fades → drifting butter radial glow throughout.
+- **Media rotation**: `ROTATION` tuples now carry media format too — `(masterclass, FEED)` Mon, `(seasonal, FEED)` Wed, `(masterclass, REEL)` Fri. Reels get 3-5× Instagram reach, so Friday carries the week's traffic punch.
+- **Publish flow** branches on `media_format`: Reels use `media_type=REELS` + `video_url` + `share_to_feed=true`, poll container up to 5 min (video takes longer to transcode). Feed posts unchanged.
+- **Public video route** `/api/public-video/{public_id}` serves the MP4 straight from `ig_posts.video_b64` with `Accept-Ranges: bytes` so Meta can range-request.
+- **Hashtag optimizer** (`_build_hashtags`): per-post RNG picks 2 anchors (always `#PatchAndPot #UKGardening`) + 2 random from `HASHTAG_COMMON` + 3 random from content-specific pool (propagation / pest-control / no-dig / weather / flower-arranging / seasonal) + 1 random from the current season (spring/summer/autumn/winter sub-pools). Result: 7 hashtags per post, naturally varied.
+- **LLM caption** no longer generates hashtags — it only writes the paragraph. Hashtags are composed from pools afterwards (`_assemble_caption`) so the feed looks hand-written, not algorithmic.
+- **Admin UI**: preview renders `<video>` for Reels, `<img>` for Feed, with "📹 Reel" / "🖼 Feed" labels on preview and in the recent-posts list. Media-size badge shows KB.
+- **Deps**: added `imageio==2.38.1` and `imageio-ffmpeg==0.6.0` to requirements. Bundled ffmpeg binary used — no system install needed.
+- **Verified**: preview produced valid Instagram-compliant MP4 (`isom`, `avc1`, `yuv420p`, `1080x1920`, `24 fps`, silent AAC 44.1kHz, 5.00s), served over `/api/public-video/*` 200, admin UI played it inline.
+- **sw.js** bumped to `patchpot-v110`.
+
+
 ### Iteration 59 (2026-02-20): ✅ — Instagram Auto-Publishing (Mon/Wed/Fri 9am UK)
 User asked: "Can you post instagram on a regular basis". Chose a mix of masterclass teaser + seasonal highlight, 3x/week, fully automated, mini-paragraph caption with 5-8 hashtags and patchandpot.app link.
 

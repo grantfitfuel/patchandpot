@@ -1557,3 +1557,10 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - /status no longer returns heavy video/slide base64.
 - Admin UI: per-format preview buttons, swipeable carousel preview, seasonal watercolour grid (components/admin/IgSeasonalLibrary.jsx, IgPreviewMedia.jsx). sw.js → patchpot-v112.
 - Pending user action: deploy, then Connect Instagram at patchandpot.app/admin/instagram. Meta carousel publish not tested live (no connection in preview).
+
+## 2026-06 — Instagram switched to "Instagram API with Instagram Login"
+- The old Meta app (1288380276707699, Facebook Login for Business) could not add the Instagram use case, so the Facebook dialog failed with "Sorry, something went wrong".
+- New Meta app "Patch & Pot Poster" → Instagram app ID 1597617765170240 (INSTAGRAM_APP_ID / INSTAGRAM_APP_SECRET in backend .env). No Facebook Page is needed.
+- The OAuth flow now goes instagram.com/oauth/authorize (scopes instagram_business_basic, instagram_business_content_publish) → api.instagram.com code exchange → graph.instagram.com long-lived token. Publishing goes through graph.instagram.com/v26.0. The token auto-refreshes before each publish once it's more than 24h old.
+- Redirect URI: https://patchandpot.app/api/instagram/oauth/callback (must be saved in the Instagram business login settings).
+- META_APP_ID / META_APP_SECRET are no longer used.

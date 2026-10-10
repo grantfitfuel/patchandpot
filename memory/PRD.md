@@ -1610,3 +1610,9 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - post doc stores 'slot'. The old carousel publish path is kept but unused.
 - 2026-10-10: First live Reel with library music published (Ocean Tide by Lyle Workman). The Sat what-to-sow slideshow OOM'd in prod: ffmpeg '-shortest' made the muxer buffer the whole video (253MB). Replaced with '-t dur' plus single-thread input decode → peaks: SOW 385MB, Mon carousel 386, Fri reel 388, Wed card 373 (limit 512).
 - 2026-10-10: Music variety: 12 folky genre queries shuffled per post, full result lists pooled, the last 30 used audio_ids are skipped (from ig_posts.music); if all were used recently, it picks the least-recently used.
+- 2026-10-10: Longer reading time:
+  - Slideshows: 5s per slide, last slide +1s (SOW 21s, Mon ~16s).
+  - Card Reel: 10s.
+  - Fri Reel: 16s (title 4.6s, tips 1.6s apart until 12s, CTA 4s).
+  - Peaks ≤400MB.
+  - Admin preview polls up to 6 min.

@@ -84,7 +84,7 @@ export default function AdminInstagram() {
       const r = await fetch(`${API}/instagram/preview?${q}${f}`, { method: "POST" });
       const job = await readJson(r);
       if (!r.ok) throw new Error(job.detail || `HTTP ${r.status}`);
-      for (let i = 0; i < 90; i += 1) {
+      for (let i = 0; i < 120; i += 1) {
         await new Promise((res) => setTimeout(res, 3000));
         const pr = await fetch(`${API}/instagram/preview/${job.preview_id}?${q}`);
         const d = await readJson(pr);
@@ -110,7 +110,7 @@ export default function AdminInstagram() {
       const r = await fetch(`${API}/instagram/publish-now?token=${encodeURIComponent(token)}${f}`, { method: "POST" });
       const d = await readJson(r);
       if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
-      setFlash(`Queued (run ${d.run_id}). Status updates below automatically — Reels take 1–3 minutes.`);
+      setFlash(`Queued (run ${d.run_id}). Status updates below automatically — Reels take 2–5 minutes.`);
       [8000, 40000, 90000, 180000].forEach((ms) => setTimeout(loadStatus, ms));
     } catch (e) {
       setError(e.message);

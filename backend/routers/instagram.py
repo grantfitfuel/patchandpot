@@ -459,7 +459,7 @@ async def _compose_carousel(db, slug: str, eyebrow: str, title: str, tips: list[
 
 async def _compose_reel(db, slug: str, eyebrow: str, title: str, tips: list[str], variant: str = "forest",
                         season: str | None = None) -> bytes:
-    """12s 1080×1920 Reel: painting + title → tips one by one → CTA, with
+    """16s 1080×1920 Reel: painting + title → tips one by one → CTA, with
     crossfades and a slow Ken Burns drift. Frames are rendered to disk
     first and memory released BEFORE x264 starts, so the two peaks never
     stack (prod pods have a 512Mi limit)."""
@@ -721,7 +721,7 @@ async def _compose_media(db, content: dict) -> tuple[list[bytes], str]:
             slides = [await asyncio.to_thread(g.render_card, bg, content["eyebrow"], content["title"],
                                               content["body_hint"], season)]
         del bg
-        per = 8.0 if style == "card" else 3.0
+        per = 10.0 if style == "card" else 5.0
         return [await _compose_slideshow(db, content, slides, per)], "video/mp4"
 
 

@@ -447,9 +447,9 @@ def render_sow_carousel(bg: Image.Image, month: str, plants: list[dict], season:
     return [x.convert("RGB") for x in slides]
 
 
-# ─── Reel (1080×1920, 12s, 3 scenes) ───────────────────────────────
-REEL_W, REEL_H, REEL_FPS, REEL_DUR = 1080, 1920, 24, 12
-_A_END, _B_END, _XF = 3.6, 8.6, 0.6
+# ─── Reel (1080×1920, 16s, 3 scenes) ───────────────────────────────
+REEL_W, REEL_H, REEL_FPS, REEL_DUR = 1080, 1920, 24, 16
+_A_END, _B_END, _XF = 4.6, 12.0, 0.6
 
 
 def make_reel_renderer(bg_over: Image.Image, eyebrow: str, title: str, tips: list[str], season: str | None):
@@ -514,7 +514,7 @@ def make_reel_renderer(bg_over: Image.Image, eyebrow: str, title: str, tips: lis
         put(fr, head, (M + IN, y), ease((lt - 0.3) / 0.4)); y += head.height
         put(fr, sub, (M + IN, y), ease((lt - 0.45) / 0.45)); y = body_y0
         for i, tl_ in enumerate(tip_ls):
-            a = ease((lt - 0.7 - i * 0.8) / 0.55)
+            a = ease((lt - 0.8 - i * 1.6) / 0.6)
             put(fr, rule(tw), (M + IN, y), a); y += gap // 2
             put(fr, tl_, (M + IN, y + int(30 * (1 - a))), a); y += tl_.height + gap // 2
         return fr
@@ -561,7 +561,7 @@ def make_slideshow_renderer(bg_over: Image.Image, slides: list[Image.Image], per
     n = len(slides)
     durs = [per_slide] * n
     if n > 1:
-        durs[-1] = per_slide + 0.8
+        durs[-1] = per_slide + 1.0
     starts = [sum(durs[:i]) for i in range(n)]
     total = sum(durs)
     big = [_round(s.resize((int(size * 1.03), int(size * 1.03)), Image.LANCZOS), 36) for s in slides]

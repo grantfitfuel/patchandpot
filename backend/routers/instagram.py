@@ -836,7 +836,8 @@ def make_router(db):
                 tracks = await _find_tracks(fb, query)
                 out.append({"query": query, "tracks": [
                     {"id": t["id"], "title": t.get("title") or t.get("name"),
-                     "artist": t.get("display_artist") or t.get("artist")} for t in tracks[:5]]})
+                     "artist": t.get("display_artist") or t.get("artist"),
+                     "preview": t.get("on_platform_audio_preview_link")} for t in tracks[:5]]})
             except HTTPException as e:
                 out.append({"query": query, "error": e.detail})
         return {"results": out}
@@ -1042,7 +1043,8 @@ async def _find_tracks(fb: dict, query: str) -> list[dict]:
     body = await _graph_get("/ig_audio", fb["page_token"], {
         "audio_type": "music", "user_id": fb["ig_user_id"], "search_query": query,
     }, base=FB_GRAPH)
-    return [t for t in (body.get("data") or []) if t.get("id")]
+    items = body.get("audio") or body.get("data") or []
+    return [{**t, "id": str(t.get("audio_id") or t.get("id"))} for t in items if t.get("audio_id") or t.get("id")]
 
 
 async def _pick_track(fb: dict, week_num: int) -> dict | None:

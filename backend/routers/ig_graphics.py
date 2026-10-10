@@ -315,7 +315,7 @@ def cta_layers(scale: float = 1.0) -> list[tuple[Image.Image, int]]:
     hf, itf = font("display", int(112 * scale)), font("italic", int(112 * scale))
     icon = sprout(int(84 * scale), BUTTER)
     l1 = text_layer(["Plan your patch,"], hf, SAND, int(112 * scale), int(1000 * scale))
-    l2 = text_layer(["free."], itf, BUTTER, int(112 * scale), int(1000 * scale))
+    l2 = text_layer(["season by season."], itf, BUTTER, int(112 * scale), int(1000 * scale))
     url = Image.new("RGBA", (int(900 * scale), int(60 * scale)), (0, 0, 0, 0))
     draw_tracked(ImageDraw.Draw(url), (0, 0), "at patchandpot.app", font("sans_med", int(40 * scale)), rgba(SAND, 235), 0.02)
     bio = pill("LINK IN BIO", font("sans_bold", int(26 * scale)), TERRACOTTA, SAND, padx=int(34 * scale), pady=int(20 * scale))
@@ -510,7 +510,7 @@ def make_reel_renderer(bg_over: Image.Image, eyebrow: str, title: str, tips: lis
         lt = t - (_B_END - _XF)
         fr = bg_at(bg_c, t)
         put(fr, badge, (M, 96))
-        _cta(fr, W, H, scale=1.25, t=lt, start=0.3)
+        _cta(fr, W, H, scale=1.15, t=lt, start=0.3)
         return fr
 
     def render_frame(f: int) -> np.ndarray:

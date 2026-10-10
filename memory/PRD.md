@@ -1599,3 +1599,4 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - GET /fb/music-test lists found tracks; POST /fb/disconnect.
 - NEEDS from user: Facebook Page linked to @patchandpot; FB_APP_ID + FB_APP_SECRET (Meta App ID of "Patch & Pot Poster", Settings → Basic); Facebook Login product with redirect https://patchandpot.app/api/instagram/fb/oauth/callback; optional FB_LOGIN_CONFIG_ID if Meta forces Facebook Login for Business.
 - Music keys added: FB_APP_ID=4590252727857744 ("Patch & Pot Poster", verified with app token), FB_APP_SECRET, FB_LOGIN_CONFIG_ID=1418060107200751 (Facebook Login for Business config, so the dialog sends config_id instead of scope). Awaiting user: redeploy → Connect Facebook (for music) → Test music search.
+- CTA wording changed to "Plan your patch, / season by season." (app isn't free); Reel CTA scale 1.15.

@@ -1575,3 +1575,14 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - On startup, stuck COMPOSING/READY/CONTAINER_CREATED posts are marked ERROR.
   - The admin UI shows a friendly message when the server sends back non-JSON.
 - Instagram is connected in prod as @patchandpot (IG user 17841476162761771).
+
+## 2026-06 — Instagram visual refresh (all 3 formats)
+- New `backend/routers/ig_graphics.py` "postcard on a painting" design system:
+  - Crisp watercolour with vignette and paper grain, frosted sand cards with soft shadows.
+  - Brand fonts in backend/assets/fonts: Cormorant Garamond VF + Outfit VF. Patch & Pot sprout badge, terracotta season pills, slide counters.
+- Carousel: cover card → "Autumn tips" card with big italic numerals → forest CTA "Plan your patch, free." + LINK IN BIO.
+- Reel: 12s, 3 scenes with 0.6s crossfades:
+  - Scene A (title card slides up) → Scene B (3 tips appear one by one) → Scene C (staggered CTA). Ken Burns drift throughout.
+  - The Reel now also uses Claude tips.
+- Memory safety: frames are rendered to JPEGs on disk, then gc + malloc_trim, then a single-thread x264 encode. Peak is ~406MB with the full server loaded (limit 512Mi).
+- PENDING: Instagram-library music needs Meta's Audio API (`/ig_audio` search + `audio_configuration` on the REELS container). That only works with Facebook Login + a Facebook Page linked to @patchandpot. The user is setting up the FB Page; next step is adding Facebook Login to the "Patch & Pot Poster" app and a second "Connect Facebook (music)" flow.

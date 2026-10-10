@@ -101,7 +101,11 @@ SLOTS = {
 }
 # Business accounts get Meta's royalty-free library — artist names return
 # unrelated tracks, so search by genre.
-MUSIC_QUERIES = ["upbeat folk", "folk", "feel good acoustic folk", "indie folk", "acoustic"]
+MUSIC_QUERIES = [
+    "upbeat folk", "folk", "feel good acoustic folk", "indie folk", "acoustic", "folk pop",
+    "happy acoustic", "ukulele", "banjo", "acoustic guitar happy", "country folk", "summer acoustic",
+]
+MUSIC_NO_REPEAT = 30  # skip the last N tracks used
 
 # ────────────────────────── hashtag pools ─────────────────────────
 # Rotate per content type AND season. Each caption pulls:
@@ -1075,19 +1079,34 @@ async def _find_tracks(fb: dict, query: str) -> list[dict]:
     return [{**t, "id": str(t.get("audio_id") or t.get("id"))} for t in items if t.get("audio_id") or t.get("id")]
 
 
-async def _pick_track(fb: dict, week_num: int) -> dict | None:
-    """Rotate the search query weekly; random pick among the top results."""
-    for i in range(len(MUSIC_QUERIES)):
-        q = MUSIC_QUERIES[(week_num + i) % len(MUSIC_QUERIES)]
+async def _pick_track(db, fb: dict) -> dict | None:
+    """Random folky track that hasn't been used in the last MUSIC_NO_REPEAT
+    posts. Queries are shuffled each time; full result lists are pooled."""
+    recent = [
+        p["music"]["audio_id"]
+        async for p in db.ig_posts.find({"music.audio_id": {"$exists": True}}, {"music.audio_id": 1})
+        .sort("created_at", -1).limit(MUSIC_NO_REPEAT)
+    ]
+    queries = random.sample(MUSIC_QUERIES, len(MUSIC_QUERIES))
+    fresh: list[tuple[str, dict]] = []
+    fallback: list[tuple[str, dict]] = []
+    for q in queries:
         try:
             tracks = await _find_tracks(fb, q)
         except HTTPException:
             continue
-        if tracks:
-            t = random.choice(tracks[:5])
-            return {"audio_id": str(t["id"]), "query": q,
-                    "title": t.get("title") or t.get("name"), "artist": t.get("display_artist") or t.get("artist")}
-    return None
+        for t in tracks:
+            (fallback if t["id"] in recent else fresh).append((q, t))
+        if len({t["id"] for _, t in fresh}) >= 8:
+            break
+    pool = fresh or fallback
+    if not pool:
+        return None
+    if not fresh:  # everything used recently → take the least recently used
+        pool = sorted(pool, key=lambda qt: recent.index(qt[1]["id"]), reverse=True)[:3]
+    q, t = random.choice(pool)
+    return {"audio_id": t["id"], "query": q,
+            "title": t.get("title") or t.get("name"), "artist": t.get("display_artist") or t.get("artist")}
 
 
 # ────────────────────────── worker ─────────────────────────
@@ -1170,7 +1189,7 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
         if is_reel:
             fb = await db.ig_fb_connection.find_one({"_id": "default"})
             if fb:
-                music = await _pick_track(fb, int(now.strftime("%W")))
+                music = await _pick_track(db, fb)
                 if music:
                     api, api_token, ig_id = FB_GRAPH, fb["page_token"], fb["ig_user_id"]
                     await db.ig_posts.update_one({"run_id": run_id}, {"$set": {"music": music}})

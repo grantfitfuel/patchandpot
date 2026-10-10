@@ -40,7 +40,7 @@ export const IgMusicPanel = ({ token, status, onChange }) => {
         {status.music_connected ? (
           <>
             <p className="text-sm" data-testid="admin-ig-music-status">
-              Music on · via Facebook Page <strong>{status.music_page_name}</strong>. Searches rotate weekly: upbeat folk, folk, feel-good acoustic folk, indie folk, acoustic (Business accounts get Instagram’s royalty-free library, so artist names don’t work).
+              Music on · via Facebook Page <strong>{status.music_page_name}</strong>. Each post picks a random folky track (upbeat folk, indie folk, folk pop, ukulele, banjo, happy acoustic and more) and never repeats one of the last 30 used.
             </p>
             <div className="mt-3 flex flex-wrap gap-3">
               <button onClick={test} disabled={busy} data-testid="admin-ig-music-test" className="btn-ghost disabled:opacity-50">

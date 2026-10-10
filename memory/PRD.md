@@ -1609,3 +1609,4 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - Slideshow = the square slides (reel=True, so no swipe hints/counters) as rounded postcards over a light-washed vertical painting, with slow zoom + 0.5s crossfades (ig_graphics.make_slideshow_renderer).
   - post doc stores 'slot'. The old carousel publish path is kept but unused.
 - 2026-10-10: First live Reel with library music published (Ocean Tide by Lyle Workman). The Sat what-to-sow slideshow OOM'd in prod: ffmpeg '-shortest' made the muxer buffer the whole video (253MB). Replaced with '-t dur' plus single-thread input decode → peaks: SOW 385MB, Mon carousel 386, Fri reel 388, Wed card 373 (limit 512).
+- 2026-10-10: Music variety: 12 folky genre queries shuffled per post, full result lists pooled, the last 30 used audio_ids are skipped (from ig_posts.music); if all were used recently, it picks the least-recently used.

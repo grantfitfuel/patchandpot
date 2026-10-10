@@ -252,6 +252,16 @@ def render_card(bg: Image.Image, eyebrow: str, title: str, body: str, season: st
     return base.convert("RGB")
 
 
+def _swipe_row(label: str, width: int, reel: bool) -> Image.Image:
+    im = Image.new("RGBA", (width, 44 if not reel else 1), (0, 0, 0, 0))
+    if not reel:
+        d = ImageDraw.Draw(im)
+        f = font("sans_bold", 23)
+        draw_tracked(d, (0, 6), label, f, rgba(TERRACOTTA), 0.16)
+        arrow(d, tracked_width(label, f, 0.16) + 18, 20, 30, rgba(TERRACOTTA))
+    return im
+
+
 # ─── Carousel (3 × 1080²) ──────────────────────────────────────────
 def _counter(base: Image.Image, idx: int, total: int = 3, dark: bool = False) -> None:
     p = pill(f"{idx} / {total}", font("sans_bold", 21), INK if not dark else SAND, SAND if not dark else FOREST,
@@ -259,7 +269,9 @@ def _counter(base: Image.Image, idx: int, total: int = 3, dark: bool = False) ->
     put(base, p, (1080 - 56 - p.width, 64))
 
 
-def render_carousel(bg: Image.Image, eyebrow: str, title: str, tips: list[str], season: str | None) -> list[Image.Image]:
+def render_carousel(bg: Image.Image, eyebrow: str, title: str, tips: list[str], season: str | None,
+                    reel: bool = False) -> list[Image.Image]:
+    """reel=True drops swipe hints + slide counters (slides play as a Reel)."""
     S, M, IN = 1080, 56, 56
     cw, tw = S - 2 * M, S - 2 * M - 2 * IN
     painted = finish(bg)
@@ -267,15 +279,13 @@ def render_carousel(bg: Image.Image, eyebrow: str, title: str, tips: list[str], 
     # 1 — Cover
     s1 = painted.convert("RGBA")
     put(s1, brand_badge(), (M, M))
-    _counter(s1, 1)
+    if not reel:
+        _counter(s1, 1)
     tf = font("display", 92)
     tl = wrap(title, tf, tw)[:3]
     eb = pill(eyebrow_text(eyebrow, season), font("sans_bold", 21), TERRACOTTA, SAND)
     title_l = text_layer(tl, tf, FOREST, 92, tw)
-    swipe = Image.new("RGBA", (tw, 44), (0, 0, 0, 0))
-    sd = ImageDraw.Draw(swipe)
-    draw_tracked(sd, (0, 6), "SWIPE FOR 3 TIPS", font("sans_bold", 23), rgba(TERRACOTTA), 0.16)
-    arrow(sd, tracked_width("SWIPE FOR 3 TIPS", font("sans_bold", 23), 0.16) + 18, 20, 30, rgba(TERRACOTTA))
+    swipe = _swipe_row("SWIPE FOR 3 TIPS", tw, reel)
     ch = IN + eb.height + 26 + title_l.height + 16 + swipe.height + IN - 14
     c, pad = card(cw, ch)
     y = pad + IN
@@ -287,7 +297,8 @@ def render_carousel(bg: Image.Image, eyebrow: str, title: str, tips: list[str], 
     # 2 — Tips
     s2 = wash(painted, SAND, 120, 16).convert("RGBA")
     put(s2, brand_badge(), (M, M))
-    _counter(s2, 2)
+    if not reel:
+        _counter(s2, 2)
     head = text_layer([f"{(season or 'Quick').capitalize()} tips"], font("italic", 46), TERRACOTTA, 50, tw)
     sub = text_layer(wrap(title, font("display", 60), tw)[:2], font("display", 60), FOREST, 62, tw)
     tips_l = [tip_layer(i, t, tw) for i, t in enumerate(tips[:3], start=1)]
@@ -305,7 +316,8 @@ def render_carousel(bg: Image.Image, eyebrow: str, title: str, tips: list[str], 
 
     # 3 — CTA
     s3 = wash(painted, FOREST, 205, 12).convert("RGBA")
-    _counter(s3, 3, dark=True)
+    if not reel:
+        _counter(s3, 3, dark=True)
     _cta(s3, 1080, 1080, scale=1.0)
     return [s1.convert("RGB"), s2.convert("RGB"), s3.convert("RGB")]
 
@@ -377,7 +389,8 @@ def _plant_row(p: dict, width: int) -> Image.Image:
     return im
 
 
-def render_sow_carousel(bg: Image.Image, month: str, plants: list[dict], season: str | None) -> list[Image.Image]:
+def render_sow_carousel(bg: Image.Image, month: str, plants: list[dict], season: str | None,
+                        reel: bool = False) -> list[Image.Image]:
     S, M, IN = 1080, 56, 56
     cw, tw = S - 2 * M, S - 2 * M - 2 * IN
     groups = [plants[i:i + 3] for i in range(0, min(len(plants), 9), 3)] or [[]]
@@ -387,17 +400,15 @@ def render_sow_carousel(bg: Image.Image, month: str, plants: list[dict], season:
     # Cover
     s1 = painted.convert("RGBA")
     put(s1, brand_badge(), (M, M))
-    _counter(s1, 1, total)
+    if not reel:
+        _counter(s1, 1, total)
     eb = pill(f"{month.upper()}  ·  UK SOWING GUIDE", font("sans_bold", 21), TERRACOTTA, SAND)
     tf = font("display", 96)
     t1 = text_layer(["What to sow"], tf, FOREST, 92, tw)
     t2 = text_layer([f"in {month}"], font("italic", 96), TERRACOTTA, 92, tw)
     sub = text_layer(wrap(f"{len(plants[:9])} picks for pots, beds & borders this month", font("sans", 30), tw)[:2],
                      font("sans", 30), BODY, 42, tw)
-    swipe = Image.new("RGBA", (tw, 44), (0, 0, 0, 0))
-    sd = ImageDraw.Draw(swipe)
-    draw_tracked(sd, (0, 6), "SWIPE TO SEE THEM", font("sans_bold", 23), rgba(TERRACOTTA), 0.16)
-    arrow(sd, tracked_width("SWIPE TO SEE THEM", font("sans_bold", 23), 0.16) + 18, 20, 30, rgba(TERRACOTTA))
+    swipe = _swipe_row("SWIPE TO SEE THEM", tw, reel)
     ch = IN + eb.height + 24 + t1.height + t2.height - 30 + sub.height + 14 + swipe.height + IN - 14
     c, pad = card(cw, ch)
     y = pad + IN
@@ -411,7 +422,8 @@ def render_sow_carousel(bg: Image.Image, month: str, plants: list[dict], season:
     for gi, group in enumerate(groups):
         sl = soft.convert("RGBA")
         put(sl, brand_badge(), (M, M))
-        _counter(sl, gi + 2, total)
+        if not reel:
+            _counter(sl, gi + 2, total)
         head = text_layer([f"Sow now · {month}"], font("italic", 44), TERRACOTTA, 48, tw)
         rows = [_plant_row(p, tw) for p in group]
         top = 150
@@ -428,7 +440,8 @@ def render_sow_carousel(bg: Image.Image, month: str, plants: list[dict], season:
 
     # CTA
     s_end = wash(painted, FOREST, 205, 12).convert("RGBA")
-    _counter(s_end, total, total, dark=True)
+    if not reel:
+        _counter(s_end, total, total, dark=True)
     _cta(s_end, 1080, 1080, scale=1.0)
     slides.append(s_end)
     return [x.convert("RGB") for x in slides]
@@ -528,3 +541,56 @@ def make_reel_renderer(bg_over: Image.Image, eyebrow: str, title: str, tips: lis
         return np.asarray(fr.convert("RGB"))
 
     return render_frame
+
+
+# ─── Slideshow Reel (square slides as postcards on a vertical painting) ──
+def _round(img: Image.Image, radius: int) -> Image.Image:
+    img = img.convert("RGBA")
+    mask = Image.new("L", img.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle([(0, 0), (img.width - 1, img.height - 1)], radius=radius, fill=255)
+    img.putalpha(mask)
+    return img
+
+
+def make_slideshow_renderer(bg_over: Image.Image, slides: list[Image.Image], per_slide: float = 3.0,
+                            xf: float = 0.5):
+    """Returns (render_frame, duration_s). Each slide holds `per_slide`
+    seconds (last one a little longer) with a slow zoom and crossfades."""
+    W, H, size = REEL_W, REEL_H, 1000
+    back = wash(finish(bg_over), SAND, 55, 9)
+    n = len(slides)
+    durs = [per_slide] * n
+    if n > 1:
+        durs[-1] = per_slide + 0.8
+    starts = [sum(durs[:i]) for i in range(n)]
+    total = sum(durs)
+    big = [_round(s.resize((int(size * 1.03), int(size * 1.03)), Image.LANCZOS), 36) for s in slides]
+    shadow, pad = card(size, size, alpha=0, radius=36, shadow=30)
+    top = (H - size) // 2 - 40
+
+    def bg_at(t: float) -> Image.Image:
+        p = t / total
+        zoom = 1.0 + 0.05 * p
+        cw_, ch_ = int(back.width / zoom), int(back.height / zoom)
+        ox, oy = int((back.width - cw_) * (0.3 + 0.4 * p)), int((back.height - ch_) * (0.5 * p))
+        return back.crop((ox, oy, ox + cw_, oy + ch_)).resize((W, H), Image.BILINEAR).convert("RGBA")
+
+    def draw(fr: Image.Image, i: int, t: float, op: float = 1.0) -> None:
+        z = 1.0 + 0.03 * max(0.0, min(1.0, (t - starts[i]) / durs[i]))
+        s = int(size * z)
+        put(fr, shadow, ((W - size) // 2 - pad, top - pad), op)
+        put(fr, big[i].resize((s, s), Image.BILINEAR), ((W - s) // 2, top + (size - s) // 2), op)
+
+    def render_frame(f: int) -> np.ndarray:
+        t = f / REEL_FPS
+        i = max(k for k in range(n) if starts[k] <= t + 1e-6)
+        fr = bg_at(t)
+        draw(fr, i, t, ease(t / 0.5) if i == 0 else 1.0)
+        end = starts[i] + durs[i]
+        if i < n - 1 and t > end - xf:
+            nxt = bg_at(t)
+            draw(nxt, i + 1, starts[i + 1])
+            fr = Image.blend(fr, nxt, ease((t - (end - xf)) / xf))
+        return np.asarray(fr.convert("RGB"))
+
+    return render_frame, total

@@ -1601,3 +1601,10 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
 - Music keys added: FB_APP_ID=4590252727857744 ("Patch & Pot Poster", verified with app token), FB_APP_SECRET, FB_LOGIN_CONFIG_ID=1418060107200751 (Facebook Login for Business config, so the dialog sends config_id instead of scope). Awaiting user: redeploy → Connect Facebook (for music) → Test music search.
 - CTA wording changed to "Plan your patch, / season by season." (app isn't free); Reel CTA scale 1.15.
 - Music search verified in prod (royalty-free library for Business accounts; artist names return unrelated results). MUSIC_QUERIES switched to genre terms. Admin Publish now publishes the last-previewed format (e.g. Fri · Reel), and the post list shows the music track or music error. Reel publish WITH audio_configuration not yet verified live.
+- 2026-10-10: ALL slots now publish as Reels so music can attach (Meta's Audio API is REELS-only):
+  - Mon: masterclass slideshow Reel, 3 slides × 3s, ~9.8s.
+  - Wed: 8s card Reel.
+  - Fri: 12s 3-scene Reel.
+  - Sat: what-to-sow slideshow Reel, ~12.8s.
+  - Slideshow = the square slides (reel=True, so no swipe hints/counters) as rounded postcards over a light-washed vertical painting, with slow zoom + 0.5s crossfades (ig_graphics.make_slideshow_renderer).
+  - post doc stores 'slot'. The old carousel publish path is kept but unused.

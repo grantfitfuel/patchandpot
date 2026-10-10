@@ -92,11 +92,12 @@ MONTHS_UK = [
 # 3-5x the reach of static posts on Instagram's current ranking).
 # Each entry: (content_kind, media_format)
 # weekday → (content kind, Instagram media type). Admin previews pick by key.
+# All slots publish as Reels so every post can carry library music.
 SLOTS = {
-    "CAROUSEL": (0, "masterclass", "CAROUSEL"),  # Monday — masterclass carousel
-    "FEED":     (2, "seasonal",    "FEED"),      # Wednesday — seasonal card
-    "REEL":     (4, "masterclass", "REEL"),      # Friday — 12s Reel
-    "SOW":      (5, "sow",         "CAROUSEL"),  # Saturday — what to sow this month
+    "CAROUSEL": (0, "masterclass", "carousel"),  # Monday — masterclass slideshow Reel
+    "FEED":     (2, "seasonal",    "card"),      # Wednesday — 8s seasonal card Reel
+    "REEL":     (4, "masterclass", "reel"),      # Friday — 12s 3-scene Reel
+    "SOW":      (5, "sow",         "sow"),       # Saturday — what-to-sow slideshow Reel
 }
 # Business accounts get Meta's royalty-free library — artist names return
 # unrelated tracks, so search by genre.
@@ -471,6 +472,23 @@ async def _compose_reel(db, slug: str, eyebrow: str, title: str, tips: list[str]
         shutil.rmtree(tmpdir, ignore_errors=True)
 
 
+async def _compose_slideshow(db, content: dict, slides: list[Image.Image], per_slide: float) -> bytes:
+    """Square slides as postcards over the vertical painting → MP4 Reel."""
+    over = (int(g.REEL_W * 1.08), int(g.REEL_H * 1.08))
+    season = content["season"] if content["slug"] in _BG_PROMPT_MASTERCLASS else None
+    bg = await _load_bg(db, content["slug"], "vertical", season, over, content["variant"])
+    tmpdir = tempfile.mkdtemp(prefix="ig_show_")
+    try:
+        render_frame, dur = await asyncio.to_thread(g.make_slideshow_renderer, bg, slides, per_slide)
+        n_frames = int(dur * g.REEL_FPS)
+        await asyncio.to_thread(_write_frames, render_frame, n_frames, tmpdir)
+        del render_frame, bg, slides
+        _release_memory()
+        return await asyncio.to_thread(_encode_reel, tmpdir, g.REEL_FPS, round(dur, 2))
+    finally:
+        shutil.rmtree(tmpdir, ignore_errors=True)
+
+
 def _write_frames(render_frame, n_frames: int, tmpdir: str) -> None:
     for f in range(n_frames):
         Image.fromarray(render_frame(f)).save(os.path.join(tmpdir, f"f{f:04d}.jpg"), quality=94, subsampling=0)
@@ -645,7 +663,7 @@ def _pick_content(now: datetime, media_format: str | None = None) -> dict:
     Pass media_format (a SLOTS key) to force a slot for admin previews."""
     by_day = {d: k for k, (d, _, _) in SLOTS.items()}
     key = media_format if media_format in SLOTS else by_day.get(now.weekday(), "CAROUSEL")
-    _, kind, fmt = SLOTS[key]
+    _, kind, style = SLOTS[key]
     week_num = int(now.strftime("%W"))
     if kind == "masterclass":
         content = _pick_masterclass(week_num)
@@ -654,7 +672,9 @@ def _pick_content(now: datetime, media_format: str | None = None) -> dict:
     else:
         content = _pick_seasonal(now)
     content["kind"] = kind
-    content["media_format"] = fmt
+    content["style"] = style
+    content["slot"] = key
+    content["media_format"] = "REEL"
     content["season"] = _season_for_month(now.month)
     return content
 
@@ -675,24 +695,30 @@ _REEL_SEM = asyncio.Semaphore(1)
 
 
 async def _compose_media(db, content: dict) -> tuple[list[bytes], str]:
-    """Compose media for a picked content slot. Returns (bytes list, mime)."""
+    """Every slot publishes as a Reel (Meta only allows library music on
+    Reels): Fri = 3-scene Reel, Mon/Sat = slideshow Reels of the carousel
+    slides, Wed = 8s card Reel. Returns ([mp4], mime)."""
     args = (db, content["slug"], content["eyebrow"], content["title"])
-    fmt, season = content["media_format"], content["season"]
-    if content.get("kind") == "sow":
-        plants = await _sow_plants(db, datetime.now(timezone.utc).month)
-        content["plants"] = plants
-        bg = await _load_bg(db, content["slug"], "square", None, (1080, 1080), content["variant"])
-        slides = await asyncio.to_thread(g.render_sow_carousel, bg, content["month"], plants, season)
-        return [_to_jpeg(x) for x in slides], "image/jpeg"
-    if fmt in ("REEL", "CAROUSEL"):
-        tips = await _write_tips(content["title"], content["body_hint"], season, content.get("intro", ""))
-        content["tips"] = tips
-    if fmt == "REEL":
-        async with _REEL_SEM:  # one heavy render per pod keeps us under the memory limit
-            return [await _compose_reel(*args, tips, content["variant"], season)], "video/mp4"
-    if fmt == "CAROUSEL":
-        return await _compose_carousel(*args, tips, content["variant"], season), "image/jpeg"
-    return [await _compose_card(*args, content["body_hint"], content["variant"], season)], "image/jpeg"
+    style, season = content["style"], content["season"]
+    if style in ("reel", "carousel"):
+        content["tips"] = await _write_tips(content["title"], content["body_hint"], season, content.get("intro", ""))
+    async with _REEL_SEM:  # one heavy render per pod keeps us under the memory limit
+        if style == "reel":
+            return [await _compose_reel(*args, content["tips"], content["variant"], season)], "video/mp4"
+        sq_season = season if content["slug"] in _BG_PROMPT_MASTERCLASS else None
+        bg = await _load_bg(db, content["slug"], "square", sq_season, (1080, 1080), content["variant"])
+        if style == "sow":
+            content["plants"] = await _sow_plants(db, datetime.now(timezone.utc).month)
+            slides = await asyncio.to_thread(g.render_sow_carousel, bg, content["month"], content["plants"], season, True)
+        elif style == "carousel":
+            slides = await asyncio.to_thread(g.render_carousel, bg, content["eyebrow"], content["title"],
+                                             content["tips"], season, True)
+        else:
+            slides = [await asyncio.to_thread(g.render_card, bg, content["eyebrow"], content["title"],
+                                              content["body_hint"], season)]
+        del bg
+        per = 8.0 if style == "card" else 3.0
+        return [await _compose_slideshow(db, content, slides, per)], "video/mp4"
 
 
 # ────────────────────────── router factory ─────────────────────────
@@ -1108,6 +1134,7 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
         "variant": content["variant"],
         "season": content["season"],
         "media_format": fmt,
+        "slot": content["slot"],
         "manual": manual,
         "created_at": now,
         "status": "COMPOSING",

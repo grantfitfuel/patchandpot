@@ -6,8 +6,8 @@ import { IgPreviewMedia } from "@/components/admin/IgPreviewMedia";
 import { IgMusicPanel } from "@/components/admin/IgMusicPanel";
 
 const FORMATS = [
-  { id: "CAROUSEL", label: "Mon · Carousel" },
-  { id: "FEED", label: "Wed · Feed card" },
+  { id: "CAROUSEL", label: "Mon · Masterclass slideshow" },
+  { id: "FEED", label: "Wed · Card Reel" },
   { id: "REEL", label: "Fri · Reel" },
   { id: "SOW", label: "Sat · What to sow" },
 ];
@@ -126,10 +126,10 @@ export default function AdminInstagram() {
         Instagram publisher
       </h1>
       <p className="mt-3 text-ink/75 max-w-2xl">
-        Automated 4x/week posting at 09:00 UK: Monday masterclass carousel,
-        Wednesday seasonal feed card, Friday 12s masterclass Reel, Saturday
-        "What to sow" carousel from the planting calendar. Each post uses a
-        watercolour painted for the current season or month.
+        Automated 4x/week posting at 09:00 UK, every post as a Reel so it can
+        carry Instagram-library music: Monday masterclass slideshow, Wednesday
+        8s seasonal card, Friday 12s masterclass Reel, Saturday "What to sow"
+        slideshow from the planting calendar.
       </p>
 
       {/* Admin token */}
@@ -238,7 +238,7 @@ export default function AdminInstagram() {
           {(status?.posts || []).map((p) => (
             <li key={p.run_id} className="bg-surface border border-border p-4 rounded flex items-start justify-between gap-4 flex-wrap">
               <div>
-                <p className="text-xs text-moss">{p.created_at} · {FORMAT_LABEL[p.media_format] || "Feed"}{p.season ? ` · ${p.season}` : ""}</p>
+                <p className="text-xs text-moss">{p.created_at} · {FORMATS.find((f) => f.id === p.slot)?.label || FORMAT_LABEL[p.media_format] || "Feed"}{p.season ? ` · ${p.season}` : ""}</p>
                 {p.music && <p className="text-xs text-moss" data-testid="admin-ig-post-music">Music: {p.music.title}{p.music.artist ? ` by ${p.music.artist}` : ""}</p>}
                 {p.music_error && <p className="text-xs text-terracotta">Music failed, posted silently: {p.music_error}</p>}
                 <p className="font-serif text-forest">{p.eyebrow} — {p.title}</p>

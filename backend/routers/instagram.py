@@ -98,7 +98,9 @@ SLOTS = {
     "REEL":     (4, "masterclass", "REEL"),      # Friday — 12s Reel
     "SOW":      (5, "sow",         "CAROUSEL"),  # Saturday — what to sow this month
 }
-MUSIC_QUERIES = ["The Wandering Hearts", "Nick Drake", "upbeat folk", "feel good acoustic folk"]
+# Business accounts get Meta's royalty-free library — artist names return
+# unrelated tracks, so search by genre.
+MUSIC_QUERIES = ["upbeat folk", "folk", "feel good acoustic folk", "indie folk", "acoustic"]
 
 # ────────────────────────── hashtag pools ─────────────────────────
 # Rotate per content type AND season. Each caption pulls:

@@ -38,6 +38,7 @@ export default function AdminInstagram() {
   const [token, setToken] = useState(() => localStorage.getItem("pp_admin_token") || "");
   const [status, setStatus] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [previewKey, setPreviewKey] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [flash, setFlash] = useState(
@@ -76,7 +77,7 @@ export default function AdminInstagram() {
   };
 
   const doPreview = async (fmt) => {
-    setBusy(true); setError(""); setPreview(null);
+    setBusy(true); setError(""); setPreview(null); setPreviewKey(fmt || null);
     try {
       const q = `token=${encodeURIComponent(token)}`;
       const f = fmt ? `&media_format=${fmt}` : "";
@@ -99,15 +100,18 @@ export default function AdminInstagram() {
     }
   };
 
+  const publishLabel = FORMATS.find((f) => f.id === previewKey)?.label;
+
   const publishNow = async () => {
-    if (!window.confirm("Publish a post to Instagram right now?")) return;
+    if (!window.confirm(`Publish ${publishLabel ? `the ${publishLabel}` : "today's post"} to Instagram right now?`)) return;
     setBusy(true); setError("");
     try {
-      const r = await fetch(`${API}/instagram/publish-now?token=${encodeURIComponent(token)}`, { method: "POST" });
+      const f = previewKey ? `&media_format=${previewKey}` : "";
+      const r = await fetch(`${API}/instagram/publish-now?token=${encodeURIComponent(token)}${f}`, { method: "POST" });
       const d = await readJson(r);
       if (!r.ok) throw new Error(d.detail || `HTTP ${r.status}`);
-      setFlash(`Queued (run ${d.run_id}). Refresh in ~30s to see status.`);
-      setTimeout(loadStatus, 8000);
+      setFlash(`Queued (run ${d.run_id}). Status updates below automatically — Reels take 1–3 minutes.`);
+      [8000, 40000, 90000, 180000].forEach((ms) => setTimeout(loadStatus, ms));
     } catch (e) {
       setError(e.message);
     } finally {
@@ -207,7 +211,7 @@ export default function AdminInstagram() {
             data-testid="admin-ig-publish-now"
             className="btn-terracotta disabled:opacity-50"
           >
-            Publish now
+            {publishLabel ? `Publish ${publishLabel}` : "Publish now"}
           </button>
         </div>
         {preview && (
@@ -235,6 +239,8 @@ export default function AdminInstagram() {
             <li key={p.run_id} className="bg-surface border border-border p-4 rounded flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <p className="text-xs text-moss">{p.created_at} · {FORMAT_LABEL[p.media_format] || "Feed"}{p.season ? ` · ${p.season}` : ""}</p>
+                {p.music && <p className="text-xs text-moss" data-testid="admin-ig-post-music">Music: {p.music.title}{p.music.artist ? ` by ${p.music.artist}` : ""}</p>}
+                {p.music_error && <p className="text-xs text-terracotta">Music failed, posted silently: {p.music_error}</p>}
                 <p className="font-serif text-forest">{p.eyebrow} — {p.title}</p>
                 {p.error && <p className="text-xs text-terracotta mt-1">{p.error}</p>}
               </div>

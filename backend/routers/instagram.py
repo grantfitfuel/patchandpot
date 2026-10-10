@@ -506,12 +506,12 @@ def _encode_reel(tmpdir: str, fps: int, dur: int) -> bytes:
     """Single-threaded x264 (~135MB peak at 1080×1920) + silent AAC."""
     out = os.path.join(tmpdir, "reel.mp4")
     subprocess.run(
-        [imageio_ffmpeg.get_ffmpeg_exe(), "-y", "-loglevel", "error",
-         "-framerate", str(fps), "-i", os.path.join(tmpdir, "f%04d.jpg"),
+        [imageio_ffmpeg.get_ffmpeg_exe(), "-y", "-loglevel", "error", "-filter_threads", "1",
+         "-threads", "1", "-framerate", str(fps), "-i", os.path.join(tmpdir, "f%04d.jpg"),
          "-f", "lavfi", "-t", str(dur), "-i", "anullsrc=r=44100:cl=stereo",
          "-c:v", "libx264", "-preset", "faster", "-crf", "20", "-threads", "1",
          "-x264-params", "rc-lookahead=0:threads=1:bframes=0:ref=1",
-         "-pix_fmt", "yuv420p", "-c:a", "aac", "-shortest", "-movflags", "+faststart", out],
+         "-pix_fmt", "yuv420p", "-c:a", "aac", "-t", str(dur), "-movflags", "+faststart", out],
         check=True,
     )
     with open(out, "rb") as fh:

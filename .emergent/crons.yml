@@ -23,3 +23,11 @@ crons:
     method: POST
     # Cron endpoints must ack 2xx immediately; enqueue/background the actual work.
     enabled: true
+  - name: ig-sat-9am
+    description: "Posts the Saturday 'What to sow this month' carousel to Instagram at 9am UK time"
+    cron: "0 9 * * 6"
+    timezone: "Europe/London"
+    endpoint: "{{BASE_URL}}/api/instagram/cron/post"
+    method: POST
+    # Cron endpoints must ack 2xx immediately; enqueue/background the actual work.
+    enabled: true

@@ -1586,3 +1586,15 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - The Reel now also uses Claude tips.
 - Memory safety: frames are rendered to JPEGs on disk, then gc + malloc_trim, then a single-thread x264 encode. Peak is ~406MB with the full server loaded (limit 512Mi).
 - PENDING: Instagram-library music needs Meta's Audio API (`/ig_audio` search + `audio_configuration` on the REELS container). That only works with Facebook Login + a Facebook Page linked to @patchandpot. The user is setting up the FB Page; next step is adding Facebook Login to the "Patch & Pot Poster" app and a second "Connect Facebook (music)" flow.
+
+## 2026-06 — Saturday "What to Sow" carousel + Reel music (code ready)
+- New slot: Saturday 09:00 UK (cron `ig-sat-9am`). It builds a carousel from the app's own planting-calendar guidance (London/UK, current month, `plant_now`):
+  - Slides: cover "What to sow in {Month}", then 3 plants per slide (name + FOOD/FLOWER tag + how-to, trimmed to whole sentences), then the CTA.
+  - Hashtag pool: `what-to-sow`.
+  - The caption names the plants.
+  - SLOTS dict replaces ROTATION; preview key `SOW`.
+- Music: the Facebook Login flow lives at /api/instagram/fb/oauth/start + /fb/oauth/callback (redirect = META_OAUTH_REDIRECT with /fb/oauth/callback). It stores the page token + IG business id in `ig_fb_connection`.
+  - Reels search `/ig_audio` (queries rotate weekly: The Wandering Hearts, Nick Drake, upbeat folk, feel good acoustic folk) and publish via graph.facebook.com with `audio_configuration`.
+  - If the FB container fails, the Reel falls back to a silent post via Instagram Login.
+  - GET /fb/music-test lists found tracks; POST /fb/disconnect.
+- NEEDS from user: Facebook Page linked to @patchandpot; FB_APP_ID + FB_APP_SECRET (Meta App ID of "Patch & Pot Poster", Settings → Basic); Facebook Login product with redirect https://patchandpot.app/api/instagram/fb/oauth/callback; optional FB_LOGIN_CONFIG_ID if Meta forces Facebook Login for Business.

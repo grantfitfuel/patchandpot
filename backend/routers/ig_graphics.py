@@ -340,6 +340,100 @@ def _cta(base: Image.Image, w: int, h: int, scale: float, top: int | None = None
         y += layer.height + gap
 
 
+# ─── What-to-sow carousel (cover + 3-plant list slides + CTA) ─────
+def _fit_lines(text: str, f, width: int, max_lines: int) -> list[str]:
+    """Wrap to max_lines, trimming to whole clauses/sentences, never mid-thought."""
+    import re
+    lines = wrap(text, f, width)
+    if len(lines) <= max_lines:
+        return lines
+    parts = re.split(r"(?<=[.;])\s+", text)
+    while len(parts) > 1:
+        parts.pop()
+        cand = " ".join(parts).rstrip(";,")
+        cand = cand if cand.endswith(".") else cand + "."
+        lines = wrap(cand, f, width)
+        if len(lines) <= max_lines:
+            return lines
+    lines = wrap(text, f, width)[:max_lines]
+    lines[-1] = lines[-1].rstrip(",;. ") + "…"
+    return lines
+
+
+def _plant_row(p: dict, width: int) -> Image.Image:
+    nf, hf = font("display", 54), font("sans", 29)
+    kind = (p.get("kind") or "food").lower()
+    tag = pill("FLOWER" if "flower" in kind else "FOOD", font("sans_bold", 17),
+               TERRACOTTA if "flower" in kind else MOSS, SAND, padx=16, pady=10)
+    lines = _fit_lines(p.get("how") or p.get("why") or "", hf, width, 3)
+    h = 66 + 16 + 40 * len(lines)
+    im = Image.new("RGBA", (width, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    name = p.get("name", "")
+    d.text((0, -6), name, font=nf, fill=rgba(FOREST))
+    put(im, tag, (int(_MEASURE.textlength(name, font=nf)) + 20, 20))
+    for i, line in enumerate(lines):
+        d.text((0, 76 + i * 40), line, font=hf, fill=rgba(BODY))
+    return im
+
+
+def render_sow_carousel(bg: Image.Image, month: str, plants: list[dict], season: str | None) -> list[Image.Image]:
+    S, M, IN = 1080, 56, 56
+    cw, tw = S - 2 * M, S - 2 * M - 2 * IN
+    groups = [plants[i:i + 3] for i in range(0, min(len(plants), 9), 3)] or [[]]
+    total = len(groups) + 2
+    painted = finish(bg)
+
+    # Cover
+    s1 = painted.convert("RGBA")
+    put(s1, brand_badge(), (M, M))
+    _counter(s1, 1, total)
+    eb = pill(f"{month.upper()}  ·  UK SOWING GUIDE", font("sans_bold", 21), TERRACOTTA, SAND)
+    tf = font("display", 96)
+    t1 = text_layer(["What to sow"], tf, FOREST, 92, tw)
+    t2 = text_layer([f"in {month}"], font("italic", 96), TERRACOTTA, 92, tw)
+    sub = text_layer(wrap(f"{len(plants[:9])} picks for pots, beds & borders this month", font("sans", 30), tw)[:2],
+                     font("sans", 30), BODY, 42, tw)
+    swipe = Image.new("RGBA", (tw, 44), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(swipe)
+    draw_tracked(sd, (0, 6), "SWIPE TO SEE THEM", font("sans_bold", 23), rgba(TERRACOTTA), 0.16)
+    arrow(sd, tracked_width("SWIPE TO SEE THEM", font("sans_bold", 23), 0.16) + 18, 20, 30, rgba(TERRACOTTA))
+    ch = IN + eb.height + 24 + t1.height + t2.height - 30 + sub.height + 14 + swipe.height + IN - 14
+    c, pad = card(cw, ch)
+    y = pad + IN
+    for layer, gap in ((eb, 24), (t1, -20), (t2, -10), (sub, 14), (swipe, 0)):
+        put(c, layer, (pad + IN, y)); y += layer.height + gap
+    put(s1, c, (M - pad, S - M - ch - pad))
+    slides = [s1]
+
+    # Plant list slides
+    soft = wash(painted, SAND, 120, 16)
+    for gi, group in enumerate(groups):
+        sl = soft.convert("RGBA")
+        put(sl, brand_badge(), (M, M))
+        _counter(sl, gi + 2, total)
+        head = text_layer([f"Sow now · {month}"], font("italic", 44), TERRACOTTA, 48, tw)
+        rows = [_plant_row(p, tw) for p in group]
+        top = 150
+        ch = S - M - top
+        c, pad = card(cw, ch)
+        y = pad + IN - 6
+        put(c, head, (pad + IN, y)); y += head.height + 10
+        gap = max(24, (pad + ch - IN - y - sum(r.height for r in rows)) // max(1, len(rows)))
+        for r in rows:
+            put(c, rule(tw), (pad + IN, y)); y += gap // 2
+            put(c, r, (pad + IN, y)); y += r.height + gap // 2
+        put(sl, c, (M - pad, top - pad))
+        slides.append(sl)
+
+    # CTA
+    s_end = wash(painted, FOREST, 205, 12).convert("RGBA")
+    _counter(s_end, total, total, dark=True)
+    _cta(s_end, 1080, 1080, scale=1.0)
+    slides.append(s_end)
+    return [x.convert("RGB") for x in slides]
+
+
 # ─── Reel (1080×1920, 12s, 3 scenes) ───────────────────────────────
 REEL_W, REEL_H, REEL_FPS, REEL_DUR = 1080, 1920, 24, 12
 _A_END, _B_END, _XF = 3.6, 8.6, 0.6

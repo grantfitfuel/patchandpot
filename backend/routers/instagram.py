@@ -27,6 +27,7 @@ import base64
 import ctypes
 import gc
 import io
+import json
 import os
 import random
 import secrets
@@ -62,6 +63,10 @@ META_OAUTH_REDIRECT = os.environ.get(
 WEBHOOK_CRON_SECRET = os.environ.get("WEBHOOK_CRON_SECRET", "")
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://patchandpot.app")
 GRAPH = f"https://graph.instagram.com/{META_API}"
+# Facebook-Login graph — only used for Instagram-library music on Reels
+# (Meta's Audio API isn't available on the Instagram-Login API).
+FB_GRAPH = f"https://graph.facebook.com/{META_API}"
+FB_SCOPES = "instagram_basic,instagram_content_publish,pages_show_list,pages_read_engagement,business_management"
 
 # Public base URL — used to compose the `image_url` we hand to Meta.
 # Defaults to production domain; override in .env for preview testing.
@@ -86,11 +91,14 @@ MONTHS_UK = [
 # so the feed never feels algorithmic. Fri is the Reel slot (Reels get
 # 3-5x the reach of static posts on Instagram's current ranking).
 # Each entry: (content_kind, media_format)
-ROTATION = [
-    ("masterclass", "CAROUSEL"),  # Monday — 3-slide masterclass carousel
-    ("seasonal",    "FEED"),   # Wednesday — static seasonal highlight
-    ("masterclass", "REEL"),   # Friday — animated reel (5s)
-]
+# weekday → (content kind, Instagram media type). Admin previews pick by key.
+SLOTS = {
+    "CAROUSEL": (0, "masterclass", "CAROUSEL"),  # Monday — masterclass carousel
+    "FEED":     (2, "seasonal",    "FEED"),      # Wednesday — seasonal card
+    "REEL":     (4, "masterclass", "REEL"),      # Friday — 12s Reel
+    "SOW":      (5, "sow",         "CAROUSEL"),  # Saturday — what to sow this month
+}
+MUSIC_QUERIES = ["The Wandering Hearts", "Nick Drake", "upbeat folk", "feel good acoustic folk"]
 
 # ────────────────────────── hashtag pools ─────────────────────────
 # Rotate per content type AND season. Each caption pulls:
@@ -125,6 +133,10 @@ HASHTAG_POOLS = {
     "flower-arranging": [
         "#CutFlowerGarden", "#FlowerArranging", "#FloristFromGarden",
         "#BritishFlowers", "#SeasonalFlowers", "#VaseLife", "#FlowerFarmer",
+    ],
+    "what-to-sow": [
+        "#WhatToSow", "#SowingSeeds", "#SeedSowing", "#GrowYourOwn",
+        "#SeedStarting", "#VegPlot", "#SowNow",
     ],
     "plant-care": [
         "#PlantCare", "#ContainerGardening", "#PotPlants", "#Houseplants",
@@ -178,9 +190,9 @@ def _build_hashtags(content_slug: str, now: datetime, rng: random.Random) -> str
 
 
 # ────────────────────────── helpers ─────────────────────────
-async def _graph_get(path: str, token: str, params: dict | None = None):
+async def _graph_get(path: str, token: str, params: dict | None = None, base: str = GRAPH):
     async with httpx.AsyncClient(timeout=30) as c:
-        r = await c.get(f"{GRAPH}{path}", params={**(params or {}), "access_token": token})
+        r = await c.get(f"{base}{path}", params={**(params or {}), "access_token": token})
     body = r.json()
     if r.is_error or "error" in body:
         e = body.get("error", {})
@@ -347,9 +359,9 @@ async def pregenerate_seasonal_bgs(db) -> None:
         PREGEN_STATE.update(running=False, finished_at=datetime.now(timezone.utc).isoformat())
 
 
-async def _graph_post(path: str, token: str, params: dict):
+async def _graph_post(path: str, token: str, params: dict, base: str = GRAPH):
     async with httpx.AsyncClient(timeout=30) as c:
-        r = await c.post(f"{GRAPH}{path}", params={**params, "access_token": token})
+        r = await c.post(f"{base}{path}", params={**params, "access_token": token})
     body = r.json()
     if r.is_error or "error" in body:
         e = body.get("error", {})
@@ -604,19 +616,57 @@ def _pick_seasonal(now: datetime) -> dict:
     }
 
 
+async def _caption_for(content: dict, now: datetime) -> str:
+    hint = content["body_hint"]
+    if content.get("plants"):
+        hint = f"Sow or plant now in the UK: {', '.join(p['name'] for p in content['plants'])}."
+    paragraph = await _write_caption(content["eyebrow"], content["title"], hint)
+    return _assemble_caption(paragraph, content.get("tag_slug", content["slug"]), now)
+
+
+def _pick_sow(now: datetime) -> dict:
+    month = MONTHS_UK[now.month - 1]
+    return {
+        "slug": f"seasonal-{month.lower()}",
+        "tag_slug": "what-to-sow",
+        "eyebrow": "What to sow",
+        "title": f"What to sow in {month}",
+        "body_hint": f"The best seeds and plants to sow or plant in UK gardens, pots and balconies in {month}.",
+        "link": "patchandpot.app/calendar",
+        "variant": "forest",
+        "month": month,
+    }
+
+
 def _pick_content(now: datetime, media_format: str | None = None) -> dict:
-    """Rotate by weekday (Mon carousel / Wed feed / Fri reel). Pass
-    media_format to force a slot (admin previews)."""
-    if media_format in {f for _, f in ROTATION}:
-        kind = next(k for k, f in ROTATION if f == media_format)
-    else:
-        idx = {0: 0, 2: 1, 4: 2}.get(now.weekday(), 0)
-        kind, media_format = ROTATION[idx]
+    """Weekday slot (Mon carousel / Wed feed / Fri reel / Sat what-to-sow).
+    Pass media_format (a SLOTS key) to force a slot for admin previews."""
+    by_day = {d: k for k, (d, _, _) in SLOTS.items()}
+    key = media_format if media_format in SLOTS else by_day.get(now.weekday(), "CAROUSEL")
+    _, kind, fmt = SLOTS[key]
     week_num = int(now.strftime("%W"))
-    content = _pick_masterclass(week_num) if kind == "masterclass" else _pick_seasonal(now)
-    content["media_format"] = media_format
+    if kind == "masterclass":
+        content = _pick_masterclass(week_num)
+    elif kind == "sow":
+        content = _pick_sow(now)
+    else:
+        content = _pick_seasonal(now)
+    content["kind"] = kind
+    content["media_format"] = fmt
     content["season"] = _season_for_month(now.month)
     return content
+
+
+async def _sow_plants(db, month_idx: int) -> list[dict]:
+    """'Plant now' list from the app's own planting calendar (UK / London)."""
+    from core import GuidanceRequest, Region
+    from services_guidance import make_generate_and_cache_guidance
+    gen = make_generate_and_cache_guidance(db)
+    req = GuidanceRequest(region=Region(name="London", country="United Kingdom", latitude=51.5074,
+                                        longitude=-0.1278, climate_zone="temperate oceanic",
+                                        hemisphere="northern"), month=month_idx, language="en")
+    data = await gen(req)
+    return [p for p in (data.get("plant_now") or []) if p.get("name")][:6]
 
 
 _REEL_SEM = asyncio.Semaphore(1)
@@ -626,6 +676,12 @@ async def _compose_media(db, content: dict) -> tuple[list[bytes], str]:
     """Compose media for a picked content slot. Returns (bytes list, mime)."""
     args = (db, content["slug"], content["eyebrow"], content["title"])
     fmt, season = content["media_format"], content["season"]
+    if content.get("kind") == "sow":
+        plants = await _sow_plants(db, datetime.now(timezone.utc).month)
+        content["plants"] = plants
+        bg = await _load_bg(db, content["slug"], "square", None, (1080, 1080), content["variant"])
+        slides = await asyncio.to_thread(g.render_sow_carousel, bg, content["month"], plants, season)
+        return [_to_jpeg(x) for x in slides], "image/jpeg"
     if fmt in ("REEL", "CAROUSEL"):
         tips = await _write_tips(content["title"], content["body_hint"], season, content.get("intro", ""))
         content["tips"] = tips
@@ -716,11 +772,87 @@ def make_router(db):
         }, upsert=True)
         return RedirectResponse(f"{FRONTEND_URL}/admin/instagram?connected=1")
 
+    # ─── Facebook Login (music only) ───────────────────────────────
+    @router.get("/fb/oauth/start")
+    async def fb_oauth_start(token: str = Query(...)):
+        require_admin(token)
+        app_id = os.environ.get("FB_APP_ID")
+        if not app_id:
+            raise HTTPException(503, "FB_APP_ID not configured")
+        state = secrets.token_urlsafe(32)
+        await db.ig_oauth_state.insert_one({"state": state, "kind": "fb", "created_at": datetime.now(timezone.utc)})
+        params = {"client_id": app_id, "redirect_uri": _fb_redirect(), "state": state, "response_type": "code"}
+        config_id = os.environ.get("FB_LOGIN_CONFIG_ID")
+        if config_id:
+            params["config_id"] = config_id
+        else:
+            params["scope"] = FB_SCOPES
+        return {"url": f"https://www.facebook.com/{META_API}/dialog/oauth?{urlencode(params)}"}
+
+    @router.get("/fb/oauth/callback", response_class=HTMLResponse)
+    async def fb_oauth_callback(state: str = Query(...), code: str | None = Query(None),
+                                error_description: str | None = Query(None)):
+        back = f"<p><a href='{FRONTEND_URL}/admin/instagram'>Back to admin</a></p>"
+        if not code:
+            return HTMLResponse(f"<h1>Facebook connection cancelled</h1><p>{error_description or ''}</p>{back}", status_code=400)
+        if not await db.ig_oauth_state.find_one_and_delete({"state": state, "kind": "fb"}):
+            return HTMLResponse(f"<h1>Link expired</h1><p>Please tap Connect again.</p>{back}", status_code=400)
+        app_id, secret = os.environ.get("FB_APP_ID", ""), os.environ.get("FB_APP_SECRET", "")
+        async with httpx.AsyncClient(timeout=30) as c:
+            short = (await c.get(f"{FB_GRAPH}/oauth/access_token", params={
+                "client_id": app_id, "client_secret": secret, "redirect_uri": _fb_redirect(), "code": code})).json()
+            if "access_token" not in short:
+                return HTMLResponse(f"<h1>Token exchange failed</h1><pre>{short}</pre>{back}", status_code=400)
+            long = (await c.get(f"{FB_GRAPH}/oauth/access_token", params={
+                "grant_type": "fb_exchange_token", "client_id": app_id, "client_secret": secret,
+                "fb_exchange_token": short["access_token"]})).json()
+            user_token = long.get("access_token", short["access_token"])
+            pages = (await c.get(f"{FB_GRAPH}/me/accounts", params={
+                "fields": "name,access_token,instagram_business_account{id,username}", "access_token": user_token})).json()
+        page = next((p for p in pages.get("data", []) if p.get("instagram_business_account")), None)
+        if not page:
+            return HTMLResponse(
+                "<h1>No Instagram account found</h1><p>None of your Facebook Pages has an Instagram professional "
+                f"account linked. Link @patchandpot to your Page, then connect again.</p><pre>{pages}</pre>{back}",
+                status_code=400)
+        iga = page["instagram_business_account"]
+        await db.ig_fb_connection.replace_one({"_id": "default"}, {
+            "_id": "default", "page_name": page.get("name"), "page_token": page["access_token"],
+            "ig_user_id": iga["id"], "ig_username": iga.get("username"),
+            "connected_at": datetime.now(timezone.utc),
+        }, upsert=True)
+        return RedirectResponse(f"{FRONTEND_URL}/admin/instagram?music=1")
+
+    @router.get("/fb/music-test")
+    async def fb_music_test(token: str = Query(...), q: str | None = Query(None)):
+        require_admin(token)
+        fb = await db.ig_fb_connection.find_one({"_id": "default"})
+        if not fb:
+            raise HTTPException(400, "Facebook (music) not connected")
+        queries = [q] if q else MUSIC_QUERIES
+        out = []
+        for query in queries:
+            try:
+                tracks = await _find_tracks(fb, query)
+                out.append({"query": query, "tracks": [
+                    {"id": t["id"], "title": t.get("title") or t.get("name"),
+                     "artist": t.get("display_artist") or t.get("artist")} for t in tracks[:5]]})
+            except HTTPException as e:
+                out.append({"query": query, "error": e.detail})
+        return {"results": out}
+
+    @router.post("/fb/disconnect")
+    async def fb_disconnect(token: str = Query(...)):
+        require_admin(token)
+        await db.ig_fb_connection.delete_one({"_id": "default"})
+        return {"ok": True}
+
     # ─── Status / posts list ───────────────────────────────────────
     @router.get("/status")
     async def status(token: str = Query(...)):
         require_admin(token)
         conn = await db.ig_connection.find_one({"_id": "default"})
+        fb = await db.ig_fb_connection.find_one({"_id": "default"}, {"page_token": 0})
         posts_cur = db.ig_posts.find({}, {"image_b64": 0, "video_b64": 0, "slides_b64": 0}).sort("created_at", -1).limit(20)
         posts = []
         async for p in posts_cur:
@@ -734,6 +866,9 @@ def make_router(db):
             "connected": bool(conn),
             "page_name": f"@{conn.get('username')}" if conn else None,
             "ig_user_id": conn.get("ig_user_id") if conn else None,
+            "music_connected": bool(fb),
+            "music_page_name": fb.get("page_name") if fb else None,
+            "music_configured": bool(os.environ.get("FB_APP_ID")),
             "posts": posts,
         }
 
@@ -742,9 +877,8 @@ def make_router(db):
         try:
             now = datetime.now(timezone.utc)
             content = _pick_content(now, media_format)
-            paragraph = await _write_caption(content["eyebrow"], content["title"], content["body_hint"])
-            caption = _assemble_caption(paragraph, content["slug"], now)
             items, mime = await _compose_media(db, content)
+            caption = await _caption_for(content, now)
             uris = [f"data:{mime};base64," + base64.b64encode(b).decode() for b in items]
             content.pop("intro", None)
             result = {
@@ -898,6 +1032,34 @@ def register_public_image_route(app, db):
         })
 
 
+# ────────────────────────── music (Facebook Login) ─────────────────────────
+def _fb_redirect() -> str:
+    return META_OAUTH_REDIRECT.replace("/oauth/callback", "/fb/oauth/callback")
+
+
+async def _find_tracks(fb: dict, query: str) -> list[dict]:
+    """Search Instagram's music library (Audio API, Facebook Login only)."""
+    body = await _graph_get("/ig_audio", fb["page_token"], {
+        "audio_type": "music", "user_id": fb["ig_user_id"], "search_query": query,
+    }, base=FB_GRAPH)
+    return [t for t in (body.get("data") or []) if t.get("id")]
+
+
+async def _pick_track(fb: dict, week_num: int) -> dict | None:
+    """Rotate the search query weekly; random pick among the top results."""
+    for i in range(len(MUSIC_QUERIES)):
+        q = MUSIC_QUERIES[(week_num + i) % len(MUSIC_QUERIES)]
+        try:
+            tracks = await _find_tracks(fb, q)
+        except HTTPException:
+            continue
+        if tracks:
+            t = random.choice(tracks[:5])
+            return {"audio_id": str(t["id"]), "query": q,
+                    "title": t.get("title") or t.get("name"), "artist": t.get("display_artist") or t.get("artist")}
+    return None
+
+
 # ────────────────────────── worker ─────────────────────────
 async def _maybe_refresh_token(db, conn: dict) -> dict:
     """Long-lived IG tokens last 60 days; refresh once they're >24h old.
@@ -950,9 +1112,8 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
 
     try:
         # 1. Compose media + caption
-        paragraph = await _write_caption(content["eyebrow"], content["title"], content["body_hint"])
-        caption = _assemble_caption(paragraph, content["slug"], now)
         items, _mime = await _compose_media(db, content)
+        caption = await _caption_for(content, now)
         update: dict[str, Any] = {"caption": caption, "status": "READY"}
         if is_reel:
             media_url = f"{PUBLIC_API_BASE}/api/public-video/{public_id}"
@@ -973,13 +1134,22 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
                 "status": "ERROR", "error": "Instagram not connected"}})
             return
         conn = await _maybe_refresh_token(db, conn)
+        api, api_token, ig_id = GRAPH, conn["access_token"], conn["ig_user_id"]
+        music = None
+        if is_reel:
+            fb = await db.ig_fb_connection.find_one({"_id": "default"})
+            if fb:
+                music = await _pick_track(fb, int(now.strftime("%W")))
+                if music:
+                    api, api_token, ig_id = FB_GRAPH, fb["page_token"], fb["ig_user_id"]
+                    await db.ig_posts.update_one({"run_id": run_id}, {"$set": {"music": music}})
 
         # 3. Create media container (carousel: one child per slide, then parent)
         if fmt == "CAROUSEL":
             child_ids = []
             for url in slide_urls:
-                child = await _graph_post(f"/{conn['ig_user_id']}/media", conn["access_token"],
-                                          {"image_url": url, "is_carousel_item": "true"})
+                child = await _graph_post(f"/{ig_id}/media", api_token,
+                                          {"image_url": url, "is_carousel_item": "true"}, base=api)
                 child_ids.append(child["id"])
             await db.ig_posts.update_one({"run_id": run_id}, {"$set": {"child_container_ids": child_ids}})
             container_params = {"media_type": "CAROUSEL", "children": ",".join(child_ids), "caption": caption}
@@ -990,10 +1160,21 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
                 "caption": caption,
                 "share_to_feed": "true",
             }
+            if music:
+                container_params["audio_configuration"] = json.dumps(
+                    {"audio_id": music["audio_id"], "audio_volume": 100, "video_volume": 0})
         else:
             container_params = {"image_url": media_url, "caption": caption}
-        container = await _graph_post(f"/{conn['ig_user_id']}/media",
-                                      conn["access_token"], container_params)
+        try:
+            container = await _graph_post(f"/{ig_id}/media", api_token, container_params, base=api)
+        except HTTPException as e:
+            if not music:
+                raise
+            # Music path failed — post silently via Instagram Login instead.
+            await db.ig_posts.update_one({"run_id": run_id}, {"$set": {"music_error": str(e.detail)}})
+            container_params.pop("audio_configuration", None)
+            api, api_token, ig_id, music = GRAPH, conn["access_token"], conn["ig_user_id"], None
+            container = await _graph_post(f"/{ig_id}/media", api_token, container_params, base=api)
         cid = container.get("id")
         await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
             "container_id": cid, "status": "CONTAINER_CREATED"}})
@@ -1002,8 +1183,7 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
         poll_max = 100 if is_reel else 30
         for _ in range(poll_max):
             await asyncio.sleep(3)
-            s = await _graph_get(f"/{cid}", conn["access_token"],
-                                 {"fields": "status_code,status"})
+            s = await _graph_get(f"/{cid}", api_token, {"fields": "status_code,status"}, base=api)
             code = s.get("status_code")
             if code == "FINISHED":
                 break
@@ -1017,9 +1197,7 @@ async def _run_post(db, run_id: str, manual: bool = False, media_format: str | N
             return
 
         # 5. Publish
-        result = await _graph_post(f"/{conn['ig_user_id']}/media_publish",
-                                   conn["access_token"],
-                                   {"creation_id": cid})
+        result = await _graph_post(f"/{ig_id}/media_publish", api_token, {"creation_id": cid}, base=api)
         await db.ig_posts.update_one({"run_id": run_id}, {"$set": {
             "media_id": result.get("id"),
             "status": "PUBLISHED",

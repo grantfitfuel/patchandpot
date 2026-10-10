@@ -3,11 +3,13 @@ import { useSearchParams } from "react-router-dom";
 import { API } from "@/lib/api";
 import { IgSeasonalLibrary } from "@/components/admin/IgSeasonalLibrary";
 import { IgPreviewMedia } from "@/components/admin/IgPreviewMedia";
+import { IgMusicPanel } from "@/components/admin/IgMusicPanel";
 
 const FORMATS = [
   { id: "CAROUSEL", label: "Mon · Carousel" },
   { id: "FEED", label: "Wed · Feed card" },
   { id: "REEL", label: "Fri · Reel" },
+  { id: "SOW", label: "Sat · What to sow" },
 ];
 const FORMAT_LABEL = { REEL: "Reel", CAROUSEL: "Carousel", FEED: "Feed" };
 
@@ -38,7 +40,9 @@ export default function AdminInstagram() {
   const [preview, setPreview] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [flash, setFlash] = useState(connectedFlag ? "Instagram connected ✓" : "");
+  const [flash, setFlash] = useState(
+    connectedFlag ? "Instagram connected ✓" : params.get("music") === "1" ? "Facebook connected — Reels will now post with music ✓" : "",
+  );
 
   const saveToken = (v) => {
     setToken(v);
@@ -118,9 +122,10 @@ export default function AdminInstagram() {
         Instagram publisher
       </h1>
       <p className="mt-3 text-ink/75 max-w-2xl">
-        Automated 3x/week posting at 09:00 UK: Monday 3-slide masterclass
-        carousel, Wednesday seasonal feed card, Friday masterclass Reel. Each
-        masterclass uses a watercolour painted for the current season.
+        Automated 4x/week posting at 09:00 UK: Monday masterclass carousel,
+        Wednesday seasonal feed card, Friday 12s masterclass Reel, Saturday
+        "What to sow" carousel from the planting calendar. Each post uses a
+        watercolour painted for the current season or month.
       </p>
 
       {/* Admin token */}
@@ -170,6 +175,8 @@ export default function AdminInstagram() {
           </div>
         )}
       </section>
+
+      <IgMusicPanel token={token} status={status} onChange={loadStatus} />
 
       {/* Preview + publish-now */}
       <section className="mt-8">

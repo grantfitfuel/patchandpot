@@ -1,31 +1,31 @@
 crons:
   - name: ig-mon-9am
-    description: "Posts the Monday Masterclass teaser to Instagram at 9am UK time"
-    cron: "0 9 * * 1"
+    description: "Posts the Monday Masterclass teaser to Instagram at 6pm UK time"
+    cron: "0 18 * * 1"
     timezone: "Europe/London"
     endpoint: "{{BASE_URL}}/api/instagram/cron/post"
     method: POST
     # Cron endpoints must ack 2xx immediately; enqueue/background the actual work.
     enabled: true
   - name: ig-wed-9am
-    description: "Posts the Wednesday seasonal highlight to Instagram at 9am UK time"
-    cron: "0 9 * * 3"
+    description: "Posts the Wednesday seasonal highlight to Instagram at 6pm UK time"
+    cron: "0 18 * * 3"
     timezone: "Europe/London"
     endpoint: "{{BASE_URL}}/api/instagram/cron/post"
     method: POST
     # Cron endpoints must ack 2xx immediately; enqueue/background the actual work.
     enabled: true
   - name: ig-fri-9am
-    description: "Posts the Friday Masterclass teaser to Instagram at 9am UK time"
-    cron: "0 9 * * 5"
+    description: "Posts the Friday Masterclass teaser to Instagram at 6pm UK time"
+    cron: "0 18 * * 5"
     timezone: "Europe/London"
     endpoint: "{{BASE_URL}}/api/instagram/cron/post"
     method: POST
     # Cron endpoints must ack 2xx immediately; enqueue/background the actual work.
     enabled: true
   - name: ig-sat-9am
-    description: "Posts the Saturday 'What to sow this month' carousel to Instagram at 9am UK time"
-    cron: "0 9 * * 6"
+    description: "Posts the Saturday 'What to sow this month' carousel to Instagram at 6pm UK time"
+    cron: "0 18 * * 6"
     timezone: "Europe/London"
     endpoint: "{{BASE_URL}}/api/instagram/cron/post"
     method: POST

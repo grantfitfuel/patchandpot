@@ -7,7 +7,7 @@ Flow summary (see /app/scripts for the integration playbook):
 4. We exchange the code → short-user-token → long-user-token → Page
    access-token + Instagram Business Account ID, and store those in
    `ig_connection` (one row, _id='default').
-5. Every Mon/Wed/Fri at 09:00 UK the platform cron hits
+5. Every Mon/Wed/Fri/Sat at 18:00 UK the platform cron hits
    `/api/cron/instagram-post` which:
    - picks the next content slot (alternating masterclass teaser and
      seasonal highlight) based on rotation offset,

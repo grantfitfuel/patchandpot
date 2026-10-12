@@ -126,7 +126,7 @@ export default function AdminInstagram() {
         Instagram publisher
       </h1>
       <p className="mt-3 text-ink/75 max-w-2xl">
-        Automated 4x/week posting at 09:00 UK, every post as a Reel so it can
+        Automated 4x/week posting at 18:00 UK, every post as a Reel so it can
         carry Instagram-library music: Monday masterclass slideshow, Wednesday
         8s seasonal card, Friday 12s masterclass Reel, Saturday "What to sow"
         slideshow from the planting calendar.

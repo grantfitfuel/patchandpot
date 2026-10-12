@@ -1616,3 +1616,4 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - Fri Reel: 16s (title 4.6s, tips 1.6s apart until 12s, CTA 4s).
   - Peaks ≤400MB.
   - Admin preview polls up to 6 min.
+- 2026-10-12: Post time changed to 18:00 Europe/London for all 4 slots (cron names unchanged: ig-*-9am are just IDs).

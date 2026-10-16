@@ -540,7 +540,7 @@ async def _write_caption(subject: str, title: str, body_hint: str) -> str:
                        "Do NOT include hashtags or links — those are added later. Return ONLY "
                        "the paragraph, no preamble, no code fences, no title."
                    ))
-    chat.with_model("anthropic", "claude-sonnet-4-5-20250929")
+    chat.with_model("anthropic", "claude-sonnet-5-5")
     chat.with_params(max_tokens=400)
     try:
         resp = await asyncio.wait_for(
@@ -572,7 +572,7 @@ async def _write_tips(title: str, body_hint: str, season: str, fallback_text: st
                        "UK English, no emojis, no hashtags, no numbering. Each tip max 14 words. "
                        "Return exactly 3 lines, one tip per line, nothing else."
                    ))
-    chat.with_model("anthropic", "claude-sonnet-4-5-20250929")
+    chat.with_model("anthropic", "claude-sonnet-5-5")
     chat.with_params(max_tokens=200)
     try:
         resp = await asyncio.wait_for(chat.send_message(UserMessage(

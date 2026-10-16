@@ -247,7 +247,7 @@ async def author_calm_script(
         session_id=f"calm-{month_name}-{hemisphere}-w{week}",
         system_message=_SCRIPT_SYSTEM_PROMPT,
     )
-    chat.with_model("anthropic", "claude-sonnet-4-5-20250929")
+    chat.with_model("anthropic", "claude-sonnet-5-5")
     chat.with_params(max_tokens=2500)
     resp = await chat.send_message(UserMessage(text=payload))
     text = re.sub(r"^```(?:json)?\s*|\s*```$", "", resp.strip())

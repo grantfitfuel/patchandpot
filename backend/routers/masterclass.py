@@ -93,7 +93,7 @@ def make_router(db) -> APIRouter:
             )
 
             chat = LlmChat(api_key=EMERGENT_LLM_KEY, session_id=f"mc-{job_id}", system_message=sys_msg)
-            chat.with_model("anthropic", "claude-sonnet-4-5-20250929")
+            chat.with_model("anthropic", "claude-sonnet-5-5")
             chat.with_params(max_tokens=10000)
             resp = await chat.send_message(UserMessage(text=f"TOPIC: {topic}"))
 

@@ -321,7 +321,7 @@ async def _llm_json(system_prompt: str, user_prompt: str, session_id: str) -> di
         api_key=EMERGENT_LLM_KEY,
         session_id=session_id,
         system_message=system_prompt,
-    ).with_model("anthropic", "claude-sonnet-4-5-20250929")
+    ).with_model("anthropic", "claude-sonnet-5-5")
     response = await chat.send_message(UserMessage(text=user_prompt))
     raw = response if isinstance(response, str) else getattr(response, "content", str(response))
     try:

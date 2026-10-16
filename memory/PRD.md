@@ -1617,3 +1617,8 @@ Applied bounded, low-risk fixes from a static-analysis audit. Larger items (92 R
   - Peaks ≤400MB.
   - Admin preview polls up to 6 min.
 - 2026-10-12: Post time changed to 18:00 Europe/London for all 4 slots (cron names unchanged: ig-*-9am are just IDs).
+
+## 2026-06 — Claude Sonnet 5.5 upgrade
+- Every former Sonnet 4.5 call now uses `claude-sonnet-5-5`: core make_chat (guidance + others), masterclass, calm, Instagram caption/tips, share captions. Ask Nàdar intentionally stays on Haiku 4.5 (claude-haiku-4-5-20251001).
+- Sonnet 5.5 needs more output room. Raised max_tokens: calm 2500→8000, share captions 1500→6000, IG caption 400→2000, IG tips 200→1500. Iteration 57: all AI features passing after the fix (pytest tests/test_sonnet55_upgrade_iter57.py).
+- Existing cached guidance stays as-is until it regenerates.

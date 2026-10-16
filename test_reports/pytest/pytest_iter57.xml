@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="222.174" timestamp="2026-10-16T10:30:14.705946+00:00" hostname="agent-env-afcf2287-88a2-42d2-a18a-13616133aecf"><testcase classname="tests.test_sonnet55_upgrade_iter57.TestGuidance" name="test_guidance_cache_miss_generates" time="21.387" /><testcase classname="tests.test_sonnet55_upgrade_iter57.TestAsk" name="test_ask_multiturn" time="2.151"><failure message="assert 'bean' in '{\'session_id\': \'7deb9034c6504576\', \'user_message_id\': \'0d40f3e461164600\', \'assistant_message_id\': \'5783a34cba674350\', \'answer\': &quot;hello fergus! in scotland, you\'ve got two windows: sow autumn varieties (like \'aquadulce\') in october or november for an early summer crop—they\'re hardier and will overwinter nicely—or wait until late february to march for spring varieties that\'ll crop in early autumn. most scottish gardeners prefer the autumn sow because it sidesteps the spring aphid rush. either way, choose a sheltered spot and don\'t be shy with compost in your soil.&quot;, \'usage\': {\'used\': 1, \'cap\': 7, \'remaining\': 6}}'">tests/test_sonnet55_upgrade_iter57.py:72: in test_ask_multiturn
+    assert "bean" in text
+E   assert 'bean' in '{\'session_id\': \'7deb9034c6504576\', \'user_message_id\': \'0d40f3e461164600\', \'assistant_message_id\': \'5783a34cba674350\', \'answer\': "hello fergus! in scotland, you\'ve got two windows: sow autumn varieties (like \'aquadulce\') in october or november for an early summer crop—they\'re hardier and will overwinter nicely—or wait until late february to march for spring varieties that\'ll crop in early autumn. most scottish gardeners prefer the autumn sow because it sidesteps the spring aphid rush. either way, choose a sheltered spot and don\'t be shy with compost in your soil.", \'usage\': {\'used\': 1, \'cap\': 7, \'remaining\': 6}}'</failure></testcase><testcase classname="tests.test_sonnet55_upgrade_iter57.TestMasterclass" name="test_generate_masterclass" time="77.903" /><testcase classname="tests.test_sonnet55_upgrade_iter57.TestCalm" name="test_author_calm_script_direct" time="21.405"><failure message="json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 942 (char 941)">routers/calm.py:255: in author_calm_script
+    return json.loads(text)
+           ^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:353: in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+E   json.decoder.JSONDecodeError: Unterminated string starting at: line 1 column 951 (char 950)
+
+During handling of the above exception, another exception occurred:
+tests/test_sonnet55_upgrade_iter57.py:110: in test_author_calm_script_direct
+    script = asyncio.run(author_calm_script(
+/usr/local/lib/python3.11/asyncio/runners.py:190: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/asyncio/runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/asyncio/base_events.py:654: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+routers/calm.py:260: in author_calm_script
+    return json.loads(m.group(0))
+           ^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:353: in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+E   json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 942 (char 941)</failure></testcase><testcase classname="tests.test_sonnet55_upgrade_iter57.TestCalm" name="test_calm_author_existing_noop" time="0.219" /><testcase classname="tests.test_sonnet55_upgrade_iter57.TestInstagramPreview" name="test_preview[CAROUSEL]" time="37.333" /><testcase classname="tests.test_sonnet55_upgrade_iter57.TestInstagramPreview" name="test_preview[SOW]" time="47.598" /><testcase classname="tests.test_sonnet55_upgrade_iter57.TestShareCaptions" name="test_captions_json" time="13.818"><failure message="AssertionError: Template fallback used — LLM failed&#10;assert not True&#10; +  where True = &lt;built-in method startswith of str object at 0xaf61597bb4b0&gt;('Meet TEST_Balcony 4d943a')&#10; +    where &lt;built-in method startswith of str object at 0xaf61597bb4b0&gt; = &quot;Meet TEST_Balcony 4d943a in Edinburgh, United Kingdom — 2 plants growing along with the season, one quiet patch at a time. #x1F331 What's coming up in your garden this month?\n\n#smallspacegarden #containergardening #balconygarden #growwhatyoueat #gardendiary #patchandpot&quot;.startswith">tests/test_sonnet55_upgrade_iter57.py:164: in test_captions_json
+    assert not caps["instagram_square"].startswith(f"Meet TEST_Balcony {RUN}"), "Template fallback used — LLM failed"
+E   AssertionError: Template fallback used — LLM failed
+E   assert not True
+E    +  where True = &lt;built-in method startswith of str object at 0xaf61597bb4b0&gt;('Meet TEST_Balcony 4d943a')
+E    +    where &lt;built-in method startswith of str object at 0xaf61597bb4b0&gt; = "Meet TEST_Balcony 4d943a in Edinburgh, United Kingdom — 2 plants growing along with the season, one quiet patch at a time. #x1F331 What's coming up in your garden this month?\n\n#smallspacegarden #containergardening #balconygarden #growwhatyoueat #gardendiary #patchandpot".startswith</failure></testcase></testsuite></testsuites>

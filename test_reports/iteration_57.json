@@ -1,0 +1,31 @@
+{
+  "summary": "Backend-only regression of the Claude Sonnet 4.5 -> claude-sonnet-5-5 model swap. Model id resolves fine (backend.err.log shows 'model= claude-sonnet-5-5' with no model-not-found/invalid-model errors). PASSING: guidance generation on a cache miss (Edinburgh, month 3, async job -> done, structured plant_now/harvest_now/tasks/pests), Masterclass generate -> job done -> lessons, Instagram preview CAROUSEL (caption + 3 tips) and SOW (caption + plants), Ask Nàdar multi-turn (this still runs on Haiku, as intended), and the calm author endpoint returning already_exists without overwriting. FAILING (3 of 3 runs plus direct repro): 2-Minute Calm script authoring (calm.py, max_tokens=2500) returns JSON that is cut off partway, so json.loads fails and the endpoint returns 500. Social share captions (share_social_captions.py, max_tokens=1500) return JSON that is cut off, so the code silently falls back to template captions. Root cause: on claude-sonnet-5-5, max_tokens cuts output off far earlier than on 4.5 (probably internal reasoning/thinking tokens count against the budget). Isolated repro: the same ~500-token prompt with max_tokens=1500 returns None on 5-5, a full answer on 5-5 with max_tokens=6000, and a full answer on 4.5 with max_tokens=1500.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "POST /api/admin/calm/author (routers/calm.py author_calm_script, line 251 with_params(max_tokens=2500))", "issue": "claude-sonnet-5-5 output is cut off at ~1.1-1.3k chars, partway through the transcript_display JSON string. json.loads raises JSONDecodeError ('Unterminated string' / \"Expecting ','\"), which surfaces as a 500. Reproduced 2/2.", "priority": "HIGH"},
+      {"endpoint": "GET /api/share/patch/{id}/captions.json and the social-kit ZIP (share_social_captions.py line 133 max_tokens=1500)", "issue": "Output is cut off at ~2.3k chars, so the JSON is invalid. The log says 'Caption LLM returned non-JSON — using templates' and users always get the template fallback captions instead of AI ones. Silent regression. Reproduced 3/3.", "priority": "HIGH"}
+    ],
+    "minor": [
+      {"endpoint": "Instagram _write_caption (max_tokens=400) / _write_tips (max_tokens=200)", "issue": "Worked in both previews, but these budgets are tight given the 5-5 truncation behaviour. If output is empty or cut off, the code silently falls back to the generic tips/caption. The tips also ignored the 'max 14 words' rule (16-18 words each)."}
+    ]
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": ["/app/backend/tests/test_sonnet55_upgrade_iter57.py", "/app/backend/tests/_debug_maxtok_iter57.py", "/app/test_reports/pytest/pytest_iter57.xml"],
+  "action_items": [
+    "Raise or remove max_tokens for claude-sonnet-5-5 calls: calm.py:251 (2500 -> ~8000), share_social_captions.py:133 (1500 -> ~6000), instagram.py:544 (400 -> ~2000) and :576 (200 -> ~1500). masterclass.py already uses 10000 and works; core._llm_json sets none and works.",
+    "After the fix, rerun: pytest /app/backend/tests/test_sonnet55_upgrade_iter57.py -k 'Calm or ShareCaptions'",
+    "Optional: when a JSON parse fails, log the raw response length so silent fallbacks can be spotted"
+  ],
+  "critical_code_review_comments": [
+    "share_social_captions and instagram helpers swallow every LLM failure and fall back to templates, which hid this regression (the HTTP status is still 200)",
+    "Docstrings and comments still say 'Claude Sonnet 4.5' (core._llm_json) and 'Claude Haiku' (generate_captions); update them",
+    "The calm author endpoint with force_reauthor=true overwrites a rendered variant and resets audio_generated=False before any audio exists. Testers should not run it against existing slugs; all 96 slugs are already populated."
+  ],
+  "updated_files": ["/app/backend/tests/test_sonnet55_upgrade_iter57.py", "/app/backend/tests/_debug_maxtok_iter57.py"],
+  "success_rate": {"backend": "75% (6/8 test cases; calm script and share captions failing)", "frontend": "not tested (backend only)"},
+  "seed_data_creation": "Temporary data (TEST_Balcony share patches + captions, 'Windowsill chilli growing test' masterclass, 'edinburgh test…' guidance cache) was deleted after the run. Ask used test-token-pdf-smoke (2 questions of its daily cap); the session was deleted. Two Instagram previews were created in ig_previews (1h TTL). Nothing was published.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "The calm test calls routers.calm.author_calm_script directly so no existing variant is overwritten. The share captions test checks that the output is not the template fallback (which starts with 'Meet <patch_name>'). The Instagram preview takes about 60-90 s each. Ask uses Haiku (ASK_MODEL), not 5-5.",
+  "rca of the issue": "Repro: python /app/backend/tests/_debug_maxtok_iter57.py. With claude-sonnet-5-5 and max_tokens=1500, a 15-sentence prompt returns None; with max_tokens=6000 it returns the full answer (~2.0k chars); claude-sonnet-4-5 with 1500 returns the full answer. So on 5-5, max_tokens appears to include internal reasoning tokens and the visible output is cut off. Fix: raise max_tokens at the call sites that set it."
+}

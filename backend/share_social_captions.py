@@ -130,7 +130,7 @@ async def generate_captions(
             system_message=sys_msg,
         )
         chat.with_model("anthropic", "claude-sonnet-5-5")
-        chat.with_params(max_tokens=1500)
+        chat.with_params(max_tokens=6000)
         resp = await asyncio.wait_for(
             chat.send_message(UserMessage(text=user_msg)), timeout=30,
         )

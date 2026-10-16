@@ -541,7 +541,7 @@ async def _write_caption(subject: str, title: str, body_hint: str) -> str:
                        "the paragraph, no preamble, no code fences, no title."
                    ))
     chat.with_model("anthropic", "claude-sonnet-5-5")
-    chat.with_params(max_tokens=400)
+    chat.with_params(max_tokens=2000)
     try:
         resp = await asyncio.wait_for(
             chat.send_message(UserMessage(
@@ -573,7 +573,7 @@ async def _write_tips(title: str, body_hint: str, season: str, fallback_text: st
                        "Return exactly 3 lines, one tip per line, nothing else."
                    ))
     chat.with_model("anthropic", "claude-sonnet-5-5")
-    chat.with_params(max_tokens=200)
+    chat.with_params(max_tokens=1500)
     try:
         resp = await asyncio.wait_for(chat.send_message(UserMessage(
             text=f"Topic: {title}. Season: {season} (UK). Context: {body_hint}"
